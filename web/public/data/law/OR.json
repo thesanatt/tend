@@ -154,7 +154,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "condition": "if Oregon's SAVE Fund pays for it"
    },
    "summary": "A provider that bills the SAVE Fund for a sexual assault medical assessment may not bill the survivor for it, unless the Fund lacks money or declines to pay. The statute does not address billing the survivor's insurance; the SAVE Fund rule does, and it bars billing insurance too.",
    "quote": "A provider who submits a bill under this subsection may not bill the victim for the medical assessment except to the extent that the department is unable to pay the bill due to lack of funds or declines to pay the bill.",
@@ -167,13 +168,14 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "prohibited",
+    "condition": "if Oregon's SAVE Fund pays for it"
    },
    "summary": "A provider that bills the SAVE Fund may not bill the survivor or the survivor's insurance for the exam, evidence collection, or other services given with the exam (exceptions: the Fund lacks money or declines to pay for reasons other than a late or incomplete bill).",
    "quote": "An eligible medical services provider (including subcontractor or other designee) who submits a bill to the Fund under these rules may not bill the victim or the victim's insurance carrier for a medical examination, collection of forensic evidence using the Oregon State Police SAFE Kit, or other services provided in conjunction with the sexual assault exam",
    "source_id": "OR-S8",
    "pinpoint": "OAR 137-084-0020(4)",
-   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310#:~:text=An%20eligible%20medical%20services%20provider,with%20the%20sexual%20assault%20exam"
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=310#:~:text=An%20eligible%20medical%20services%20provider%20%28including,with%20the%20sexual%20assault%20exam"
   },
   {
    "id": "OR-EXAM-3",
@@ -186,7 +188,18 @@
    "quote": "Subject to the availability of funds from gifts, grants and donations in the Sexual Assault Victims' Emergency Medical Response Fund, the Department of Justice shall pay the costs of a medical assessment obtained by a victim if the victim obtains the medical assessment within the time frame established in rules adopted by the department.",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.397(1)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Subject%20to%20the%20availability%20of,rules%20adopted%20by%20the%20department."
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Subject%20to%20the%20availability%20of%20funds,rules%20adopted%20by%20the%20department."
+  },
+  {
+   "id": "OR-EXAM-9",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {},
+   "summary": "The SAVE Fund law counts you as a victim only if the sexual assault happened in Oregon.",
+   "quote": "“Victim” means a person who has experienced an incident of sexual assault as defined in ORS 181A.323 that occurred in this state.",
+   "source_id": "OR-S1",
+   "pinpoint": "ORS 147.395(3)",
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=%E2%80%9CVictim%E2%80%9D%20means%20a%20person%20who,that%20occurred%20in%20this%20state."
   },
   {
    "id": "OR-EXAM-4",
@@ -195,7 +208,7 @@
    "params": {
     "payer": "Oregon Department of Justice, SAVE Fund"
    },
-   "summary": "A survivor can get a SAVE Fund paid medical assessment without reporting the assault to police.",
+   "summary": "You can get the exam and fill out the SAVE Fund form whether or not you report the assault to police.",
    "quote": "A victim may obtain a medical assessment and complete and submit a form under this section regardless of whether the victim reports the sexual assault to a law enforcement agency.",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.397(8)",
@@ -236,7 +249,7 @@
    "quote": "The victim's reasonable medical and hospital expenses, including counseling expenses and the cost of any medications, up to a maximum amount of $20,000",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(a)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%E2%80%99s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
   },
   {
    "id": "OR-CAP-COUNS",
@@ -250,7 +263,7 @@
    "quote": "The victim's reasonable medical and hospital expenses, including counseling expenses and the cost of any medications, up to a maximum amount of $20,000",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(a)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%E2%80%99s%20reasonable%20medical%20and,a%20maximum%20amount%20of%20%2420%2C000"
   },
   {
    "id": "OR-CAP-COUNS-LTD",
@@ -289,7 +302,7 @@
    "quote": "Loss of the victim's earnings, at a maximum rate of $600 per week, up to a maximum amount of $20,000",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(b)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%27s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%E2%80%99s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
   },
   {
    "id": "OR-CAP-WAGE",
@@ -303,13 +316,15 @@
    "quote": "Loss of the victim's earnings, at a maximum rate of $600 per week, up to a maximum amount of $20,000",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(b)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%27s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Loss%20of%20the%20victim%E2%80%99s%20earnings%2C,a%20maximum%20amount%20of%20%2420%2C000"
   },
   {
    "id": "OR-WAGE-RATE",
    "category": "covered_expense",
    "expense": "lost_wages",
-   "params": {},
+   "params": {
+    "detail": true
+   },
    "summary": "Lost earnings are figured at 75% of the victim's documented gross earnings on the date of the crime.",
    "quote": "Compensation for lost earnings under ORS 147.035(2)(b) shall be computed on the basis of 75% of the victim's documented gross earnings on the date of the compensable crime.",
    "source_id": "OR-S10",
@@ -339,7 +354,7 @@
    "quote": "Loss of earnings for the parent or guardian are compensable up to a maximum of $5,000.00 under the child victim's claim under ORS 147.035 (2)(f).",
    "source_id": "OR-S10",
    "pinpoint": "OAR 137-076-0025(2)(d)(C)",
-   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Loss%20of%20earnings%20for%20the,claim%20under%20ORS%20147.035%20%282%29%28f%29."
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=Loss%20of%20earnings%20for%20the%20parent%20or%20guardian%20are,claim%20under%20ORS%20147.035%20%282%29%28f%29."
   },
   {
    "id": "OR-CAP-TRANS",
@@ -353,13 +368,15 @@
    "quote": "Expenses related to transportation for the victim's medical care or counseling, at a rate determined by the Department of Justice, up to a maximum amount of $3,000, when: (A) The medical care or counseling is compensable under this section; (B) The medical care or counseling is provided more than 30 miles away from the victim's residence; and (C) Adequate medical care or counseling is not available in closer proximity to the victim's residence.",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(g)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Expenses%20related%20to%20transportation%20for,proximity%20to%20the%20victim%27s%20residence."
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Expenses%20related%20to%20transportation%20for,proximity%20to%20the%20victim%E2%80%99s%20residence."
   },
   {
    "id": "OR-TRANS-RATE",
    "category": "covered_expense",
    "expense": "transportation",
-   "params": {},
+   "params": {
+    "scope": "mileage to medical and mental health treatment"
+   },
    "summary": "Mileage to medical and mental health treatment is reimbursed at 50 cents per mile, up to $3,000.",
    "quote": "Reimbursement of mileage (50¢ per mile) for travel to medical and mental health treatment, up to $3,000.",
    "source_id": "OR-S4",
@@ -377,7 +394,7 @@
    "quote": "The victim's rehabilitation expenses, up to a maximum amount of $4,000",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.035(2)(c)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%27s%20rehabilitation%20expenses%2C%20up,a%20maximum%20amount%20of%20%244%2C000"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20victim%E2%80%99s%20rehabilitation%20expenses%2C%20up,a%20maximum%20amount%20of%20%244%2C000"
   },
   {
    "id": "OR-CAP-CLEAN",
@@ -466,7 +483,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "good cause shown, at the department's discretion"
+    "extension": "or later if the department gives you more time for good cause"
    },
    "summary": "The application must be filed within one year of the injury, or later if the department allows an extension for good cause.",
    "quote": "Within one year of the date of the injury to the victim; or (B) Within such further extension of time as the department, for good cause shown, allows.",
@@ -486,7 +503,7 @@
    "quote": "\"Good cause\" for failure to file an application for compensation within one year of the date of the crime as required by ORS 147.015(1)(e) includes but is not limited to the victim's lack of knowledge of the Crime Victims' Compensation Program, failure of a law enforcement official to provide information to the victim as required by ORS 147.365(1), or emotional or physical trauma sustained by the victim that was a barrier to timely filing the application for compensation.",
    "source_id": "OR-S10",
    "pinpoint": "OAR 137-076-0030(2)",
-   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=%22Good%20cause%22%20for%20failure%20to,filing%20the%20application%20for%20compensation."
+   "fragment_url": "https://secure.sos.state.or.us/oard/displayDivisionRules.action?selectedDivision=304#:~:text=%E2%80%9CGood%20cause%E2%80%9D%20for%20failure%20to,filing%20the%20application%20for%20compensation."
   },
   {
    "id": "OR-REPORT-1",
@@ -511,7 +528,7 @@
      "other"
     ]
    },
-   "summary": "The reporting requirement is also met by a sexual assault medical assessment or other forensic exam, or a health or mental health provider certifying the victim reported to them, or other documentation the department accepts.",
+   "summary": "The report rule can also be met in other ways. A sexual assault medical assessment or any other forensic exam counts. So does a health, tribal health, student health, or community mental health provider certifying that the victim reported the crime to them. So does other documentation that counts as notice under the department's rules.",
    "quote": "(E) A medical assessment, as defined in ORS 147.395, for sexual assault, or any other forensic exam or medical assessment; (b) A health provider, tribal health provider, student health provider or community mental health provider certifies that the victim reported the crime to the provider; or (c) The victim provides to the department documentation that qualifies as law enforcement notification under the rules of the department.",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.015(2)(a)(E), (2)(b), (2)(c)",
@@ -564,7 +581,7 @@
    "id": "OR-COLLATERAL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "The award is reduced by benefits from workers' compensation, government funds, or any other source the victim received or is entitled to.",
+   "summary": "The award is reduced by benefits from workers' compensation, government funds, or any other source that the victim received or is entitled to because of the injury.",
    "quote": "shall deduct the amount of benefits, payments or awards that are payable under the Workers' Compensation Law, from local governmental, state or federal funds or from any source, and that the victim or survivors or dependents of the victim have received or to which the victim or survivors or dependents of the victim are entitled as a result of the death or injury of the victim",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.125(1)(c)",
@@ -597,7 +614,7 @@
    "quote": "The department determines that the victim acted reasonably with respect to the incident causing the death or injury to the victim, taking into account the specific situation of the victim and what a reasonable action would be for a person in the victim's circumstances",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.015(1)(d)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20department%20determines%20that%20the,person%20in%20the%20victim%27s%20circumstances"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=The%20department%20determines%20that%20the,person%20in%20the%20victim%E2%80%99s%20circumstances"
   },
   {
    "id": "OR-EMERG-1",
@@ -628,7 +645,7 @@
    "quote": "\"Injury\" means abuse of a corpse, actual bodily harm, mental or emotional harm and, with respect to a victim, includes pregnancy and mental or nervous shock.",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.005(10)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=%22Injury%22%20means%20abuse%20of%20a,and%20mental%20or%20nervous%20shock."
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=%E2%80%9CInjury%E2%80%9D%20means%20abuse%20of%20a,and%20mental%20or%20nervous%20shock."
   },
   {
    "id": "OR-RES-1",
@@ -648,11 +665,11 @@
    "params": {
     "rule": "Oregon residents injured in a U.S. state without a reciprocal program"
    },
-   "summary": "An Oregon resident hurt in another U.S. state can apply in Oregon only if that state has no reciprocal compensation program; otherwise the state where the crime happened pays.",
+   "summary": "An Oregon resident hurt in another U.S. state that has no reciprocal crime victims' compensation program can apply in Oregon.",
    "quote": "Who is an Oregon resident killed or injured as a result of a compensable crime perpetrated or attempted against the person in a state, within the United States, without a reciprocal crime victims' compensation program",
    "source_id": "OR-S1",
    "pinpoint": "ORS 147.005(17)(a)(E)",
-   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Who%20is%20an%20Oregon%20resident,reciprocal%20crime%20victims%27%20compensation%20program"
+   "fragment_url": "https://www.oregonlegislature.gov/bills_laws/ors/ors147.html#:~:text=Who%20is%20an%20Oregon%20resident,reciprocal%20crime%20victims%E2%80%99%20compensation%20program"
   },
   {
    "id": "OR-RES-3",

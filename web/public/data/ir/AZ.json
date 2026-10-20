@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AZ",
- "source_sha256": "60ab6e078f58b7e21045d2ede23450a41e58aea39ee91adcf109fe74d28add4d",
- "ir_sha256": "ec78f1cee29f4c5b2cae5bb44186d1c924eebcfdd4c7dc13c2c1904ff05a77ad",
+ "source_sha256": "2c3e5c66b3d71344f0f8eef82398bb65cd4587cddc8e777546aed26bac7c7fa1",
+ "ir_sha256": "3a1fcbe98266fd61f45a804b7186fe2d00fc82039cce0abb1ef4a43cf75226e9",
  "fresh": true,
  "rules": [
   {
@@ -66,6 +66,11 @@
    "expense": "lost_wages"
   },
   {
+   "id": "AZ-COV-9",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
    "id": "AZ-COV-4",
    "kind": "covered",
    "expense": "transportation"
@@ -107,6 +112,11 @@
    "from": "discovery"
   },
   {
+   "id": "AZ-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "AZ-REP-1",
    "kind": "reporting",
    "required": true,
@@ -118,6 +128,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "AZ-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "AZ-COLL-1",

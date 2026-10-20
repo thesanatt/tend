@@ -140,6 +140,18 @@
   ],
   "rules": [
     {
+      "id": "LA-EXAM-5",
+      "category": "exam_no_bill",
+      "expense": "forensic_exam",
+      "params": {
+        "insurance_billing": "unspecified"
+      },
+      "summary": "A survivor of a sexually oriented offense cannot be billed, directly or indirectly, for a forensic medical exam.",
+      "quote": "A survivor of a sexually oriented criminal offense shall not be billed directly or indirectly for the performance of any forensic medical exam.",
+      "source_id": "LA-S13",
+      "pinpoint": "La. R.S. 40:1216.1(A)(6)"
+    },
+    {
       "id": "LA-EXAM-1",
       "category": "exam_no_bill",
       "expense": "forensic_exam",
@@ -149,7 +161,7 @@
       "summary": "Louisiana law says a sexual assault survivor cannot be billed, directly or indirectly, for a forensic medical exam. The provider or facility sends the claim to the compensation program instead.",
       "quote": "Under Louisiana law, a victim cannot be billed directly or indirectly for a forensic medical exam.",
       "source_id": "LA-S5",
-      "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations (citing La. R.S. 40:1216.1(A)(6))"
+      "pinpoint": "LCLE CVC Downloads page, Forensic Medical Examinations"
     },
     {
       "id": "LA-EXAM-2",
@@ -193,10 +205,22 @@
       "params": {
         "amount_cents": 1500000
       },
-      "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total. A higher aggregate cap applies when the injury causes a permanent and total disability.",
+      "summary": "Awards to all claimants for one victim's injury are capped at $15,000 in total.",
       "quote": "Fifteen thousand dollars in the aggregate.",
       "source_id": "LA-S14",
       "pinpoint": "La. R.S. 46:1810(1), as amended by Acts 2026, No. 684"
+    },
+    {
+      "id": "LA-CAP-2",
+      "category": "total_cap",
+      "params": {
+        "amount_cents": 2500000,
+        "exception": "or up to $25,000 if the crime leaves you fully disabled for life"
+      },
+      "summary": "The board's rule sets a $15,000 limit, except for a victim the crime leaves totally and permanently disabled. For that victim, the board may award up to $25,000, depending on funds, its rule limits, and other payment sources.",
+      "quote": "There will be a $15,000 limit for awards for all victims with the exception of those primary victims who become totally and permanently disabled as a result of the crime. For those awards, the board may, at its discretion, award up to $25,000, depending on availability of funds, its administrative rule limits for certain award benefits, and the extent, if any, of collateral resources.",
+      "source_id": "LA-S4",
+      "pinpoint": "LAC 22:XIII.503(A)(1)"
     },
     {
       "id": "LA-EMERG-1",
@@ -204,7 +228,7 @@
       "params": {
         "amount_cents": 100000
       },
-      "summary": "The board can make an emergency award of up to $1,000 while an application is pending, if a final award is likely and the claimant would face undue hardship; it is deducted from the final award.",
+      "summary": "While an application is pending, the board can make an emergency award of up to $1,000 if a final award is likely and the claimant would face undue hardship without quick help. The emergency award is taken out of the final award. The claimant must pay back any amount above the final award, or all of it if no final award is made.",
       "quote": "An emergency award shall not exceed one thousand dollars.",
       "source_id": "LA-S14",
       "pinpoint": "La. R.S. 46:1813(B), as amended by Acts 2026, No. 684"
@@ -214,13 +238,12 @@
       "category": "filing_deadline",
       "params": {
         "years": 3,
-        "from": "crime",
-        "extension": "the board may accept a longer period it finds justified by the circumstances"
+        "from": "crime"
       },
-      "summary": "Applications must be filed within three years of the date of the crime; this replaced the earlier one-year limit. The board can allow more time when the circumstances justify it.",
+      "summary": "This law changed the time to apply from one year to three years, counted from the date of the crime.",
       "quote": "Changes the time period for filing from one year to three years and provides this period begins from the date the crime is committed.",
       "source_id": "LA-S15",
-      "pinpoint": "Resume Digest of Act 684 on La. R.S. 46:1806(A)(1); the board extension (\"or within such longer period as the board determines is justified by the circumstances\") is unstruck text in the enrolled Act, LA-S14, 46:1806(A)(1)(a)"
+      "pinpoint": "Resume Digest of Act 684 (HB 969) on La. R.S. 46:1806(A)(1)"
     },
     {
       "id": "LA-REPORT-1",
@@ -240,7 +263,6 @@
         "required": false,
         "alternatives": [
           "forensic_exam",
-          "medical_provider",
           "other"
         ]
       },
@@ -388,7 +410,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "Lost wages are paid at 80 percent of the victim's gross weekly wage, or 80 percent of the average weekly wage for seasonal or part-time work.",
       "quote": "80 percent of the gross weekly wage of the victim. For seasonal or part time wages, the amount shall be calculated at 80 percent of the average weekly wage;",
@@ -404,7 +427,7 @@
         "amount_cents": 500000,
         "per": "claim"
       },
-      "summary": "Relocation reimbursement is limited to $5,000 per household of the claimant.",
+      "summary": "Moving costs are paid only when the claimant must move because of the crime for reasons of imminent danger, personal safety, or a threat of injury, up to $5,000 per household. The board rule says a police or incident report should be sent with the claim to show why the move was needed.",
       "quote": "Reimbursement for relocation expenses is limited up to $5,000 per household of the claimant.",
       "source_id": "LA-S4",
       "pinpoint": "LAC 22:XIII.503(Q)(2)"
@@ -414,7 +437,8 @@
       "category": "covered_expense",
       "expense": "temporary_housing",
       "params": {
-        "expense": "temporary_housing"
+        "expense": "temporary_housing",
+        "scope": "temporary lodging or a move when moving right away is needed for the health and safety of the victim or a household member"
       },
       "summary": "Under the amended statute, temporary lodging or permanent relocation is a covered loss when moving right away is needed for the safety of the victim or a household member.",
       "quote": "Temporary lodging or permanent relocation when immediate relocation is necessary for the health and safety of the victim or the victim's household member.",
@@ -426,7 +450,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips to medical care that is not available nearby, when the doctor certifies it"
       },
       "summary": "Travel beyond the first ambulance ride is paid only when needed medical care is not available locally and the treating physician certifies that; private mileage is paid at the state travel rate.",
       "quote": "Transportation costs other than the initial ambulance services are reimbursable only when required medical care is not locally available. Certification is required by the physician of record that local medical care is unavailable. Allowable private vehicle mileage for out-of-town travel is reimbursed at the rate published in the current state travel regulations.",
@@ -438,7 +463,8 @@
       "category": "covered_expense",
       "expense": "clothing_bedding",
       "params": {
-        "expense": "clothing_bedding"
+        "expense": "clothing_bedding",
+        "scope": "replacing clothing, bedding, or other property taken as evidence or ruined by the investigation or lab tests"
       },
       "summary": "Reasonable replacement of clothing, bedding, or property taken as evidence or ruined by the investigation or lab testing is covered.",
       "quote": "Expenses associated with the collection and securing of crime scene evidence are limited to: a. reasonable replacement costs for clothing; b. bedding; or c. property seized as evidence or rendered unusable as a result of a criminal investigation or lab test.",
@@ -527,7 +553,8 @@
       "params": {
         "method": "mail",
         "target": "you Parish Claim’s Investigator or the CVR Board Office",
-        "note": "Other applicants can send the packet to the sheriff's claim investigator in the parish where the crime happened; adult sexual offense applications go to the board office (LA-SUBMIT-2)."
+        "note": "Other applicants can send the packet to the sheriff's claim investigator in the parish where the crime happened; adult sexual offense applications go to the board office (LA-SUBMIT-2).",
+        "applies_to": "cases other than adult sexual offenses, which go straight to the board office"
       },
       "summary": "The form says to mail the original application, police report, and itemized claims to the parish claim investigator or the board office.",
       "quote": "Please mail the original application, along with the Claim Investigator Review, the complete police report, newspaper articles (if available) and any claims (including claim forms and itemized invoices) to you Parish Claim’s Investigator or the CVR Board Office.",
@@ -727,6 +754,9 @@
       "pinpoint": "La. R.S. 46:1844(W)(1)(a)"
     }
   ],
+  "page_notes": {
+    "deadline": "Note: Act 684 itself also lets the board accept an application filed after 3 years if the board finds the circumstances justify it. Tend's saved copy of the Act cannot be quoted word for word, so the line below cites the Legislature's summary of the Act."
+  },
   "coverage": {
     "found": [
       "collateral_source",

@@ -17,7 +17,7 @@
    "field_count": 175
   }
  },
- "source_sha256": "14ab5946eb7ddc4551e8c3bcf22d707ef6446cd1cb5594cd5f6a84abedb809e9",
+ "source_sha256": "40c091ce0d86437a80f7a7e7993461271092430a4e3d02a65cda5c1758c43cfe",
  "rules": [
   {
    "id": "VA-EXAM-1",
@@ -37,7 +37,11 @@
   },
   {
    "id": "VA-EXAM-5",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
+  },
+  {
+   "id": "VA-EXAM-8",
+   "kind": "exam_payment"
   },
   {
    "id": "VA-EXAM-6",
@@ -61,6 +65,11 @@
   },
   {
    "id": "VA-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VA-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
   },
@@ -141,13 +150,18 @@
    ]
   },
   {
-   "id": "VA-DEADLINE-1",
+   "id": "VA-DEADLINE-2",
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
   },
   {
-   "id": "VA-DEADLINE-2",
+   "id": "VA-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VA-DEADLINE-1",
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
@@ -160,6 +174,11 @@
   },
   {
    "id": "VA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VA-DEADLINE-5",
    "kind": "info",
    "category": "filing_deadline"
   },

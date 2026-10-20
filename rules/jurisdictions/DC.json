@@ -227,9 +227,10 @@
       "id": "DC-CAP-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 2500000
+        "amount_cents": 2500000,
+        "exception": "or more if you care for more than 2 children who live with you"
       },
-      "summary": "The program may not award more than $25,000 per victimization. A victim who cares for more than 2 children living with them may get up to $5,000 more per child, starting with the third child.",
+      "summary": "The program may not award more than $25,000 per victimization. If the victim is or was the parent, guardian, custodian, or main caregiver of more than 2 children who live or lived with them, the program may award up to $5,000 more for each child living with the claimant, starting with the third child.",
       "quote": "The Court shall not award compensation in an amount exceeding $25,000 per victimization; except, that: (1) If the victim is or was the parent, guardian, custodian, or primary caregiver to more than 2 children who reside or resided with the victim, the Court may award additional compensation to the claimant of up to $5,000 for each child who resides with the claimant, beginning with the third child",
       "source_id": "DC-S10",
       "pinpoint": "D.C. Code § 4-507(b)"
@@ -431,7 +432,8 @@
       "category": "covered_expense",
       "expense": "counseling",
       "params": {
-        "expense": "counseling"
+        "expense": "counseling",
+        "scope": "counseling from a licensed provider"
       },
       "summary": "Out-patient mental health counseling needed because of the crime is covered when provided by a licensed psychiatrist, psychologist, social worker, marriage, family, or child counselor, or a counselor licensed by the Board of Professional Counseling.",
       "quote": "Out-patient mental health counseling expenses which became necessary as a direct result of the crime and which are provided by a: (i) Licensed psychiatrist or psychologist; (ii) Licensed social worker; (iii) Licensed marriage, family, or child counselor practicing within the scope of licensure; or (iv) Individual licensed by the Board of Professional Counseling",
@@ -481,7 +483,7 @@
       "params": {
         "expense": "property_replacement"
       },
-      "summary": "Pain and suffering, and the value of property damaged or taken during the crime (for example a phone or other belongings), are not economic loss and are not paid.",
+      "summary": "Pain and suffering are not paid, and neither is the value of property damaged or taken during the crime.",
       "quote": "“Economic loss” does not mean: (i) Pain and suffering; (ii) The value of any property damaged or taken during the crime;",
       "source_id": "DC-S8",
       "pinpoint": "D.C. Code § 4-501(7)(B)"
@@ -504,12 +506,30 @@
       "params": {
         "years": 1,
         "from": "crime",
-        "extension": "one year from learning of the program if the delay in learning of it was reasonable"
+        "extension": "If you learned of the program later, you may have 1 year from then if the delay was reasonable."
       },
-      "summary": "A claim must be filed within one year after the crime, or within one year after learning of the program if the delay in learning of it was reasonable. Other one-year windows run from certain post-conviction filings.",
+      "summary": "A claim must be filed within one year after the crime. If you learned of the program later and the delay was reasonable, you have one year from when you learned of it.",
       "quote": "The claimant filed a claim under this subchapter within one year after: (A) The crime occurred; (B) Learning of the Program, with an adequate showing that the delay in learning of the Program was reasonable;",
       "source_id": "DC-S9",
       "pinpoint": "D.C. Code § 4-506(a)(1)"
+    },
+    {
+      "id": "DC-DEAD-2",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "The program may waive the time limits to apply and to report to police for good cause. Serious health or safety concerns can count.",
+      "quote": "The time limit requirements of this section may be waived for good cause shown, including compelling health or safety concerns.",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(d)"
+    },
+    {
+      "id": "DC-DEAD-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "A new 1-year window opens if a request to change the offender's sentence is filed or decided. The same is true for any other motion after conviction in a case where you were the victim.",
+      "quote": "(C) The filing or resolution of a first application, or any subsequent application entertained by the court, for a sentence modification as described in § 24-403.03 ; (D) The filing or resolution of a motion to modify a term of imprisonment as described in § 24-403.04 ; or (E) The filing or resolution of any other post-conviction motion in which the claimant was a victim or secondary victim",
+      "source_id": "DC-S9",
+      "pinpoint": "D.C. Code § 4-506(a)(1)(C)-(E)"
     },
     {
       "id": "DC-REP-1",
@@ -527,7 +547,7 @@
       "id": "DC-REP-2",
       "category": "reporting_requirement",
       "params": {
-        "required": false,
+        "required": true,
         "alternatives": [
           "forensic_exam",
           "protective_order",
@@ -866,7 +886,7 @@
       "id": "DC-RECCONF-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "Information, records, and hearing transcripts in compensation claim files are confidential and not open to public inspection; only the claimant, a representative with the claimant's signed authorization, treating or advising physicians at the Court's discretion, and people assisting the Court with administering the claim may see them. The annual report to the D.C. Council leaves out claimant names unless the claimant agrees.",
+      "summary": "Information, records, and hearing transcripts in compensation claim files are confidential and not open to public inspection. The law lists exceptions.",
       "quote": "Information, records, and transcripts of hearings contained in the claims files under the provisions of this chapter are confidential and not open to public inspection",
       "source_id": "DC-S17",
       "pinpoint": "D.C. Code § 4-511(a)"

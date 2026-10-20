@@ -1,12 +1,16 @@
 {
  "ir_version": 2,
  "jurisdiction": "SD",
- "source_sha256": "21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169",
- "ir_sha256": "6108cc75f6a983b06e518c38be2f13d85257ea21155d674e92f8f944e1348824",
+ "source_sha256": "acb4650435bb867f6715e12227978645d6487a9d280883b96769abff750afd28",
+ "ir_sha256": "b7e1477463efb3128f81b84b58c52f88ec5e7cb80c9b3676400412aaa674e88f",
  "fresh": true,
  "rules": [
   {
    "id": "SD-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SD-EXAM-4",
    "kind": "exam_payment"
   },
   {
@@ -35,13 +39,6 @@
    "kind": "expense_cap",
    "expense": "funeral",
    "cap_cents": 800000,
-   "per": "claim"
-  },
-  {
-   "id": "SD-CAP-4",
-   "kind": "expense_cap",
-   "expense": "crime_scene_cleanup",
-   "cap_cents": 150000,
    "per": "claim"
   },
   {
@@ -75,6 +72,11 @@
    "expense": "medical"
   },
   {
+   "id": "SD-TRANS-3",
+   "kind": "covered",
+   "expense": "transportation"
+  },
+  {
    "id": "SD-TRANS-1",
    "kind": "covered",
    "expense": "transportation"
@@ -88,6 +90,16 @@
    "id": "SD-SEC-1",
    "kind": "covered",
    "expense": "security"
+  },
+  {
+   "id": "SD-SEC-3",
+   "kind": "covered",
+   "expense": "security"
+  },
+  {
+   "id": "SD-SEC-2",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "SD-CLOTH-1",
@@ -268,5 +280,21 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "SD-CAP-5",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
+  {
+   "id": "SD-CAP-4",
+   "category": "expense_cap",
+   "reason": "applies_to \"homicide scene cleanup\""
+  },
+  {
+   "id": "SD-CAP-6",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

@@ -17,7 +17,7 @@
    "field_count": 192
   }
  },
- "source_sha256": "7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32",
+ "source_sha256": "5b4dfb3865fe47f1a4577d9f06027c8c1c0c142bca0ecc2a6660673b284370f9",
  "rules": [
   {
    "id": "MO-EXAM-1",
@@ -25,6 +25,10 @@
   },
   {
    "id": "MO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MO-EXAM-3",
    "kind": "exam_payment"
   },
   {
@@ -123,6 +127,11 @@
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "MO-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MO-COLL-1",

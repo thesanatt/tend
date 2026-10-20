@@ -425,7 +425,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "Monthly wage loss payments are 60 percent of the victim's monthly wage, up to 100 percent of the state's average monthly wage.",
       "quote": "sixty percent of the victim's monthly wage but no more than one hundred percent of the state's average monthly wage as defined in RCW 7.68.020",
@@ -437,7 +438,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "A victim who was not working at the time of the crime gets no lost wage support unless they worked at least 12 weeks in the 6 months before the crime.",
       "quote": "If the victim was not gainfully employed at the time of the criminal act, no financial support for lost wages will be paid to the victim or any beneficiaries, unless the victim was gainfully employed for a total of at least twelve weeks in the six months preceding the date of the criminal act.",
@@ -497,7 +499,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "rides to and from the nearest proper treatment when an injury is so serious you must be taken there"
       },
       "summary": "When an injury is serious enough that the victim must be taken for treatment, reasonable transportation to and from the nearest proper treatment is reimbursed as part of the claim.",
       "quote": "When the injury to any victim is so serious as to require the victim being taken from the place of injury to a place of treatment, reasonable transportation costs to and from the nearest place of proper treatment to a reasonable location of the victim's choice shall be reimbursed by the department as part of the victim's total claim under RCW 7.68.070 (1).",
@@ -509,19 +512,33 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips of more than 15 miles one way"
       },
-      "summary": "Travel to treatment can be reimbursed only if it is more than 15 miles one way from home, and the first and last 15 miles are not paid. Travel must be preapproved by the claim manager.",
+      "summary": "The program's page says the trip must be more than 15 miles one way from home, and the first and last 15 miles are not paid.",
       "quote": "The travel must be more than 15 miles one way from your home, and the first and last 15 miles of travel are not payable.",
       "source_id": "WA-S16",
       "pinpoint": "L&I Who Can File and What is Covered, Travel Reimbursement"
     },
     {
+      "id": "WA-COV-TRANSPORT-4",
+      "category": "expense_cap",
+      "params": {
+        "expense": "transportation",
+        "per": "claim"
+      },
+      "summary": "The page also says no provider of the same type may be closer to home, and the claim manager must approve the trip ahead of time. It must be for treatment of the accepted condition or for an independent medical exam the claim manager asks for.",
+      "quote": "No other provider of the same type is available closer to your home. Travel must also be preapproved by your claim manager for one of the following: Treatment for your accepted condition. An independent medical examination requested by your claim manager.",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, Travel Reimbursement"
+    },
+    {
       "id": "WA-COV-TRANSPORT-3",
-      "category": "covered_expense",
+      "category": "filing_deadline",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "years": 1,
+        "from": "trip"
       },
       "summary": "A travel reimbursement request must be made within 1 year of the trip.",
       "quote": "Your request must be made within 1 year of the trip and must indicate the date, destination and reason for travel.",
@@ -533,7 +550,8 @@
       "category": "covered_expense",
       "expense": "clothing_bedding",
       "params": {
-        "expense": "clothing_bedding"
+        "expense": "clothing_bedding",
+        "scope": "clothing or footwear lost or damaged during emergency medical treatment"
       },
       "summary": "Eligible victims may also claim the loss of or damage to their clothing or footwear during emergency medical treatment.",
       "quote": "Victims otherwise eligible for compensation under this chapter may also claim compensation for loss of or damage to the victim's personal clothing or footwear incurred in the course of emergency medical treatment for injuries.",
@@ -541,11 +559,24 @@
       "pinpoint": "RCW 7.68.074"
     },
     {
-      "id": "WA-COV-PEP",
+      "id": "WA-COV-MEDICATION",
       "category": "covered_expense",
       "expense": "prescription",
       "params": {
         "expense": "prescription"
+      },
+      "summary": "The program's page lists medication among the costs it may pay for.",
+      "quote": "What we may pay for Medical/Dental treatment Medication",
+      "source_id": "WA-S16",
+      "pinpoint": "L&I Who Can File and What is Covered, What are the benefits?"
+    },
+    {
+      "id": "WA-COV-PEP",
+      "category": "covered_expense",
+      "expense": "prescription",
+      "params": {
+        "expense": "prescription",
+        "scope": "up to a 28-day supply of HIV prevention medicine (PEP) from a Washington hospital emergency department"
       },
       "summary": "The program covers up to a 28-day supply of HIV post-exposure prophylaxis (PEP) drugs dispensed directly from a Washington hospital emergency department.",
       "quote": "Crime Victims Compensation Programs will cover up to a 28-day supply of post-exposure prophylaxis (PEP) drugs for HIV when dispensed directly from a Washington State hospital emergency department for proper and necessary treatment of a crime victim.",
@@ -571,7 +602,7 @@
       "params": {
         "item": "loss or damage of personal property (eyeglasses or contacts, prosthetics, hearing aids, and clothing or footwear are listed exceptions); identity theft losses"
       },
-      "summary": "The program does not pay for identity theft or loss or damage of personal property. Eyeglasses or contacts, prosthetics, hearing aids, and clothing or footwear are the listed exceptions.",
+      "summary": "The program does not pay for identity theft or for loss or damage of personal property, with some exceptions.",
       "quote": "We don't pay for the following Crime scene cleanup Identity theft Loss or damage of personal property",
       "source_id": "WA-S16",
       "pinpoint": "L&I Who Can File and What is Covered, How much we may pay"
@@ -665,7 +696,9 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "alternatives": []
+        "alternatives": [],
+        "within_months": 12,
+        "exception": "or, if you could not reasonably report that soon, within 12 months of when you could"
       },
       "summary": "For a compensation claim, the crime must be reported to police or the sheriff within 12 months, or within 12 months of when it reasonably could have been reported. The exam itself does not require a report.",
       "quote": "The criminal act is not reported by the victim or someone on his or her behalf to a local police department or sheriff's office within twelve months of its occurrence or, if it could not reasonably have been reported within that period, within twelve months of the time when a report could reasonably have been made.",
@@ -691,7 +724,7 @@
         "required": true,
         "alternatives": []
       },
-      "summary": "A claimant who refuses reasonable cooperation with law enforcement is not eligible, unless the director finds cooperation may be affected by age, physical condition, psychological state, cultural or language barriers, or another health or safety concern.",
+      "summary": "A claimant who refuses reasonable cooperation with law enforcement is not eligible, unless the director finds cooperation may be affected by age, physical condition, psychological state, cultural or language barriers, or another health or safety concern that puts the victim's well-being at risk.",
       "quote": "has refused to give reasonable cooperation to state or local law enforcement agencies in their efforts to apprehend and convict the perpetrator of the criminal act which gave rise to the claim unless the director determines such cooperation may be impacted due to a victim's age, physical condition, psychological state, cultural or linguistic barriers, or any other health or safety concern that jeopardizes the victim's well-being.",
       "source_id": "WA-S2",
       "pinpoint": "RCW 7.68.060(3)"
@@ -934,7 +967,7 @@
         "covers_sexual_assault": true,
         "enroll": "Interested people meet with an advocate who has been designated as an Application Assistant (AA) to create or review their safety plan and threat assessment before completing and application to apply for the program."
       },
-      "summary": "The Secretary of State's Address Confidentiality Program gives survivors of domestic violence, sexual assault, stalking, or trafficking a substitute mailing address that Washington state, county, and city agencies accept instead of a residential address.",
+      "summary": "The Secretary of State's Address Confidentiality Program offers survivors of domestic violence, sexual assault, stalking, or trafficking a substitute address to receive first class mail. You enroll through an advocate designated as an Application Assistant.",
       "quote": "The Washington Address Confidentiality Program (ACP) offers survivors of domestic violence, sexual assault, stalking, or trafficking, and Criminal Justice Affiliates, Election Officials, and Protected Health Care Workers who are a target for threats or harassment, a substitute address to receive first class mail.",
       "source_id": "WA-S24",
       "pinpoint": "WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)"
@@ -943,7 +976,7 @@
       "id": "WA-RECCONF-1",
       "category": "record_confidentiality",
       "params": {},
-      "summary": "Information in crime victim claim files and records is confidential and not open to public inspection; it can be shared with public employees doing official duties, or with a claimant's representative who has the claimant's signed authorization.",
+      "summary": "Information in crime victim claim files and records is confidential and not open to public inspection, but the law lets some people see it.",
       "quote": "Information contained in the claim files and records of victims, under the provisions of this chapter, shall be deemed confidential and shall not be open to public inspection",
       "source_id": "WA-S22",
       "pinpoint": "RCW 7.68.140"

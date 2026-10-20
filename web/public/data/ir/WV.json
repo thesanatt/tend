@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WV",
- "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
- "ir_sha256": "1c8d1c4c7400316e3bacf36f0cb8ad37e3bb2235117392b5cbe820352dbf5da5",
+ "source_sha256": "8af91734f6e484369bc3d1071fe563643e6631e410dd4dee66cd9aeb6751dd5b",
+ "ir_sha256": "cfc02bfbdeb5e3dbe602ec0f719be66e99690771566aef84fd7b86be6e48d936",
  "fresh": true,
  "rules": [
   {
@@ -89,12 +89,18 @@
    "from": "crime"
   },
   {
+   "id": "WV-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "WV-REP-1",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "forensic_exam"
-   ]
+   ],
+   "within_days": 4
   },
   {
    "id": "WV-REP-2",

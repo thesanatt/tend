@@ -39,7 +39,7 @@ describe("share card image", () => {
     expect(dynamicParams).toBe(false);
   });
 
-  it.each(["mi", "il", "dc", "ny"])(
+  it.each(["mi", "il", "dc", "ny", "al"])(
     "renders %s as a 1200 x 630 PNG",
     async (st) => {
       const res = await get(st);
@@ -72,6 +72,19 @@ describe("share card image", () => {
     const long = cardSourceLine("Kansas", ["K.S.A. 74-7301 through a very long pinpoint", "K.A.R. 20-2-8(a)(1)(B)"]);
     expect(long).toBe("From Kansas law, with citations on the page. The program decides.");
     expect(long).not.toMatch(/quot/i);
+  });
+
+  it("does not call a program page law", () => {
+    expect(cardSourceLine("Nevada", ["NRS 217.200(1)", "VOCP Policies 500.12"], "law and program pages")).toBe(
+      "From Nevada law and program pages: NRS 217.200(1) and VOCP Policies 500.12. The program decides.",
+    );
+    expect(
+      cardSourceLine(
+        "Nevada",
+        ["VOCP Policies 500.12, a pinpoint long enough that the card points to the page"],
+        "program pages",
+      ),
+    ).toBe("From Nevada program pages, with citations on the page. The program decides.");
   });
 });
 

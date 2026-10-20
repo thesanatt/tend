@@ -186,7 +186,7 @@
    "params": {
     "insurance_billing": "unspecified"
    },
-   "summary": "Oklahoma law lists a free forensic medical examination among the rights of a sexual assault victim.",
+   "summary": "Oklahoma's written notice of rights for sexual assault victims lists the right to a free forensic medical examination. In this law, sexual assault means rape, rape by instrumentation, or forcible sodomy.",
    "quote": "The right to a free forensic medical examination",
    "source_id": "OK-S15",
    "pinpoint": "21 O.S. 142A-3(C)(4)",
@@ -197,7 +197,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified",
+    "detail": true
    },
    "summary": "The exam fund pays whether or not the survivor has health insurance, and the survivor does not have to give insurance or employment information or file with a private insurer.",
    "quote": "The payment of a sexual assault examination will be made, regardless of whether the victim is medically insured. (b) In order to provide anonymity to the sexual assault victim and maintain confidentiality, any victim who has obtained a forensic sexual assault examination, will not be required to provide information to the Board relative to employment or insurance; and, shall not be required to file a claim with any private insurance company for the payment of a forensic sexual assault examination.",
@@ -212,7 +213,7 @@
    "params": {
     "payer": "Sexual Assault Examination Fund, administered by the Crime Victims Compensation Board (Oklahoma District Attorneys Council)"
    },
-   "summary": "The Crime Victims Compensation Board pays for the sexual assault forensic exam and related medications out of the Sexual Assault Examination Fund.",
+   "summary": "Once the victim applies, the Crime Victims Compensation Board can pay for the forensic exam and the medicine the health care professional orders. The money comes from the Sexual Assault Examination Fund.",
    "quote": "The Crime Victims Compensation Board is authorized to pay for this examination and the medications directed by the qualified licensed health care professional upon application submitted by the victim of a sexual assault.",
    "source_id": "OK-S9",
    "pinpoint": "21 O.S. 142.20(C)",
@@ -240,7 +241,8 @@
    "params": {
     "expense": "prescription",
     "amount_cents": 10000,
-    "per": "claim"
+    "per": "claim",
+    "scope": "medicine ordered at the forensic exam, paid by the exam fund"
    },
    "summary": "The exam fund pays at most $100 for medications related to the sexual assault that the health care professional directs.",
    "quote": "One Hundred Dollars ($100.00) for medications which are related to the sexual assault and directed and deemed necessary by the health care professional",
@@ -265,7 +267,8 @@
    "id": "OK-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or up to $25,000 more, but only for lost pay or lost support"
    },
    "summary": "Total compensation for one victim is capped at $25,000. After that, the Board may add up to $25,000 more only for the victim's lost wages or a dependent's loss of support.",
    "quote": "Compensation payable to a victim and to all other claimants sustaining economic loss because of injury to or death of that victim may not exceed Twenty-five Thousand Dollars ($25,000.00) in the aggregate. The Board may, after approval of an initial award of Twenty-five Thousand Dollars ($25,000.00), grant an additional sum not to exceed Twenty-five Thousand Dollars ($25,000.00), specifically for loss of wages for the victim or loss of support for dependents of a deceased victim, provided there is verifiable economic loss after deducting payments from other sources.",
@@ -296,7 +299,8 @@
     "expense": "other",
     "item": "inpatient mental health treatment",
     "amount_cents": 2000000,
-    "per": "claim"
+    "per": "claim",
+    "scope": "inpatient mental health treatment"
    },
    "summary": "Inpatient mental health treatment is reviewed case by case and may be paid up to $20,000.",
    "quote": "Inpatient mental health treatment will be reviewed on a case-by-case basis and may be compensated, at the discretion of the Board, in an amount not to exceed Twenty Thousand Dollars ($20,000.00).",
@@ -312,7 +316,8 @@
     "expense": "other",
     "item": "caregiver lost income",
     "amount_cents": 300000,
-    "per": "claim"
+    "per": "claim",
+    "applies_to": "a caregiver who missed work"
    },
    "summary": "Lost income of a caregiver who missed work to care for the injured victim is capped at $3,000. This cap is for the caregiver, not the victim's own lost wages.",
    "quote": "Loss of income of a caregiver shall not exceed Three Thousand Dollars ($3,000.00).",
@@ -400,7 +405,7 @@
    "quote": "The Crime Victims Compensation Board may compensate for work loss, replacement services loss, dependent",
    "source_id": "OK-S10",
    "pinpoint": "21 O.S. 142.13(A)",
-   "fragment_url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=69025#:~:text=The%20Crime%20Victims%20Compensation%20Board,loss%2C%20replacement%20services%20loss%2C%20dependent"
+   "fragment_url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=69025#:~:text=The%20Crime%20Victims%20Compensation%20Board,loss%2C%20replacement%20services%20loss%2C%20dependent%E2%80%99s"
   },
   {
    "id": "OK-COV-4",
@@ -409,7 +414,7 @@
    "params": {
     "expense": "counseling"
    },
-   "summary": "Outpatient counseling is covered when it focuses on the crime and the counselor is a qualified mental health provider.",
+   "summary": "The Board may consider outpatient counseling costs when the counseling focuses on the crime and the counselor is a qualified mental health care provider.",
    "quote": "Outpatient counseling expenses for a victim of criminally injurious conduct may be considered by the Board provided the counseling is focused on the crime and the counselor is a qualified mental health care provider.",
    "source_id": "OK-S10",
    "pinpoint": "21 O.S. 142.13(H)",
@@ -420,7 +425,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to the victim's medical, dental, and counseling appointments"
    },
    "summary": "The program lists mileage to the victim's medical, dental, and counseling appointments as a covered expense.",
    "quote": "Mileage reimbursement for medical, dental, and counseling appointments for the victim",
@@ -436,6 +442,19 @@
     "expense": "dental"
    },
    "summary": "The program lists dental care and prescriptions among covered expenses.",
+   "quote": "Medical, dental, and prescriptions",
+   "source_id": "OK-S1",
+   "pinpoint": "OCVC home page, eligible expenses",
+   "fragment_url": "https://www.okvictimscomp.com/#:~:text=Medical%2C%20dental%2C%20and%20prescriptions"
+  },
+  {
+   "id": "OK-COV-7",
+   "category": "covered_expense",
+   "expense": "prescription",
+   "params": {
+    "expense": "prescription"
+   },
+   "summary": "The program lists prescriptions among the crime-related costs it may pay.",
    "quote": "Medical, dental, and prescriptions",
    "source_id": "OK-S1",
    "pinpoint": "OCVC home page, eligible expenses",
@@ -459,10 +478,9 @@
    "category": "filing_deadline",
    "params": {
     "months": 30,
-    "from": "crime",
-    "extension": "The Board may extend the filing period for good cause or in all cases of sexual assault; for adult sexual assault it may count from the date the evidence kit was tested."
+    "from": "crime"
    },
-   "summary": "A claim must be filed within 30 months after the injury. The sexual assault and good-cause extensions are in the next rule.",
+   "summary": "A claim must be filed within 30 months after the injury or death it is based on.",
    "quote": "Unless the claim has been filed with the Crime Victims Compensation Board within thirty (30) months after the injury or death upon which the claim is based.",
    "source_id": "OK-S7",
    "pinpoint": "21 O.S. 142.10(A)(1)",
@@ -481,6 +499,16 @@
    "fragment_url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=69022#:~:text=In%20cases%20involving%20sexual%20assault,all%20cases%20of%20sexual%20assault"
   },
   {
+   "id": "OK-DEAD-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If the victim is under 18 or has a mental or cognitive disability, the Board may start the clock later. It can count from the day a responsible adult was told about the crime.",
+   "quote": "If the victim is under a mental or cognitive disability or is a child under eighteen (18) years of age, the Board may use the date the criminal incident was disclosed to a responsible adult when establishing whether or not the claim was timely filed.",
+   "source_id": "OK-S7",
+   "pinpoint": "21 O.S. 142.10(A)(1)",
+   "fragment_url": "https://www.oscn.net/applications/oscn/DeliverDocument.asp?CiteID=69022#:~:text=If%20the%20victim%20is%20under,the%20claim%20was%20timely%20filed."
+  },
+  {
    "id": "OK-RPT-1",
    "category": "reporting_requirement",
    "params": {
@@ -489,7 +517,8 @@
     "alternatives": [
      "forensic_exam",
      "other"
-    ]
+    ],
+    "exam_condition": "within 120 hours"
    },
    "summary": "The crime must be reported to police within 72 hours, but a sexual assault survivor can instead meet this by having a forensic medical exam within 120 hours, and the Board can excuse either for good cause.",
    "quote": "such conduct was reported to a law enforcement officer within seventy-two (72) hours after its occurrence, b. in the case of sexual assault, the victim undergoes a forensic medical examination within one hundred twenty (120) hours after its occurrence, or c. the Board finds there was good cause for the failure to report the crime or obtain a forensic medical examination within the time specified in subparagraph a or b of this paragraph.",
@@ -504,9 +533,10 @@
     "required": true,
     "alternatives": [
      "forensic_exam"
-    ]
+    ],
+    "exam_condition": "within 120 hours"
    },
-   "summary": "A sexual assault survivor who has a forensic medical exam within 120 hours is treated as having fully cooperated with law enforcement. This is the cooperation rule; the report rule itself is OK-RPT-1.",
+   "summary": "A sexual assault survivor who has a forensic medical exam within 120 hours after the assault is found to have fully cooperated.",
    "quote": "Victims of sexual assault who undergo a forensic medical examination within one hundred twenty (120) hours after the sexual assault shall be found to have fully cooperated.",
    "source_id": "OK-S7",
    "pinpoint": "21 O.S. 142.10(C)",

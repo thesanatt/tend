@@ -1,8 +1,8 @@
 ; tend law image ND, North Dakota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418
-; image sha256  5faaec6ee8560be86137cc052284761d9783c64da486b0a39ff024a55b67c01b
-; 58 rules, 11 sources, 23 proofs, 5 ints, 291 strings
+; source sha256 a71d5e7780c287239a9d1f565a21a8d2735c8c1900640dcc4ef7ed1413bc0ab9
+; image sha256  b9422bf8fd023df5fd4a1ac7ed5d0218a28ee3c96635e3f97cb268afc93437ce
+; 61 rules, 11 sources, 23 proofs, 5 ints, 304 strings
 ; item program: 135 instructions, 451 bytes, max stack 2
 ; aggregate program: 269 instructions, 832 bytes, max stack 3, 9 loops
 
@@ -29,42 +29,45 @@
     R19   ND-EXCL-NONECON       info          -                     excluded_expense        N.D.C.C. 54-23.4-01(7)
     R20   ND-EXCL-FEES          info          -                     excluded_expense        N.D. Admin. Code 94-03-03-08(2)(g)
     R21   ND-EXCL-ATTY          excluded      legal                                         N.D.C.C. 54-23.4-11
-    R22   ND-DEADLINE-1         deadline      -                     from report             N.D.C.C. 54-23.4-06(2)
-    R23   ND-REPORT-1           reporting     -                                             N.D.C.C. 54-23.4-06(4)
-    R24   ND-REPORT-GOODCAUSE   reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(a)
-    R25   ND-REPORT-GOODCAUSE-2 reporting     -                                             N.D. Admin. Code 94-03-03-01(2)(b)
-    R26   ND-REPORT-CHILD       reporting     -                                             N.D.C.C. 54-23.4-06(4)
-    R27   ND-COLLATERAL-1       collateral    -                                             N.D.C.C. 54-23.4-06(6)(a)
-    R28   ND-COLLATERAL-2       collateral    -                                             N.D. Admin. Code 94-03-03-06(1)
-    R29   ND-CONDUCT-1          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(b)
-    R30   ND-CONDUCT-2          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(c)
-    R31   ND-CONDUCT-3          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(5)
-    R32   ND-CONDUCT-4          info          -                     conduct_reduction       N.D. Admin. Code 94-03-03-05
-    R33   ND-EMERGENCY-1        info          -                     emergency_award         N.D.C.C. 54-23.4-14
-    R34   ND-CRIME-1            info          -                     eligible_crime          DOCR CVC page, What is Eligibility Criteria?
-    R35   ND-CRIME-2            info          -                     eligible_crime          N.D.C.C. 54-23.4-01(1)
-    R36   ND-RES-1              info          -                     residency               N.D.C.C. 54-23.4-06(1)
-    R37   ND-SUBMIT-1           info          -                     submission              Program page, Crime Victims Compensation Application and Forms
-    R38   ND-TIME-1             info          -                     processing_time         Program page, Claim Status
-    R39   ND-DOC-1              info          -                     required_document       N.D. Admin. Code 94-03-03-02(2)
-    R40   ND-DOC-2              info          -                     required_document       CVC Application Tips, Section 3 (Incident Information, continued)
-    R41   ND-DOC-3              info          -                     required_document       N.D. Admin. Code 94-03-03-08(1)
-    R42   ND-DOC-4              info          -                     required_document       N.D. Admin. Code 94-03-03-09(1)
-    R43   ND-DOC-5              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), Verification Requirements
-    R44   ND-DOC-6              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), introduction
-    R45   ND-DOC-7              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)
-    R46   ND-DOC-8              info          -                     required_document       Work Loss - Employer's Report, SFN 12437
-    R47   ND-DOC-9              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)(c)
-    R48   ND-DOC-10             info          -                     required_document       Work Loss - Physician's Report, SFN 60497
-    R49   ND-DOC-11             info          -                     required_document       N.D. Admin. Code 94-03-03-16(1)
-    R50   ND-DOC-12             info          -                     required_document       N.D. Admin. Code 94-03-03-17(3)
-    R51   ND-DOC-13             info          -                     required_document       N.D. Admin. Code 94-03-03-15(1)
-    R52   ND-DOC-14             info          -                     required_document       N.D. Admin. Code 94-03-03-14(1)
-    R53   ND-DOC-15             info          -                     required_document       N.D. Admin. Code 94-03-03-06 (collateral sources)
-    R54   ND-DOC-16             info          -                     required_document       Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement
-    R55   ND-REC-1              info          -                     record_confidentiality  N.D.C.C. 54-23.4-17
-    R56   ND-CAP-COUNSEL-ADULT  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(1)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
-    R57   ND-CAP-COUNSEL-EXTRA  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(6)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+    R22   ND-EXCL-TRAVEL        info          -                     excluded_expense        N.D. Admin. Code 94-03-03-16(2)(i)
+    R23   ND-DEADLINE-1         deadline      -                     from report             N.D.C.C. 54-23.4-06(2)
+    R24   ND-REPORT-1           reporting     -                                             N.D.C.C. 54-23.4-06(4)
+    R25   ND-REPORT-GOODCAUSE   info          -                     reporting_requirement   N.D. Admin. Code 94-03-03-01(2)(a)
+    R26   ND-REPORT-GOODCAUSE-2 info          -                     reporting_requirement   N.D. Admin. Code 94-03-03-01(2)(b)
+    R27   ND-REPORT-CHILD       reporting     -                                             N.D.C.C. 54-23.4-06(4)
+    R28   ND-COLLATERAL-1       collateral    -                                             N.D.C.C. 54-23.4-06(6)(a)
+    R29   ND-COLLATERAL-2       collateral    -                                             N.D. Admin. Code 94-03-03-06(1)
+    R30   ND-CONDUCT-1          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(b)
+    R31   ND-CONDUCT-2          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(6)(c)
+    R32   ND-CONDUCT-3          info          -                     conduct_reduction       N.D.C.C. 54-23.4-06(5)
+    R33   ND-CONDUCT-4          info          -                     conduct_reduction       N.D. Admin. Code 94-03-03-05
+    R34   ND-EMERGENCY-1        info          -                     emergency_award         N.D.C.C. 54-23.4-14
+    R35   ND-CRIME-1            info          -                     eligible_crime          DOCR CVC page, What is Eligibility Criteria?
+    R36   ND-CRIME-2            info          -                     eligible_crime          N.D.C.C. 54-23.4-01(1)
+    R37   ND-RES-1              info          -                     residency               N.D.C.C. 54-23.4-06(1)
+    R38   ND-SUBMIT-1           info          -                     submission              Program page, Crime Victims Compensation Application and Forms
+    R39   ND-TIME-1             info          -                     processing_time         Program page, Claim Status
+    R40   ND-DOC-1              info          -                     required_document       N.D. Admin. Code 94-03-03-02(2)
+    R41   ND-DOC-2              info          -                     required_document       CVC Application Tips, Section 3 (Incident Information, continued)
+    R42   ND-DOC-3              info          -                     required_document       N.D. Admin. Code 94-03-03-08(1)
+    R43   ND-DOC-4              info          -                     required_document       N.D. Admin. Code 94-03-03-09(1)
+    R44   ND-DOC-5              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), Verification Requirements
+    R45   ND-DOC-6              info          -                     required_document       CVC Mental Health Treatment Policy and Provider Verification Form (Rev. 6/2025), introduction
+    R46   ND-DOC-7              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)
+    R47   ND-DOC-8              info          -                     required_document       Work Loss - Employer's Report, SFN 12437
+    R48   ND-DOC-9              info          -                     required_document       N.D. Admin. Code 94-03-03-13(1)(c)
+    R49   ND-DOC-10             info          -                     required_document       Work Loss - Physician's Report, SFN 60497
+    R50   ND-DOC-11             info          -                     required_document       N.D. Admin. Code 94-03-03-16(1)
+    R51   ND-DOC-12             info          -                     required_document       N.D. Admin. Code 94-03-03-17(3)
+    R52   ND-DOC-13             info          -                     required_document       N.D. Admin. Code 94-03-03-15(1)
+    R53   ND-DOC-14             info          -                     required_document       N.D. Admin. Code 94-03-03-14(1)
+    R54   ND-DOC-15             info          -                     required_document       N.D. Admin. Code 94-03-03-06 (collateral sources)
+    R55   ND-DOC-16             info          -                     required_document       Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement
+    R56   ND-REC-1              info          -                     record_confidentiality  N.D.C.C. 54-23.4-17
+    R57   ND-CAP-COUNSEL-WINDOW skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)  ; expense_cap without amount or expense
+    R58   ND-CAP-TRAVEL-MIN     skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-16(2)(a)  ; expense_cap without amount or expense
+    R59   ND-CAP-COUNSEL-ADULT  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(1)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+    R60   ND-CAP-COUNSEL-EXTRA  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(6)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
 
 .sources
     S0    ND-S1       sha256 88da8a9d21468105  https://www.ndlegis.gov/cencode/t54c23-4.pdf
@@ -101,8 +104,8 @@
     P18   (ND-CAP-REPLACE, ND-COV-DEPCARE)
     P19   (ND-CAP-REPLACE, ND-COV-DEPCARE, ND-COLLATERAL-1, ND-COLLATERAL-2)
     P20   (ND-DEADLINE-1)
-    P21   (ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD)
-    P22   (ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1)
+    P21   (ND-REPORT-1, ND-REPORT-CHILD)
+    P22   (ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-EXCL-TRAVEL, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1)
 
 .ints
     K0    30000         ; $300.00
@@ -165,7 +168,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R27              ; ND-COLLATERAL-1
+  009d        seta     collateral, R28              ; ND-COLLATERAL-1
   00a1        ret
               ; ND-CAP-COUNSEL-MINOR  N.D. Admin. Code 94-03-03-10(3)(b)(2)  "For minor victims, no more than forty sessions, and total..."
               ; ND-COV-COUNSEL  N.D. Admin. Code 94-03-03-10(3)(a)  "Assessment, diagnosis, and treatment, including individual or..."
@@ -184,7 +187,7 @@
   00bf        subs
   00c0        push     0
   00c5        max
-  00c6        seta     collateral, R27              ; ND-COLLATERAL-1
+  00c6        seta     collateral, R28              ; ND-COLLATERAL-1
   00ca        ret
               ; ND-CAP-WAGES-WEEK  N.D.C.C. 54-23.4-06(7)  "Compensation for work loss, replacement services loss..."
               ; ND-CAP-WAGES-TOTAL  N.D. Admin. Code 94-03-03-13(2)(a)  "Payment for work loss may not exceed more than three hundred..."
@@ -203,7 +206,7 @@
   00e5        subs
   00e6        push     0
   00eb        max
-  00ec        seta     collateral, R27              ; ND-COLLATERAL-1
+  00ec        seta     collateral, R28              ; ND-COLLATERAL-1
   00f0        ret
               ; ND-CAP-TRAVEL  N.D. Admin. Code 94-03-03-16(2)(d)  "The maximum reimbursement for lodging, meals, and mileage is one..."
               ; ND-COV-TRAVEL  N.D. Admin. Code 94-03-03-16  "The division may reimburse a claimant for meals, lodging, and..."
@@ -221,7 +224,7 @@
   010b        subs
   010c        push     0
   0111        max
-  0112        seta     collateral, R27              ; ND-COLLATERAL-1
+  0112        seta     collateral, R28              ; ND-COLLATERAL-1
   0116        ret
   0117  L10:  push     0
   011c        decide   unknown_rule, P0             ; (none)
@@ -241,7 +244,7 @@
   013b        subs
   013c        push     0
   0141        max
-  0142        seta     collateral, R27              ; ND-COLLATERAL-1
+  0142        seta     collateral, R28              ; ND-COLLATERAL-1
   0146        ret
               ; ND-CAP-DENTAL  N.D. Admin. Code 94-03-03-09(2)(a)  "The division may not pay more than five thousand dollars for..."
               ; ND-COV-DENTAL  CVC Application Tips, Section 4  "Medical/Dental benefits for the Victim – If the victim has..."
@@ -259,7 +262,7 @@
   0161        subs
   0162        push     0
   0167        max
-  0168        seta     collateral, R27              ; ND-COLLATERAL-1
+  0168        seta     collateral, R28              ; ND-COLLATERAL-1
   016c        ret
               ; ND-CAP-FUNERAL  N.D.C.C. 54-23.4-01(7)(a)  "The term includes a total charge not in excess of five thousand..."
               ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
@@ -276,7 +279,7 @@
   0187        subs
   0188        push     0
   018d        max
-  018e        seta     collateral, R27              ; ND-COLLATERAL-1
+  018e        seta     collateral, R28              ; ND-COLLATERAL-1
   0192        ret
               ; ND-EXCL-ATTY  N.D.C.C. 54-23.4-11  "Attorney's fees are not allowable for assisting a claimant in..."
   0193  L17:  push     0
@@ -298,7 +301,7 @@
   01b7        subs
   01b8        push     0
   01bd        max
-  01be        seta     collateral, R27              ; ND-COLLATERAL-1
+  01be        seta     collateral, R28              ; ND-COLLATERAL-1
   01c2        ret
 
 .aggregate
@@ -566,8 +569,6 @@
   02ff  L46:  note     deadline_from_report
   0301        check    deadline, P20                ; ND-DEADLINE-1
               ; ND-REPORT-1  N.D.C.C. 54-23.4-06(4)  "Compensation may not be awarded unless the criminally injurious..."
-              ; ND-REPORT-GOODCAUSE  N.D. Admin. Code 94-03-03-01(2)(a)  "Evidence, including medical records or verifiable reports from..."
-              ; ND-REPORT-GOODCAUSE-2  N.D. Admin. Code 94-03-03-01(2)(b)  "Law enforcement substantiates there was a fear of retaliation."
               ; ND-REPORT-CHILD  N.D.C.C. 54-23.4-06(4)  "In the case of child abuse or sexual molestation of a child, the..."
   0305        ldx      police_report
   0307        push     1                            ; yes
@@ -582,10 +583,13 @@
   0329  L47:  push     1
   032e        jmp      L49
   0333  L48:  push     0                            ; satisfied
-  0338  L49:  check    reporting, P21               ; ND-REPORT-1, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-REPORT-CHILD
+  0338  L49:  check    reporting, P21               ; ND-REPORT-1, ND-REPORT-CHILD
               ; ND-EXCL-PROPERTY  N.D. Admin. Code 94-03-03-04(5)  "Claims for property loss or damage."
               ; ND-EXCL-NONECON  N.D.C.C. 54-23.4-01(7)  "Noneconomic detriment is not loss."
               ; ND-EXCL-FEES  N.D. Admin. Code 94-03-03-08(2)(g)  "The division may not pay compensation for interest, finance, or..."
+              ; ND-EXCL-TRAVEL  N.D. Admin. Code 94-03-03-16(2)(i)  "The division may not pay reimbursement for travel expenses for..."
+              ; ND-REPORT-GOODCAUSE  N.D. Admin. Code 94-03-03-01(2)(a)  "Evidence, including medical records or verifiable reports from..."
+              ; ND-REPORT-GOODCAUSE-2  N.D. Admin. Code 94-03-03-01(2)(b)  "Law enforcement substantiates there was a fear of retaliation."
               ; ND-COLLATERAL-1  N.D.C.C. 54-23.4-06(6)(a)  "To the extent the economic loss upon which the claim is based is..."
               ; ND-COLLATERAL-2  N.D. Admin. Code 94-03-03-06(1)  "The crime victims compensation fund is a secondary source for..."
               ; ND-CONDUCT-1  N.D.C.C. 54-23.4-06(6)(b)  "To the extent the division deems reasonable because of the..."
@@ -615,6 +619,6 @@
               ; ND-DOC-15  N.D. Admin. Code 94-03-03-06 (collateral sources)  "Before payment is made from the division, either the provider or..."
               ; ND-DOC-16  Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement  "The DOCR may, however, require that you authorize disclosure of..."
               ; ND-REC-1  N.D.C.C. 54-23.4-17  "All other records of the division concerning the application for..."
-  033c        info     P22                          ; ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1
+  033c        info     P22                          ; ND-EXCL-PROPERTY, ND-EXCL-NONECON, ND-EXCL-FEES, ND-EXCL-TRAVEL, ND-REPORT-GOODCAUSE, ND-REPORT-GOODCAUSE-2, ND-COLLATERAL-1, ND-COLLATERAL-2, ND-CONDUCT-1, ND-CONDUCT-2, ND-CONDUCT-3, ND-CONDUCT-4, ND-EMERGENCY-1, ND-CRIME-1, ND-CRIME-2, ND-RES-1, ND-SUBMIT-1, ND-TIME-1, ND-DOC-1, ND-DOC-2, ND-DOC-3, ND-DOC-4, ND-DOC-5, ND-DOC-6, ND-DOC-7, ND-DOC-8, ND-DOC-9, ND-DOC-10, ND-DOC-11, ND-DOC-12, ND-DOC-13, ND-DOC-14, ND-DOC-15, ND-DOC-16, ND-REC-1
   033f        ret
 

@@ -17,8 +17,12 @@
    "field_count": 0
   }
  },
- "source_sha256": "8b26225a92270c86fe715b0502d499d4d18867d341fe314661ff5c7b48236990",
+ "source_sha256": "1656ad613823c5cde49eb5e1ba3d75293f0f46c661b65ba69e3a79ee1ec48598",
  "rules": [
+  {
+   "id": "LA-EXAM-5",
+   "kind": "exam_no_bill"
+  },
   {
    "id": "LA-EXAM-1",
    "kind": "exam_no_bill"
@@ -39,6 +43,11 @@
    "id": "LA-CAP-1",
    "kind": "total_cap",
    "cap_cents": 1500000
+  },
+  {
+   "id": "LA-CAP-2",
+   "kind": "total_cap",
+   "cap_cents": 2500000
   },
   {
    "id": "LA-EMERG-1",
@@ -63,7 +72,6 @@
    "required": false,
    "alternatives": [
     "forensic_exam",
-    "medical_provider",
     "other"
    ]
   },
@@ -191,11 +199,6 @@
    "category": "submission"
   },
   {
-   "id": "LA-SUBMIT-3",
-   "kind": "info",
-   "category": "submission"
-  },
-  {
    "id": "LA-DOC-SIGN",
    "kind": "info",
    "category": "required_document"
@@ -277,6 +280,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "LA-SUBMIT-3",
+   "category": "submission",
+   "reason": "applies_to \"cases other than adult sexual offenses, which go straight to the board office\""
+  },
   {
    "id": "LA-COUNS-3",
    "category": "expense_cap",

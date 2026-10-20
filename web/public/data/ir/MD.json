@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MD",
- "source_sha256": "a9697257fb43c68132cd4fde765e08356d52dd3953007ba7756317411868d43c",
- "ir_sha256": "f457693b4367e71da43798fba31a4ea3c85985e23c3f2298cf92587169db6088",
+ "source_sha256": "07fb6b6a1bafc15940987cb34854f1288d1bcd0a544cc8dbf0278449a69b7c59",
+ "ir_sha256": "af6bd858ea72f9c7ddd47d71f721c2c7a63b259b0f65b5c050698c3e2773d322",
  "fresh": true,
  "rules": [
   {
@@ -115,6 +115,11 @@
    "kind": "deadline",
    "days": 1461,
    "from": "discovery"
+  },
+  {
+   "id": "MD-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MD-DEADLINE-2",
@@ -258,6 +263,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "MD-CAP-8",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
   {
    "id": "MD-COV-10",
    "category": "covered_expense",

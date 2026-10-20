@@ -1,8 +1,8 @@
 ; tend law image AZ, Arizona
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 60ab6e078f58b7e21045d2ede23450a41e58aea39ee91adcf109fe74d28add4d
-; image sha256  96a91fcee1f955a39a9dce72f978e9ea0f2190818bf1abdc6b7bacce98733d01
-; 53 rules, 13 sources, 18 proofs, 4 ints, 277 strings
+; source sha256 2c3e5c66b3d71344f0f8eef82398bb65cd4587cddc8e777546aed26bac7c7fa1
+; image sha256  91005f0f1afdf36f456f454cb0e2e08305e8a775f9c80505de0b544b2bd23647
+; 56 rules, 13 sources, 18 proofs, 4 ints, 287 strings
 ; item program: 106 instructions, 372 bytes, max stack 2
 ; aggregate program: 166 instructions, 517 bytes, max stack 2, 5 loops
 
@@ -18,48 +18,51 @@
     R8    AZ-COV-1              covered       medical                                       A.A.C. R10-4-108(C)(1)
     R9    AZ-COV-2              covered       counseling                                    A.A.C. R10-4-108(C)(4)
     R10   AZ-COV-3              covered       lost_wages                                    A.A.C. R10-4-108(C)(2)(a)
-    R11   AZ-COV-4              covered       transportation                                A.A.C. R10-4-108(C)(6)(d)
-    R12   AZ-COV-5              covered       crime_scene_cleanup                           A.A.C. R10-4-108(C)(5)
-    R13   AZ-COV-6              covered       crime_scene_cleanup                           A.A.C. R10-4-101(8)(b); covered for sexual assault under R10-4-108(C)(5)
-    R14   AZ-COV-7              covered       transportation                                A.A.C. R10-4-108(C)(6)(e)
-    R15   AZ-COV-8              covered       medical                                       A.A.C. R10-4-108(C)(1)(a)(i)
-    R16   AZ-EXC-1              info          -                     excluded_expense        ACJC Victim Compensation brochure
-    R17   AZ-EXC-2              excluded      legal                                         A.A.C. R10-4-108(J)
-    R18   AZ-DEAD-1             deadline      -                     from discovery          A.A.C. R10-4-106(A)(7)
-    R19   AZ-REP-1              reporting     -                                             A.A.C. R10-4-106(A)(4)
-    R20   AZ-REP-2              reporting     -                                             A.A.C. R10-4-106(B)
-    R21   AZ-COLL-1             collateral    -                                             A.A.C. R10-4-108(F)(1)
-    R22   AZ-COND-1             info          -                     conduct_reduction       A.A.C. R10-4-108(G)
-    R23   AZ-EMER-1             info          -                     emergency_award         A.A.C. R10-4-111(A)-(C)
-    R24   AZ-ELIG-1             info          -                     eligible_crime          A.A.C. R10-4-101(9)(a)
-    R25   AZ-RES-1              info          -                     residency               A.A.C. R10-4-106(A)(1)
-    R26   AZ-SUB-1              info          -                     submission              ACJC county contact list, Apache County entry
-    R27   AZ-SUB-2              info          -                     submission              ACJC county contact list, Mohave County entry
-    R28   AZ-SUB-3              info          -                     submission              ACJC county contact list, Cochise County entry
-    R29   AZ-SUB-4              info          -                     submission              ACJC county contact list, Navajo County entry
-    R30   AZ-SUB-5              info          -                     submission              ACJC county contact list, Coconino County entry
-    R31   AZ-SUB-6              info          -                     submission              ACJC county contact list, Pima County entry
-    R32   AZ-SUB-7              info          -                     submission              ACJC county contact list, Gila County entry
-    R33   AZ-SUB-8              info          -                     submission              ACJC county contact list, Pinal County entry
-    R34   AZ-SUB-9              info          -                     submission              ACJC county contact list, Graham County entry
-    R35   AZ-SUB-10             info          -                     submission              ACJC county contact list, Santa Cruz County entry
-    R36   AZ-SUB-11             info          -                     submission              ACJC county contact list, Greenlee County entry
-    R37   AZ-SUB-12             info          -                     submission              ACJC county contact list, Yavapai County entry
-    R38   AZ-SUB-13             info          -                     submission              ACJC county contact list, La Paz County entry
-    R39   AZ-SUB-14             info          -                     submission              ACJC county contact list, Yuma County entry
-    R40   AZ-SUB-15             info          -                     submission              Application, page 3 (mail-to box)
-    R41   AZ-SUB-16             info          -                     submission              Victim Compensation section, Application for Crime Victim Compensation
-    R42   AZ-DOC-1              info          -                     required_document       A.A.C. R10-4-107(E)(1)
-    R43   AZ-DOC-2              info          -                     required_document       A.A.C. R10-4-107(E)(1)
-    R44   AZ-DOC-3              info          -                     required_document       A.A.C. R10-4-107(E)(1)
-    R45   AZ-DOC-4              info          -                     required_document       A.A.C. R10-4-107(E)(2)(a)
-    R46   AZ-DOC-5              info          -                     required_document       Application, Section 4, Work Loss Requirement
-    R47   AZ-DOC-6              info          -                     required_document       Application, Section 3, travel expenses box
-    R48   AZ-DOC-7              info          -                     required_document       Application, page 3
-    R49   AZ-DOC-8              info          -                     required_document       A.A.C. R10-4-107(E)(3)
-    R50   AZ-TIME-1             info          -                     processing_time         A.A.C. R10-4-108(A)
-    R51   AZ-ACP-1              info          -                     address_confidentiality Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169
-    R52   AZ-CAP-3              skipped       -                     expense_cap             A.A.C. R10-4-108(D)(4)(a)  ; expense_cap without amount or expense
+    R11   AZ-COV-9              covered       transportation                                A.A.C. R10-4-108(C)(6)(a)-(c)
+    R12   AZ-COV-4              covered       transportation                                A.A.C. R10-4-108(C)(6)(d)
+    R13   AZ-COV-5              covered       crime_scene_cleanup                           A.A.C. R10-4-108(C)(5)
+    R14   AZ-COV-6              covered       crime_scene_cleanup                           A.A.C. R10-4-101(8)(b); covered for sexual assault under R10-4-108(C)(5)
+    R15   AZ-COV-7              covered       transportation                                A.A.C. R10-4-108(C)(6)(e)
+    R16   AZ-COV-8              covered       medical                                       A.A.C. R10-4-108(C)(1)(a)(i)
+    R17   AZ-EXC-1              info          -                     excluded_expense        ACJC Victim Compensation brochure
+    R18   AZ-EXC-2              excluded      legal                                         A.A.C. R10-4-108(J)
+    R19   AZ-DEAD-1             deadline      -                     from discovery          A.A.C. R10-4-106(A)(7)
+    R20   AZ-DEAD-2             info          -                     filing_deadline         A.A.C. R10-4-106(B)
+    R21   AZ-REP-1              reporting     -                                             A.A.C. R10-4-106(A)(4)
+    R22   AZ-REP-2              reporting     -                                             A.A.C. R10-4-106(B)
+    R23   AZ-REP-3              info          -                     reporting_requirement   A.A.C. R10-4-108(H)(1); see R10-4-106(A)(5)
+    R24   AZ-COLL-1             collateral    -                                             A.A.C. R10-4-108(F)(1)
+    R25   AZ-COND-1             info          -                     conduct_reduction       A.A.C. R10-4-108(G)
+    R26   AZ-EMER-1             info          -                     emergency_award         A.A.C. R10-4-111(A)-(C)
+    R27   AZ-ELIG-1             info          -                     eligible_crime          A.A.C. R10-4-101(9)(a)
+    R28   AZ-RES-1              info          -                     residency               A.A.C. R10-4-106(A)(1)
+    R29   AZ-SUB-1              info          -                     submission              ACJC county contact list, Apache County entry
+    R30   AZ-SUB-2              info          -                     submission              ACJC county contact list, Mohave County entry
+    R31   AZ-SUB-3              info          -                     submission              ACJC county contact list, Cochise County entry
+    R32   AZ-SUB-4              info          -                     submission              ACJC county contact list, Navajo County entry
+    R33   AZ-SUB-5              info          -                     submission              ACJC county contact list, Coconino County entry
+    R34   AZ-SUB-6              info          -                     submission              ACJC county contact list, Pima County entry
+    R35   AZ-SUB-7              info          -                     submission              ACJC county contact list, Gila County entry
+    R36   AZ-SUB-8              info          -                     submission              ACJC county contact list, Pinal County entry
+    R37   AZ-SUB-9              info          -                     submission              ACJC county contact list, Graham County entry
+    R38   AZ-SUB-10             info          -                     submission              ACJC county contact list, Santa Cruz County entry
+    R39   AZ-SUB-11             info          -                     submission              ACJC county contact list, Greenlee County entry
+    R40   AZ-SUB-12             info          -                     submission              ACJC county contact list, Yavapai County entry
+    R41   AZ-SUB-13             info          -                     submission              ACJC county contact list, La Paz County entry
+    R42   AZ-SUB-14             info          -                     submission              ACJC county contact list, Yuma County entry
+    R43   AZ-SUB-15             info          -                     submission              Application, page 3 (mail-to box)
+    R44   AZ-SUB-16             info          -                     submission              Victim Compensation section, Application for Crime Victim Compensation
+    R45   AZ-DOC-1              info          -                     required_document       A.A.C. R10-4-107(E)(1)
+    R46   AZ-DOC-2              info          -                     required_document       A.A.C. R10-4-107(E)(1)
+    R47   AZ-DOC-3              info          -                     required_document       A.A.C. R10-4-107(E)(1)
+    R48   AZ-DOC-4              info          -                     required_document       A.A.C. R10-4-107(E)(2)(a)
+    R49   AZ-DOC-5              info          -                     required_document       Application, Section 4, Work Loss Requirement
+    R50   AZ-DOC-6              info          -                     required_document       Application, Section 3, travel expenses box
+    R51   AZ-DOC-7              info          -                     required_document       Application, page 3
+    R52   AZ-DOC-8              info          -                     required_document       A.A.C. R10-4-107(E)(3)
+    R53   AZ-TIME-1             info          -                     processing_time         A.A.C. R10-4-108(A)
+    R54   AZ-ACP-1              info          -                     address_confidentiality Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169
+    R55   AZ-CAP-3              skipped       -                     expense_cap             A.A.C. R10-4-108(D)(4)(a)  ; expense_cap without amount or expense
 
 .sources
     S0    AZ-S1       sha256 362f1cceb99da2a3  https://www.azleg.gov/ars/41/02407.htm
@@ -85,8 +88,8 @@
     P5    (AZ-CAP-2, AZ-COV-2, AZ-COLL-1)
     P6    (AZ-COV-3)
     P7    (AZ-COV-3, AZ-COLL-1)
-    P8    (AZ-CAP-4, AZ-COV-4, AZ-COV-7)
-    P9    (AZ-CAP-4, AZ-COV-4, AZ-COV-7, AZ-COLL-1)
+    P8    (AZ-CAP-4, AZ-COV-9, AZ-COV-4, AZ-COV-7)
+    P9    (AZ-CAP-4, AZ-COV-9, AZ-COV-4, AZ-COV-7, AZ-COLL-1)
     P10   (AZ-CAP-5, AZ-COV-5, AZ-COV-6)
     P11   (AZ-CAP-5, AZ-COV-5, AZ-COV-6, AZ-COLL-1)
     P12   (AZ-CAP-6)
@@ -94,7 +97,7 @@
     P14   (AZ-EXC-2)
     P15   (AZ-DEAD-1)
     P16   (AZ-REP-1, AZ-REP-2)
-    P17   (AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1)
+    P17   (AZ-EXC-1, AZ-DEAD-2, AZ-REP-3, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1)
 
 .ints
     K0    500000        ; $5,000.00
@@ -156,7 +159,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R21              ; AZ-COLL-1
+  009d        seta     collateral, R24              ; AZ-COLL-1
   00a1        ret
               ; AZ-CAP-2  A.A.C. R10-4-108(D)(5)  "For mental health counseling and care expenses, $5,000 per..."
               ; AZ-COV-2  A.A.C. R10-4-108(C)(4)  "Reasonable and customary mental health counseling and care..."
@@ -173,7 +176,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R21              ; AZ-COLL-1
+  00c3        seta     collateral, R24              ; AZ-COLL-1
   00c7        ret
               ; AZ-COV-3  A.A.C. R10-4-108(C)(2)(a)  "A victim whose ability to work is reduced due to physical..."
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
@@ -189,25 +192,26 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R21              ; AZ-COLL-1
+  00e9        seta     collateral, R24              ; AZ-COLL-1
   00ed        ret
               ; AZ-CAP-4  A.A.C. R10-4-108(D)(8)  "For transportation costs, $2,000 per victim or derivative victim..."
+              ; AZ-COV-9  A.A.C. R10-4-108(C)(6)(a)-(c)  "Obtaining medical care as defined in subsection (C)(1), b...."
               ; AZ-COV-4  A.A.C. R10-4-108(C)(6)(d)  "The victim obtaining a medical forensic examination or..."
               ; AZ-COV-7  A.A.C. R10-4-108(C)(6)(e)  "Responding to a substantiated threat to the safety or well-being..."
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
   00ee  L8:   ldi      confirmed
   00f0        jnz      L9
   00f5        push     0
-  00fa        decide   needs_confirmation, P8       ; AZ-CAP-4, AZ-COV-4, AZ-COV-7
+  00fa        decide   needs_confirmation, P8       ; AZ-CAP-4, AZ-COV-9, AZ-COV-4, AZ-COV-7
   00fe        ret
   00ff  L9:   ldi      amount_cents
-  0101        decide   eligible, P9                 ; AZ-CAP-4, AZ-COV-4, AZ-COV-7, AZ-COLL-1
+  0101        decide   eligible, P9                 ; AZ-CAP-4, AZ-COV-9, AZ-COV-4, AZ-COV-7, AZ-COLL-1
   0105        lda
   0106        ldi      insurance_paid_cents
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R21              ; AZ-COLL-1
+  010f        seta     collateral, R24              ; AZ-COLL-1
   0113        ret
   0114  L10:  push     0
   0119        decide   unknown_rule, P0             ; (none)
@@ -228,7 +232,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R21              ; AZ-COLL-1
+  013f        seta     collateral, R24              ; AZ-COLL-1
   0143        ret
               ; AZ-CAP-6  A.A.C. R10-4-108(D)(6)  "For funeral expenses, $10,000;"
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
@@ -244,7 +248,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R21              ; AZ-COLL-1
+  0165        seta     collateral, R24              ; AZ-COLL-1
   0169        ret
               ; AZ-EXC-2  A.A.C. R10-4-108(J)  "The Board shall not make a compensation award to pay attorney's..."
   016a  L15:  push     0
@@ -425,6 +429,8 @@
   01f8  L28:  push     0                            ; satisfied
   01fd  L29:  check    reporting, P16               ; AZ-REP-1, AZ-REP-2
               ; AZ-EXC-1  ACJC Victim Compensation brochure  "The Program cannot consider claims for: • Attorney Fees •..."
+              ; AZ-DEAD-2  A.A.C. R10-4-106(B)  "The Board shall extend the time limits under subsections (A)(4)..."
+              ; AZ-REP-3  A.A.C. R10-4-108(H)(1); see R10-4-106(A)(5)  "The Board shall deny a compensation award to a claimant if: 1...."
               ; AZ-COLL-1  A.A.C. R10-4-108(F)(1)  "The Board shall deny or reduce a compensation award to a..."
               ; AZ-COND-1  A.A.C. R10-4-108(G)  "The Board shall deny or reduce a compensation award under..."
               ; AZ-EMER-1  A.A.C. R10-4-111(A)-(C)  "An operational unit that makes an emergency compensation award..."
@@ -456,6 +462,6 @@
               ; AZ-DOC-8  A.A.C. R10-4-107(E)(3)  "Any documentation required by the operational unit to fully..."
               ; AZ-TIME-1  A.A.C. R10-4-108(A)  "The Board shall make a decision within 60 days after the..."
               ; AZ-ACP-1  Arizona SOS About ACP page, opening paragraph; statutory basis A.R.S. 41-161 to 41-169  "The Arizona Address Confidentiality Program (ACP) is a program..."
-  0201        info     P17                          ; AZ-EXC-1, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
+  0201        info     P17                          ; AZ-EXC-1, AZ-DEAD-2, AZ-REP-3, AZ-COLL-1, AZ-COND-1, AZ-EMER-1, AZ-ELIG-1, AZ-RES-1, AZ-SUB-1, AZ-SUB-2, AZ-SUB-3, AZ-SUB-4, AZ-SUB-5, AZ-SUB-6, AZ-SUB-7, AZ-SUB-8, AZ-SUB-9, AZ-SUB-10, AZ-SUB-11, AZ-SUB-12, AZ-SUB-13, AZ-SUB-14, AZ-SUB-15, AZ-SUB-16, AZ-DOC-1, AZ-DOC-2, AZ-DOC-3, AZ-DOC-4, AZ-DOC-5, AZ-DOC-6, AZ-DOC-7, AZ-DOC-8, AZ-TIME-1, AZ-ACP-1
   0204        ret
 

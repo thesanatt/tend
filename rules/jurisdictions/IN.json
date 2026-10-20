@@ -375,7 +375,8 @@
       "category": "covered_expense",
       "expense": "medical",
       "params": {
-        "expense": "medical"
+        "expense": "medical",
+        "detail": true
       },
       "summary": "Necessary medical, hospital, dental, optometric, chiropractic and ambulance services, prescription drugs, and prosthetic devices are covered if incurred within 180 days of the crime.",
       "quote": "the division may order the payment of compensation under this chapter for any of the following reasonable, documented expenses incurred within one hundred eighty (180) days after the date of the violent crime: (1) Necessary: (A) medical, chiropractic, hospital, dental, optometric, and ambulance services; (B) prescription drugs; and (C) prosthetic devices;",
@@ -387,7 +388,8 @@
       "category": "covered_expense",
       "expense": "medical",
       "params": {
-        "expense": "medical"
+        "expense": "medical",
+        "detail": true
       },
       "summary": "The director may extend the 180-day expense window up to 2 years after the crime when the victim asks and medical records support it.",
       "quote": "The director may extend the one hundred eighty (180) day compensation period established by subsection (d) for a period not to exceed two (2) years after the date of the violent crime if: (1) the victim or the victim's representative requests the extension; and (2) medical records and other documentation provided by the attending medical providers indicate that an extension is appropriate.",
@@ -411,7 +413,8 @@
       "category": "covered_expense",
       "expense": "temporary_housing",
       "params": {
-        "expense": "temporary_housing"
+        "expense": "temporary_housing",
+        "scope": "emergency shelter to stay away from the offender, up to 30 days"
       },
       "summary": "Emergency shelter care to avoid contact with the offender is covered for up to 30 days of expenses.",
       "quote": "(3) Emergency shelter care expenses, not to exceed the expenses for thirty (30) days, that are incurred for the claimant or a dependent of the claimant to avoid contact with a person who committed the violent crime.",
@@ -423,7 +426,8 @@
       "category": "covered_expense",
       "expense": "security",
       "params": {
-        "expense": "security"
+        "expense": "security",
+        "scope": "replacing windows or door locks"
       },
       "summary": "Replacing windows or door locks is covered.",
       "quote": "(9) Replacement of windows or door locks.",
@@ -459,9 +463,10 @@
       "category": "covered_expense",
       "expense": "counseling",
       "params": {
-        "expense": "counseling"
+        "expense": "counseling",
+        "detail": true
       },
-      "summary": "Outpatient mental health counseling is covered, and the director may extend its 180-day expense window where justice requires, up to 2 years.",
+      "summary": "Counseling costs must fall within 180 days of the crime, unless the director extends this where justice requires, up to 2 years.",
       "quote": "The director may extend the one hundred eighty (180) day compensation period established by subsection (d) for outpatient mental health counseling, established by subsection (d)(7) where justice requires, but for a period not to exceed two (2) years.",
       "source_id": "IN-S11",
       "pinpoint": "IC 5-2-6.1-21.1(i)"
@@ -527,17 +532,46 @@
       "pinpoint": "IC 5-2-6.1-32(e)"
     },
     {
+      "id": "IN-COV-9",
+      "category": "excluded_expense",
+      "params": {
+        "item": "costs incurred more than 180 days after the crime"
+      },
+      "summary": "The program pays the costs this law lists only if they are reasonable, documented, and incurred within 180 days after the crime, unless the director extends that period.",
+      "quote": "(d) Subject to subsections (b) and (c), the division may order the payment of compensation under this chapter for any of the following reasonable, documented expenses incurred within one hundred eighty (180) days after the date of the violent crime:",
+      "source_id": "IN-S11",
+      "pinpoint": "IC 5-2-6.1-21.1(d)"
+    },
+    {
       "id": "IN-DEADLINE-1",
       "category": "filing_deadline",
       "params": {
         "days": 180,
         "from": "crime",
-        "extension": "good cause; no application accepted more than 2 years after the crime"
+        "extension": "or later if the division gives you more time for good cause. In most cases, the division cannot take an application more than 2 years after the crime"
       },
-      "summary": "The application must reach the division within 180 days of the crime; the division may extend this for good cause, but not past 2 years after the crime.",
+      "summary": "The application must reach the division within 180 days of the crime. The division may give more time for good cause, but in most cases it cannot accept an application more than 2 years after the crime.",
       "quote": "the application must be received by the division not more than one hundred eighty (180) days after the date the crime was committed. The division may grant an extension of time for good cause shown by the claimant. However, and except as provided in subsections (e) and (f), the division may not accept an application that is received more than two (2) years after the date the crime was committed.",
       "source_id": "IN-S8",
       "pinpoint": "IC 5-2-6.1-16(b)"
+    },
+    {
+      "id": "IN-DEADLINE-2",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "A victim of a child sex crime can apply until turning 31, or later in some cases.",
+      "quote": "(e) An alleged victim of a child sex crime may submit an application to the division until the victim becomes thirty-one (31) years of age or in accordance with subsection (f).",
+      "source_id": "IN-S8",
+      "pinpoint": "IC 5-2-6.1-16(e)"
+    },
+    {
+      "id": "IN-DEADLINE-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "For some child sex crimes, a victim can also apply within 5 years after the earliest of these: the state first finds DNA evidence or a recording that is enough to charge the offender, or someone confesses.",
+      "quote": "(f) An alleged victim of a child sex crime described in IC 35-41-4-2 (e) which meets the requirements of IC 35-41-4-2 (p) may submit an application to the division not later than five (5) years after the earliest of the date on which: (1) the state first discovers evidence sufficient to charge the offender with the offense through DNA (deoxyribonucleic acid) analysis; (2) the state first becomes aware of the existence of a recording (as defined in IC 35-31.5-2-273 ) that provides evidence sufficient to charge the offender with the offense; or (3) a person confesses to the offense.",
+      "source_id": "IN-S8",
+      "pinpoint": "IC 5-2-6.1-16(f)"
     },
     {
       "id": "IN-REPORT-1",
@@ -594,10 +628,7 @@
       "id": "IN-MIN-1",
       "category": "minimum_loss",
       "params": {
-        "amount_cents": 10000,
-        "waived_for": [
-          "forensic_exam"
-        ]
+        "amount_cents": 10000
       },
       "summary": "A claimant must have more than $100 in out-of-pocket expenses or more than $100 in lost income; this does not apply to forensic exam reimbursement.",
       "quote": "(b) This section does not apply to reimbursement for forensic and evidence gathering services provided under section 39 of this chapter. (c) An award may not be made unless the claimant has incurred an out-of-pocket expense that exceeds one hundred dollars ($100) or has incurred loss of income that exceeds one hundred dollars ($100).",
@@ -637,7 +668,7 @@
       "params": {
         "amount_cents": 50000
       },
-      "summary": "An emergency award of up to $500 may be made before the final decision if there is severe financial hardship.",
+      "summary": "If the director finds a severe financial hardship, the director may give an emergency award of up to $500 before the final decision.",
       "quote": "An emergency award of not more than five hundred dollars ($500) may be made by the director or his or her designee prior to the determination of final award if it is determined by the director that a severe financial hardship exists.",
       "source_id": "IN-S21",
       "pinpoint": "203 IAC 1-1-9(k)"

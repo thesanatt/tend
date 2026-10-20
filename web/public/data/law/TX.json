@@ -234,13 +234,14 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "the forensic part of an exam or the evidence kit"
    },
    "summary": "A sexual assault survivor cannot be made to pay for the forensic part of the exam or the evidence kit. The statute does not say whether the survivor's insurance may be billed for it.",
    "quote": "A victim of a sexual assault may not be required to pay for: (1) the forensic portion of the forensic medical examination; or (2) the evidence collection kit.",
    "source_id": "TX-S15",
    "pinpoint": "Tex. Code Crim. Proc. art. 56A.304(f)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=A%20victim%20of%20a%20sexual,%282%29%20the%20evidence%20collection%20kit."
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=A%20victim%20of%20a%20sexual%20assault%20may%20not%20be%20required%20to%20pay,the%20evidence%20collection%20kit."
   },
   {
    "id": "TX-EXAM-2",
@@ -253,7 +254,7 @@
    "quote": "a health care provider that provides a forensic medical examination to a sexual assault survivor in accordance with this subchapter, or the sexual assault examiner or sexual assault nurse examiner who conducts that examination in accordance with this subchapter, as applicable, is entitled to be reimbursed in an amount set by attorney general rule for: (1) the reasonable costs of the forensic portion of that examination; (2) the evidence collection kit;",
    "source_id": "TX-S15",
    "pinpoint": "Tex. Code Crim. Proc. art. 56A.304(a)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=a%20health%20care%20provider%20that,%282%29%20the%20evidence%20collection%20kit%3B"
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=a%20health%20care%20provider%20that%20provides%20a,the%20evidence%20collection%20kit%3B"
   },
   {
    "id": "TX-EXAM-3",
@@ -264,18 +265,19 @@
     "amount_cents": 2500000,
     "per": "claim"
    },
-   "summary": "Emergency Medical Care (EMC): the Attorney General pays for medical care given during a sexual assault forensic exam, and prescribed related follow-up care, at medical fee guideline rates, up to $25,000. The program's medical care page treats this as separate from the general award cap.",
+   "summary": "Emergency Medical Care (EMC): the Attorney General pays for medical care given during a sexual assault forensic exam, at medical fee guideline rates, up to $25,000. The program's medical care page treats this as separate from the general award cap.",
    "quote": "The attorney general shall make a payment under Subsection (a) in accordance with the medical fee guidelines prescribed by Subtitle A, Title 5, Labor Code. A payment made under Subsection (a) may not exceed $25,000.",
    "source_id": "TX-S15",
    "pinpoint": "Tex. Code Crim. Proc. art. 56A.305(b)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=The%20attorney%20general%20shall%20make,%28a%29%20may%20not%20exceed%20%2425%2C000."
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#:~:text=The%20attorney%20general%20shall%20make%20a%20payment%20under,%28a%29%20may%20not%20exceed%20%2425%2C000."
   },
   {
    "id": "TX-EXAM-4",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "the forensic part of an exam or the evidence kit"
    },
    "summary": "The program's emergency medical care page says victims cannot be billed for the forensic costs of a sexual assault exam.",
    "quote": "Note: Victims cannot be billed for forensic costs of the exam.",
@@ -287,13 +289,14 @@
    "id": "TX-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 5000000
+    "amount_cents": 5000000,
+    "exception": "or more in some cases"
    },
    "summary": "Awards for one victim and everyone claiming because of that victim's injury may not exceed $50,000 in total.",
    "quote": "Except as otherwise provided by this article, awards payable to a victim and any other claimant sustaining pecuniary loss because of injury or death of that victim may not exceed $50,000 in the aggregate.",
    "source_id": "TX-S1",
    "pinpoint": "Tex. Code Crim. Proc. art. 56B.106(a)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=Except%20as%20otherwise%20provided%20by,exceed%20%2450%2C000%20in%20the%20aggregate."
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=Except%20as%20otherwise%20provided%20by%20this%20article%2C%20awards,exceed%20%2450%2C000%20in%20the%20aggregate."
   },
   {
    "id": "TX-COUNSEL-1",
@@ -330,13 +333,28 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "scope": "moving costs and rent, if the assault happened in your home"
    },
-   "summary": "A victim of sexual assault who was assaulted in their own home can be compensated for relocation costs and housing rent; other victims can qualify when the move is needed for health or safety.",
+   "summary": "A victim of sexual assault who was assaulted at home can be paid relocation costs and housing rent.",
    "quote": "A victim of stalking, family violence, or trafficking of persons, a victim of sexual assault who is assaulted in the victim's place of residence, or a child who is a victim of a murder attempt in the child's place of residence may receive compensation for the following expenses: (1) relocation expenses, including expenses for rental deposit, utility connections, expenses relating to moving belongings, motor vehicle mileage expenses, temporary or emergency lodging, and for an out-of-state move, expenses for transportation, lodging, and meals; and (2) housing rental expenses.",
    "source_id": "TX-S1",
    "pinpoint": "Tex. Code Crim. Proc. art. 56B.106(c)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=A%20victim%20of%20stalking%2C%20family,and%20%282%29%20housing%20rental%20expenses."
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=A%20victim%20of%20stalking%2C%20family,housing%20rental%20expenses."
+  },
+  {
+   "id": "TX-RELO-4",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "scope": "moving costs and rent, if a move is needed for your health or safety"
+   },
+   "summary": "Other victims can be paid moving costs and rent when a move is needed to protect their health or safety.",
+   "quote": "A victim other than a victim described by Subsection (c), a dependent of any victim, a family member of any victim if that family member has previously resided with the victim for a period of not less than two years, or a household member of any victim may receive compensation for the following expenses, if the expenses are necessary to protect the health or safety of the victim, dependent, or family or household member: (1) relocation expenses, including expenses for rental deposit, utility connections, expenses relating to moving belongings, motor vehicle mileage expenses, temporary or emergency lodging, and for an out-of-state move, expenses for transportation, lodging, and meals; and (2) housing rental expenses.",
+   "source_id": "TX-S1",
+   "pinpoint": "Tex. Code Crim. Proc. art. 56B.106(c-1)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=A%20victim%20other%20than%20a,housing%20rental%20expenses."
   },
   {
    "id": "TX-RELO-2",
@@ -358,9 +376,10 @@
    "category": "covered_expense",
    "expense": "temporary_housing",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "scope": "emergency or temporary lodging for up to 14 days"
    },
-   "summary": "For victims who qualify for relocation help (for sexual assault, only when the assault happened in the victim's home), emergency or temporary lodging is covered for up to 14 days.",
+   "summary": "Emergency or temporary lodging can be paid for up to 14 days, as part of help with moving.",
    "quote": "Emergency or temporary lodging (up to 14 days)",
    "source_id": "TX-S9",
    "pinpoint": "OAG Rent and Relocation Reimbursement page",
@@ -371,13 +390,27 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips over 20 miles one way to medical or mental health care, court, or a victim's funeral"
    },
    "summary": "Travel is reimbursed when the one-way trip to medical or mental health care, court, or a victim's funeral is over 20 miles.",
    "quote": "Travel over 20 miles one way for medical or mental health care, court proceedings, or a victim's funeral",
    "source_id": "TX-S10",
    "pinpoint": "OAG Travel Cost Reimbursement page",
-   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/compensation-program-overview/cvc-covered-costs/travel-cost-reimbursement#:~:text=Travel%20over%2020%20miles%20one,proceedings%2C%20or%20a%20victim%27s%20funeral"
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/compensation-program-overview/cvc-covered-costs/travel-cost-reimbursement#:~:text=Travel%20over%2020%20miles%20one,proceedings%2C%20or%20a%20victim%E2%80%99s%20funeral"
+  },
+  {
+   "id": "TX-TRAVEL-2",
+   "category": "expense_cap",
+   "params": {
+    "expense": "transportation",
+    "per": "claim"
+   },
+   "summary": "If you were subpoenaed to appear in court, the program does not pay for those trips. Its page says to ask the prosecutor's office instead.",
+   "quote": "Note: Victims or claimants subpoenaed to appear in court cannot receive reimbursement through the CVC program for those appearances. If subpoenaed, please seek reimbursement from the prosecutor’s office.",
+   "source_id": "TX-S10",
+   "pinpoint": "OAG Travel Cost Reimbursement page, Note",
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/compensation-program-overview/cvc-covered-costs/travel-cost-reimbursement#:~:text=Note%3A%20Victims%20or%20claimants%20subpoenaed,reimbursement%20from%20the%20prosecutor%E2%80%99s%20office."
   },
   {
    "id": "TX-MED-1",
@@ -393,6 +426,20 @@
    "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=%22Pecuniary%20loss%22%20means%20the%20amount,or%20counseling%2C%20or%20physical%20therapy%3B"
   },
   {
+   "id": "TX-EXAM-5",
+   "category": "covered_expense",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "detail": true
+   },
+   "summary": "For care sought after August 31, 2025, Emergency Medical Care also pays for prescribed care tied to the assault in the 30 days after the exam.",
+   "quote": "For medical care sought after August 31, 2025, EMC also covers any prescribed continuing medical care that is related to the sexual assault and provided to the victim during the 30-day period following the exam.",
+   "source_id": "TX-S11",
+   "pinpoint": "OAG Emergency Medical Care Compensation page",
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/cvc-covered-costs/emergency-medical-care-compensation#:~:text=For%20medical%20care%20sought%20after,30%2Dday%20period%20following%20the%20exam."
+  },
+  {
    "id": "TX-MED-2",
    "category": "covered_expense",
    "expense": "prescription",
@@ -403,7 +450,7 @@
    "quote": "Examples of expenses that can be covered include: Hospitalization Doctor's services Ambulance services Prescriptions Dental work",
    "source_id": "TX-S13",
    "pinpoint": "OAG Medical Care Expenses page",
-   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/compensation-program-overview/cvc-covered-costs/medical-care-expenses#:~:text=Examples%20of%20expenses%20that%20can,Ambulance%20services%20Prescriptions%20Dental%20work"
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/compensation-program-overview/cvc-covered-costs/medical-care-expenses#:~:text=Examples%20of%20expenses%20that%20can,Dental%20work"
   },
   {
    "id": "TX-COUNSEL-2",
@@ -444,7 +491,7 @@
    "quote": "On or after July 15, 2016, $300 per week for each child or dependent.",
    "source_id": "TX-S20",
    "pinpoint": "1 Tex. Admin. Code 61.405(b)(6)(B)",
-   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=On%20or%20after%20July%2015%2C,for%20each%20child%20or%20dependent."
+   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=On%20or%20after%20July%2015%2C%202016%2C%20%24300,for%20each%20child%20or%20dependent."
   },
   {
    "id": "TX-CLEAN-1",
@@ -459,14 +506,15 @@
    "quote": "for criminally injurious conduct that occurs on or after July 15, 2016, compensation may not exceed $2250 per victim.",
    "source_id": "TX-S20",
    "pinpoint": "1 Tex. Admin. Code 61.405(d)(2)",
-   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=for%20criminally%20injurious%20conduct%20that,not%20exceed%20%242250%20per%20victim."
+   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=for%20criminally%20injurious%20conduct%20that%20occurs%20on%20or%20after%20July%2015%2C%202016%2C%20compensation,not%20exceed%20%242250%20per%20victim."
   },
   {
    "id": "TX-SEIZED-1",
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing, bedding, or property taken as evidence or ruined by the investigation"
    },
    "summary": "Clothing, bedding, or other property of the victim that police took as evidence or that the investigation made unusable can be replaced.",
    "quote": "reasonable replacement costs for clothing, bedding, or property of the victim seized as evidence or rendered unusable as a result of the criminal investigation;",
@@ -487,7 +535,7 @@
    "quote": "Under Texas Code of Criminal Procedure Article 56.32(a)(9)(G), the OAG may pay for the reasonable replacement costs as follows: (1) for criminally injurious conduct that occurs between September 1, 1995 and July 14, 2016, compensation may not exceed $750; and (2) for criminally injurious conduct that occurs on or after July 15, 2016, compensation may not exceed $1000 per victim.",
    "source_id": "TX-S20",
    "pinpoint": "1 Tex. Admin. Code 61.405(e)(2)",
-   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=Under%20Texas%20Code%20of%20Criminal,not%20exceed%20%241000%20per%20victim."
+   "fragment_url": "https://www.law.cornell.edu/regulations/texas/1-Tex-Admin-Code-SS-61-405#:~:text=Under%20Texas%20Code%20of%20Criminal%20Procedure%20Article%2056.32%28a%29%289%29%28G%29%2C,not%20exceed%20%241000%20per%20victim."
   },
   {
    "id": "TX-EXCL-1",
@@ -495,7 +543,7 @@
    "params": {
     "item": "property theft, damage, or loss"
    },
-   "summary": "The program does not pay for property theft, damage, or loss. Replacing clothing, bedding, or property seized as evidence or made unusable by the investigation is a separate covered cost (see TX-SEIZED-1).",
+   "summary": "The program does not pay for property theft, damage, or loss. Replacing clothing, bedding, or property seized as evidence or made unusable by the investigation is a separate covered cost.",
    "quote": "The CVC Program cannot make payments for the following: Property theft, damage, or loss Identity theft costs Pain, suffering, or emotional distress Any cost not a direct result of the crime",
    "source_id": "TX-S3",
    "pinpoint": "OAG CVC Covered Costs page, Costs Not Covered",
@@ -531,13 +579,33 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "good cause"
+    "extension": "or later if you show good cause for the delay"
    },
    "summary": "Apply within 3 years of the crime; the program can accept a late application for good cause.",
    "quote": "You're applying within 3 years of the crime (unless good cause can be shown for the delay).",
    "source_id": "TX-S4",
-   "pinpoint": "OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)",
+   "pinpoint": "OAG CVC Eligibility page",
    "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/eligibility-victims#:~:text=You%27re%20applying%20within%203%20years,be%20shown%20for%20the%20delay%29."
+  },
+  {
+   "id": "TX-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If the victim is a child, the time to apply counts from the day the victim or claimant learns of the crime. It ends on the third anniversary of that day, and no later than the child's 21st birthday.",
+   "quote": "If the victim is a child, the application must be filed not later than the third anniversary of the date the claimant or victim is made aware of the offense, but not after the child attains 21 years of age.",
+   "source_id": "TX-S1",
+   "pinpoint": "Tex. Code Crim. Proc. art. 56B.052(c)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=If%20the%20victim%20is%20a,attains%2021%20years%20of%20age."
+  },
+  {
+   "id": "TX-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If medical records show the crime left you unable to apply, that time does not count toward the deadline.",
+   "quote": "If a claimant or victim presents medically documented evidence of a physical or mental incapacity that was incurred by the claimant or victim as a result of the criminally injurious conduct and that reasonably prevented the claimant or victim from filing the application within the limitations period under Subsection (a), the period of the incapacity is not included.",
+   "source_id": "TX-S1",
+   "pinpoint": "Tex. Code Crim. Proc. art. 56B.052(d)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=If%20a%20claimant%20or%20victim,the%20incapacity%20is%20not%20included."
   },
   {
    "id": "TX-REPORT-1",
@@ -545,20 +613,32 @@
    "params": {
     "required": true
    },
-   "summary": "For a full compensation claim, the crime must be reported to law enforcement within a reasonable time that does not hamper the investigation; the Attorney General can extend this for extraordinary circumstances, and it does not apply when the victim is a child.",
+   "summary": "You may not apply unless the crime was reported to police or another public safety agency in a reasonable time. The report cannot be so late that it gets in the way of the investigation and prosecution.",
    "quote": "a claimant or victim may not file an application unless the victim reports the criminally injurious conduct to the appropriate state or local public safety or law enforcement agency within a reasonable period, but not so late as to interfere with or hamper the investigation and prosecution of the offense after the criminally injurious conduct is committed.",
    "source_id": "TX-S1",
    "pinpoint": "Tex. Code Crim. Proc. art. 56B.053(a)",
    "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=a%20claimant%20or%20victim%20may,criminally%20injurious%20conduct%20is%20committed."
   },
   {
+   "id": "TX-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "exception": "unless the victim is a child"
+   },
+   "summary": "The attorney general may give more time to report in extraordinary circumstances. The report rule does not apply if the victim is a child.",
+   "quote": "The attorney general may extend the time for reporting the criminally injurious conduct if the attorney general determines that the extension is justified by extraordinary circumstances. (c) Subsection (a) does not apply if the victim is a child.",
+   "source_id": "TX-S1",
+   "pinpoint": "Tex. Code Crim. Proc. art. 56B.053(b)-(c)",
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=The%20attorney%20general%20may%20extend%20the%20time%20for%20reporting,the%20victim%20is%20a%20child."
+  },
+  {
    "id": "TX-REPORT-2",
    "category": "reporting_requirement",
    "params": {
     "required": false,
-    "alternatives": [
-     "forensic_exam"
-    ]
+    "scope": "Emergency Medical Care only (medical care at a sexual assault exam), not the full compensation claim"
    },
    "summary": "For Emergency Medical Care compensation (medical care given during a sexual assault exam), no police report is needed. This exception does not cover the full compensation claim.",
    "quote": "Special rules apply for sexual assault Emergency Medical Care (EMC): reporting to law enforcement is not required.",
@@ -616,7 +696,7 @@
    "quote": "We can help victims of violent crimes or attempted crimes including: Arson (when present in the building) Assault Burglary (when present in the building) Child abuse Criminally negligent homicide DWI crashes Elder abuse Family violence Harassment Hit and run Homicide Human trafficking Kidnapping Manslaughter Robbery Sexual assault",
    "source_id": "TX-S4",
    "pinpoint": "OAG CVC Eligibility page, Covered crimes",
-   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/eligibility-victims#:~:text=We%20can%20help%20victims%20of,Kidnapping%20Manslaughter%20Robbery%20Sexual%20assault"
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/eligibility-victims#:~:text=We%20can%20help%20victims%20of,Sexual%20assault"
   },
   {
    "id": "TX-RES-1",
@@ -742,7 +822,7 @@
    "quote": "Provide Supporting Documents: You may need to submit: Lost Wage Affirmation form (for ongoing disability) Travel/Appointment form (for periodic absences) Verification of employment Medical documentation Proof of disability payments",
    "source_id": "TX-S8",
    "pinpoint": "OAG Lost Wages page, How to apply",
-   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/lost-wages-for-victims#:~:text=Provide%20Supporting%20Documents%3A%20You%20may,documentation%20Proof%20of%20disability%20payments"
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/lost-wages-for-victims#:~:text=Provide%20Supporting%20Documents%3A,Proof%20of%20disability%20payments"
   },
   {
    "id": "TX-DOC-8",
@@ -756,7 +836,7 @@
    "quote": "Provide Supporting Documents: You may need to submit: Lost Wage Affirmation form (for ongoing disability) Travel/Appointment form (for periodic absences) Verification of employment Medical documentation Proof of disability payments",
    "source_id": "TX-S8",
    "pinpoint": "OAG Lost Wages page, How to apply",
-   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/lost-wages-for-victims#:~:text=Provide%20Supporting%20Documents%3A%20You%20may,documentation%20Proof%20of%20disability%20payments"
+   "fragment_url": "https://www.texasattorneygeneral.gov/crime-victims/crime-victims-compensation-program/lost-wages-for-victims#:~:text=Provide%20Supporting%20Documents%3A,Proof%20of%20disability%20payments"
   },
   {
    "id": "TX-DOC-9",
@@ -785,17 +865,17 @@
    "quote": "(a)  The attorney general shall establish an address confidentiality program, as provided by this subchapter, to assist a victim of family violence, sexual assault or abuse, stalking, child abduction, or trafficking of persons in maintaining a confidential address. (b)  The attorney general shall: (1)  designate a substitute post office box address that a participant may use in place of the participant's true residential, business, or school address;",
    "source_id": "TX-S22",
    "pinpoint": "Tex. Code Crim. Proc. art. 58.052(a), (b)(1)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm#:~:text=%28a%29%20The%20attorney%20general%20shall,residential%2C%20business%2C%20or%20school%20address%3B"
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm#:~:text=The%20attorney%20general%20shall%20establish,residential%2C%20business%2C%20or%20school%20address%3B"
   },
   {
    "id": "TX-RECORDS-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "A compensation application and the records the Attorney General keeps on it are not subject to disclosure under the Public Information Act, and are shielded from discovery and subpoena except in the cases the statute lists, such as a court order or the claimant's consent.",
+   "summary": "Texas law keeps your compensation application and the Attorney General's records on it private, with some exceptions. Once compensation is awarded, the name of the victim or claimant and the amount are public under Gov. Code 552.132(c). A court order, your consent, or a subpoena in a criminal case can also open some records.",
    "quote": "An application for compensation under this chapter and any information, document, summary, or other record provided to or received, maintained, or created by the attorney general under this chapter, including a report released to the attorney general under Article 56B.054 (f), is: (1)  except as provided by Section 552.132 (c), Government Code, not subject to disclosure under Chapter 552 of that code; and (2)  except as provided by Subsection (c), not subject to disclosure, discovery, subpoena, or other means of legal compulsion for release.",
    "source_id": "TX-S1",
    "pinpoint": "Tex. Code Crim. Proc. art. 56B.058(b)",
-   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=An%20application%20for%20compensation%20under,of%20legal%20compulsion%20for%20release."
+   "fragment_url": "https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56B.htm#:~:text=An%20application%20for%20compensation%20under%20this%20chapter%20and,of%20legal%20compulsion%20for%20release."
   }
  ],
  "coverage": {

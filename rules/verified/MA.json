@@ -174,7 +174,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified"
    },
    "summary": "Hospitals may not bill sexual assault exam patients for co-payments or other costs tied to their own health insurance; those amounts go to the state victim compensation program instead.",
    "quote": "Hospitals may not bill patients for any co-payments or other patient-incurred costs related to their primary health insurance and those should be submitted to the VCAD.",
@@ -189,7 +189,7 @@
    "params": {
     "insurance_billing": "consent_required"
    },
-   "summary": "The patient's own health insurance is used for the exam only if the patient opts in; otherwise the hospital bills the victim compensation program directly.",
+   "summary": "The protocol says a patient's own health insurance can be used for the exam if the patient opts in, and that hospitals should bill the victim compensation program directly for patients who have privacy or other concerns about billing their insurance.",
    "quote": "While a patient’s primary health care can be used if the patient affirmatively opts in, direct billing to VCAD should be implemented for patients who have privacy/confidentiality or other concerns about their primary health insurance being billed.",
    "source_id": "MA-S13",
    "pinpoint": "MA SANE Protocol, Section X (Victim compensation)",
@@ -200,7 +200,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified"
    },
    "summary": "State guidance says a survivor who receives a forensic exam should not get a bill, including a co-pay, for the exam or the related hospital visit.",
    "quote": "In Massachusetts, survivors of sexual violence who receive a forensic exam should not receive a bill (including co-pay) for the exam and/or hospital visit related to the assault.",
@@ -212,7 +212,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified"
    },
    "summary": "Covered emergency department exam expenses, including co-payments, co-insurance and deductibles, should never be billed to the survivor.",
    "quote": "The expenses outlined below, including the applicable co-payment, co-insurance, and/or deductible, should never be billed to the survivor.",
@@ -232,11 +232,26 @@
    "pinpoint": "124 CMR 2.06(15)"
   },
   {
+   "id": "MA-EXAM-10",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victim Compensation and Assistance Division, billed directly by the Massachusetts hospital",
+    "condition": "if the crime was in Massachusetts"
+   },
+   "summary": "Massachusetts hospitals can bill the state's victim compensation division directly for emergency room costs. This applies when the assault happened in Massachusetts and the forensic exam is done at a Massachusetts hospital.",
+   "quote": "As of March 2016, MA hospitals are allowed to directly bill the VCAD for all Emergency Department (ED) expenses incurred as the result of a sexual assault that involve a patient whose assault occurs in Massachusetts and who receives a forensic sexual assault examination at a Massachusetts hospital.",
+   "source_id": "MA-S13",
+   "pinpoint": "MA SANE Protocol, Section X (Victim compensation)",
+   "fragment_url": "https://www.mass.gov/info-details/section-x-victim-compensation#:~:text=As%20of%20March%202016%2C%20MA,examination%20at%20a%20Massachusetts%20hospital."
+  },
+  {
    "id": "MA-EXAM-6",
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Massachusetts Office for Victim Assistance (victim compensation program)"
+    "payer": "Massachusetts Office for Victim Assistance (victim compensation program)",
+    "outside_total_cap": true
    },
    "summary": "Exam payments do not count toward the survivor's maximum award for other crime-related expenses.",
    "quote": "To ensure compliance with 28 CFR § 90.13 requiring states to provide forensic sexual assault examinations without cost to the victim, compensation paid in this section will not be considered toward the maximum award for victim's other related claims.",
@@ -272,7 +287,8 @@
    "id": "MA-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or $50,000 for a catastrophic injury"
    },
    "summary": "The maximum award is $25,000 per claimant, or $50,000 for a catastrophic injury.",
    "quote": "The maximum award for compensation to a claimant pursuant to this chapter shall be $25,000; provided, however, that the maximum award for compensation to a claimant with a catastrophic injury pursuant to this chapter shall be $50,000.",
@@ -308,7 +324,7 @@
    "quote": "A victim shall be eligible for compensation for the reasonable replacement costs of clothing and bedding seized as evidence or rendered unusable as the result of a criminal investigation that is the direct result of a crime; provided, however, that the maximum compensable amount shall not exceed $250.",
    "source_id": "MA-S7",
    "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(H)",
-   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=A%20victim%20shall%20be%20eligible,amount%20shall%20not%20exceed%20%24250."
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=A%20victim%20shall%20be%20eligible%20for%20compensation%20for%20the,amount%20shall%20not%20exceed%20%24250."
   },
   {
    "id": "MA-CAP-4",
@@ -391,7 +407,7 @@
    "quote": "If the victim was employed or had received a bona fide employment offer at the time of the crime, the victim shall be eligible for compensation for loss of actual earnings due to disability from work as the result of injuries caused by the crime.",
    "source_id": "MA-S7",
    "pinpoint": "M.G.L. c. 258C, s. 3(b)(2)(D)",
-   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=If%20the%20victim%20was%20employed,injuries%20caused%20by%20the%20crime."
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section3#:~:text=If%20the%20victim%20was%20employed%20or%20had%20received%20a%20bona%20fide%20employment%20offer%20at%20the%20time%20of%20the%20crime%2C%20the,injuries%20caused%20by%20the%20crime."
   },
   {
    "id": "MA-COV-4",
@@ -424,7 +440,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "rides to medical care by ambulance, chair car, dial-a-ride, taxi, or rideshare"
    },
    "summary": "Transportation to medical care is covered only for ambulance, chair car, dial-a-ride, taxi or rideshare costs.",
    "quote": "Compensation for transportation costs incurred while obtaining medical care is limited to costs incurred for emergency and non-emergency ambulance service, chair car service, dial-a-ride, taxi, or ridesharing service obtained.",
@@ -508,6 +525,15 @@
    "pinpoint": "124 CMR 2.05(7)(a)"
   },
   {
+   "id": "MA-DEAD-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If the victim was a minor and a criminal complaint or indictment came after the victim turned 18, the time to file starts on the date it was issued.",
+   "quote": "If the victim was a minor when the crime was committed and the crime results in the issuance of a criminal complaint or indictment after the victim's 18th birthday, the filing period shall not commence until the date of issuance of the criminal complaint or indictment provided, however, that this exception shall not apply to claims based on the death of a minor victim.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(7)(b)"
+  },
+  {
    "id": "MA-DEAD-3",
    "category": "filing_deadline",
    "params": {
@@ -515,7 +541,7 @@
     "from": "discovery",
     "extension": "Only if the crime resulted in a criminal complaint, indictment, or other judicial or administrative probable cause determination."
    },
-   "summary": "If the claimant did not discover the crime until more than three years after it happened, the period starts at discovery, but only if there was a criminal complaint, indictment or other probable cause finding.",
+   "summary": "If you did not discover the crime until more than 3 years after it happened, the 3 years start when you discovered it, or should have. This applies only if there was a criminal complaint, an indictment, or another finding of probable cause.",
    "quote": "If the claimant did not discover the act which constitutes a crime until more than three years after the crime was committed, the filing period shall not commence until the claimant discovered, or reasonably should have discovered, the act which constitutes a crime; provided, however, that in such cases, the crime for which the claimant seeks compensation must have resulted in the issuance of a criminal complaint or indictment, or any other judicial or administrative determination of probable cause that an act constituting a crime has occurred.",
    "source_id": "MA-S11",
    "pinpoint": "124 CMR 2.05(7)(c)"
@@ -525,13 +551,14 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "within_days": 5
+    "within_days": 5,
+    "exception": "or later if the program finds good cause or you were under 18"
    },
    "summary": "The crime must be reported within five days unless the agency finds good cause for the delay. Victims under 18 are not held to the five-day limit.",
    "quote": "Except in the case where the agency finds such report to have been delayed for good cause, such report shall have been made within five days after the occurrence of such crime; provided, however, that a claimant who was a victim under 18 years of age shall not be required to file such report within 5 days.",
    "source_id": "MA-S6",
    "pinpoint": "M.G.L. c. 258C, s. 2(b)",
-   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=Except%20in%20the%20case%20where,such%20report%20within%205%20days."
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=Except%20in%20the%20case%20where%20the%20agency,such%20report%20within%205%20days."
   },
   {
    "id": "MA-REPORT-2",
@@ -539,7 +566,7 @@
    "params": {
     "required": true,
     "alternatives": [
-     "medical_provider"
+     "other"
     ]
    },
    "summary": "A Provider Sexual Crime Report filed by a medical provider counts as a report to law enforcement.",
@@ -600,6 +627,33 @@
    "pinpoint": "124 CMR 2.05(4)(b)"
   },
   {
+   "id": "MA-REPORT-7",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "To get compensation, the claimant must cooperate with law enforcement in the investigation and prosecution of the crime. This does not apply if the claimant shows a reasonable excuse for not cooperating.",
+   "quote": "A claimant shall be eligible for compensation only if such claimant cooperates with law enforcement authorities in the investigation and prosecution of the crime in which the victim was injured or killed unless the claimant demonstrates that he possesses or possessed a reasonable excuse for failing to cooperate.",
+   "source_id": "MA-S6",
+   "pinpoint": "M.G.L. c. 258C, s. 2(c)",
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=A%20claimant%20shall%20be%20eligible,excuse%20for%20failing%20to%20cooperate."
+  },
+  {
+   "id": "MA-REPORT-8",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program may accept the physical or psychological effects of the crime as a reasonable excuse for not cooperating. A reasonable fear for the safety of the claimant or others can count too.",
+   "quote": "The Agency may find that the physical or psychological impact of the crime and/or a reasonable fear of safety for themselves or others shall constitute a reasonable excuse and shall not constitute lack of cooperation.",
+   "source_id": "MA-S11",
+   "pinpoint": "124 CMR 2.05(6)(b)"
+  },
+  {
    "id": "MA-COLL-1",
    "category": "collateral_source",
    "params": {},
@@ -626,7 +680,7 @@
    "quote": "To the extent that the victim's acts or conduct provoked or contributed to the injuries, the agency may reduce or deny an award to the claimant or claimants in accordance with regulations enacted pursuant to section four.",
    "source_id": "MA-S6",
    "pinpoint": "M.G.L. c. 258C, s. 2(e)",
-   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=To%20the%20extent%20that%20the,enacted%20pursuant%20to%20section%20four."
+   "fragment_url": "https://malegislature.gov/Laws/GeneralLaws/PartIII/TitleIV/Chapter258C/Section2#:~:text=To%20the%20extent%20that%20the%20victim%27s%20acts%20or%20conduct%20provoked%20or%20contributed%20to%20the%20injuries%2C%20the%20agency,enacted%20pursuant%20to%20section%20four."
   },
   {
    "id": "MA-COND-2",
@@ -799,7 +853,7 @@
     "covers_sexual_assault": true,
     "enroll": "You will need an application assistant to help you. Call 1-866-SAFE-ADD (1-866-723-3233) to find an application Assistant. The application assistant will provide the application and help you complete it. Your application assistant will submit the application to the Address Confidentiality Program. An ACP employee will contact you if your application is approved."
    },
-   "summary": "The Address Confidentiality Program, run by the Secretary of the Commonwealth, gives survivors of sexual assault, rape, domestic violence and stalking a protected mail-forwarding address to use with state and municipal agencies so their real address stays out of public records.",
+   "summary": "The Address Confidentiality Program, run by the Secretary of the Commonwealth, protects survivors of sexual assault, rape, domestic violence and stalking who move to get away from the person who hurt them. It is a mail-forwarding service that gives them a protected address to use with state and local agencies, so their new address is harder to find.",
    "quote": "The Address Confidentiality Program (ACP) protects survivors of domestic violence, sexual assault, rape, and stalking as well as some legally protected healthcare providers. Survivors often move to get away from perpetrators of violence. The Address Confidentiality Program makes their new address harder to find. The ACP is a mail forwarding service that gives you a protected address to use with state and municipal agencies.",
    "source_id": "MA-S16",
    "pinpoint": "Secretary of the Commonwealth, Address Confidentiality Program page, introduction",

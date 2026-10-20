@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NH",
- "source_sha256": "e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5",
- "ir_sha256": "daa8054916a7e3ba3f262a2ed4f5788be4dc8e582ca847208ddf8cf8e2e6f9c7",
+ "source_sha256": "2e1c37b31de5356e5f48a4577a2635b5c669715b45d967c8f7d8fc06d9f6aa14",
+ "ir_sha256": "8fa45d7c050d5e91c1956232ce9df1fae3478b10a0f5c194be063126dcadcd65",
  "fresh": true,
  "rules": [
   {
@@ -130,8 +130,8 @@
   },
   {
    "id": "NH-COV-10",
-   "kind": "covered",
-   "expense": "temporary_housing"
+   "kind": "info",
+   "category": "emergency_award"
   },
   {
    "id": "NH-COV-11",
@@ -177,9 +177,7 @@
    "id": "NH-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "forensic_exam"
-   ],
+   "alternatives": [],
    "within_days": 5
   },
   {
@@ -189,6 +187,11 @@
    "alternatives": [
     "forensic_exam"
    ]
+  },
+  {
+   "id": "NH-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NH-MIN-1",
@@ -322,6 +325,11 @@
   },
   {
    "id": "NH-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NH-ACP-2",
    "kind": "info",
    "category": "address_confidentiality"
   },

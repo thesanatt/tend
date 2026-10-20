@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "CT",
- "source_sha256": "85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e",
- "ir_sha256": "2e940b1fa0e0ce2e23d7532d4653911c84cb492855a426381b7acea8b3c658df",
+ "source_sha256": "0058a546837db9346d1097eee73645df60778e6acd31bf0b0607be7a935a21c0",
+ "ir_sha256": "4bb338eeb0b2dc227111797987922b58c795ea0417bf139c0e2f473204d41898",
  "fresh": true,
  "rules": [
   {
@@ -114,6 +114,16 @@
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
+  },
+  {
+   "id": "CT-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "CT-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "CT-REPORT-1",
@@ -254,6 +264,16 @@
    "id": "CT-CAP-2",
    "category": "total_cap",
    "reason": "applies_to \"emotional_harm_only\""
+  },
+  {
+   "id": "CT-CAP-6",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
+  {
+   "id": "CT-CAP-7",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
   }
  ]
 }

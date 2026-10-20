@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MN",
- "source_sha256": "57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54",
- "ir_sha256": "e58d9a5963dd107b53c016f0b050a7724f4f8c9e33d42d27f69655d7c4b6603d",
+ "source_sha256": "d248b60c6bffc2087439a181ad20e009344876d8b6eaa26820ade630c715265b",
+ "ir_sha256": "cbeeb5c7b39f2846725aa6440551c605f3d24f67c0c470023bd569170ff59e57",
  "fresh": true,
  "rules": [
   {
@@ -122,6 +122,11 @@
    "expense": "legal"
   },
   {
+   "id": "MN-EXC-MOVING",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "MN-EXC-TUITION",
    "kind": "excluded",
    "expense": "tuition"
@@ -138,6 +143,11 @@
    "from": "discovery"
   },
   {
+   "id": "MN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MN-DEADLINE-2",
    "kind": "deadline",
    "days": 1095,
@@ -147,8 +157,7 @@
    "id": "MN-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [],
-   "within_days": 30
+   "alternatives": []
   },
   {
    "id": "MN-REPORT-2",

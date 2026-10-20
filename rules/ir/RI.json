@@ -17,10 +17,14 @@
    "field_count": 0
   }
  },
- "source_sha256": "6ba35ab46e4720a58b86d7dfdbc360f503ca7acb9ca560b5b073c8b918925330",
+ "source_sha256": "5a99ca6393f7ee903de74f5464708adc23f38195b6d1c6acc749edeee098fdab",
  "rules": [
   {
    "id": "RI-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "RI-EXAM-2",
    "kind": "exam_payment"
   },
   {
@@ -50,7 +54,17 @@
    "category": "filing_deadline"
   },
   {
+   "id": "RI-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "RI-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "RI-DEADLINE-4",
    "kind": "info",
    "category": "filing_deadline"
   },
@@ -84,12 +98,22 @@
    "alternatives": []
   },
   {
+   "id": "RI-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "RI-REPORT-5",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "RI-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "RI-COLLATERAL-1",
@@ -156,6 +180,18 @@
   },
   {
    "id": "RI-RELOC-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "RI-RELOC-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "RI-RELOC-3",
    "kind": "covered",
    "expense": "relocation"
   },

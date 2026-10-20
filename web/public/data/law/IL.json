@@ -114,13 +114,13 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
-   "summary": "A hospital or provider giving a sexual assault medical forensic exam, outpatient treatment, transport, follow-up care, or medication may not bill the survivor for any part of it, including insurance deductibles, co-pays, or denied claims. The survivor's insurance can still be billed, and inpatient services are an exception.",
+   "summary": "A hospital or other provider giving a sexual assault survivor a medical forensic exam, medical care and treatment, transportation, follow-up care, or medication may not bill the survivor for any part of those costs, including insurance deductibles, co-pays, co-insurance, or denied claims.",
    "quote": "shall not: (1) charge or submit a bill for any portion of the costs of the services, transportation, or medications to the sexual assault survivor, including any insurance deductible, co-pay, co-insurance, denial of claim by an insurer, spenddown, or any other out-of-pocket expense",
    "source_id": "IL-S2",
    "pinpoint": "410 ILCS 70/7.5(a)(1)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=shall%20not%3A%20%281%29%20charge%20or,or%20any%20other%20out%2Dof%2Dpocket%20expense"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=shall%20not%3A,or%20any%20other%20out%2Dof%2Dpocket%20expense"
   },
   {
    "id": "IL-EXAM-2",
@@ -133,7 +133,7 @@
    "quote": "the ambulance provider, hospital, approved pediatric health care facility, health care professional, laboratory, or pharmacy shall bill the insurance company or program. With respect to such insured patients, applicable deductible, co-pay, co-insurance, denial of claim, or any other out-of-pocket insurance-related expense may be submitted to the Illinois Sexual Assault Emergency Treatment Program of the Department of Healthcare and Family Services",
    "source_id": "IL-S2",
    "pinpoint": "410 ILCS 70/7(a)(2)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=the%20ambulance%20provider%2C%20hospital%2C%20approved,of%20Healthcare%20and%20Family%20Services"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=the%20ambulance%20provider%2C%20hospital%2C%20approved%20pediatric%20health%20care%20facility%2C%20health%20care%20professional%2C%20laboratory%2C%20or%20pharmacy%20shall,of%20Healthcare%20and%20Family%20Services"
   },
   {
    "id": "IL-EXAM-3",
@@ -146,7 +146,7 @@
    "quote": "the ambulance provider, hospital, approved pediatric health care facility, health care professional, laboratory, or pharmacy shall submit the request for reimbursement to the Illinois Sexual Assault Emergency Treatment Program under the Department of Healthcare and Family Services",
    "source_id": "IL-S2",
    "pinpoint": "410 ILCS 70/7(a)(3)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=the%20ambulance%20provider%2C%20hospital%2C%20approved,of%20Healthcare%20and%20Family%20Services"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=the%20ambulance%20provider%2C%20hospital%2C%20approved%20pediatric%20health%20care%20facility%2C%20health%20care%20professional%2C%20laboratory%2C%20or%20pharmacy%20shall%20submit,of%20Healthcare%20and%20Family%20Services"
   },
   {
    "id": "IL-EXAM-4",
@@ -159,7 +159,7 @@
    "quote": "a sexual assault survivor who is not the subscriber or primary policyholder of the sexual assault survivor's insurance policy may opt out of billing the sexual assault survivor's private insurance provider",
    "source_id": "IL-S2",
    "pinpoint": "410 ILCS 70/7.5(a-5)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=a%20sexual%20assault%20survivor%20who,assault%20survivor%27s%20private%20insurance%20provider"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=a%20sexual%20assault%20survivor%20who%20is%20not,assault%20survivor%27s%20private%20insurance%20provider"
   },
   {
    "id": "IL-EXAM-5",
@@ -185,7 +185,7 @@
    "quote": "If a sexual assault survivor presents a sexual assault services voucher for follow-up healthcare, the healthcare professional, pediatric health care facility, or laboratory that provides follow-up healthcare or the pharmacy that dispenses prescribed medications to a sexual assault survivor shall submit the request for reimbursement for follow-up healthcare, pediatric health care facility, laboratory, or pharmacy services to the Illinois Sexual Assault Emergency Treatment Program under the Department of Healthcare and Family Services",
    "source_id": "IL-S2",
    "pinpoint": "410 ILCS 70/7(a)(4)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=If%20a%20sexual%20assault%20survivor,of%20Healthcare%20and%20Family%20Services"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=1531&ChapterID=35#:~:text=If%20a%20sexual%20assault%20survivor%20presents,of%20Healthcare%20and%20Family%20Services"
   },
   {
    "id": "IL-EXAM-7",
@@ -317,13 +317,14 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to and from medical and counseling treatment"
    },
    "summary": "Travel to and from medical and counseling appointments is covered.",
    "quote": "transportation expenses to and from medical and counseling treatment facilities",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/2(h)(2)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=transportation%20expenses%20to%20and%20from%20medical%20and%20counseling%20treatment%20facilities"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=transportation%20expenses%20to%20and%20from,counseling%20treatment%20facilities"
   },
   {
    "id": "IL-COV-RELO",
@@ -343,7 +344,8 @@
    "category": "covered_expense",
    "expense": "security",
    "params": {
-    "expense": "security"
+    "expense": "security",
+    "scope": "locks, doors, or windows needed or damaged because of the crime"
    },
    "summary": "Locks, doors, or windows that are needed or were damaged because of the crime are covered.",
    "quote": "locks, doors, or windows necessary or damaged as a result of the crime",
@@ -356,13 +358,14 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing and bedding used as evidence"
    },
    "summary": "Replacing clothing and bedding kept as evidence is covered.",
    "quote": "replacement costs for clothing and bedding used as evidence",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/2(h)(6)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=replacement%20costs%20for%20clothing%20and%20bedding%20used%20as%20evidence"
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=replacement%20costs%20for%20clothing%20and,as%20evidence"
   },
   {
    "id": "IL-COV-CLEAN",
@@ -382,7 +385,8 @@
    "category": "covered_expense",
    "expense": "tuition",
    "params": {
-    "expense": "tuition"
+    "expense": "tuition",
+    "scope": "lost tuition, if the crime leaves the victim unable to keep attending school"
    },
    "summary": "Lost tuition is covered when the victim was enrolled in school or college and cannot keep attending because of the crime.",
    "quote": "loss of tuition paid to attend grammar school or high school when the victim had been enrolled as a student prior to the injury, or college or graduate school when the victim had been enrolled as a day or night student prior to the injury when the victim becomes unable to continue attendance at school as a result of the crime of violence",
@@ -472,7 +476,7 @@
    "params": {
     "years": 5,
     "from": "crime",
-    "extension": "or within one year after a criminal charge"
+    "extension": "or within 1 year after someone is charged with the crime"
    },
    "summary": "Apply within 5 years of the crime, or within one year after someone is criminally charged for it.",
    "quote": "Within 5 years of the occurrence of the crime, or within one year after a criminal charge of a person for an offense, upon which the claim is based, the applicant presents an application",
@@ -488,11 +492,21 @@
     "from": "age_18",
     "extension": "also runs from removal of a legal disability; legal disability includes a PTSD diagnosis"
    },
-   "summary": "A victim who was under 18 or under a legal disability can apply within 3 years after turning 18 or after the disability ends, and a posttraumatic stress disorder diagnosis counts as a legal disability.",
+   "summary": "A victim who was under 18, or under a legal disability, when it happened can apply within 3 years after turning 18 or after the disability is removed. The Act counts a diagnosis of posttraumatic stress disorder as a legal disability.",
    "quote": "he or she may present the application required by this subsection within 3 years after he or she attains the age of 18 years or the disability is removed, as the case may be. Legal disability includes a diagnosis of posttraumatic stress disorder.",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/6.1(a)",
    "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=he%20or%20she%20may%20present,diagnosis%20of%20posttraumatic%20stress%20disorder."
+  },
+  {
+   "id": "IL-DEAD-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The Attorney General may accept a late application if it finds you had good cause for the delay.",
+   "quote": "The Attorney General and the Court of Claims may accept an application presented after the period provided in subsection (a) if the Attorney General determines that the applicant had good cause for a delay.",
+   "source_id": "IL-S1",
+   "pinpoint": "740 ILCS 45/6.1(a-1)",
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=The%20Attorney%20General%20and%20the%20Court,good%20cause%20for%20a%20delay."
   },
   {
    "id": "IL-REPORT-1",
@@ -507,11 +521,11 @@
      "other"
     ]
    },
-   "summary": "For sexual assault and sexual abuse offenses, law enforcement must be notified within 7 days, or later if the applicant shows the notice was timely under the circumstances. A medical visit, evidence collection, a protective order, or a mental health provider evaluation can stand in for the police report.",
+   "summary": "For sexual assault and sexual abuse offenses, law enforcement must be notified within 7 days, or later if the applicant shows the notice was timely under the circumstances.",
    "quote": "For victims of offenses defined in Sections 10-9, 11-1.20, 11-1.30, 11-1.40, 11-1.50, 11-1.60, 12-13, and 12-14 of the Criminal Code of 1961 or the Criminal Code of 2012, the appropriate law enforcement officials were notified within 7 days of the perpetration of the crime allegedly causing death or injury to the victim or, if the notification was made more than 7 days after the perpetration of the crime, the applicant establishes that the notice was timely under the circumstances.",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/6.1(b) (text in effect before P.A. 104-563, eff. 1-1-27)",
-   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=For%20victims%20of%20offenses%20defined,was%20timely%20under%20the%20circumstances."
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=For%20victims%20of%20offenses%20defined%20in%20Sections,was%20timely%20under%20the%20circumstances."
   },
   {
    "id": "IL-REPORT-2",
@@ -525,21 +539,30 @@
      "other"
     ]
    },
-   "summary": "Instead of a police report, going to a medical facility for care or sexual assault evidence collection, getting an order of protection or no contact order, or getting an evaluation from a mental health provider counts as notice.",
+   "summary": "Instead of a police report, going to a medical facility for care or sexual assault evidence collection, getting an order of protection or no contact order, or getting an independent medical evaluation from a mental health provider counts as notice.",
    "quote": "If, in lieu of a law enforcement report, the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, has presented to a mental health provider for an independent medical evaluation, or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking or law enforcement use of force, such action shall constitute appropriate notification under this Section.",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/6.1(b-1) (text in effect before P.A. 104-563, eff. 1-1-27)",
    "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=If%2C%20in%20lieu%20of%20a,appropriate%20notification%20under%20this%20Section."
   },
   {
+   "id": "IL-REPORT-6",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "scope": "what a survivor must tell the medical facility for the visit to count as notice"
+   },
+   "summary": "A survivor who uses a medical facility visit as notice has to give the facility enough information to meet the Act's notice rules.",
+   "quote": "For purposes of notification under this Act, a victim who presents to a medical facility shall provide information sufficient to fulfill the requirements of this Section",
+   "source_id": "IL-S1",
+   "pinpoint": "740 ILCS 45/6.1(b-2) (text in effect before P.A. 104-563, eff. 1-1-27)",
+   "fragment_url": "https://www.ilga.gov/Legislation/ILCS/Articles?ActID=2028&ChapterID=57#:~:text=For%20purposes%20of%20notification%20under,the%20requirements%20of%20this%20Section"
+  },
+  {
    "id": "IL-REPORT-3",
    "category": "reporting_requirement",
    "params": {
-    "required": false,
-    "alternatives": [
-     "forensic_exam",
-     "medical_provider"
-    ]
+    "required": false
    },
    "summary": "A survivor who uses a medical facility visit as notice does not have to name the offender to the medical provider.",
    "quote": "except that the victim shall not be required to identify the offender to the medical provider",
@@ -559,7 +582,7 @@
      "other"
     ]
    },
-   "summary": "The same steps (a protective order, a medical or evidence collection visit, or a mental health evaluation) also count as cooperating with law enforcement.",
+   "summary": "The same steps also count as cooperating with law enforcement. One is getting an order of protection or a no contact order. Another is going to a medical facility for care or evidence collection. Another is getting an independent exam from a mental health provider.",
    "quote": "If the applicant or victim has obtained an order of protection, a civil no contact order, or a stalking no contact order, has presented to a medical facility for medical care or sexual assault evidence collection, obtained an independent medical examination from a mental health provider as described in subsection (b-4), has taken any of the actions described in subsection (b-3), or is engaged in a legal proceeding involving a claim that the applicant or victim is a victim of human trafficking, such action shall constitute cooperation under this subsection (c).",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/6.1(c) (text in effect before P.A. 104-563, eff. 1-1-27)",
@@ -832,7 +855,7 @@
    "id": "IL-RECCONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Records the Attorney General's office gets to process a compensation application, including the application, documents, and photographs, are exempt from disclosure under the Freedom of Information Act.",
+   "summary": "Under the Freedom of Information Act, the Attorney General's office does not have to release the records it gets to process a compensation application, such as the application, documents, and photographs.",
    "quote": "Any records obtained by the Attorney General's office to process the application, including but not limited to applications, documents, and photographs, shall be exempt from disclosure by the Attorney General's office under the Freedom of Information Act.",
    "source_id": "IL-S1",
    "pinpoint": "740 ILCS 45/4.2",

@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418",
+ "source_sha256": "a71d5e7780c287239a9d1f565a21a8d2735c8c1900640dcc4ef7ed1413bc0ab9",
  "rules": [
   {
    "id": "ND-EXAM-1",
@@ -149,6 +149,11 @@
    "expense": "legal"
   },
   {
+   "id": "ND-EXCL-TRAVEL",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "ND-DEADLINE-1",
    "kind": "deadline",
    "days": 365,
@@ -158,19 +163,18 @@
    "id": "ND-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 4
   },
   {
    "id": "ND-REPORT-GOODCAUSE",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-GOODCAUSE-2",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-CHILD",
@@ -323,6 +327,16 @@
   }
  ],
  "skipped": [
+  {
+   "id": "ND-CAP-COUNSEL-WINDOW",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "ND-CAP-TRAVEL-MIN",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
   {
    "id": "ND-CAP-COUNSEL-ADULT",
    "category": "expense_cap",

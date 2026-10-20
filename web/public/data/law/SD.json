@@ -126,20 +126,34 @@
    "params": {
     "payer": "the county where the alleged rape or sexual offense occurred"
    },
-   "summary": "The county where the sexual assault happened pays for the forensic medical exam, including related lab tests, medication given during the exam, and supplies.",
+   "summary": "The county where the sexual assault happened pays for the forensic medical exam.",
    "quote": "The county where an alleged rape or sexual offense occurred shall pay the cost of any forensic medical examination performed on the victim of the alleged rape or sexual offense.",
    "source_id": "SD-S2",
    "pinpoint": "SDCL 22-22-26",
    "fragment_url": "https://sdlegislature.gov/Statutes/22-22-26#:~:text=The%20county%20where%20an%20alleged,alleged%20rape%20or%20sexual%20offense."
   },
   {
+   "id": "SD-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "the county where the alleged rape or sexual offense occurred"
+   },
+   "summary": "The exam cost the county pays includes the provider and facility services for the exam, forensic supplies, scope procedures, lab tests such as STI, HIV, and pregnancy screening, any medication given during the exam, and radiology tied to the exam.",
+   "quote": "The cost of a forensic medical examination includes: (1) Provider, hospital, or clinic services directly related to the examination; (2) Necessary forensic supplies; (3) Scope procedures directly related to the examination, including anoscopy and colposcopy; (4) Laboratory testing directly related to the examination, including drug screening, urinalysis, pregnancy screening, syphilis screening, chlamydia culture, gonorrhea coverage culture, HIV screening, hepatitis B and C screening, herpes culture, and any other sexually transmitted disease testing directly related to the examination; (5) Any medication provided during the examination; and (6) Any radiology service directly related to the examination.",
+   "source_id": "SD-S2",
+   "pinpoint": "SDCL 22-22-26",
+   "fragment_url": "https://sdlegislature.gov/Statutes/22-22-26#:~:text=The%20cost%20of%20a%20forensic,directly%20related%20to%20the%20examination."
+  },
+  {
    "id": "SD-EXAM-2",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "condition": "if the crime was in South Dakota"
    },
-   "summary": "Hospitals and clinics must tell survivors the forensic exam is available at no cost to them, and a survivor does not have to take part in the criminal case or cooperate with police to get the exam. The statute does not say whether the survivor's insurance may be billed.",
+   "summary": "For an exam under section 22-22-26, which has the county where the assault happened pay, hospitals and clinics must tell survivors the exam is available at no cost to them. A survivor does not have to take part in the criminal case or cooperate with police to get the exam. The statute does not say whether the survivor's insurance may be billed.",
    "quote": "Each hospital and clinic that provides a forensic medical examination under § 22-22-26 shall coordinate with the county to establish a payment process by which the county shall pay for the cost of the examination, and to notify any victim of rape or sexual offense of the availability of an examination at no cost to the victim. A victim of rape or sexual offense is not required to participate in the criminal justice system or to cooperate with law enforcement to be provided with a forensic medical examination.",
    "source_id": "SD-S3",
    "pinpoint": "SDCL 22-22-26.2",
@@ -156,7 +170,7 @@
    "quote": "Reimbursement is not allowed for rape or sexual offense examinations provided under the provisions of SDCL",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:13",
-   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Reimbursement%20is%20not%20allowed%20for,under%20the%20provisions%20of%20SDCL"
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Reimbursement%20is%20not%20allowed%20for%20rape,under%20the%20provisions%20of%20SDCL"
   },
   {
    "id": "SD-CAP-1",
@@ -171,6 +185,16 @@
    "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Compensation%20granted%20to%20any%20claimant,not%20exceed%20fifteen%20thousand%20dollars."
   },
   {
+   "id": "SD-CAP-5",
+   "category": "total_cap",
+   "params": {},
+   "summary": "Except for an emergency award, the commission may go above the limits on single costs when the claimant shows evidence of need. In no case can payments go above the program's overall limit.",
+   "quote": "With the exception of an emergency award, the commission may deviate from the limits established in this chapter. The claimant must submit evidence to the commission that substantiates the need for the deviation. Based on the evidence submitted, the commission shall determine whether the deviation is warranted. Within 15 days of the commission's decision, the department shall notify the individual in writing. Under no circumstances may payments exceed the program limits established in SDCL 23A-28B-21.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:20",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=With%20the%20exception%20of%20an,limits%20established%20in%20SDCL%2023A%2D28B%2D21."
+  },
+  {
    "id": "SD-CAP-2",
    "category": "expense_cap",
    "expense": "security",
@@ -179,7 +203,7 @@
     "amount_cents": 50000,
     "per": "claim"
    },
-   "summary": "Security devices, including digital security cameras, are covered up to $500 including materials and labor; monthly service fees are not. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Security devices are covered up to $500, including materials and labor.",
    "quote": "Payment for security devices may not exceed $500, including materials and labor.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:12",
@@ -194,7 +218,7 @@
     "amount_cents": 800000,
     "per": "claim"
    },
-   "summary": "Basic funeral and burial expenses are capped at $8,000. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Basic funeral and burial expenses are capped at $8,000.",
    "quote": "Payment for basic funeral and burial expenses may not exceed $8,000.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:17",
@@ -207,9 +231,10 @@
    "params": {
     "expense": "crime_scene_cleanup",
     "amount_cents": 150000,
-    "per": "claim"
+    "per": "claim",
+    "applies_to": "homicide scene cleanup"
    },
-   "summary": "Homicide scene cleanup is capped at $1,500. The commission can approve more than this limit on evidence of need, but never above the overall program limit.",
+   "summary": "Homicide scene cleanup is capped at $1,500.",
    "quote": "Payment for homicide scene cleanup may not exceed one thousand five hundred dollars.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:14",
@@ -220,22 +245,24 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost earnings are paid based on the victim's average monthly earnings for the 6 months before the injury or the monthly minimum wage, whichever is less. The monthly minimum wage is the federal hourly minimum wage times 173.2 hours.",
    "quote": "Loss of earnings, loss of future earnings, and loss of support shall be determined on the basis of the victim's average monthly earnings for the six months immediately preceding the date of injury, or the monthly minimum wage as of the date of the crime underlying the claim, whichever is less. The monthly minimum wage shall be based upon the federal hourly minimum wage in effect as of the date of the crime multiplied by 173.2 hours per month.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-20",
-   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Loss%20of%20earnings%2C%20loss%20of,by%20173.2%20hours%20per%20month."
+   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=Loss%20of%20earnings%2C%20loss%20of%20future%20earnings%2C%20and,by%20173.2%20hours%20per%20month."
   },
   {
    "id": "SD-WAGE-2",
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
-   "summary": "When the victim is the claimant, lost earnings are limited to the 12 months right after the crime. The victim must have been employed at the time of the crime, and hours paid with sick or annual leave do not count.",
+   "summary": "When the victim is the claimant, lost earnings are paid only for the 12 months right after the crime.",
    "quote": "Payment for lost earnings or loss of future earnings is limited to the following: (1) If the claimant is the victim, the 12-month period immediately following the date of the crime;",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:08(1)",
@@ -287,20 +314,49 @@
    "params": {
     "expense": "medical"
    },
-   "summary": "Apart from mental health care, medical services are paid only if provided in the 12 months after the crime, unless the department extends that for good cause.",
+   "summary": "Payment for medical expenses is limited to medical services provided in the 12 months right after the crime. The department may extend this 12-month period for good cause.",
    "quote": "payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:19",
    "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=payment%20for%20medical%20expenses%20is,if%20good%20cause%20is%20shown."
   },
   {
+   "id": "SD-CAP-6",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "per": "claim"
+   },
+   "summary": "Medical services are paid only if given in the 12 months after the crime. The department may extend this for good cause. This 12-month limit does not apply to mental health care or to medicine for a mental condition.",
+   "quote": "Except for mental health expenses covered under § 67:55:04:03 and the costs of medications related to the treatment of a mental condition, payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:19",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Except%20for%20mental%20health%20expenses,if%20good%20cause%20is%20shown."
+  },
+  {
+   "id": "SD-TRANS-3",
+   "category": "covered_expense",
+   "expense": "transportation",
+   "params": {
+    "expense": "transportation",
+    "scope": "mileage to treatment, court, or meetings with police"
+   },
+   "summary": "Mileage is covered for the victim's trips to treatment and therapy, to court proceedings, and to meet with law enforcement.",
+   "quote": "Mileage accrued for the victim to obtain treatment and therapy; (3) Mileage accrued for the victim to attend court proceedings; (4) Mileage accrued for the victim to meet with law enforcement",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:05(2)-(4)",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Mileage%20accrued%20for%20the%20victim,to%20meet%20with%20law%20enforcement"
+  },
+  {
    "id": "SD-TRANS-1",
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to a hospital or medical facility for a sexual assault exam"
    },
-   "summary": "Mileage is covered for trips such as getting the victim to a hospital or medical facility for a sexual assault exam, treatment, court, and meetings with police.",
+   "summary": "Mileage is covered for getting the victim to a hospital or medical facility for a sexual assault exam.",
    "quote": "Mileage accrued for transporting the victim to a hospital or medical facility for a sexual assault examination",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:05(5)",
@@ -311,7 +367,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage in a private car, paid at the state employee rate"
    },
    "summary": "Mileage is reimbursed at the state employee rate for a privately owned car.",
    "quote": "Mileage is reimbursed at the rate established for state employees in SDCL 3-9-1 , as applicable, for the use of a privately owned automobile.",
@@ -333,11 +390,39 @@
    "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=%22Security%20devices%2C%22%20the%20cost%20to,the%20safety%20of%20the%20victim."
   },
   {
+   "id": "SD-SEC-3",
+   "category": "covered_expense",
+   "expense": "security",
+   "params": {
+    "expense": "security",
+    "detail": true
+   },
+   "summary": "Security devices can be paid for. This includes digital security cameras.",
+   "quote": "Expenses for security devices , including digital security cameras, are payable.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:12",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Expenses%20for%20security%20devices%2C%20including%20digital%20security%20cameras%2C%20are%20payable."
+  },
+  {
+   "id": "SD-SEC-2",
+   "category": "excluded_expense",
+   "params": {
+    "expense": "security",
+    "item": "monthly service cost of a security device"
+   },
+   "summary": "The monthly service cost of a security device is the victim's to pay.",
+   "quote": "monthly service cost , if any, of a security device installed for the benefit of a victim is the victim's responsibility.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:12",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=monthly%20service%20cost%2C%20if%20any%2C,victim%20is%20the%20victim%27s%20responsibility."
+  },
+  {
    "id": "SD-CLOTH-1",
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing, bedding, and other property used as evidence"
    },
    "summary": "The replacement value of property taken as evidence, including clothing and bedding, is covered if it is not returned.",
    "quote": "\"Personal property losses,\" the replacement value of property, including clothing and bedding, used for evidentiary purposes",
@@ -350,7 +435,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "detail": true
    },
    "summary": "Child care is covered when the parent cannot care for the child because of crime-related impairment, court, police meetings, or a medical appointment.",
    "quote": "Child care expenses are payable if the parent is unable to care for the child because the parent has sustained physical or emotional impairment as a direct result of a crime, if the parent is required to attend court proceedings or meet with law enforcement, or the parent has a medical appointment.",
@@ -388,7 +474,7 @@
    "params": {
     "item": "property damaged in the incident"
    },
-   "summary": "Only clothing and bedding kept as evidence is covered; property damaged in the incident is not.",
+   "summary": "Property damaged in the incident is not covered.",
    "quote": "Only clothing and bedding that was collected as evidence, and will not be returned to the claimant, is compensable through the CVC Program. Property damaged in the incident is not eligible for compensation.",
    "source_id": "SD-S7",
    "pinpoint": "Primary Application Instructions, Section IX"
@@ -399,7 +485,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "The department may waive the one-year deadline for good cause shown."
+    "extension": "or later if the department waives the deadline for good cause"
    },
    "summary": "The application must be filed within one year after the date of the injury, but the department may waive that for good cause.",
    "quote": "Unless an application for compensation is filed with the department within one year after the date of the personal injury or death and the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made. The department may waive the one year application requirement for good cause shown",
@@ -413,13 +499,14 @@
    "params": {
     "required": true,
     "within_days": 5,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "or, if you could not reasonably report that soon, within 5 days of when you could"
    },
-   "summary": "The crime must have been reported to law enforcement within 5 days, or within 5 days of when a report could reasonably have been made. No alternative to a police report for sexual assault was found in the statute.",
+   "summary": "The crime must have been reported to law enforcement within 5 days. If that was not reasonably possible, it must have been reported within 5 days of when it could have been.",
    "quote": "the personal injury or death was the result of a crime which had been reported to a law enforcement officer or agency within five days of its occurrence or, if the crime could not reasonably have been reported within that period, within five days of the date when a report could reasonably have been made",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-25(1)",
-   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=the%20personal%20injury%20or%20death,could%20reasonably%20have%20been%20made"
+   "fragment_url": "https://sdlegislature.gov/Statutes/23A-28B#:~:text=the%20personal%20injury%20or%20death%20was,could%20reasonably%20have%20been%20made"
   },
   {
    "id": "SD-REPORT-2",
@@ -429,7 +516,7 @@
     "within_days": 5,
     "alternatives": []
    },
-   "summary": "If the crime was not reported within 5 days, the application asks for a letter explaining the reason for the delay.",
+   "summary": "If the crime was not reported within 5 days of when it happened, or the victim did not cooperate, the application asks for a letter explaining the late report or the decision not to cooperate.",
    "quote": "If the crime was not reported within 5 days of the date that it occurred or if the victim did not cooperate, please submit a letter explaining the reason for the delay in reporting or decision not to cooperate.",
    "source_id": "SD-S6",
    "pinpoint": "Primary Application, Eligibility"
@@ -450,7 +537,7 @@
    "id": "SD-COLL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "Awards are reduced by payments from collateral sources such as the offender, insurance, Medicaid, Medicare, workers compensation, or employer wage continuation.",
+   "summary": "Any award is reduced by money the victim gets, or will get, because of the crime from the sources the law lists. These include the offender, insurance, Medicaid or Medicare, workers compensation, and an employer's wage continuation.",
    "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-22",
@@ -460,7 +547,7 @@
    "id": "SD-COLL-2",
    "category": "collateral_source",
    "params": {},
-   "summary": "Bills for rape exams and related expenses must go to insurance and other collateral sources before the program pays.",
+   "summary": "Before the compensation program pays a bill for a rape exam or related care, the bill must first go to insurance and other sources, including health insurance.",
    "quote": "Bills for rape exams and related expenses must be submitted to collateral sources, including health insurance, before payment may be made under the provisions of this article.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:13",
@@ -482,7 +569,7 @@
    "params": {
     "amount_cents": 100000
    },
-   "summary": "The department may grant an emergency award of up to $1,000 for undue hardship; it is deducted from the final award.",
+   "summary": "An emergency award can be no more than $1,000.",
    "quote": "The amount of an emergency award may not exceed one thousand dollars.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-27",
@@ -730,7 +817,7 @@
    "id": "SD-RECORDS-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Records and reports the compensation department or commission obtains stay confidential if another law or rule already makes them confidential (for example medical or counseling records). The statute does not make the whole claim file confidential.",
+   "summary": "Records and reports the department or commission obtains stay confidential if another law or rule already makes them confidential. The statute does not make the whole claim file confidential.",
    "quote": "Any record or report obtained by the department or commission, the confidentiality of which is protected by any law or administrative rule, shall remain confidential.",
    "source_id": "SD-S1",
    "pinpoint": "SDCL 23A-28B-36",

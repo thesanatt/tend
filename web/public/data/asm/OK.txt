@@ -1,21 +1,21 @@
 ; tend law image OK, Oklahoma
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4
-; image sha256  d583e332a036711cd7cf62a4016c5095e3f9e31a2d6f04dba8c5984dcec99d7f
-; 55 rules, 16 sources, 25 proofs, 7 ints, 325 strings
-; item program: 164 instructions, 545 bytes, max stack 2
-; aggregate program: 221 instructions, 686 bytes, max stack 2, 7 loops
+; source sha256 aa3417ff587aee98d317e24188a6c7d036b25d49b1db48ceed8c1ebfbfa1a433
+; image sha256  9c0a9254e778d7d7e0956f5364b7404dc6e34e06e82736a5046686bb8cf9ddf7
+; 57 rules, 16 sources, 22 proofs, 5 ints, 331 strings
+; item program: 149 instructions, 504 bytes, max stack 2
+; aggregate program: 167 instructions, 522 bytes, max stack 2, 5 loops
 
 .rules
     R0    OK-EXAM-1             exam_no_bill  -                                             21 O.S. 142A-3(C)(4)
     R1    OK-EXAM-2             exam_no_bill  -                                             Okla. Admin. Code 185:15-1-6(a)-(b)
     R2    OK-EXAM-3             exam_payment  -                                             21 O.S. 142.20(C)
     R3    OK-EXAM-4             expense_cap   forensic_exam         per claim               21 O.S. 142.20(D)(1)
-    R4    OK-EXAM-5             expense_cap   prescription          per claim               21 O.S. 142.20(D)(2)
+    R4    OK-EXAM-5             info          -                     expense_cap             21 O.S. 142.20(D)(2)
     R5    OK-EXAM-6             exam_payment  -                                             DAC Sexual Assault Examination Fund page
     R6    OK-CAP-1              total_cap     -                                             21 O.S. 142.13(B)
     R7    OK-CAP-2              expense_cap   counseling            per claim               21 O.S. 142.13(H)
-    R8    OK-CAP-3              expense_cap   other                 per claim               21 O.S. 142.13(H)
+    R8    OK-CAP-3              info          -                     expense_cap             21 O.S. 142.13(H)
     R9    OK-CAP-5              expense_cap   funeral               per claim               21 O.S. 142.13(I)
     R10   OK-CAP-6              expense_cap   crime_scene_cleanup   per claim               21 O.S. 142.13(J)
     R11   OK-COV-1              covered       medical                                       21 O.S. 142.9(F)
@@ -25,43 +25,45 @@
     R15   OK-COV-4              covered       counseling                                    21 O.S. 142.13(H)
     R16   OK-COV-5              covered       transportation                                OCVC home page, eligible expenses
     R17   OK-COV-6              covered       dental                                        OCVC home page, eligible expenses
-    R18   OK-EXCL-1             excluded      property_replacement                          OCVC Fund Eligibility page
-    R19   OK-DEAD-1             deadline      -                     from crime              21 O.S. 142.10(A)(1)
-    R20   OK-DEAD-2             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
-    R21   OK-RPT-1              reporting     -                                             21 O.S. 142.10(A)(4)
-    R22   OK-RPT-2              reporting     -                                             21 O.S. 142.10(C)
-    R23   OK-COLL-1             collateral    -                                             21 O.S. 142.10(B)(1)
-    R24   OK-COND-1             info          -                     conduct_reduction       21 O.S. 142.10(B)(2)
-    R25   OK-EMER-1             info          -                     emergency_award         21 O.S. 142.14
-    R26   OK-ELIG-1             info          -                     eligible_crime          OCVC Fund Eligibility page
-    R27   OK-RES-1              info          -                     residency               21 O.S. 142.3(5)(a)
-    R28   OK-EXAM-7             collateral    -                                             Okla. Admin. Code 185:15-1-6(d)
-    R29   OK-EXAM-8             exam_payment  -                                             DAC Sexual Assault Examination Fund page
-    R30   OK-ELIG-2             info          -                     eligible_crime          21 O.S. 142.20(B)(1)
-    R31   OK-SUBMIT-1           info          -                     submission              VCP Online Access home page, How to Apply
-    R32   OK-SUBMIT-2           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
-    R33   OK-SUBMIT-3           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
-    R34   OK-SUBMIT-4           info          -                     submission              Official Claim Form (Revised June 2019), instructions header
-    R35   OK-DOC-1              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions
-    R36   OK-DOC-2              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section I
-    R37   OK-DOC-3              info          -                     required_document       FAQ, Do I need to submit all bills with the application?
-    R38   OK-DOC-4              info          -                     required_document       Application Process, Payments
-    R39   OK-DOC-5              info          -                     required_document       Application Process, Documentation
-    R40   OK-DOC-6              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Income Loss / Economic Loss
-    R41   OK-DOC-7              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section G
-    R42   OK-DOC-8              info          -                     required_document       Official Claim Form (Revised June 2019), Section G heading
-    R43   OK-DOC-9              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Travel
-    R44   OK-DOC-10             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
-    R45   OK-DOC-11             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
-    R46   OK-DOC-12             info          -                     required_document       Eligible Expenses, Traditional American Indian Services
-    R47   OK-DOC-13             info          -                     required_document       Sexual Assault Examination Fund page
-    R48   OK-TIME-1             info          -                     processing_time         FAQ, How Long is the Process?
-    R49   OK-TIME-2             info          -                     processing_time         Application Process
-    R50   OK-TIME-3             info          -                     processing_time         Application Process, Payments
-    R51   OK-TIME-4             info          -                     processing_time         Sexual Assault Examination Fund page
-    R52   OK-ACP-1              info          -                     address_confidentiality OAG ACP page, program description
-    R53   OK-RECCONF-1          info          -                     record_confidentiality  21 O.S. 142.9(G)
-    R54   OK-CAP-4              skipped       -                     expense_cap             21 O.S. 142.13(K)  ; less generous duplicate of OK-CAP-3
+    R18   OK-COV-7              covered       prescription                                  OCVC home page, eligible expenses
+    R19   OK-EXCL-1             excluded      property_replacement                          OCVC Fund Eligibility page
+    R20   OK-DEAD-1             deadline      -                     from crime              21 O.S. 142.10(A)(1)
+    R21   OK-DEAD-2             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
+    R22   OK-DEAD-3             info          -                     filing_deadline         21 O.S. 142.10(A)(1)
+    R23   OK-RPT-1              reporting     -                                             21 O.S. 142.10(A)(4)
+    R24   OK-RPT-2              reporting     -                                             21 O.S. 142.10(C)
+    R25   OK-COLL-1             collateral    -                                             21 O.S. 142.10(B)(1)
+    R26   OK-COND-1             info          -                     conduct_reduction       21 O.S. 142.10(B)(2)
+    R27   OK-EMER-1             info          -                     emergency_award         21 O.S. 142.14
+    R28   OK-ELIG-1             info          -                     eligible_crime          OCVC Fund Eligibility page
+    R29   OK-RES-1              info          -                     residency               21 O.S. 142.3(5)(a)
+    R30   OK-EXAM-7             collateral    -                                             Okla. Admin. Code 185:15-1-6(d)
+    R31   OK-EXAM-8             exam_payment  -                                             DAC Sexual Assault Examination Fund page
+    R32   OK-ELIG-2             info          -                     eligible_crime          21 O.S. 142.20(B)(1)
+    R33   OK-SUBMIT-1           info          -                     submission              VCP Online Access home page, How to Apply
+    R34   OK-SUBMIT-2           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
+    R35   OK-SUBMIT-3           info          -                     submission              Official Claim Form (Revised June 2019), page 1 header
+    R36   OK-SUBMIT-4           info          -                     submission              Official Claim Form (Revised June 2019), instructions header
+    R37   OK-DOC-1              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions
+    R38   OK-DOC-2              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section I
+    R39   OK-DOC-3              info          -                     required_document       FAQ, Do I need to submit all bills with the application?
+    R40   OK-DOC-4              info          -                     required_document       Application Process, Payments
+    R41   OK-DOC-5              info          -                     required_document       Application Process, Documentation
+    R42   OK-DOC-6              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Income Loss / Economic Loss
+    R43   OK-DOC-7              info          -                     required_document       Official Claim Form (Revised June 2019), Instructions, Section G
+    R44   OK-DOC-8              info          -                     required_document       Official Claim Form (Revised June 2019), Section G heading
+    R45   OK-DOC-9              info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Travel
+    R46   OK-DOC-10             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
+    R47   OK-DOC-11             info          -                     required_document       Official Claim Form (Revised June 2019), Types of Expenses Covered, Future Economic Loss
+    R48   OK-DOC-12             info          -                     required_document       Eligible Expenses, Traditional American Indian Services
+    R49   OK-DOC-13             info          -                     required_document       Sexual Assault Examination Fund page
+    R50   OK-TIME-1             info          -                     processing_time         FAQ, How Long is the Process?
+    R51   OK-TIME-2             info          -                     processing_time         Application Process
+    R52   OK-TIME-3             info          -                     processing_time         Application Process, Payments
+    R53   OK-TIME-4             info          -                     processing_time         Sexual Assault Examination Fund page
+    R54   OK-ACP-1              info          -                     address_confidentiality OAG ACP page, program description
+    R55   OK-RECCONF-1          info          -                     record_confidentiality  21 O.S. 142.9(G)
+    R56   OK-CAP-4              skipped       -                     expense_cap             21 O.S. 142.13(K)  ; applies_to "a caregiver who missed work"
 
 .tags   pain_suffering=bit0
 
@@ -97,27 +99,22 @@
     P10   (OK-CAP-6)
     P11   (OK-CAP-6, OK-COLL-1, OK-EXAM-7)
     P12   (OK-EXCL-1)
-    P13   (OK-EXAM-5)
-    P14   (OK-EXAM-5, OK-COLL-1, OK-EXAM-7)
+    P13   (OK-COV-7)
+    P14   (OK-COV-7, OK-COLL-1, OK-EXAM-7)
     P15   (OK-COV-6)
     P16   (OK-COV-6, OK-COLL-1, OK-EXAM-7)
     P17   (OK-CAP-5)
     P18   (OK-CAP-5, OK-COLL-1, OK-EXAM-7)
-    P19   (OK-CAP-4)
-    P20   (OK-CAP-3)
-    P21   (OK-CAP-3, OK-COLL-1, OK-EXAM-7)
-    P22   (OK-DEAD-1)
-    P23   (OK-RPT-1, OK-RPT-2)
-    P24   (OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1)
+    P19   (OK-DEAD-1)
+    P20   (OK-RPT-1, OK-RPT-2)
+    P21   (OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-DEAD-3, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1)
 
 .ints
     K0    80000         ; $800.00
-    K1    10000         ; $100.00
-    K2    300000        ; $3,000.00
-    K3    2000000       ; $20,000.00
-    K4    750000        ; $7,500.00
-    K5    200000        ; $2,000.00
-    K6    2500000       ; $25,000.00
+    K1    300000        ; $3,000.00
+    K2    750000        ; $7,500.00
+    K3    200000        ; $2,000.00
+    K4    2500000       ; $25,000.00
 
 .item
   0000        ldi      date
@@ -147,7 +144,7 @@
                         case funeral               -> L21
                         case legal                 -> L10
                         case tuition               -> L10
-                        case other                 -> L23
+                        case other                 -> L10
                         case unknown               -> L10
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
@@ -177,7 +174,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R23              ; OK-COLL-1
+  009d        seta     collateral, R25              ; OK-COLL-1
   00a1        ret
               ; OK-CAP-2  21 O.S. 142.13(H)  "A total not to exceed Three Thousand Dollars ($3,000.00) may be..."
               ; OK-COV-4  21 O.S. 142.13(H)  "Outpatient counseling expenses for a victim of criminally..."
@@ -195,7 +192,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R23              ; OK-COLL-1
+  00c3        seta     collateral, R25              ; OK-COLL-1
   00c7        ret
               ; OK-COV-3  21 O.S. 142.13(A)  "The Crime Victims Compensation Board may compensate for work..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -212,7 +209,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R23              ; OK-COLL-1
+  00e9        seta     collateral, R25              ; OK-COLL-1
   00ed        ret
               ; OK-COV-5  OCVC home page, eligible expenses  "Mileage reimbursement for medical, dental, and counseling..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -229,7 +226,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R23              ; OK-COLL-1
+  010f        seta     collateral, R25              ; OK-COLL-1
   0113        ret
   0114  L10:  push     0
   0119        decide   unknown_rule, P0             ; (none)
@@ -249,7 +246,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R23              ; OK-COLL-1
+  013f        seta     collateral, R25              ; OK-COLL-1
   0143        ret
               ; OK-EXCL-1  OCVC Fund Eligibility page  "Pain and suffering and personal property are NOT allowable..."
   0144  L13:  push     0
@@ -272,22 +269,22 @@
   017c  L16:  push     0
   0181        decide   unknown_rule, P0             ; (none)
   0185        ret
-              ; OK-EXAM-5  21 O.S. 142.20(D)(2)  "One Hundred Dollars ($100.00) for medications which are related..."
+              ; OK-COV-7  OCVC home page, eligible expenses  "Medical, dental, and prescriptions"
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; OK-EXAM-7  Okla. Admin. Code 185:15-1-6(d)  "For sexual assault exams performed on adults and children..."
   0186  L17:  ldi      confirmed
   0188        jnz      L18
   018d        push     0
-  0192        decide   needs_confirmation, P13      ; OK-EXAM-5
+  0192        decide   needs_confirmation, P13      ; OK-COV-7
   0196        ret
   0197  L18:  ldi      amount_cents
-  0199        decide   eligible, P14                ; OK-EXAM-5, OK-COLL-1, OK-EXAM-7
+  0199        decide   eligible, P14                ; OK-COV-7, OK-COLL-1, OK-EXAM-7
   019d        lda
   019e        ldi      insurance_paid_cents
   01a0        subs
   01a1        push     0
   01a6        max
-  01a7        seta     collateral, R23              ; OK-COLL-1
+  01a7        seta     collateral, R25              ; OK-COLL-1
   01ab        ret
               ; OK-COV-6  OCVC home page, eligible expenses  "Medical, dental, and prescriptions"
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -304,7 +301,7 @@
   01c6        subs
   01c7        push     0
   01cc        max
-  01cd        seta     collateral, R23              ; OK-COLL-1
+  01cd        seta     collateral, R25              ; OK-COLL-1
   01d1        ret
               ; OK-CAP-5  21 O.S. 142.13(I)  "Reasonable funeral, cremation or burial expenses shall not..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
@@ -321,26 +318,8 @@
   01ec        subs
   01ed        push     0
   01f2        max
-  01f3        seta     collateral, R23              ; OK-COLL-1
+  01f3        seta     collateral, R25              ; OK-COLL-1
   01f7        ret
-              ; OK-CAP-3  21 O.S. 142.13(H)  "Inpatient mental health treatment will be reviewed on a..."
-              ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
-              ; OK-EXAM-7  Okla. Admin. Code 185:15-1-6(d)  "For sexual assault exams performed on adults and children..."
-  01f8  L23:  alts     P19                          ; OK-CAP-4
-  01fb        ldi      confirmed
-  01fd        jnz      L24
-  0202        push     0
-  0207        decide   needs_confirmation, P20      ; OK-CAP-3
-  020b        ret
-  020c  L24:  ldi      amount_cents
-  020e        decide   eligible, P21                ; OK-CAP-3, OK-COLL-1, OK-EXAM-7
-  0212        lda
-  0213        ldi      insurance_paid_cents
-  0215        subs
-  0216        push     0
-  021b        max
-  021c        seta     collateral, R23              ; OK-COLL-1
-  0220        ret
 
 .aggregate
               ; OK-EXAM-4  21 O.S. 142.20(D)(1)  "in no event shall the Crime Victims Compensation Board pay an..."
@@ -371,24 +350,24 @@
   0044  L2:   push     0
   0049        cap      expense_cap, R3              ; OK-EXAM-4
   004d  L3:   next     L0
-              ; OK-EXAM-5  21 O.S. 142.20(D)(2)  "One Hundred Dollars ($100.00) for medications which are related..."
+              ; OK-CAP-2  21 O.S. 142.13(H)  "A total not to exceed Three Thousand Dollars ($3,000.00) may be..."
   0052  L4:   push     0
   0057        str      r0
   0059        push     0
   005e        str      r1
-  0060        each     prescription, L9
+  0060        each     counseling, L9
   0066  L5:   ldr      r1
   0068        jnz      L7
   006d        ldr      r0
   006f        lda
   0070        adds
-  0071        ldk      K1                           ; $100.00
+  0071        ldk      K1                           ; $3,000.00
   0074        gt
   0075        jz       L6
-  007a        ldk      K1                           ; $100.00
+  007a        ldk      K1                           ; $3,000.00
   007d        ldr      r0
   007f        subs
-  0080        cap      expense_cap, R4              ; OK-EXAM-5
+  0080        cap      expense_cap, R7              ; OK-CAP-2
   0084        push     1
   0089        str      r1
   008b  L6:   ldr      r0
@@ -397,26 +376,26 @@
   008f        str      r0
   0091        jmp      L8
   0096  L7:   push     0
-  009b        cap      expense_cap, R4              ; OK-EXAM-5
+  009b        cap      expense_cap, R7              ; OK-CAP-2
   009f  L8:   next     L5
-              ; OK-CAP-2  21 O.S. 142.13(H)  "A total not to exceed Three Thousand Dollars ($3,000.00) may be..."
+              ; OK-CAP-5  21 O.S. 142.13(I)  "Reasonable funeral, cremation or burial expenses shall not..."
   00a4  L9:   push     0
   00a9        str      r0
   00ab        push     0
   00b0        str      r1
-  00b2        each     counseling, L14
+  00b2        each     funeral, L14
   00b8  L10:  ldr      r1
   00ba        jnz      L12
   00bf        ldr      r0
   00c1        lda
   00c2        adds
-  00c3        ldk      K2                           ; $3,000.00
+  00c3        ldk      K2                           ; $7,500.00
   00c6        gt
   00c7        jz       L11
-  00cc        ldk      K2                           ; $3,000.00
+  00cc        ldk      K2                           ; $7,500.00
   00cf        ldr      r0
   00d1        subs
-  00d2        cap      expense_cap, R7              ; OK-CAP-2
+  00d2        cap      expense_cap, R9              ; OK-CAP-5
   00d6        push     1
   00db        str      r1
   00dd  L11:  ldr      r0
@@ -425,26 +404,26 @@
   00e1        str      r0
   00e3        jmp      L13
   00e8  L12:  push     0
-  00ed        cap      expense_cap, R7              ; OK-CAP-2
+  00ed        cap      expense_cap, R9              ; OK-CAP-5
   00f1  L13:  next     L10
-              ; OK-CAP-3  21 O.S. 142.13(H)  "Inpatient mental health treatment will be reviewed on a..."
+              ; OK-CAP-6  21 O.S. 142.13(J)  "Reasonable costs associated with crime scene cleanup shall not..."
   00f6  L14:  push     0
   00fb        str      r0
   00fd        push     0
   0102        str      r1
-  0104        each     other, L19
+  0104        each     crime_scene_cleanup, L19
   010a  L15:  ldr      r1
   010c        jnz      L17
   0111        ldr      r0
   0113        lda
   0114        adds
-  0115        ldk      K3                           ; $20,000.00
+  0115        ldk      K3                           ; $2,000.00
   0118        gt
   0119        jz       L16
-  011e        ldk      K3                           ; $20,000.00
+  011e        ldk      K3                           ; $2,000.00
   0121        ldr      r0
   0123        subs
-  0124        cap      expense_cap, R8              ; OK-CAP-3
+  0124        cap      expense_cap, R10             ; OK-CAP-6
   0128        push     1
   012d        str      r1
   012f  L16:  ldr      r0
@@ -453,26 +432,26 @@
   0133        str      r0
   0135        jmp      L18
   013a  L17:  push     0
-  013f        cap      expense_cap, R8              ; OK-CAP-3
+  013f        cap      expense_cap, R10             ; OK-CAP-6
   0143  L18:  next     L15
-              ; OK-CAP-5  21 O.S. 142.13(I)  "Reasonable funeral, cremation or burial expenses shall not..."
+              ; OK-CAP-1  21 O.S. 142.13(B)  "Compensation payable to a victim and to all other claimants..."
   0148  L19:  push     0
   014d        str      r0
   014f        push     0
   0154        str      r1
-  0156        each     funeral, L24
+  0156        each     all, L24
   015c  L20:  ldr      r1
   015e        jnz      L22
   0163        ldr      r0
   0165        lda
   0166        adds
-  0167        ldk      K4                           ; $7,500.00
+  0167        ldk      K4                           ; $25,000.00
   016a        gt
   016b        jz       L21
-  0170        ldk      K4                           ; $7,500.00
+  0170        ldk      K4                           ; $25,000.00
   0173        ldr      r0
   0175        subs
-  0176        cap      expense_cap, R9              ; OK-CAP-5
+  0176        cap      total_cap, R6                ; OK-CAP-1
   017a        push     1
   017f        str      r1
   0181  L21:  ldr      r0
@@ -481,98 +460,45 @@
   0185        str      r0
   0187        jmp      L23
   018c  L22:  push     0
-  0191        cap      expense_cap, R9              ; OK-CAP-5
+  0191        cap      total_cap, R6                ; OK-CAP-1
   0195  L23:  next     L20
-              ; OK-CAP-6  21 O.S. 142.13(J)  "Reasonable costs associated with crime scene cleanup shall not..."
-  019a  L24:  push     0
-  019f        str      r0
-  01a1        push     0
-  01a6        str      r1
-  01a8        each     crime_scene_cleanup, L29
-  01ae  L25:  ldr      r1
-  01b0        jnz      L27
-  01b5        ldr      r0
-  01b7        lda
-  01b8        adds
-  01b9        ldk      K5                           ; $2,000.00
-  01bc        gt
-  01bd        jz       L26
-  01c2        ldk      K5                           ; $2,000.00
-  01c5        ldr      r0
-  01c7        subs
-  01c8        cap      expense_cap, R10             ; OK-CAP-6
-  01cc        push     1
-  01d1        str      r1
-  01d3  L26:  ldr      r0
-  01d5        lda
-  01d6        adds
-  01d7        str      r0
-  01d9        jmp      L28
-  01de  L27:  push     0
-  01e3        cap      expense_cap, R10             ; OK-CAP-6
-  01e7  L28:  next     L25
-              ; OK-CAP-1  21 O.S. 142.13(B)  "Compensation payable to a victim and to all other claimants..."
-  01ec  L29:  push     0
-  01f1        str      r0
-  01f3        push     0
-  01f8        str      r1
-  01fa        each     all, L34
-  0200  L30:  ldr      r1
-  0202        jnz      L32
-  0207        ldr      r0
-  0209        lda
-  020a        adds
-  020b        ldk      K6                           ; $25,000.00
-  020e        gt
-  020f        jz       L31
-  0214        ldk      K6                           ; $25,000.00
-  0217        ldr      r0
-  0219        subs
-  021a        cap      total_cap, R6                ; OK-CAP-1
-  021e        push     1
-  0223        str      r1
-  0225  L31:  ldr      r0
-  0227        lda
-  0228        adds
-  0229        str      r0
-  022b        jmp      L33
-  0230  L32:  push     0
-  0235        cap      total_cap, R6                ; OK-CAP-1
-  0239  L33:  next     L30
-  023e  L34:  push     0                            ; met
-  0243        check    minimum_loss, P0             ; (none)
+  019a  L24:  push     0                            ; met
+  019f        check    minimum_loss, P0             ; (none)
               ; OK-DEAD-1  21 O.S. 142.10(A)(1)  "Unless the claim has been filed with the Crime Victims..."
-  0247        ldx      incident_date
-  0249        push     900
-  024e        adds
-  024f        dup
-  0250        setdate
-  0251        ldx      as_of_date
-  0253        ge
-  0254        jz       L35
-  0259        push     0
-  025e        jmp      L36
-  0263  L35:  push     1                            ; late
-  0268  L36:  check    deadline, P22                ; OK-DEAD-1
+  01a3        ldx      incident_date
+  01a5        push     900
+  01aa        adds
+  01ab        dup
+  01ac        setdate
+  01ad        ldx      as_of_date
+  01af        ge
+  01b0        jz       L25
+  01b5        push     0
+  01ba        jmp      L26
+  01bf  L25:  push     1                            ; late
+  01c4  L26:  check    deadline, P19                ; OK-DEAD-1
               ; OK-RPT-1  21 O.S. 142.10(A)(4)  "such conduct was reported to a law enforcement officer within..."
               ; OK-RPT-2  21 O.S. 142.10(C)  "Victims of sexual assault who undergo a forensic medical..."
-  026c        ldx      police_report
-  026e        push     1                            ; yes
-  0273        eq
-  0274        jnz      L38
-  0279        ldx      forensic_exam
-  027b        jnz      L38
-  0280        ldx      police_report
-  0282        push     0                            ; no
-  0287        eq
-  0288        jnz      L37
-  028d        push     3
-  0292        jmp      L39
-  0297  L37:  push     1
-  029c        jmp      L39
-  02a1  L38:  push     0                            ; satisfied
-  02a6  L39:  check    reporting, P23               ; OK-RPT-1, OK-RPT-2
+  01c8        ldx      police_report
+  01ca        push     1                            ; yes
+  01cf        eq
+  01d0        jnz      L28
+  01d5        ldx      forensic_exam
+  01d7        jnz      L28
+  01dc        ldx      police_report
+  01de        push     0                            ; no
+  01e3        eq
+  01e4        jnz      L27
+  01e9        push     3
+  01ee        jmp      L29
+  01f3  L27:  push     1
+  01f8        jmp      L29
+  01fd  L28:  push     0                            ; satisfied
+  0202  L29:  check    reporting, P20               ; OK-RPT-1, OK-RPT-2
+              ; OK-EXAM-5  21 O.S. 142.20(D)(2)  "One Hundred Dollars ($100.00) for medications which are related..."
+              ; OK-CAP-3  21 O.S. 142.13(H)  "Inpatient mental health treatment will be reviewed on a..."
               ; OK-DEAD-2  21 O.S. 142.10(A)(1)  "In cases involving sexual assault of an adult eighteen (18)..."
+              ; OK-DEAD-3  21 O.S. 142.10(A)(1)  "If the victim is under a mental or cognitive disability or is a..."
               ; OK-COLL-1  21 O.S. 142.10(B)(1)  "Compensation otherwise payable to a claimant shall be diminished..."
               ; OK-COND-1  21 O.S. 142.10(B)(2)  "Of the degree of responsibility for the cause of the injury or..."
               ; OK-EMER-1  21 O.S. 142.14  "If the Board determines that the claimant will suffer financial..."
@@ -603,6 +529,6 @@
               ; OK-TIME-4  Sexual Assault Examination Fund page  "Payment is usually made within 30 days of the receipt of the..."
               ; OK-ACP-1  OAG ACP page, program description  "The ACP aids in protecting the physical address of victims of..."
               ; OK-RECCONF-1  21 O.S. 142.9(G)  "All records and information given to the Board to process a..."
-  02aa        info     P24                          ; OK-DEAD-2, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1
-  02ad        ret
+  0206        info     P21                          ; OK-EXAM-5, OK-CAP-3, OK-DEAD-2, OK-DEAD-3, OK-COLL-1, OK-COND-1, OK-EMER-1, OK-ELIG-1, OK-RES-1, OK-EXAM-7, OK-ELIG-2, OK-SUBMIT-1, OK-SUBMIT-2, OK-SUBMIT-3, OK-SUBMIT-4, OK-DOC-1, OK-DOC-2, OK-DOC-3, OK-DOC-4, OK-DOC-5, OK-DOC-6, OK-DOC-7, OK-DOC-8, OK-DOC-9, OK-DOC-10, OK-DOC-11, OK-DOC-12, OK-DOC-13, OK-TIME-1, OK-TIME-2, OK-TIME-3, OK-TIME-4, OK-ACP-1, OK-RECCONF-1
+  0209        ret
 

@@ -1,62 +1,68 @@
 ; tend law image SD, South Dakota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 21f25a578dc391727b10c37b3ed360bf0d33471f996118ab60c71100dc6ce169
-; image sha256  51b790dbd37926728b2030193e67604c4e8455aa9f473cf98d70bd552bce56ad
-; 50 rules, 10 sources, 26 proofs, 4 ints, 281 strings
-; item program: 435 instructions, 1546 bytes, max stack 2
-; aggregate program: 138 instructions, 433 bytes, max stack 2, 4 loops
+; source sha256 acb4650435bb867f6715e12227978645d6487a9d280883b96769abff750afd28
+; image sha256  4ce5479e9c270c252f007d1cd48ab45f00ba95a8e3a2afbe95c848aa451d5cd5
+; 56 rules, 10 sources, 24 proofs, 3 ints, 310 strings
+; item program: 392 instructions, 1401 bytes, max stack 2
+; aggregate program: 111 instructions, 351 bytes, max stack 2, 3 loops
 
 .rules
     R0    SD-EXAM-1             exam_payment  -                                             SDCL 22-22-26
-    R1    SD-EXAM-2             exam_no_bill  -                                             SDCL 22-22-26.2
-    R2    SD-EXAM-3             excluded      forensic_exam                                 ARSD 67:55:04:13
-    R3    SD-CAP-1              total_cap     -                                             SDCL 23A-28B-21
-    R4    SD-CAP-2              expense_cap   security              per claim               ARSD 67:55:04:12
-    R5    SD-CAP-3              expense_cap   funeral               per claim               ARSD 67:55:04:17
-    R6    SD-CAP-4              expense_cap   crime_scene_cleanup   per claim               ARSD 67:55:04:14
+    R1    SD-EXAM-4             exam_payment  -                                             SDCL 22-22-26
+    R2    SD-EXAM-2             exam_no_bill  -                                             SDCL 22-22-26.2
+    R3    SD-EXAM-3             excluded      forensic_exam                                 ARSD 67:55:04:13
+    R4    SD-CAP-1              total_cap     -                                             SDCL 23A-28B-21
+    R5    SD-CAP-2              expense_cap   security              per claim               ARSD 67:55:04:12
+    R6    SD-CAP-3              expense_cap   funeral               per claim               ARSD 67:55:04:17
     R7    SD-WAGE-1             covered       lost_wages                                    SDCL 23A-28B-20
     R8    SD-WAGE-2             covered       lost_wages                                    ARSD 67:55:04:08(1)
     R9    SD-COUNS-1            covered       counseling                                    ARSD 67:55:04:03
     R10   SD-COUNS-2            covered       counseling                                    ARSD 67:55:04:03
     R11   SD-MED-1              covered       medical                                       SDCL 23A-28B-1(9)
     R12   SD-MED-2              covered       medical                                       ARSD 67:55:04:19
-    R13   SD-TRANS-1            covered       transportation                                ARSD 67:55:04:05(5)
-    R14   SD-TRANS-2            covered       transportation                                ARSD 67:55:04:07
-    R15   SD-SEC-1              covered       security                                      SDCL 23A-28B-1(15)
-    R16   SD-CLOTH-1            covered       clothing_bedding                              SDCL 23A-28B-1(14)
-    R17   SD-CHILD-1            covered       childcare                                     ARSD 67:55:04:11
-    R18   SD-EXCL-1             excluded      -                                             ARSD 67:55:04:12
-    R19   SD-EXCL-2             excluded      -                                             SD DPS CVC page, Requirements & Limitations
-    R20   SD-EXCL-3             info          -                     excluded_expense        Primary Application Instructions, Section IX
-    R21   SD-DEAD-1             deadline      -                     from crime              SDCL 23A-28B-25(1)
-    R22   SD-REPORT-1           reporting     -                                             SDCL 23A-28B-25(1)
-    R23   SD-REPORT-2           reporting     -                                             Primary Application, Eligibility
-    R24   SD-REPORT-3           reporting     -                                             SDCL 23A-28B-25(2)(c)
-    R25   SD-COLL-1             collateral    -                                             SDCL 23A-28B-22
-    R26   SD-COLL-2             collateral    -                                             ARSD 67:55:04:13
-    R27   SD-CONDUCT-1          info          -                     conduct_reduction       SDCL 23A-28B-25(2)(a)
-    R28   SD-EMERG-1            info          -                     emergency_award         SDCL 23A-28B-27
-    R29   SD-CRIME-1            info          -                     eligible_crime          SDCL 23A-28B-1(3)
-    R30   SD-CRIME-2            info          -                     eligible_crime          SDCL 23A-28B-1(11)
-    R31   SD-CRIME-3            info          -                     eligible_crime          SDCL 23A-28B-23
-    R32   SD-RES-1              info          -                     residency               SDCL 23A-28B-2
-    R33   SD-SUBMIT-1           info          -                     submission              Primary Application (DPS-VS-694 12/17), page 9, return box
-    R34   SD-SUBMIT-2           info          -                     submission              Primary Application (DPS-VS-694 12/17), page 2, program contact block
-    R35   SD-SUBMIT-3           info          -                     submission              SD DPS Eligibility and Apply page, Apply section
-    R36   SD-DOC-1              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)
-    R37   SD-DOC-2              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)
-    R38   SD-DOC-3              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section IX (Other Expenses or Losses)
-    R39   SD-DOC-4              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)
-    R40   SD-DOC-5              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)
-    R41   SD-DOC-6              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 2, Eligibility
-    R42   SD-DOC-7              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 2, Eligibility
-    R43   SD-DOC-8              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 9, Completed applications include
-    R44   SD-DOC-9              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 9, Completed applications include
-    R45   SD-DOC-10             info          -                     required_document       Primary Application Instructions, Important Information
-    R46   SD-DOC-11             info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section III (Claimant Information)
-    R47   SD-DOC-12             info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section X (Death as a result of the Crime)
-    R48   SD-ACP-1              info          -                     address_confidentiality SDCL 12-4-9.2, as quoted on the Secretary of State Secure Active Designation page
-    R49   SD-RECORDS-1          info          -                     record_confidentiality  SDCL 23A-28B-36
+    R13   SD-TRANS-3            covered       transportation                                ARSD 67:55:04:05(2)-(4)
+    R14   SD-TRANS-1            covered       transportation                                ARSD 67:55:04:05(5)
+    R15   SD-TRANS-2            covered       transportation                                ARSD 67:55:04:07
+    R16   SD-SEC-1              covered       security                                      SDCL 23A-28B-1(15)
+    R17   SD-SEC-3              covered       security                                      ARSD 67:55:04:12
+    R18   SD-SEC-2              info          -                     excluded_expense        ARSD 67:55:04:12
+    R19   SD-CLOTH-1            covered       clothing_bedding                              SDCL 23A-28B-1(14)
+    R20   SD-CHILD-1            covered       childcare                                     ARSD 67:55:04:11
+    R21   SD-EXCL-1             excluded      -                                             ARSD 67:55:04:12
+    R22   SD-EXCL-2             excluded      -                                             SD DPS CVC page, Requirements & Limitations
+    R23   SD-EXCL-3             info          -                     excluded_expense        Primary Application Instructions, Section IX
+    R24   SD-DEAD-1             deadline      -                     from crime              SDCL 23A-28B-25(1)
+    R25   SD-REPORT-1           reporting     -                                             SDCL 23A-28B-25(1)
+    R26   SD-REPORT-2           reporting     -                                             Primary Application, Eligibility
+    R27   SD-REPORT-3           reporting     -                                             SDCL 23A-28B-25(2)(c)
+    R28   SD-COLL-1             collateral    -                                             SDCL 23A-28B-22
+    R29   SD-COLL-2             collateral    -                                             ARSD 67:55:04:13
+    R30   SD-CONDUCT-1          info          -                     conduct_reduction       SDCL 23A-28B-25(2)(a)
+    R31   SD-EMERG-1            info          -                     emergency_award         SDCL 23A-28B-27
+    R32   SD-CRIME-1            info          -                     eligible_crime          SDCL 23A-28B-1(3)
+    R33   SD-CRIME-2            info          -                     eligible_crime          SDCL 23A-28B-1(11)
+    R34   SD-CRIME-3            info          -                     eligible_crime          SDCL 23A-28B-23
+    R35   SD-RES-1              info          -                     residency               SDCL 23A-28B-2
+    R36   SD-SUBMIT-1           info          -                     submission              Primary Application (DPS-VS-694 12/17), page 9, return box
+    R37   SD-SUBMIT-2           info          -                     submission              Primary Application (DPS-VS-694 12/17), page 2, program contact block
+    R38   SD-SUBMIT-3           info          -                     submission              SD DPS Eligibility and Apply page, Apply section
+    R39   SD-DOC-1              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)
+    R40   SD-DOC-2              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VIII (Medical Bills)
+    R41   SD-DOC-3              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section IX (Other Expenses or Losses)
+    R42   SD-DOC-4              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)
+    R43   SD-DOC-5              info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section VI (Lost Wages)
+    R44   SD-DOC-6              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 2, Eligibility
+    R45   SD-DOC-7              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 2, Eligibility
+    R46   SD-DOC-8              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 9, Completed applications include
+    R47   SD-DOC-9              info          -                     required_document       Primary Application (DPS-VS-694 12/17), page 9, Completed applications include
+    R48   SD-DOC-10             info          -                     required_document       Primary Application Instructions, Important Information
+    R49   SD-DOC-11             info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section III (Claimant Information)
+    R50   SD-DOC-12             info          -                     required_document       Primary Application (DPS-VS-694 12/17), Section X (Death as a result of the Crime)
+    R51   SD-ACP-1              info          -                     address_confidentiality SDCL 12-4-9.2, as quoted on the Secretary of State Secure Active Designation page
+    R52   SD-RECORDS-1          info          -                     record_confidentiality  SDCL 23A-28B-36
+    R53   SD-CAP-5              skipped       -                     total_cap               ARSD 67:55:04:20  ; total_cap without amount
+    R54   SD-CAP-4              skipped       -                     expense_cap             ARSD 67:55:04:14  ; applies_to "homicide scene cleanup"
+    R55   SD-CAP-6              skipped       -                     expense_cap             ARSD 67:55:04:19  ; expense_cap without amount or expense
 
 .tags   phone=bit0, pain_suffering=bit1
 
@@ -74,7 +80,7 @@
 
 .proofs
     P0    ()
-    P1    (SD-EXAM-2, SD-EXAM-1)
+    P1    (SD-EXAM-2, SD-EXAM-1, SD-EXAM-4)
     P2    (SD-EXCL-1)
     P3    (SD-EXCL-2)
     P4    (SD-EXCL-1, SD-EXCL-2)
@@ -84,27 +90,24 @@
     P8    (SD-COUNS-1, SD-COUNS-2, SD-COLL-1, SD-COLL-2)
     P9    (SD-WAGE-1, SD-WAGE-2)
     P10   (SD-WAGE-1, SD-WAGE-2, SD-COLL-1, SD-COLL-2)
-    P11   (SD-TRANS-1, SD-TRANS-2)
-    P12   (SD-TRANS-1, SD-TRANS-2, SD-COLL-1, SD-COLL-2)
-    P13   (SD-CAP-2, SD-SEC-1)
-    P14   (SD-CAP-2, SD-SEC-1, SD-COLL-1, SD-COLL-2)
-    P15   (SD-CAP-4)
-    P16   (SD-CAP-4, SD-COLL-1, SD-COLL-2)
-    P17   (SD-CHILD-1)
-    P18   (SD-CHILD-1, SD-COLL-1, SD-COLL-2)
-    P19   (SD-CLOTH-1)
-    P20   (SD-CLOTH-1, SD-COLL-1, SD-COLL-2)
-    P21   (SD-CAP-3)
-    P22   (SD-CAP-3, SD-COLL-1, SD-COLL-2)
-    P23   (SD-DEAD-1)
-    P24   (SD-REPORT-1, SD-REPORT-2, SD-REPORT-3)
-    P25   (SD-EXCL-3, SD-COLL-1, SD-COLL-2, SD-CONDUCT-1, SD-EMERG-1, SD-CRIME-1, SD-CRIME-2, SD-CRIME-3, SD-RES-1, SD-SUBMIT-1, SD-SUBMIT-2, SD-SUBMIT-3, SD-DOC-1, SD-DOC-2, SD-DOC-3, SD-DOC-4, SD-DOC-5, SD-DOC-6, SD-DOC-7, SD-DOC-8, SD-DOC-9, SD-DOC-10, SD-DOC-11, SD-DOC-12, SD-ACP-1, SD-RECORDS-1)
+    P11   (SD-TRANS-3, SD-TRANS-1, SD-TRANS-2)
+    P12   (SD-TRANS-3, SD-TRANS-1, SD-TRANS-2, SD-COLL-1, SD-COLL-2)
+    P13   (SD-CAP-2, SD-SEC-1, SD-SEC-3)
+    P14   (SD-CAP-2, SD-SEC-1, SD-SEC-3, SD-COLL-1, SD-COLL-2)
+    P15   (SD-CHILD-1)
+    P16   (SD-CHILD-1, SD-COLL-1, SD-COLL-2)
+    P17   (SD-CLOTH-1)
+    P18   (SD-CLOTH-1, SD-COLL-1, SD-COLL-2)
+    P19   (SD-CAP-3)
+    P20   (SD-CAP-3, SD-COLL-1, SD-COLL-2)
+    P21   (SD-DEAD-1)
+    P22   (SD-REPORT-1, SD-REPORT-2, SD-REPORT-3)
+    P23   (SD-SEC-2, SD-EXCL-3, SD-COLL-1, SD-COLL-2, SD-CONDUCT-1, SD-EMERG-1, SD-CRIME-1, SD-CRIME-2, SD-CRIME-3, SD-RES-1, SD-SUBMIT-1, SD-SUBMIT-2, SD-SUBMIT-3, SD-DOC-1, SD-DOC-2, SD-DOC-3, SD-DOC-4, SD-DOC-5, SD-DOC-6, SD-DOC-7, SD-DOC-8, SD-DOC-9, SD-DOC-10, SD-DOC-11, SD-DOC-12, SD-ACP-1, SD-RECORDS-1)
 
 .ints
     K0    50000         ; $500.00
     K1    800000        ; $8,000.00
-    K2    150000        ; $1,500.00
-    K3    1500000       ; $15,000.00
+    K2    1500000       ; $15,000.00
 
 .item
   0000        ldi      date
@@ -125,13 +128,13 @@
                         case relocation            -> L34
                         case temporary_housing     -> L34
                         case security              -> L41
-                        case crime_scene_cleanup   -> L49
-                        case childcare             -> L57
+                        case crime_scene_cleanup   -> L34
+                        case childcare             -> L49
                         case property_replacement  -> L34
-                        case clothing_bedding      -> L65
+                        case clothing_bedding      -> L57
                         case prescription          -> L34
                         case dental                -> L34
-                        case funeral               -> L73
+                        case funeral               -> L65
                         case legal                 -> L34
                         case tuition               -> L34
                         case other                 -> L34
@@ -141,8 +144,9 @@
   0071        ret
               ; SD-EXAM-2  SDCL 22-22-26.2  "Each hospital and clinic that provides a forensic medical..."
               ; SD-EXAM-1  SDCL 22-22-26  "The county where an alleged rape or sexual offense occurred..."
+              ; SD-EXAM-4  SDCL 22-22-26  "The cost of a forensic medical examination includes: (1)..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; SD-EXAM-2, SD-EXAM-1
+  0077        decide   held, P1                     ; SD-EXAM-2, SD-EXAM-1, SD-EXAM-4
   007b        ret
               ; SD-MED-1  SDCL 23A-28B-1(9)  ""Medical expense," the cost of all medical and dental services..."
               ; SD-MED-2  ARSD 67:55:04:19  "payment for medical expenses is limited to those medical..."
@@ -195,7 +199,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R25              ; SD-COLL-1
+  0108        seta     collateral, R28              ; SD-COLL-1
   010c        ret
               ; SD-COUNS-1  ARSD 67:55:04:03  "Payment for mental health services is limited to assessment..."
               ; SD-COUNS-2  ARSD 67:55:04:03  "If the victim is a juvenile, or was a juvenile at the time of..."
@@ -248,7 +252,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R25              ; SD-COLL-1
+  0199        seta     collateral, R28              ; SD-COLL-1
   019d        ret
               ; SD-WAGE-1  SDCL 23A-28B-20  "Loss of earnings, loss of future earnings, and loss of support..."
               ; SD-WAGE-2  ARSD 67:55:04:08(1)  "Payment for lost earnings or loss of future earnings is limited..."
@@ -301,8 +305,9 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R25              ; SD-COLL-1
+  022a        seta     collateral, R28              ; SD-COLL-1
   022e        ret
+              ; SD-TRANS-3  ARSD 67:55:04:05(2)-(4)  "Mileage accrued for the victim to obtain treatment and therapy..."
               ; SD-TRANS-1  ARSD 67:55:04:05(5)  "Mileage accrued for transporting the victim to a hospital or..."
               ; SD-TRANS-2  ARSD 67:55:04:07  "Mileage is reimbursed at the rate established for state..."
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
@@ -345,16 +350,16 @@
   029a  L32:  ldi      confirmed
   029c        jnz      L33
   02a1        push     0
-  02a6        decide   needs_confirmation, P11      ; SD-TRANS-1, SD-TRANS-2
+  02a6        decide   needs_confirmation, P11      ; SD-TRANS-3, SD-TRANS-1, SD-TRANS-2
   02aa        ret
   02ab  L33:  ldi      amount_cents
-  02ad        decide   eligible, P12                ; SD-TRANS-1, SD-TRANS-2, SD-COLL-1, SD-COLL-2
+  02ad        decide   eligible, P12                ; SD-TRANS-3, SD-TRANS-1, SD-TRANS-2, SD-COLL-1, SD-COLL-2
   02b1        lda
   02b2        ldi      insurance_paid_cents
   02b4        subs
   02b5        push     0
   02ba        max
-  02bb        seta     collateral, R25              ; SD-COLL-1
+  02bb        seta     collateral, R28              ; SD-COLL-1
   02bf        ret
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
               ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
@@ -396,6 +401,7 @@
   0334        ret
               ; SD-CAP-2  ARSD 67:55:04:12  "Payment for security devices may not exceed $500, including..."
               ; SD-SEC-1  SDCL 23A-28B-1(15)  ""Security devices," the cost to repair or install locks, door..."
+              ; SD-SEC-3  ARSD 67:55:04:12  "Expenses for security devices , including digital security..."
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
               ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
               ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
@@ -436,18 +442,18 @@
   03a0  L47:  ldi      confirmed
   03a2        jnz      L48
   03a7        push     0
-  03ac        decide   needs_confirmation, P13      ; SD-CAP-2, SD-SEC-1
+  03ac        decide   needs_confirmation, P13      ; SD-CAP-2, SD-SEC-1, SD-SEC-3
   03b0        ret
   03b1  L48:  ldi      amount_cents
-  03b3        decide   eligible, P14                ; SD-CAP-2, SD-SEC-1, SD-COLL-1, SD-COLL-2
+  03b3        decide   eligible, P14                ; SD-CAP-2, SD-SEC-1, SD-SEC-3, SD-COLL-1, SD-COLL-2
   03b7        lda
   03b8        ldi      insurance_paid_cents
   03ba        subs
   03bb        push     0
   03c0        max
-  03c1        seta     collateral, R25              ; SD-COLL-1
+  03c1        seta     collateral, R28              ; SD-COLL-1
   03c5        ret
-              ; SD-CAP-4  ARSD 67:55:04:14  "Payment for homicide scene cleanup may not exceed one thousand..."
+              ; SD-CHILD-1  ARSD 67:55:04:11  "Child care expenses are payable if the parent is unable to care..."
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
               ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
               ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
@@ -488,18 +494,18 @@
   0431  L55:  ldi      confirmed
   0433        jnz      L56
   0438        push     0
-  043d        decide   needs_confirmation, P15      ; SD-CAP-4
+  043d        decide   needs_confirmation, P15      ; SD-CHILD-1
   0441        ret
   0442  L56:  ldi      amount_cents
-  0444        decide   eligible, P16                ; SD-CAP-4, SD-COLL-1, SD-COLL-2
+  0444        decide   eligible, P16                ; SD-CHILD-1, SD-COLL-1, SD-COLL-2
   0448        lda
   0449        ldi      insurance_paid_cents
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R25              ; SD-COLL-1
+  0452        seta     collateral, R28              ; SD-COLL-1
   0456        ret
-              ; SD-CHILD-1  ARSD 67:55:04:11  "Child care expenses are payable if the parent is unable to care..."
+              ; SD-CLOTH-1  SDCL 23A-28B-1(14)  ""Personal property losses," the replacement value of property..."
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
               ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
               ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
@@ -540,18 +546,18 @@
   04c2  L63:  ldi      confirmed
   04c4        jnz      L64
   04c9        push     0
-  04ce        decide   needs_confirmation, P17      ; SD-CHILD-1
+  04ce        decide   needs_confirmation, P17      ; SD-CLOTH-1
   04d2        ret
   04d3  L64:  ldi      amount_cents
-  04d5        decide   eligible, P18                ; SD-CHILD-1, SD-COLL-1, SD-COLL-2
+  04d5        decide   eligible, P18                ; SD-CLOTH-1, SD-COLL-1, SD-COLL-2
   04d9        lda
   04da        ldi      insurance_paid_cents
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R25              ; SD-COLL-1
+  04e3        seta     collateral, R28              ; SD-COLL-1
   04e7        ret
-              ; SD-CLOTH-1  SDCL 23A-28B-1(14)  ""Personal property losses," the replacement value of property..."
+              ; SD-CAP-3  ARSD 67:55:04:17  "Payment for basic funeral and burial expenses may not exceed..."
               ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
               ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
               ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
@@ -592,69 +598,17 @@
   0553  L71:  ldi      confirmed
   0555        jnz      L72
   055a        push     0
-  055f        decide   needs_confirmation, P19      ; SD-CLOTH-1
+  055f        decide   needs_confirmation, P19      ; SD-CAP-3
   0563        ret
   0564  L72:  ldi      amount_cents
-  0566        decide   eligible, P20                ; SD-CLOTH-1, SD-COLL-1, SD-COLL-2
+  0566        decide   eligible, P20                ; SD-CAP-3, SD-COLL-1, SD-COLL-2
   056a        lda
   056b        ldi      insurance_paid_cents
   056d        subs
   056e        push     0
   0573        max
-  0574        seta     collateral, R25              ; SD-COLL-1
+  0574        seta     collateral, R28              ; SD-COLL-1
   0578        ret
-              ; SD-CAP-3  ARSD 67:55:04:17  "Payment for basic funeral and burial expenses may not exceed..."
-              ; SD-EXCL-1  ARSD 67:55:04:12  "No payment may be made for cell phones, guns, or guard dogs."
-              ; SD-EXCL-2  SD DPS CVC page, Requirements & Limitations  "Compensation cannot be paid for property losses, attorney's..."
-              ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
-              ; SD-COLL-2  ARSD 67:55:04:13  "Bills for rape exams and related expenses must be submitted to..."
-  0579  L73:  push     0
-  057e        str      r0
-  0580        ldi      tags
-  0582        push     1
-  0587        and
-  0588        jz       L74
-  058d        ldr      r0
-  058f        push     1
-  0594        or
-  0595        str      r0
-  0597  L74:  ldi      tags
-  0599        push     2
-  059e        and
-  059f        jz       L75
-  05a4        ldr      r0
-  05a6        push     2
-  05ab        or
-  05ac        str      r0
-  05ae  L75:  ldr      r0
-  05b0        switch   4, default L79
-                        case 0                     -> L79
-                        case 1                     -> L76
-                        case 2                     -> L77
-                        case 3                     -> L78
-  05c6  L76:  push     0
-  05cb        decide   excluded, P2                 ; SD-EXCL-1
-  05cf        ret
-  05d0  L77:  push     0
-  05d5        decide   excluded, P3                 ; SD-EXCL-2
-  05d9        ret
-  05da  L78:  push     0
-  05df        decide   excluded, P4                 ; SD-EXCL-1, SD-EXCL-2
-  05e3        ret
-  05e4  L79:  ldi      confirmed
-  05e6        jnz      L80
-  05eb        push     0
-  05f0        decide   needs_confirmation, P21      ; SD-CAP-3
-  05f4        ret
-  05f5  L80:  ldi      amount_cents
-  05f7        decide   eligible, P22                ; SD-CAP-3, SD-COLL-1, SD-COLL-2
-  05fb        lda
-  05fc        ldi      insurance_paid_cents
-  05fe        subs
-  05ff        push     0
-  0604        max
-  0605        seta     collateral, R25              ; SD-COLL-1
-  0609        ret
 
 .aggregate
               ; SD-CAP-2  ARSD 67:55:04:12  "Payment for security devices may not exceed $500, including..."
@@ -674,7 +628,7 @@
   0028        ldk      K0                           ; $500.00
   002b        ldr      r0
   002d        subs
-  002e        cap      expense_cap, R4              ; SD-CAP-2
+  002e        cap      expense_cap, R5              ; SD-CAP-2
   0032        push     1
   0037        str      r1
   0039  L1:   ldr      r0
@@ -683,7 +637,7 @@
   003d        str      r0
   003f        jmp      L3
   0044  L2:   push     0
-  0049        cap      expense_cap, R4              ; SD-CAP-2
+  0049        cap      expense_cap, R5              ; SD-CAP-2
   004d  L3:   next     L0
               ; SD-CAP-3  ARSD 67:55:04:17  "Payment for basic funeral and burial expenses may not exceed..."
   0052  L4:   push     0
@@ -702,7 +656,7 @@
   007a        ldk      K1                           ; $8,000.00
   007d        ldr      r0
   007f        subs
-  0080        cap      expense_cap, R5              ; SD-CAP-3
+  0080        cap      expense_cap, R6              ; SD-CAP-3
   0084        push     1
   0089        str      r1
   008b  L6:   ldr      r0
@@ -711,26 +665,26 @@
   008f        str      r0
   0091        jmp      L8
   0096  L7:   push     0
-  009b        cap      expense_cap, R5              ; SD-CAP-3
+  009b        cap      expense_cap, R6              ; SD-CAP-3
   009f  L8:   next     L5
-              ; SD-CAP-4  ARSD 67:55:04:14  "Payment for homicide scene cleanup may not exceed one thousand..."
+              ; SD-CAP-1  SDCL 23A-28B-21  "Compensation granted to any claimant suffering economic loss as..."
   00a4  L9:   push     0
   00a9        str      r0
   00ab        push     0
   00b0        str      r1
-  00b2        each     crime_scene_cleanup, L14
+  00b2        each     all, L14
   00b8  L10:  ldr      r1
   00ba        jnz      L12
   00bf        ldr      r0
   00c1        lda
   00c2        adds
-  00c3        ldk      K2                           ; $1,500.00
+  00c3        ldk      K2                           ; $15,000.00
   00c6        gt
   00c7        jz       L11
-  00cc        ldk      K2                           ; $1,500.00
+  00cc        ldk      K2                           ; $15,000.00
   00cf        ldr      r0
   00d1        subs
-  00d2        cap      expense_cap, R6              ; SD-CAP-4
+  00d2        cap      total_cap, R4                ; SD-CAP-1
   00d6        push     1
   00db        str      r1
   00dd  L11:  ldr      r0
@@ -739,68 +693,41 @@
   00e1        str      r0
   00e3        jmp      L13
   00e8  L12:  push     0
-  00ed        cap      expense_cap, R6              ; SD-CAP-4
+  00ed        cap      total_cap, R4                ; SD-CAP-1
   00f1  L13:  next     L10
-              ; SD-CAP-1  SDCL 23A-28B-21  "Compensation granted to any claimant suffering economic loss as..."
-  00f6  L14:  push     0
-  00fb        str      r0
-  00fd        push     0
-  0102        str      r1
-  0104        each     all, L19
-  010a  L15:  ldr      r1
-  010c        jnz      L17
-  0111        ldr      r0
-  0113        lda
-  0114        adds
-  0115        ldk      K3                           ; $15,000.00
-  0118        gt
-  0119        jz       L16
-  011e        ldk      K3                           ; $15,000.00
-  0121        ldr      r0
-  0123        subs
-  0124        cap      total_cap, R3                ; SD-CAP-1
-  0128        push     1
-  012d        str      r1
-  012f  L16:  ldr      r0
-  0131        lda
-  0132        adds
-  0133        str      r0
-  0135        jmp      L18
-  013a  L17:  push     0
-  013f        cap      total_cap, R3                ; SD-CAP-1
-  0143  L18:  next     L15
-  0148  L19:  push     0                            ; met
-  014d        check    minimum_loss, P0             ; (none)
+  00f6  L14:  push     0                            ; met
+  00fb        check    minimum_loss, P0             ; (none)
               ; SD-DEAD-1  SDCL 23A-28B-25(1)  "Unless an application for compensation is filed with the..."
-  0151        ldx      incident_date
-  0153        push     365
-  0158        adds
-  0159        dup
-  015a        setdate
-  015b        ldx      as_of_date
-  015d        ge
-  015e        jz       L20
-  0163        push     0
-  0168        jmp      L21
-  016d  L20:  push     1                            ; late
-  0172  L21:  check    deadline, P23                ; SD-DEAD-1
+  00ff        ldx      incident_date
+  0101        push     365
+  0106        adds
+  0107        dup
+  0108        setdate
+  0109        ldx      as_of_date
+  010b        ge
+  010c        jz       L15
+  0111        push     0
+  0116        jmp      L16
+  011b  L15:  push     1                            ; late
+  0120  L16:  check    deadline, P21                ; SD-DEAD-1
               ; SD-REPORT-1  SDCL 23A-28B-25(1)  "the personal injury or death was the result of a crime which had..."
               ; SD-REPORT-2  Primary Application, Eligibility  "If the crime was not reported within 5 days of the date that it..."
               ; SD-REPORT-3  SDCL 23A-28B-25(2)(c)  "Fails or refuses to cooperate fully with any appropriate law..."
-  0176        ldx      police_report
-  0178        push     1                            ; yes
-  017d        eq
-  017e        jnz      L23
-  0183        ldx      police_report
-  0185        push     0                            ; no
-  018a        eq
-  018b        jnz      L22
-  0190        push     3
-  0195        jmp      L24
-  019a  L22:  push     1
-  019f        jmp      L24
-  01a4  L23:  push     0                            ; satisfied
-  01a9  L24:  check    reporting, P24               ; SD-REPORT-1, SD-REPORT-2, SD-REPORT-3
+  0124        ldx      police_report
+  0126        push     1                            ; yes
+  012b        eq
+  012c        jnz      L18
+  0131        ldx      police_report
+  0133        push     0                            ; no
+  0138        eq
+  0139        jnz      L17
+  013e        push     3
+  0143        jmp      L19
+  0148  L17:  push     1
+  014d        jmp      L19
+  0152  L18:  push     0                            ; satisfied
+  0157  L19:  check    reporting, P22               ; SD-REPORT-1, SD-REPORT-2, SD-REPORT-3
+              ; SD-SEC-2  ARSD 67:55:04:12  "monthly service cost , if any, of a security device installed..."
               ; SD-EXCL-3  Primary Application Instructions, Section IX  "Only clothing and bedding that was collected as evidence, and..."
               ; SD-COLL-1  SDCL 23A-28B-22  "Any award of victims' compensation made pursuant to this chapter..."
               ; SD-COLL-2  ARSD 67:55:04:13  "Bills for rape exams and related expenses must be submitted to..."
@@ -827,6 +754,6 @@
               ; SD-DOC-12  Primary Application (DPS-VS-694 12/17), Section X (Death as a result of the Crime)  "Attach a copy of Certificate of Death."
               ; SD-ACP-1  SDCL 12-4-9.2, as quoted on the Secretary of State Secure Active Designation page  "A voter record with a secured active designation shall be..."
               ; SD-RECORDS-1  SDCL 23A-28B-36  "Any record or report obtained by the department or commission..."
-  01ad        info     P25                          ; SD-EXCL-3, SD-COLL-1, SD-COLL-2, SD-CONDUCT-1, SD-EMERG-1, SD-CRIME-1, SD-CRIME-2, SD-CRIME-3, SD-RES-1, SD-SUBMIT-1, SD-SUBMIT-2, SD-SUBMIT-3, SD-DOC-1, SD-DOC-2, SD-DOC-3, SD-DOC-4, SD-DOC-5, SD-DOC-6, SD-DOC-7, SD-DOC-8, SD-DOC-9, SD-DOC-10, SD-DOC-11, SD-DOC-12, SD-ACP-1, SD-RECORDS-1
-  01b0        ret
+  015b        info     P23                          ; SD-SEC-2, SD-EXCL-3, SD-COLL-1, SD-COLL-2, SD-CONDUCT-1, SD-EMERG-1, SD-CRIME-1, SD-CRIME-2, SD-CRIME-3, SD-RES-1, SD-SUBMIT-1, SD-SUBMIT-2, SD-SUBMIT-3, SD-DOC-1, SD-DOC-2, SD-DOC-3, SD-DOC-4, SD-DOC-5, SD-DOC-6, SD-DOC-7, SD-DOC-8, SD-DOC-9, SD-DOC-10, SD-DOC-11, SD-DOC-12, SD-ACP-1, SD-RECORDS-1
+  015e        ret
 

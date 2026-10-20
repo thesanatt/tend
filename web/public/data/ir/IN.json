@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "IN",
- "source_sha256": "66ecfc7fc55f5ca7c9ae979a1ea3e2beb2a1f05ffa778e78aab9178de3c8b719",
- "ir_sha256": "ad0d975a62671594dbb8b4b36d73b97b855240862a080200aae4ee2ce40e06ee",
+ "source_sha256": "4ad88eec6ae1fea02c5150bc38f1a201855f7992a126fa876e52b2d9e8ad45fd",
+ "ir_sha256": "c765607ed13957baa2dd2d0db94d7420b90491517e1af6d1ca42a964ab9a3131",
  "fresh": true,
  "rules": [
   {
@@ -119,10 +119,25 @@
    "category": "excluded_expense"
   },
   {
+   "id": "IN-COV-9",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "IN-DEADLINE-1",
    "kind": "deadline",
    "days": 180,
    "from": "crime"
+  },
+  {
+   "id": "IN-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "IN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "IN-REPORT-1",
@@ -155,8 +170,8 @@
   {
    "id": "IN-MIN-1",
    "kind": "minimum_loss",
-   "waiver": "discretionary",
-   "waiver_for_sexual_assault": true,
+   "waiver": "none",
+   "waiver_for_sexual_assault": false,
    "cap_cents": 10000
   },
   {

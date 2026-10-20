@@ -237,20 +237,20 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "If the survivor's health coverage leaves a co-payment, coinsurance, deductible, or other cost-sharing for the exam, the Fund pays that share directly to the provider, so the survivor does not owe it.",
    "quote": "If the victim's health coverage does not cover all of the medical care provided pursuant to this section and the victim would otherwise be responsible for any co-payment, coinsurance, deductible, or other cost-sharing, the Fund shall pay the victim's share directly to the health care facility or provider.",
    "source_id": "VT-S15",
    "pinpoint": "32 V.S.A. § 1407(c)(2)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=If%20the%20victim%27s%20health%20coverage,health%20care%20facility%20or%20provider."
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=If%20the%20victim%E2%80%99s%20health%20coverage,health%20care%20facility%20or%20provider."
   },
   {
    "id": "VT-EXAM-3",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "required"
    },
    "summary": "Providers must bill the survivor's health plan, Medicaid, or Medicare for the exam first. If the survivor is uninsured or the plan denies the claim, the Fund pays Vermont providers 60 percent of billed charges and the provider may not bill the survivor for the balance.",
    "quote": "Health care facilities and health care providers shall bill the victim's health insurance plan, Medicaid, Medicare, or another health benefit plan, as applicable, for the services described in subsection (b) of this section. If the victim does not have health coverage or if the victim's health benefit plan denies the claim, the Fund shall reimburse health care facilities and health care providers located in Vermont as defined in 18 V.S.A. § 9402 at 60 percent of the billed charges for these claims, and the health care provider or facility shall not bill any balance to the crime victim.",
@@ -269,7 +269,21 @@
    "quote": "Resources are available to pay for the initial sexual assault medical examination to include: collection of evidence STI (sexually transmitted infections) and HIV screening prophylaxis pregnancy testing treatment of related injuries",
    "source_id": "VT-S6",
    "pinpoint": "CCVS Sexual Assault Program page, What is covered?",
-   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=Resources%20are%20available%20to%20pay,testing%20treatment%20of%20related%20injuries"
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=Resources%20are%20available%20to%20pay,treatment%20of%20related%20injuries"
+  },
+  {
+   "id": "VT-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "State of Vermont, for victims of crime committed in Vermont",
+    "condition": "if the crime was in Vermont"
+   },
+   "summary": "As this section describes, the State covers the costs of certain medical care for victims of a crime committed in Vermont who have no health insurance or whose insurance does not pay for all of the care.",
+   "quote": "As described in this section, the State shall cover the costs of certain medical care for victims of crime committed in this State without health insurance or whose health insurance does not pay for all of the care provided.",
+   "source_id": "VT-S15",
+   "pinpoint": "32 V.S.A. § 1407(a)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/32/017/01407#:~:text=As%20described%20in%20this%20section%2C,all%20of%20the%20care%20provided."
   },
   {
    "id": "VT-CAP-1",
@@ -334,7 +348,7 @@
    "quote": "Medical or medically related expenses may include, but are not limited to, the costs of individual or family psychological, psychiatric, or mental health counseling and the costs of replacing or repairing eyeglasses, hearing aids, dentures, or any prosthetic devices that were taken, lost, or destroyed during the commission of the crime.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5351(5)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=Medical%20or%20medically%20related%20expenses,the%20commission%20of%20the%20crime."
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=Medical%20or%20medically%20related%20expenses%20may,the%20commission%20of%20the%20crime."
   },
   {
    "id": "VT-WAGES-1",
@@ -356,7 +370,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost wages are paid at 85% of the victim's gross wages at the time of the loss.",
    "quote": "lost wages will be paid at 85% of the victim's gross wages at the time of the loss.",
@@ -455,7 +470,7 @@
    "quote": "\"Pecuniary loss\" means, in the case of a victim, the amount of medical or medically related expenses, loss of wages, and any other expenses that the Board feels became necessary as a direct result of the crime.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5351(5)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%22Pecuniary%20loss%22%20means%2C%20in%20the,direct%20result%20of%20the%20crime."
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%E2%80%9CPecuniary%20loss%E2%80%9D%20means%2C%20in%20the,direct%20result%20of%20the%20crime."
   },
   {
    "id": "VT-SEC-1",
@@ -533,6 +548,42 @@
    "fragment_url": "https://legislature.vermont.gov/statutes/section/13/151/04501#:~:text=%28a%29%20Prosecutions%20for%20aggravated%20sexual,the%20commission%20of%20the%20offense."
   },
   {
+   "id": "VT-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "Prosecution for lewd and lascivious conduct must begin within 6 years, so that is also the time limit to apply for it.",
+   "quote": "(b) Prosecutions for lewd and lascivious conduct, sexual abuse of a vulnerable adult under subsection 1379(a) of this title, grand larceny, robbery, burglary, embezzlement, forgery, bribery offenses, false claims, fraud under 33 V.S.A. § 141(d), and felony tax offenses shall be commenced within six years after the commission of the offense, and not after.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(b), read with 13 V.S.A. § 5355(b)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/13/151/04501#:~:text=%28b%29%20Prosecutions%20for%20lewd%20and,the%20offense%2C%20and%20not%20after."
+  },
+  {
+   "id": "VT-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "For lewd and lascivious conduct against a child under 18, lewd or lascivious conduct with a child, and sexual exploitation of children, prosecution must begin within 40 years. That is also the time limit to apply.",
+   "quote": "(c) Prosecutions for any of the following offenses shall be commenced within 40 years after the commission of the offense, and not after: (1) lewd and lascivious conduct alleged to have been committed against a child under 18 years of age; (2) maiming; (3) lewd or lascivious conduct with a child; (4) sexual exploitation of children under chapter 64 of this title; and (5) sexual abuse of a vulnerable adult under subsection 1379(b) of this title.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(c), read with 13 V.S.A. § 5355(b)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/13/151/04501#:~:text=%28c%29%20Prosecutions%20for%20any%20of,subsection%201379%28b%29%20of%20this%20title."
+  },
+  {
+   "id": "VT-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "For other felonies and misdemeanors, prosecution must begin within 3 years. That is also the time limit to apply.",
+   "quote": "(e) Prosecutions for other felonies and for misdemeanors shall be commenced within three years after the commission of the offense, and not after.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(e), read with 13 V.S.A. § 5355(b)(1)",
+   "fragment_url": "https://legislature.vermont.gov/statutes/section/13/151/04501#:~:text=%28e%29%20Prosecutions%20for%20other%20felonies,the%20offense%2C%20and%20not%20after."
+  },
+  {
    "id": "VT-REPORT-1",
    "category": "reporting_requirement",
    "params": {
@@ -549,15 +600,14 @@
    "category": "reporting_requirement",
    "params": {
     "required": false,
-    "alternatives": [
-     "medical_provider"
-    ]
+    "alternatives": [],
+    "scope": "the separate Sexual Assault Program"
    },
    "summary": "The separate CCVS Sexual Assault Program does not require a police report. The assault only has to be reported to a medical provider.",
    "quote": "The victim does not have to report the crime to the police to be eligible , only to a medical provider .",
    "source_id": "VT-S6",
    "pinpoint": "CCVS Sexual Assault Program page, Who is eligible?",
-   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=The%20victim%20does%20not%20have,to%20a%20medical%20provider%20."
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/sexual-assault-program#:~:text=The%20victim%20does%20not%20have,only%20to%20a%20medical%20provider."
   },
   {
    "id": "VT-COLL-1",
@@ -567,7 +617,7 @@
    "quote": "(A) that is not covered by medical, hospitalization, or disability insurance or workers' compensation",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5351(6)(A)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%28A%29%20that%20is%20not%20covered,disability%20insurance%20or%20workers%27%20compensation"
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%28A%29%20that%20is%20not%20covered,disability%20insurance%20or%20workers%E2%80%99%20compensation"
   },
   {
    "id": "VT-COLL-2",
@@ -583,11 +633,11 @@
    "id": "VT-CONDUCT-1",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "An application is denied if the victim broke a Vermont criminal law that caused or contributed to the victim's injuries.",
+   "summary": "A claim must be denied if the victim broke a Vermont criminal law that caused or helped cause the victim's injuries.",
    "quote": "(2) The victim violated a criminal law of this State that caused or contributed to the victim's injuries or death.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5355(b)(2)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%282%29%20The%20victim%20violated%20a,the%20victim%27s%20injuries%20or%20death."
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%282%29%20The%20victim%20violated%20a,the%20victim%E2%80%99s%20injuries%20or%20death."
   },
   {
    "id": "VT-EMERG-1",
@@ -607,7 +657,7 @@
    "quote": "Robbery Sexual Assault Stalking",
    "source_id": "VT-S4",
    "pinpoint": "CCVS Eligibility page, Types of crimes that may qualify",
-   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Robbery%20Sexual%20Assault%20Stalking"
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/eligibility#:~:text=Robbery,Stalking"
   },
   {
    "id": "VT-CRIME-2",
@@ -617,7 +667,7 @@
    "quote": "\"Injury\" means actual bodily harm or pregnancy, or emotional harm resulting from the crime.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5351(4)",
-   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%22Injury%22%20means%20actual%20bodily%20harm,harm%20resulting%20from%20the%20crime."
+   "fragment_url": "https://legislature.vermont.gov/statutes/fullchapter/13/167#:~:text=%E2%80%9CInjury%E2%80%9D%20means%20actual%20bodily%20harm,harm%20resulting%20from%20the%20crime."
   },
   {
    "id": "VT-RES-1",
@@ -666,7 +716,7 @@
    "quote": "The application is also available and can be downloaded in other languages, as well as in a fillable PDF version if you prefer to print and mail your application to us. ONLINE Victims Compensation Application",
    "source_id": "VT-S7",
    "pinpoint": "CCVS Application & Forms page",
-   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms#:~:text=The%20application%20is%20also%20available,us.%20ONLINE%20Victims%20Compensation%20Application"
+   "fragment_url": "https://www.ccvs.vermont.gov/victims-compensation/application-forms#:~:text=The%20application%20is%20also%20available,ONLINE%20Victims%20Compensation%20Application"
   },
   {
    "id": "VT-DOC-1",
@@ -763,7 +813,7 @@
     "covers_sexual_assault": true,
     "enroll": "Ready to apply? Apply Now Find an Applicant Assistant Some applicants find it helpful to use an Applicant Assistant. This is not a requirement to participate in the program."
    },
-   "summary": "The Secretary of State's Safe at Home program gives survivors of sexual assault, domestic violence, stalking, and human trafficking a substitute post office box address and mail forwarding, and lets them use that address on state and local government records so they are harder to locate. Survivors can apply online on the program page, on their own or with help from an Applicant Assistant at a local advocacy agency.",
+   "summary": "The Secretary of State's Safe at Home program offers an address confidentiality service and a protected records service to survivors of sexual assault, domestic violence, stalking, and human trafficking. You can apply online on the program page, on your own or with help from an Applicant Assistant at a local advocacy agency.",
    "quote": "Safe at Home provides an address confidentiality service and a protected records service. The program serves survivors of domestic violence, sexual assault, stalking, human trafficking, providers of legally protected healthcare (reproductive and gender-affirming care), and patients of legally protected healthcare.",
    "source_id": "VT-S19",
    "pinpoint": "Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160",

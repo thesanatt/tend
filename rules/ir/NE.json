@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "cbe76153dd8e4a957913c1b63d0fe3163823f55580e6f41697008b7ab0899dca",
+ "source_sha256": "dc0d922963a21cd79f29094c700e8261f118c47b12df807ed4b8425b3a392560",
  "rules": [
   {
    "id": "NE-EXAM-1",
@@ -109,6 +109,16 @@
    "from": "crime"
   },
   {
+   "id": "NE-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "NE-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "NE-REP-1",
    "kind": "reporting",
    "required": true,
@@ -118,12 +128,17 @@
   {
    "id": "NE-REP-2",
    "kind": "reporting",
-   "required": false,
+   "required": true,
    "alternatives": [
     "forensic_exam",
     "other",
     "protective_order"
    ]
+  },
+  {
+   "id": "NE-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NE-COLL-1",
@@ -244,5 +259,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NE-CAP-6",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  }
+ ]
 }

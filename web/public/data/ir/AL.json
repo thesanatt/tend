@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AL",
- "source_sha256": "c5d5c095f55d50ab79e9bd1f047d12394779af8712e6326216e23ea20467fb5b",
- "ir_sha256": "8aac9d41cfa9dd84ebb317f9f3644cc7e2891f3c4f6ac65efa8b0689438b256e",
+ "source_sha256": "a6c5f1aacf924da33a32fcf031005d6d8e743537ce161212ce0b8959cd2449b3",
+ "ir_sha256": "2f2cfed77bc14c191a292d0a960bb092ba2ef0a8d29929a42c654c43963dbdc2",
  "fresh": true,
  "rules": [
   {
@@ -90,6 +90,11 @@
    "expense": "medical"
   },
   {
+   "id": "AL-CAP-MED-UNPAID",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
    "id": "AL-COV-HIV",
    "kind": "covered",
    "expense": "prescription"
@@ -140,7 +145,8 @@
    "id": "AL-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AL-REPORT-2",
@@ -305,6 +311,11 @@
  "skipped": [
   {
    "id": "AL-CAP-COUNS-MINOR",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "AL-CAP-HIV-INS",
    "category": "expense_cap",
    "reason": "expense_cap without amount or expense"
   }

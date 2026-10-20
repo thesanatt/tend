@@ -17,7 +17,7 @@
    "field_count": 138
   }
  },
- "source_sha256": "dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6",
+ "source_sha256": "edcf36eaaf5b82b9d2c46229480b9d1377666ea4bc41851a4d87afdf115c9589",
  "rules": [
   {
    "id": "FL-EXAM-1",
@@ -51,15 +51,19 @@
    "per": "claim"
   },
   {
-   "id": "FL-CAP-4",
+   "id": "FL-CAP-3",
    "kind": "expense_cap",
    "expense": "counseling",
-   "cap_cents": 1000000,
+   "cap_cents": 500000,
    "per": "claim",
    "alt_rule_ids": [
-    "FL-CAP-3",
     "FL-CAP-8"
    ]
+  },
+  {
+   "id": "FL-CAP-4",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "FL-CAP-5",
@@ -113,6 +117,11 @@
    "expense": "relocation"
   },
   {
+   "id": "FL-COV-7",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
    "id": "FL-EXC-1",
    "kind": "excluded",
    "tags": [
@@ -132,7 +141,27 @@
    "from": "crime"
   },
   {
+   "id": "FL-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-DEADLINE-7",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "FL-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-DEADLINE-4",
    "kind": "info",
    "category": "filing_deadline"
   },
@@ -150,8 +179,18 @@
    "alternatives": []
   },
   {
+   "id": "FL-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "FL-COLLATERAL-1",
    "kind": "collateral"
+  },
+  {
+   "id": "FL-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
   },
   {
    "id": "FL-CONDUCT-1",
@@ -276,14 +315,24 @@
  ],
  "skipped": [
   {
-   "id": "FL-CAP-3",
+   "id": "FL-CAP-9",
    "category": "expense_cap",
-   "reason": "less generous duplicate of FL-CAP-4"
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "FL-CAP-10",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "FL-CAP-11",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
   },
   {
    "id": "FL-CAP-8",
    "category": "expense_cap",
-   "reason": "less generous duplicate of FL-CAP-4"
+   "reason": "less generous duplicate of FL-CAP-3"
   }
  ]
 }

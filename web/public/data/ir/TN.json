@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "TN",
- "source_sha256": "f8c8f2645393c59b6918469db05b6ddc8e11185140ba2187926b8ae4f1883d24",
- "ir_sha256": "30546cd8351e67c646e0a1eb475d3d8986c701560e0778558ba831841c104d71",
+ "source_sha256": "36c9ca02a293a677c9216ee0205e1585a9534273aa9ae07bb30eb60a9673792d",
+ "ir_sha256": "f0058e32692eff30cc6061854a31810c8a172abaef48611e2bf8b9c22a9f8b2f",
  "fresh": true,
  "rules": [
   {
@@ -43,6 +43,11 @@
    "expense": "other",
    "cap_cents": 300000,
    "per": "claim"
+  },
+  {
+   "id": "TN-COUNS-3",
+   "kind": "covered",
+   "expense": "counseling"
   },
   {
    "id": "TN-MED-1",
@@ -104,6 +109,11 @@
    "expense": "property_replacement"
   },
   {
+   "id": "TN-PROP-3",
+   "kind": "covered",
+   "expense": "property_replacement"
+  },
+  {
    "id": "TN-EXCL-1",
    "kind": "info",
    "category": "excluded_expense"
@@ -118,6 +128,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "TN-FILE-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "TN-REPORT-1",

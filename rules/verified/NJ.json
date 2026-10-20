@@ -240,6 +240,18 @@
    "fragment_url": "https://law.justia.com/codes/new-jersey/title-52/section-52-4b-18/#:~:text=compensation%20shall%20not%20be%20awarded,amount%20in%20excess%20of%20%2425%2C000"
   },
   {
+   "id": "NJ-CAP-2",
+   "category": "total_cap",
+   "params": {
+    "amount_cents": 2500000,
+    "exception": "or more in cases the program finds catastrophic"
+   },
+   "summary": "Except in cases the program finds catastrophic, no award can be more than $25,000.",
+   "quote": "Except for cases determined to be catastrophic in nature, no compensation shall be awarded in an amount in excess of $ 25,000.",
+   "source_id": "NJ-S9",
+   "pinpoint": "N.J.A.C. 13:75-4.1(g)"
+  },
+  {
    "id": "NJ-COUNSEL-1",
    "category": "expense_cap",
    "expense": "counseling",
@@ -469,7 +481,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "detail": true
    },
    "summary": "As part of crime scene clean-up, the Office may pay the reasonable replacement value of bedding and clothing.",
    "quote": "The Office may award compensation for the reasonable replacement value of bedding and clothing;",
@@ -504,7 +517,7 @@
    "params": {
     "years": 5,
     "from": "crime",
-    "extension": "good cause for delayed filing"
+    "extension": "or later if the program finds good cause for the delay"
    },
    "summary": "Apply within 5 years of the injury, or later if the Office finds good cause for the delay.",
    "quote": "unless the application has been made within five years after the date of the personal injury or death or after that date upon determination by the office that good cause exists for the delayed filing",
@@ -543,7 +556,9 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": []
+    "alternatives": [],
+    "within_months": 9,
+    "exception": "counted from the crime or from when it was reasonably discovered"
    },
    "summary": "The crime must have been reported to police or another law enforcement agency within 9 months of when it happened or was reasonably discovered.",
    "quote": "which had been reported to the police or other appropriate law enforcement agency within nine months after its occurrence or reasonable discovery",
@@ -556,7 +571,8 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": []
+    "alternatives": [],
+    "exception": "or later for good cause"
    },
    "summary": "The Office can excuse a late police report for good cause.",
    "quote": "The Office reserves the right to, upon determination that good cause exists for the delayed filing, make an exception to the requirement that the incident be reported to the police within the stated time period.",
@@ -574,6 +590,20 @@
    "quote": "Victims shall be informed that VCCO benefits are only eligible to those victims who report the crime to law enforcement.",
    "source_id": "NJ-S13",
    "pinpoint": "AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam"
+  },
+  {
+   "id": "NJ-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program will not pay if the victim did not cooperate with reasonable requests from law enforcement. A compelling health or safety reason for not cooperating is the exception.",
+   "quote": "No compensation shall be awarded if: a. Compensation to the victim proves to be substantial unjust enrichment to the offender or if the victim did not cooperate with the reasonable requests of law enforcement authorities unless the victim demonstrates a compelling health or safety reason for not cooperating",
+   "source_id": "NJ-S10",
+   "pinpoint": "N.J.S.A. 52:4B-18a.",
+   "fragment_url": "https://law.justia.com/codes/new-jersey/title-52/section-52-4b-18/#:~:text=No%20compensation%20shall%20be%20awarded,safety%20reason%20for%20not%20cooperating"
   },
   {
    "id": "NJ-MINLOSS-1",
@@ -676,7 +706,7 @@
    "quote": "For applications and submission of documents, you may: File online @ www.njvictims.org",
    "source_id": "NJ-S6",
    "pinpoint": "NJ VCCO Contact page, applications and submission of documents",
-   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=For%20applications%20and%20submission%20of,may%3A%20File%20online%20%40%20www.njvictims.org"
+   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=For%20applications%20and%20submission%20of,File%20online%20%40%20www.njvictims.org"
   },
   {
    "id": "NJ-SUB-2",
@@ -830,7 +860,7 @@
     "covers_sexual_assault": true,
     "enroll": "Each applicant shall complete an application, which may be obtained from a local domestic violence program, sexual violence agency, or other agencies, as designated by the Division on Women. Information about how to contact the aforementioned programs can be obtained by contacting the New Jersey Address Confidentiality Program at 1-877-218-9133."
    },
-   "summary": "New Jersey's Address Confidentiality Program, run by the Division on Women in the Department of Children and Families, gives victims of domestic violence, stalking and sexual assault a substitute mailing address that public agencies must accept, so public records do not reveal where they live.",
+   "summary": "New Jersey's Address Confidentiality Program, run by the Division on Women in the Department of Children and Families, is meant to keep the addresses of victims of domestic violence, stalking and sexual assault confidential. The law lets public agencies accept a program participant's substitute mailing address.",
    "quote": "to enable interagency cooperation with the Director of the Division on Women in the Department of Children and Families in providing address confidentiality for victims of domestic violence, stalking, and sexual assault, and reproductive health service patients and providers, and to enable public agencies to accept a program participant's use of an address designated by the director as a substitute mailing address.",
    "source_id": "NJ-S22",
    "pinpoint": "N.J.S.A. 47:4-2",

@@ -1,7 +1,7 @@
 ; tend law image AK, Alaska
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 2849e46f17a18c0fc91d9474145cab264be08c3be1491fde4674448bae38f1dd
-; image sha256  d6da269f7305d77429d176fb2adba59af843997718c9b88003e274856aee2960
+; source sha256 1431c091977d124923e3bc557e404931ac6fe1599e0adbca68691e3176218808
+; image sha256  ba538dc77e33a73ec473f0af13f8e07e6cd4eccc04f3c52340b6c033b5995ed5
 ; 56 rules, 10 sources, 31 proofs, 11 ints, 300 strings
 ; item program: 189 instructions, 596 bytes, max stack 2
 ; aggregate program: 353 instructions, 1080 bytes, max stack 3, 12 loops
@@ -16,7 +16,7 @@
     R6    AK-DEADLINE-2         deadline      -                     from crime              VCCB home page, When to request compensation?
     R7    AK-REPORT-1           reporting     -                                             AS 18.67.130(a)(2)
     R8    AK-REPORT-2           reporting     -                                             AS 18.67.130(a)(3)
-    R9    AK-REPORT-3           reporting     -                                             AS 18.67.080(d)
+    R9    AK-REPORT-3           info          -                     reporting_requirement   AS 18.67.080(d)
     R10   AK-COLL-1             collateral    -                                             AS 18.67.090(a)
     R11   AK-COLL-2             collateral    -                                             VCCB Billing and Payments
     R12   AK-CONDUCT-1          info          -                     conduct_reduction       AS 18.67.080(c)
@@ -106,8 +106,8 @@
     P26   (AK-RENT-1)
     P27   (AK-RENT-1, AK-COLL-1, AK-COLL-2)
     P28   (AK-DEADLINE-1, AK-DEADLINE-2)
-    P29   (AK-REPORT-1, AK-REPORT-2, AK-REPORT-3)
-    P30   (AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1)
+    P29   (AK-REPORT-1, AK-REPORT-2)
+    P30   (AK-ELIG-1, AK-RES-1, AK-REPORT-3, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1)
 
 .ints
     K0    20000         ; $200.00
@@ -732,7 +732,6 @@
   03f9  L61:  check    deadline, P28                ; AK-DEADLINE-1, AK-DEADLINE-2
               ; AK-REPORT-1  AS 18.67.130(a)(2)  "the personal injury or death was the result of an incident or..."
               ; AK-REPORT-2  AS 18.67.130(a)(3)  "in the discretion of the board, the applicant has cooperated..."
-              ; AK-REPORT-3  AS 18.67.080(d)  "An order may be made under this section whether or not a person..."
   03fd        ldx      police_report
   03ff        push     1                            ; yes
   0404        eq
@@ -746,9 +745,10 @@
   0421  L62:  push     1
   0426        jmp      L64
   042b  L63:  push     0                            ; satisfied
-  0430  L64:  check    reporting, P29               ; AK-REPORT-1, AK-REPORT-2, AK-REPORT-3
+  0430  L64:  check    reporting, P29               ; AK-REPORT-1, AK-REPORT-2
               ; AK-ELIG-1  AS 18.67.101(2)(F)-(G)  "(F) sexual assault in any degree; (G) sexual abuse of a minor;"
               ; AK-RES-1  VCCB Application, Claim Application and Instructions, eligibility requirements  "The crime occurred in Alaska."
+              ; AK-REPORT-3  AS 18.67.080(d)  "An order may be made under this section whether or not a person..."
               ; AK-COLL-1  AS 18.67.090(a)  "the board may award compensation for losses and expenses..."
               ; AK-COLL-2  VCCB Billing and Payments  "VCCB is a payor of last resort."
               ; AK-CONDUCT-1  AS 18.67.080(c)  "In determining whether to make an order under this section, the..."
@@ -773,6 +773,6 @@
               ; AK-DOC-10  VCCB Application page, Additional Forms, Rental Assistance  "Request for Rental Assistance must be filled out along with..."
               ; AK-ACP-1  AS 44.21.022(b)(2) to (c)(1), enacted by sec. 75 of Chapter 9 SLA 26 (HB 239), effective July 1, 2026 under sec. 94; agencies must accept the address under AS 44.21.022(e)  "(2) designate a post office box as a substitute mailing address..."
               ; AK-RECORDS-1  AS 18.67.030(c)  "An application for compensation and personally identifying..."
-  0434        info     P30                          ; AK-ELIG-1, AK-RES-1, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1
+  0434        info     P30                          ; AK-ELIG-1, AK-RES-1, AK-REPORT-3, AK-COLL-1, AK-COLL-2, AK-CONDUCT-1, AK-CONDUCT-2, AK-CONDUCT-3, AK-EMERG-1, AK-WAGES-2, AK-EXCL-1, AK-SUBMIT-1, AK-SUBMIT-2, AK-SUBMIT-3, AK-SUBMIT-4, AK-DOC-1, AK-DOC-2, AK-DOC-3, AK-DOC-4, AK-DOC-5, AK-DOC-6, AK-DOC-7, AK-DOC-8, AK-DOC-9, AK-DOC-10, AK-ACP-1, AK-RECORDS-1
   0437        ret
 

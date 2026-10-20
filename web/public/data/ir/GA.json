@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "GA",
- "source_sha256": "b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8",
- "ir_sha256": "60a4673c1380f4a904de0674f935e241e5feb171ad29208e95494ef722e93b46",
+ "source_sha256": "22f0e6e5836b8980d17e2ac032faa7c29f4dfaf925fd0e5bd6e1bf2b80b19a9f",
+ "ir_sha256": "0bbd064c1bd67ea8665840d9265a644d6216c33bf1cc1e3838f5c0dc440d1349",
  "fresh": true,
  "rules": [
   {
@@ -12,10 +12,6 @@
   {
    "id": "GA-EXAM-2",
    "kind": "exam_payment"
-  },
-  {
-   "id": "GA-EXAM-3",
-   "kind": "exam_no_bill"
   },
   {
    "id": "GA-EXAM-4",
@@ -30,6 +26,10 @@
   },
   {
    "id": "GA-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "GA-EXAM-7",
    "kind": "exam_payment"
   },
   {
@@ -93,6 +93,11 @@
    "expense": "counseling"
   },
   {
+   "id": "GA-COV-COUNS-2",
+   "kind": "covered",
+   "expense": "counseling"
+  },
+  {
    "id": "GA-COV-WAGES",
    "kind": "covered",
    "expense": "lost_wages"
@@ -130,7 +135,8 @@
    "id": "GA-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "GA-REPORT-2",
@@ -282,5 +288,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "GA-EXAM-3",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"exam costs above the $1,000 limit\""
+  }
+ ]
 }

@@ -17,7 +17,7 @@
    "field_count": 207
   }
  },
- "source_sha256": "2d7d1307f1a948cea8af46d94c8d999bfe48b8ee6bbfc66a11afa3ed79329497",
+ "source_sha256": "d069e20df87d523925304bcd661437f305e6a6f44a8dd2cd8c85eb02497b01fb",
  "rules": [
   {
    "id": "CA-EXAM-1",
@@ -56,6 +56,11 @@
    "expense": "relocation",
    "cap_cents": 341800,
    "per": "claim"
+  },
+  {
+   "id": "CA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
   },
   {
    "id": "CA-SECURITY-1",
@@ -101,6 +106,11 @@
    "kind": "deadline",
    "days": 2556,
    "from": "discovery"
+  },
+  {
+   "id": "CA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "CA-REPORT-1",

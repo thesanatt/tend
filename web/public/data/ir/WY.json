@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WY",
- "source_sha256": "047a61a66c768f24553908d6abaa5d2832ee3428a3925e31a0f1c261a9cbd338",
- "ir_sha256": "82f486605b9115e4fc755571c01ecbdc4548ef3d15b93de39ff22bab40522917",
+ "source_sha256": "3ce69094399e54abc053df63d9f901265aa8a8b4ea0f22f4d88857b941d6a95d",
+ "ir_sha256": "99ae336583222e870d1ab26b3aff87f861da4a9c901de94ce1729d739c72fc7b",
  "fresh": true,
  "rules": [
   {
@@ -159,6 +159,11 @@
    "category": "excluded_expense"
   },
   {
+   "id": "WY-EXC-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "WY-DEAD-1",
    "kind": "deadline",
    "days": 365,
@@ -169,6 +174,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "WY-REP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "WY-REP-3",
@@ -291,14 +301,14 @@
    "reason": "applies_to \"exams reported to law enforcement\""
   },
   {
+   "id": "WY-CAP-10",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
+  {
    "id": "WY-CAP-3",
    "category": "expense_cap",
    "reason": "applies_to \"associated_victims\""
-  },
-  {
-   "id": "WY-REP-2",
-   "category": "reporting_requirement",
-   "reason": "applies_to \"mental health counseling only\""
   },
   {
    "id": "WY-CAP-9",

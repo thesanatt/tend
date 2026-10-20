@@ -187,8 +187,8 @@ describe("scripts/sync-rules.mjs", () => {
     const list = JSON.parse(readFileSync(path.join(out, "jurisdictions.json"), "utf8")) as Record<string, unknown>[];
     expect(list).toHaveLength(51);
     const mi = list.find((j) => j.st === "MI")!;
-    expect(mi).toMatchObject({ rules: 83, sources: 23, ir_fresh: true, set_aside: 3 });
-    expect((mi.decision_rules as number) + (mi.info_rules as number)).toBe(80);
+    expect(mi).toMatchObject({ rules: 85, sources: 23, ir_fresh: true, set_aside: 3 });
+    expect((mi.decision_rules as number) + (mi.info_rules as number)).toBe(82);
     expect(list.find((j) => j.st === "NY")).toMatchObject({ ir_fresh: false });
     expect(list.find((j) => j.st === "OH")).toEqual({ st: "OH", name: "Ohio", rules: 0, sources: 0 });
   });

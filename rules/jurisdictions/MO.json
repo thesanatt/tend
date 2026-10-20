@@ -260,7 +260,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "allowed"
+        "insurance_billing": "allowed",
+        "detail": true
       },
       "summary": "The state SAFE program pays first for the sexual assault forensic exam and no forensic fees may be billed to the patient. The program says health insurance may be billed as a secondary payer. SAFE does not cover medical treatment.",
       "quote": "While SAFE is the \"payor of first resort\" for these fees, health insurance carriers may be billed secondary. NO forensic fees may be billed to the patient. However, the SAFE program does not cover any medical treatment that may be required due to the sexual assault.",
@@ -278,6 +279,19 @@
       "quote": "All appropriate medical provider charges for eligible forensic examinations shall be billed to and paid by the department of public safety. No appropriate medical provider conducting forensic examinations and providing medical treatment to victims of sexual offenses shall charge the victim for the forensic examination.",
       "source_id": "MO-S14",
       "pinpoint": "RSMo 595.220.6"
+    },
+    {
+      "id": "MO-EXAM-3",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Missouri Department of Public Safety SAFE Program, for sexual crimes in Missouri",
+        "condition": "if the crime was in Missouri"
+      },
+      "summary": "The SAFE program pays for collecting and keeping evidence during the forensic exam. It is for victims of sexual crimes that happened in Missouri.",
+      "quote": "The Sexual Assault Forensic Examination (SAFE) Program covers the cost of gathering, collecting and preserving evidence during the forensic examination for victims of sexual crimes that occurred in Missouri.",
+      "source_id": "MO-S1",
+      "pinpoint": "Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section"
     },
     {
       "id": "MO-MED-1",
@@ -447,7 +461,7 @@
       "params": {
         "years": 2,
         "from": "crime",
-        "extension": "or two years from discovery of the crime"
+        "extension": "or within 2 years of when the crime was discovered"
       },
       "summary": "A claim must be filed within two years after the crime or after the crime was discovered.",
       "quote": "A claim shall be filed not later than two years after the occurrence of the crime or the discovery of the crime upon which it is based.",
@@ -465,7 +479,7 @@
           "medical_provider"
         ]
       },
-      "summary": "The crime must be reported to proper authorities, but for a sexual offense that can include the medical provider filing the forensic exam report with the county prosecutor, simply receiving a forensic exam, or getting an order of protection. No police-report time limit was found in the statute.",
+      "summary": "For a sexual offense, reporting the crime to the proper authorities can include several things. One is the medical provider sending the forensic exam report to the county prosecutor. Others are getting a forensic exam or getting an order of protection.",
       "quote": "In the case of a sexual offense, filing a report of the offense to the proper authorities may include, but not be limited to, the filing of the report of the forensic examination by the appropriate medical provider, as defined in section 595.220 , with the prosecuting attorney of the county in which the alleged incident occurred, receiving a forensic examination, or securing an order of protection.",
       "source_id": "MO-S12",
       "pinpoint": "RSMo 595.030.1"
@@ -485,10 +499,23 @@
       "pinpoint": "RSMo 595.030.1"
     },
     {
+      "id": "MO-REP-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "To be eligible, you must cooperate with law enforcement in catching the offender, unless the department finds you had good cause not to.",
+      "quote": "The claimant, victim or dependent shall cooperate with law enforcement officials in the apprehension of the offender in order to be eligible, or the department has found that the failure to cooperate was for good cause.",
+      "source_id": "MO-S9",
+      "pinpoint": "RSMo 595.015.4"
+    },
+    {
       "id": "MO-COLL-1",
       "category": "collateral_source",
       "params": {},
-      "summary": "The fund is a payor of last resort: awards are reduced by payments from the offender, public or private insurance (not life insurance), and other public or private funds.",
+      "summary": "An award is reduced by payments, benefits, or awards received or to be received because of the injury or death. Life insurance proceeds do not count.",
       "quote": "any compensation paid pursuant to sections 595.010 to 595.075 shall be reduced by the amount of any payments, benefits or awards received or to be received as a result of the injury or death",
       "source_id": "MO-S13",
       "pinpoint": "RSMo 595.035.2"

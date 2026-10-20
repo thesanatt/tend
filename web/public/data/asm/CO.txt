@@ -1,8 +1,8 @@
 ; tend law image CO, Colorado
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 4ba52aedd7ecdec6f748bb32e86de240f91ab711ac57bdda5230575598bd7a8e
-; image sha256  10e6eed0eb07c1b7ee9ec05dbca17231c1a74aed2f47917c4153e1b3091458ca
-; 34 rules, 18 sources, 23 proofs, 1 ints, 240 strings
+; source sha256 358983c1edff748577f021ef024c1eff23754d44862ae1112ce7ffd81cfda16b
+; image sha256  21f1063dfb483867ed9a03372a04adea7779deb614b83b1e5a08a85e0b03a6b0
+; 38 rules, 18 sources, 23 proofs, 1 ints, 260 strings
 ; item program: 392 instructions, 1401 bytes, max stack 2
 ; aggregate program: 49 instructions, 166 bytes, max stack 2, 1 loops
 
@@ -13,34 +13,38 @@
     R3    CO-EXAM-4             exam_payment  -                                             C.R.S. 18-3-407.7(2)(a)
     R4    CO-EXAM-5             exam_payment  -                                             DCJ SAVE program page, Eligibility
     R5    CO-EXAM-6             exam_payment  -                                             DCJ SAVE program page, How Are Medical Forensic Exams Paid For
-    R6    CO-CAP-1              total_cap     -                                             C.R.S. 24-4.1-109(2)(b)
-    R7    CO-COV-1              covered       medical                                       C.R.S. 24-4.1-109(1)(a)
-    R8    CO-COV-2              covered       lost_wages                                    C.R.S. 24-4.1-109(1)(b)
-    R9    CO-COV-3              covered       counseling                                    C.R.S. 24-4.1-109(1)(g)
-    R10   CO-COV-4              covered       transportation                                C.R.S. 24-4.1-109(1)(i)
-    R11   CO-COV-5              covered       relocation                                    C.R.S. 24-4.1-109(1)(l)
-    R12   CO-COV-6              covered       childcare                                     C.R.S. 24-4.1-109(1)(k)
-    R13   CO-COV-7              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(II)
-    R14   CO-COV-8              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(III)
-    R15   CO-COV-9              covered       funeral                                       C.R.S. 24-4.1-109(1)(e)
-    R16   CO-EXC-1              excluded      -                                             C.R.S. 24-4.1-109(2)(a)
-    R17   CO-EXC-2              excluded      -                                             C.R.S. 24-4.1-109(2)(d)
-    R18   CO-REPORT-1           reporting     -                                             C.R.S. 24-4.1-108(1)(b)
-    R19   CO-COLL-1             collateral    -                                             C.R.S. 24-4.1-110(2)
-    R20   CO-COND-1             info          -                     conduct_reduction       C.R.S. 24-4.1-108(1)(e)
-    R21   CO-EMERG-1            info          -                     emergency_award         C.R.S. 24-4.1-112(1)
-    R22   CO-CRIME-1            info          -                     eligible_crime          C.R.S. 24-4.1-302(1)(n)
-    R23   CO-RES-1              info          -                     residency               C.R.S. 24-4.1-102(10)(c)
-    R24   CO-SUBMIT-1           info          -                     submission              DCJ How to File a Claim page, How to File a Claim section
-    R25   CO-DOC-APP            info          -                     required_document       State application, instructions above Section 1
-    R26   CO-DOC-BILLS          info          -                     required_document       State application, end of Section 3
-    R27   CO-DOC-BILLS-2        info          -                     required_document       DCJ How to File a Claim page, How to File a Claim section
-    R28   CO-DOC-RECEIPTS       info          -                     required_document       State application, General Information item 5
-    R29   CO-DOC-INSURANCE      info          -                     required_document       State application, Section 5 (Insurance Information)
-    R30   CO-DOC-CIVIL          info          -                     required_document       State application, Section 6 (Civil Lawsuit) note
-    R31   CO-TIME-1             info          -                     processing_time         DCJ How to File a Claim page, How to File a Claim section
-    R32   CO-ACP-1              info          -                     address_confidentiality DCS Address Confidentiality Program (ACP) page, introduction
-    R33   CO-RECORDS-1          info          -                     record_confidentiality  C.R.S. 24-4.1-107.5(2)
+    R6    CO-EXAM-9             exam_payment  -                                             DCJ SAVE program page, How Are Medical Forensic Exams Paid For
+    R7    CO-CAP-1              total_cap     -                                             C.R.S. 24-4.1-109(2)(b)
+    R8    CO-COV-1              covered       medical                                       C.R.S. 24-4.1-109(1)(a)
+    R9    CO-COV-2              covered       lost_wages                                    C.R.S. 24-4.1-109(1)(b)
+    R10   CO-COV-3              covered       counseling                                    C.R.S. 24-4.1-109(1)(g)
+    R11   CO-COV-4              covered       transportation                                C.R.S. 24-4.1-109(1)(i)
+    R12   CO-COV-5              covered       relocation                                    C.R.S. 24-4.1-109(1)(l)
+    R13   CO-COV-6              covered       childcare                                     C.R.S. 24-4.1-109(1)(k)
+    R14   CO-COV-7              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(II)
+    R15   CO-COV-8              covered       security                                      C.R.S. 24-4.1-109(1.5)(a)(III)
+    R16   CO-COV-9              covered       funeral                                       C.R.S. 24-4.1-109(1)(e)
+    R17   CO-EXC-1              excluded      -                                             C.R.S. 24-4.1-109(2)(a)
+    R18   CO-EXC-2              excluded      -                                             C.R.S. 24-4.1-109(2)(d)
+    R19   CO-REPORT-1           reporting     -                                             C.R.S. 24-4.1-108(1)(b)
+    R20   CO-REPORT-2           info          -                     reporting_requirement   C.R.S. 24-4.1-108(1.5)(b)
+    R21   CO-COOP-1             info          -                     reporting_requirement   C.R.S. 24-4.1-108(1)(c)
+    R22   CO-DEADLINE-1         info          -                     filing_deadline         C.R.S. 24-4.1-108(1.5)(d)
+    R23   CO-COLL-1             collateral    -                                             C.R.S. 24-4.1-110(2)
+    R24   CO-COND-1             info          -                     conduct_reduction       C.R.S. 24-4.1-108(1)(e)
+    R25   CO-EMERG-1            info          -                     emergency_award         C.R.S. 24-4.1-112(1)
+    R26   CO-CRIME-1            info          -                     eligible_crime          C.R.S. 24-4.1-302(1)(n)
+    R27   CO-RES-1              info          -                     residency               C.R.S. 24-4.1-102(10)(c)
+    R28   CO-SUBMIT-1           info          -                     submission              DCJ How to File a Claim page, How to File a Claim section
+    R29   CO-DOC-APP            info          -                     required_document       State application, instructions above Section 1
+    R30   CO-DOC-BILLS          info          -                     required_document       State application, end of Section 3
+    R31   CO-DOC-BILLS-2        info          -                     required_document       DCJ How to File a Claim page, How to File a Claim section
+    R32   CO-DOC-RECEIPTS       info          -                     required_document       State application, General Information item 5
+    R33   CO-DOC-INSURANCE      info          -                     required_document       State application, Section 5 (Insurance Information)
+    R34   CO-DOC-CIVIL          info          -                     required_document       State application, Section 6 (Civil Lawsuit) note
+    R35   CO-TIME-1             info          -                     processing_time         DCJ How to File a Claim page, How to File a Claim section
+    R36   CO-ACP-1              info          -                     address_confidentiality DCS Address Confidentiality Program (ACP) page, introduction
+    R37   CO-RECORDS-1          info          -                     record_confidentiality  C.R.S. 24-4.1-107.5(2)
 
 .tags   pain_suffering=bit0, vehicle=bit1
 
@@ -66,7 +70,7 @@
 
 .proofs
     P0    ()
-    P1    (CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6)
+    P1    (CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6, CO-EXAM-9)
     P2    (CO-EXC-1)
     P3    (CO-EXC-2)
     P4    (CO-EXC-1, CO-EXC-2)
@@ -87,7 +91,7 @@
     P19   (CO-COV-9)
     P20   (CO-COV-9, CO-COLL-1)
     P21   (CO-REPORT-1)
-    P22   (CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1)
+    P22   (CO-REPORT-2, CO-COOP-1, CO-DEADLINE-1, CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1)
 
 .ints
     K0    3000000       ; $30,000.00
@@ -131,8 +135,9 @@
               ; CO-EXAM-4  C.R.S. 18-3-407.7(2)(a)  "The program must cover medical fees and costs associated with..."
               ; CO-EXAM-5  DCJ SAVE program page, Eligibility  "For FY (fiscal year) 2026, the current per incident cap payable..."
               ; CO-EXAM-6  DCJ SAVE program page, How Are Medical Forensic Exams Paid For  "If the victim makes an anonymous or medical report, the SAVE..."
+              ; CO-EXAM-9  DCJ SAVE program page, How Are Medical Forensic Exams Paid For  "If the victim has insurance and requests that their insurance is..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6
+  0077        decide   held, P1                     ; CO-EXAM-1, CO-EXAM-2, CO-EXAM-3, CO-EXAM-4, CO-EXAM-5, CO-EXAM-6, CO-EXAM-9
   007b        ret
               ; CO-COV-1  C.R.S. 24-4.1-109(1)(a)  "Reasonable medical and hospital expenses and expenses incurred..."
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -183,7 +188,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R19              ; CO-COLL-1
+  0108        seta     collateral, R23              ; CO-COLL-1
   010c        ret
               ; CO-COV-3  C.R.S. 24-4.1-109(1)(g)  "Mental health counseling;"
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -234,7 +239,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R19              ; CO-COLL-1
+  0199        seta     collateral, R23              ; CO-COLL-1
   019d        ret
               ; CO-COV-2  C.R.S. 24-4.1-109(1)(b)  "Loss of earnings;"
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -285,7 +290,7 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R19              ; CO-COLL-1
+  022a        seta     collateral, R23              ; CO-COLL-1
   022e        ret
               ; CO-COV-4  C.R.S. 24-4.1-109(1)(i)  "Reasonable travel expenses for a victim related to funeral..."
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -336,7 +341,7 @@
   02b4        subs
   02b5        push     0
   02ba        max
-  02bb        seta     collateral, R19              ; CO-COLL-1
+  02bb        seta     collateral, R23              ; CO-COLL-1
   02bf        ret
               ; CO-COV-5  C.R.S. 24-4.1-109(1)(l)  "Reasonable relocation expenses for a victim to relocate as..."
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -387,7 +392,7 @@
   0345        subs
   0346        push     0
   034b        max
-  034c        seta     collateral, R19              ; CO-COLL-1
+  034c        seta     collateral, R23              ; CO-COLL-1
   0350        ret
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
               ; CO-EXC-2  C.R.S. 24-4.1-109(2)(d)  "Motor vehicle expenses other than those specified in subsections..."
@@ -477,7 +482,7 @@
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R19              ; CO-COLL-1
+  0452        seta     collateral, R23              ; CO-COLL-1
   0456        ret
               ; CO-COV-6  C.R.S. 24-4.1-109(1)(k)  "Dependent care services; and"
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -528,7 +533,7 @@
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R19              ; CO-COLL-1
+  04e3        seta     collateral, R23              ; CO-COLL-1
   04e7        ret
               ; CO-COV-9  C.R.S. 24-4.1-109(1)(e)  "Funeral and burial expenses;"
               ; CO-EXC-1  C.R.S. 24-4.1-109(2)(a)  "Pain and suffering or property damage expenses other than those..."
@@ -579,7 +584,7 @@
   056d        subs
   056e        push     0
   0573        max
-  0574        seta     collateral, R19              ; CO-COLL-1
+  0574        seta     collateral, R23              ; CO-COLL-1
   0578        ret
 
 .aggregate
@@ -600,7 +605,7 @@
   0028        ldk      K0                           ; $30,000.00
   002b        ldr      r0
   002d        subs
-  002e        cap      total_cap, R6                ; CO-CAP-1
+  002e        cap      total_cap, R7                ; CO-CAP-1
   0032        push     1
   0037        str      r1
   0039  L1:   ldr      r0
@@ -609,7 +614,7 @@
   003d        str      r0
   003f        jmp      L3
   0044  L2:   push     0
-  0049        cap      total_cap, R6                ; CO-CAP-1
+  0049        cap      total_cap, R7                ; CO-CAP-1
   004d  L3:   next     L0
   0052  L4:   push     0                            ; met
   0057        check    minimum_loss, P0             ; (none)
@@ -632,6 +637,9 @@
   0094        jmp      L7
   0099  L6:   push     0                            ; satisfied
   009e  L7:   check    reporting, P21               ; CO-REPORT-1
+              ; CO-REPORT-2  C.R.S. 24-4.1-108(1.5)(b)  "The appropriate law enforcement officials were notified of the..."
+              ; CO-COOP-1  C.R.S. 24-4.1-108(1)(c)  "The applicant has cooperated reasonably with law enforcement..."
+              ; CO-DEADLINE-1  C.R.S. 24-4.1-108(1.5)(d)  "The application for approval of compensation for property damage..."
               ; CO-COLL-1  C.R.S. 24-4.1-110(2)  "The fund is the payer of last resort."
               ; CO-COND-1  C.R.S. 24-4.1-108(1)(e)  "The death of or injury to the victim was not substantially..."
               ; CO-EMERG-1  C.R.S. 24-4.1-112(1)  "The board may order an emergency approval to the applicant..."
@@ -647,6 +655,6 @@
               ; CO-TIME-1  DCJ How to File a Claim page, How to File a Claim section  "The processing time is different for each district, however, it..."
               ; CO-ACP-1  DCS Address Confidentiality Program (ACP) page, introduction  "The Colorado Address Confidentiality Program (ACP) is a..."
               ; CO-RECORDS-1  C.R.S. 24-4.1-107.5(2)  "Any materials received, made, or kept by a board or a district..."
-  00a2        info     P22                          ; CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1
+  00a2        info     P22                          ; CO-REPORT-2, CO-COOP-1, CO-DEADLINE-1, CO-COLL-1, CO-COND-1, CO-EMERG-1, CO-CRIME-1, CO-RES-1, CO-SUBMIT-1, CO-DOC-APP, CO-DOC-BILLS, CO-DOC-BILLS-2, CO-DOC-RECEIPTS, CO-DOC-INSURANCE, CO-DOC-CIVIL, CO-TIME-1, CO-ACP-1, CO-RECORDS-1
   00a5        ret
 

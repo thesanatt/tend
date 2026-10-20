@@ -250,7 +250,7 @@
    "quote": "The following persons may be reimbursed for the expense of their outpatient mental health counseling in an amount not to exceed ten thousand dollars ($10,000): (i) A victim.",
    "source_id": "CA-S4",
    "pinpoint": "Cal. Gov. Code 13957(a)(2)(A)(i)",
-   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=The%20following%20persons%20may%20be,dollars%20%28%2410%2C000%29%3A%20%28i%29%20A%20victim."
+   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=The%20following%20persons%20may%20be,%28i%29%20A%20victim."
   },
   {
    "id": "CA-COUNSEL-2",
@@ -298,6 +298,20 @@
    "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=Authorize%20a%20cash%20payment%20or,emotional%20well%2Dbeing%20of%20the%20victim."
   },
   {
+   "id": "CA-RELOC-2",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "detail": true
+   },
+   "summary": "If you get relocation money and you know who the offender is, you must agree not to tell that person where you now live and not to let them in your home, or agree to seek a restraining order. You may have to pay the money back if you break this agreement.",
+   "quote": "When a relocation payment or reimbursement is provided to a victim of sexual assault or domestic violence and the identity of the offender is known to the victim, the victim shall agree not to inform the offender of the location of the victim’s new residence and not to allow the offender on the premises at any time, or shall agree to seek a restraining order against the offender. A victim may be required to repay the relocation payment or reimbursement to the board if the victim violates the terms set forth in this paragraph.",
+   "source_id": "CA-S4",
+   "pinpoint": "Cal. Gov. Code 13957(a)(7)(D)",
+   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=When%20a%20relocation%20payment%20or,set%20forth%20in%20this%20paragraph."
+  },
+  {
    "id": "CA-SECURITY-1",
    "category": "expense_cap",
    "expense": "security",
@@ -336,14 +350,15 @@
    "quote": "Subject to the limitations set forth in Section 13957.5, authorize compensation equal to the loss of income or loss of support, or both, that a victim or derivative victim incurs as a direct result of the victim's or derivative victim's injury or the victim's death.",
    "source_id": "CA-S4",
    "pinpoint": "Cal. Gov. Code 13957(a)(3)",
-   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=Subject%20to%20the%20limitations%20set,injury%20or%20the%20victim%27s%20death."
+   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-4/section-13957/#:~:text=Subject%20to%20the%20limitations%20set%20forth%20in%20Section%2013957.5%2C,injury%20or%20the%20victim%E2%80%99s%20death."
   },
   {
    "id": "CA-TRANSPORT-1",
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "round-trip mileage to medical, dental, or mental health appointments"
    },
    "summary": "Round-trip mileage to medical, dental, or mental health appointments is reimbursable.",
    "quote": "Round trip mileage costs to medical, dental, or mental health appointments",
@@ -393,13 +408,23 @@
    "params": {
     "years": 7,
     "from": "crime",
-    "extension": "Or seven years after the victim turns 21, or seven years from when the injury was or could have been discovered, whichever is later; the board may extend the period for good cause (Gov. Code 13953(b))."
+    "extension": "or later if you were under 21 or could not reasonably have known of the harm until later"
    },
    "summary": "Apply within 7 years of the crime, 7 years after turning 21, or 7 years from when the injury from the crime was or could have been discovered, whichever is later.",
    "quote": "An application for compensation shall be filed within seven years of the date of the crime, seven years after the victim attains 21 years of age, or seven years of the time the victim or derivative victim knew or in the exercise of ordinary diligence could have discovered that an injury or death had been sustained as a direct result of crime, whichever is later.",
    "source_id": "CA-S1",
    "pinpoint": "Cal. Gov. Code 13953(a)",
    "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-2/section-13953/#:~:text=An%20application%20for%20compensation%20shall,of%20crime%2C%20whichever%20is%20later."
+  },
+  {
+   "id": "CA-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The board may give you more time to apply for good cause.",
+   "quote": "The board may for good cause grant an extension of the time period in subdivision (a).",
+   "source_id": "CA-S1",
+   "pinpoint": "Cal. Gov. Code 13953(b)",
+   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-2/section-13953/#:~:text=The%20board%20may%20for%20good,time%20period%20in%20subdivision%20%28a%29."
   },
   {
    "id": "CA-REPORT-1",
@@ -416,7 +441,7 @@
    "quote": "An application for a claim based on a sexual assault shall not be denied solely because a police report was not made by the victim. The board shall adopt guidelines that allow it to consider and approve applications for assistance based on a sexual assault relying upon evidence other than a police report to establish that a sexual assault crime has occurred. Factors evidencing that a sexual assault crime has occurred may include, but are not limited to, medical records documenting injuries consistent with allegations of sexual assault, mental health records, or that the victim received a sexual assault examination.",
    "source_id": "CA-S3",
    "pinpoint": "Cal. Gov. Code 13956(b)(3)",
-   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-3/section-13956/#:~:text=An%20application%20for%20a%20claim,received%20a%20sexual%20assault%20examination."
+   "fragment_url": "https://law.justia.com/codes/california/code-gov/title-2/division-3/part-4/chapter-5/article-3/section-13956/#:~:text=An%20application%20for%20a%20claim%20based%20on%20a,received%20a%20sexual%20assault%20examination."
   },
   {
    "id": "CA-REPORT-2",
@@ -429,7 +454,7 @@
      "protective_order"
     ]
    },
-   "summary": "Board rules also accept a letter from a sexual assault counselor, licensed therapist, or mental health provider, or a court restraining order, as evidence of a sexual assault.",
+   "summary": "Board rules list other evidence the board may consider. One is a letter from a sexual assault counselor, licensed therapist, or mental health provider saying you are seeking services related to the sexual assault. Another is a court restraining order against the person who assaulted you.",
    "quote": "A letter or other written statement from a sexual assault counselor, as defined in Section 1035.2 of the Evidence Code, licensed therapist, or mental health provider, stating that the victim is seeking services related to the allegation of sexual assault. (5) A restraining order from a court against the perpetrator of the sexual assault.",
    "source_id": "CA-S18",
    "pinpoint": "Cal. Code Regs. tit. 2, 649.49(a)(4)-(5)",
@@ -471,7 +496,7 @@
    "id": "CA-EMERGENCY-1",
    "category": "emergency_award",
    "params": {},
-   "summary": "An emergency award is available when waiting for a final decision would cause substantial hardship.",
+   "summary": "An emergency award is available to someone who is eligible for compensation if the board decides it is needed to avoid or ease substantial hardship from waiting for a final decision on the application.",
    "quote": "An emergency award shall be available to a person eligible for compensation pursuant to this chapter if the board determines that such an award is necessary to avoid or mitigate substantial hardship that may result from delaying compensation until complete and final consideration of an application.",
    "source_id": "CA-S7",
    "pinpoint": "Cal. Gov. Code 13952.5(a)",
@@ -485,7 +510,7 @@
    "quote": "Rape Robbery Sexual assault Stalking Sexual battery",
    "source_id": "CA-S11",
    "pinpoint": "CalVCB, Who Is Eligible, Crimes covered",
-   "fragment_url": "https://victims.ca.gov/for-victims/who-is-eligible/#:~:text=Rape%20Robbery%20Sexual%20assault%20Stalking%20Sexual%20battery"
+   "fragment_url": "https://victims.ca.gov/for-victims/who-is-eligible/#:~:text=Rape,Sexual%20battery"
   },
   {
    "id": "CA-CRIME-2",
@@ -544,7 +569,7 @@
    "quote": "To apply online: Create a CalVCB Online account or login Start a new application (in English or Spanish)",
    "source_id": "CA-S12",
    "pinpoint": "CalVCB How To Get Compensated, Steps to apply, Step 2",
-   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=To%20apply%20online%3A%20Create%20a,application%20%28in%20English%20or%20Spanish%29"
+   "fragment_url": "https://victims.ca.gov/for-victims/how-compensation-works/#:~:text=To%20apply%20online%3A,application%20%28in%20English%20or%20Spanish%29"
   },
   {
    "id": "CA-DOC-BILLS",

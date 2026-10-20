@@ -183,6 +183,18 @@
    "fragment_url": "https://riag.ri.gov/savbor#:~:text=Victims%20are%20eligible%20to%20receive,with%20any%20investigation%20or%20prosecution."
   },
   {
+   "id": "RI-EXAM-2",
+   "category": "exam_payment",
+   "params": {
+    "payer": "Crime Victim Compensation Program"
+   },
+   "summary": "The Attorney General's bill of rights page also warns that choosing not to take part in the criminal justice system will likely limit your eligibility for compensation benefits.",
+   "quote": "However, your decision not to participate in the criminal justice system will likely limit your eligibility for benefits under the crime victim compensation program.",
+   "source_id": "RI-S12",
+   "pinpoint": "Attorney General's Sexual Assault Victims Bill of Rights page, Your right to choose whether to report",
+   "fragment_url": "https://riag.ri.gov/savbor#:~:text=However%2C%20your%20decision%20not%20to,the%20crime%20victim%20compensation%20program."
+  },
+  {
    "id": "RI-CRIME-1",
    "category": "eligible_crime",
    "params": {},
@@ -212,15 +224,14 @@
    "quote": "No compensation shall be awarded under this chapter to the victim, or in the case of death to dependent relatives or to the legal representative, in a total amount in excess of twenty-five thousand dollars ($25,000)",
    "source_id": "RI-S6",
    "pinpoint": "R.I. Gen. Laws § 12-25-22(b)",
-   "fragment_url": "https://webserver.rilegislature.gov/Statutes/TITLE12/12-25/12-25-22.htm#:~:text=No%20compensation%20shall%20be%20awarded,of%20twenty%2Dfive%20thousand%20dollars%20%28%2425%2C000%29"
+   "fragment_url": "https://webserver.rilegislature.gov/Statutes/TITLE12/12-25/12-25-22.htm#:~:text=No%20compensation%20shall%20be%20awarded%20under,of%20twenty%2Dfive%20thousand%20dollars%20%28%2425%2C000%29"
   },
   {
    "id": "RI-DEADLINE-1",
    "category": "filing_deadline",
    "params": {
     "years": 3,
-    "from": "crime",
-    "extension": "Minors: the period starts at age 18 (120-RICR-00-00-2.7(A)(1)(a)); if the crime was not discovered until more than a year later, the period starts at discovery, but only if the crime led to a criminal complaint, indictment, criminal information, or other probable cause finding (2.7(A)(1)(b)); late filing may be allowed for unsound mind or good cause (2.7(A)(1)(c)); lack of knowledge of the filing rules is not good cause."
+    "from": "crime"
    },
    "summary": "A claim must be filed within 3 years of the injury.",
    "quote": "Actions for compensation under this chapter shall be commenced within three (3) years after the date of the injury or death",
@@ -241,6 +252,15 @@
    "pinpoint": "120-RICR-00-00-2.7(A)(1)(a)"
   },
   {
+   "id": "RI-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If you found out about the crime more than 1 year after it happened, the time to apply starts when you found out, or should have. This applies only if the crime led to a criminal complaint, an indictment or criminal information, or another court finding of probable cause.",
+   "quote": "If the Applicant did not discover the act which constitutes a crime until more than one year after the crime was committed, the filing period shall not commence until the Applicant discovered or, in exercise of reasonable diligence, should have discovered, the act which constitutes a crime, provided, however, that in such cases, the crime for which the Applicant seeks compensation must have resulted in the issuance of a criminal complaint, indictment or criminal information, or other judicial determination of probable cause that an act constituting a crime occurred",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(1)(b)"
+  },
+  {
    "id": "RI-DEADLINE-3",
    "category": "filing_deadline",
    "params": {
@@ -253,12 +273,25 @@
    "pinpoint": "120-RICR-00-00-2.7(A)(1)(c)"
   },
   {
+   "id": "RI-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "Not knowing the filing rules does not count as good cause for a late application.",
+   "quote": "Delay resulting from the lack of knowledge of the filing requirements of R.I. Gen. Laws §§ 12-25-1, et seq. shall not constitute good cause.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(1)(c)"
+  },
+  {
    "id": "RI-REPORT-1",
    "category": "reporting_requirement",
    "params": {
     "required": true,
     "within_days": 15,
     "alternatives": [
+     "forensic_exam"
+    ],
+    "exam_condition": "within 15 days of the crime",
+    "waiver_records": [
      "forensic_exam"
     ]
    },
@@ -277,7 +310,7 @@
      "protective_order"
     ]
    },
-   "summary": "Applying to a court for a restraining order with a supporting affidavit, or applying for a criminal complaint, counts as a report to law enforcement.",
+   "summary": "Applying to a court for a restraining order under R.I. Gen. Laws 15-15-3 with a supporting affidavit, or applying for a criminal complaint, counts as a report to law enforcement.",
    "quote": "The reporting of a crime to a court through a citizen application for a restraining order under R.I. Gen. Laws § 15-15-3 accompanied by an affidavit in support of the application for protection, or through a citizen application for a criminal complaint, shall constitute a report to law enforcement authorities.",
    "source_id": "RI-S11",
    "pinpoint": "120-RICR-00-00-2.7(A)(2)(c)"
@@ -301,10 +334,23 @@
     "required": true,
     "alternatives": []
    },
-   "summary": "A late police report can be excused for good cause, such as physical or psychological incapacity or reasonable fear of retaliation. Good cause excuses only the delay; a report is still required.",
+   "summary": "A late police report can be excused for good cause, such as being physically or psychologically unable to make a report, or a reasonable fear of retaliation by the offender or others.",
    "quote": "Good cause for delay shall include, but not be limited to, delay caused by physical or psychological incapacity which prevented the making of a report; or by reasonable fear of retaliation by the offender or others.",
    "source_id": "RI-S11",
    "pinpoint": "120-RICR-00-00-2.7(A)(3)(b)"
+  },
+  {
+   "id": "RI-REPORT-7",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "scope": "what counts as good cause for a late report"
+   },
+   "summary": "Believing police will not investigate, or not knowing that an award depends on reporting the crime, is not good cause for a late report. The program's rule also says good cause excuses only the delay, not the reporting requirement itself.",
+   "quote": "Delay resulting from a belief that law enforcement authorities will not investigate the crime, or delay resulting from lack of knowledge that an award under R.I. Gen. Laws § 12-25-1 et. seq. is contingent upon reporting the crime to law enforcement authorities, does not constitute good cause for delay. d. A finding of good cause for delay does not excuse the reporting requirement which must be satisfied as a condition of receiving compensation.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(3)(c)-(d)"
   },
   {
    "id": "RI-REPORT-5",
@@ -321,6 +367,19 @@
    "pinpoint": "120-RICR-00-00-2.7(A)(2)(b)"
   },
   {
+   "id": "RI-REPORT-6",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program's rule says a victim must cooperate with reasonable requests from law enforcement in the investigation and prosecution of the crime. It says this includes reporting the crime, helping identify the suspect, and following reasonable requests for information and help.",
+   "quote": "A victim must cooperate with the reasonable requests of law enforcement agencies and personnel in the investigation and prosecution of the crime. a. Victim’s obligations: Cooperation with law enforcement agencies and personnel includes reporting the crime to law enforcement authorities; assisting in identifying the suspect; and complying with all reasonable requests of law enforcement agencies and personnel for information and assistance.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(4)"
+  },
+  {
    "id": "RI-COLLATERAL-1",
    "category": "collateral_source",
    "params": {},
@@ -334,7 +393,7 @@
    "id": "RI-CONDUCT-1",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "The office may reduce or deny an award if the victim's own behavior contributed to the injury; the same subsection also lets it weigh cooperation with police and violent criminal history.",
+   "summary": "The office may reduce or deny an award if the victim's own behavior, including past behavior, directly or indirectly contributed to the injury, unless the victim was lawfully trying to stop a crime or catch an offender.",
    "quote": "The behavior of the victim, including past behavior, that directly or indirectly contributed to his or her injury or death, unless the injury or death resulted from the victim’s lawful attempt to prevent the commission of a crime or to apprehend an offender. The office may reduce or deny an award based on these circumstances.",
    "source_id": "RI-S2",
    "pinpoint": "R.I. Gen. Laws § 12-25-19(d)(1)(iv)",
@@ -461,7 +520,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost earnings for injuries on or after January 1, 2022 are figured at 62% of gross earnings.",
    "quote": "All net earnings for injuries occurring on or after January 1, 2022 are calculated based on 62% of the victim’s gross earnings.",
@@ -493,6 +553,33 @@
    "quote": "The Administrator may issue an award for expenses resulting from the temporary or permanent relocation of a victim",
    "source_id": "RI-S11",
    "pinpoint": "120-RICR-00-00-2.8(A)(12)"
+  },
+  {
+   "id": "RI-RELOC-2",
+   "category": "expense_cap",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "amount_cents": 500000,
+    "per": "claim"
+   },
+   "summary": "Emergency relocation is capped at $5,000. Any relocation award is deducted from the final award.",
+   "quote": "Compensation awarded for emergency relocation expenses shall not exceed the sum of five thousand dollars ($5,000.00). Any award for emergency relocation expenses shall be deducted from the final award.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.8(A)(12)"
+  },
+  {
+   "id": "RI-RELOC-3",
+   "category": "covered_expense",
+   "expense": "relocation",
+   "params": {
+    "expense": "relocation",
+    "detail": true
+   },
+   "summary": "To be paid for a move, the crime must have happened in your home. If it did not, you must show the crime makes you reasonably afraid to stay there. You must also need to move right away, reasonably fear living as you did before the crime, or be unable to afford your documented housing costs right after the crime.",
+   "quote": "The crime must have occurred in the victim’s primary place of residence or the Applicant must demonstrate that, as a result of the crime, he or she reasonably fears for his or her continued safety in his or her primary place of residence. (2) An Applicant must have an immediate need to relocate, a reasonable fear to continue to live within the arrangements as established prior to the crime, or, alternatively, immediately following the crime, the Applicant must be unable to afford the documented housing costs.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.8(A)(12)(a)"
   },
   {
    "id": "RI-SECURITY-1",
@@ -551,7 +638,7 @@
    "params": {
     "rule": "Rhode Island residents injured out of state, only if not entitled to compensation where the crime occurred."
    },
-   "summary": "A Rhode Island resident hurt in another state can apply only if that state's program offers no compensation.",
+   "summary": "A Rhode Island resident hurt in another state can apply here only if they also lived in Rhode Island when it happened and are not entitled to any compensation from the state where it happened.",
    "quote": "Outside the state of Rhode Island to any victim who has his or her residence in the state of Rhode Island and had the residence in the state at the time that the offense occurred, and is not entitled to compensation of any kind from the state, possession, or territory or district of the United States in which the offense occurred",
    "source_id": "RI-S2",
    "pinpoint": "R.I. Gen. Laws § 12-25-19(a)(3)",
@@ -593,7 +680,7 @@
    "quote": "Applications can be submitted online here . (registration required)",
    "source_id": "RI-S8",
    "pinpoint": "Crime Victim Compensation Program page, how to apply (link target http://cvcapp.treasury.ri.gov/)",
-   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=Applications%20can%20be%20submitted%20online%20here%20.%20%28registration%20required%29"
+   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=Applications%20can%20be%20submitted%20online%20here.%20%28registration%20required%29"
   },
   {
    "id": "RI-DOC-1",
@@ -687,7 +774,7 @@
     "covers_sexual_assault": true,
     "enroll": "Click here to download the application. Applications should be sent to: Department of State Attention: ACP PO Box 6888 Providence, RI 02940. Applicants can contact the Department by email, phone, or in-person for help filling out the application."
    },
-   "summary": "Rhode Island's Address Confidentiality Program, run by the Secretary of State's Department of State, gives victims of domestic violence, stalking, sexual assault, trafficking, or abuse who have moved or are about to move a shared Providence PO Box to use as their address on state and local government records, with first-class mail and legal papers forwarded free to their real address. Applicants mail a sworn application to the Department, which can help fill it out.",
+   "summary": "Rhode Island's Address Confidentiality Program, run by the Department of State, helps victims of domestic violence, stalking, sexual assault, trafficking, or abuse who have moved or are about to move. To qualify, you must live in Rhode Island, fear for your own or your children's safety, live or plan to live at an address the person who harmed you does not know, and agree not to give that person the address. You apply by mailing a sworn application to the Department, which can help you fill it out.",
    "quote": "The goal of the Address Confidentiality Program (ACP/Program) is to help victims of domestic violence, stalking, sexual assault, and trafficking and/or abuse as defined by RI Gen. Laws §42-164-2 who have relocated or are about to relocate",
    "source_id": "RI-S17",
    "pinpoint": "ACP page, program description",

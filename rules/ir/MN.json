@@ -17,7 +17,7 @@
    "field_count": 53
   }
  },
- "source_sha256": "57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54",
+ "source_sha256": "d248b60c6bffc2087439a181ad20e009344876d8b6eaa26820ade630c715265b",
  "rules": [
   {
    "id": "MN-EXAM-1",
@@ -136,6 +136,11 @@
    "expense": "legal"
   },
   {
+   "id": "MN-EXC-MOVING",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "MN-EXC-TUITION",
    "kind": "excluded",
    "expense": "tuition"
@@ -152,6 +157,11 @@
    "from": "discovery"
   },
   {
+   "id": "MN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MN-DEADLINE-2",
    "kind": "deadline",
    "days": 1095,
@@ -161,8 +171,7 @@
    "id": "MN-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [],
-   "within_days": 30
+   "alternatives": []
   },
   {
    "id": "MN-REPORT-2",

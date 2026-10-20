@@ -1,8 +1,8 @@
 ; tend law image PA, Pennsylvania
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 cce617988cd5dd33fb3ea12d7f077595f82747ee58e26ac0ac97a66ec39eb61a
-; image sha256  90024169d2c259bfa3c4220f218f0deb32cd6b8c98ac116a5511f0cbe27fc10d
-; 59 rules, 15 sources, 29 proofs, 8 ints, 315 strings
+; source sha256 2521289f6ce194655ee728b82b6fc7c96c389ed586300ee2f454b12697690cfa
+; image sha256  6c58fcc0f759d187a1a06f61e6a54423a530d49baa9f1c0ffe76c106bb814aab
+; 71 rules, 15 sources, 29 proofs, 8 ints, 363 strings
 ; item program: 437 instructions, 1552 bytes, max stack 2
 ; aggregate program: 284 instructions, 875 bytes, max stack 3, 10 loops
 
@@ -10,62 +10,74 @@
     R0    PA-EXAM-1             exam_no_bill  -                                             18 P.S. 11.707(h)(2)
     R1    PA-EXAM-2             exam_payment  -                                             18 P.S. 11.707(h)(1)
     R2    PA-EXAM-3             exam_payment  -                                             VCAP Protocol and Billing Procedures for FREs, introduction
-    R3    PA-EXAM-4             exam_no_bill  -                                             FRE FAQ, Question 7
-    R4    PA-EXAM-5             exam_no_bill  -                                             VCAP Protocol and Billing Procedures for FREs, A.4
-    R5    PA-EXAM-6             covered       forensic_exam                                 37 Pa. Code 411.42(b)(3)(iv)
-    R6    PA-EXAM-7             expense_cap   forensic_exam         per claim               18 P.S. 11.707(b)(1)(ii)
-    R7    PA-EXAM-8             exam_payment  -                                             VCAP Protocol and Billing Procedures for FREs, introduction
-    R8    PA-CAP-1              total_cap     -                                             18 P.S. 11.707(b)(1)
-    R9    PA-COUNSEL-2          expense_cap   counseling            per claim               18 P.S. 11.707(b)(4.1)(i)
-    R10   PA-COUNSEL-3          covered       counseling                                    18 P.S. 11.707(b)(4)
-    R11   PA-COUNSEL-4          covered       counseling                                    18 P.S. 11.701.1(a)
-    R12   PA-WAGES-1            expense_cap   lost_wages            per claim               18 P.S. 11.707(b)(2)(ii)
-    R13   PA-WAGES-2            covered       lost_wages                                    37 Pa. Code 411.43(b)
-    R14   PA-RELOC-1            expense_cap   relocation            per claim               37 Pa. Code 411.42(f)
-    R15   PA-RELOC-2            covered       relocation                                    18 P.S. 11.103, "Out-of-pocket loss" (4)
-    R16   PA-RELOC-3            covered       relocation                                    VCAP Relocation Expenses flyer (11/2023)
-    R17   PA-RELOC-4            expense_cap   temporary_housing     per day                 37 Pa. Code 411.42(f)(1)(i)
-    R18   PA-TRANS-1            covered       transportation                                37 Pa. Code 411.42(g)
-    R19   PA-TRANS-2            expense_cap   transportation        per day                 VCAP Manual 2025, Transportation (p. 88)
-    R20   PA-MED-1              covered       medical                                       18 P.S. 11.103, "Out-of-pocket loss" (1)
-    R21   PA-MED-2              covered       medical                                       18 P.S. 11.708(b)
-    R22   PA-MED-3              expense_cap   property_replacement  per claim               37 Pa. Code 411.42(d)
-    R23   PA-CHILD-1            covered       childcare                                     37 Pa. Code 411.42(i)(2)
-    R24   PA-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               18 P.S. 11.707(b)(1)(iii)
-    R25   PA-EXCL-1             excluded      -                                             18 P.S. 11.103, "Out-of-pocket loss"
-    R26   PA-EXCL-2             excluded      -                                             VCAP Manual 2025, Miscellaneous Eligibility Information (p. 10 to 11)
-    R27   PA-DEADLINE-1         deadline      -                     from discovery          18 P.S. 11.702(b)(1)
-    R28   PA-REPORT-1           reporting     -                                             18 P.S. 11.707(a)(3)
-    R29   PA-REPORT-2           reporting     -                                             18 P.S. 11.707(a.2)
-    R30   PA-REPORT-3           reporting     -                                             VCAP Protocol and Billing Procedures for FREs, introduction
-    R31   PA-REPORT-4           reporting     -                                             PA.gov VCAP page, Sexual Assault Counseling Claims
-    R32   PA-MIN-1              minimum_loss  -                                             18 P.S. 11.703
-    R33   PA-COLL-1             collateral    -                                             18 P.S. 11.707(e)
-    R34   PA-COND-1             info          -                     conduct_reduction       18 P.S. 11.707(f)(1)
-    R35   PA-COND-2             info          -                     conduct_reduction       18 P.S. 11.707(f)(2)
-    R36   PA-EMERG-1            info          -                     emergency_award         37 Pa. Code 411.17(c)
-    R37   PA-CRIME-1            info          -                     eligible_crime          18 P.S. 11.103, "Personal injury crime"
-    R38   PA-RES-1              info          -                     residency               VCAP Manual 2025, Requirements for receiving compensation, 1
-    R39   PA-RES-2              info          -                     residency               VCAP Protocol and Billing Procedures for FREs, A.5
-    R40   PA-SUBMIT-1           info          -                     submission              Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'
-    R41   PA-SUBMIT-2           info          -                     submission              Claim form (July 2024), back page footer
-    R42   PA-SUBMIT-3           info          -                     submission              Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'
-    R43   PA-DOC-1              info          -                     required_document       Claim form (July 2024), Section 4: Medical Expenses
-    R44   PA-DOC-2              info          -                     required_document       Claim form (July 2024), Section 5: Counseling Expenses
-    R45   PA-DOC-3              info          -                     required_document       Claim form (July 2024), Sections 4 and 5
-    R46   PA-DOC-4              info          -                     required_document       Claim form (July 2024), Sections 4 and 5
-    R47   PA-DOC-5              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
-    R48   PA-DOC-6              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
-    R49   PA-DOC-7              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
-    R50   PA-DOC-8              info          -                     required_document       Claim form (July 2024), Section 10: Relocation
-    R51   PA-DOC-9              info          -                     required_document       Claim form (July 2024), Acknowledgement & Reimbursement Agreements section
-    R52   PA-TIME-1             info          -                     processing_time         PA.gov apply page, FAQ: How long does it take the Program to make a decision?
-    R53   PA-TIME-2             info          -                     processing_time         VCAP Claim Process flyer (11/2023)
-    R54   PA-ACP-1              info          -                     address_confidentiality OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)
-    R55   PA-RECCONF-1          info          -                     record_confidentiality  18 P.S. 11.709(a)
-    R56   PA-COUNSEL-1          skipped       -                     expense_cap             18 P.S. 11.707(b)(4.1)(i)  ; less generous duplicate of PA-COUNSEL-2
-    R57   PA-COUNSEL-5          skipped       -                     expense_cap             18 P.S. 11.701.1(c)  ; less generous duplicate of PA-COUNSEL-2
-    R58   PA-TRANS-3            skipped       -                     expense_cap             VCAP Manual 2025, Transportation (p. 89)  ; less generous duplicate of PA-TRANS-2
+    R3    PA-EXAM-9             exam_payment  -                                             VCAP Protocol and Billing Procedures for FREs, introduction
+    R4    PA-EXAM-10            exam_payment  -                                             FRE FAQ, Question 10
+    R5    PA-EXAM-4             exam_no_bill  -                                             FRE FAQ, Question 7
+    R6    PA-EXAM-5             exam_no_bill  -                                             VCAP Protocol and Billing Procedures for FREs, A.4
+    R7    PA-EXAM-6             covered       forensic_exam                                 37 Pa. Code 411.42(b)(3)(iv)
+    R8    PA-EXAM-7             expense_cap   forensic_exam         per claim               18 P.S. 11.707(b)(1)(ii)
+    R9    PA-EXAM-8             exam_payment  -                                             VCAP Protocol and Billing Procedures for FREs, introduction
+    R10   PA-CAP-1              total_cap     -                                             18 P.S. 11.707(b)(1)
+    R11   PA-COUNSEL-2          expense_cap   counseling            per claim               18 P.S. 11.707(b)(4.1)(i)
+    R12   PA-COUNSEL-3          covered       counseling                                    18 P.S. 11.707(b)(4)
+    R13   PA-COUNSEL-4          covered       counseling                                    18 P.S. 11.701.1(a)
+    R14   PA-WAGES-1            expense_cap   lost_wages            per claim               18 P.S. 11.707(b)(2)(ii)
+    R15   PA-WAGES-2            covered       lost_wages                                    37 Pa. Code 411.43(b)
+    R16   PA-RELOC-1            expense_cap   relocation            per claim               37 Pa. Code 411.42(f)
+    R17   PA-RELOC-2            covered       relocation                                    18 P.S. 11.103, "Out-of-pocket loss" (4)
+    R18   PA-RELOC-3            covered       relocation                                    VCAP Relocation Expenses flyer (11/2023)
+    R19   PA-RELOC-4            expense_cap   temporary_housing     per day                 37 Pa. Code 411.42(f)(1)(i)
+    R20   PA-TRANS-1            covered       transportation                                37 Pa. Code 411.42(g)
+    R21   PA-TRANS-2            expense_cap   transportation        per day                 VCAP Manual 2025, Transportation (p. 88)
+    R22   PA-MED-1              covered       medical                                       18 P.S. 11.103, "Out-of-pocket loss" (1)
+    R23   PA-MED-2              covered       medical                                       18 P.S. 11.708(b)
+    R24   PA-MED-3              expense_cap   property_replacement  per claim               37 Pa. Code 411.42(d)
+    R25   PA-CHILD-1            covered       childcare                                     37 Pa. Code 411.42(i)(2)
+    R26   PA-CHILD-2            info          -                     expense_cap             37 Pa. Code 411.42(i)(2)
+    R27   PA-CLEAN-1            expense_cap   crime_scene_cleanup   per claim               18 P.S. 11.707(b)(1)(iii)
+    R28   PA-EXCL-1             excluded      -                                             18 P.S. 11.103, "Out-of-pocket loss"
+    R29   PA-EXCL-2             excluded      -                                             VCAP Manual 2025, Miscellaneous Eligibility Information (p. 10 to 11)
+    R30   PA-DEADLINE-1         deadline      -                     from discovery          18 P.S. 11.702(b)(1)
+    R31   PA-DEADLINE-6         info          -                     filing_deadline         PA.gov Apply for Victims' Compensation page, Who is eligible?
+    R32   PA-DEADLINE-2         info          -                     filing_deadline         18 P.S. 11.702(b)(2)(i.1)
+    R33   PA-DEADLINE-3         info          -                     filing_deadline         18 P.S. 11.702(b)(2)(ii)
+    R34   PA-DEADLINE-4         info          -                     filing_deadline         18 P.S. 11.702(b)(2)(ii.1)
+    R35   PA-DEADLINE-5         info          -                     filing_deadline         18 P.S. 11.702(b)(2)(iii.1)
+    R36   PA-REPORT-1           reporting     -                                             18 P.S. 11.707(a)(3)
+    R37   PA-REPORT-7           info          -                     reporting_requirement   VCAP Manual for Compensation Assistance, Eligibility
+    R38   PA-REPORT-2           reporting     -                                             18 P.S. 11.707(a.2)
+    R39   PA-REPORT-6           info          -                     reporting_requirement   18 P.S. 11.707(a.2)
+    R40   PA-REPORT-3           reporting     -                                             VCAP Protocol and Billing Procedures for FREs, introduction
+    R41   PA-REPORT-4           reporting     -                                             PA.gov VCAP page, Sexual Assault Counseling Claims
+    R42   PA-COOP-1             info          -                     reporting_requirement   18 P.S. 11.707(a)(4)
+    R43   PA-COOP-2             info          -                     reporting_requirement   37 Pa. Code 411.15(g)
+    R44   PA-MIN-1              minimum_loss  -                                             18 P.S. 11.703
+    R45   PA-COLL-1             collateral    -                                             18 P.S. 11.707(e)
+    R46   PA-COND-1             info          -                     conduct_reduction       18 P.S. 11.707(f)(1)
+    R47   PA-COND-2             info          -                     conduct_reduction       18 P.S. 11.707(f)(2)
+    R48   PA-EMERG-1            info          -                     emergency_award         37 Pa. Code 411.17(c)
+    R49   PA-CRIME-1            info          -                     eligible_crime          18 P.S. 11.103, "Personal injury crime"
+    R50   PA-RES-1              info          -                     residency               VCAP Manual 2025, Requirements for receiving compensation, 1
+    R51   PA-RES-2              info          -                     residency               VCAP Protocol and Billing Procedures for FREs, A.5
+    R52   PA-SUBMIT-1           info          -                     submission              Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'
+    R53   PA-SUBMIT-2           info          -                     submission              Claim form (July 2024), back page footer
+    R54   PA-SUBMIT-3           info          -                     submission              Claim form (July 2024), back page contact block; PA.gov apply page step 4: 'Mail or email your claim'
+    R55   PA-DOC-1              info          -                     required_document       Claim form (July 2024), Section 4: Medical Expenses
+    R56   PA-DOC-2              info          -                     required_document       Claim form (July 2024), Section 5: Counseling Expenses
+    R57   PA-DOC-3              info          -                     required_document       Claim form (July 2024), Sections 4 and 5
+    R58   PA-DOC-4              info          -                     required_document       Claim form (July 2024), Sections 4 and 5
+    R59   PA-DOC-5              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
+    R60   PA-DOC-6              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
+    R61   PA-DOC-7              info          -                     required_document       Claim form (July 2024), Section 7: Loss of Earnings
+    R62   PA-DOC-8              info          -                     required_document       Claim form (July 2024), Section 10: Relocation
+    R63   PA-DOC-9              info          -                     required_document       Claim form (July 2024), Acknowledgement & Reimbursement Agreements section
+    R64   PA-TIME-1             info          -                     processing_time         PA.gov apply page, FAQ: How long does it take the Program to make a decision?
+    R65   PA-TIME-2             info          -                     processing_time         VCAP Claim Process flyer (11/2023)
+    R66   PA-ACP-1              info          -                     address_confidentiality OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)
+    R67   PA-RECCONF-1          info          -                     record_confidentiality  18 P.S. 11.709(a)
+    R68   PA-COUNSEL-1          skipped       -                     expense_cap             18 P.S. 11.707(b)(4.1)(i)  ; less generous duplicate of PA-COUNSEL-2
+    R69   PA-COUNSEL-5          skipped       -                     expense_cap             18 P.S. 11.701.1(c)  ; less generous duplicate of PA-COUNSEL-2
+    R70   PA-TRANS-3            skipped       -                     expense_cap             VCAP Manual 2025, Transportation (p. 89)  ; less generous duplicate of PA-TRANS-2
 
 .tags   pain_suffering=bit0, phone=bit1
 
@@ -88,7 +100,7 @@
 
 .proofs
     P0    ()
-    P1    (PA-EXAM-1, PA-EXAM-4, PA-EXAM-5, PA-EXAM-2, PA-EXAM-3, PA-EXAM-8)
+    P1    (PA-EXAM-1, PA-EXAM-4, PA-EXAM-5, PA-EXAM-2, PA-EXAM-3, PA-EXAM-9, PA-EXAM-10, PA-EXAM-8)
     P2    (PA-EXCL-1)
     P3    (PA-EXCL-2)
     P4    (PA-EXCL-1, PA-EXCL-2)
@@ -115,7 +127,7 @@
     P25   (PA-MIN-1)
     P26   (PA-DEADLINE-1)
     P27   (PA-REPORT-1, PA-REPORT-2, PA-REPORT-3, PA-REPORT-4)
-    P28   (PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1)
+    P28   (PA-CHILD-2, PA-DEADLINE-6, PA-DEADLINE-2, PA-DEADLINE-3, PA-DEADLINE-4, PA-DEADLINE-5, PA-REPORT-7, PA-REPORT-6, PA-COOP-1, PA-COOP-2, PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1)
 
 .ints
     K0    7500          ; $75.00
@@ -165,9 +177,11 @@
               ; PA-EXAM-5  VCAP Protocol and Billing Procedures for FREs, A.4  "The claim must be filed by a hospital or other licensed health..."
               ; PA-EXAM-2  18 P.S. 11.707(h)(1)  "A hospital or other licensed health care provider may submit a..."
               ; PA-EXAM-3  VCAP Protocol and Billing Procedures for FREs, introduction  "The victim of a sexual offense does not need to 'report' the..."
+              ; PA-EXAM-9  VCAP Protocol and Billing Procedures for FREs, introduction  "In order for payments to be considered, hospitals or licensed..."
+              ; PA-EXAM-10  FRE FAQ, Question 10  "Adult victims (age 18 or older) have the option of anonymous..."
               ; PA-EXAM-8  VCAP Protocol and Billing Procedures for FREs, introduction  "They must inform the victim that they may be billed for services..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; PA-EXAM-1, PA-EXAM-4, PA-EXAM-5, PA-EXAM-2, PA-EXAM-3, PA-EXAM-8
+  0077        decide   held, P1                     ; PA-EXAM-1, PA-EXAM-4, PA-EXAM-5, PA-EXAM-2, PA-EXAM-3, PA-EXAM-9, PA-EXAM-10, PA-EXAM-8
   007b        ret
               ; PA-MED-1  18 P.S. 11.103, "Out-of-pocket loss" (1)  "expenses for unreimbursed and unreimbursable expenses or..."
               ; PA-MED-2  18 P.S. 11.708(b)  "If the Office of Victims' Services accepts a claim, the hospital..."
@@ -219,7 +233,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R33              ; PA-COLL-1
+  0108        seta     collateral, R45              ; PA-COLL-1
   010c        ret
               ; PA-COUNSEL-2  18 P.S. 11.707(b)(4.1)(i)  "The amount of an award under paragraph (4)(i) shall not exceed..."
               ; PA-COUNSEL-3  18 P.S. 11.707(b)(4)  "An award for counseling performed by or under the supervision of..."
@@ -273,7 +287,7 @@
   0195        subs
   0196        push     0
   019b        max
-  019c        seta     collateral, R33              ; PA-COLL-1
+  019c        seta     collateral, R45              ; PA-COLL-1
   01a0        ret
               ; PA-WAGES-1  18 P.S. 11.707(b)(2)(ii)  "Except as set forth in subparagraph (iii), the aggregate award..."
               ; PA-WAGES-2  37 Pa. Code 411.43(b)  "OVS may make an award within the monetary limitations of the act..."
@@ -325,7 +339,7 @@
   0226        subs
   0227        push     0
   022c        max
-  022d        seta     collateral, R33              ; PA-COLL-1
+  022d        seta     collateral, R45              ; PA-COLL-1
   0231        ret
               ; PA-TRANS-1  37 Pa. Code 411.42(g)  "OVS will reimburse expenses associated with travel necessary and..."
               ; PA-TRANS-2  VCAP Manual 2025, Transportation (p. 88)  "Car rental, up to $30 a day."
@@ -378,7 +392,7 @@
   02ba        subs
   02bb        push     0
   02c0        max
-  02c1        seta     collateral, R33              ; PA-COLL-1
+  02c1        seta     collateral, R45              ; PA-COLL-1
   02c5        ret
               ; PA-RELOC-1  37 Pa. Code 411.42(f)  "This reimbursement will not exceed $1,000 per household for each..."
               ; PA-RELOC-2  18 P.S. 11.103, "Out-of-pocket loss" (4)  "expenses resulting from the temporary or permanent relocation of..."
@@ -431,7 +445,7 @@
   034b        subs
   034c        push     0
   0351        max
-  0352        seta     collateral, R33              ; PA-COLL-1
+  0352        seta     collateral, R45              ; PA-COLL-1
   0356        ret
               ; PA-RELOC-4  37 Pa. Code 411.42(f)(1)(i)  "This reimbursement will not exceed $1,000 per household for each..."
               ; PA-EXCL-1  18 P.S. 11.103, "Out-of-pocket loss"  "Except as otherwise provided, the term does not include property..."
@@ -482,7 +496,7 @@
   03dc        subs
   03dd        push     0
   03e2        max
-  03e3        seta     collateral, R33              ; PA-COLL-1
+  03e3        seta     collateral, R45              ; PA-COLL-1
   03e7        ret
               ; PA-EXCL-1  18 P.S. 11.103, "Out-of-pocket loss"  "Except as otherwise provided, the term does not include property..."
               ; PA-EXCL-2  VCAP Manual 2025, Miscellaneous Eligibility Information (p. 10 to 11)  "Property - A claim cannot be paid for property loss or damage..."
@@ -571,7 +585,7 @@
   04e2        subs
   04e3        push     0
   04e8        max
-  04e9        seta     collateral, R33              ; PA-COLL-1
+  04e9        seta     collateral, R45              ; PA-COLL-1
   04ed        ret
               ; PA-CHILD-1  37 Pa. Code 411.42(i)(2)  "The cost of obtaining services needed as a result of the crime..."
               ; PA-EXCL-1  18 P.S. 11.103, "Out-of-pocket loss"  "Except as otherwise provided, the term does not include property..."
@@ -622,7 +636,7 @@
   0573        subs
   0574        push     0
   0579        max
-  057a        seta     collateral, R33              ; PA-COLL-1
+  057a        seta     collateral, R45              ; PA-COLL-1
   057e        ret
               ; PA-MED-3  37 Pa. Code 411.42(d)  "OVS will reimburse a claimant for costs for the replacement of..."
               ; PA-EXCL-1  18 P.S. 11.103, "Out-of-pocket loss"  "Except as otherwise provided, the term does not include property..."
@@ -673,7 +687,7 @@
   0604        subs
   0605        push     0
   060a        max
-  060b        seta     collateral, R33              ; PA-COLL-1
+  060b        seta     collateral, R45              ; PA-COLL-1
   060f        ret
 
 .aggregate
@@ -694,11 +708,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R17                ; PA-RELOC-4
+  002e        cap      unit_cap, R19                ; PA-RELOC-4
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R17                          ; rate_unverified PA-RELOC-4
+  003d  L2:   flag     R19                          ; rate_unverified PA-RELOC-4
   0040  L3:   next     L0
               ; PA-TRANS-2  VCAP Manual 2025, Transportation (p. 88)  "Car rental, up to $30 a day."
   0045  L4:   each     transportation, L9
@@ -717,11 +731,11 @@
   006c        lda
   006d        lt
   006e        jz       L6
-  0073        cap      unit_cap, R19                ; PA-TRANS-2
+  0073        cap      unit_cap, R21                ; PA-TRANS-2
   0077        jmp      L8
   007c  L6:   pop
   007d        jmp      L8
-  0082  L7:   flag     R19                          ; rate_unverified PA-TRANS-2
+  0082  L7:   flag     R21                          ; rate_unverified PA-TRANS-2
   0085  L8:   next     L5
               ; PA-EXAM-7  18 P.S. 11.707(b)(1)(ii)  "In no case shall the total amount of an award exceed $35,000..."
   008a  L9:   push     0
@@ -740,7 +754,7 @@
   00b2        ldk      K2                           ; $1,000.00
   00b5        ldr      r0
   00b7        subs
-  00b8        cap      expense_cap, R6              ; PA-EXAM-7
+  00b8        cap      expense_cap, R8              ; PA-EXAM-7
   00bc        push     1
   00c1        str      r1
   00c3  L11:  ldr      r0
@@ -749,7 +763,7 @@
   00c7        str      r0
   00c9        jmp      L13
   00ce  L12:  push     0
-  00d3        cap      expense_cap, R6              ; PA-EXAM-7
+  00d3        cap      expense_cap, R8              ; PA-EXAM-7
   00d7  L13:  next     L10
               ; PA-COUNSEL-2  18 P.S. 11.707(b)(4.1)(i)  "The amount of an award under paragraph (4)(i) shall not exceed..."
   00dc  L14:  push     0
@@ -768,7 +782,7 @@
   0104        ldk      K3                           ; $10,000.00
   0107        ldr      r0
   0109        subs
-  010a        cap      expense_cap, R9              ; PA-COUNSEL-2
+  010a        cap      expense_cap, R11             ; PA-COUNSEL-2
   010e        push     1
   0113        str      r1
   0115  L16:  ldr      r0
@@ -777,7 +791,7 @@
   0119        str      r0
   011b        jmp      L18
   0120  L17:  push     0
-  0125        cap      expense_cap, R9              ; PA-COUNSEL-2
+  0125        cap      expense_cap, R11             ; PA-COUNSEL-2
   0129  L18:  next     L15
               ; PA-WAGES-1  18 P.S. 11.707(b)(2)(ii)  "Except as set forth in subparagraph (iii), the aggregate award..."
   012e  L19:  push     0
@@ -796,7 +810,7 @@
   0156        ldk      K4                           ; $15,000.00
   0159        ldr      r0
   015b        subs
-  015c        cap      expense_cap, R12             ; PA-WAGES-1
+  015c        cap      expense_cap, R14             ; PA-WAGES-1
   0160        push     1
   0165        str      r1
   0167  L21:  ldr      r0
@@ -805,7 +819,7 @@
   016b        str      r0
   016d        jmp      L23
   0172  L22:  push     0
-  0177        cap      expense_cap, R12             ; PA-WAGES-1
+  0177        cap      expense_cap, R14             ; PA-WAGES-1
   017b  L23:  next     L20
               ; PA-RELOC-1  37 Pa. Code 411.42(f)  "This reimbursement will not exceed $1,000 per household for each..."
   0180  L24:  push     0
@@ -824,7 +838,7 @@
   01a8        ldk      K2                           ; $1,000.00
   01ab        ldr      r0
   01ad        subs
-  01ae        cap      expense_cap, R14             ; PA-RELOC-1
+  01ae        cap      expense_cap, R16             ; PA-RELOC-1
   01b2        push     1
   01b7        str      r1
   01b9  L26:  ldr      r0
@@ -833,7 +847,7 @@
   01bd        str      r0
   01bf        jmp      L28
   01c4  L27:  push     0
-  01c9        cap      expense_cap, R14             ; PA-RELOC-1
+  01c9        cap      expense_cap, R16             ; PA-RELOC-1
   01cd  L28:  next     L25
               ; PA-MED-3  37 Pa. Code 411.42(d)  "OVS will reimburse a claimant for costs for the replacement of..."
   01d2  L29:  push     0
@@ -852,7 +866,7 @@
   01fa        ldk      K2                           ; $1,000.00
   01fd        ldr      r0
   01ff        subs
-  0200        cap      expense_cap, R22             ; PA-MED-3
+  0200        cap      expense_cap, R24             ; PA-MED-3
   0204        push     1
   0209        str      r1
   020b  L31:  ldr      r0
@@ -861,7 +875,7 @@
   020f        str      r0
   0211        jmp      L33
   0216  L32:  push     0
-  021b        cap      expense_cap, R22             ; PA-MED-3
+  021b        cap      expense_cap, R24             ; PA-MED-3
   021f  L33:  next     L30
               ; PA-CLEAN-1  18 P.S. 11.707(b)(1)(iii)  "reasonable and necessary costs of cleaning the crime scene of a..."
   0224  L34:  push     0
@@ -880,7 +894,7 @@
   024c        ldk      K5                           ; $500.00
   024f        ldr      r0
   0251        subs
-  0252        cap      expense_cap, R24             ; PA-CLEAN-1
+  0252        cap      expense_cap, R27             ; PA-CLEAN-1
   0256        push     1
   025b        str      r1
   025d  L36:  ldr      r0
@@ -889,7 +903,7 @@
   0261        str      r0
   0263        jmp      L38
   0268  L37:  push     0
-  026d        cap      expense_cap, R24             ; PA-CLEAN-1
+  026d        cap      expense_cap, R27             ; PA-CLEAN-1
   0271  L38:  next     L35
               ; PA-CAP-1  18 P.S. 11.707(b)(1)  "In no case shall the total amount of an award exceed $35,000..."
   0276  L39:  push     0
@@ -908,7 +922,7 @@
   029e        ldk      K6                           ; $35,000.00
   02a1        ldr      r0
   02a3        subs
-  02a4        cap      total_cap, R8                ; PA-CAP-1
+  02a4        cap      total_cap, R10               ; PA-CAP-1
   02a8        push     1
   02ad        str      r1
   02af  L41:  ldr      r0
@@ -917,7 +931,7 @@
   02b3        str      r0
   02b5        jmp      L43
   02ba  L42:  push     0
-  02bf        cap      total_cap, R8                ; PA-CAP-1
+  02bf        cap      total_cap, R10               ; PA-CAP-1
   02c3  L43:  next     L40
               ; PA-MIN-1  18 P.S. 11.703  "no award shall be made on a claim unless the claimant has..."
   02c8  L44:  push     0
@@ -975,6 +989,16 @@
   0359        jmp      L52
   035e  L51:  push     0                            ; satisfied
   0363  L52:  check    reporting, P27               ; PA-REPORT-1, PA-REPORT-2, PA-REPORT-3, PA-REPORT-4
+              ; PA-CHILD-2  37 Pa. Code 411.42(i)(2)  "The cost of obtaining services needed as a result of the crime..."
+              ; PA-DEADLINE-6  PA.gov Apply for Victims' Compensation page, Who is eligible?  "For crimes occurring on or after 9/8/2022, the claim must be..."
+              ; PA-DEADLINE-2  18 P.S. 11.702(b)(2)(i.1)  "(2) Exceptions shall be as follows: (i) ((i) deleted by..."
+              ; PA-DEADLINE-3  18 P.S. 11.702(b)(2)(ii)  "If a direct victim is under 18 years of age at the time of the..."
+              ; PA-DEADLINE-4  18 P.S. 11.702(b)(2)(ii.1)  "(ii.1) If a direct victim is under 18 years of age at the time..."
+              ; PA-DEADLINE-5  18 P.S. 11.702(b)(2)(iii.1)  "(iii.1) The Office of Victims' Services may find good cause to..."
+              ; PA-REPORT-7  VCAP Manual for Compensation Assistance, Eligibility  "For eligibility requirements for crime occurring prior to..."
+              ; PA-REPORT-6  18 P.S. 11.707(a.2)  "An award may not be made if the record shows that the petition..."
+              ; PA-COOP-1  18 P.S. 11.707(a)(4)  "The direct victim, intervenor or claimant has fully cooperated..."
+              ; PA-COOP-2  37 Pa. Code 411.15(g)  "OVS may consider a failure to cooperate with law enforcement and..."
               ; PA-COLL-1  18 P.S. 11.707(e)  "an award made under this chapter shall be reduced by the amount..."
               ; PA-COND-1  18 P.S. 11.707(f)(1)  "The Office of Victims' Services may reduce the amount or deny..."
               ; PA-COND-2  18 P.S. 11.707(f)(2)  "If the crime involved is rape or sexual assault, the conduct of..."
@@ -998,6 +1022,6 @@
               ; PA-TIME-2  VCAP Claim Process flyer (11/2023)  "Payments owed to the victim/claimant that total $5,000.00 or..."
               ; PA-ACP-1  OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)  "The ACP can provide you with an alternate mailing address to..."
               ; PA-RECCONF-1  18 P.S. 11.709(a)  "All reports, records or other information obtained or produced..."
-  0367        info     P28                          ; PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1
+  0367        info     P28                          ; PA-CHILD-2, PA-DEADLINE-6, PA-DEADLINE-2, PA-DEADLINE-3, PA-DEADLINE-4, PA-DEADLINE-5, PA-REPORT-7, PA-REPORT-6, PA-COOP-1, PA-COOP-2, PA-COLL-1, PA-COND-1, PA-COND-2, PA-EMERG-1, PA-CRIME-1, PA-RES-1, PA-RES-2, PA-SUBMIT-1, PA-SUBMIT-2, PA-SUBMIT-3, PA-DOC-1, PA-DOC-2, PA-DOC-3, PA-DOC-4, PA-DOC-5, PA-DOC-6, PA-DOC-7, PA-DOC-8, PA-DOC-9, PA-TIME-1, PA-TIME-2, PA-ACP-1, PA-RECCONF-1
   036a        ret
 

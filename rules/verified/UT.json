@@ -194,7 +194,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "A survivor may not be charged for a medical forensic sexual assault exam, and does not have to take part in the criminal justice system or cooperate with police or prosecutors to get one.",
    "quote": "A victim may not be: (a) charged for a medical forensic sexual assault examination; or (b) required to participate in the criminal justice system or cooperate with law enforcement or prosecuting attorneys as a condition of being provided a medical forensic sexual assault examination.",
@@ -207,7 +207,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "An exam provider that accepts payment from the Utah Office for Victims of Crime must take it as payment in full and may not try to collect more from the patient.",
    "quote": "A sexual assault exam service provider who accepts payment from UOVC agrees to accept that payment as payment in full on behalf of the patient and may not attempt to collect additional payment from the patient.",
@@ -226,7 +226,7 @@
    "quote": "The office may pay a medical service provider who performs a medical forensic sexual assault examination: (a) up to $1,250 for a complete medical forensic sexual assault examination with photo documentation",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-24(1)(a)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20pay%20a,assault%20examination%20with%20photo%20documentation"
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20may%20pay%20a%20medical,assault%20examination%20with%20photo%20documentation"
   },
   {
    "id": "UT-EXAM-5",
@@ -263,7 +263,20 @@
    "quote": "50% of the fee for the use of an examination room to perform a medical forensic sexual assault examination up to a maximum payment of $350",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-24(2)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=50%25%20of%20the%20fee%20for,a%20maximum%20payment%20of%20%24350"
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=50%25%20of%20the%20fee%20for,maximum%20payment%20of%20%24350"
+  },
+  {
+   "id": "UT-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Utah Office for Victims of Crime, if the exam provider reports the exam to law enforcement"
+   },
+   "summary": "For the office to pay for the exam, the provider who did it must report the exam to law enforcement, and may collect evidence only with the permission of the victim or the victim's legal guardian.",
+   "quote": "To be eligible for reimbursement of a medical forensic sexual assault examination, the medical service provider who performed the sexual assault forensic examination shall: (a) report the medical forensic sexual assault examination to law enforcement; and (b) only collect evidence with the permission of the victim or the legal guardian of the victim.",
+   "source_id": "UT-S8",
+   "pinpoint": "Utah Admin. Code R270-1-24(3)",
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=To%20be%20eligible%20for%20reimbursement,legal%20guardian%20of%20the%20victim."
   },
   {
    "id": "UT-EXCL-1",
@@ -281,7 +294,8 @@
    "id": "UT-TOTAL-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or more in some cases"
    },
    "summary": "A compensation award may not exceed $25,000, including any award for a secondary victim, except for medical expenses from serious or substantial bodily injury.",
    "quote": "Except as provided in Subsection (4)(b), a compensation award may not exceed $25,000 including any compensation award for a secondary victim.",
@@ -311,7 +325,7 @@
     "per": "claim",
     "count_limit": 25
    },
-   "summary": "A primary victim can get up to 25 outpatient mental health counseling sessions, individual or group; more can be authorized with justification and extenuating circumstances.",
+   "summary": "A primary victim can get up to 25 outpatient mental health counseling sessions, individual or group. The reparations officer can approve more if the counselor sends enough documentation to justify them and extenuating circumstances call for them.",
    "quote": "a primary victim of a crime is eligible for a total of 25 outpatient mental health counseling sessions, including either individual or group counseling session;",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-5(1)(a)(i)",
@@ -360,7 +374,7 @@
    "quote": "the office may pay up to $1,000 for the reasonable and necessary costs for a victim to travel to and from:",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-12(1)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20office%20may%20pay%20up,to%20travel%20to%20and%20from%3A"
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=the%20office%20may%20pay%20up%20to%20%241%2C000,to%20travel%20to%20and%20from%3A"
   },
   {
    "id": "UT-CAP-6",
@@ -375,14 +389,14 @@
    "quote": "The reparations officer may allow up to $1,500 for other essential personal property such as burglar alarms, door locks, crime scene cleanup, repair of walls and broken windows.",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-16(3)(a)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow,of%20walls%20and%20broken%20windows."
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow%20up%20to%20%241%2C500,of%20walls%20and%20broken%20windows."
   },
   {
    "id": "UT-CAP-7",
    "category": "expense_cap",
    "expense": "other",
    "params": {
-    "expense": "other",
+    "expense": "property_replacement",
     "amount_cents": 500000,
     "per": "claim"
    },
@@ -390,7 +404,7 @@
    "quote": "The reparations officer may allow up to $5,000 for medically necessary items such as eyeglasses, hearing aids, and wheelchairs.",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-16(2)(a)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow,eyeglasses%2C%20hearing%20aids%2C%20and%20wheelchairs."
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20reparations%20officer%20may%20allow,and%20wheelchairs."
   },
   {
    "id": "UT-CAP-8",
@@ -430,7 +444,7 @@
    "quote": "if the victim does not have any collateral source to pay for medical services the office may pay: (1) the rate established by the PEHP fee schedule for medical services; or (2) 50% of the billed charges for medical services if PEHP does not have a fee schedule established for a medical service.",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-21",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=if%20the%20victim%20does%20not,established%20for%20a%20medical%20service."
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=if%20the%20victim%20does%20not,service."
   },
   {
    "id": "UT-COV-3",
@@ -452,7 +466,7 @@
    "params": {
     "expense": "counseling"
    },
-   "summary": "Mental health counseling is covered when it is in a mental health treatment plan approved by a compensation specialist before any payment is made.",
+   "summary": "Mental health counseling can be covered, but a compensation specialist must approve a mental health treatment plan for it before any payment is made.",
    "quote": "mental health counseling that: (A) is set forth in a mental health treatment plan that is approved before any payment is made by a compensation specialist",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-309(1)(d)(iii)"
@@ -462,7 +476,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost past and future earnings from death or disability caused by the injury are covered at up to 66-2/3% of gross weekly wages or the state workers' compensation maximum.",
    "quote": "actual loss of past earnings and anticipated loss of future earnings because of a death or disability resulting from the personal injury at a rate not to exceed 66-2/3% of the individual's weekly gross salary or wages or the maximum amount allowed under the state workers' compensation statute;",
@@ -474,7 +489,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "child care so you or your spouse can keep working"
    },
    "summary": "Care of minor children so the victim or the victim's spouse (not both) can keep working is covered, at a weekly per-child rate set by rule.",
    "quote": "care of minor children enabling a victim or spouse of a victim, but not both, to continue gainful employment at a rate per child per week as determined under rules established by the office",
@@ -486,7 +502,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "personal property needed for your health or safety"
    },
    "summary": "Personal property necessary and essential to the victim's health or safety is covered, as defined by the office's rules.",
    "quote": "personal property necessary and essential to the health or safety of the victim as defined by rules made by the office",
@@ -516,7 +533,7 @@
    "quote": "The office shall only consider reimbursement of prescription or over-the-counter medications used in conjunction with medical treatment while the victim is being treated by the physician.",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-19(2)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20shall%20only%20consider,being%20treated%20by%20the%20physician."
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=The%20office%20shall%20only%20consider%20reimbursement%20of%20prescription%20or%20over%2Dthe%2Dcounter%20medications%20used,being%20treated%20by%20the%20physician."
   },
   {
    "id": "UT-COV-10",
@@ -537,7 +554,7 @@
    "params": {
     "item": "pain, suffering, and other noneconomic harm"
    },
-   "summary": "Economic loss does not include noneconomic detriment, which the chapter defines as pain, suffering, inconvenience, physical impairment, and other nonpecuniary damage.",
+   "summary": "The program does not pay for harm that is not a money loss, such as pain and suffering.",
    "quote": "\"Economic loss\" does not include noneconomic detriment.",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-101(18)(c)"
@@ -686,7 +703,7 @@
    "quote": "Crimes that are eligible for compensation include: Aggravated Robbery Assault Domestic Violence Bigamy Child Physical or Sexual Abuse DUI with Injury or Death Elder Abuse Home Invasion Homicide Human Trafficking (Sex or Labor) Kidnapping and Unlawful Detention Protective Order Violations Sex Crimes Stalking",
    "source_id": "UT-S3",
    "pinpoint": "UOVC Apply for Compensation page, Eligibility",
-   "fragment_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/#:~:text=Crimes%20that%20are%20eligible%20for,Order%20Violations%20Sex%20Crimes%20Stalking"
+   "fragment_url": "https://crimevictim.utah.gov/help-for-victims/victim-compensation/apply-for-compensation/#:~:text=Crimes%20that%20are%20eligible%20for,Stalking"
   },
   {
    "id": "UT-ELIG-3",
@@ -744,7 +761,7 @@
    "quote": "Mailing & Physical Address: 420 East South Temple, Suite 500, Salt Lake City, UT 84111",
    "source_id": "UT-S9",
    "pinpoint": "Contact Us, Office Contact Information",
-   "fragment_url": "https://crimevictim.utah.gov/about/contact-us/#:~:text=Mailing%20%26%20Physical%20Address%3A%20420,Salt%20Lake%20City%2C%20UT%2084111"
+   "fragment_url": "https://crimevictim.utah.gov/about/contact-us/#:~:text=Mailing%20%26%20Physical%20Address%3A,Salt%20Lake%20City%2C%20UT%2084111"
   },
   {
    "id": "UT-SUBMIT-4",
@@ -835,7 +852,7 @@
    "quote": "a qualified mental health professional who intends to provide outpatient mental health counseling to a victim shall submit a Mental Health Treatment Plan to the office",
    "source_id": "UT-S8",
    "pinpoint": "Utah Admin. Code R270-1-5(1)(b)(i)",
-   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=a%20qualified%20mental%20health%20professional,Treatment%20Plan%20to%20the%20office"
+   "fragment_url": "https://adminrules.utah.gov/public/rule/R270-1/Current%20Rules#:~:text=a%20qualified%20mental%20health%20professional%20who,Treatment%20Plan%20to%20the%20office"
   },
   {
    "id": "UT-DOC-7",
@@ -874,17 +891,17 @@
     "covers_sexual_assault": true,
     "enroll": "In order to apply for the Safe at Home Program, a victim must meet with a Certified Safe at Home Program Assistant. Safe at Home Program Assistants are victim advocates and others who work with victims that have gone through a certification training. They will complete the application with the victim and submit it to Safe at Home on behalf of the victim. Safe at Home cannot accept applications directly from an individual. That individual must work with a Program Assistant."
    },
-   "summary": "Utah's Safe at Home Program gives survivors of sexual assault, domestic violence, stalking, human trafficking, and abuse who fear for their safety a legal substitute address and free mail forwarding, and state and local government agencies must accept that substitute address. Survivors apply through a certified program assistant, not directly.",
+   "summary": "Utah's Safe at Home Program is for survivors of sexual assault, abuse, child abuse, domestic violence, stalking, or human trafficking who live in Utah and are afraid they will be in physical danger if the perpetrator knows where they live. It gives them a substitute address and mail forwarding. You apply through a certified program assistant, not on your own.",
    "quote": "Utah’s Safe at Home Program is available to survivors of abuse, child abuse, domestic violence, stalking, human trafficking, and sexual assault who are afraid that they will be in physical danger if their perpetrator knows where they live. The program will provide a substitute address and mail forwarding for survivors living in Utah.",
    "source_id": "UT-S11",
    "pinpoint": "Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)",
-   "fragment_url": "https://safeathome.utah.gov/#:~:text=Utah%E2%80%99s%20Safe%20at%20Home%20Program,for%20survivors%20living%20in%20Utah."
+   "fragment_url": "https://safeathome.utah.gov/#:~:text=Utah%E2%80%99s%20Safe%20at%20Home%20Program%20is,for%20survivors%20living%20in%20Utah."
   },
   {
    "id": "UT-RECCONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "Records the Utah Office for Victims of Crime holds about a claimant's eligibility (the claim, correspondence on approval, denial, or payment, supporting documents, medical or mental health treatment plans, and police reports) are confidential records that can be released only as the compensation statute allows, overriding the state open records act: to the claimant, to whoever submitted the record, or for fraud or subrogation actions.",
+   "summary": "Records the Utah Office for Victims of Crime keeps about a claim, including restitution records, can be shared only as this law allows, whatever the state open records law says.",
    "quote": "Notwithstanding Title 63G, Chapter 2, Government Records Access and Management Act, a confidential record, a public restitution record, and a nonpublic restitution record may only be disclosed as provided in this section.",
    "source_id": "UT-S7",
    "pinpoint": "Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)"

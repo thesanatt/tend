@@ -17,7 +17,7 @@
    "field_count": 297
   }
  },
- "source_sha256": "25ec26f6bb3249da3636545e7b6dd8baabe355bd7ec45977d5a66c16489b6f69",
+ "source_sha256": "a8d7e25ba79e6a8a60716d327e7e826563e0f5e0d37f3a39f9ea0cac5f449829",
  "rules": [
   {
    "id": "IL-EXAM-1",
@@ -162,6 +162,11 @@
    "category": "filing_deadline"
   },
   {
+   "id": "IL-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "IL-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -185,13 +190,15 @@
    ]
   },
   {
+   "id": "IL-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "IL-REPORT-3",
    "kind": "reporting",
    "required": false,
-   "alternatives": [
-    "forensic_exam",
-    "medical_provider"
-   ]
+   "alternatives": []
   },
   {
    "id": "IL-REPORT-4",

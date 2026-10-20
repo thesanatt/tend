@@ -17,7 +17,7 @@
    "field_count": 245
   }
  },
- "source_sha256": "e3ef520f93df5b01a54d8f81390efb457f3d54bac1a1f39620478677fc61b530",
+ "source_sha256": "135a15918c11c718b195cf4f448240c4e930c3f04a64fb7e8b902738d6f8192d",
  "rules": [
   {
    "id": "TX-EXAM-1",
@@ -55,6 +55,11 @@
    "expense": "relocation"
   },
   {
+   "id": "TX-RELO-4",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
    "id": "TX-RELO-2",
    "kind": "expense_cap",
    "expense": "relocation",
@@ -73,6 +78,11 @@
   },
   {
    "id": "TX-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TX-EXAM-5",
    "kind": "covered",
    "expense": "medical"
   },
@@ -140,18 +150,31 @@
    "from": "crime"
   },
   {
+   "id": "TX-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "TX-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "TX-REPORT-1",
    "kind": "reporting",
    "required": true,
    "alternatives": []
   },
   {
-   "id": "TX-REPORT-2",
+   "id": "TX-REPORT-3",
    "kind": "reporting",
-   "required": false,
-   "alternatives": [
-    "forensic_exam"
-   ]
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TX-REPORT-2",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "TX-COLLAT-1",
@@ -251,6 +274,11 @@
  "skipped": [
   {
    "id": "TX-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "TX-TRAVEL-2",
    "category": "expense_cap",
    "reason": "expense_cap without amount or expense"
   }

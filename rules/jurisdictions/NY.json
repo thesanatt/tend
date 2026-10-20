@@ -204,7 +204,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified"
    },
    "summary": "The provider must accept the OVS exam fee as payment in full and may not bill the survivor for the forensic exam services.",
    "quote": "The hospital, sexual assault examiner program, or licensed health care provider must accept this fee as payment in full for these specified services. No additional billing of the survivor for said services is permissible.",
@@ -240,7 +240,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "insurance_billing": "unspecified"
    },
    "summary": "A provider that accepts OVS payment for the exam takes it as payment in full and may not bill the survivor for the difference between its charges and what OVS paid.",
    "quote": "The billing provider may not bill victims/survivors or their guardians for the difference between charged amounts and the amount reimbursed by OVS.",
@@ -276,9 +276,9 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "OVS pays only for exam-related services; unrelated care goes to insurance first, then a compensation claim"
+    "payer": "OVS pays only for exam-related services and medicines under the exam claim"
    },
-   "summary": "OVS direct payment covers only services and medicines related to the forensic exam. Unrelated care in the same visit is not paid under the exam claim; it goes to the survivor's insurance first, then can be submitted to OVS as a regular compensation claim.",
+   "summary": "OVS direct payment covers only services and medicines related to the forensic exam.",
    "quote": "Only services and pharmaceuticals that are related to the forensic rape exam may be reimbursed under an FRE claim.",
    "source_id": "NY-S19",
    "pinpoint": "OVS FRE Provider Billing Manual (March 2026), III Reimbursement"
@@ -317,7 +317,9 @@
    "id": "NY-COVER-4",
    "category": "covered_expense",
    "expense": "transportation",
-   "params": {},
+   "params": {
+    "scope": "trips to necessary medical care caused by the crime"
+   },
    "summary": "Reasonable travel to crime-related medical care is covered, with receipts for fares or the federal mileage rate for driving yourself.",
    "quote": "medical expenses shall also include the reasonable transportation expenses incurred for necessary, causally related medical care which may include, but are not limited to, reasonable airplane, cab, bus or train fare, with receipts, or if a claimant has provided his or her own transportation, the federally recognized mileage reimbursement rate at the time the expense was incurred",
    "source_id": "NY-S18",
@@ -327,7 +329,9 @@
    "id": "NY-COVER-5",
    "category": "covered_expense",
    "expense": "transportation",
-   "params": {},
+   "params": {
+    "scope": "trips to court for the prosecution"
+   },
    "summary": "Reasonable transportation to necessary court appearances in the prosecution is covered.",
    "quote": "an award shall include reasonable transportation expenses incurred for necessary court appearances in connection with the prosecution of such crimes upon which the claim is based.",
    "source_id": "NY-S9",
@@ -337,7 +341,9 @@
    "id": "NY-COVER-6",
    "category": "covered_expense",
    "expense": "security",
-   "params": {},
+   "params": {
+    "scope": "new or better security devices, if a doctor, counselor, or the district attorney says your health is in imminent danger without them"
+   },
    "summary": "New or enhanced security devices can be covered when a physician, counselor, or the district attorney states the claimant's health is in imminent danger without the device.",
    "quote": "In order for the costs associated with new or enhanced security devices, beyond those which, pursuant to the Executive Law are repaired or replaced under subdivision 2 of section 631, or are awarded under subdivision 12 of section 631 , to be compensable, the office shall require a statement from the claimant's physician or counselor, or the district attorney handling the victim's case, indicating that without the aid of such a device the claimant's health is in imminent danger.",
    "source_id": "NY-S17",
@@ -347,11 +353,26 @@
    "id": "NY-COVER-7",
    "category": "covered_expense",
    "expense": "relocation",
-   "params": {},
+   "params": {
+    "scope": "moving when it is necessary for your health or safety"
+   },
    "summary": "Relocation costs are covered when moving is necessary for the victim's health or safety.",
    "quote": "\"Relocation expenses\" shall mean the cost of relocating a crime victim, when relocation is necessary for the health or safety of the victim.",
    "source_id": "NY-S14",
    "pinpoint": "N.Y. Exec. Law 621(23)"
+  },
+  {
+   "id": "NY-COVER-8",
+   "category": "covered_expense",
+   "expense": "property_replacement",
+   "params": {
+    "expense": "property_replacement",
+    "scope": "belongings needed for your health, welfare, or safety"
+   },
+   "summary": "Only essential personal property counts: belongings needed for the victim's health, welfare, or safety.",
+   "quote": "\"Essential personal property\" shall mean articles of personal property necessary and essential to the health, welfare or safety of the victim.",
+   "source_id": "NY-S14",
+   "pinpoint": "N.Y. Exec. Law 621(8)"
   },
   {
    "id": "NY-CAP-1",
@@ -488,7 +509,7 @@
    "category": "expense_cap",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding",
+    "expense": "property_replacement",
     "amount_cents": 50000,
     "per": "item",
     "item": "outerwear, suits and footwear"
@@ -503,7 +524,7 @@
    "category": "expense_cap",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding",
+    "expense": "property_replacement",
     "amount_cents": 10000,
     "per": "item",
     "item": "clothing other than outerwear, suits and footwear"
@@ -518,7 +539,7 @@
    "category": "expense_cap",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding",
+    "expense": "property_replacement",
     "amount_cents": 200000,
     "per": "claim",
     "item": "mattress and platform or box spring"
@@ -533,7 +554,7 @@
    "category": "expense_cap",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding",
+    "expense": "property_replacement",
     "amount_cents": 50000,
     "per": "claim",
     "item": "bedding other than mattress and box spring"
@@ -599,7 +620,7 @@
    "params": {
     "years": 3,
     "from": "crime",
-    "extension": "Runs from the crime or its discovery; OVS may extend for good cause, and must extend if the claimant got no notice of the program and did not know they were eligible."
+    "extension": "or of when the crime was discovered, or later if OVS finds good cause"
    },
    "summary": "File within 3 years of the crime or its discovery; OVS may extend this for good cause.",
    "quote": "A claim must be filed by the claimant not later than three years after the occurrence or discovery of the crime upon which such claim is based, three years after a court finds a lawsuit to be frivolous, or not later than three years after the death of the victim, provided, however, that upon good cause shown, the office may extend the time for filing.",
@@ -629,7 +650,7 @@
      "other"
     ]
    },
-   "summary": "A police report is not required: the crime must have been reported, but records of a support agency for survivors of crime (such as a forensic exam facility or protective services agency) can show this instead of police records. No fixed reporting window appears in the statute.",
+   "summary": "A police report is not required. The crime must have been reported, but records of a support agency for survivors of crime can show this instead of police records.",
    "quote": "the records of a support agency for survivors of crime or the records of a criminal justice agency show that such crime was reported.",
    "source_id": "NY-S9",
    "pinpoint": "N.Y. Exec. Law 631(1)(a)(iii)"
@@ -706,7 +727,7 @@
    "id": "NY-COLLAT-2",
    "category": "collateral_source",
    "params": {},
-   "summary": "OVS pays last: insurance or benefit plans must be billed first. The forensic exam is an exception (see the exam rules).",
+   "summary": "OVS pays last: insurance or benefit plans must be billed first. The forensic exam has its own billing rules, shown in the exam section.",
    "quote": "OVS is the payer of last resort and can only consider your out-of-pocket loss. OVS can only process payments for crime-related expenses. You must bill your insurance company or benefits plan before OVS can pay.",
    "source_id": "NY-S4",
    "pinpoint": "OVS Claim Application, Reminder"

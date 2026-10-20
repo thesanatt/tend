@@ -1,8 +1,8 @@
 ; tend law image UT, Utah
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 85b5515ec22785f09e9f3374b10d7613e5a028e5e2efae59039bae52a149f9b2
-; image sha256  b2699f88512d35fdd36eb2e38af14d8e781e75c825c045c6e9a0950b541e1db4
-; 56 rules, 17 sources, 28 proofs, 7 ints, 329 strings
+; source sha256 4d88677ce959fdbe2bb89d3d16df232b211a2fdc3b13d4e2528f8b04f9248aaa
+; image sha256  d897b3dd23b515fa53cb17dffb2940867f507df83450daec4fe9ee92f77e42e7
+; 57 rules, 17 sources, 28 proofs, 7 ints, 334 strings
 ; item program: 187 instructions, 590 bytes, max stack 2
 ; aggregate program: 209 instructions, 651 bytes, max stack 2, 7 loops
 
@@ -13,56 +13,57 @@
     R3    UT-EXAM-5             covered       prescription                                  Utah Admin. Code R270-1-24(1)(b)
     R4    UT-EXAM-6             collateral    -                                             UOVC Sexual Assault Services Providers billing page, Reminder
     R5    UT-EXAM-7             exam_payment  -                                             Utah Admin. Code R270-1-24(2)
-    R6    UT-EXCL-1             info          -                     excluded_expense        Utah Admin. Code R270-1-24(7)
-    R7    UT-TOTAL-1            total_cap     -                                             Utah Code 75E-5-309(4)(a)
-    R8    UT-CAP-1              expense_cap   medical               per claim               Utah Code 75E-5-309(4)(b)
-    R9    UT-CAP-4              expense_cap   relocation            per claim               Utah Admin. Code R270-1-11(1)(a)
-    R10   UT-CAP-5              expense_cap   transportation        per claim               Utah Admin. Code R270-1-12(1)
-    R11   UT-CAP-6              expense_cap   security              per claim               Utah Admin. Code R270-1-16(3)(a)
-    R12   UT-CAP-7              expense_cap   other                 per claim               Utah Admin. Code R270-1-16(2)(a)
-    R13   UT-CAP-8              expense_cap   funeral               per claim               Utah Admin. Code R270-1-3(1)(a)
-    R14   UT-COV-1              covered       medical                                       Utah Code 75E-5-309(1)(d)(ii)
-    R15   UT-COV-2              covered       medical                                       Utah Admin. Code R270-1-21
-    R16   UT-COV-3              covered       dental                                        Utah Admin. Code R270-1-2(2)(b)(i)
-    R17   UT-COV-4              covered       counseling                                    Utah Code 75E-5-309(1)(d)(iii)
-    R18   UT-COV-5              covered       lost_wages                                    Utah Code 75E-5-309(1)(d)(iv)
-    R19   UT-COV-6              covered       childcare                                     Utah Code 75E-5-309(1)(d)(v)
-    R20   UT-COV-7              covered       property_replacement                          Utah Code 75E-5-309(1)(d)(viii)
-    R21   UT-COV-8              covered       medical                                       Utah Code 75E-5-309(1)(d)(x)
-    R22   UT-COV-9              covered       prescription                                  Utah Admin. Code R270-1-19(2)
-    R23   UT-COV-10             covered       medical                                       Utah Admin. Code R270-1-8
-    R24   UT-EXCL-2             info          -                     excluded_expense        Utah Code 75E-5-101(18)(c)
-    R25   UT-EXCL-3             info          -                     excluded_expense        Utah Admin. Code R270-1-28(4)(a)
-    R26   UT-EXCL-4             info          -                     excluded_expense        Utah Admin. Code R270-1-5(5)
-    R27   UT-REPORT-1           reporting     -                                             Utah Code 75E-5-305(1)(d)
-    R28   UT-REPORT-2           reporting     -                                             Utah Code 75E-5-305(3)(a)
-    R29   UT-REPORT-3           reporting     -                                             UOVC Apply for Compensation page, Eligibility
-    R30   UT-COLL-1             collateral    -                                             Utah Admin. Code R270-1-28(5)(a)
-    R31   UT-COLL-2             collateral    -                                             Utah Admin. Code R270-1-28(5)(b)
-    R32   UT-COND-1             info          -                     conduct_reduction       Utah Code 75E-5-309(2)(a)
-    R33   UT-COND-2             info          -                     conduct_reduction       Utah Admin. Code R270-1-22(3)
-    R34   UT-EMERG-1            info          -                     emergency_award         Utah Code 75E-5-309(3)(a)
-    R35   UT-EMERG-2            info          -                     emergency_award         Utah Admin. Code R270-1-9(1)(a)
-    R36   UT-ELIG-1             info          -                     eligible_crime          Utah Code 75E-5-101(47)(a)
-    R37   UT-ELIG-2             info          -                     eligible_crime          UOVC Apply for Compensation page, Eligibility
-    R38   UT-ELIG-3             info          -                     eligible_crime          Utah Code 75E-5-305(2)
-    R39   UT-RES-1              info          -                     residency               Utah Code 75E-5-305(1)(b)
-    R40   UT-SUBMIT-1           info          -                     submission              Apply for Compensation, Victim Compensation Application Process
-    R41   UT-SUBMIT-2           info          -                     submission              Application header
-    R42   UT-SUBMIT-3           info          -                     submission              Contact Us, Office Contact Information
-    R43   UT-SUBMIT-4           info          -                     submission              Contact Us, Office Contact Information
-    R44   UT-DOC-1              info          -                     required_document       Apply for Compensation, Victim Compensation Application Process
-    R45   UT-DOC-2              info          -                     required_document       Apply for Compensation, Eligibility
-    R46   UT-DOC-3              info          -                     required_document       Application, Section 3
-    R47   UT-DOC-4              info          -                     required_document       Application, Section 9
-    R48   UT-DOC-5              info          -                     required_document       Victim FAQs, medical bills
-    R49   UT-DOC-6              info          -                     required_document       Utah Admin. Code R270-1-5(1)(b)(i)
-    R50   UT-DOC-7              info          -                     required_document       What Happens After a Decision, Funeral or Relocation Costs
-    R51   UT-TIME-1             info          -                     processing_time         Apply for Compensation, Victim Compensation Application Process
-    R52   UT-ACP-1              info          -                     address_confidentiality Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)
-    R53   UT-RECCONF-1          info          -                     record_confidentiality  Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)
-    R54   UT-CAP-2              skipped       -                     expense_cap             Utah Admin. Code R270-1-5(1)(a)(i)  ; expense_cap without amount or expense
-    R55   UT-CAP-3              skipped       -                     expense_cap             Utah Admin. Code R270-1-10(2)(a)  ; expense_cap without amount or expense
+    R6    UT-EXAM-8             exam_payment  -                                             Utah Admin. Code R270-1-24(3)
+    R7    UT-EXCL-1             info          -                     excluded_expense        Utah Admin. Code R270-1-24(7)
+    R8    UT-TOTAL-1            total_cap     -                                             Utah Code 75E-5-309(4)(a)
+    R9    UT-CAP-1              expense_cap   medical               per claim               Utah Code 75E-5-309(4)(b)
+    R10   UT-CAP-4              expense_cap   relocation            per claim               Utah Admin. Code R270-1-11(1)(a)
+    R11   UT-CAP-5              expense_cap   transportation        per claim               Utah Admin. Code R270-1-12(1)
+    R12   UT-CAP-6              expense_cap   security              per claim               Utah Admin. Code R270-1-16(3)(a)
+    R13   UT-CAP-7              expense_cap   other                 per claim               Utah Admin. Code R270-1-16(2)(a)
+    R14   UT-CAP-8              expense_cap   funeral               per claim               Utah Admin. Code R270-1-3(1)(a)
+    R15   UT-COV-1              covered       medical                                       Utah Code 75E-5-309(1)(d)(ii)
+    R16   UT-COV-2              covered       medical                                       Utah Admin. Code R270-1-21
+    R17   UT-COV-3              covered       dental                                        Utah Admin. Code R270-1-2(2)(b)(i)
+    R18   UT-COV-4              covered       counseling                                    Utah Code 75E-5-309(1)(d)(iii)
+    R19   UT-COV-5              covered       lost_wages                                    Utah Code 75E-5-309(1)(d)(iv)
+    R20   UT-COV-6              covered       childcare                                     Utah Code 75E-5-309(1)(d)(v)
+    R21   UT-COV-7              covered       property_replacement                          Utah Code 75E-5-309(1)(d)(viii)
+    R22   UT-COV-8              covered       medical                                       Utah Code 75E-5-309(1)(d)(x)
+    R23   UT-COV-9              covered       prescription                                  Utah Admin. Code R270-1-19(2)
+    R24   UT-COV-10             covered       medical                                       Utah Admin. Code R270-1-8
+    R25   UT-EXCL-2             info          -                     excluded_expense        Utah Code 75E-5-101(18)(c)
+    R26   UT-EXCL-3             info          -                     excluded_expense        Utah Admin. Code R270-1-28(4)(a)
+    R27   UT-EXCL-4             info          -                     excluded_expense        Utah Admin. Code R270-1-5(5)
+    R28   UT-REPORT-1           reporting     -                                             Utah Code 75E-5-305(1)(d)
+    R29   UT-REPORT-2           reporting     -                                             Utah Code 75E-5-305(3)(a)
+    R30   UT-REPORT-3           reporting     -                                             UOVC Apply for Compensation page, Eligibility
+    R31   UT-COLL-1             collateral    -                                             Utah Admin. Code R270-1-28(5)(a)
+    R32   UT-COLL-2             collateral    -                                             Utah Admin. Code R270-1-28(5)(b)
+    R33   UT-COND-1             info          -                     conduct_reduction       Utah Code 75E-5-309(2)(a)
+    R34   UT-COND-2             info          -                     conduct_reduction       Utah Admin. Code R270-1-22(3)
+    R35   UT-EMERG-1            info          -                     emergency_award         Utah Code 75E-5-309(3)(a)
+    R36   UT-EMERG-2            info          -                     emergency_award         Utah Admin. Code R270-1-9(1)(a)
+    R37   UT-ELIG-1             info          -                     eligible_crime          Utah Code 75E-5-101(47)(a)
+    R38   UT-ELIG-2             info          -                     eligible_crime          UOVC Apply for Compensation page, Eligibility
+    R39   UT-ELIG-3             info          -                     eligible_crime          Utah Code 75E-5-305(2)
+    R40   UT-RES-1              info          -                     residency               Utah Code 75E-5-305(1)(b)
+    R41   UT-SUBMIT-1           info          -                     submission              Apply for Compensation, Victim Compensation Application Process
+    R42   UT-SUBMIT-2           info          -                     submission              Application header
+    R43   UT-SUBMIT-3           info          -                     submission              Contact Us, Office Contact Information
+    R44   UT-SUBMIT-4           info          -                     submission              Contact Us, Office Contact Information
+    R45   UT-DOC-1              info          -                     required_document       Apply for Compensation, Victim Compensation Application Process
+    R46   UT-DOC-2              info          -                     required_document       Apply for Compensation, Eligibility
+    R47   UT-DOC-3              info          -                     required_document       Application, Section 3
+    R48   UT-DOC-4              info          -                     required_document       Application, Section 9
+    R49   UT-DOC-5              info          -                     required_document       Victim FAQs, medical bills
+    R50   UT-DOC-6              info          -                     required_document       Utah Admin. Code R270-1-5(1)(b)(i)
+    R51   UT-DOC-7              info          -                     required_document       What Happens After a Decision, Funeral or Relocation Costs
+    R52   UT-TIME-1             info          -                     processing_time         Apply for Compensation, Victim Compensation Application Process
+    R53   UT-ACP-1              info          -                     address_confidentiality Safe at Home homepage, program description; Utah Code 75E-11-102 and 75E-11-302 (UT-S16)
+    R54   UT-RECCONF-1          info          -                     record_confidentiality  Utah Code 75E-5-205(1)-(3); definition of confidential record at 75E-5-101(10)
+    R55   UT-CAP-2              skipped       -                     expense_cap             Utah Admin. Code R270-1-5(1)(a)(i)  ; expense_cap without amount or expense
+    R56   UT-CAP-3              skipped       -                     expense_cap             Utah Admin. Code R270-1-10(2)(a)  ; expense_cap without amount or expense
 
 .sources
     S0    UT-S1       sha256 2a1f9a288debddcf  https://crimevictim.utah.gov/help-for-victims/victim-compensation/
@@ -85,7 +86,7 @@
 
 .proofs
     P0    ()
-    P1    (UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7)
+    P1    (UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7, UT-EXAM-8)
     P2    (UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10)
     P3    (UT-CAP-1, UT-COV-1, UT-COV-2, UT-COV-8, UT-COV-10, UT-EXAM-6, UT-COLL-1, UT-COLL-2)
     P4    (UT-COV-4)
@@ -159,8 +160,9 @@
               ; UT-EXAM-2  UOVC Sexual Assault Services Providers billing page, Payment in Full Requirement  "A sexual assault exam service provider who accepts payment from..."
               ; UT-EXAM-3  Utah Admin. Code R270-1-24(1)(a)  "The office may pay a medical service provider who performs a..."
               ; UT-EXAM-7  Utah Admin. Code R270-1-24(2)  "50% of the fee for the use of an examination room to perform a..."
+              ; UT-EXAM-8  Utah Admin. Code R270-1-24(3)  "To be eligible for reimbursement of a medical forensic sexual..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7
+  0077        decide   held, P1                     ; UT-EXAM-1, UT-EXAM-2, UT-EXAM-3, UT-EXAM-7, UT-EXAM-8
   007b        ret
               ; UT-EXAM-6  UOVC Sexual Assault Services Providers billing page, Reminder  "Providers must bill all available insurance or other payment..."
               ; UT-CAP-1  Utah Code 75E-5-309(4)(b)  "A compensation award for medical expenses resulting from serious..."
@@ -405,7 +407,7 @@
   0028        ldk      K0                           ; $50,000.00
   002b        ldr      r0
   002d        subs
-  002e        cap      expense_cap, R8              ; UT-CAP-1
+  002e        cap      expense_cap, R9              ; UT-CAP-1
   0032        push     1
   0037        str      r1
   0039  L1:   ldr      r0
@@ -414,7 +416,7 @@
   003d        str      r0
   003f        jmp      L3
   0044  L2:   push     0
-  0049        cap      expense_cap, R8              ; UT-CAP-1
+  0049        cap      expense_cap, R9              ; UT-CAP-1
   004d  L3:   next     L0
               ; UT-CAP-4  Utah Admin. Code R270-1-11(1)(a)  "the office may pay up to $2,000 for any reasonable and necessary..."
   0052  L4:   push     0
@@ -433,7 +435,7 @@
   007a        ldk      K1                           ; $2,000.00
   007d        ldr      r0
   007f        subs
-  0080        cap      expense_cap, R9              ; UT-CAP-4
+  0080        cap      expense_cap, R10             ; UT-CAP-4
   0084        push     1
   0089        str      r1
   008b  L6:   ldr      r0
@@ -442,7 +444,7 @@
   008f        str      r0
   0091        jmp      L8
   0096  L7:   push     0
-  009b        cap      expense_cap, R9              ; UT-CAP-4
+  009b        cap      expense_cap, R10             ; UT-CAP-4
   009f  L8:   next     L5
               ; UT-CAP-5  Utah Admin. Code R270-1-12(1)  "the office may pay up to $1,000 for the reasonable and necessary..."
   00a4  L9:   push     0
@@ -461,7 +463,7 @@
   00cc        ldk      K2                           ; $1,000.00
   00cf        ldr      r0
   00d1        subs
-  00d2        cap      expense_cap, R10             ; UT-CAP-5
+  00d2        cap      expense_cap, R11             ; UT-CAP-5
   00d6        push     1
   00db        str      r1
   00dd  L11:  ldr      r0
@@ -470,7 +472,7 @@
   00e1        str      r0
   00e3        jmp      L13
   00e8  L12:  push     0
-  00ed        cap      expense_cap, R10             ; UT-CAP-5
+  00ed        cap      expense_cap, R11             ; UT-CAP-5
   00f1  L13:  next     L10
               ; UT-CAP-6  Utah Admin. Code R270-1-16(3)(a)  "The reparations officer may allow up to $1,500 for other..."
   00f6  L14:  push     0
@@ -489,7 +491,7 @@
   011e        ldk      K3                           ; $1,500.00
   0121        ldr      r0
   0123        subs
-  0124        cap      expense_cap, R11             ; UT-CAP-6
+  0124        cap      expense_cap, R12             ; UT-CAP-6
   0128        push     1
   012d        str      r1
   012f  L16:  ldr      r0
@@ -498,7 +500,7 @@
   0133        str      r0
   0135        jmp      L18
   013a  L17:  push     0
-  013f        cap      expense_cap, R11             ; UT-CAP-6
+  013f        cap      expense_cap, R12             ; UT-CAP-6
   0143  L18:  next     L15
               ; UT-CAP-7  Utah Admin. Code R270-1-16(2)(a)  "The reparations officer may allow up to $5,000 for medically..."
   0148  L19:  push     0
@@ -517,7 +519,7 @@
   0170        ldk      K4                           ; $5,000.00
   0173        ldr      r0
   0175        subs
-  0176        cap      expense_cap, R12             ; UT-CAP-7
+  0176        cap      expense_cap, R13             ; UT-CAP-7
   017a        push     1
   017f        str      r1
   0181  L21:  ldr      r0
@@ -526,7 +528,7 @@
   0185        str      r0
   0187        jmp      L23
   018c  L22:  push     0
-  0191        cap      expense_cap, R12             ; UT-CAP-7
+  0191        cap      expense_cap, R13             ; UT-CAP-7
   0195  L23:  next     L20
               ; UT-CAP-8  Utah Admin. Code R270-1-3(1)(a)  "up to $14,000 for any reasonable and necessary expense related..."
   019a  L24:  push     0
@@ -545,7 +547,7 @@
   01c2        ldk      K5                           ; $14,000.00
   01c5        ldr      r0
   01c7        subs
-  01c8        cap      expense_cap, R13             ; UT-CAP-8
+  01c8        cap      expense_cap, R14             ; UT-CAP-8
   01cc        push     1
   01d1        str      r1
   01d3  L26:  ldr      r0
@@ -554,7 +556,7 @@
   01d7        str      r0
   01d9        jmp      L28
   01de  L27:  push     0
-  01e3        cap      expense_cap, R13             ; UT-CAP-8
+  01e3        cap      expense_cap, R14             ; UT-CAP-8
   01e7  L28:  next     L25
               ; UT-TOTAL-1  Utah Code 75E-5-309(4)(a)  "Except as provided in Subsection (4)(b), a compensation award..."
   01ec  L29:  push     0
@@ -573,7 +575,7 @@
   0214        ldk      K6                           ; $25,000.00
   0217        ldr      r0
   0219        subs
-  021a        cap      total_cap, R7                ; UT-TOTAL-1
+  021a        cap      total_cap, R8                ; UT-TOTAL-1
   021e        push     1
   0223        str      r1
   0225  L31:  ldr      r0
@@ -582,7 +584,7 @@
   0229        str      r0
   022b        jmp      L33
   0230  L32:  push     0
-  0235        cap      total_cap, R7                ; UT-TOTAL-1
+  0235        cap      total_cap, R8                ; UT-TOTAL-1
   0239  L33:  next     L30
   023e  L34:  push     0                            ; met
   0243        check    minimum_loss, P0             ; (none)

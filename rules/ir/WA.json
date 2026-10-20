@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "e67dc45a75fa26fc59d10e13b1d86f87ff40271faf8112cf673ddee6ff3360ba",
+ "source_sha256": "336709ca78a7bd4958d3bb21297f869b7a94c9b6df097302b0c58607d6bfd5d3",
  "rules": [
   {
    "id": "WA-EXAM-1",
@@ -122,13 +122,18 @@
   },
   {
    "id": "WA-COV-TRANSPORT-3",
-   "kind": "covered",
-   "expense": "transportation"
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WA-COV-CLOTHING",
    "kind": "covered",
    "expense": "clothing_bedding"
+  },
+  {
+   "id": "WA-COV-MEDICATION",
+   "kind": "covered",
+   "expense": "prescription"
   },
   {
    "id": "WA-COV-PEP",
@@ -313,5 +318,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "WA-COV-TRANSPORT-4",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

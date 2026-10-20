@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "ND",
- "source_sha256": "f687074767156ce84c3a6391dbc18182947eb34333b58cb17c6cf4817ded0418",
- "ir_sha256": "4f97863ca3f60c31a849f7abf33ba4c8ac3312a81741be8c789c929ed025369a",
+ "source_sha256": "a71d5e7780c287239a9d1f565a21a8d2735c8c1900640dcc4ef7ed1413bc0ab9",
+ "ir_sha256": "ece174352f5869f87e1231c975b9337ba735e6d155569060a10472d6eab39d17",
  "fresh": true,
  "rules": [
   {
@@ -135,6 +135,11 @@
    "expense": "legal"
   },
   {
+   "id": "ND-EXCL-TRAVEL",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "ND-DEADLINE-1",
    "kind": "deadline",
    "days": 365,
@@ -144,19 +149,18 @@
    "id": "ND-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 4
   },
   {
    "id": "ND-REPORT-GOODCAUSE",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-GOODCAUSE-2",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "ND-REPORT-CHILD",
@@ -309,6 +313,16 @@
   }
  ],
  "skipped": [
+  {
+   "id": "ND-CAP-COUNSEL-WINDOW",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "ND-CAP-TRAVEL-MIN",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
   {
    "id": "ND-CAP-COUNSEL-ADULT",
    "category": "expense_cap",

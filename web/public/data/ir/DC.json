@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "DC",
- "source_sha256": "2dd795bfd3403e3a00d6ee1e3911c94b684da394c4a748877feb85b6fc5732a1",
- "ir_sha256": "03db2546156ce38c55178adea23c1c166947292109f749e44ad7b0feb55d2083",
+ "source_sha256": "2401aec76c1c91e012f4b1aaad067d5ee6c2418805249fcbcbad9eaa3cb9a120",
+ "ir_sha256": "45ab9e8bac37e1228e3b70314f4dfd6eaa1b2e8e13a554be772dc0ad9925b634",
  "fresh": true,
  "rules": [
   {
@@ -150,6 +150,16 @@
    "from": "crime"
   },
   {
+   "id": "DC-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DC-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "DC-REP-1",
    "kind": "reporting",
    "required": true,
@@ -159,7 +169,7 @@
   {
    "id": "DC-REP-2",
    "kind": "reporting",
-   "required": false,
+   "required": true,
    "alternatives": [
     "forensic_exam",
     "other",

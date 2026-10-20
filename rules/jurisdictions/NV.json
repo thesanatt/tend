@@ -147,12 +147,10 @@
     },
     {
       "id": "NV-EXAM-4",
-      "category": "exam_no_bill",
+      "category": "exam_payment",
       "expense": "medical",
-      "params": {
-        "insurance_billing": "unspecified"
-      },
-      "summary": "Those county-paid costs for initial medical care of physical injuries must not be charged directly to the survivor; they are charged to the county.",
+      "params": {},
+      "summary": "The costs of the county-paid medical care for physical injuries from the assault must not be charged directly to the survivor.",
       "quote": "Any costs incurred pursuant to subsection 1: (a) Must not be charged directly to the victim of sexual assault.",
       "source_id": "NV-S5",
       "pinpoint": "NRS 217.300(3)(a)"
@@ -162,9 +160,10 @@
       "category": "reporting_requirement",
       "expense": "forensic_exam",
       "params": {
-        "required": false
+        "required": false,
+        "expense": "forensic_exam"
       },
-      "summary": "A survivor does not have to report to police to get a forensic medical exam paid for under this section.",
+      "summary": "You do not have to report to police to qualify for the forensic medical exam that this part of Nevada law pays for.",
       "quote": "The filing of a report with the appropriate law enforcement agency must not be a prerequisite to qualify for a forensic medical examination pursuant to this section.",
       "source_id": "NV-S5",
       "pinpoint": "NRS 217.300(5)"
@@ -184,12 +183,22 @@
       "id": "NV-CAP-2",
       "category": "total_cap",
       "params": {
-        "amount_cents": 3500000
+        "amount_cents": 3500000,
+        "exception": "or more for a catastrophic injury"
       },
-      "summary": "Program policy sets the claim limit at $35,000 per approved claim; the VOCP Coordinator can extend it only for catastrophic injuries.",
+      "summary": "Program policy sets the claim limit at $35,000 per approved claim. For catastrophic injuries, the VOCP Coordinator may approve a higher limit.",
       "quote": "The claim limit established by these policies is $35,000 per approved claim except in cases of catastrophic injuries, where limits may be extended upon approval of the VOCP Coordinator.",
       "source_id": "NV-S7",
       "pinpoint": "Nevada State Plan for Services for Victims of Crime 500.12(A)"
+    },
+    {
+      "id": "NV-CAP-3",
+      "category": "total_cap",
+      "params": {},
+      "summary": "The program's current application instructions say that in general the total award cannot go over $35,000, but some services, such as counseling and crime scene cleanup, may be paid beyond that amount.",
+      "quote": "In general, the total award cannot exceed $35,000, although some services— such as counseling and crime-scene cleanup—may be covered beyond that amount.",
+      "source_id": "NV-S9",
+      "pinpoint": "Application Instructions, Expenses That May Be Covered"
     },
     {
       "id": "NV-CAP-MED",
@@ -342,8 +351,8 @@
         "amount_cents": 600000,
         "per": "claim"
       },
-      "summary": "Prescription medication can be reimbursed up to $6,000 during the period program policy allows for crime-related prescriptions; the period can be extended with medical documentation.",
-      "quote": "The VOCP may reimburse up to a maximum of $6,000 for prescription medication during this time.",
+      "summary": "Prescriptions prescribed for up to 6 months after the crime can be paid back, up to $6,000. More time can be approved 90 days at a time, with medical records showing the medicine is needed.",
+      "quote": "The VOCP may reimburse applicant for prescription medications prescribed for up to 6 months after the crime. Additional time limits may be authorized for 90-day intervals with accompanying medical documentation provided to indicate that prescriptions are medically necessary. The VOCP may reimburse up to a maximum of $6,000 for prescription medication during this time.",
       "source_id": "NV-S7",
       "pinpoint": "Nevada State Plan for Services for Victims of Crime 400.5(A)"
     },
@@ -488,7 +497,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "required travel for medical treatment or counseling"
       },
       "summary": "Survivors who must travel for medical treatment or counseling may submit travel receipts (gas, transit, hotel, meals) for possible reimbursement.",
       "quote": "Applicants who are required to travel for medical treatment or counseling may submit their travel",
@@ -572,8 +582,7 @@
       "category": "filing_deadline",
       "params": {
         "months": 60,
-        "from": "crime",
-        "extension": "good_cause"
+        "from": "crime"
       },
       "summary": "Apply no later than 60 months after the injury. The Director or a designee may waive the deadline for good cause.",
       "quote": "(a) Except as otherwise provided in paragraph (b), not later than 60 months after the injury or death for which compensation is claimed",
@@ -861,7 +870,7 @@
         "covers_sexual_assault": true,
         "enroll": "Applicants do not enroll or apply directly with the Nevada Confidential Address Program. Any person interested in applying to the program must meet in person with a CAP Certified Advocate. Certified Advocates are located throughout the state in agencies and non-profit programs that provide counseling, referral, shelter, or assistance to victims of domestic violence, sexual assault, human trafficking and stalking."
       },
-      "summary": "Nevada's Confidential Address Program, run by the Division of Child and Family Services, gives survivors of sexual assault, domestic violence, human trafficking, and stalking a fictitious address to use instead of their home, work, or school address, and forwards their mail for free. Survivors apply in person through a CAP Certified Advocate, not directly with the program.",
+      "summary": "Nevada's Confidential Address Program, run by the Division of Child and Family Services, helps victims of sexual assault, domestic violence, human trafficking, or stalking keep the person who hurt them from finding them through public records. If your application is approved, you get a fictitious address to use instead of your home, work, or school address, and the program forwards your mail at no cost. To apply, you need specific evidence that you were a victim, and you apply in person through a CAP Certified Advocate, not directly with the program.",
       "quote": "The Nevada Confidential Address Program (CAP) is a program that helps victims of domestic violence, sexual assault, human trafficking and/or stalking from being located by the perpetrator through public records. The program provides a fictitious address and confidential mail forwarding services to individuals and families across Nevada.",
       "source_id": "NV-S10",
       "pinpoint": "DCFS Confidential Address Program page, 'About the Confidential Address Program'"
@@ -876,6 +885,9 @@
       "pinpoint": "NRS 217.105"
     }
   ],
+  "page_notes": {
+    "police": "Note: Nevada law and the program's 2026 instructions say other records can show you qualify. The program's application page still says an application cannot be approved unless the crime was reported to police or another proper authority. The program may ask you for a police report."
+  },
   "coverage": {
     "found": [
       "exam_no_bill",

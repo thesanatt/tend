@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "c4ac295785e3b60960e5cbebf3c49ad02c65d34e4cff9a1dc291f73a1f86698e",
+ "source_sha256": "69966ca2eea5a4df119282e9489bb61e199bf6d405f9012010fe0083334c2576",
  "rules": [
   {
    "id": "DE-EXAM-1",
@@ -29,6 +29,10 @@
   },
   {
    "id": "DE-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "DE-EXAM-4",
    "kind": "exam_payment"
   },
   {
@@ -129,6 +133,11 @@
    "expense": "other"
   },
   {
+   "id": "DE-COV-11",
+   "kind": "covered",
+   "expense": "legal"
+  },
+  {
    "id": "DE-EXCL-1",
    "kind": "info",
    "category": "excluded_expense"
@@ -147,19 +156,40 @@
    "from": "crime"
   },
   {
+   "id": "DE-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DE-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DE-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "DE-REPORT-1",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "other",
     "protective_order"
-   ]
+   ],
+   "within_days": 3
   },
   {
    "id": "DE-REPORT-2",
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "DE-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "DE-MIN-1",

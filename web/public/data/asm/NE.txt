@@ -1,8 +1,8 @@
 ; tend law image NE, Nebraska
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 cbe76153dd8e4a957913c1b63d0fe3163823f55580e6f41697008b7ab0899dca
-; image sha256  cea5a2ed8f30b1c2b0094390afce902b856f7ed44223aa8dda99b462d8a6c3a3
-; 42 rules, 22 sources, 21 proofs, 3 ints, 269 strings
+; source sha256 dc0d922963a21cd79f29094c700e8261f118c47b12df807ed4b8425b3a392560
+; image sha256  082493e5cd0ca064af63cd23c8a111a21fac0e894ab093722ad1f84a401819f0
+; 46 rules, 22 sources, 21 proofs, 3 ints, 288 strings
 ; item program: 237 instructions, 848 bytes, max stack 2
 ; aggregate program: 179 instructions, 550 bytes, max stack 2, 5 loops
 
@@ -23,32 +23,36 @@
     R13   NE-EXCL-2             excluded      -                                             NCC Crime Victim Reparations page, Limitations
     R14   NE-WAGE-1             minimum_loss  -                                             CVR Claim Application (Oct 2023), Section 6
     R15   NE-DEAD-1             deadline      -                     from crime              Neb. Rev. Stat. 81-1821(2)(a)
-    R16   NE-REP-1              reporting     -                                             Neb. Rev. Stat. 81-1821(1)(b)
-    R17   NE-REP-2              reporting     -                                             Neb. Rev. Stat. 81-1821(4)
-    R18   NE-COLL-1             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
-    R19   NE-COLL-2             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
-    R20   NE-COND-1             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1816(1)
-    R21   NE-COND-2             info          -                     conduct_reduction       NCC: Innocence and Contributory Conduct
-    R22   NE-COND-3             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1822(3)
-    R23   NE-EMER-1             info          -                     emergency_award         Neb. Rev. Stat. 81-1820(1)(a)
-    R24   NE-ELIG-1             info          -                     eligible_crime          Neb. Rev. Stat. 81-1818(2)
-    R25   NE-ELIG-2             info          -                     eligible_crime          Neb. Rev. Stat. 81-1821(4)
-    R26   NE-RES-1              info          -                     residency               Neb. Rev. Stat. 81-1807(1)
-    R27   NE-SUBMIT-1           info          -                     submission              CVR Claim Application (Oct 2023), cover page
-    R28   NE-SUBMIT-2           info          -                     submission              Crime Victim Reparations program page, Apply
-    R29   NE-SUBMIT-3           info          -                     submission              CVR Claim Application (Oct 2023), cover page
-    R30   NE-DOC-1              info          -                     required_document       FAQ, What must I do to apply for compensation?
-    R31   NE-DOC-2              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
-    R32   NE-DOC-3              info          -                     required_document       CVR Claim Application (Oct 2023), Authorization to Release Information
-    R33   NE-DOC-4              info          -                     required_document       CVR Claim Application (Oct 2023), United States Citizenship Attestation
-    R34   NE-DOC-5              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
-    R35   NE-DOC-6              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
-    R36   NE-DOC-7              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
-    R37   NE-DOC-8              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
-    R38   NE-TIME-1             info          -                     processing_time         Claims Process, quoting Neb. Rev. Stat. 81-1809(1)
-    R39   NE-TIME-2             info          -                     processing_time         CVR pamphlet (English), back panel
-    R40   NE-ACP-1              info          -                     address_confidentiality Program eligibility
-    R41   NE-RECORDS-1          info          -                     record_confidentiality  Neb. Rev. Stat. 81-1842
+    R16   NE-DEAD-2             info          -                     filing_deadline         Neb. Rev. Stat. 81-1821(2)(c)
+    R17   NE-DEAD-3             info          -                     filing_deadline         Neb. Rev. Stat. 81-1821(3)
+    R18   NE-REP-1              reporting     -                                             Neb. Rev. Stat. 81-1821(1)(b)
+    R19   NE-REP-2              reporting     -                                             Neb. Rev. Stat. 81-1821(4)
+    R20   NE-REP-3              info          -                     reporting_requirement   CVR Frequently Asked Questions (4-5-2023), What must I do to be eligible?
+    R21   NE-COLL-1             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
+    R22   NE-COLL-2             collateral    -                                             80 Neb. Admin. Code ch. 3, 004
+    R23   NE-COND-1             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1816(1)
+    R24   NE-COND-2             info          -                     conduct_reduction       NCC: Innocence and Contributory Conduct
+    R25   NE-COND-3             info          -                     conduct_reduction       Neb. Rev. Stat. 81-1822(3)
+    R26   NE-EMER-1             info          -                     emergency_award         Neb. Rev. Stat. 81-1820(1)(a)
+    R27   NE-ELIG-1             info          -                     eligible_crime          Neb. Rev. Stat. 81-1818(2)
+    R28   NE-ELIG-2             info          -                     eligible_crime          Neb. Rev. Stat. 81-1821(4)
+    R29   NE-RES-1              info          -                     residency               Neb. Rev. Stat. 81-1807(1)
+    R30   NE-SUBMIT-1           info          -                     submission              CVR Claim Application (Oct 2023), cover page
+    R31   NE-SUBMIT-2           info          -                     submission              Crime Victim Reparations program page, Apply
+    R32   NE-SUBMIT-3           info          -                     submission              CVR Claim Application (Oct 2023), cover page
+    R33   NE-DOC-1              info          -                     required_document       FAQ, What must I do to apply for compensation?
+    R34   NE-DOC-2              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
+    R35   NE-DOC-3              info          -                     required_document       CVR Claim Application (Oct 2023), Authorization to Release Information
+    R36   NE-DOC-4              info          -                     required_document       CVR Claim Application (Oct 2023), United States Citizenship Attestation
+    R37   NE-DOC-5              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R38   NE-DOC-6              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R39   NE-DOC-7              info          -                     required_document       CVR Claim Application (Oct 2023), Section 6: Loss of Wage Information
+    R40   NE-DOC-8              info          -                     required_document       CVR Claim Application (Oct 2023), Section 4: Expenses
+    R41   NE-TIME-1             info          -                     processing_time         Claims Process, quoting Neb. Rev. Stat. 81-1809(1)
+    R42   NE-TIME-2             info          -                     processing_time         CVR pamphlet (English), back panel
+    R43   NE-ACP-1              info          -                     address_confidentiality Program eligibility
+    R44   NE-RECORDS-1          info          -                     record_confidentiality  Neb. Rev. Stat. 81-1842
+    R45   NE-CAP-6              skipped       -                     total_cap               Neb. Rev. Stat. 81-1823  ; total_cap without amount
 
 .tags   pain_suffering=bit0
 
@@ -97,7 +101,7 @@
     P17   (NE-WAGE-1)
     P18   (NE-DEAD-1)
     P19   (NE-REP-1, NE-REP-2)
-    P20   (NE-EXCL-1, NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1)
+    P20   (NE-EXCL-1, NE-DEAD-2, NE-DEAD-3, NE-REP-3, NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1)
 
 .ints
     K0    500000        ; $5,000.00
@@ -176,7 +180,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R18              ; NE-COLL-1
+  00d5        seta     collateral, R21              ; NE-COLL-1
   00d9        ret
               ; NE-CAP-2  NCC Crime Victim Reparations page, Types of Expenses  "Counseling | Therapy (Maximum of $5,000)"
               ; NE-COV-2  Neb. Rev. Stat. 81-1819(1)  "Expenses actually and reasonably incurred as a result of the..."
@@ -212,7 +216,7 @@
   012c        subs
   012d        push     0
   0132        max
-  0133        seta     collateral, R18              ; NE-COLL-1
+  0133        seta     collateral, R21              ; NE-COLL-1
   0137        ret
               ; NE-COV-3  Neb. Rev. Stat. 81-1819(2)  "Loss of wages and future earning capacity as a result of total..."
               ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
@@ -247,7 +251,7 @@
   018a        subs
   018b        push     0
   0190        max
-  0191        seta     collateral, R18              ; NE-COLL-1
+  0191        seta     collateral, R21              ; NE-COLL-1
   0195        ret
               ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
   0196  L17:  push     0
@@ -303,7 +307,7 @@
   022a        subs
   022b        push     0
   0230        max
-  0231        seta     collateral, R18              ; NE-COLL-1
+  0231        seta     collateral, R21              ; NE-COLL-1
   0235        ret
               ; NE-COV-5  NCC Crime Victim Reparations page, Types of Expenses  "Medical expenses (hospital, doctor, dental, prescriptions..."
               ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
@@ -338,7 +342,7 @@
   0288        subs
   0289        push     0
   028e        max
-  028f        seta     collateral, R18              ; NE-COLL-1
+  028f        seta     collateral, R21              ; NE-COLL-1
   0293        ret
               ; NE-COV-4  NCC Crime Victim Reparations page, Types of Expenses  "Medical expenses (hospital, doctor, dental, prescriptions..."
               ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
@@ -373,7 +377,7 @@
   02e6        subs
   02e7        push     0
   02ec        max
-  02ed        seta     collateral, R18              ; NE-COLL-1
+  02ed        seta     collateral, R21              ; NE-COLL-1
   02f1        ret
               ; NE-CAP-4  NCC Crime Victim Reparations page, Types of Expenses  "Funeral expenses (Maximum of $10,000)"
               ; NE-EXCL-2  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
@@ -408,7 +412,7 @@
   0344        subs
   0345        push     0
   034a        max
-  034b        seta     collateral, R18              ; NE-COLL-1
+  034b        seta     collateral, R21              ; NE-COLL-1
   034f        ret
 
 .aggregate
@@ -599,6 +603,9 @@
   0219  L28:  push     0                            ; satisfied
   021e  L29:  check    reporting, P19               ; NE-REP-1, NE-REP-2
               ; NE-EXCL-1  NCC Crime Victim Reparations page, Limitations  "The program does not cover property crime, property loss..."
+              ; NE-DEAD-2  Neb. Rev. Stat. 81-1821(2)(c)  "For a victim who was under nineteen years of age at the time of..."
+              ; NE-DEAD-3  Neb. Rev. Stat. 81-1821(3)  "The committee may evaluate applications submitted beyond the..."
+              ; NE-REP-3  CVR Frequently Asked Questions (4-5-2023), What must I do to be eligible?  "You must cooperate with criminal justice officials in the..."
               ; NE-COLL-1  80 Neb. Admin. Code ch. 3, 004  "Any award will be reduced by the amounts of any payments..."
               ; NE-COLL-2  80 Neb. Admin. Code ch. 3, 004  "The Crime Victim's Reparations program is the payor of last..."
               ; NE-COND-1  Neb. Rev. Stat. 81-1816(1)  "the committee or hearing officer shall consider all..."
@@ -623,6 +630,6 @@
               ; NE-TIME-2  CVR pamphlet (English), back panel  "CVR program applications take time, typically claims are fully..."
               ; NE-ACP-1  Program eligibility  "To be eligible for ACP, an individual must be (1) a victim of..."
               ; NE-RECORDS-1  Neb. Rev. Stat. 81-1842  "The name of any victim of a sexual assault appearing in..."
-  0222        info     P20                          ; NE-EXCL-1, NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1
+  0222        info     P20                          ; NE-EXCL-1, NE-DEAD-2, NE-DEAD-3, NE-REP-3, NE-COLL-1, NE-COLL-2, NE-COND-1, NE-COND-2, NE-COND-3, NE-EMER-1, NE-ELIG-1, NE-ELIG-2, NE-RES-1, NE-SUBMIT-1, NE-SUBMIT-2, NE-SUBMIT-3, NE-DOC-1, NE-DOC-2, NE-DOC-3, NE-DOC-4, NE-DOC-5, NE-DOC-6, NE-DOC-7, NE-DOC-8, NE-TIME-1, NE-TIME-2, NE-ACP-1, NE-RECORDS-1
   0225        ret
 

@@ -224,12 +224,12 @@
   },
   {
    "id": "ID-EXAM-3",
-   "category": "exam_no_bill",
+   "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "payer": "Idaho Crime Victims Compensation Program, instead of an adult's private insurance"
    },
-   "summary": "An adult survivor's (18 or older) private insurance should not be billed for a sexual assault forensic and medical exam; the program pays instead. Federal programs such as Medicaid, Medicare, or VA are billed first, and a minor's exam goes through all insurance first. This is a rule about insurance billing; no Idaho source flatly bars billing the survivor.",
+   "summary": "The program says an adult's (18 or older) private insurance should not be billed for a sexual assault forensic and medical exam.",
    "quote": "an adult victim's (18 years of age and older) private insurance should not be billed for a sexual assault forensic and medical examination.",
    "source_id": "ID-S8",
    "pinpoint": "CVCP Sexual Assault Forensics Examinations page"
@@ -248,15 +248,27 @@
   },
   {
    "id": "ID-EXAM-5",
-   "category": "exam_no_bill",
+   "category": "exam_payment",
    "expense": "medical",
    "params": {
-    "insurance_billing": "unspecified"
+    "payer": "Industrial Commission; a provider it has paid may not collect more from the victim for the same services, except as subsection (3) allows"
    },
    "summary": "A medical provider that the program has paid may not try to collect more from the victim for the same services, except when the program cannot pay the full allowable amount.",
    "quote": "Except as provided in subsection (3) herein, a medical provider who has received payment from the commission for medical services provided to a victim or claimant under this chapter may not attempt to collect any further payment from the victim or the claimant for those same services.",
    "source_id": "ID-S5",
    "pinpoint": "Idaho Code 72-1026(2)"
+  },
+  {
+   "id": "ID-EXAM-6",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Idaho Crime Victims Compensation Program, once it has the victim's signed application"
+   },
+   "summary": "If the program gets a bill for your exam but no signed application from you, it holds the bill for 30 days and contacts you. If no signed application comes within 60 days, the bill is destroyed.",
+   "quote": "If the Program received a medical bill for a sexual assault forensic and medical examination but does not receive a signed application from the victim, CVCP will hold the medical bill(s) for 30 days. The program will contact the victim to request completion of the application. The medical bills will be destroyed if no signed application is received within 60 days.",
+   "source_id": "ID-S8",
+   "pinpoint": "CVCP Sexual Assault Forensics Examinations page, Medical bills received by CVCP, but no application received"
   },
   {
    "id": "ID-CAP-1",
@@ -396,7 +408,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "necessary travel to get benefits the program covers"
    },
    "summary": "The claimant or a close family member can be reimbursed for necessary travel to get covered benefits, under the commission's rules.",
    "quote": "A claimant or a spouse, parent, child or sibling of a claimant or victim may be reimbursed for his or her expenses for necessary travel incurred in connection with obtaining benefits covered pursuant to this chapter and in accordance with rules of the commission.",
@@ -510,7 +523,7 @@
     "expense": "crime_scene_cleanup",
     "item": "crime-scene cleanup"
    },
-   "summary": "The program's FAQ lists crime-scene cleanup among costs it does not cover and points victims to court-ordered restitution from the offender instead. The same FAQ sentence also lists wage loss, which the statute does cover, so this page is not fully reliable.",
+   "summary": "The program's FAQ lists crime-scene cleanup among costs it does not cover and points victims to court-ordered restitution from the offender instead. The same FAQ sentence also lists wage loss, which the statute does cover.",
    "quote": "A victim may request the criminal court to order the offender to pay restitution for expenses that are not covered by the program, such as property damage, wage loss, expenses to attend criminal court, or costs for crime-scene cleanup.",
    "source_id": "ID-S9",
    "pinpoint": "CVCP FAQ, What is Restitution?"
@@ -521,7 +534,7 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "the commission may extend the time for good cause shown"
+    "extension": "or later if the commission extends it for good cause"
    },
    "summary": "The claim must be filed within 1 year after the crime; the commission can extend this for good cause.",
    "quote": "Compensation may not be awarded unless the claim is filed with the commission within one (1) year after the day the criminally injurious conduct occurred causing the injury or death upon which the claim is based. The time for filing a claim may be extended by the commission for good cause shown.",
@@ -535,7 +548,8 @@
     "required": true,
     "within_hours": 72,
     "alternatives": [],
-    "good_cause_exception": true
+    "good_cause_exception": true,
+    "exception": "or later if the commission finds good cause for the delay"
    },
    "summary": "The crime must be reported to law enforcement within 72 hours, unless the commission finds good cause for the delay.",
    "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within seventy-two (72) hours after its occurrence or the commission finds there was good cause for the failure to report within that time.",
@@ -548,12 +562,10 @@
    "expense": "forensic_exam",
    "params": {
     "required": false,
-    "alternatives": [
-     "forensic_exam"
-    ],
+    "alternatives": [],
     "scope": "exam costs only, adult victims"
    },
-   "summary": "An adult who does not want to report to police can use a separate exam reimbursement application that covers mainly the exam cost; it is not for minors and does not open the program's other benefits.",
+   "summary": "An adult who does not want to report to police can use a separate application. It is meant for people who mainly want only the cost of the sexual assault forensic and medical exam paid. It is not for minors.",
    "quote": "This application should be used by victims who did not or do not wish to disclose to law enforcement at this time and are primarily seeking reimbursement for only the cost of sexual assault forensic and medical examination This form is not applicable for minor victims.",
    "source_id": "ID-S13",
    "pinpoint": "Adult Sexual Assault Forensic Examination Reimbursement Application, page 1"
@@ -565,7 +577,7 @@
     "required": true,
     "cooperation_required": true
    },
-   "summary": "To get benefits, the claimant must fully cooperate with law enforcement and prosecutors; the commission may deny or reduce an award if they do not.",
+   "summary": "To get benefits, the claimant must fully cooperate with all law enforcement agencies and prosecutors in catching and prosecuting the offender.",
    "quote": "In order to be entitled to benefits under this chapter, a claimant must fully cooperate with all law enforcement agencies and prosecuting attorneys in the apprehension and prosecution of the offender causing the criminally injurious conduct.",
    "source_id": "ID-S2",
    "pinpoint": "Idaho Code 72-1016(4)"

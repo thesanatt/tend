@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "ME",
- "source_sha256": "4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561",
- "ir_sha256": "83291283bde98888c108decf10c06a7baf4b8c948fbfb18581903a5e3ab8d69a",
+ "source_sha256": "718feda3bce9ac3c33452326914db891d1cba60ef21390f29cff765521812d5b",
+ "ir_sha256": "bddb263e3a9746981fdbf354b3c13048ac75d39ea2137828090c65669685c5a8",
  "fresh": true,
  "rules": [
   {
@@ -22,6 +22,10 @@
   {
    "id": "ME-EXAM-4",
    "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-6",
+   "kind": "exam_payment"
   },
   {
    "id": "ME-EXAM-5",
@@ -66,11 +70,6 @@
    "id": "ME-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
-  },
-  {
-   "id": "ME-TRANS-1",
-   "kind": "covered",
-   "expense": "transportation"
   },
   {
    "id": "ME-SEC-1",
@@ -137,12 +136,16 @@
    "within_days": 5
   },
   {
+   "id": "ME-REP-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
    "id": "ME-REP-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "other"
-   ]
+   "alternatives": []
   },
   {
    "id": "ME-REP-3",
@@ -240,5 +243,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "ME-TRANS-1",
+   "category": "covered_expense",
+   "reason": "applies_to \"a claimant or family member who provides or obtains care for a minor or incapacitated victim\""
+  }
+ ]
 }

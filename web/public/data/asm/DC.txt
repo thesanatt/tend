@@ -1,8 +1,8 @@
 ; tend law image DC, District of Columbia
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 2dd795bfd3403e3a00d6ee1e3911c94b684da394c4a748877feb85b6fc5732a1
-; image sha256  3289b186deb4271c4cf8fbc015fe32d330d8ba8bc3ed98fdc3d042975c38e365
-; 55 rules, 18 sources, 33 proofs, 10 ints, 317 strings
+; source sha256 2401aec76c1c91e012f4b1aaad067d5ee6c2418805249fcbcbad9eaa3cb9a120
+; image sha256  d54eff927d722452abb4133070f0d7ea67be840815105db3ba461e75ebd3404f
+; 57 rules, 18 sources, 33 proofs, 10 ints, 327 strings
 ; item program: 207 instructions, 648 bytes, max stack 2
 ; aggregate program: 378 instructions, 1165 bytes, max stack 3, 13 loops
 
@@ -31,37 +31,39 @@
     R21   DC-EXC-1              excluded      property_replacement                          D.C. Code § 4-501(7)(B)
     R22   DC-EXC-2              excluded      legal                                         CVCP Application page, Information on Attorneys
     R23   DC-DEAD-1             deadline      -                     from crime              D.C. Code § 4-506(a)(1)
-    R24   DC-REP-1              reporting     -                                             D.C. Code § 4-506(a)(2)
-    R25   DC-REP-2              reporting     -                                             D.C. Code § 4-506(c)(3)
-    R26   DC-REP-3              reporting     -                                             D.C. Code § 4-506(c)(5)
-    R27   DC-COL-1              collateral    -                                             D.C. Code § 4-507(a)
-    R28   DC-COL-2              collateral    -                                             D.C. Code § 4-507(a-1)
-    R29   DC-COND-1             info          -                     conduct_reduction       D.C. Code § 4-508(b)
-    R30   DC-COND-2             info          -                     conduct_reduction       D.C. Code § 4-508(b)(2)
-    R31   DC-EMER-1             info          -                     emergency_award         D.C. Code § 4-510(a)
-    R32   DC-CRIME-1            info          -                     eligible_crime          D.C. Code § 4-501(6)(KK)
-    R33   DC-RES-1              info          -                     residency               D.C. Code § 4-501(14)
-    R34   DC-SUB-1              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
-    R35   DC-SUB-2              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
-    R36   DC-SUB-3              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
-    R37   DC-SUB-4              info          -                     submission              CVCP Application page, ways to submit
-    R38   DC-SUB-5              info          -                     submission              CVCP Information Brochure, Where can I get an application?
-    R39   DC-DOC-1              info          -                     required_document       CVCP Information Brochure, Documents Needed
-    R40   DC-DOC-2              info          -                     required_document       CVCP Application page
-    R41   DC-DOC-3              info          -                     required_document       CVCP Application (rev. 4/21/23), p.2, Documentation of Crime
-    R42   DC-DOC-4              info          -                     required_document       CVCP Application page
-    R43   DC-DOC-5              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
-    R44   DC-DOC-6              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
-    R45   DC-DOC-7              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
-    R46   DC-DOC-8              info          -                     required_document       CVCP Application (rev. 4/21/23), p.4, Section 4
-    R47   DC-DOC-9              info          -                     required_document       CVCP Application (rev. 4/21/23), p.4, Section 4
-    R48   DC-DOC-10             info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 1
-    R49   DC-DOC-11             info          -                     required_document       CVCP Application (rev. 4/21/23), p.6, Section 12
-    R50   DC-DOC-12             info          -                     required_document       CVCP Application (rev. 4/21/23), p.5, Section 6
-    R51   DC-DOC-13             info          -                     required_document       D.C. Courts Forms Help Online, Crime Victims
-    R52   DC-TIME-1             info          -                     processing_time         CVCP Application (rev. 4/21/23), p.7
-    R53   DC-ACP-1              info          -                     address_confidentiality OVSJG Address Confidentiality Program page, program description
-    R54   DC-RECCONF-1          info          -                     record_confidentiality  D.C. Code § 4-511(a)
+    R24   DC-DEAD-2             info          -                     filing_deadline         D.C. Code § 4-506(d)
+    R25   DC-DEAD-3             info          -                     filing_deadline         D.C. Code § 4-506(a)(1)(C)-(E)
+    R26   DC-REP-1              reporting     -                                             D.C. Code § 4-506(a)(2)
+    R27   DC-REP-2              reporting     -                                             D.C. Code § 4-506(c)(3)
+    R28   DC-REP-3              reporting     -                                             D.C. Code § 4-506(c)(5)
+    R29   DC-COL-1              collateral    -                                             D.C. Code § 4-507(a)
+    R30   DC-COL-2              collateral    -                                             D.C. Code § 4-507(a-1)
+    R31   DC-COND-1             info          -                     conduct_reduction       D.C. Code § 4-508(b)
+    R32   DC-COND-2             info          -                     conduct_reduction       D.C. Code § 4-508(b)(2)
+    R33   DC-EMER-1             info          -                     emergency_award         D.C. Code § 4-510(a)
+    R34   DC-CRIME-1            info          -                     eligible_crime          D.C. Code § 4-501(6)(KK)
+    R35   DC-RES-1              info          -                     residency               D.C. Code § 4-501(14)
+    R36   DC-SUB-1              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
+    R37   DC-SUB-2              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
+    R38   DC-SUB-3              info          -                     submission              CVCP Application (rev. 4/21/23), p.7, submission instructions
+    R39   DC-SUB-4              info          -                     submission              CVCP Application page, ways to submit
+    R40   DC-SUB-5              info          -                     submission              CVCP Information Brochure, Where can I get an application?
+    R41   DC-DOC-1              info          -                     required_document       CVCP Information Brochure, Documents Needed
+    R42   DC-DOC-2              info          -                     required_document       CVCP Application page
+    R43   DC-DOC-3              info          -                     required_document       CVCP Application (rev. 4/21/23), p.2, Documentation of Crime
+    R44   DC-DOC-4              info          -                     required_document       CVCP Application page
+    R45   DC-DOC-5              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
+    R46   DC-DOC-6              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
+    R47   DC-DOC-7              info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 2
+    R48   DC-DOC-8              info          -                     required_document       CVCP Application (rev. 4/21/23), p.4, Section 4
+    R49   DC-DOC-9              info          -                     required_document       CVCP Application (rev. 4/21/23), p.4, Section 4
+    R50   DC-DOC-10             info          -                     required_document       CVCP Application (rev. 4/21/23), p.3, Section 1
+    R51   DC-DOC-11             info          -                     required_document       CVCP Application (rev. 4/21/23), p.6, Section 12
+    R52   DC-DOC-12             info          -                     required_document       CVCP Application (rev. 4/21/23), p.5, Section 6
+    R53   DC-DOC-13             info          -                     required_document       D.C. Courts Forms Help Online, Crime Victims
+    R54   DC-TIME-1             info          -                     processing_time         CVCP Application (rev. 4/21/23), p.7
+    R55   DC-ACP-1              info          -                     address_confidentiality OVSJG Address Confidentiality Program page, program description
+    R56   DC-RECCONF-1          info          -                     record_confidentiality  D.C. Code § 4-511(a)
 
 .sources
     S0    DC-S1       sha256 6524e70d4b744547  https://www.dccourts.gov/superior-court/superior-court-divisions/crime-victims-compensation-program
@@ -116,7 +118,7 @@
     P29   (DC-CAP-11, DC-COL-1, DC-COL-2)
     P30   (DC-DEAD-1)
     P31   (DC-REP-1, DC-REP-2, DC-REP-3)
-    P32   (DC-COL-1, DC-COL-2, DC-COND-1, DC-COND-2, DC-EMER-1, DC-CRIME-1, DC-RES-1, DC-SUB-1, DC-SUB-2, DC-SUB-3, DC-SUB-4, DC-SUB-5, DC-DOC-1, DC-DOC-2, DC-DOC-3, DC-DOC-4, DC-DOC-5, DC-DOC-6, DC-DOC-7, DC-DOC-8, DC-DOC-9, DC-DOC-10, DC-DOC-11, DC-DOC-12, DC-DOC-13, DC-TIME-1, DC-ACP-1, DC-RECCONF-1)
+    P32   (DC-DEAD-2, DC-DEAD-3, DC-COL-1, DC-COL-2, DC-COND-1, DC-COND-2, DC-EMER-1, DC-CRIME-1, DC-RES-1, DC-SUB-1, DC-SUB-2, DC-SUB-3, DC-SUB-4, DC-SUB-5, DC-DOC-1, DC-DOC-2, DC-DOC-3, DC-DOC-4, DC-DOC-5, DC-DOC-6, DC-DOC-7, DC-DOC-8, DC-DOC-9, DC-DOC-10, DC-DOC-11, DC-DOC-12, DC-DOC-13, DC-TIME-1, DC-ACP-1, DC-RECCONF-1)
 
 .ints
     K0    20000         ; $200.00
@@ -184,7 +186,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R27              ; DC-COL-1
+  009d        seta     collateral, R29              ; DC-COL-1
   00a1        ret
               ; DC-CAP-2  D.C. Super. Ct. CVCP Rule 24(d)  "Compensation for mental health expenses shall not exceed $ 3,000..."
               ; DC-COV-3  D.C. Code § 4-501(9)(D)  "Out-patient mental health counseling expenses which became..."
@@ -202,7 +204,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R27              ; DC-COL-1
+  00c3        seta     collateral, R29              ; DC-COL-1
   00c7        ret
               ; DC-CAP-3  D.C. Super. Ct. CVCP Rule 28  "Loss of earnings may be compensated for a total period of up to..."
               ; DC-COV-4  D.C. Code § 4-501(7)(A)(iv)  "Loss of income or support incurred as a direct or indirect..."
@@ -220,7 +222,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R27              ; DC-COL-1
+  00e9        seta     collateral, R29              ; DC-COL-1
   00ed        ret
               ; DC-CAP-6  D.C. Super. Ct. CVCP Rule 35  "Up to $500 for necessary out of state travel and up to $100 for..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
@@ -237,7 +239,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R27              ; DC-COL-1
+  010f        seta     collateral, R29              ; DC-COL-1
   0113        ret
               ; DC-CAP-4  D.C. Super. Ct. CVCP Rule 34  "Upon referral by a prosecutor, law enforcement officer, judicial..."
               ; DC-COV-5  D.C. Code § 4-501(7)(A)(xii)  "Reasonable moving expenses where necessary for health or safety;"
@@ -255,7 +257,7 @@
   012e        subs
   012f        push     0
   0134        max
-  0135        seta     collateral, R27              ; DC-COL-1
+  0135        seta     collateral, R29              ; DC-COL-1
   0139        ret
               ; DC-CAP-5  D.C. Super. Ct. CVCP Rule 29  "Upon referral by a prosecutor, law enforcement officer, judicial..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
@@ -272,7 +274,7 @@
   0154        subs
   0155        push     0
   015a        max
-  015b        seta     collateral, R27              ; DC-COL-1
+  015b        seta     collateral, R29              ; DC-COL-1
   015f        ret
               ; DC-CAP-7  D.C. Super. Ct. CVCP Rule 32  "Compensation of up to $1,000 may be awarded for the reasonable..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
@@ -289,7 +291,7 @@
   017a        subs
   017b        push     0
   0180        max
-  0181        seta     collateral, R27              ; DC-COL-1
+  0181        seta     collateral, R29              ; DC-COL-1
   0185        ret
               ; DC-CAP-9  D.C. Super. Ct. CVCP Rule 26  "Compensation of up to $1000 may be awarded to claimants for..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
@@ -306,7 +308,7 @@
   01a0        subs
   01a1        push     0
   01a6        max
-  01a7        seta     collateral, R27              ; DC-COL-1
+  01a7        seta     collateral, R29              ; DC-COL-1
   01ab        ret
               ; DC-CAP-10  D.C. Super. Ct. CVCP Rule 31  "Compensation for loss of services shall be limited to the..."
               ; DC-CAP-12  D.C. Super. Ct. CVCP Rule 31  "Compensation for loss of services shall be limited to the..."
@@ -324,7 +326,7 @@
   01c6        subs
   01c7        push     0
   01cc        max
-  01cd        seta     collateral, R27              ; DC-COL-1
+  01cd        seta     collateral, R29              ; DC-COL-1
   01d1        ret
               ; DC-EXC-1  D.C. Code § 4-501(7)(B)  "“Economic loss” does not mean: (i) Pain and suffering; (ii)..."
   01d2  L20:  push     0
@@ -345,7 +347,7 @@
   01f6        subs
   01f7        push     0
   01fc        max
-  01fd        seta     collateral, R27              ; DC-COL-1
+  01fd        seta     collateral, R29              ; DC-COL-1
   0201        ret
   0202  L23:  push     0
   0207        decide   unknown_rule, P0             ; (none)
@@ -365,7 +367,7 @@
   0226        subs
   0227        push     0
   022c        max
-  022d        seta     collateral, R27              ; DC-COL-1
+  022d        seta     collateral, R29              ; DC-COL-1
   0231        ret
               ; DC-CAP-13  D.C. Code § 4-501(7)(A)(ii)  "Reasonable funeral and burial expenses, including the reasonable..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
@@ -382,7 +384,7 @@
   024c        subs
   024d        push     0
   0252        max
-  0253        seta     collateral, R27              ; DC-COL-1
+  0253        seta     collateral, R29              ; DC-COL-1
   0257        ret
               ; DC-EXC-2  CVCP Application page, Information on Attorneys  "The Crime Victims Compensation Program cannot pay attorney's..."
   0258  L28:  push     0
@@ -403,7 +405,7 @@
   027c        subs
   027d        push     0
   0282        max
-  0283        seta     collateral, R27              ; DC-COL-1
+  0283        seta     collateral, R29              ; DC-COL-1
   0287        ret
 
 .aggregate
@@ -800,6 +802,8 @@
   047b        jmp      L69
   0480  L68:  push     0                            ; satisfied
   0485  L69:  check    reporting, P31               ; DC-REP-1, DC-REP-2, DC-REP-3
+              ; DC-DEAD-2  D.C. Code § 4-506(d)  "The time limit requirements of this section may be waived for..."
+              ; DC-DEAD-3  D.C. Code § 4-506(a)(1)(C)-(E)  "(C) The filing or resolution of a first application, or any..."
               ; DC-COL-1  D.C. Code § 4-507(a)  "The Court shall award compensation in an amount equal to the..."
               ; DC-COL-2  D.C. Code § 4-507(a-1)  "if a victim or secondary victim is a dependent on a primary..."
               ; DC-COND-1  D.C. Code § 4-508(b)  "An application for assistance may be denied, in whole or in..."
@@ -828,6 +832,6 @@
               ; DC-TIME-1  CVCP Application (rev. 4/21/23), p.7  "Please allow 5 business days for a CVCP team member to review..."
               ; DC-ACP-1  OVSJG Address Confidentiality Program page, program description  "The District’s Address Confidentiality Program (ACP)..."
               ; DC-RECCONF-1  D.C. Code § 4-511(a)  "Information, records, and transcripts of hearings contained in..."
-  0489        info     P32                          ; DC-COL-1, DC-COL-2, DC-COND-1, DC-COND-2, DC-EMER-1, DC-CRIME-1, DC-RES-1, DC-SUB-1, DC-SUB-2, DC-SUB-3, DC-SUB-4, DC-SUB-5, DC-DOC-1, DC-DOC-2, DC-DOC-3, DC-DOC-4, DC-DOC-5, DC-DOC-6, DC-DOC-7, DC-DOC-8, DC-DOC-9, DC-DOC-10, DC-DOC-11, DC-DOC-12, DC-DOC-13, DC-TIME-1, DC-ACP-1, DC-RECCONF-1
+  0489        info     P32                          ; DC-DEAD-2, DC-DEAD-3, DC-COL-1, DC-COL-2, DC-COND-1, DC-COND-2, DC-EMER-1, DC-CRIME-1, DC-RES-1, DC-SUB-1, DC-SUB-2, DC-SUB-3, DC-SUB-4, DC-SUB-5, DC-DOC-1, DC-DOC-2, DC-DOC-3, DC-DOC-4, DC-DOC-5, DC-DOC-6, DC-DOC-7, DC-DOC-8, DC-DOC-9, DC-DOC-10, DC-DOC-11, DC-DOC-12, DC-DOC-13, DC-TIME-1, DC-ACP-1, DC-RECCONF-1
   048c        ret
 

@@ -204,7 +204,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "scope": "the evidence part of a forensic exam"
       },
       "summary": "A sexual assault survivor does not pay for the evidence-collection forensic medical exam, even if they do not want to take part in the criminal justice process or cooperate with law enforcement. The DCJ SAVE page reads this as the evidence-collection portion of the exam; other exam-related medical costs go through SAVE or Victim Compensation, not this rule.",
       "quote": "A victim of a sexual offense shall not bear the cost of a forensic medical examination that includes the collection of evidence that is used for the purpose of evidence collection even if the victim does not want to participate in the criminal justice system or otherwise cooperate with the law enforcement agency, prosecuting officer, or other government official.",
@@ -218,7 +219,7 @@
       "params": {
         "payer": "Colorado Division of Criminal Justice (Department of Public Safety)"
       },
-      "summary": "When the survivor does not take part in the criminal justice process, the Colorado Division of Criminal Justice pays for the evidence-collection exam.",
+      "summary": "When the survivor does not take part in the criminal justice process, the Colorado Division of Criminal Justice pays for the evidence-collection part of the exam.",
       "quote": "The division of criminal justice in the department of public safety shall pay the cost of the examination.",
       "source_id": "CO-S8",
       "pinpoint": "C.R.S. 18-3-407.5(3)(b)"
@@ -242,7 +243,7 @@
       "params": {
         "payer": "Sexual Assault Victim Emergency Payment (SAVE) program, Colorado Division of Criminal Justice"
       },
-      "summary": "The state SAVE program (Division of Criminal Justice) covers medical fees tied to getting the forensic exam, such as ER, lab, prescription, and physician fees, while funds last. It is the payer of last resort.",
+      "summary": "The state's SAVE program must pay medical costs that come with getting the forensic exam. These include emergency room, lab, medicine, and doctor fees. It pays as long as it has the money.",
       "quote": "The program must cover medical fees and costs associated with obtaining the medical forensic examination, including but not limited to emergency department fees and costs, laboratory fees, prescription medication, and physician's fees, as long as funds are available.",
       "source_id": "CO-S9",
       "pinpoint": "C.R.S. 18-3-407.7(2)(a)"
@@ -264,10 +265,22 @@
       "category": "exam_payment",
       "expense": "medical",
       "params": {
-        "payer": "SAVE program pays deductibles and co-pays; survivor's insurance billed for related costs only at the survivor's request"
+        "payer": "SAVE program pays deductibles and co-pays for medical or anonymous reports"
       },
-      "summary": "For medical or anonymous reports, SAVE pays the survivor's insurance deductibles and co-pays. Per the same page, the hospital bills the survivor's insurance for related costs only if the survivor asks.",
+      "summary": "For medical or anonymous reports, SAVE pays the survivor's insurance deductibles and co-pays.",
       "quote": "If the victim makes an anonymous or medical report, the SAVE program will pay for insurance deductibles and co-pays.",
+      "source_id": "CO-S10",
+      "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For"
+    },
+    {
+      "id": "CO-EXAM-9",
+      "category": "exam_payment",
+      "expense": "medical",
+      "params": {
+        "payer": "The survivor's insurance, if the survivor asks; the patient owes any balance after SAVE pays up to its cap"
+      },
+      "summary": "If the survivor has insurance and asks for it to be billed, the hospital bills that insurance for related costs. After SAVE has paid the hospital for eligible costs, up to its cap, the patient must pay any balance left.",
+      "quote": "If the victim has insurance and requests that their insurance is billed, the hospital bills the survivor's insurance for related costs. If the victim makes an anonymous or medical report, the SAVE program will pay for insurance deductibles and co-pays. After the SAVE program has paid the hospital for eligible medical expenses (up to the cap), the patient is responsible for paying any outstanding balances.",
       "source_id": "CO-S10",
       "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For"
     },
@@ -323,9 +336,10 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips for medical care, counseling, a funeral, or burial"
       },
-      "summary": "Reasonable travel costs for medical care or counseling are covered.",
+      "summary": "Reasonable travel costs for medical care, mental health counseling, a funeral, or burial are covered.",
       "quote": "Reasonable travel expenses for a victim related to funeral, burial, medical care, or mental health counseling;",
       "source_id": "CO-S5",
       "pinpoint": "C.R.S. 24-4.1-109(1)(i)"
@@ -335,7 +349,8 @@
       "category": "covered_expense",
       "expense": "relocation",
       "params": {
-        "expense": "relocation"
+        "expense": "relocation",
+        "scope": "moving costs needed for your safety"
       },
       "summary": "Reasonable relocation costs needed for the victim's safety are covered.",
       "quote": "Reasonable relocation expenses for a victim to relocate as necessary to ensure the victim's safety.",
@@ -396,7 +411,7 @@
       "params": {
         "item": "pain and suffering; property damage other than the items listed in 24-4.1-109(1.5)(a) (residential repair or replacement, insurance deductibles, residence safety changes, rekeying, certain towing or impound fees, and medically necessary devices)"
       },
-      "summary": "Pain and suffering is not compensable, and property damage is limited to the listed items (home repair, insurance deductibles, safety changes to the home, rekeying, certain towing or impound fees, and medically necessary devices). Personal property not on that list, such as a phone, is not covered.",
+      "summary": "Pain and suffering is not paid. Property damage is paid only for the items the law lists: fixing or replacing a home's damaged doors, windows, locks, or other security devices; the deductible on a home or car insurance policy; safety changes to the home; rekeying a car or other lock for safety; towing or impound of a car that police say is where the crime happened; and medically necessary devices, like eyeglasses, that were damaged or stolen. Other belongings, such as a phone, are not covered.",
       "quote": "Pain and suffering or property damage expenses other than those specified in subsection (1.5)(a) of this section;",
       "source_id": "CO-S5",
       "pinpoint": "C.R.S. 24-4.1-109(2)(a)"
@@ -425,6 +440,41 @@
       "quote": "The requirement to notify the appropriate law enforcement officials required by this subsection (1)(b) is satisfied if, as the result of the compensable crime that the application is being submitted for, the victim or applicant provides documentation that a forensic examination was conducted by a licensed or registered nurse or medical provider.",
       "source_id": "CO-S4",
       "pinpoint": "C.R.S. 24-4.1-108(1)(b)"
+    },
+    {
+      "id": "CO-REPORT-2",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "within_hours": 72,
+        "scope": "property damage claims"
+      },
+      "summary": "For a property damage claim, police must have been told about the crime within 72 hours, unless the board finds good cause for the delay.",
+      "quote": "The appropriate law enforcement officials were notified of the perpetration of the crime causing property damage within seventy-two hours after its perpetration, unless the board finds good cause exists for the failure of notification;",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1.5)(b)"
+    },
+    {
+      "id": "CO-COOP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "To be approved, you must also have cooperated reasonably with law enforcement in catching and prosecuting the assailant. The board can find good cause for not cooperating.",
+      "quote": "The applicant has cooperated reasonably with law enforcement officials in the apprehension and prosecution of the assailant, or the board has found good cause exists for the failure to cooperate",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1)(c)"
+    },
+    {
+      "id": "CO-DEADLINE-1",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "Property damage claims must be filed within 6 months of the damage, unless the board allows more time for good cause.",
+      "quote": "The application for approval of compensation for property damage under this part 1 is filed with the board within six months of the date of property damage or within such further extension of time as the board, for good cause shown, allows.",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1.5)(d)"
     },
     {
       "id": "CO-COLL-1",
@@ -579,7 +629,7 @@
         "covers_sexual_assault": true,
         "enroll": "To begin the enrollment process, meet with a certified Application Assistant. Visit the Application Center Locations page to view a listing of available Application Assistants. Only AAs can make ACP referrals and submit ACP applications."
       },
-      "summary": "Colorado's Address Confidentiality Program gives survivors of sexual assault, stalking, human trafficking, and domestic violence a legal substitute address and mail forwarding, and state and local government agencies must accept that address.",
+      "summary": "Colorado's Address Confidentiality Program gives enrolled survivors of sexual assault, stalking, human trafficking, and domestic violence a legal substitute address and mail forwarding, and all state and local government agencies must accept a participant's substitute address.",
       "quote": "The Colorado Address Confidentiality Program (ACP) is a statewide program that provides protected healthcare workers and survivors of stalking/harassment, sexual assault, human trafficking, and domestic violence with a legal substitute address and mail forwarding. Under Colorado law, all state and local government agencies must accept a participant’s substitute address.",
       "source_id": "CO-S17",
       "pinpoint": "DCS Address Confidentiality Program (ACP) page, introduction"
@@ -594,6 +644,9 @@
       "pinpoint": "C.R.S. 24-4.1-107.5(2)"
     }
   ],
+  "page_notes": {
+    "deadline": "Note: Tend found no time limit in Colorado law for injury claims. The state's 2016 application form still says to apply within one year of the crime. Ask the program in the judicial district where the crime happened before you wait."
+  },
   "coverage": {
     "found": [
       "exam_no_bill",

@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "c5d5c095f55d50ab79e9bd1f047d12394779af8712e6326216e23ea20467fb5b",
+ "source_sha256": "a6c5f1aacf924da33a32fcf031005d6d8e743537ce161212ce0b8959cd2449b3",
  "rules": [
   {
    "id": "AL-EXAM-1",
@@ -104,6 +104,11 @@
    "expense": "medical"
   },
   {
+   "id": "AL-CAP-MED-UNPAID",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
    "id": "AL-COV-HIV",
    "kind": "covered",
    "expense": "prescription"
@@ -154,7 +159,8 @@
    "id": "AL-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AL-REPORT-2",
@@ -319,6 +325,11 @@
  "skipped": [
   {
    "id": "AL-CAP-COUNS-MINOR",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "AL-CAP-HIV-INS",
    "category": "expense_cap",
    "reason": "expense_cap without amount or expense"
   }

@@ -280,7 +280,8 @@
       "category": "reporting_requirement",
       "expense": "forensic_exam",
       "params": {
-        "required": false
+        "required": false,
+        "expense": "forensic_exam"
       },
       "summary": "A victim does not have to report to police or cooperate with prosecution for the forensic exam to be paid.",
       "quote": "the victims shall not be required to report the incident to law enforcement officers or to cooperate in the prosecution of the crime in order to be eligible for payment of forensic medical examinations",
@@ -303,7 +304,8 @@
       "id": "TN-CAP-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 3410000
+        "amount_cents": 3410000,
+        "condition": "for a crime on or after July 1, 2025"
       },
       "summary": "For crimes on or after July 1, 2025, the Treasury lists an overall maximum of $34,100 for all expenses on claims from the crime. The cap depends on the crime date.",
       "quote": "For crimes occurring on or after July 1, 2025: $34,100",
@@ -315,7 +317,9 @@
       "category": "covered_expense",
       "expense": "other",
       "params": {
-        "expense": "other"
+        "expense": "other",
+        "item": "pain and suffering",
+        "scope": "for victims of rape, human trafficking, or another sexual crime"
       },
       "summary": "Pain and suffering is not paid for most crimes, but it can be paid to victims of rape, human trafficking, and crimes involving sexual deviancy.",
       "quote": "Compensation must not be awarded for any personal injury or loss alleged to have been incurred as a result of pain and suffering, except for victims of the crime of rape, victims of a human trafficking offense, and victims of a crime involving sexual deviancy",
@@ -329,7 +333,8 @@
       "params": {
         "expense": "other",
         "amount_cents": 300000,
-        "per": "claim"
+        "per": "claim",
+        "item": "pain and suffering"
       },
       "summary": "A pain and suffering award for a victim of a sexually-oriented crime may not exceed $3,000.",
       "quote": "Any award based on the pain and suffering experienced by a claimant victimized by a sexually-oriented crime is to be made in an amount deemed necessary and appropriate, not to exceed three thousand dollars ($3,000)",
@@ -365,6 +370,19 @@
       "pinpoint": "T.C.A. 29-13-105(a)(6)"
     },
     {
+      "id": "TN-COUNS-3",
+      "category": "covered_expense",
+      "expense": "counseling",
+      "params": {
+        "expense": "counseling",
+        "scope": "counseling you need because of the injury"
+      },
+      "summary": "The program says it may consider paying for counseling the victim needs because of the injury. The most it can pay is the overall limit.",
+      "quote": "Any counseling services must be necessary due to the injury and may be considered for the victim up to the maximum award.",
+      "source_id": "TN-S15",
+      "pinpoint": "Program page, Eligible (Covered) Expenses Explained: Medical Bills/Mental Health Counseling"
+    },
+    {
       "id": "TN-MED-1",
       "category": "covered_expense",
       "expense": "medical",
@@ -381,7 +399,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "detail": true
       },
       "summary": "Lost wages caused by the crime are paid on the workers' compensation temporary total disability schedule, but at 85 percent of the claimant's average weekly wage.",
       "quote": "Any award made for lost wages proximately caused by a violent crime is to be based upon those schedules of compensation for temporary total disability allowable by the workers' compensation statutes, found in § 50-6-207, in effect at the time of the commission of the crime giving rise to such claim; provided, however, that the sixty-six and two-thirds percent (66⅔%) rate prescribed in the workers' compensation statutes shall not be used in determining the amount of any award hereunder. Instead, such rate shall be eighty-five percent (85%) of the claimant's average weekly wage.",
@@ -394,9 +413,10 @@
       "expense": "relocation",
       "params": {
         "expense": "relocation",
-        "count_limit": 2
+        "count_limit": 2,
+        "scope": "moving costs, if the assault happened at your home, for up to 2 moves"
       },
-      "summary": "If the assault happened at the victim's home, reasonable moving costs, storage fees, and utility transfer fees are covered, for no more than 2 moves.",
+      "summary": "If you move because of an assault at your home, reasonable moving costs, storage fees, and fees to move your utilities are covered. This is for no more than 2 moves.",
       "quote": "The victim's reasonable moving expenses, storage fees and fees for transfer of utility service if the move is a direct result of an assault committed upon such victim at the victim's residence, provided that the victim shall not receive compensation for more than two (2) moves resulting from the assault",
       "source_id": "TN-S7",
       "pinpoint": "T.C.A. 29-13-106(a)(7)"
@@ -406,7 +426,8 @@
       "category": "covered_expense",
       "expense": "crime_scene_cleanup",
       "params": {
-        "expense": "crime_scene_cleanup"
+        "expense": "crime_scene_cleanup",
+        "scope": "cleaning the scene, if it was your home or a relative's home"
       },
       "summary": "Reasonable costs to clean the scene of a sexual assault are covered when the scene was the home of the victim or a relative.",
       "quote": "Reasonable out-of-pocket expenses incurred for cleaning supplies, equipment rental and labor needed to clean the scene of a homicide, sexual assault or aggravated assault, if the scene was the residence of the victim or a relative of the victim",
@@ -437,7 +458,7 @@
         "per": "claim",
         "item": "travel to and from the trial and later appellate or post-conviction proceedings"
       },
-      "summary": "Travel to and from the offender's trial (and later appeals) is capped at a cumulative $1,250. This cap is only for court travel.",
+      "summary": "Travel to and from the offender's trial and later appeals is paid up to a cumulative $1,250 for each claimant.",
       "quote": "Any award made under the preceding sentence to a claimant shall not exceed a cumulative total of one thousand two hundred fifty dollars ($1,250) for all such travel.",
       "source_id": "TN-S7",
       "pinpoint": "T.C.A. 29-13-106(a)(3)"
@@ -488,10 +509,23 @@
       "expense": "property_replacement",
       "params": {
         "expense": "property_replacement",
-        "item": "eyeglasses and hearing aids; property damaged in processing a sexual assault scene at the residence"
+        "item": "eyeglasses and hearing aids; property damaged in processing a sexual assault scene at the residence",
+        "scope": "cleaning, fixing, or replacing the victim's eyeglasses and hearing aids damaged by the crime or the crime scene work"
       },
-      "summary": "Reasonable costs to clean, repair, or replace the victim's eyeglasses and hearing aids damaged by the crime are covered, as is property damaged while processing a sexual assault scene at the home of the victim or a relative.",
+      "summary": "Reasonable costs to clean, fix, or replace the victim's eyeglasses and hearing aids are covered when the crime or the crime scene work damaged them.",
       "quote": "Reasonable costs of cleaning, repairing or replacing eyeglasses and hearing aids owned by the victim that were damaged or destroyed by the crime or the processing of the crime scene",
+      "source_id": "TN-S7",
+      "pinpoint": "T.C.A. 29-13-106(a)(8)"
+    },
+    {
+      "id": "TN-PROP-3",
+      "category": "covered_expense",
+      "params": {
+        "expense": "property_replacement",
+        "scope": "repairing or replacing things damaged when police processed the scene at your home or a relative's home"
+      },
+      "summary": "The program covers reasonable costs to repair or replace property of the victim or a relative that was damaged when police processed the scene. This is for a sexual assault, homicide, or aggravated assault at the home of the victim or of the relative who owned the property.",
+      "quote": "the reasonable costs of repairing or replacing personal property owned by the victim or a relative of the victim as defined in § 29-13-102 that was damaged or destroyed in processing the scene of a homicide, sexual assault or aggravated assault if the scene was the residence of the victim or the relative of the victim who owned the property.",
       "source_id": "TN-S7",
       "pinpoint": "T.C.A. 29-13-106(a)(8)"
     },
@@ -525,10 +559,22 @@
       "params": {
         "years": 2,
         "from": "crime",
-        "extension": "Good cause can extend the period, before or after it runs. For listed sexual offenses against a minor, the claim may also be filed within 2 years after a resulting mental or physical injury is diagnosed."
+        "extension": "or later if the program extends it for good cause"
       },
       "summary": "A claim must be filed within 2 years after the crime. For listed sexual offenses against a minor, it can also be filed within 2 years after a resulting injury is diagnosed, and good cause can extend the time.",
       "quote": "A claim for compensation must be filed not later than two (2) years after the occurrence of the crime upon which the claim is based, two (2) years after the death of the victim, or two (2) years after any mental or physical manifestation or injury is diagnosed as a result of an act committed against a minor that would constitute a criminal offense under §§ 39-13-502 – 39-13-505, § 39-13-522, § 39-15-302, § 39-17-902, or §§ 39-17-1003 – 39-17-1005, or an attempt, conspiracy, or solicitation to commit such offenses; provided, that upon good cause shown, the time period for filing such claim may be extended either before or after the expiration of the filing period.",
+      "source_id": "TN-S9",
+      "pinpoint": "T.C.A. 29-13-108(a)"
+    },
+    {
+      "id": "TN-FILE-2",
+      "category": "filing_deadline",
+      "params": {
+        "years": 2,
+        "from": "diagnosis"
+      },
+      "summary": "Some sex crimes against a minor allow more time. A claim can also be filed within 2 years after a mental or physical injury from the crime is diagnosed.",
+      "quote": "two (2) years after any mental or physical manifestation or injury is diagnosed as a result of an act committed against a minor that would constitute a criminal offense under §§ 39-13-502 – 39-13-505, § 39-13-522, § 39-15-302, § 39-17-902, or §§ 39-17-1003 – 39-17-1005, or an attempt, conspiracy, or solicitation to commit such offenses",
       "source_id": "TN-S9",
       "pinpoint": "T.C.A. 29-13-108(a)"
     },
@@ -538,7 +584,8 @@
       "params": {
         "required": true,
         "within_days": 15,
-        "alternatives": []
+        "alternatives": [],
+        "exception": "or later if there is good cause, which can include sexual assault"
       },
       "summary": "The crime must be reported to the proper authorities within 15 days, but a late report can be excused for good cause, and being a victim of sexual assault is a listed reason for good cause.",
       "quote": "A claim cannot be filed until the crime upon which the claim is based has been reported by the victim, or a member of the victim's family, to the proper authorities within fifteen (15) days after the occurrence of such crime unless, for good cause shown, it is found that the delay was justified. Good cause for the failure of a victim or a member of the victim's family to report a crime may be found if the victim is: (1) Physically unable; (2) A victim of sexual assault;",
@@ -594,7 +641,7 @@
       "params": {
         "amount_cents": 50000
       },
-      "summary": "The claims commission may make an emergency award of up to $500 before a final decision when an award is probable and waiting would cause undue hardship. It is deducted from the final award.",
+      "summary": "An emergency award can be no more than $500.",
       "quote": "The amount of such emergency award shall not exceed five hundred dollars ($500).",
       "source_id": "TN-S10",
       "pinpoint": "T.C.A. 29-13-114(b)"
@@ -736,7 +783,7 @@
         "covers_sexual_assault": true,
         "enroll": "an adult person, or a parent or fiduciary acting on behalf of a minor or person with a disability, may apply to the secretary of state with the assistance of an application assistant to have an address designated by the secretary of state serve as the person's substitute address, or the substitute address of the minor or person with a disability on whose behalf the application is filed, where the applicant, or the individual on whose behalf the application is filed, resides at an address not previously identified in any public record as the person's address, or has relocated to a new residence within the preceding thirty (30) calendar days or presently intends to relocate to a new residence within ninety (90) calendar days from the date of the application. The application shall be made on a form prescribed by the secretary of state and filed in the office of the secretary of state in the manner prescribed by the secretary of state."
       },
-      "summary": "Safe at Home, run by the Tennessee Secretary of State, is free and open to survivors of rape, sexual battery, or any other sexual offense (plus domestic abuse, stalking, and human trafficking). An approved participant gets a substitute address to use as the official mailing address for state and local government purposes, with a few exceptions. Applying takes an application assistant at a partner agency.",
+      "summary": "Safe at Home is a free program run by the Tennessee Secretary of State. It is open to survivors of rape, sexual battery, or another sex crime, and of domestic abuse, stalking, or human trafficking, who meet its eligibility and application rules. Once approved, you get a substitute address to use as your official mailing address for state and local government.",
       "quote": "The Safe at Home Address Confidentiality Program is a statewide address confidentiality program administered by the Office of the Tennessee Secretary of State. It is open to all victims of domestic abuse, stalking, human trafficking, rape, sexual battery, or any other sexual offense who satisfy eligibility and application requirements at no cost. Once a participant has been approved, they are provided with a 'substitute' address that can be used by them and their children as their official mailing address for all state and local government purposes",
       "source_id": "TN-S21",
       "pinpoint": "Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))"

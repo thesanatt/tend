@@ -1,9 +1,9 @@
 ; tend law image SC, South Carolina
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 7dacdf2f17b6b2a7d6bdcd2424aa2eb105f503a15f96c228e6116d02e6e39976
-; image sha256  433f9cb8ce7d66f104f481d95f1dcbdb21dd7c37180774d3e1b8a928e09388b1
-; 52 rules, 14 sources, 22 proofs, 2 ints, 284 strings
-; item program: 130 instructions, 458 bytes, max stack 2
+; source sha256 8e4c6b8f78802b1e1c87a0324a0bd24567b07769d691c7c68fc1eaf9a92b946a
+; image sha256  50ba329d231e51b916fbbcc93189fb8e572eb5046b9a2b8d87de127cdb0013d3
+; 57 rules, 14 sources, 24 proofs, 2 ints, 304 strings
+; item program: 144 instructions, 496 bytes, max stack 2
 ; aggregate program: 86 instructions, 266 bytes, max stack 2, 2 loops
 
 .rules
@@ -13,52 +13,57 @@
     R3    SC-EXAM-4             exam_payment  -                                             DCVC sexual assault brochure, Sexual Assault Program
     R4    SC-EXAM-5             exam_no_bill  -                                             DCVC sexual assault brochure, Legislation
     R5    SC-EXAM-6             exam_payment  -                                             DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)
-    R6    SC-EXCL-1             info          -                     excluded_expense        DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination
-    R7    SC-TOTAL-1            total_cap     -                                             S.C. Code 16-3-1180(C)
-    R8    SC-MED-1              covered       medical                                       S.C. Code 16-3-1180(A)(1)
-    R9    SC-DENT-1             covered       dental                                        DCVC compensation brochure, Services DCVC May Consider For Payment
-    R10   SC-FUN-1              covered       funeral                                       SC Attorney General, Crime Victim Compensation program page
-    R11   SC-RX-1               covered       prescription                                  DCVC compensation brochure, Services DCVC May Consider For Payment
-    R12   SC-WAGE-1             covered       lost_wages                                    S.C. Code 16-3-1180(A)(3)
-    R13   SC-TRANS-1            covered       transportation                                DCVC compensation brochure, Services DCVC May Consider For Payment
-    R14   SC-TRANS-2            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
-    R15   SC-TRANS-3            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
-    R16   SC-RELO-1             excluded      relocation                                    DCVC FAQs, relocation
-    R17   SC-HOUSE-1            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
-    R18   SC-PROP-1             excluded      property_replacement                          DCVC compensation brochure, What DCVC Does Not Consider For Payment
-    R19   SC-PROP-2             info          -                     excluded_expense        DCVC compensation brochure, What DCVC Does Not Consider For Payment
-    R20   SC-PROP-3             info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
-    R21   SC-EXCL-2             excluded      crime_scene_cleanup                           DCVC FAQs, What doesn't DCVC pay?
-    R22   SC-EXCL-3             info          -                     excluded_expense        DCVC FAQs, What doesn't DCVC pay?
-    R23   SC-EXCL-4             info          -                     excluded_expense        DCVC FAQs, What doesn't DCVC pay?
-    R24   SC-EXCL-5             info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
-    R25   SC-EXCL-6             excluded      other                                         DCVC FAQs, What doesn't DCVC pay?
-    R26   SC-DEAD-1             deadline      -                     from discovery          S.C. Code 16-3-1230(B), (C)
-    R27   SC-REPORT-1           reporting     -                                             S.C. Code 16-3-1170(A)(3), (B)
-    R28   SC-REPORT-2           reporting     -                                             DCVC sexual assault brochure, Sexual Assault Program
-    R29   SC-REPORT-3           reporting     -                                             DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria
-    R30   SC-MIN-1              minimum_loss  -                                             S.C. Code 16-3-1180(D)
-    R31   SC-MIN-2              minimum_loss  -                                             S.C. Code 16-3-1350(D)
-    R32   SC-COLL-1             collateral    -                                             S.C. Code 16-3-1190
-    R33   SC-COLL-2             collateral    -                                             DCVC Payments and Reimbursements At A Glance, Payer of Last Resort
-    R34   SC-COLL-3             collateral    -                                             DCVC compensation brochure, Services DCVC May Consider For Payment
-    R35   SC-CONDUCT-1          info          -                     conduct_reduction       S.C. Code 16-3-1200
-    R36   SC-EMERG-1            info          -                     emergency_award         S.C. Code 16-3-1150
-    R37   SC-CRIME-1            info          -                     eligible_crime          DCVC compensation brochure, Types of Crimes DCVC May Consider For Eligibility and Payment
-    R38   SC-RES-1              info          -                     residency               S.C. Code 16-3-1210
-    R39   SC-SUBMIT-1           info          -                     submission              How to Apply for Compensation page
-    R40   SC-DOC-1              info          -                     required_document       Application, Section 4 Crime Information
-    R41   SC-DOC-2              info          -                     required_document       Application, Section 5 Crime-Related Expense Information
-    R42   SC-DOC-3              info          -                     required_document       Application instructions, If I want to apply now, what should I do?
-    R43   SC-DOC-4              info          -                     required_document       Application instructions, If I want to apply now, what should I do?
-    R44   SC-DOC-5              info          -                     required_document       Application, Section 7 Lost Wages / Support Information
-    R45   SC-DOC-6              info          -                     required_document       Application, Section 7 Lost Wages / Support Information
-    R46   SC-DOC-7              info          -                     required_document       Payments and Reimbursements At A Glance, Crime Related Counseling Expenses
-    R47   SC-DOC-8              info          -                     required_document       FAQ, resident victimized in another country
-    R48   SC-ACP-1              info          -                     address_confidentiality S.C. Code 16-25-130(B)
-    R49   SC-RECCONF-1          info          -                     record_confidentiality  S.C. Code 16-3-1240
-    R50   SC-COUNS-1            skipped       -                     expense_cap             S.C. Code 16-3-1180(A)(1)  ; expense_cap without amount or expense
-    R51   SC-WAGE-2             skipped       -                     expense_cap             DCVC Payments and Reimbursements At A Glance, Crime Related Lost Wages  ; expense_cap without amount or expense
+    R6    SC-EXAM-7             exam_payment  -                                             DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)
+    R7    SC-EXAM-8             exam_payment  -                                             DCVC sexual assault brochure, Sexual Assault (ACUTE) Protocol
+    R8    SC-EXAM-9             exam_payment  -                                             DCVC sexual assault brochure, Reasons Payments Are Delayed or Denied
+    R9    SC-EXCL-1             info          -                     excluded_expense        DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination
+    R10   SC-TOTAL-1            total_cap     -                                             S.C. Code 16-3-1180(C)
+    R11   SC-MED-1              covered       medical                                       S.C. Code 16-3-1180(A)(1)
+    R12   SC-COUNS-2            covered       counseling                                    S.C. Code 16-3-1180(A)(1)
+    R13   SC-DENT-1             covered       dental                                        DCVC compensation brochure, Services DCVC May Consider For Payment
+    R14   SC-FUN-1              covered       funeral                                       SC Attorney General, Crime Victim Compensation program page
+    R15   SC-RX-1               covered       prescription                                  DCVC compensation brochure, Services DCVC May Consider For Payment
+    R16   SC-WAGE-1             covered       lost_wages                                    S.C. Code 16-3-1180(A)(3)
+    R17   SC-TRANS-1            covered       transportation                                DCVC compensation brochure, Services DCVC May Consider For Payment
+    R18   SC-TRANS-2            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
+    R19   SC-TRANS-3            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
+    R20   SC-RELO-1             excluded      relocation                                    DCVC FAQs, relocation
+    R21   SC-HOUSE-1            info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
+    R22   SC-PROP-1             excluded      property_replacement                          DCVC compensation brochure, What DCVC Does Not Consider For Payment
+    R23   SC-PROP-2             info          -                     excluded_expense        DCVC compensation brochure, What DCVC Does Not Consider For Payment
+    R24   SC-PROP-3             info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
+    R25   SC-EXCL-2             excluded      crime_scene_cleanup                           DCVC FAQs, What doesn't DCVC pay?
+    R26   SC-EXCL-3             info          -                     excluded_expense        DCVC FAQs, What doesn't DCVC pay?
+    R27   SC-EXCL-4             info          -                     excluded_expense        DCVC FAQs, What doesn't DCVC pay?
+    R28   SC-EXCL-5             info          -                     excluded_expense        DCVC Payments and Reimbursements At A Glance, Non-covered Expenses
+    R29   SC-EXCL-6             excluded      other                                         DCVC FAQs, What doesn't DCVC pay?
+    R30   SC-DEAD-1             deadline      -                     from discovery          S.C. Code 16-3-1230(B), (C)
+    R31   SC-REPORT-1           reporting     -                                             S.C. Code 16-3-1170(A)(3), (B)
+    R32   SC-REPORT-4           reporting     -                                             S.C. Code 16-3-1170(A)
+    R33   SC-REPORT-2           reporting     -                                             DCVC sexual assault brochure, Sexual Assault Program
+    R34   SC-REPORT-3           reporting     -                                             DCVC Sexual Assault Program provider instructions, Anonymous Reporting: Sexual Assault (Acute) Protocols (Victims 18 and older), Anonymous Waiver Reporting Criteria
+    R35   SC-MIN-1              minimum_loss  -                                             S.C. Code 16-3-1180(D)
+    R36   SC-MIN-2              minimum_loss  -                                             S.C. Code 16-3-1350(D)
+    R37   SC-COLL-1             collateral    -                                             S.C. Code 16-3-1190
+    R38   SC-COLL-2             collateral    -                                             DCVC Payments and Reimbursements At A Glance, Payer of Last Resort
+    R39   SC-COLL-3             collateral    -                                             DCVC compensation brochure, Services DCVC May Consider For Payment
+    R40   SC-CONDUCT-1          info          -                     conduct_reduction       S.C. Code 16-3-1200
+    R41   SC-EMERG-1            info          -                     emergency_award         S.C. Code 16-3-1150
+    R42   SC-CRIME-1            info          -                     eligible_crime          DCVC compensation brochure, Types of Crimes DCVC May Consider For Eligibility and Payment
+    R43   SC-RES-1              info          -                     residency               S.C. Code 16-3-1210
+    R44   SC-SUBMIT-1           info          -                     submission              How to Apply for Compensation page
+    R45   SC-DOC-1              info          -                     required_document       Application, Section 4 Crime Information
+    R46   SC-DOC-2              info          -                     required_document       Application, Section 5 Crime-Related Expense Information
+    R47   SC-DOC-3              info          -                     required_document       Application instructions, If I want to apply now, what should I do?
+    R48   SC-DOC-4              info          -                     required_document       Application instructions, If I want to apply now, what should I do?
+    R49   SC-DOC-5              info          -                     required_document       Application, Section 7 Lost Wages / Support Information
+    R50   SC-DOC-6              info          -                     required_document       Application, Section 7 Lost Wages / Support Information
+    R51   SC-DOC-7              info          -                     required_document       Payments and Reimbursements At A Glance, Crime Related Counseling Expenses
+    R52   SC-DOC-8              info          -                     required_document       FAQ, resident victimized in another country
+    R53   SC-ACP-1              info          -                     address_confidentiality S.C. Code 16-25-130(B)
+    R54   SC-RECCONF-1          info          -                     record_confidentiality  S.C. Code 16-3-1240
+    R55   SC-COUNS-1            skipped       -                     expense_cap             S.C. Code 16-3-1180(A)(1)  ; expense_cap without amount or expense
+    R56   SC-WAGE-2             skipped       -                     expense_cap             DCVC Payments and Reimbursements At A Glance, Crime Related Lost Wages  ; expense_cap without amount or expense
 
 .tags   pain_suffering=bit0
 
@@ -80,27 +85,29 @@
 
 .proofs
     P0    ()
-    P1    (SC-EXAM-1, SC-EXAM-2, SC-EXAM-5, SC-EXAM-3, SC-EXAM-4, SC-EXAM-6)
+    P1    (SC-EXAM-1, SC-EXAM-2, SC-EXAM-5, SC-EXAM-3, SC-EXAM-4, SC-EXAM-6, SC-EXAM-7, SC-EXAM-8, SC-EXAM-9)
     P2    (SC-MED-1)
     P3    (SC-MED-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P4    (SC-WAGE-1)
-    P5    (SC-WAGE-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P6    (SC-TRANS-1)
-    P7    (SC-TRANS-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P8    (SC-RELO-1)
-    P9    (SC-EXCL-2)
-    P10   (SC-PROP-1)
-    P11   (SC-RX-1)
-    P12   (SC-RX-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P13   (SC-DENT-1)
-    P14   (SC-DENT-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P15   (SC-FUN-1)
-    P16   (SC-FUN-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
-    P17   (SC-EXCL-6)
-    P18   (SC-MIN-1, SC-MIN-2)
-    P19   (SC-DEAD-1)
-    P20   (SC-REPORT-1, SC-REPORT-2, SC-REPORT-3)
-    P21   (SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1)
+    P4    (SC-COUNS-2)
+    P5    (SC-COUNS-2, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P6    (SC-WAGE-1)
+    P7    (SC-WAGE-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P8    (SC-TRANS-1)
+    P9    (SC-TRANS-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P10   (SC-RELO-1)
+    P11   (SC-EXCL-2)
+    P12   (SC-PROP-1)
+    P13   (SC-RX-1)
+    P14   (SC-RX-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P15   (SC-DENT-1)
+    P16   (SC-DENT-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P17   (SC-FUN-1)
+    P18   (SC-FUN-1, SC-COLL-1, SC-COLL-2, SC-COLL-3)
+    P19   (SC-EXCL-6)
+    P20   (SC-MIN-1, SC-MIN-2)
+    P21   (SC-DEAD-1)
+    P22   (SC-REPORT-1, SC-REPORT-4, SC-REPORT-2, SC-REPORT-3)
+    P23   (SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1)
 
 .ints
     K0    1500000       ; $15,000.00
@@ -116,26 +123,26 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L4
+  0016        switch   19, default L11
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L4
-                        case lost_wages            -> L5
-                        case transportation        -> L7
-                        case relocation            -> L9
-                        case temporary_housing     -> L4
-                        case security              -> L4
-                        case crime_scene_cleanup   -> L10
-                        case childcare             -> L4
-                        case property_replacement  -> L11
-                        case clothing_bedding      -> L4
-                        case prescription          -> L12
-                        case dental                -> L14
-                        case funeral               -> L16
-                        case legal                 -> L4
-                        case tuition               -> L4
-                        case other                 -> L18
-                        case unknown               -> L4
+                        case lost_wages            -> L6
+                        case transportation        -> L8
+                        case relocation            -> L10
+                        case temporary_housing     -> L11
+                        case security              -> L11
+                        case crime_scene_cleanup   -> L12
+                        case childcare             -> L11
+                        case property_replacement  -> L13
+                        case clothing_bedding      -> L11
+                        case prescription          -> L14
+                        case dental                -> L16
+                        case funeral               -> L18
+                        case legal                 -> L11
+                        case tuition               -> L11
+                        case other                 -> L20
+                        case unknown               -> L11
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
@@ -145,8 +152,11 @@
               ; SC-EXAM-3  S.C. Code 16-3-1350(C)  "may file a claim for reimbursement directly to the Office of the..."
               ; SC-EXAM-4  DCVC sexual assault brochure, Sexual Assault Program  "Sexual Assault Program: DCVC is the Sole Reimbursement Provider..."
               ; SC-EXAM-6  DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)  "This expense covers victims who decline the rape kit."
+              ; SC-EXAM-7  DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)  "The SANE will offer the medical forensic exam without evidence..."
+              ; SC-EXAM-8  DCVC sexual assault brochure, Sexual Assault (ACUTE) Protocol  "Evidence collected within 120 hours of the assault for victims..."
+              ; SC-EXAM-9  DCVC sexual assault brochure, Reasons Payments Are Delayed or Denied  "Law enforcement did not order the exam/interview for victim 17..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; SC-EXAM-1, SC-EXAM-2, SC-EXAM-5, SC-EXAM-3, SC-EXAM-4, SC-EXAM-6
+  0077        decide   held, P1                     ; SC-EXAM-1, SC-EXAM-2, SC-EXAM-5, SC-EXAM-3, SC-EXAM-4, SC-EXAM-6, SC-EXAM-7, SC-EXAM-8, SC-EXAM-9
   007b        ret
               ; SC-MED-1  S.C. Code 16-3-1180(A)(1)  "reasonable and customary charges as periodically determined by..."
               ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
@@ -164,134 +174,152 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R32              ; SC-COLL-1
+  009d        seta     collateral, R37              ; SC-COLL-1
   00a1        ret
-  00a2  L4:   push     0
-  00a7        decide   unknown_rule, P0             ; (none)
-  00ab        ret
+              ; SC-COUNS-2  S.C. Code 16-3-1180(A)(1)  "An award may be made for: (1) reasonable and customary charges..."
+              ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
+              ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
+              ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
+  00a2  L4:   ldi      confirmed
+  00a4        jnz      L5
+  00a9        push     0
+  00ae        decide   needs_confirmation, P4       ; SC-COUNS-2
+  00b2        ret
+  00b3  L5:   ldi      amount_cents
+  00b5        decide   eligible, P5                 ; SC-COUNS-2, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  00b9        lda
+  00ba        ldi      insurance_paid_cents
+  00bc        subs
+  00bd        push     0
+  00c2        max
+  00c3        seta     collateral, R37              ; SC-COLL-1
+  00c7        ret
               ; SC-WAGE-1  S.C. Code 16-3-1180(A)(3)  "loss of earning or support, provided that: (a) claimant is..."
               ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
               ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
               ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
-  00ac  L5:   ldi      confirmed
-  00ae        jnz      L6
-  00b3        push     0
-  00b8        decide   needs_confirmation, P4       ; SC-WAGE-1
-  00bc        ret
-  00bd  L6:   ldi      amount_cents
-  00bf        decide   eligible, P5                 ; SC-WAGE-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
-  00c3        lda
-  00c4        ldi      insurance_paid_cents
-  00c6        subs
-  00c7        push     0
-  00cc        max
-  00cd        seta     collateral, R32              ; SC-COLL-1
-  00d1        ret
+  00c8  L6:   ldi      confirmed
+  00ca        jnz      L7
+  00cf        push     0
+  00d4        decide   needs_confirmation, P6       ; SC-WAGE-1
+  00d8        ret
+  00d9  L7:   ldi      amount_cents
+  00db        decide   eligible, P7                 ; SC-WAGE-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  00df        lda
+  00e0        ldi      insurance_paid_cents
+  00e2        subs
+  00e3        push     0
+  00e8        max
+  00e9        seta     collateral, R37              ; SC-COLL-1
+  00ed        ret
               ; SC-TRANS-1  DCVC compensation brochure, Services DCVC May Consider For Payment  "Mileage for medical and or psychological treatment only (min. 5..."
               ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
               ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
               ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
-  00d2  L7:   ldi      confirmed
-  00d4        jnz      L8
-  00d9        push     0
-  00de        decide   needs_confirmation, P6       ; SC-TRANS-1
-  00e2        ret
-  00e3  L8:   ldi      amount_cents
-  00e5        decide   eligible, P7                 ; SC-TRANS-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
-  00e9        lda
-  00ea        ldi      insurance_paid_cents
-  00ec        subs
-  00ed        push     0
-  00f2        max
-  00f3        seta     collateral, R32              ; SC-COLL-1
-  00f7        ret
+  00ee  L8:   ldi      confirmed
+  00f0        jnz      L9
+  00f5        push     0
+  00fa        decide   needs_confirmation, P8       ; SC-TRANS-1
+  00fe        ret
+  00ff  L9:   ldi      amount_cents
+  0101        decide   eligible, P9                 ; SC-TRANS-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  0105        lda
+  0106        ldi      insurance_paid_cents
+  0108        subs
+  0109        push     0
+  010e        max
+  010f        seta     collateral, R37              ; SC-COLL-1
+  0113        ret
               ; SC-RELO-1  DCVC FAQs, relocation  "No, DCVC will not assist with any relocation expenses."
-  00f8  L9:   push     0
-  00fd        decide   excluded, P8                 ; SC-RELO-1
-  0101        ret
+  0114  L10:  push     0
+  0119        decide   excluded, P10                ; SC-RELO-1
+  011d        ret
+  011e  L11:  push     0
+  0123        decide   unknown_rule, P0             ; (none)
+  0127        ret
               ; SC-EXCL-2  DCVC FAQs, What doesn't DCVC pay?  "Crime Scene Clean-up"
-  0102  L10:  push     0
-  0107        decide   excluded, P9                 ; SC-EXCL-2
-  010b        ret
+  0128  L12:  push     0
+  012d        decide   excluded, P11                ; SC-EXCL-2
+  0131        ret
               ; SC-PROP-1  DCVC compensation brochure, What DCVC Does Not Consider For Payment  "Property Loss or Replacement"
-  010c  L11:  push     0
-  0111        decide   excluded, P10                ; SC-PROP-1
-  0115        ret
-              ; SC-RX-1  DCVC compensation brochure, Services DCVC May Consider For Payment  "Doctor ordered medicine, equipment, supplies"
-              ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
-              ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
-              ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
-  0116  L12:  ldi      confirmed
-  0118        jnz      L13
-  011d        push     0
-  0122        decide   needs_confirmation, P11      ; SC-RX-1
-  0126        ret
-  0127  L13:  ldi      amount_cents
-  0129        decide   eligible, P12                ; SC-RX-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
-  012d        lda
-  012e        ldi      insurance_paid_cents
-  0130        subs
-  0131        push     0
-  0136        max
-  0137        seta     collateral, R32              ; SC-COLL-1
+  0132  L13:  push     0
+  0137        decide   excluded, P12                ; SC-PROP-1
   013b        ret
-              ; SC-DENT-1  DCVC compensation brochure, Services DCVC May Consider For Payment  "Dental or Orthodontic Services"
+              ; SC-RX-1  DCVC compensation brochure, Services DCVC May Consider For Payment  "Doctor ordered medicine, equipment, supplies"
               ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
               ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
               ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
   013c  L14:  ldi      confirmed
   013e        jnz      L15
   0143        push     0
-  0148        decide   needs_confirmation, P13      ; SC-DENT-1
+  0148        decide   needs_confirmation, P13      ; SC-RX-1
   014c        ret
   014d  L15:  ldi      amount_cents
-  014f        decide   eligible, P14                ; SC-DENT-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  014f        decide   eligible, P14                ; SC-RX-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
   0153        lda
   0154        ldi      insurance_paid_cents
   0156        subs
   0157        push     0
   015c        max
-  015d        seta     collateral, R32              ; SC-COLL-1
+  015d        seta     collateral, R37              ; SC-COLL-1
   0161        ret
-              ; SC-FUN-1  SC Attorney General, Crime Victim Compensation program page  "Funeral/burial of a deceased victim. The claimant must incur the..."
+              ; SC-DENT-1  DCVC compensation brochure, Services DCVC May Consider For Payment  "Dental or Orthodontic Services"
               ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
               ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
               ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
   0162  L16:  ldi      confirmed
   0164        jnz      L17
   0169        push     0
-  016e        decide   needs_confirmation, P15      ; SC-FUN-1
+  016e        decide   needs_confirmation, P15      ; SC-DENT-1
   0172        ret
   0173  L17:  ldi      amount_cents
-  0175        decide   eligible, P16                ; SC-FUN-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  0175        decide   eligible, P16                ; SC-DENT-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
   0179        lda
   017a        ldi      insurance_paid_cents
   017c        subs
   017d        push     0
   0182        max
-  0183        seta     collateral, R32              ; SC-COLL-1
+  0183        seta     collateral, R37              ; SC-COLL-1
   0187        ret
+              ; SC-FUN-1  SC Attorney General, Crime Victim Compensation program page  "Funeral/burial of a deceased victim. The claimant must incur the..."
+              ; SC-COLL-1  S.C. Code 16-3-1190  "Any award made pursuant to this article may be reduced by or set..."
+              ; SC-COLL-2  DCVC Payments and Reimbursements At A Glance, Payer of Last Resort  "Payer of Last Resort: Insurance must be filed first if a victim..."
+              ; SC-COLL-3  DCVC compensation brochure, Services DCVC May Consider For Payment  "DCVC is the payer of last resort (Victims' private/public..."
+  0188  L18:  ldi      confirmed
+  018a        jnz      L19
+  018f        push     0
+  0194        decide   needs_confirmation, P17      ; SC-FUN-1
+  0198        ret
+  0199  L19:  ldi      amount_cents
+  019b        decide   eligible, P18                ; SC-FUN-1, SC-COLL-1, SC-COLL-2, SC-COLL-3
+  019f        lda
+  01a0        ldi      insurance_paid_cents
+  01a2        subs
+  01a3        push     0
+  01a8        max
+  01a9        seta     collateral, R37              ; SC-COLL-1
+  01ad        ret
               ; SC-EXCL-6  DCVC FAQs, What doesn't DCVC pay?  "Pain and Suffering"
-  0188  L18:  push     0
-  018d        str      r0
-  018f        ldi      tags
-  0191        push     1
-  0196        and
-  0197        jz       L19
-  019c        ldr      r0
-  019e        push     1
-  01a3        or
-  01a4        str      r0
-  01a6  L19:  ldr      r0
-  01a8        switch   2, default L21
-                        case 0                     -> L21
-                        case 1                     -> L20
-  01b6  L20:  push     0
-  01bb        decide   excluded, P17                ; SC-EXCL-6
-  01bf        ret
-  01c0  L21:  push     0
-  01c5        decide   unknown_rule, P0             ; (none)
-  01c9        ret
+  01ae  L20:  push     0
+  01b3        str      r0
+  01b5        ldi      tags
+  01b7        push     1
+  01bc        and
+  01bd        jz       L21
+  01c2        ldr      r0
+  01c4        push     1
+  01c9        or
+  01ca        str      r0
+  01cc  L21:  ldr      r0
+  01ce        switch   2, default L23
+                        case 0                     -> L23
+                        case 1                     -> L22
+  01dc  L22:  push     0
+  01e1        decide   excluded, P19                ; SC-EXCL-6
+  01e5        ret
+  01e6  L23:  push     0
+  01eb        decide   unknown_rule, P0             ; (none)
+  01ef        ret
 
 .aggregate
               ; SC-TOTAL-1  S.C. Code 16-3-1180(C)  "The aggregate of award to and on behalf of victims may not..."
@@ -311,7 +339,7 @@
   0028        ldk      K0                           ; $15,000.00
   002b        ldr      r0
   002d        subs
-  002e        cap      total_cap, R7                ; SC-TOTAL-1
+  002e        cap      total_cap, R10               ; SC-TOTAL-1
   0032        push     1
   0037        str      r1
   0039  L1:   ldr      r0
@@ -320,7 +348,7 @@
   003d        str      r0
   003f        jmp      L3
   0044  L2:   push     0
-  0049        cap      total_cap, R7                ; SC-TOTAL-1
+  0049        cap      total_cap, R10               ; SC-TOTAL-1
   004d  L3:   next     L0
               ; SC-MIN-1  S.C. Code 16-3-1180(D)  "An award may be made only if and to the extent that the amount..."
               ; SC-MIN-2  S.C. Code 16-3-1350(D)  "For the purpose of this particular exam, the one hundred dollar..."
@@ -353,7 +381,7 @@
   0098        max
   0099        str      r2
   009b  L8:   ldr      r2
-  009d        check    minimum_loss, P18            ; SC-MIN-1, SC-MIN-2
+  009d        check    minimum_loss, P20            ; SC-MIN-1, SC-MIN-2
               ; SC-DEAD-1  S.C. Code 16-3-1230(B), (C)  "A claim must be filed by the claimant not later than one hundred..."
   00a1        ldx      incident_date
   00a3        push     180
@@ -367,10 +395,11 @@
   00b8        jmp      L10
   00bd  L9:   push     1
   00c2  L10:  note     deadline_from_discovery
-  00c4        check    deadline, P19                ; SC-DEAD-1
+  00c4        check    deadline, P21                ; SC-DEAD-1
               ; SC-REPORT-1  S.C. Code 16-3-1170(A)(3), (B)  "For the purposes of subsection (A)(3), a crime reported more..."
+              ; SC-REPORT-4  S.C. Code 16-3-1170(A)  "No award may be made unless: (1) a crime was committed; (2) the..."
               ; SC-REPORT-2  DCVC sexual assault brochure, Sexual Assault Program  "Please Note: Law enforcement will be involved as the crime..."
-              ; SC-REPORT-3  DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria  "DCVC received a Compensation Application with "Anonymous"..."
+              ; SC-REPORT-3  DCVC Sexual Assault Program provider instructions, Anonymous Reporting: Sexual Assault (Acute) Protocols (Victims 18 and older), Anonymous Waiver Reporting Criteria  "Anonymous Waiver Reporting Criteria: • An eligible Sexual..."
   00c8        ldx      police_report
   00ca        push     1                            ; yes
   00cf        eq
@@ -386,7 +415,7 @@
   00f3  L11:  push     1
   00f8        jmp      L13
   00fd  L12:  push     0                            ; satisfied
-  0102  L13:  check    reporting, P20               ; SC-REPORT-1, SC-REPORT-2, SC-REPORT-3
+  0102  L13:  check    reporting, P22               ; SC-REPORT-1, SC-REPORT-4, SC-REPORT-2, SC-REPORT-3
               ; SC-EXCL-1  DCVC Sexual Assault Program provider instructions, Sexual Assault Forensic Medical Examination  "Any fees beyond the actual collection of evidence during a..."
               ; SC-TRANS-2  DCVC Payments and Reimbursements At A Glance, Non-covered Expenses  "Mileage for court appearances"
               ; SC-TRANS-3  DCVC Payments and Reimbursements At A Glance, Non-covered Expenses  "Public transportation"
@@ -414,6 +443,6 @@
               ; SC-DOC-8  FAQ, resident victimized in another country  "The victim may apply to DCVC for eligibility consideration as..."
               ; SC-ACP-1  S.C. Code 16-25-130(B)  "The address confidentiality program is established to protect..."
               ; SC-RECCONF-1  S.C. Code 16-3-1240  "The records, papers, files, and communications of the board, its..."
-  0106        info     P21                          ; SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1
+  0106        info     P23                          ; SC-EXCL-1, SC-TRANS-2, SC-TRANS-3, SC-HOUSE-1, SC-PROP-2, SC-PROP-3, SC-EXCL-3, SC-EXCL-4, SC-EXCL-5, SC-COLL-1, SC-COLL-2, SC-COLL-3, SC-CONDUCT-1, SC-EMERG-1, SC-CRIME-1, SC-RES-1, SC-SUBMIT-1, SC-DOC-1, SC-DOC-2, SC-DOC-3, SC-DOC-4, SC-DOC-5, SC-DOC-6, SC-DOC-7, SC-DOC-8, SC-ACP-1, SC-RECCONF-1
   0109        ret
 

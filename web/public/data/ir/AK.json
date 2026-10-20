@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AK",
- "source_sha256": "2849e46f17a18c0fc91d9474145cab264be08c3be1491fde4674448bae38f1dd",
- "ir_sha256": "753ab57c66e7c89774f4b4426519155f9de8f42515f757c393720d82c15fb83f",
+ "source_sha256": "1431c091977d124923e3bc557e404931ac6fe1599e0adbca68691e3176218808",
+ "ir_sha256": "176cadb04cf6692532a24ba4e3a1d1b8b5e2439951f475947dbdc9ccb3e157cc",
  "fresh": true,
  "rules": [
   {
@@ -55,9 +55,8 @@
   },
   {
    "id": "AK-REPORT-3",
-   "kind": "reporting",
-   "required": true,
-   "alternatives": []
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "AK-COLL-1",

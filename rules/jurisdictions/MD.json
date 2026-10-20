@@ -208,7 +208,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit"
+    "payer": "Governor's Office of Crime Prevention and Policy, Sexual Assault Reimbursement Unit",
+    "condition": "if done within 15 days of the assault"
    },
    "summary": "The free-exam rule covers a forensic exam done within 15 days of the assault (or longer if regulation allows) and emergency hospital treatment plus follow-up testing for up to 90 days after the exam.",
    "quote": "a physical and sexual assault forensic examination to gather information and evidence as to an alleged crime when the examination is conducted within 15 days of the alleged crime or a longer period as provided by regulation; (2) emergency hospital treatment and follow-up medical testing for up to 90 days after the initial physical examination",
@@ -232,7 +233,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "prohibited"
+    "insurance_billing": "unspecified"
    },
    "summary": "A provider may not bill the survivor, the survivor's family, or the survivor's private insurance for any difference between its charges and the state's payment, and must take the state's payment as payment in full.",
    "quote": "May not bill a victim of an alleged rape, sexual offense, or child sexual abuse, or the victim's family or private insurance, for any difference between charges and Department reimbursement; and (3) Shall accept the Department's reimbursement as payment in full.",
@@ -245,10 +246,21 @@
    "params": {
     "amount_cents": 4500000
    },
-   "summary": "Total compensation is capped at $45,000, including later and supplemental awards. A victim with permanent total disability can get an additional disability award on top of this total.",
+   "summary": "Total compensation is capped at $45,000, including later and supplemental awards.",
    "quote": "a total of $45,000, including any subsequent and supplemental awards",
    "source_id": "MD-S5",
    "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(4)"
+  },
+  {
+   "id": "MD-CAP-8",
+   "category": "total_cap",
+   "params": {
+    "exception": "or up to $25,000 more if the injury leaves you fully disabled for life"
+   },
+   "summary": "If the injury results in permanent total disability, up to $25,000 more can be awarded after a disability-related claim has been awarded to the victim.",
+   "quote": "(ii) if the injury to the victim results in permanent total disability, up to an additional $25,000 after a disability–related claim has been awarded to the victim",
+   "source_id": "MD-S5",
+   "pinpoint": "Md. Code, Crim. Proc. 11-811(b)(1)(ii)"
   },
   {
    "id": "MD-CAP-2",
@@ -362,7 +374,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost earnings are covered at up to two-thirds of the victim's gross average wage.",
    "quote": "An award for loss of earnings or support made under this subtitle may be up to two-thirds of the victim's gross average wage",
@@ -387,7 +400,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "scope": "one move, with any security deposit"
    },
    "summary": "A one-time relocation, including a security deposit, counts as a covered loss. No dollar cap for relocation was found in the statute.",
    "quote": "the costs of one-time relocation, including any security deposit",
@@ -399,7 +413,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to get medical or mental health care"
    },
    "summary": "Travel costs to get medical or psychological care count as covered losses.",
    "quote": "transportation costs incurred by travel to seek medical or psychological care",
@@ -411,7 +426,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "child care while you get medical or mental health care"
    },
    "summary": "Child care needed while seeking medical or psychological care counts as a covered loss.",
    "quote": "child care expenses incurred as a result of seeking medical or psychological care",
@@ -435,7 +451,8 @@
    "category": "covered_expense",
    "expense": "security",
    "params": {
-    "expense": "security"
+    "expense": "security",
+    "scope": "replacing locks"
    },
    "summary": "Replacing locks is covered inside the property cap.",
    "quote": "including the cost of replacing locks",
@@ -462,10 +479,19 @@
     "from": "discovery",
     "extension": "Child abuse claims can be filed at any time; claims delayed by DNA testing of a sexual assault kit run from notification of the results; the Board can accept late claims for good cause."
    },
-   "summary": "A claim must be filed within 4 years after the crime is discovered (or a later trigger tied to an attempt to reverse a conviction).",
+   "summary": "A claim must be filed within 4 years after the crime is discovered, or later in some cases.",
    "quote": "a claimant shall file a claim within 4 years after the later of: (i) the discovery of the occurrence of the crime or delinquent act or the death of the victim",
    "source_id": "MD-S3",
    "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(1)"
+  },
+  {
+   "id": "MD-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "In a case of child abuse, a claim can be filed at any time.",
+   "quote": "In a case of child abuse, a claimant may file a claim at any time.",
+   "source_id": "MD-S3",
+   "pinpoint": "Md. Code, Crim. Proc. 11-809(a)(2)"
   },
   {
    "id": "MD-DEADLINE-2",
@@ -502,7 +528,7 @@
      "other"
     ]
    },
-   "summary": "A police report is one accepted form of evidence, not the only one. The Board must also accept medical records, a sworn statement from a qualified third party, a peace or protective order, or other probative evidence.",
+   "summary": "A police report is one kind of evidence the Board must accept. It is not the only one. The Board must also accept medical records showing an injury that fits the crime. It must accept a sworn statement from a qualified third party, and a peace order or protective order. It must also accept any other evidence it thinks helps prove what happened.",
    "quote": "The Board shall accept as evidence: (1) a report produced by a law enforcement agency; (2) medical records documenting an injury consistent with the alleged crime; (3) a sworn statement from a qualified third party; (4) a peace order issued under Title 3, Subtitle 15 of the Courts Article; (5) a protective order issued under Title 4, Subtitle 5 of the Family Law Article; and (6) any other evidence the Board considers probative.",
    "source_id": "MD-S4",
    "pinpoint": "Md. Code, Crim. Proc. 11-810(b)"
@@ -763,12 +789,18 @@
     "covers_sexual_assault": true,
     "enroll": "Applications are available through Application Assistants, professional victim service providers registered with the Office of the Secretary of State. An Application Assistant will help you develop a safety plan and determine if participation in the ACP is a good fit. Please call the ACP at 410.260.3875 if you do not qualify for traditional victim services but would like to apply to the Address Confidentiality Program, or if you have trouble connecting with an Application Assistant."
    },
-   "summary": "Maryland's Address Confidentiality Program, run by the Secretary of State, gives survivors of sexual assault, domestic violence, stalking, harassment or human trafficking a substitute address designated by the Secretary of State, so agencies can answer public records requests without revealing where they live.",
+   "summary": "Maryland's Secretary of State runs an Address Confidentiality Program. It is for survivors of threatened, attempted, or actual sexual assault, domestic violence, stalking, harassment, or human trafficking.",
    "quote": "The Secretary of State shall establish and administer an Address Confidentiality Program for survivors of threatened, attempted, or actual domestic violence, sexual assault, stalking, harassment, or human trafficking.",
    "source_id": "MD-S14",
    "pinpoint": "Md. Code, State Gov't 7-303"
   }
  ],
+ "page_notes": {
+  "police": "Note: Maryland's law changed on July 1, 2025. The program's 2021 application and its website still say to report the crime within 48 hours. The application also asks for a police report for all claims. This page follows the law in force now. The program may still ask you for a police report.",
+  "deadline": "Note: The program's 2021 application and the Board's older rules still say you have 3 years to apply. The law now says 4 years.",
+  "costs": "Note: The program's 2021 application lists mileage, lock changes, moving, and child care as not covered. The law changed on July 1, 2025, and now lists these costs.",
+  "urgent": "Note: The Board's rules, last changed in 2016, still say an emergency award needs a police report and can be no more than $2,000. The law now allows up to $10,000."
+ },
  "coverage": {
   "found": [
    "exam_no_bill",

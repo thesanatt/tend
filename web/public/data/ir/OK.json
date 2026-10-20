@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "OK",
- "source_sha256": "e2fb4c696a03f37663c15226e3e396737d32f87c52c5d29633dcb7fb40d8dbf4",
- "ir_sha256": "47b0f0567bf032cb20171a6380b1d7779d5111039636844d30b4cf547e264ae1",
+ "source_sha256": "aa3417ff587aee98d317e24188a6c7d036b25d49b1db48ceed8c1ebfbfa1a433",
+ "ir_sha256": "ae548afd9d8790c87b75f6f2caa0a8ded4e249ce9dfd24880973dfa7a0ebd00b",
  "fresh": true,
  "rules": [
   {
@@ -26,10 +26,8 @@
   },
   {
    "id": "OK-EXAM-5",
-   "kind": "expense_cap",
-   "expense": "prescription",
-   "cap_cents": 10000,
-   "per": "claim"
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "OK-EXAM-6",
@@ -49,13 +47,8 @@
   },
   {
    "id": "OK-CAP-3",
-   "kind": "expense_cap",
-   "expense": "other",
-   "cap_cents": 2000000,
-   "per": "claim",
-   "alt_rule_ids": [
-    "OK-CAP-4"
-   ]
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "OK-CAP-5",
@@ -107,6 +100,11 @@
    "expense": "dental"
   },
   {
+   "id": "OK-COV-7",
+   "kind": "covered",
+   "expense": "prescription"
+  },
+  {
    "id": "OK-EXCL-1",
    "kind": "excluded",
    "expense": "property_replacement",
@@ -122,6 +120,11 @@
   },
   {
    "id": "OK-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OK-DEAD-3",
    "kind": "info",
    "category": "filing_deadline"
   },
@@ -300,7 +303,7 @@
   {
    "id": "OK-CAP-4",
    "category": "expense_cap",
-   "reason": "less generous duplicate of OK-CAP-3"
+   "reason": "applies_to \"a caregiver who missed work\""
   }
  ]
 }

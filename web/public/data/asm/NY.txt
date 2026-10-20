@@ -1,8 +1,8 @@
 ; tend law image NY, New York
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 d11f0846735bb38cbd6f80f7466000d16c07307695d87a44893b7bac390bb6c8
-; image sha256  440498dadf0011365fa1a266e35002602e0ba9e20adc5506f763d9ca37b834d7
-; 59 rules, 18 sources, 28 proofs, 7 ints, 350 strings
+; source sha256 3ea9c5d4fca78d79ed5bf9f415a1070ceaf58541ec227a4828a2826654cc42e2
+; image sha256  80de0f673f61a540e0ebf29ee172d737cfc19b421621f662642e283091116a54
+; 60 rules, 18 sources, 28 proofs, 7 ints, 355 strings
 ; item program: 176 instructions, 576 bytes, max stack 2
 ; aggregate program: 259 instructions, 799 bytes, max stack 3, 9 loops
 
@@ -21,51 +21,52 @@
     R11   NY-COVER-5            covered       transportation                                N.Y. Exec. Law 631(10)
     R12   NY-COVER-6            covered       security                                      9 NYCRR 525.12(g)(3)
     R13   NY-COVER-7            covered       relocation                                    N.Y. Exec. Law 621(23)
-    R14   NY-CAP-1              expense_cap   lost_wages            per claim               N.Y. Exec. Law 631(2)
-    R15   NY-CAP-2              expense_cap   lost_wages            per week                N.Y. Exec. Law 631(3)
-    R16   NY-CAP-3              expense_cap   relocation            per claim               N.Y. Exec. Law 631(2)
-    R17   NY-CAP-4              info          -                     expense_cap             N.Y. Exec. Law 631(2)
-    R18   NY-CAP-5              expense_cap   crime_scene_cleanup   per claim               N.Y. Exec. Law 631(2)
-    R19   NY-CAP-13             expense_cap   property_replacement  per item                9 NYCRR 525.12(n)(4)
-    R20   NY-CAP-14             expense_cap   property_replacement  per claim               N.Y. Exec. Law 631(9)(a)
-    R21   NY-CAP-8              expense_cap   clothing_bedding      per item                9 NYCRR 525.12(n)(1)(i)
-    R22   NY-CAP-10             expense_cap   clothing_bedding      per claim               9 NYCRR 525.12(n)(2)(i)
-    R23   NY-CAP-12             expense_cap   legal                 per claim               N.Y. Exec. Law 626(1)
-    R24   NY-EXCL-1             info          -                     excluded_expense        9 NYCRR 525.12(g)(3)
-    R25   NY-EXCL-2             info          -                     excluded_expense        9 NYCRR 525.3(d)(2)
-    R26   NY-EXCL-3             excluded      transportation                                N.Y. Exec. Law 621(25) (employment-related transportation)
-    R27   NY-DEADLINE-1         deadline      -                     from discovery          N.Y. Exec. Law 625(2)
-    R28   NY-DEADLINE-2         deadline      -                     from crime              OVS Compensation Program Updates for Victims and Survivors, Timely Filing
-    R29   NY-REPORT-1           reporting     -                                             N.Y. Exec. Law 631(1)(a)(iii)
-    R30   NY-REPORT-2           reporting     -                                             N.Y. Exec. Law 631(1)(c)(i)
-    R31   NY-REPORT-3           reporting     -                                             N.Y. Exec. Law 631(1)(c)(ii)
-    R32   NY-REPORT-4           reporting     -                                             OVS Compensation Program Updates for Victims and Survivors, Reporting a Crime
-    R33   NY-REPORT-5           reporting     -                                             N.Y. Exec. Law 631(1)(c)(iii)
-    R34   NY-COLLAT-1           collateral    -                                             N.Y. Exec. Law 631(4)
-    R35   NY-COLLAT-2           collateral    -                                             OVS Claim Application, Reminder
-    R36   NY-CONDUCT-1          info          -                     conduct_reduction       N.Y. Exec. Law 631(5)(a)
-    R37   NY-CONDUCT-2          info          -                     conduct_reduction       9 NYCRR 525.12(m)(3)
-    R38   NY-EMERG-1            info          -                     emergency_award         N.Y. Exec. Law 630(1)
-    R39   NY-CRIME-1            info          -                     eligible_crime          N.Y. Exec. Law 626(1)
-    R40   NY-RES-1              info          -                     residency               N.Y. Exec. Law 621(3)(a)
-    R41   NY-RES-2              info          -                     residency               N.Y. Exec. Law 621(3)(b)
-    R42   NY-SUB-1              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
-    R43   NY-SUB-2              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
-    R44   NY-SUB-3              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 1, FAQ: Is there another way to apply?
-    R45   NY-DOC-1              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R46   NY-DOC-2              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R47   NY-DOC-3              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R48   NY-DOC-4              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R49   NY-DOC-5              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
-    R50   NY-DOC-6              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
-    R51   NY-DOC-7              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 10, Medical Care
-    R52   NY-DOC-8              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability
-    R53   NY-ACP-1              info          -                     address_confidentiality N.Y. Exec. Law 108 (preamble)
-    R54   NY-REC-1              info          -                     record_confidentiality  N.Y. Exec. Law 633(1)
-    R55   NY-CAP-6              skipped       -                     expense_cap             N.Y. Exec. Law 631(9)(a)  ; less generous duplicate of NY-CAP-14
-    R56   NY-CAP-7              skipped       -                     expense_cap             9 NYCRR 525.12(n)(3)  ; less generous duplicate of NY-CAP-13
-    R57   NY-CAP-9              skipped       -                     expense_cap             9 NYCRR 525.12(n)(1)(ii)  ; less generous duplicate of NY-CAP-8
-    R58   NY-CAP-11             skipped       -                     expense_cap             9 NYCRR 525.12(n)(2)(ii)  ; less generous duplicate of NY-CAP-10
+    R14   NY-COVER-8            covered       property_replacement                          N.Y. Exec. Law 621(8)
+    R15   NY-CAP-1              expense_cap   lost_wages            per claim               N.Y. Exec. Law 631(2)
+    R16   NY-CAP-2              expense_cap   lost_wages            per week                N.Y. Exec. Law 631(3)
+    R17   NY-CAP-3              expense_cap   relocation            per claim               N.Y. Exec. Law 631(2)
+    R18   NY-CAP-4              info          -                     expense_cap             N.Y. Exec. Law 631(2)
+    R19   NY-CAP-5              expense_cap   crime_scene_cleanup   per claim               N.Y. Exec. Law 631(2)
+    R20   NY-CAP-13             expense_cap   property_replacement  per item                9 NYCRR 525.12(n)(4)
+    R21   NY-CAP-14             expense_cap   property_replacement  per claim               N.Y. Exec. Law 631(9)(a)
+    R22   NY-CAP-8              expense_cap   clothing_bedding      per item                9 NYCRR 525.12(n)(1)(i)
+    R23   NY-CAP-10             expense_cap   clothing_bedding      per claim               9 NYCRR 525.12(n)(2)(i)
+    R24   NY-CAP-12             expense_cap   legal                 per claim               N.Y. Exec. Law 626(1)
+    R25   NY-EXCL-1             info          -                     excluded_expense        9 NYCRR 525.12(g)(3)
+    R26   NY-EXCL-2             info          -                     excluded_expense        9 NYCRR 525.3(d)(2)
+    R27   NY-EXCL-3             excluded      transportation                                N.Y. Exec. Law 621(25) (employment-related transportation)
+    R28   NY-DEADLINE-1         deadline      -                     from discovery          N.Y. Exec. Law 625(2)
+    R29   NY-DEADLINE-2         deadline      -                     from crime              OVS Compensation Program Updates for Victims and Survivors, Timely Filing
+    R30   NY-REPORT-1           reporting     -                                             N.Y. Exec. Law 631(1)(a)(iii)
+    R31   NY-REPORT-2           reporting     -                                             N.Y. Exec. Law 631(1)(c)(i)
+    R32   NY-REPORT-3           reporting     -                                             N.Y. Exec. Law 631(1)(c)(ii)
+    R33   NY-REPORT-4           reporting     -                                             OVS Compensation Program Updates for Victims and Survivors, Reporting a Crime
+    R34   NY-REPORT-5           reporting     -                                             N.Y. Exec. Law 631(1)(c)(iii)
+    R35   NY-COLLAT-1           collateral    -                                             N.Y. Exec. Law 631(4)
+    R36   NY-COLLAT-2           collateral    -                                             OVS Claim Application, Reminder
+    R37   NY-CONDUCT-1          info          -                     conduct_reduction       N.Y. Exec. Law 631(5)(a)
+    R38   NY-CONDUCT-2          info          -                     conduct_reduction       9 NYCRR 525.12(m)(3)
+    R39   NY-EMERG-1            info          -                     emergency_award         N.Y. Exec. Law 630(1)
+    R40   NY-CRIME-1            info          -                     eligible_crime          N.Y. Exec. Law 626(1)
+    R41   NY-RES-1              info          -                     residency               N.Y. Exec. Law 621(3)(a)
+    R42   NY-RES-2              info          -                     residency               N.Y. Exec. Law 621(3)(b)
+    R43   NY-SUB-1              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
+    R44   NY-SUB-2              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
+    R45   NY-SUB-3              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 1, FAQ: Is there another way to apply?
+    R46   NY-DOC-1              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R47   NY-DOC-2              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R48   NY-DOC-3              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R49   NY-DOC-4              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R50   NY-DOC-5              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
+    R51   NY-DOC-6              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
+    R52   NY-DOC-7              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 10, Medical Care
+    R53   NY-DOC-8              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability
+    R54   NY-ACP-1              info          -                     address_confidentiality N.Y. Exec. Law 108 (preamble)
+    R55   NY-REC-1              info          -                     record_confidentiality  N.Y. Exec. Law 633(1)
+    R56   NY-CAP-6              skipped       -                     expense_cap             N.Y. Exec. Law 631(9)(a)  ; less generous duplicate of NY-CAP-14
+    R57   NY-CAP-7              skipped       -                     expense_cap             9 NYCRR 525.12(n)(3)  ; less generous duplicate of NY-CAP-13
+    R58   NY-CAP-9              skipped       -                     expense_cap             9 NYCRR 525.12(n)(1)(ii)  ; less generous duplicate of NY-CAP-8
+    R59   NY-CAP-11             skipped       -                     expense_cap             9 NYCRR 525.12(n)(2)(ii)  ; less generous duplicate of NY-CAP-10
 
 .tags   vehicle=bit0
 
@@ -108,8 +109,8 @@
     P15   (NY-CAP-5)
     P16   (NY-CAP-5, NY-COLLAT-1, NY-COLLAT-2)
     P17   (NY-CAP-7, NY-CAP-6)
-    P18   (NY-CAP-13, NY-CAP-14)
-    P19   (NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2)
+    P18   (NY-COVER-8, NY-CAP-13, NY-CAP-14)
+    P19   (NY-COVER-8, NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2)
     P20   (NY-CAP-9, NY-CAP-11)
     P21   (NY-CAP-8, NY-CAP-10)
     P22   (NY-CAP-8, NY-CAP-10, NY-COLLAT-1, NY-COLLAT-2)
@@ -186,7 +187,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R34              ; NY-COLLAT-1
+  009d        seta     collateral, R35              ; NY-COLLAT-1
   00a1        ret
               ; NY-COVER-3  N.Y. Exec. Law 626(1)  "Such expenses or indebtedness shall include the cost of..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
@@ -203,7 +204,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R34              ; NY-COLLAT-1
+  00c3        seta     collateral, R35              ; NY-COLLAT-1
   00c7        ret
               ; NY-CAP-1  N.Y. Exec. Law 631(2)  "loss of earnings or support resulting from such injury not to..."
               ; NY-CAP-2  N.Y. Exec. Law 631(3)  "no such award shall exceed six hundred dollars for each week of..."
@@ -221,7 +222,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R34              ; NY-COLLAT-1
+  00e9        seta     collateral, R35              ; NY-COLLAT-1
   00ed        ret
               ; NY-COVER-4  9 NYCRR 525.3(d)(2)  "medical expenses shall also include the reasonable..."
               ; NY-COVER-5  N.Y. Exec. Law 631(10)  "an award shall include reasonable transportation expenses..."
@@ -257,7 +258,7 @@
   0140        subs
   0141        push     0
   0146        max
-  0147        seta     collateral, R34              ; NY-COLLAT-1
+  0147        seta     collateral, R35              ; NY-COLLAT-1
   014b        ret
               ; NY-COVER-7  N.Y. Exec. Law 621(23)  ""Relocation expenses" shall mean the cost of relocating a crime..."
               ; NY-CAP-3  N.Y. Exec. Law 631(2)  "reasonable relocation expenses not exceeding twenty-five hundred..."
@@ -275,7 +276,7 @@
   0166        subs
   0167        push     0
   016c        max
-  016d        seta     collateral, R34              ; NY-COLLAT-1
+  016d        seta     collateral, R35              ; NY-COLLAT-1
   0171        ret
   0172  L15:  push     0
   0177        decide   unknown_rule, P0             ; (none)
@@ -295,7 +296,7 @@
   0196        subs
   0197        push     0
   019c        max
-  019d        seta     collateral, R34              ; NY-COLLAT-1
+  019d        seta     collateral, R35              ; NY-COLLAT-1
   01a1        ret
               ; NY-CAP-5  N.Y. Exec. Law 631(2)  "the costs of crime scene cleanup and securing of a crime scene..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
@@ -312,8 +313,9 @@
   01bc        subs
   01bd        push     0
   01c2        max
-  01c3        seta     collateral, R34              ; NY-COLLAT-1
+  01c3        seta     collateral, R35              ; NY-COLLAT-1
   01c7        ret
+              ; NY-COVER-8  N.Y. Exec. Law 621(8)  ""Essential personal property" shall mean articles of personal..."
               ; NY-CAP-13  9 NYCRR 525.12(n)(4)  "All awards made pursuant to Executive Law article 22 and this..."
               ; NY-CAP-14  N.Y. Exec. Law 631(9)(a)  "In the case of medically necessary life-sustaining equipment..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
@@ -322,16 +324,16 @@
   01cb        ldi      confirmed
   01cd        jnz      L21
   01d2        push     0
-  01d7        decide   needs_confirmation, P18      ; NY-CAP-13, NY-CAP-14
+  01d7        decide   needs_confirmation, P18      ; NY-COVER-8, NY-CAP-13, NY-CAP-14
   01db        ret
   01dc  L21:  ldi      amount_cents
-  01de        decide   eligible, P19                ; NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2
+  01de        decide   eligible, P19                ; NY-COVER-8, NY-CAP-13, NY-CAP-14, NY-COLLAT-1, NY-COLLAT-2
   01e2        lda
   01e3        ldi      insurance_paid_cents
   01e5        subs
   01e6        push     0
   01eb        max
-  01ec        seta     collateral, R34              ; NY-COLLAT-1
+  01ec        seta     collateral, R35              ; NY-COLLAT-1
   01f0        ret
               ; NY-CAP-8  9 NYCRR 525.12(n)(1)(i)  "Items of outerwear, suits and footwear shall be the receipted..."
               ; NY-CAP-10  9 NYCRR 525.12(n)(2)(i)  "Mattress and platform or box spring shall be the receipted..."
@@ -350,7 +352,7 @@
   020e        subs
   020f        push     0
   0214        max
-  0215        seta     collateral, R34              ; NY-COLLAT-1
+  0215        seta     collateral, R35              ; NY-COLLAT-1
   0219        ret
               ; NY-CAP-12  N.Y. Exec. Law 626(1)  "the cost of reasonable attorneys' fees for representation before..."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
@@ -367,7 +369,7 @@
   0234        subs
   0235        push     0
   023a        max
-  023b        seta     collateral, R34              ; NY-COLLAT-1
+  023b        seta     collateral, R35              ; NY-COLLAT-1
   023f        ret
 
 .aggregate
@@ -388,11 +390,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R15                ; NY-CAP-2
+  002e        cap      unit_cap, R16                ; NY-CAP-2
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R15                          ; rate_unverified NY-CAP-2
+  003d  L2:   flag     R16                          ; rate_unverified NY-CAP-2
   0040  L3:   next     L0
               ; NY-CAP-13  9 NYCRR 525.12(n)(4)  "All awards made pursuant to Executive Law article 22 and this..."
   0045  L4:   each     property_replacement, L9
@@ -411,11 +413,11 @@
   006c        lda
   006d        lt
   006e        jz       L6
-  0073        cap      unit_cap, R19                ; NY-CAP-13
+  0073        cap      unit_cap, R20                ; NY-CAP-13
   0077        jmp      L8
   007c  L6:   pop
   007d        jmp      L8
-  0082  L7:   flag     R19                          ; rate_unverified NY-CAP-13
+  0082  L7:   flag     R20                          ; rate_unverified NY-CAP-13
   0085  L8:   next     L5
               ; NY-CAP-8  9 NYCRR 525.12(n)(1)(i)  "Items of outerwear, suits and footwear shall be the receipted..."
   008a  L9:   each     clothing_bedding, L14
@@ -434,11 +436,11 @@
   00b1        lda
   00b2        lt
   00b3        jz       L11
-  00b8        cap      unit_cap, R21                ; NY-CAP-8
+  00b8        cap      unit_cap, R22                ; NY-CAP-8
   00bc        jmp      L13
   00c1  L11:  pop
   00c2        jmp      L13
-  00c7  L12:  flag     R21                          ; rate_unverified NY-CAP-8
+  00c7  L12:  flag     R22                          ; rate_unverified NY-CAP-8
   00ca  L13:  next     L10
               ; NY-CAP-1  N.Y. Exec. Law 631(2)  "loss of earnings or support resulting from such injury not to..."
   00cf  L14:  push     0
@@ -457,7 +459,7 @@
   00f7        ldk      K3                           ; $30,000.00
   00fa        ldr      r0
   00fc        subs
-  00fd        cap      expense_cap, R14             ; NY-CAP-1
+  00fd        cap      expense_cap, R15             ; NY-CAP-1
   0101        push     1
   0106        str      r1
   0108  L16:  ldr      r0
@@ -466,7 +468,7 @@
   010c        str      r0
   010e        jmp      L18
   0113  L17:  push     0
-  0118        cap      expense_cap, R14             ; NY-CAP-1
+  0118        cap      expense_cap, R15             ; NY-CAP-1
   011c  L18:  next     L15
               ; NY-CAP-3  N.Y. Exec. Law 631(2)  "reasonable relocation expenses not exceeding twenty-five hundred..."
   0121  L19:  push     0
@@ -485,7 +487,7 @@
   0149        ldk      K1                           ; $2,500.00
   014c        ldr      r0
   014e        subs
-  014f        cap      expense_cap, R16             ; NY-CAP-3
+  014f        cap      expense_cap, R17             ; NY-CAP-3
   0153        push     1
   0158        str      r1
   015a  L21:  ldr      r0
@@ -494,7 +496,7 @@
   015e        str      r0
   0160        jmp      L23
   0165  L22:  push     0
-  016a        cap      expense_cap, R16             ; NY-CAP-3
+  016a        cap      expense_cap, R17             ; NY-CAP-3
   016e  L23:  next     L20
               ; NY-CAP-5  N.Y. Exec. Law 631(2)  "the costs of crime scene cleanup and securing of a crime scene..."
   0173  L24:  push     0
@@ -513,7 +515,7 @@
   019b        ldk      K1                           ; $2,500.00
   019e        ldr      r0
   01a0        subs
-  01a1        cap      expense_cap, R18             ; NY-CAP-5
+  01a1        cap      expense_cap, R19             ; NY-CAP-5
   01a5        push     1
   01aa        str      r1
   01ac  L26:  ldr      r0
@@ -522,7 +524,7 @@
   01b0        str      r0
   01b2        jmp      L28
   01b7  L27:  push     0
-  01bc        cap      expense_cap, R18             ; NY-CAP-5
+  01bc        cap      expense_cap, R19             ; NY-CAP-5
   01c0  L28:  next     L25
               ; NY-CAP-14  N.Y. Exec. Law 631(9)(a)  "In the case of medically necessary life-sustaining equipment..."
   01c5  L29:  push     0
@@ -541,7 +543,7 @@
   01ed        ldk      K4                           ; $10,000.00
   01f0        ldr      r0
   01f2        subs
-  01f3        cap      expense_cap, R20             ; NY-CAP-14
+  01f3        cap      expense_cap, R21             ; NY-CAP-14
   01f7        push     1
   01fc        str      r1
   01fe  L31:  ldr      r0
@@ -550,7 +552,7 @@
   0202        str      r0
   0204        jmp      L33
   0209  L32:  push     0
-  020e        cap      expense_cap, R20             ; NY-CAP-14
+  020e        cap      expense_cap, R21             ; NY-CAP-14
   0212  L33:  next     L30
               ; NY-CAP-10  9 NYCRR 525.12(n)(2)(i)  "Mattress and platform or box spring shall be the receipted..."
   0217  L34:  push     0
@@ -569,7 +571,7 @@
   023f        ldk      K5                           ; $2,000.00
   0242        ldr      r0
   0244        subs
-  0245        cap      expense_cap, R22             ; NY-CAP-10
+  0245        cap      expense_cap, R23             ; NY-CAP-10
   0249        push     1
   024e        str      r1
   0250  L36:  ldr      r0
@@ -578,7 +580,7 @@
   0254        str      r0
   0256        jmp      L38
   025b  L37:  push     0
-  0260        cap      expense_cap, R22             ; NY-CAP-10
+  0260        cap      expense_cap, R23             ; NY-CAP-10
   0264  L38:  next     L35
               ; NY-CAP-12  N.Y. Exec. Law 626(1)  "the cost of reasonable attorneys' fees for representation before..."
   0269  L39:  push     0
@@ -597,7 +599,7 @@
   0291        ldk      K6                           ; $1,000.00
   0294        ldr      r0
   0296        subs
-  0297        cap      expense_cap, R23             ; NY-CAP-12
+  0297        cap      expense_cap, R24             ; NY-CAP-12
   029b        push     1
   02a0        str      r1
   02a2  L41:  ldr      r0
@@ -606,7 +608,7 @@
   02a6        str      r0
   02a8        jmp      L43
   02ad  L42:  push     0
-  02b2        cap      expense_cap, R23             ; NY-CAP-12
+  02b2        cap      expense_cap, R24             ; NY-CAP-12
   02b6  L43:  next     L40
   02bb  L44:  push     0                            ; met
   02c0        check    minimum_loss, P0             ; (none)

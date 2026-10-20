@@ -204,7 +204,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "condition": "if you get it within 96 hours of the assault"
       },
       "summary": "Survivors are exempt from paying for a sexual assault medical-legal exam received within 96 hours of the attack. The 96-hour limit can be waived for a minor or when the board finds good cause.",
       "quote": "(A) All victims shall be exempted from the payment of expenses incurred as a result of receiving a medical-legal examination if the victim receives the medical-legal examination within ninety-six (96) hours of the attack. (B) However, the time limitation of ninety-six (96) hours may be waived if the victim is a minor or if the Crime Victims Reparations Board finds that good cause exists for the failure to provide the medical-legal examination within the required time.",
@@ -213,10 +214,10 @@
     },
     {
       "id": "AR-EXAM-2",
-      "category": "exam_no_bill",
+      "category": "exam_payment",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "payer": "Arkansas Crime Victims Reparations Board"
       },
       "summary": "After the board pays, the exam provider may not send any remaining balance to the survivor.",
       "quote": "The licensed healthcare provider shall not submit any remaining balance after reimbursement by the board to the victim.",
@@ -240,12 +241,25 @@
       "category": "reporting_requirement",
       "expense": "forensic_exam",
       "params": {
-        "required": false
+        "required": false,
+        "expense": "forensic_exam"
       },
       "summary": "A survivor does not have to report to police or cooperate with law enforcement to get a forensic exam or have its charges reimbursed.",
       "quote": "This subsection does not require a victim of sexual assault to participate in the criminal justice system or to cooperate with law enforcement in order to be provided with a forensic medical exam or reimbursement for charges incurred on account of a forensic medical exam, or both.",
       "source_id": "AR-S12",
       "pinpoint": "A.C.A. 12-12-403(b)(2)(A)"
+    },
+    {
+      "id": "AR-REPORT-4",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "expense": "forensic_exam"
+      },
+      "summary": "Not having to report for the exam does not stop a report of suspected child abuse or neglect that the state's child abuse law allows or requires.",
+      "quote": "Subdivision (b)(2)(A) of this section does not preclude a report of suspected abuse or neglect as permitted or required by the Child Maltreatment Act, § 12-18-101 et seq.",
+      "source_id": "AR-S12",
+      "pinpoint": "A.C.A. 12-12-403(b)(2)(B)"
     },
     {
       "id": "AR-EXAM-5",
@@ -276,7 +290,7 @@
       "params": {
         "payer": "Sexual Assault Reimbursement Program (Crime Victims Reparations Board)"
       },
-      "summary": "The Sexual Assault Reimbursement Program pays for evidence collection after a sexual assault, including ambulance services and medical or legal exams, so the survivor does not bear the expense.",
+      "summary": "The DPS About page says the Sexual Assault Reimbursement Program pays for evidence collection after a sexual assault, including ambulance services and medical or legal exams, so the survivor does not bear the expense.",
       "quote": "the Sexual Assault Reimbursement Program allows evidence to be collected after a sexual assault has been committed without the victim bearing the burden of the expense, and it pays for ambulance services and medical or legal examinations.",
       "source_id": "AR-S4",
       "pinpoint": "About CVRB page"
@@ -296,7 +310,8 @@
       "id": "AR-CAP-2",
       "category": "total_cap",
       "params": {
-        "amount_cents": 2500000
+        "amount_cents": 2500000,
+        "exception": "or up to $25,000 if an injury leaves you fully disabled for life"
       },
       "summary": "For catastrophic injuries that cause total and permanent disability, the maximum rises to $25,000.",
       "quote": "However, for those victims whose injuries are catastrophic and result in a total and permanent disability, the maximum reparations amount shall not exceed twenty-five thousand dollars ($25,000).",
@@ -332,6 +347,21 @@
       "pinpoint": "16 CAR 60-210(a)(1)"
     },
     {
+      "id": "AR-CAP-6",
+      "category": "expense_cap",
+      "expense": "medical",
+      "params": {
+        "expense": "medical",
+        "amount_cents": 2500000,
+        "per": "claim",
+        "scope": "medical bills when a catastrophic injury causes total and permanent disability"
+      },
+      "summary": "For catastrophic injuries that cause total and permanent disability, medical bills can be paid up to $25,000 in total.",
+      "quote": "However, for those victims whose injuries are catastrophic and result in a total and permanent disability, the total reimbursement shall not exceed twenty-five thousand dollars ($25,000).",
+      "source_id": "AR-S13",
+      "pinpoint": "16 CAR 60-210(a)(2)"
+    },
+    {
       "id": "AR-CAP-5",
       "category": "expense_cap",
       "expense": "funeral",
@@ -362,7 +392,7 @@
       "params": {
         "years": 5,
         "from": "crime",
-        "extension": "good cause found by the board"
+        "extension": "or later if the board finds good cause"
       },
       "summary": "A claim must be filed within 5 years after the injury, unless the board finds good cause for filing late.",
       "quote": "Unless the claim has been filed with the Crime Victims Reparations Board within five (5) years after the injury or death upon which the claim is based, except: (A) When the board finds good cause for the failure to file a timely claim",
@@ -385,9 +415,11 @@
       "id": "AR-REPORT-1",
       "category": "reporting_requirement",
       "params": {
-        "required": true
+        "required": true,
+        "within_hours": 72,
+        "exception": "or later if the board finds good cause"
       },
-      "summary": "The crime must be reported to the proper authorities within 72 hours, unless the board finds good cause for the delay. No separate alternative for sexual assault survivors appears in the statute or rules.",
+      "summary": "The crime must be reported to the proper authorities within 72 hours, unless the board finds good cause for the delay.",
       "quote": "Unless the criminally injurious conduct resulting in injury or death was reported to the proper authorities within seventy-two (72) hours after its occurrence, or the board finds there was good cause for the failure to report within that time",
       "source_id": "AR-S9",
       "pinpoint": "A.C.A. 16-90-712(a)(6)"
@@ -398,10 +430,35 @@
       "params": {
         "required": true
       },
-      "summary": "Under the board's rules, good cause for missing the police report window includes the victim's age, physical incapacity, mental incompetence, or an injury that was not reasonably discoverable. The DPS criteria page says minors are excluded from the report window.",
+      "summary": "Under the board's rules, good cause for a late police report includes the victim's physical incapacity, mental incompetence, or age. It also includes an injury that could not reasonably be discovered. Other reasons can count too.",
       "quote": "Good cause shall include, but not be limited to, the: (A) Physical incapacity of a victim; (B) Mental incompetence of a victim; (C) Age of the victim; and (D) Injury was not reasonably discoverable.",
       "source_id": "AR-S13",
       "pinpoint": "16 CAR 60-203(c)(2)"
+    },
+    {
+      "id": "AR-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "scope": "minors, per the DPS criteria page"
+      },
+      "summary": "The program's criteria page says minors are excluded from the 72-hour report rule. The board's rules count the victim's age as one kind of good cause for a late report.",
+      "quote": "reported to authorities within 72 hours (minors excluded)",
+      "source_id": "AR-S3",
+      "pinpoint": "DPS Criteria to Receive Compensation page"
+    },
+    {
+      "id": "AR-COOP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "If the board finds the claimant or victim did not fully cooperate with law enforcement, it may deny, withdraw, or reduce the award. This does not apply to a minor victim of a sex offense or a victim of human trafficking.",
+      "quote": "Except as provided in subdivision (c)(2) of this section, upon finding that the claimant or victim has not fully cooperated with appropriate law enforcement agencies, the board may deny, withdraw, or reduce an award of reparations. (2) This subsection does not apply if the claimant or victim is a victim of human trafficking or a minor victim of a sex offense, as defined in § 12-12-903.",
+      "source_id": "AR-S9",
+      "pinpoint": "A.C.A. 16-90-712(c)"
     },
     {
       "id": "AR-COLL-1",
@@ -491,7 +548,8 @@
       "category": "covered_expense",
       "expense": "security",
       "params": {
-        "expense": "security"
+        "expense": "security",
+        "scope": "new locks and windows after a sexual assault in your own home"
       },
       "summary": "The application lists buying and installing locks and windows after a sexual assault in the victim's home as an expense that may be eligible.",
       "quote": "Purchase and installation of locks and windows following a sexual assault or act of domestic abuse occurring within the victim's primary residence.",
@@ -503,7 +561,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "travel and lodging for criminal justice proceedings about the crime"
       },
       "summary": "The application lists travel and lodging for a criminal justice proceeding related to the crime as an expense that may be eligible.",
       "quote": "Travel and lodging resulting from a criminal justice proceeding related to the victimization.",
@@ -515,7 +574,8 @@
       "category": "covered_expense",
       "expense": "childcare",
       "params": {
-        "expense": "childcare"
+        "expense": "childcare",
+        "scope": "replacement services, such as child care or convalescent care"
       },
       "summary": "The application lets a victim request replacement service loss, such as child care or convalescent care.",
       "quote": "Replacement Service Loss (child care, convalescent care, etc.)",
@@ -704,7 +764,7 @@
         "enroll": "Presents a valid order of protection issued under the Domestic Abuse Act of 1991, § 9-15-101 et seq. (2) Completes this ACP affidavit; and (3) Agrees to the terms of participation in the ACP.",
         "note": "Driver's license and ID card only, not a general substitute address for government records or mail. Eligibility is limited to victims of domestic violence and their dependents; sexual abuse counts only when caused by a family or household member or a dating partner (A.C.A. 27-16-811(a)(1)(C)), and the affidavit also lists a valid order of protection."
       },
-      "summary": "Arkansas's Address Confidentiality Program, run by the DFA Office of Driver Services, is free and puts a post office box on the driver's license or ID card instead of the home address. It is limited to domestic violence victims and their dependents, so most sexual assault survivors do not qualify unless the abuser was a family or household member or dating partner.",
+      "summary": "Arkansas's Address Confidentiality Program, run by the DFA Office of Driver Services, is free and puts a post office box on the driver's license or ID card instead of the home address. It is only for victims of domestic violence and their dependents, and the person must also present a valid order of protection under the Domestic Abuse Act and an affidavit. Sexual abuse counts as domestic violence only when it is by a family or household member or a dating partner.",
       "quote": "The Address Confidentiality Program is a free program administered by the Office of Driver Services. Participants in tis program will be issued a driver’s license or identification card that displays a post office box in lieu of a residential address.",
       "source_id": "AR-S16",
       "pinpoint": "DFA Address Confidentiality Program page, Program Description"

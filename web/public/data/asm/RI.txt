@@ -1,55 +1,62 @@
 ; tend law image RI, Rhode Island
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 6ba35ab46e4720a58b86d7dfdbc360f503ca7acb9ca560b5b073c8b918925330
-; image sha256  3713e40d142e2c5ced65aaafc3f56df459e341b940752bd10a2cc41cf86fd6b3
-; 43 rules, 15 sources, 20 proofs, 3 ints, 259 strings
+; source sha256 5a99ca6393f7ee903de74f5464708adc23f38195b6d1c6acc749edeee098fdab
+; image sha256  b3abcfb186312e8a90bb80b8d360b38adda86462432116a0f48b2cf51d697114
+; 50 rules, 15 sources, 20 proofs, 4 ints, 286 strings
 ; item program: 237 instructions, 848 bytes, max stack 2
-; aggregate program: 135 instructions, 427 bytes, max stack 3, 4 loops
+; aggregate program: 162 instructions, 509 bytes, max stack 3, 5 loops
 
 .rules
     R0    RI-EXAM-1             exam_payment  -                                             Sexual Assault Victims Bill of Rights (R.I. Gen. Laws § 23-98-5), "Your right to obtain a medical examination"
-    R1    RI-CRIME-1            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-20(11)
-    R2    RI-CRIME-2            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-17(8)
-    R3    RI-CAP-1              total_cap     -                                             R.I. Gen. Laws § 12-25-22(b)
-    R4    RI-DEADLINE-1         deadline      -                     from crime              R.I. Gen. Laws § 12-25-22(a)
-    R5    RI-DEADLINE-2         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(a)
-    R6    RI-DEADLINE-3         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(c)
-    R7    RI-REPORT-1           reporting     -                                             R.I. Gen. Laws § 12-25-22(a)
-    R8    RI-REPORT-2           reporting     -                                             120-RICR-00-00-2.7(A)(2)(c)
-    R9    RI-REPORT-3           reporting     -                                             120-RICR-00-00-2.7(A)(2)(d)
-    R10   RI-REPORT-4           reporting     -                                             120-RICR-00-00-2.7(A)(3)(b)
-    R11   RI-REPORT-5           reporting     -                                             120-RICR-00-00-2.7(A)(2)(b)
-    R12   RI-COLLATERAL-1       collateral    -                                             R.I. Gen. Laws § 12-25-23(b)
-    R13   RI-CONDUCT-1          info          -                     conduct_reduction       R.I. Gen. Laws § 12-25-19(d)(1)(iv)
-    R14   RI-EMERG-1            info          -                     emergency_award         R.I. Gen. Laws § 12-25-21.1(a)
-    R15   RI-MED-1              covered       medical                                       R.I. Gen. Laws § 12-25-17(7)(i)(A)
-    R16   RI-MED-2              covered       medical                                       R.I. Gen. Laws § 12-25-19(h)
-    R17   RI-DENTAL-1           covered       dental                                        CVCP FAQ, "What expenses are eligible for reimbursement?"
-    R18   RI-COUNSEL-1          covered       counseling                                    120-RICR-00-00-2.8(A)(3)(a)
-    R19   RI-COUNSEL-2          expense_cap   counseling            per hour                120-RICR-00-00-2.8(A)(3)(e)(1)
-    R20   RI-WAGES-1            covered       lost_wages                                    R.I. Gen. Laws § 12-25-17(7)(i)(C)
-    R21   RI-WAGES-2            covered       lost_wages                                    120-RICR-00-00-2.8(A)(4)(b)
-    R22   RI-TRAVEL-1           expense_cap   transportation        per claim               120-RICR-00-00-2.8(A)(14)(a)(1)
-    R23   RI-RELOC-1            covered       relocation                                    120-RICR-00-00-2.8(A)(12)
-    R24   RI-SECURITY-1         expense_cap   security              per claim               R.I. Gen. Laws § 12-25-21.1(f)
-    R25   RI-EXCL-1             info          -                     excluded_expense        120-RICR-00-00-2.8(A)(1)(h)
-    R26   RI-EXCL-2             excluded      -                                             120-RICR-00-00-2.8(A)(8)
-    R27   RI-RES-1              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(1)
-    R28   RI-RES-2              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(3)
-    R29   RI-SUBMIT-1           info          -                     submission              CVCP Application, page 2, return address
-    R30   RI-SUBMIT-2           info          -                     submission              Crime Victim Compensation Program page, how to apply
-    R31   RI-SUBMIT-3           info          -                     submission              Crime Victim Compensation Program page, how to apply (link target http://cvcapp.treasury.ri.gov/)
-    R32   RI-DOC-1              info          -                     required_document       CVCP Application, page 2
-    R33   RI-DOC-2              info          -                     required_document       CVCP Application, page 1, Expenses section
-    R34   RI-DOC-3              info          -                     required_document       120-RICR-00-00-2.11, Applicant's Obligations (2)
-    R35   RI-DOC-4              info          -                     required_document       120-RICR-00-00-2.11(C) Burden of Proof
-    R36   RI-DOC-5              info          -                     required_document       120-RICR-00-00-2.11(C) Burden of Proof
-    R37   RI-DOC-6              info          -                     required_document       120-RICR-00-00-2.7(A)(2)(e)
-    R38   RI-DOC-7              info          -                     required_document       120-RICR-00-00-2.8(A)(4)(a)
-    R39   RI-ACP-1              info          -                     address_confidentiality ACP page, program description
-    R40   RI-RECCONF-1          info          -                     record_confidentiality  120-RICR-00-00-2.13
-    R41   RI-COUNSEL-3          skipped       -                     expense_cap             120-RICR-00-00-2.8(A)(3)(e)(2)  ; less generous duplicate of RI-COUNSEL-2
-    R42   RI-COUNSEL-4          skipped       -                     expense_cap             120-RICR-00-00-2.8(A)(3)(e)(3)  ; less generous duplicate of RI-COUNSEL-2
+    R1    RI-EXAM-2             exam_payment  -                                             Attorney General's Sexual Assault Victims Bill of Rights page, Your right to choose whether to report
+    R2    RI-CRIME-1            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-20(11)
+    R3    RI-CRIME-2            info          -                     eligible_crime          R.I. Gen. Laws § 12-25-17(8)
+    R4    RI-CAP-1              total_cap     -                                             R.I. Gen. Laws § 12-25-22(b)
+    R5    RI-DEADLINE-1         deadline      -                     from crime              R.I. Gen. Laws § 12-25-22(a)
+    R6    RI-DEADLINE-2         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(a)
+    R7    RI-DEADLINE-5         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(b)
+    R8    RI-DEADLINE-3         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(c)
+    R9    RI-DEADLINE-4         info          -                     filing_deadline         120-RICR-00-00-2.7(A)(1)(c)
+    R10   RI-REPORT-1           reporting     -                                             R.I. Gen. Laws § 12-25-22(a)
+    R11   RI-REPORT-2           reporting     -                                             120-RICR-00-00-2.7(A)(2)(c)
+    R12   RI-REPORT-3           reporting     -                                             120-RICR-00-00-2.7(A)(2)(d)
+    R13   RI-REPORT-4           reporting     -                                             120-RICR-00-00-2.7(A)(3)(b)
+    R14   RI-REPORT-7           info          -                     reporting_requirement   120-RICR-00-00-2.7(A)(3)(c)-(d)
+    R15   RI-REPORT-5           reporting     -                                             120-RICR-00-00-2.7(A)(2)(b)
+    R16   RI-REPORT-6           info          -                     reporting_requirement   120-RICR-00-00-2.7(A)(4)
+    R17   RI-COLLATERAL-1       collateral    -                                             R.I. Gen. Laws § 12-25-23(b)
+    R18   RI-CONDUCT-1          info          -                     conduct_reduction       R.I. Gen. Laws § 12-25-19(d)(1)(iv)
+    R19   RI-EMERG-1            info          -                     emergency_award         R.I. Gen. Laws § 12-25-21.1(a)
+    R20   RI-MED-1              covered       medical                                       R.I. Gen. Laws § 12-25-17(7)(i)(A)
+    R21   RI-MED-2              covered       medical                                       R.I. Gen. Laws § 12-25-19(h)
+    R22   RI-DENTAL-1           covered       dental                                        CVCP FAQ, "What expenses are eligible for reimbursement?"
+    R23   RI-COUNSEL-1          covered       counseling                                    120-RICR-00-00-2.8(A)(3)(a)
+    R24   RI-COUNSEL-2          expense_cap   counseling            per hour                120-RICR-00-00-2.8(A)(3)(e)(1)
+    R25   RI-WAGES-1            covered       lost_wages                                    R.I. Gen. Laws § 12-25-17(7)(i)(C)
+    R26   RI-WAGES-2            covered       lost_wages                                    120-RICR-00-00-2.8(A)(4)(b)
+    R27   RI-TRAVEL-1           expense_cap   transportation        per claim               120-RICR-00-00-2.8(A)(14)(a)(1)
+    R28   RI-RELOC-1            covered       relocation                                    120-RICR-00-00-2.8(A)(12)
+    R29   RI-RELOC-2            expense_cap   relocation            per claim               120-RICR-00-00-2.8(A)(12)
+    R30   RI-RELOC-3            covered       relocation                                    120-RICR-00-00-2.8(A)(12)(a)
+    R31   RI-SECURITY-1         expense_cap   security              per claim               R.I. Gen. Laws § 12-25-21.1(f)
+    R32   RI-EXCL-1             info          -                     excluded_expense        120-RICR-00-00-2.8(A)(1)(h)
+    R33   RI-EXCL-2             excluded      -                                             120-RICR-00-00-2.8(A)(8)
+    R34   RI-RES-1              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(1)
+    R35   RI-RES-2              info          -                     residency               R.I. Gen. Laws § 12-25-19(a)(3)
+    R36   RI-SUBMIT-1           info          -                     submission              CVCP Application, page 2, return address
+    R37   RI-SUBMIT-2           info          -                     submission              Crime Victim Compensation Program page, how to apply
+    R38   RI-SUBMIT-3           info          -                     submission              Crime Victim Compensation Program page, how to apply (link target http://cvcapp.treasury.ri.gov/)
+    R39   RI-DOC-1              info          -                     required_document       CVCP Application, page 2
+    R40   RI-DOC-2              info          -                     required_document       CVCP Application, page 1, Expenses section
+    R41   RI-DOC-3              info          -                     required_document       120-RICR-00-00-2.11, Applicant's Obligations (2)
+    R42   RI-DOC-4              info          -                     required_document       120-RICR-00-00-2.11(C) Burden of Proof
+    R43   RI-DOC-5              info          -                     required_document       120-RICR-00-00-2.11(C) Burden of Proof
+    R44   RI-DOC-6              info          -                     required_document       120-RICR-00-00-2.7(A)(2)(e)
+    R45   RI-DOC-7              info          -                     required_document       120-RICR-00-00-2.8(A)(4)(a)
+    R46   RI-ACP-1              info          -                     address_confidentiality ACP page, program description
+    R47   RI-RECCONF-1          info          -                     record_confidentiality  120-RICR-00-00-2.13
+    R48   RI-COUNSEL-3          skipped       -                     expense_cap             120-RICR-00-00-2.8(A)(3)(e)(2)  ; less generous duplicate of RI-COUNSEL-2
+    R49   RI-COUNSEL-4          skipped       -                     expense_cap             120-RICR-00-00-2.8(A)(3)(e)(3)  ; less generous duplicate of RI-COUNSEL-2
 
 .tags   pain_suffering=bit0
 
@@ -82,20 +89,21 @@
     P8    (RI-WAGES-1, RI-WAGES-2, RI-COLLATERAL-1)
     P9    (RI-TRAVEL-1)
     P10   (RI-TRAVEL-1, RI-COLLATERAL-1)
-    P11   (RI-RELOC-1)
-    P12   (RI-RELOC-1, RI-COLLATERAL-1)
+    P11   (RI-RELOC-1, RI-RELOC-2, RI-RELOC-3)
+    P12   (RI-RELOC-1, RI-RELOC-2, RI-RELOC-3, RI-COLLATERAL-1)
     P13   (RI-SECURITY-1)
     P14   (RI-SECURITY-1, RI-COLLATERAL-1)
     P15   (RI-DENTAL-1)
     P16   (RI-DENTAL-1, RI-COLLATERAL-1)
     P17   (RI-DEADLINE-1)
     P18   (RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5)
-    P19   (RI-EXAM-1, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1)
+    P19   (RI-EXAM-1, RI-EXAM-2, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-5, RI-DEADLINE-3, RI-DEADLINE-4, RI-REPORT-7, RI-REPORT-6, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1)
 
 .ints
     K0    13000         ; $130.00
     K1    100000        ; $1,000.00
-    K2    2500000       ; $25,000.00
+    K2    500000        ; $5,000.00
+    K3    2500000       ; $25,000.00
 
 .item
   0000        ldi      date
@@ -165,7 +173,7 @@
   00cb        subs
   00cc        push     0
   00d1        max
-  00d2        seta     collateral, R12              ; RI-COLLATERAL-1
+  00d2        seta     collateral, R17              ; RI-COLLATERAL-1
   00d6        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-COUNSEL-1  120-RICR-00-00-2.8(A)(3)(a)  "A victim shall be eligible for compensation for reasonable and..."
@@ -201,7 +209,7 @@
   012c        subs
   012d        push     0
   0132        max
-  0133        seta     collateral, R12              ; RI-COLLATERAL-1
+  0133        seta     collateral, R17              ; RI-COLLATERAL-1
   0137        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-WAGES-1  R.I. Gen. Laws § 12-25-17(7)(i)(C)  "Loss of past earnings for which the victim is not compensated by..."
@@ -236,7 +244,7 @@
   018a        subs
   018b        push     0
   0190        max
-  0191        seta     collateral, R12              ; RI-COLLATERAL-1
+  0191        seta     collateral, R17              ; RI-COLLATERAL-1
   0195        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-TRAVEL-1  120-RICR-00-00-2.8(A)(14)(a)(1)  "An award for reasonable and necessary travel expenses and..."
@@ -270,10 +278,12 @@
   01e8        subs
   01e9        push     0
   01ee        max
-  01ef        seta     collateral, R12              ; RI-COLLATERAL-1
+  01ef        seta     collateral, R17              ; RI-COLLATERAL-1
   01f3        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-RELOC-1  120-RICR-00-00-2.8(A)(12)  "The Administrator may issue an award for expenses resulting from..."
+              ; RI-RELOC-2  120-RICR-00-00-2.8(A)(12)  "Compensation awarded for emergency relocation expenses shall not..."
+              ; RI-RELOC-3  120-RICR-00-00-2.8(A)(12)(a)  "The crime must have occurred in the victim’s primary place of..."
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
   01f4  L22:  push     0
   01f9        str      r0
@@ -295,16 +305,16 @@
   022c  L25:  ldi      confirmed
   022e        jnz      L26
   0233        push     0
-  0238        decide   needs_confirmation, P11      ; RI-RELOC-1
+  0238        decide   needs_confirmation, P11      ; RI-RELOC-1, RI-RELOC-2, RI-RELOC-3
   023c        ret
   023d  L26:  ldi      amount_cents
-  023f        decide   eligible, P12                ; RI-RELOC-1, RI-COLLATERAL-1
+  023f        decide   eligible, P12                ; RI-RELOC-1, RI-RELOC-2, RI-RELOC-3, RI-COLLATERAL-1
   0243        lda
   0244        ldi      insurance_paid_cents
   0246        subs
   0247        push     0
   024c        max
-  024d        seta     collateral, R12              ; RI-COLLATERAL-1
+  024d        seta     collateral, R17              ; RI-COLLATERAL-1
   0251        ret
               ; RI-EXCL-2  120-RICR-00-00-2.8(A)(8)  "any claims involving crimes resulting in personal injury or..."
   0252  L27:  push     0
@@ -359,7 +369,7 @@
   02e6        subs
   02e7        push     0
   02ec        max
-  02ed        seta     collateral, R12              ; RI-COLLATERAL-1
+  02ed        seta     collateral, R17              ; RI-COLLATERAL-1
   02f1        ret
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-DENTAL-1  CVCP FAQ, "What expenses are eligible for reimbursement?"  "Medical, dental and counseling expenses"
@@ -393,7 +403,7 @@
   0344        subs
   0345        push     0
   034a        max
-  034b        seta     collateral, R12              ; RI-COLLATERAL-1
+  034b        seta     collateral, R17              ; RI-COLLATERAL-1
   034f        ret
 
 .aggregate
@@ -414,11 +424,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R19                ; RI-COUNSEL-2
+  002e        cap      unit_cap, R24                ; RI-COUNSEL-2
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R19                          ; rate_unverified RI-COUNSEL-2
+  003d  L2:   flag     R24                          ; rate_unverified RI-COUNSEL-2
   0040  L3:   next     L0
               ; RI-TRAVEL-1  120-RICR-00-00-2.8(A)(14)(a)(1)  "An award for reasonable and necessary travel expenses and..."
   0045  L4:   push     0
@@ -437,7 +447,7 @@
   006d        ldk      K1                           ; $1,000.00
   0070        ldr      r0
   0072        subs
-  0073        cap      expense_cap, R22             ; RI-TRAVEL-1
+  0073        cap      expense_cap, R27             ; RI-TRAVEL-1
   0077        push     1
   007c        str      r1
   007e  L6:   ldr      r0
@@ -446,26 +456,26 @@
   0082        str      r0
   0084        jmp      L8
   0089  L7:   push     0
-  008e        cap      expense_cap, R22             ; RI-TRAVEL-1
+  008e        cap      expense_cap, R27             ; RI-TRAVEL-1
   0092  L8:   next     L5
-              ; RI-SECURITY-1  R.I. Gen. Laws § 12-25-21.1(f)  "An award for expenses associated with reasonable modifications..."
+              ; RI-RELOC-2  120-RICR-00-00-2.8(A)(12)  "Compensation awarded for emergency relocation expenses shall not..."
   0097  L9:   push     0
   009c        str      r0
   009e        push     0
   00a3        str      r1
-  00a5        each     security, L14
+  00a5        each     relocation, L14
   00ab  L10:  ldr      r1
   00ad        jnz      L12
   00b2        ldr      r0
   00b4        lda
   00b5        adds
-  00b6        ldk      K1                           ; $1,000.00
+  00b6        ldk      K2                           ; $5,000.00
   00b9        gt
   00ba        jz       L11
-  00bf        ldk      K1                           ; $1,000.00
+  00bf        ldk      K2                           ; $5,000.00
   00c2        ldr      r0
   00c4        subs
-  00c5        cap      expense_cap, R24             ; RI-SECURITY-1
+  00c5        cap      expense_cap, R29             ; RI-RELOC-2
   00c9        push     1
   00ce        str      r1
   00d0  L11:  ldr      r0
@@ -474,26 +484,26 @@
   00d4        str      r0
   00d6        jmp      L13
   00db  L12:  push     0
-  00e0        cap      expense_cap, R24             ; RI-SECURITY-1
+  00e0        cap      expense_cap, R29             ; RI-RELOC-2
   00e4  L13:  next     L10
-              ; RI-CAP-1  R.I. Gen. Laws § 12-25-22(b)  "No compensation shall be awarded under this chapter to the..."
+              ; RI-SECURITY-1  R.I. Gen. Laws § 12-25-21.1(f)  "An award for expenses associated with reasonable modifications..."
   00e9  L14:  push     0
   00ee        str      r0
   00f0        push     0
   00f5        str      r1
-  00f7        each     all, L19
+  00f7        each     security, L19
   00fd  L15:  ldr      r1
   00ff        jnz      L17
   0104        ldr      r0
   0106        lda
   0107        adds
-  0108        ldk      K2                           ; $25,000.00
+  0108        ldk      K1                           ; $1,000.00
   010b        gt
   010c        jz       L16
-  0111        ldk      K2                           ; $25,000.00
+  0111        ldk      K1                           ; $1,000.00
   0114        ldr      r0
   0116        subs
-  0117        cap      total_cap, R3                ; RI-CAP-1
+  0117        cap      expense_cap, R31             ; RI-SECURITY-1
   011b        push     1
   0120        str      r1
   0122  L16:  ldr      r0
@@ -502,49 +512,82 @@
   0126        str      r0
   0128        jmp      L18
   012d  L17:  push     0
-  0132        cap      total_cap, R3                ; RI-CAP-1
+  0132        cap      expense_cap, R31             ; RI-SECURITY-1
   0136  L18:  next     L15
-  013b  L19:  push     0                            ; met
-  0140        check    minimum_loss, P0             ; (none)
+              ; RI-CAP-1  R.I. Gen. Laws § 12-25-22(b)  "No compensation shall be awarded under this chapter to the..."
+  013b  L19:  push     0
+  0140        str      r0
+  0142        push     0
+  0147        str      r1
+  0149        each     all, L24
+  014f  L20:  ldr      r1
+  0151        jnz      L22
+  0156        ldr      r0
+  0158        lda
+  0159        adds
+  015a        ldk      K3                           ; $25,000.00
+  015d        gt
+  015e        jz       L21
+  0163        ldk      K3                           ; $25,000.00
+  0166        ldr      r0
+  0168        subs
+  0169        cap      total_cap, R4                ; RI-CAP-1
+  016d        push     1
+  0172        str      r1
+  0174  L21:  ldr      r0
+  0176        lda
+  0177        adds
+  0178        str      r0
+  017a        jmp      L23
+  017f  L22:  push     0
+  0184        cap      total_cap, R4                ; RI-CAP-1
+  0188  L23:  next     L20
+  018d  L24:  push     0                            ; met
+  0192        check    minimum_loss, P0             ; (none)
               ; RI-DEADLINE-1  R.I. Gen. Laws § 12-25-22(a)  "Actions for compensation under this chapter shall be commenced..."
-  0144        ldx      incident_date
-  0146        push     1095
-  014b        adds
-  014c        dup
-  014d        setdate
-  014e        ldx      as_of_date
-  0150        ge
-  0151        jz       L20
-  0156        push     0
-  015b        jmp      L21
-  0160  L20:  push     1                            ; late
-  0165  L21:  check    deadline, P17                ; RI-DEADLINE-1
+  0196        ldx      incident_date
+  0198        push     1095
+  019d        adds
+  019e        dup
+  019f        setdate
+  01a0        ldx      as_of_date
+  01a2        ge
+  01a3        jz       L25
+  01a8        push     0
+  01ad        jmp      L26
+  01b2  L25:  push     1                            ; late
+  01b7  L26:  check    deadline, P17                ; RI-DEADLINE-1
               ; RI-REPORT-1  R.I. Gen. Laws § 12-25-22(a)  "no compensation shall be awarded for an injury or death..."
               ; RI-REPORT-2  120-RICR-00-00-2.7(A)(2)(c)  "The reporting of a crime to a court through a citizen..."
               ; RI-REPORT-3  120-RICR-00-00-2.7(A)(2)(d)  "Reports to private security personnel, rape crisis centers..."
               ; RI-REPORT-4  120-RICR-00-00-2.7(A)(3)(b)  "Good cause for delay shall include, but not be limited to, delay..."
               ; RI-REPORT-5  120-RICR-00-00-2.7(A)(2)(b)  "Crimes involving minor victims may be reported to the Department..."
-  0169        ldx      police_report
-  016b        push     1                            ; yes
-  0170        eq
-  0171        jnz      L23
-  0176        ldx      forensic_exam
-  0178        jnz      L23
-  017d        ldx      police_report
-  017f        push     0                            ; no
-  0184        eq
-  0185        jnz      L22
-  018a        push     3
-  018f        jmp      L24
-  0194  L22:  push     1
-  0199        jmp      L24
-  019e  L23:  push     0                            ; satisfied
-  01a3  L24:  check    reporting, P18               ; RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5
+  01bb        ldx      police_report
+  01bd        push     1                            ; yes
+  01c2        eq
+  01c3        jnz      L28
+  01c8        ldx      forensic_exam
+  01ca        jnz      L28
+  01cf        ldx      police_report
+  01d1        push     0                            ; no
+  01d6        eq
+  01d7        jnz      L27
+  01dc        push     3
+  01e1        jmp      L29
+  01e6  L27:  push     1
+  01eb        jmp      L29
+  01f0  L28:  push     0                            ; satisfied
+  01f5  L29:  check    reporting, P18               ; RI-REPORT-1, RI-REPORT-2, RI-REPORT-3, RI-REPORT-4, RI-REPORT-5
               ; RI-EXAM-1  Sexual Assault Victims Bill of Rights (R.I. Gen. Laws § 23-98-5), "Your right to obtain a medical examination"  "Victims are eligible to receive compensation for the cost of..."
+              ; RI-EXAM-2  Attorney General's Sexual Assault Victims Bill of Rights page, Your right to choose whether to report  "However, your decision not to participate in the criminal..."
               ; RI-CRIME-1  R.I. Gen. Laws § 12-25-20(11)  "First or second degree sexual assault;"
               ; RI-CRIME-2  R.I. Gen. Laws § 12-25-17(8)  "“Personal injury” means actual bodily harm, mental or..."
               ; RI-DEADLINE-2  120-RICR-00-00-2.7(A)(1)(a)  "If the personal injury to the minor victim or secondary victim..."
+              ; RI-DEADLINE-5  120-RICR-00-00-2.7(A)(1)(b)  "If the Applicant did not discover the act which constitutes a..."
               ; RI-DEADLINE-3  120-RICR-00-00-2.7(A)(1)(c)  "office may allow an application for compensation to be filed..."
+              ; RI-DEADLINE-4  120-RICR-00-00-2.7(A)(1)(c)  "Delay resulting from the lack of knowledge of the filing..."
+              ; RI-REPORT-7  120-RICR-00-00-2.7(A)(3)(c)-(d)  "Delay resulting from a belief that law enforcement authorities..."
+              ; RI-REPORT-6  120-RICR-00-00-2.7(A)(4)  "A victim must cooperate with the reasonable requests of law..."
               ; RI-COLLATERAL-1  R.I. Gen. Laws § 12-25-23(b)  "The Criminal Injuries Compensation Act shall be regarded as a..."
               ; RI-CONDUCT-1  R.I. Gen. Laws § 12-25-19(d)(1)(iv)  "The behavior of the victim, including past behavior, that..."
               ; RI-EMERG-1  R.I. Gen. Laws § 12-25-21.1(a)  "The office may award emergency compensation under this chapter..."
@@ -563,6 +606,6 @@
               ; RI-DOC-7  120-RICR-00-00-2.8(A)(4)(a)  "Upon request by the office, the victim must submit a disability..."
               ; RI-ACP-1  ACP page, program description  "The goal of the Address Confidentiality Program (ACP/Program) is..."
               ; RI-RECCONF-1  120-RICR-00-00-2.13  "All medical records, mental health counseling records..."
-  01a7        info     P19                          ; RI-EXAM-1, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-3, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1
-  01aa        ret
+  01f9        info     P19                          ; RI-EXAM-1, RI-EXAM-2, RI-CRIME-1, RI-CRIME-2, RI-DEADLINE-2, RI-DEADLINE-5, RI-DEADLINE-3, RI-DEADLINE-4, RI-REPORT-7, RI-REPORT-6, RI-COLLATERAL-1, RI-CONDUCT-1, RI-EMERG-1, RI-EXCL-1, RI-RES-1, RI-RES-2, RI-SUBMIT-1, RI-SUBMIT-2, RI-SUBMIT-3, RI-DOC-1, RI-DOC-2, RI-DOC-3, RI-DOC-4, RI-DOC-5, RI-DOC-6, RI-DOC-7, RI-ACP-1, RI-RECCONF-1
+  01fc        ret
 

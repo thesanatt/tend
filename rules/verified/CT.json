@@ -126,7 +126,7 @@
    "quote": "No costs incurred by a health care facility for any toxicology screening of a victim of sexual assault, when such screening is performed as prescribed in the protocol, shall be charged directly or indirectly to such victim. Any such costs shall be charged to the Division of Scientific Services within the Department of Emergency Services and Public Protection.",
    "source_id": "CT-S2",
    "pinpoint": "Conn. Gen. Stat. 19a-112a(e)(2)",
-   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_368a.htm#:~:text=No%20costs%20incurred%20by%20a,Emergency%20Services%20and%20Public%20Protection."
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_368a.htm#:~:text=No%20costs%20incurred%20by%20a%20health%20care%20facility%20for%20any,Emergency%20Services%20and%20Public%20Protection."
   },
   {
    "id": "CT-CAP-1",
@@ -148,7 +148,7 @@
     "amount_cents": 500000,
     "applies_to": "emotional_harm_only"
    },
-   "summary": "When the only injury is emotional harm (a mental or emotional impairment caused by a threat of physical injury or death), compensation for medical care, mental health care and security measures is capped at $5,000. Claims involving actual bodily harm fall under the higher personal injury cap (CT-CAP-1) instead.",
+   "summary": "When the only injury is emotional harm (a mental or emotional impairment caused by a threat of physical injury or death), compensation for medical care, mental health care and security measures is capped at $5,000. Claims involving actual bodily harm fall under the higher personal injury cap above instead.",
    "quote": "in cases of emotional harm only, compensation for medical and mental health care and security measures shall be in an amount not to exceed five thousand dollars",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-211(d)(1)(D)",
@@ -192,6 +192,26 @@
    "quote": "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum benefit $1,000)",
    "source_id": "CT-S4",
    "pinpoint": "JD-VS-8PI, Section 9"
+  },
+  {
+   "id": "CT-CAP-6",
+   "category": "total_cap",
+   "params": {},
+   "summary": "The program can award up to $5,000 more than the limits above to a victim who is a minor when the application is filed and has extra medical or counseling needs.",
+   "quote": "the Office of Victim Services or a victim compensation commissioner may award additional compensation in an amount not to exceed five thousand dollars above the maximum amounts set forth in said subdivision to a personal injury victim, who is a minor at the time the application for compensation or restitution services is filed, when such victim has additional medical needs or mental health counseling needs",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(d)(2)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=the%20Office%20of%20Victim%20Services%20or%20a%20victim%20compensation%20commissioner%20may%20award,or%20mental%20health%20counseling%20needs"
+  },
+  {
+   "id": "CT-CAP-7",
+   "category": "total_cap",
+   "params": {},
+   "summary": "The program can also award more than the limits above for good cause, when it finds compelling reasons of fairness.",
+   "quote": "the Office of Victim Services or a victim compensation commissioner may, for good cause shown and upon a finding of compelling equitable circumstances, award compensation in an amount in excess of the maximum amounts set forth in said subdivision",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(d)(3)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=the%20Office%20of%20Victim%20Services%20or%20a%20victim%20compensation%20commissioner%20may%2C,set%20forth%20in%20said%20subdivision"
   },
   {
    "id": "CT-COV-1",
@@ -260,7 +280,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "trips to court, Psychiatric Security Review Board, and parole board proceedings in physical injury cases"
    },
    "summary": "In physical injury cases, travel expenses to attend court, Psychiatric Security Review Board, and Board of Pardons and Paroles proceedings are covered.",
    "quote": "For physical injury and homicide cases, lost wages and travel expenses for the victim and/or relatives to attend proceedings at court, the Psychiatric Security Review Board, and the Board of Pardons and Paroles",
@@ -284,7 +305,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothes and bedding held as evidence"
    },
    "summary": "Replacing clothes and bedding held as evidence is a covered benefit, inside the shared crime scene cleanup and security maximum.",
    "quote": "Costs for replacement or repair of damaged locks, doors, and windows; clothes and bedding held as evidence; biohazard clean-up; and the cost and installation of security systems",
@@ -339,17 +361,16 @@
    "quote": "no compensation shall be awarded for losses sustained for crimes against property or for noneconomic detriment such as pain and suffering",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-211(c)",
-   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=no%20compensation%20shall%20be%20awarded,such%20as%20pain%20and%20suffering"
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=no%20compensation%20shall%20be%20awarded%20for,such%20as%20pain%20and%20suffering"
   },
   {
    "id": "CT-DEADLINE-1",
    "category": "filing_deadline",
    "params": {
     "years": 3,
-    "from": "crime",
-    "extension": "waiver available, including for physical, emotional or psychological injury, minors not at fault, and good cause with compelling equitable circumstances"
+    "from": "crime"
    },
-   "summary": "The application must be made within 3 years after the date of the injury; the Office of Victim Services can waive this in some situations.",
+   "summary": "The application must be made within 3 years after the date of the injury.",
    "quote": "the application has been made within three years after the date of the personal injury or death",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-211(a)(1)(A)",
@@ -370,6 +391,26 @@
    "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=fails%20to%20make%20application%20for,waiver%20of%20such%20time%20limitation"
   },
   {
+   "id": "CT-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If you were a minor and, through no fault of your own, did not apply within 3 years, you may ask for a waiver. The Office of Victim Services may grant it if it finds you were not at fault.",
+   "quote": "any minor, including, but not limited to, a minor who is a victim of conduct by another person that constitutes a violation of section 53a-192a or a criminal violation of 18 USC Chapter 77, who, before, on or after October 1, 2005, fails to make application for compensation within three years after the date of the personal injury or death through no fault of the minor, may apply for a waiver of such time limitation. The Office of Victim Services, upon a finding that such minor is not at fault, may grant such waiver.",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(a)(3)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=any%20minor%2C%20including%2C%20but%20not,fault%2C%20may%20grant%20such%20waiver."
+  },
+  {
+   "id": "CT-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The Office of Victim Services may also waive the time limit for good cause, if it finds compelling reasons that make this fair.",
+   "quote": "Notwithstanding the provisions of subdivision (1), (2) or (3) of this subsection, the Office of Victim Services may, for good cause shown and upon a finding of compelling equitable circumstances, waive the time limitations of subdivision (1) of this subsection.",
+   "source_id": "CT-S1",
+   "pinpoint": "Conn. Gen. Stat. 54-211(a)(6)",
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=Notwithstanding%20the%20provisions%20of%20subdivision%20%281%29%2C,subdivision%20%281%29%20of%20this%20subsection."
+  },
+  {
    "id": "CT-REPORT-1",
    "category": "reporting_requirement",
    "params": {
@@ -380,13 +421,14 @@
      "medical_provider",
      "protective_order",
      "other"
-    ]
+    ],
+    "exam_condition": "done within 120 hours of the assault"
    },
-   "summary": "The crime must be reported to police, but a sexual assault survivor does not lose eligibility for skipping the report if they went to a health care facility within 120 hours for an evidence collection exam, or met the disclosure or protective order rules of section 54-209(d).",
+   "summary": "The crime must be reported to police, but a sexual assault survivor does not lose eligibility for skipping the report if they went to a health care facility within 120 hours of the assault for an evidence collection exam, or met the disclosure or protective order rules of section 54-209(d).",
    "quote": "(C) such incident or offense has been reported to the police, except that a victim of a sexual assault shall not be ineligible for the payment of compensation by reason of failing to make a report pursuant to this subparagraph if such victim presented himself or herself to a health care facility within one hundred twenty hours of such sexual assault for examination and collection of evidence of such sexual assault in accordance with the provisions of section 19a-112a , or if such victim complied with subsection (d) of section 54-209 .",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-211(a)(1)(C)",
-   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%28C%29%20such%20incident%20or%20offense,%28d%29%20of%20section%2054%2D209%20."
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=%28C%29%20such%20incident%20or%20offense,subsection%20%28d%29%20of%20section%2054%2D209."
   },
   {
    "id": "CT-REPORT-2",
@@ -444,7 +486,7 @@
    "id": "CT-CONDUCT-1",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "In deciding on an award the office considers relevant circumstances, including the victim's behavior and cooperation with the investigation and law enforcement.",
+   "summary": "To decide on an award, the office looks at what matters in the case. This includes anything the victim did that helped cause the injury, how much the victim helped the office check the claim, and how much the victim helped police catch and prosecute the offender.",
    "quote": "shall consider all circumstances determined to be relevant, including, but not limited to, provocation, consent or any other behavior of the victim which directly or indirectly contributed to such victim's injury or death, the extent of the victim's cooperation in investigating the application and the extent of the victim's cooperation with law enforcement agencies in their efforts to apprehend and prosecute the offender",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-208(c)",
@@ -468,7 +510,7 @@
    "quote": "In instances where a violation of section 53a-70b of the general statutes, revision of 1958, revised to January 1, 2019, or section 53-21 , 53a-70 , 53a-70a , 53a-70c , 53a-71 , 53a-72a , 53a-72b , 53a-73a",
    "source_id": "CT-S1",
    "pinpoint": "Conn. Gen. Stat. 54-209(d)",
-   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=In%20instances%20where%20a%20violation,53a%2D72a%20%2C%2053a%2D72b%20%2C%2053a%2D73a"
+   "fragment_url": "https://www.cga.ct.gov/current/pub/chap_968.htm#:~:text=In%20instances%20where%20a%20violation,53a%2D70c%2C%2053a%2D71%2C%2053a%2D72a%2C%2053a%2D72b%2C%2053a%2D73a"
   },
   {
    "id": "CT-RES-1",
@@ -641,7 +683,7 @@
     "covers_sexual_assault": true,
     "enroll": "Participants complete applications through a community-based domestic violence or sexual assault crisis program. These programs are located throughout the state. The application process involves meeting with an application assistant and receiving orientation information about the program. Application Assistants send the completed applications to the ACP office."
    },
-   "summary": "Connecticut's Address Confidentiality Program, run by the Secretary of the State, gives victims of sexual assault, family violence, stalking and some other crimes a substitute mailing address that state and town agencies must accept, and forwards first-class mail for free. Applying is done with an application assistant at a domestic violence or sexual assault crisis program.",
+   "summary": "Connecticut's Address Confidentiality Program is run by the Secretary of the State. It gives a substitute mailing address to victims of sexual assault, family violence, stalking and some other crimes who want to keep their home address private because of safety concerns.",
    "quote": "There shall be an address confidentiality program established in the office of the Secretary of the State to provide a substitute mailing address for any person who wishes to keep such person's residential address confidential because of safety concerns and (1) has been a victim of (A) family violence, (B) injury or risk of injury to a child, (C) kidnapping, (D) sexual assault, (E) stalking",
    "source_id": "CT-S9",
    "pinpoint": "Conn. Gen. Stat. sec. 54-240a(a)",

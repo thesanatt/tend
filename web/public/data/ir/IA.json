@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "IA",
- "source_sha256": "b32cb0ab99cd81eb5d98653c4381f27fa7d310bd9792d57f29b6689973030a32",
- "ir_sha256": "6e1977fb88b2a63e4e62618f9719b20fc4898f2c975c69de6a46de9c0abc92ce",
+ "source_sha256": "73e8704bc69619f7d5c814170252aa5916c391dfdd76c2dbde8591307a1b403e",
+ "ir_sha256": "bfd63ab7443dc42e7583662ae5fa581f00adfdaab9f8d4b95290563eef2b7b28",
  "fresh": true,
  "rules": [
   {
@@ -186,18 +186,29 @@
    "id": "IA-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "IA-REPORT-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "advocate",
-    "forensic_exam",
-    "medical_provider",
-    "other"
-   ]
+   "alternatives": []
+  },
+  {
+   "id": "IA-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-REPORT-4",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "IA-COLL-1",

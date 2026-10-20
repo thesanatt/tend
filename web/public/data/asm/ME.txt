@@ -1,9 +1,9 @@
 ; tend law image ME, Maine
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561
-; image sha256  559f168712e079add6ee56ef2b6080c91cbc4306ef3e0d9a32eeadd019d1c6f4
-; 45 rules, 14 sources, 26 proofs, 2 ints, 269 strings
-; item program: 177 instructions, 580 bytes, max stack 2
+; source sha256 718feda3bce9ac3c33452326914db891d1cba60ef21390f29cff765521812d5b
+; image sha256  71faa4273f866c5f0e8939b8ee59248ca1a8a322913bb452f2bba41970f26c60
+; 47 rules, 14 sources, 24 proofs, 2 ints, 279 strings
+; item program: 163 instructions, 542 bytes, max stack 2
 ; aggregate program: 89 instructions, 280 bytes, max stack 3, 2 loops
 
 .rules
@@ -11,16 +11,16 @@
     R1    ME-EXAM-2             exam_payment  -                                             5 M.R.S. 3360-M(2)
     R2    ME-EXAM-3             reporting     -                                             5 M.R.S. 3360-M(3)
     R3    ME-EXAM-4             exam_no_bill  -                                             Maine AG SAFE page, Notice to sexual assault victims
-    R4    ME-EXAM-5             exam_payment  -                                             Maine AG SAFE page, Notice to healthcare providers performing SAFE
-    R5    ME-CAP-1              total_cap     -                                             5 M.R.S. 3360-E(1)
-    R6    ME-CAP-2              total_cap     -                                             5 M.R.S. 3360-E(3)
-    R7    ME-MED-1              covered       medical                                       Maine AG Victims' Compensation page, What Expenses Are Covered?
-    R8    ME-DENT-1             covered       dental                                        Maine AG Victims' Compensation page, What Expenses Are Covered?
-    R9    ME-COUNS-1            covered       counseling                                    5 M.R.S. 3360(4)
-    R10   ME-COUNS-2            covered       counseling                                    5 M.R.S. 3360-B(3)
-    R11   ME-WAGE-1             covered       lost_wages                                    5 M.R.S. 3360(4)
-    R12   ME-WAGE-2             covered       lost_wages                                    Maine AG Victims' Compensation page, What Expenses Are Covered?
-    R13   ME-TRANS-1            covered       transportation                                5 M.R.S. 3360(4)
+    R4    ME-EXAM-6             exam_payment  -                                             Maine AG SAFE page, introduction and Notice to sexual assault victims
+    R5    ME-EXAM-5             exam_payment  -                                             Maine AG SAFE page, Notice to healthcare providers performing SAFE
+    R6    ME-CAP-1              total_cap     -                                             5 M.R.S. 3360-E(1)
+    R7    ME-CAP-2              total_cap     -                                             5 M.R.S. 3360-E(3)
+    R8    ME-MED-1              covered       medical                                       Maine AG Victims' Compensation page, What Expenses Are Covered?
+    R9    ME-DENT-1             covered       dental                                        Maine AG Victims' Compensation page, What Expenses Are Covered?
+    R10   ME-COUNS-1            covered       counseling                                    5 M.R.S. 3360(4)
+    R11   ME-COUNS-2            covered       counseling                                    5 M.R.S. 3360-B(3)
+    R12   ME-WAGE-1             covered       lost_wages                                    5 M.R.S. 3360(4)
+    R13   ME-WAGE-2             covered       lost_wages                                    Maine AG Victims' Compensation page, What Expenses Are Covered?
     R14   ME-SEC-1              covered       security                                      5 M.R.S. 3360(4)
     R15   ME-RELO-1             covered       relocation                                    5 M.R.S. 3360(4)
     R16   ME-CLEAN-1            covered       crime_scene_cleanup                           5 M.R.S. 3360(4)
@@ -32,26 +32,28 @@
     R22   ME-DEAD-2             deadline      -                     from discovery          5 M.R.S. 3360-C(1)(B)
     R23   ME-DEAD-3             info          -                     filing_deadline         5 M.R.S. 3360-C(3)
     R24   ME-REP-1              reporting     -                                             5 M.R.S. 3360-C(1)(A)
-    R25   ME-REP-2              reporting     -                                             5 M.R.S. 3360-C(1)
-    R26   ME-REP-3              reporting     -                                             Maine AG SAFE page, Notice to sexual assault victims
-    R27   ME-COLL-1             collateral    -                                             Maine AG Victims' Compensation page, What Are the Requirements?
-    R28   ME-COND-1             info          -                     conduct_reduction       5 M.R.S. 3360-C(2)(B)
-    R29   ME-COND-2             info          -                     conduct_reduction       5 M.R.S. 3360-C(2)(A)
-    R30   ME-CRIME-1            info          -                     eligible_crime          5 M.R.S. 3360-B(1)(B)
-    R31   ME-CRIME-2            info          -                     eligible_crime          5 M.R.S. 3360(3)(J)
-    R32   ME-CRIME-3            info          -                     eligible_crime          5 M.R.S. 3360(3)(H)
-    R33   ME-RES-1              info          -                     residency               5 M.R.S. 3360-B(1)(A)
-    R34   ME-RES-2              info          -                     residency               5 M.R.S. 3360-B(1)(C)(3)
-    R35   ME-SUBMIT-ONLINE      info          -                     submission              AG Victims' Compensation page, Victims links
-    R36   ME-DOC-SIGNED         info          -                     required_document       AG Program Law and History, Application Process
-    R37   ME-DOC-MEDICAL        info          -                     required_document       5 M.R.S. 3360-D(1)(C)
-    R38   ME-DOC-BILLS          info          -                     required_document       5 M.R.S. 3360-D(1)(C)
-    R39   ME-DOC-WAGES          info          -                     required_document       5 M.R.S. 3360-D(1)(C)
-    R40   ME-DOC-INSURANCE      info          -                     required_document       5 M.R.S. 3360-D(1)(D)
-    R41   ME-DOC-POLICE         info          -                     required_document       5 M.R.S. 3360-D(1)(B)
-    R42   ME-DOC-COUNSEL        info          -                     required_document       AG Mental Health Counseling Guidelines
-    R43   ME-ACP-1              info          -                     address_confidentiality 5 M.R.S. 90-B(2)
-    R44   ME-RECCONF-1          info          -                     record_confidentiality  5 M.R.S. 3360-D(4)
+    R25   ME-REP-4              reporting     -                                             5 M.R.S. 3360-C(3)
+    R26   ME-REP-2              reporting     -                                             5 M.R.S. 3360-C(1)
+    R27   ME-REP-3              reporting     -                                             Maine AG SAFE page, Notice to sexual assault victims
+    R28   ME-COLL-1             collateral    -                                             Maine AG Victims' Compensation page, What Are the Requirements?
+    R29   ME-COND-1             info          -                     conduct_reduction       5 M.R.S. 3360-C(2)(B)
+    R30   ME-COND-2             info          -                     conduct_reduction       5 M.R.S. 3360-C(2)(A)
+    R31   ME-CRIME-1            info          -                     eligible_crime          5 M.R.S. 3360-B(1)(B)
+    R32   ME-CRIME-2            info          -                     eligible_crime          5 M.R.S. 3360(3)(J)
+    R33   ME-CRIME-3            info          -                     eligible_crime          5 M.R.S. 3360(3)(H)
+    R34   ME-RES-1              info          -                     residency               5 M.R.S. 3360-B(1)(A)
+    R35   ME-RES-2              info          -                     residency               5 M.R.S. 3360-B(1)(C)(3)
+    R36   ME-SUBMIT-ONLINE      info          -                     submission              AG Victims' Compensation page, Victims links
+    R37   ME-DOC-SIGNED         info          -                     required_document       AG Program Law and History, Application Process
+    R38   ME-DOC-MEDICAL        info          -                     required_document       5 M.R.S. 3360-D(1)(C)
+    R39   ME-DOC-BILLS          info          -                     required_document       5 M.R.S. 3360-D(1)(C)
+    R40   ME-DOC-WAGES          info          -                     required_document       5 M.R.S. 3360-D(1)(C)
+    R41   ME-DOC-INSURANCE      info          -                     required_document       5 M.R.S. 3360-D(1)(D)
+    R42   ME-DOC-POLICE         info          -                     required_document       5 M.R.S. 3360-D(1)(B)
+    R43   ME-DOC-COUNSEL        info          -                     required_document       AG Mental Health Counseling Guidelines
+    R44   ME-ACP-1              info          -                     address_confidentiality 5 M.R.S. 90-B(2)
+    R45   ME-RECCONF-1          info          -                     record_confidentiality  5 M.R.S. 3360-D(4)
+    R46   ME-TRANS-1            skipped       -                     covered_expense         5 M.R.S. 3360(4)  ; applies_to "a claimant or family member who provides or obtains care for a minor or incapacitated victim"
 
 .tags   pain_suffering=bit0
 
@@ -73,31 +75,29 @@
 
 .proofs
     P0    ()
-    P1    (ME-EXAM-1, ME-EXAM-4, ME-EXAM-2, ME-EXAM-5)
+    P1    (ME-EXAM-1, ME-EXAM-4, ME-EXAM-2, ME-EXAM-6, ME-EXAM-5)
     P2    (ME-MED-1)
     P3    (ME-MED-1, ME-COLL-1)
     P4    (ME-COUNS-1, ME-COUNS-2)
     P5    (ME-COUNS-1, ME-COUNS-2, ME-COLL-1)
     P6    (ME-WAGE-1, ME-WAGE-2)
     P7    (ME-WAGE-1, ME-WAGE-2, ME-COLL-1)
-    P8    (ME-TRANS-1)
-    P9    (ME-TRANS-1, ME-COLL-1)
-    P10   (ME-RELO-1)
-    P11   (ME-RELO-1, ME-COLL-1)
-    P12   (ME-SEC-1)
-    P13   (ME-SEC-1, ME-COLL-1)
-    P14   (ME-CLEAN-1)
-    P15   (ME-CLEAN-1, ME-COLL-1)
-    P16   (ME-EXCL-1)
-    P17   (ME-DENT-1)
-    P18   (ME-DENT-1, ME-COLL-1)
-    P19   (ME-FUN-1)
-    P20   (ME-FUN-1, ME-COLL-1)
-    P21   (ME-PROS-1)
-    P22   (ME-PROS-1, ME-COLL-1)
-    P23   (ME-DEAD-1, ME-DEAD-2)
-    P24   (ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3)
-    P25   (ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1)
+    P8    (ME-RELO-1)
+    P9    (ME-RELO-1, ME-COLL-1)
+    P10   (ME-SEC-1)
+    P11   (ME-SEC-1, ME-COLL-1)
+    P12   (ME-CLEAN-1)
+    P13   (ME-CLEAN-1, ME-COLL-1)
+    P14   (ME-EXCL-1)
+    P15   (ME-DENT-1)
+    P16   (ME-DENT-1, ME-COLL-1)
+    P17   (ME-FUN-1)
+    P18   (ME-FUN-1, ME-COLL-1)
+    P19   (ME-PROS-1)
+    P20   (ME-PROS-1, ME-COLL-1)
+    P21   (ME-DEAD-1, ME-DEAD-2)
+    P22   (ME-EXAM-3, ME-REP-1, ME-REP-4, ME-REP-2, ME-REP-3)
+    P23   (ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1)
 
 .ints
     K0    450000        ; $4,500.00
@@ -113,35 +113,36 @@
   000e        gt
   000f        jnz      L0
   0014        ldi      expense
-  0016        switch   19, default L12
+  0016        switch   19, default L8
                         case medical               -> L2
                         case forensic_exam         -> L1
                         case counseling            -> L4
                         case lost_wages            -> L6
                         case transportation        -> L8
-                        case relocation            -> L10
-                        case temporary_housing     -> L12
-                        case security              -> L13
-                        case crime_scene_cleanup   -> L15
-                        case childcare             -> L12
-                        case property_replacement  -> L17
-                        case clothing_bedding      -> L12
-                        case prescription          -> L12
-                        case dental                -> L21
-                        case funeral               -> L23
-                        case legal                 -> L12
-                        case tuition               -> L12
-                        case other                 -> L25
-                        case unknown               -> L12
+                        case relocation            -> L9
+                        case temporary_housing     -> L8
+                        case security              -> L11
+                        case crime_scene_cleanup   -> L13
+                        case childcare             -> L8
+                        case property_replacement  -> L15
+                        case clothing_bedding      -> L8
+                        case prescription          -> L8
+                        case dental                -> L19
+                        case funeral               -> L21
+                        case legal                 -> L8
+                        case tuition               -> L8
+                        case other                 -> L23
+                        case unknown               -> L8
   0068  L0:   push     0
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
               ; ME-EXAM-1  5 M.R.S. 3360-M(3)  "The hospital or health care practitioner that performs the..."
               ; ME-EXAM-4  Maine AG SAFE page, Notice to sexual assault victims  "The hospital may not bill you or your insurer for the sexual..."
               ; ME-EXAM-2  5 M.R.S. 3360-M(2)  "An examination must include at least all services directly..."
+              ; ME-EXAM-6  Maine AG SAFE page, introduction and Notice to sexual assault victims  "Maine ensures that survivors of sexual assaults that occur in..."
               ; ME-EXAM-5  Maine AG SAFE page, Notice to healthcare providers performing SAFE  "This direct billing and payment process is to be used only when..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; ME-EXAM-1, ME-EXAM-4, ME-EXAM-2, ME-EXAM-5
+  0077        decide   held, P1                     ; ME-EXAM-1, ME-EXAM-4, ME-EXAM-2, ME-EXAM-6, ME-EXAM-5
   007b        ret
               ; ME-MED-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Medical (including equipment, supplies and medications) limited..."
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
@@ -157,7 +158,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R27              ; ME-COLL-1
+  009d        seta     collateral, R28              ; ME-COLL-1
   00a1        ret
               ; ME-COUNS-1  5 M.R.S. 3360(4)  "psychological or mental health counseling expenses"
               ; ME-COUNS-2  5 M.R.S. 3360-B(3)  "a family or household member of a sexual assault victim for..."
@@ -174,7 +175,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R27              ; ME-COLL-1
+  00c3        seta     collateral, R28              ; ME-COLL-1
   00c7        ret
               ; ME-WAGE-1  5 M.R.S. 3360(4)  "lost wages"
               ; ME-WAGE-2  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Lost income (for victims and limited coverage when care of..."
@@ -191,144 +192,128 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R27              ; ME-COLL-1
+  00e9        seta     collateral, R28              ; ME-COLL-1
   00ed        ret
-              ; ME-TRANS-1  5 M.R.S. 3360(4)  "travel expenses and loss of income of a claimant or family..."
-              ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
-  00ee  L8:   ldi      confirmed
-  00f0        jnz      L9
-  00f5        push     0
-  00fa        decide   needs_confirmation, P8       ; ME-TRANS-1
-  00fe        ret
-  00ff  L9:   ldi      amount_cents
-  0101        decide   eligible, P9                 ; ME-TRANS-1, ME-COLL-1
-  0105        lda
-  0106        ldi      insurance_paid_cents
-  0108        subs
-  0109        push     0
-  010e        max
-  010f        seta     collateral, R27              ; ME-COLL-1
-  0113        ret
+  00ee  L8:   push     0
+  00f3        decide   unknown_rule, P0             ; (none)
+  00f7        ret
               ; ME-RELO-1  5 M.R.S. 3360(4)  "costs of crime scene cleanup and relocation expenses"
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
-  0114  L10:  ldi      confirmed
-  0116        jnz      L11
-  011b        push     0
-  0120        decide   needs_confirmation, P10      ; ME-RELO-1
-  0124        ret
-  0125  L11:  ldi      amount_cents
-  0127        decide   eligible, P11                ; ME-RELO-1, ME-COLL-1
-  012b        lda
-  012c        ldi      insurance_paid_cents
-  012e        subs
-  012f        push     0
-  0134        max
-  0135        seta     collateral, R27              ; ME-COLL-1
-  0139        ret
-  013a  L12:  push     0
-  013f        decide   unknown_rule, P0             ; (none)
-  0143        ret
+  00f8  L9:   ldi      confirmed
+  00fa        jnz      L10
+  00ff        push     0
+  0104        decide   needs_confirmation, P8       ; ME-RELO-1
+  0108        ret
+  0109  L10:  ldi      amount_cents
+  010b        decide   eligible, P9                 ; ME-RELO-1, ME-COLL-1
+  010f        lda
+  0110        ldi      insurance_paid_cents
+  0112        subs
+  0113        push     0
+  0118        max
+  0119        seta     collateral, R28              ; ME-COLL-1
+  011d        ret
               ; ME-SEC-1  5 M.R.S. 3360(4)  "costs to repair, replace or install locks or security devices"
+              ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
+  011e  L11:  ldi      confirmed
+  0120        jnz      L12
+  0125        push     0
+  012a        decide   needs_confirmation, P10      ; ME-SEC-1
+  012e        ret
+  012f  L12:  ldi      amount_cents
+  0131        decide   eligible, P11                ; ME-SEC-1, ME-COLL-1
+  0135        lda
+  0136        ldi      insurance_paid_cents
+  0138        subs
+  0139        push     0
+  013e        max
+  013f        seta     collateral, R28              ; ME-COLL-1
+  0143        ret
+              ; ME-CLEAN-1  5 M.R.S. 3360(4)  "costs of crime scene cleanup and relocation expenses"
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
   0144  L13:  ldi      confirmed
   0146        jnz      L14
   014b        push     0
-  0150        decide   needs_confirmation, P12      ; ME-SEC-1
+  0150        decide   needs_confirmation, P12      ; ME-CLEAN-1
   0154        ret
   0155  L14:  ldi      amount_cents
-  0157        decide   eligible, P13                ; ME-SEC-1, ME-COLL-1
+  0157        decide   eligible, P13                ; ME-CLEAN-1, ME-COLL-1
   015b        lda
   015c        ldi      insurance_paid_cents
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R27              ; ME-COLL-1
+  0165        seta     collateral, R28              ; ME-COLL-1
   0169        ret
-              ; ME-CLEAN-1  5 M.R.S. 3360(4)  "costs of crime scene cleanup and relocation expenses"
-              ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
-  016a  L15:  ldi      confirmed
-  016c        jnz      L16
-  0171        push     0
-  0176        decide   needs_confirmation, P14      ; ME-CLEAN-1
-  017a        ret
-  017b  L16:  ldi      amount_cents
-  017d        decide   eligible, P15                ; ME-CLEAN-1, ME-COLL-1
-  0181        lda
-  0182        ldi      insurance_paid_cents
-  0184        subs
-  0185        push     0
-  018a        max
-  018b        seta     collateral, R27              ; ME-COLL-1
-  018f        ret
               ; ME-EXCL-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Expenses NOT covered: property losses, compensation for pain and..."
-  0190  L17:  push     0
-  0195        str      r0
-  0197        ldi      tags
-  0199        push     1
-  019e        and
-  019f        jz       L18
-  01a4        ldr      r0
-  01a6        push     1
-  01ab        or
-  01ac        str      r0
-  01ae  L18:  ldr      r0
-  01b0        switch   2, default L20
-                        case 0                     -> L20
-                        case 1                     -> L19
-  01be  L19:  push     0
-  01c3        decide   excluded, P16                ; ME-EXCL-1
-  01c7        ret
-  01c8  L20:  push     0
-  01cd        decide   unknown_rule, P0             ; (none)
-  01d1        ret
+  016a  L15:  push     0
+  016f        str      r0
+  0171        ldi      tags
+  0173        push     1
+  0178        and
+  0179        jz       L16
+  017e        ldr      r0
+  0180        push     1
+  0185        or
+  0186        str      r0
+  0188  L16:  ldr      r0
+  018a        switch   2, default L18
+                        case 0                     -> L18
+                        case 1                     -> L17
+  0198  L17:  push     0
+  019d        decide   excluded, P14                ; ME-EXCL-1
+  01a1        ret
+  01a2  L18:  push     0
+  01a7        decide   unknown_rule, P0             ; (none)
+  01ab        ret
               ; ME-DENT-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Dental charges and replacement of dentures"
+              ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
+  01ac  L19:  ldi      confirmed
+  01ae        jnz      L20
+  01b3        push     0
+  01b8        decide   needs_confirmation, P15      ; ME-DENT-1
+  01bc        ret
+  01bd  L20:  ldi      amount_cents
+  01bf        decide   eligible, P16                ; ME-DENT-1, ME-COLL-1
+  01c3        lda
+  01c4        ldi      insurance_paid_cents
+  01c6        subs
+  01c7        push     0
+  01cc        max
+  01cd        seta     collateral, R28              ; ME-COLL-1
+  01d1        ret
+              ; ME-FUN-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Funeral/ burial costs up to $4,500, costs of a marker up to $500"
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
   01d2  L21:  ldi      confirmed
   01d4        jnz      L22
   01d9        push     0
-  01de        decide   needs_confirmation, P17      ; ME-DENT-1
+  01de        decide   needs_confirmation, P17      ; ME-FUN-1
   01e2        ret
   01e3  L22:  ldi      amount_cents
-  01e5        decide   eligible, P18                ; ME-DENT-1, ME-COLL-1
+  01e5        decide   eligible, P18                ; ME-FUN-1, ME-COLL-1
   01e9        lda
   01ea        ldi      insurance_paid_cents
   01ec        subs
   01ed        push     0
   01f2        max
-  01f3        seta     collateral, R27              ; ME-COLL-1
+  01f3        seta     collateral, R28              ; ME-COLL-1
   01f7        ret
-              ; ME-FUN-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Funeral/ burial costs up to $4,500, costs of a marker up to $500"
+              ; ME-PROS-1  5 M.R.S. 3360(4)  "costs of eyeglasses, hearing aids, dentures or other prosthetic..."
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
   01f8  L23:  ldi      confirmed
   01fa        jnz      L24
   01ff        push     0
-  0204        decide   needs_confirmation, P19      ; ME-FUN-1
+  0204        decide   needs_confirmation, P19      ; ME-PROS-1
   0208        ret
   0209  L24:  ldi      amount_cents
-  020b        decide   eligible, P20                ; ME-FUN-1, ME-COLL-1
+  020b        decide   eligible, P20                ; ME-PROS-1, ME-COLL-1
   020f        lda
   0210        ldi      insurance_paid_cents
   0212        subs
   0213        push     0
   0218        max
-  0219        seta     collateral, R27              ; ME-COLL-1
+  0219        seta     collateral, R28              ; ME-COLL-1
   021d        ret
-              ; ME-PROS-1  5 M.R.S. 3360(4)  "costs of eyeglasses, hearing aids, dentures or other prosthetic..."
-              ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
-  021e  L25:  ldi      confirmed
-  0220        jnz      L26
-  0225        push     0
-  022a        decide   needs_confirmation, P21      ; ME-PROS-1
-  022e        ret
-  022f  L26:  ldi      amount_cents
-  0231        decide   eligible, P22                ; ME-PROS-1, ME-COLL-1
-  0235        lda
-  0236        ldi      insurance_paid_cents
-  0238        subs
-  0239        push     0
-  023e        max
-  023f        seta     collateral, R27              ; ME-COLL-1
-  0243        ret
 
 .aggregate
               ; ME-FUN-1  Maine AG Victims' Compensation page, What Expenses Are Covered?  "Funeral/ burial costs up to $4,500, costs of a marker up to $500"
@@ -376,7 +361,7 @@
   007a        ldk      K1                           ; $15,000.00
   007d        ldr      r0
   007f        subs
-  0080        cap      total_cap, R5                ; ME-CAP-1
+  0080        cap      total_cap, R6                ; ME-CAP-1
   0084        push     1
   0089        str      r1
   008b  L6:   ldr      r0
@@ -385,7 +370,7 @@
   008f        str      r0
   0091        jmp      L8
   0096  L7:   push     0
-  009b        cap      total_cap, R5                ; ME-CAP-1
+  009b        cap      total_cap, R6                ; ME-CAP-1
   009f  L8:   next     L5
   00a4  L9:   push     0                            ; met
   00a9        check    minimum_loss, P0             ; (none)
@@ -407,9 +392,10 @@
   00cd        jmp      L11
   00d2  L10:  push     1
   00d7  L11:  note     deadline_from_discovery
-  00d9        check    deadline, P23                ; ME-DEAD-1, ME-DEAD-2
+  00d9        check    deadline, P21                ; ME-DEAD-1, ME-DEAD-2
               ; ME-EXAM-3  5 M.R.S. 3360-M(3)  "The victim is not required to report the offense to a law..."
               ; ME-REP-1  5 M.R.S. 3360-C(1)(A)  "A. The crime was reported to a law enforcement officer within 5..."
+              ; ME-REP-4  5 M.R.S. 3360-C(3)  "The board may waive the time requirements of subsection 1 for..."
               ; ME-REP-2  5 M.R.S. 3360-C(1)  "an unrestricted report of sexual assault made to the Maine..."
               ; ME-REP-3  Maine AG SAFE page, Notice to sexual assault victims  "If you need help with these expenses, you may file a Victims'..."
   00dd        ldx      police_report
@@ -425,7 +411,7 @@
   0101  L12:  push     1
   0106        jmp      L14
   010b  L13:  push     0                            ; satisfied
-  0110  L14:  check    reporting, P24               ; ME-EXAM-3, ME-REP-1, ME-REP-2, ME-REP-3
+  0110  L14:  check    reporting, P22               ; ME-EXAM-3, ME-REP-1, ME-REP-4, ME-REP-2, ME-REP-3
               ; ME-EXCL-2  Maine AG Program Law and History, What Is an Eligible Expense?  "No property losses are covered other than replacement costs of..."
               ; ME-DEAD-3  5 M.R.S. 3360-C(3)  "The board may waive the time requirements of subsection 1 for..."
               ; ME-COLL-1  Maine AG Victims' Compensation page, What Are the Requirements?  "If a victim has insurance and other coverage or eligibility for..."
@@ -446,6 +432,6 @@
               ; ME-DOC-COUNSEL  AG Mental Health Counseling Guidelines  "Your case cannot go before the Board without the completed..."
               ; ME-ACP-1  5 M.R.S. 90-B(2)  "The Address Confidentiality Program is established to protect..."
               ; ME-RECCONF-1  5 M.R.S. 3360-D(4)  "All records and information obtained by or in the possession of..."
-  0114        info     P25                          ; ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
+  0114        info     P23                          ; ME-EXCL-2, ME-DEAD-3, ME-COLL-1, ME-COND-1, ME-COND-2, ME-CRIME-1, ME-CRIME-2, ME-CRIME-3, ME-RES-1, ME-RES-2, ME-SUBMIT-ONLINE, ME-DOC-SIGNED, ME-DOC-MEDICAL, ME-DOC-BILLS, ME-DOC-WAGES, ME-DOC-INSURANCE, ME-DOC-POLICE, ME-DOC-COUNSEL, ME-ACP-1, ME-RECCONF-1
   0117        ret
 

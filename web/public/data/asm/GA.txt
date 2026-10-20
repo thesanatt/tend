@@ -1,18 +1,18 @@
 ; tend law image GA, Georgia
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 b55212cc7a08dd9af9055b33c04fe5774c33941dd135fa694ca23e605acc91b8
-; image sha256  e8f19cf14fdf8225dff84dad5941303c7422c48fc5473e5cc1ee6fd362658785
-; 52 rules, 23 sources, 20 proofs, 7 ints, 307 strings
+; source sha256 22f0e6e5836b8980d17e2ac032faa7c29f4dfaf925fd0e5bd6e1bf2b80b19a9f
+; image sha256  46fd86ed72d7e928dcb50697b6287112eca3744b23daed7f417dbaf123346901
+; 54 rules, 23 sources, 20 proofs, 7 ints, 315 strings
 ; item program: 135 instructions, 466 bytes, max stack 2
 ; aggregate program: 221 instructions, 686 bytes, max stack 2, 7 loops
 
 .rules
     R0    GA-EXAM-1             exam_no_bill  -                                             O.C.G.A. 17-5-72
     R1    GA-EXAM-2             exam_payment  -                                             O.C.G.A. 17-15-15
-    R2    GA-EXAM-3             exam_no_bill  -                                             CJCC Victims Compensation FAQ
-    R3    GA-EXAM-4             expense_cap   forensic_exam         per claim               CJCC Forensic Medical Examinations page
-    R4    GA-EXAM-5             exam_no_bill  -                                             Ga. Comp. R. & Regs. 144-4-.08(2)(d)
-    R5    GA-EXAM-6             exam_payment  -                                             Ga. Comp. R. & Regs. 144-4-.08(1)(b)
+    R2    GA-EXAM-4             expense_cap   forensic_exam         per claim               CJCC Forensic Medical Examinations page
+    R3    GA-EXAM-5             exam_no_bill  -                                             Ga. Comp. R. & Regs. 144-4-.08(2)(d)
+    R4    GA-EXAM-6             exam_payment  -                                             Ga. Comp. R. & Regs. 144-4-.08(1)(b)
+    R5    GA-EXAM-7             exam_payment  -                                             Ga. Comp. R. & Regs. 144-4-.08(1)(a)
     R6    GA-CAP-1              total_cap     -                                             O.C.G.A. 17-15-8(c)(1)
     R7    GA-CAP-MED            expense_cap   medical               per claim               O.C.G.A. 17-15-8(c)(2)
     R8    GA-CAP-COUNS          expense_cap   counseling            per claim               O.C.G.A. 17-15-8(c)(2)
@@ -23,42 +23,44 @@
     R13   GA-COV-DENTAL         covered       dental                                        CJCC What Our Programs Cover
     R14   GA-COV-RX             covered       prescription                                  CJCC What Our Programs Cover
     R15   GA-COV-COUNS          covered       counseling                                    CJCC What Our Programs Cover
-    R16   GA-COV-WAGES          covered       lost_wages                                    CJCC What Our Programs Cover
-    R17   GA-COV-CLEAN          covered       crime_scene_cleanup                           CJCC What Our Programs Cover
-    R18   GA-EXCL-PROP          excluded      property_replacement                          O.C.G.A. 17-15-7(g)
-    R19   GA-EXCL-LEGAL         info          -                     excluded_expense        Ga. Comp. R. & Regs. 144-4-.06(9)(b)3
-    R20   GA-DEADLINE-1         deadline      -                     from crime              O.C.G.A. 17-15-5(b)(1)
-    R21   GA-DEADLINE-2         info          -                     filing_deadline         O.C.G.A. 17-15-5(b)(1)
-    R22   GA-REPORT-1           reporting     -                                             O.C.G.A. 17-15-8(a)(3)
-    R23   GA-REPORT-2           reporting     -                                             CJCC Victims Compensation FAQ
-    R24   GA-REPORT-3           reporting     -                                             Application and Instructions, Please Note
-    R25   GA-COLLAT-1           collateral    -                                             O.C.G.A. 17-15-8(f)
-    R26   GA-COLLAT-2           collateral    -                                             Ga. Comp. R. & Regs. 144-4-.06(5)(b)
-    R27   GA-COLLAT-3           collateral    -                                             Application and Instructions, Please Note
-    R28   GA-CONDUCT-1          info          -                     conduct_reduction       O.C.G.A. 17-15-8(d)
-    R29   GA-CONDUCT-2          info          -                     conduct_reduction       O.C.G.A. 17-15-8(a.1)
-    R30   GA-CRIME-1            info          -                     eligible_crime          CJCC Victims Compensation program page
-    R31   GA-CRIME-2            info          -                     eligible_crime          O.C.G.A. 17-15-7(a)(1)(B)
-    R32   GA-CRIME-3            info          -                     eligible_crime          O.C.G.A. 17-15-2(3)(A)(v) and (viii)
-    R33   GA-RES-1              info          -                     residency               O.C.G.A. 17-15-7(b)(1)
-    R34   GA-RES-2              info          -                     residency               O.C.G.A. 17-15-2(3)(A)
-    R35   GA-SUBMIT-1           info          -                     submission              GA application instructions (Revised Sept 2026), Instructions item 4
-    R36   GA-SUBMIT-2           info          -                     submission              GA application instructions (Revised Sept 2026), Instructions item 4
-    R37   GA-DOC-APP            info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 1
-    R38   GA-DOC-POLICE         info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 2
-    R39   GA-DOC-EXAM           info          -                     required_document       CJCC Victims Compensation FAQ, police report question
-    R40   GA-DOC-BILLS          info          -                     required_document       GA application instructions (Revised Sept 2026), Please Note
-    R41   GA-DOC-RX             info          -                     required_document       CJCC What Our Programs Cover, Medical and Dental Expenses
-    R42   GA-DOC-RELEASE        info          -                     required_document       GA application instructions (Revised Sept 2026), Section 5
-    R43   GA-DOC-COUNS          info          -                     required_document       Ga. Comp. R. & Regs. 144-4-.06(8)(a)
-    R44   GA-DOC-WAGES-1        info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
-    R45   GA-DOC-WAGES-2        info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
-    R46   GA-DOC-WORK           info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
-    R47   GA-DOC-W9             info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 3
-    R48   GA-DOC-DEATH          info          -                     required_document       GA application instructions (Revised Sept 2026), Benefits Covered footnote
-    R49   GA-PROC-1             info          -                     processing_time         CJCC Victims Compensation FAQ, How Soon Will I Get My Reimbursement Check?
-    R50   GA-ACP-1              info          -                     address_confidentiality Program Services; O.C.G.A. 50-18-150 et seq.
-    R51   GA-RECCONF-1          info          -                     record_confidentiality  O.C.G.A. 17-15-4(a)(2)
+    R16   GA-COV-COUNS-2        covered       counseling                                    Ga. Comp. R. & Regs. 144-4-.06(8)(a)
+    R17   GA-COV-WAGES          covered       lost_wages                                    CJCC What Our Programs Cover
+    R18   GA-COV-CLEAN          covered       crime_scene_cleanup                           CJCC What Our Programs Cover
+    R19   GA-EXCL-PROP          excluded      property_replacement                          O.C.G.A. 17-15-7(g)
+    R20   GA-EXCL-LEGAL         info          -                     excluded_expense        Ga. Comp. R. & Regs. 144-4-.06(9)(b)3
+    R21   GA-DEADLINE-1         deadline      -                     from crime              O.C.G.A. 17-15-5(b)(1)
+    R22   GA-DEADLINE-2         info          -                     filing_deadline         O.C.G.A. 17-15-5(b)(1)
+    R23   GA-REPORT-1           reporting     -                                             O.C.G.A. 17-15-8(a)(3)
+    R24   GA-REPORT-2           reporting     -                                             CJCC Victims Compensation FAQ
+    R25   GA-REPORT-3           reporting     -                                             Application and Instructions, Please Note
+    R26   GA-COLLAT-1           collateral    -                                             O.C.G.A. 17-15-8(f)
+    R27   GA-COLLAT-2           collateral    -                                             Ga. Comp. R. & Regs. 144-4-.06(5)(b)
+    R28   GA-COLLAT-3           collateral    -                                             Application and Instructions, Please Note
+    R29   GA-CONDUCT-1          info          -                     conduct_reduction       O.C.G.A. 17-15-8(d)
+    R30   GA-CONDUCT-2          info          -                     conduct_reduction       O.C.G.A. 17-15-8(a.1)
+    R31   GA-CRIME-1            info          -                     eligible_crime          CJCC Victims Compensation program page
+    R32   GA-CRIME-2            info          -                     eligible_crime          O.C.G.A. 17-15-7(a)(1)(B)
+    R33   GA-CRIME-3            info          -                     eligible_crime          O.C.G.A. 17-15-2(3)(A)(v) and (viii)
+    R34   GA-RES-1              info          -                     residency               O.C.G.A. 17-15-7(b)(1)
+    R35   GA-RES-2              info          -                     residency               O.C.G.A. 17-15-2(3)(A)
+    R36   GA-SUBMIT-1           info          -                     submission              GA application instructions (Revised Sept 2026), Instructions item 4
+    R37   GA-SUBMIT-2           info          -                     submission              GA application instructions (Revised Sept 2026), Instructions item 4
+    R38   GA-DOC-APP            info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 1
+    R39   GA-DOC-POLICE         info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 2
+    R40   GA-DOC-EXAM           info          -                     required_document       CJCC Victims Compensation FAQ, police report question
+    R41   GA-DOC-BILLS          info          -                     required_document       GA application instructions (Revised Sept 2026), Please Note
+    R42   GA-DOC-RX             info          -                     required_document       CJCC What Our Programs Cover, Medical and Dental Expenses
+    R43   GA-DOC-RELEASE        info          -                     required_document       GA application instructions (Revised Sept 2026), Section 5
+    R44   GA-DOC-COUNS          info          -                     required_document       Ga. Comp. R. & Regs. 144-4-.06(8)(a)
+    R45   GA-DOC-WAGES-1        info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
+    R46   GA-DOC-WAGES-2        info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
+    R47   GA-DOC-WORK           info          -                     required_document       Documentation Request: Lost Wages-Victim, Required Documents
+    R48   GA-DOC-W9             info          -                     required_document       GA application instructions (Revised Sept 2026), Instructions item 3
+    R49   GA-DOC-DEATH          info          -                     required_document       GA application instructions (Revised Sept 2026), Benefits Covered footnote
+    R50   GA-PROC-1             info          -                     processing_time         CJCC Victims Compensation FAQ, How Soon Will I Get My Reimbursement Check?
+    R51   GA-ACP-1              info          -                     address_confidentiality Program Services; O.C.G.A. 50-18-150 et seq.
+    R52   GA-RECCONF-1          info          -                     record_confidentiality  O.C.G.A. 17-15-4(a)(2)
+    R53   GA-EXAM-3             skipped       -                     exam_no_bill            CJCC Victims Compensation FAQ  ; applies_to "exam costs above the $1,000 limit"
 
 .tags   phone=bit0
 
@@ -89,11 +91,11 @@
 
 .proofs
     P0    ()
-    P1    (GA-EXAM-1, GA-EXAM-3, GA-EXAM-5, GA-EXAM-2, GA-EXAM-6)
+    P1    (GA-EXAM-1, GA-EXAM-5, GA-EXAM-2, GA-EXAM-6, GA-EXAM-7)
     P2    (GA-CAP-MED, GA-COV-MED)
     P3    (GA-CAP-MED, GA-COV-MED, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
-    P4    (GA-CAP-COUNS, GA-COV-COUNS)
-    P5    (GA-CAP-COUNS, GA-COV-COUNS, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
+    P4    (GA-CAP-COUNS, GA-COV-COUNS, GA-COV-COUNS-2)
+    P5    (GA-CAP-COUNS, GA-COV-COUNS, GA-COV-COUNS-2, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
     P6    (GA-CAP-WAGES, GA-COV-WAGES)
     P7    (GA-CAP-WAGES, GA-COV-WAGES, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3)
     P8    (GA-CAP-CLEAN, GA-COV-CLEAN)
@@ -152,12 +154,12 @@
   006d        decide   out_of_window, P0            ; (none)
   0071        ret
               ; GA-EXAM-1  O.C.G.A. 17-5-72  "A victim shall have the right to have a forensic medical..."
-              ; GA-EXAM-3  CJCC Victims Compensation FAQ  "If FME expenses are over $1,000.00, can we bill law enforcement..."
               ; GA-EXAM-5  Ga. Comp. R. & Regs. 144-4-.08(2)(d)  "Payment made by the CVCP for an FME must be considered as..."
               ; GA-EXAM-2  O.C.G.A. 17-15-15  "When a forensic medical examination is conducted, the cost of..."
               ; GA-EXAM-6  Ga. Comp. R. & Regs. 144-4-.08(1)(b)  "The Georgia Crime Victims Compensation Program ("CVCP") will pay..."
+              ; GA-EXAM-7  Ga. Comp. R. & Regs. 144-4-.08(1)(a)  "The sexual assault must have occurred in Georgia on or after..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; GA-EXAM-1, GA-EXAM-3, GA-EXAM-5, GA-EXAM-2, GA-EXAM-6
+  0077        decide   held, P1                     ; GA-EXAM-1, GA-EXAM-5, GA-EXAM-2, GA-EXAM-6, GA-EXAM-7
   007b        ret
               ; GA-CAP-MED  O.C.G.A. 17-15-8(c)(2)  "No award under this chapter for the following losses shall..."
               ; GA-COV-MED  CJCC What Our Programs Cover  "Medical and Dental Expenses (including prescriptions and copays)..."
@@ -176,26 +178,27 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R25              ; GA-COLLAT-1
+  009d        seta     collateral, R26              ; GA-COLLAT-1
   00a1        ret
               ; GA-CAP-COUNS  O.C.G.A. 17-15-8(c)(2)  "No award under this chapter for the following losses shall..."
               ; GA-COV-COUNS  CJCC What Our Programs Cover  "Mental Health Counseling Up to $3,000 Submit copies of any..."
+              ; GA-COV-COUNS-2  Ga. Comp. R. & Regs. 144-4-.06(8)(a)  "Compensable counseling services are those services rendered by..."
               ; GA-COLLAT-1  O.C.G.A. 17-15-8(f)  "Any award made pursuant to this chapter may be reduced by or set..."
               ; GA-COLLAT-2  Ga. Comp. R. & Regs. 144-4-.06(5)(b)  "No award will be made until the claimant has exhausted all other..."
               ; GA-COLLAT-3  Application and Instructions, Please Note  "If you are not the primary policyholder and are a victim of..."
   00a2  L4:   ldi      confirmed
   00a4        jnz      L5
   00a9        push     0
-  00ae        decide   needs_confirmation, P4       ; GA-CAP-COUNS, GA-COV-COUNS
+  00ae        decide   needs_confirmation, P4       ; GA-CAP-COUNS, GA-COV-COUNS, GA-COV-COUNS-2
   00b2        ret
   00b3  L5:   ldi      amount_cents
-  00b5        decide   eligible, P5                 ; GA-CAP-COUNS, GA-COV-COUNS, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3
+  00b5        decide   eligible, P5                 ; GA-CAP-COUNS, GA-COV-COUNS, GA-COV-COUNS-2, GA-COLLAT-1, GA-COLLAT-2, GA-COLLAT-3
   00b9        lda
   00ba        ldi      insurance_paid_cents
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R25              ; GA-COLLAT-1
+  00c3        seta     collateral, R26              ; GA-COLLAT-1
   00c7        ret
               ; GA-CAP-WAGES  O.C.G.A. 17-15-8(c)(2)  "No award under this chapter for the following losses shall..."
               ; GA-COV-WAGES  CJCC What Our Programs Cover  "You can only be reimbursed when you missed work and were not..."
@@ -214,7 +217,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R25              ; GA-COLLAT-1
+  00e9        seta     collateral, R26              ; GA-COLLAT-1
   00ed        ret
   00ee  L8:   push     0
   00f3        decide   unknown_rule, P0             ; (none)
@@ -236,7 +239,7 @@
   0112        subs
   0113        push     0
   0118        max
-  0119        seta     collateral, R25              ; GA-COLLAT-1
+  0119        seta     collateral, R26              ; GA-COLLAT-1
   011d        ret
               ; GA-EXCL-PROP  O.C.G.A. 17-15-7(g)  "No award of any kind shall be made under this chapter to a..."
   011e  L11:  push     0
@@ -275,7 +278,7 @@
   017a        subs
   017b        push     0
   0180        max
-  0181        seta     collateral, R25              ; GA-COLLAT-1
+  0181        seta     collateral, R26              ; GA-COLLAT-1
   0185        ret
               ; GA-COV-DENTAL  CJCC What Our Programs Cover  "Medical and Dental Expenses (including prescriptions and copays)..."
               ; GA-COLLAT-1  O.C.G.A. 17-15-8(f)  "Any award made pursuant to this chapter may be reduced by or set..."
@@ -293,7 +296,7 @@
   01a0        subs
   01a1        push     0
   01a6        max
-  01a7        seta     collateral, R25              ; GA-COLLAT-1
+  01a7        seta     collateral, R26              ; GA-COLLAT-1
   01ab        ret
               ; GA-CAP-FUNERAL  O.C.G.A. 17-15-8(c)(2)  "No award under this chapter for the following losses shall..."
               ; GA-COLLAT-1  O.C.G.A. 17-15-8(f)  "Any award made pursuant to this chapter may be reduced by or set..."
@@ -311,7 +314,7 @@
   01c6        subs
   01c7        push     0
   01cc        max
-  01cd        seta     collateral, R25              ; GA-COLLAT-1
+  01cd        seta     collateral, R26              ; GA-COLLAT-1
   01d1        ret
 
 .aggregate
@@ -332,7 +335,7 @@
   0028        ldk      K0                           ; $1,000.00
   002b        ldr      r0
   002d        subs
-  002e        cap      expense_cap, R3              ; GA-EXAM-4
+  002e        cap      expense_cap, R2              ; GA-EXAM-4
   0032        push     1
   0037        str      r1
   0039  L1:   ldr      r0
@@ -341,7 +344,7 @@
   003d        str      r0
   003f        jmp      L3
   0044  L2:   push     0
-  0049        cap      expense_cap, R3              ; GA-EXAM-4
+  0049        cap      expense_cap, R2              ; GA-EXAM-4
   004d  L3:   next     L0
               ; GA-CAP-MED  O.C.G.A. 17-15-8(c)(2)  "No award under this chapter for the following losses shall..."
   0052  L4:   push     0

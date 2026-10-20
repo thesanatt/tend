@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "4d9b1022a65b98ded07422eca54738bb3a75ab987d49df047481ed2753d7a561",
+ "source_sha256": "718feda3bce9ac3c33452326914db891d1cba60ef21390f29cff765521812d5b",
  "rules": [
   {
    "id": "ME-EXAM-1",
@@ -36,6 +36,10 @@
   {
    "id": "ME-EXAM-4",
    "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-6",
+   "kind": "exam_payment"
   },
   {
    "id": "ME-EXAM-5",
@@ -80,11 +84,6 @@
    "id": "ME-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
-  },
-  {
-   "id": "ME-TRANS-1",
-   "kind": "covered",
-   "expense": "transportation"
   },
   {
    "id": "ME-SEC-1",
@@ -151,12 +150,16 @@
    "within_days": 5
   },
   {
+   "id": "ME-REP-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
    "id": "ME-REP-2",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "other"
-   ]
+   "alternatives": []
   },
   {
    "id": "ME-REP-3",
@@ -254,5 +257,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "ME-TRANS-1",
+   "category": "covered_expense",
+   "reason": "applies_to \"a claimant or family member who provides or obtains care for a minor or incapacitated victim\""
+  }
+ ]
 }

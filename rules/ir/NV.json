@@ -17,7 +17,7 @@
    "field_count": 176
   }
  },
- "source_sha256": "94391c3018caf9d981b4667df9fdd0f1108a9080fdd2736105d362400dec509f",
+ "source_sha256": "1401450fa88aa78db9615a37e97343e3e673a750590ea7cb6d012b6257b326b3",
  "rules": [
   {
    "id": "NV-EXAM-1",
@@ -33,7 +33,7 @@
   },
   {
    "id": "NV-EXAM-4",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
   },
   {
    "id": "NV-EXAM-5",
@@ -373,5 +373,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NV-CAP-3",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  }
+ ]
 }

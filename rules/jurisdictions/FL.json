@@ -264,7 +264,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "scope": "the initial forensic exam"
       },
       "summary": "A medical provider who performs the initial forensic exam may not bill the victim (or a minor victim's parent or guardian), directly or indirectly, for that exam.",
       "quote": "(1) A medical provider who performs an initial forensic physical examination may not bill a victim or the victim’s parent or guardian if the victim is a minor directly or indirectly for that examination.",
@@ -276,7 +277,8 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "unspecified"
+        "insurance_billing": "unspecified",
+        "scope": "the initial forensic exam"
       },
       "summary": "The state's payment is payment in full for the initial forensic exam, and the victim may not be required to pay any of its cost.",
       "quote": "Payment made to the medical provider by the department shall be considered by the provider as payment in full for the initial forensic physical examination associated with the collection of evidence. The victim may not be required to pay, directly or indirectly, the cost of an initial forensic physical examination performed in accordance with this section.",
@@ -313,7 +315,8 @@
       "id": "FL-CAP-1",
       "category": "total_cap",
       "params": {
-        "amount_cents": 1500000
+        "amount_cents": 1500000,
+        "exception": "unless the injury is catastrophic"
       },
       "summary": "Total benefits on one claim cannot exceed $15,000 when the victim is living and not catastrophically injured.",
       "quote": "Total benefits paid on a single claim cannot exceed $15,000 when the victim is not deceased, or catastrophically injured",
@@ -329,7 +332,7 @@
         "amount_cents": 1000000,
         "per": "claim"
       },
-      "summary": "Medical and dental treatment is capped at $10,000, paid to providers at a rate of 50%.",
+      "summary": "Medical and dental treatment is capped at $10,000, paid at a rate of 50%.",
       "quote": "Medical/Dental Treatment $10,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -343,7 +346,7 @@
         "amount_cents": 500000,
         "per": "claim"
       },
-      "summary": "Mental health care for an injured adult victim is capped at $5,000, paid to providers at a rate of 50%.",
+      "summary": "Mental health care for an injured adult victim is capped at $5,000, paid at a rate of 50%.",
       "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -355,9 +358,10 @@
       "params": {
         "expense": "counseling",
         "amount_cents": 1000000,
-        "per": "claim"
+        "per": "claim",
+        "scope": "injured minors until age 18"
       },
-      "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid to providers at a rate of 50%.",
+      "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid at a rate of 50%.",
       "quote": "Mental Health Injured Minor (until age 18) $10,000 at a rate of 50%",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -397,9 +401,10 @@
       "params": {
         "expense": "property_replacement",
         "amount_cents": 50000,
-        "per": "claim"
+        "per": "claim",
+        "item": "property loss for elderly persons or disabled adults"
       },
-      "summary": "Property loss awards are only for elderly persons or disabled adults: up to $500 per claim and $1,000 lifetime.",
+      "summary": "Property loss awards are only for elderly persons or disabled adults whose loss seriously lowers their quality of life: up to $500 per claim and $1,000 lifetime.",
       "quote": "the department may award a maximum of $500 on any one claim and a lifetime maximum of $1,000 on all claims to elderly persons or disabled adults who suffer a property loss that causes a substantial diminution in their quality of life",
       "source_id": "FL-S6",
       "pinpoint": "Fla. Stat. 960.195(1)"
@@ -413,19 +418,57 @@
         "amount_cents": 500000,
         "per": "claim"
       },
-      "summary": "An adult or minor victim of a forcible felony (sexual battery is one) with no physical injury can get mental health care capped at $5,000, paid to providers at a rate of 50%, for care within one year of the crime.",
+      "summary": "Mental health care for an adult or minor victim of a forcible felony who was not physically injured is capped at $5,000, paid at a rate of 50%, for care within one year of the crime.",
       "quote": "Mental Health Minor Victim Mental Injury (until age 18) Mental Health Adult or Minor Victim of Forcible Felony (non injury) $10,000 at a rate of 50% n/a $5,000 at a rate of 50% one year",
       "source_id": "FL-S16",
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+    },
+    {
+      "id": "FL-CAP-9",
+      "category": "expense_cap",
+      "params": {
+        "expense": "medical",
+        "per": "claim"
+      },
+      "summary": "Medical and dental costs are paid only for care within one year of the crime.",
+      "quote": "Medical/Dental Treatment $10,000 at a rate of 50% one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment"
+    },
+    {
+      "id": "FL-CAP-10",
+      "category": "expense_cap",
+      "params": {
+        "expense": "counseling",
+        "per": "claim"
+      },
+      "summary": "For an injured adult, mental health care is paid only within one year of the crime.",
+      "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50% one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim"
+    },
+    {
+      "id": "FL-CAP-11",
+      "category": "expense_cap",
+      "params": {
+        "expense": "lost_wages",
+        "per": "claim"
+      },
+      "summary": "Wage loss is paid only for loss within one year of the crime.",
+      "quote": "Wage Loss $15,000 at a rate of 50% or GAWW Timeframe Within Which Loss Must Be Incurred From Date of Crime (up to) one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss"
     },
     {
       "id": "FL-COV-1",
       "category": "covered_expense",
       "expense": "counseling",
       "params": {
-        "expense": "counseling"
+        "expense": "counseling",
+        "only_benefit_if": "if you are an adult and were not physically hurt",
+        "total_condition": "if you were physically hurt"
       },
-      "summary": "Victims of a forcible felony with a psychological injury can get mental health care, but for adults without a physical injury that is the only benefit available.",
+      "summary": "People who suffered a psychological injury as a direct result of a forcible felony may get mental health care if the law enforcement report names them as a victim of the crime. For adults who were not physically hurt, this is the only benefit.",
       "quote": "Persons who suffered a psychological or psychiatric injury as a direct result of a forcible felony may receive mental health care, when the law enforcement report identifies the individual as a victim of the crime. This is the only benefit available to adult victims who did not suffer a physical injury or death.",
       "source_id": "FL-S13",
       "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(g)5."
@@ -435,7 +478,8 @@
       "category": "covered_expense",
       "expense": "lost_wages",
       "params": {
-        "expense": "lost_wages"
+        "expense": "lost_wages",
+        "scope": "pay you lost because physical injuries from the crime kept you from working"
       },
       "summary": "Wage loss is paid when the victim could not work because of physical injuries from the crime.",
       "quote": "Who missed time from work because they were unable to work as a result of the physical injuries sustained as a result of the crime;",
@@ -447,7 +491,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips to medical or dental care"
       },
       "summary": "Travel to medical or dental treatment can be reimbursed with an itemized bill from the provider and a reasonable mileage estimate.",
       "quote": "Reimbursement for transportation costs to medical/dental treatment appointments requires the submission of an itemized bill by the treating provider and a reasonable estimate of the mileage between the victim/applicant's residence.",
@@ -459,7 +504,8 @@
       "category": "covered_expense",
       "expense": "transportation",
       "params": {
-        "expense": "transportation"
+        "expense": "transportation",
+        "scope": "trips to mental health care"
       },
       "summary": "Travel to mental health treatment can be reimbursed with an itemized bill from the provider and a reasonable mileage estimate.",
       "quote": "Reimbursement for transportation costs to mental health treatment appointments requires the submission of an itemized bill by the treating provider and a reasonable estimate of the mileage between the victim/applicant's residence.",
@@ -471,7 +517,8 @@
       "category": "covered_expense",
       "expense": "medical",
       "params": {
-        "expense": "medical"
+        "expense": "medical",
+        "detail": true
       },
       "summary": "Medical, dental, and mental health costs the victim paid out of pocket are reimbursed at 100 percent, within the time limits and caps.",
       "quote": "Out-of-pocket reimbursement to the victim/applicant for qualified funeral/burial, mental health (includes grief counseling), medical/dental expenses, and crime scene cleanup shall be compensated at 100 percent, when services or treatment was rendered within the timeframes established and up to the maximum benefit amount on the Schedule of Benefits.",
@@ -485,10 +532,22 @@
       "params": {
         "expense": "relocation"
       },
-      "summary": "Sexual battery relocation needs certification from a certified rape crisis center in Florida, a safety plan, and an assault at the residence or one that causes reasonable fear for safety there.",
+      "summary": "For sexual battery relocation help, a certified rape crisis center in Florida must certify your need, state that you are cooperating with law enforcement (if that applies), and include your safety plan. The assault must have happened in your home, or somewhere that makes you reasonably fear for your safety at home.",
       "quote": "(c) The victim’s need for assistance must be certified by a certified rape crisis center in this state. (d) The center’s certification must assert that the victim is cooperating with law enforcement officials, if applicable, and must include documentation that the victim has developed a safety plan. (e) The act of sexual battery must be committed in the victim’s place of residence or in a location that would lead the victim to reasonably fear for his or her continued safety in the place of residence.",
       "source_id": "FL-S10",
       "pinpoint": "Fla. Stat. 960.199(2)(c)-(e)"
+    },
+    {
+      "id": "FL-COV-7",
+      "category": "covered_expense",
+      "params": {
+        "expense": "relocation",
+        "scope": "housing only: short-term shelter, rent, or a lease"
+      },
+      "summary": "Relocation money pays only for housing: short-term shelter, rent, or a lease, which can include a security deposit, application fees, and the first month's payment.",
+      "quote": "\"Relocation assistance\" compensation is defined as compensable housing expenses limited to short-term interim shelter, rental agreements, or long-term leases, and may include security deposits, application fees, and/or the first month's contractual payment.",
+      "source_id": "FL-S14",
+      "pinpoint": "Fla. Admin. Code R. 2A-2.2001(43)"
     },
     {
       "id": "FL-EXC-1",
@@ -507,7 +566,7 @@
       "params": {
         "years": 3,
         "from": "crime",
-        "extension": "Good cause can extend the deadline (see FL-DEADLINE-3); delays in sexual assault kit testing or DNA profile matching can waive it."
+        "condition": "for a crime on or after October 1, 2019"
       },
       "summary": "For crimes on or after October 1, 2019, the claim must be filed within 3 years after the crime.",
       "quote": "(b)1. A claim arising from a crime occurring on or after October 1, 2019, must be filed within 3 years after the later of: a. The occurrence of the crime upon which the claim is based; b. The death of the victim or intervenor; or c. The death of the victim or intervenor is determined to be the result of the crime.",
@@ -522,10 +581,28 @@
         "from": "crime",
         "extension": "Waived entirely when the delay came from sexual assault forensic kit testing or DNA profile matching."
       },
-      "summary": "For newer crimes (see FL-DEADLINE-1), a delay caused by sexual assault kit testing or DNA matching can waive the filing deadline, and other good cause can extend it to 5 years after the crime.",
+      "summary": "For newer crimes, if you filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived. For other good cause, the department may allow up to 5 years after the crime.",
       "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
       "source_id": "FL-S3",
       "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3."
+    },
+    {
+      "id": "FL-DEADLINE-6",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "For a crime before October 1, 2019, the claim must be filed within 1 year after the crime. If you filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived.",
+      "quote": "(a)1. A claim arising from a crime occurring before October 1, 2019, must be filed within 1 year after: a. The occurrence of the crime upon which the claim is based. b. The death of the victim or intervenor. c. The death of the victim or intervenor is determined to be the result of a crime, and the crime occurred after June 30, 1994. 2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline.",
+      "source_id": "FL-S3",
+      "pinpoint": "Fla. Stat. 960.07(2)(a)1.-2."
+    },
+    {
+      "id": "FL-DEADLINE-7",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "For an older crime, the department may also allow up to 2 years after the crime for other good cause.",
+      "quote": "3. For good cause based on reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not exceeding 2 years after such occurrence.",
+      "source_id": "FL-S3",
+      "pinpoint": "Fla. Stat. 960.07(2)(a)3."
     },
     {
       "id": "FL-DEADLINE-2",
@@ -535,10 +612,31 @@
         "from": "age_18",
         "extension": "Good cause can extend it, and a delay in sexual assault kit testing or DNA profile matching can waive it (same subsection; see researcher_notes)."
       },
-      "summary": "A victim who was under 18 at the time of a crime on or after October 1, 2019 has 3 years after turning 18 to file; good cause can extend this and kit testing or DNA matching delays can waive it.",
+      "summary": "If you were under 18 at the time of a crime on or after October 1, 2019, you have 3 years after turning 18 to file.",
       "quote": "(c) For a claim arising from a crime occurring on or after October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 3 years to file a claim.",
       "source_id": "FL-S3",
       "pinpoint": "Fla. Stat. 960.07(3)(c)"
+    },
+    {
+      "id": "FL-DEADLINE-5",
+      "category": "filing_deadline",
+      "params": {
+        "years": 1,
+        "from": "age_18"
+      },
+      "summary": "If you were under 18 at the time of a crime before October 1, 2019, you have 1 year after turning 18 to file.",
+      "quote": "(b) For a claim arising from a crime that occurred before October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 1 year to file a claim",
+      "source_id": "FL-S3",
+      "pinpoint": "Fla. Stat. 960.07(3)(b)"
+    },
+    {
+      "id": "FL-DEADLINE-4",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If you were a minor when it happened and filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived. For other good cause, the department may add up to 1 more year for an older crime, or up to 2 more years for a newer one.",
+      "quote": "Upon a showing that a delay in filing a claim occurred because of delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under this subsection may receive a waiver of any claim filing deadline. For good cause based on any other reason, the department may extend the time period allowed for filing a claim under paragraph (b) for an additional period not to exceed 1 year or under paragraph (c) for an additional period not to exceed 2 years.",
+      "source_id": "FL-S3",
+      "pinpoint": "Fla. Stat. 960.07(3)"
     },
     {
       "id": "FL-REPORT-1",
@@ -546,7 +644,8 @@
       "params": {
         "required": true,
         "within_days": 5,
-        "alternatives": []
+        "alternatives": [],
+        "exception": "for a crime on or after October 1, 2019, or later with good cause"
       },
       "summary": "For crimes on or after October 1, 2019, the crime must be reported to the proper authorities within five days unless the department finds good cause for the delay.",
       "quote": "2. Five days after the occurrence of such crime, if the crime occurred on or after October 1, 2019, unless the department, for good cause shown, finds the delay to have been justified.",
@@ -566,6 +665,19 @@
       "pinpoint": "Fla. Admin. Code R. 2A-2.2001(9)"
     },
     {
+      "id": "FL-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "The program may deny, reduce, or take back an award if it finds you have not cooperated with the state attorney, law enforcement, and the program.",
+      "quote": "The department, upon finding that any claimant or award recipient has not duly cooperated with the state attorney, all law enforcement agencies, and the department, may deny, reduce, or withdraw any award, as the case may be.",
+      "source_id": "FL-S4",
+      "pinpoint": "Fla. Stat. 960.13(1)(b)"
+    },
+    {
       "id": "FL-COLLATERAL-1",
       "category": "collateral_source",
       "params": {},
@@ -573,6 +685,15 @@
       "quote": "Payment made in accordance with this section shall be considered payment of last resort that follows all other sources.",
       "source_id": "FL-S4",
       "pinpoint": "Fla. Stat. 960.13(3)"
+    },
+    {
+      "id": "FL-NEED-1",
+      "category": "minimum_loss",
+      "params": {},
+      "summary": "The program must deny an award if it finds you would not face serious financial hardship without it. It looks at all of your financial resources.",
+      "quote": "If the department finds that the claimant, if not granted assistance pursuant to this chapter to meet the loss of earnings or support or out-of-pocket loss, will not suffer serious financial hardship as a result of the loss of earnings or support and the out-of-pocket loss incurred as a result of the injury, the department shall deny the award. In determining serious financial hardship, the department shall consider all the financial resources of the claimant.",
+      "source_id": "FL-S4",
+      "pinpoint": "Fla. Stat. 960.13(8)"
     },
     {
       "id": "FL-CONDUCT-1",
@@ -598,7 +719,7 @@
       "params": {
         "amount_cents": 100000
       },
-      "summary": "An emergency award of up to $1,000 is possible when an award is likely and waiting would cause undue hardship; it is deducted from the final award.",
+      "summary": "If the program thinks an award is likely, and you get Social Security benefits or waiting would cause you undue hardship, it may give you an emergency award of up to $1,000. That amount comes out of your final award.",
       "quote": "if it appears to the department that such claim is one with respect to which an award probably will be made, and that either the claimant is a recipient of benefits under the federal Social Security Act or undue hardship will result to the claimant if immediate payment is not made, the department may make an emergency award to the claimant, pending a final decision in the case, on the following conditions: (1) The amount of such emergency award may not exceed $1,000; (2) The amount of such emergency award shall be deducted from any final award made to the claimant;",
       "source_id": "FL-S11",
       "pinpoint": "Fla. Stat. 960.12(1)-(2)"
@@ -833,7 +954,7 @@
         "covers_sexual_assault": false,
         "enroll": "Contact the Attorney General's switchboard at (850) 414-3300 and ask to be connected to the Address Confidentiality Program; applications are filed with the Office of the Attorney General and there is no application fee."
       },
-      "summary": "Florida's Address Confidentiality Program gives a substitute mailing address to relocated victims of domestic violence (and, by statute, dating violence and stalking), with the Attorney General's office accepting mail and service of process for them. Survivors of sexual assault qualify only when it was domestic or dating violence; there is no general sexual assault eligibility.",
+      "summary": "Florida's Address Confidentiality Program gives relocated victims of domestic violence a substitute mailing address, and the Attorney General's office accepts their mail and legal papers. To ask about it, call (850) 414-3300 and ask for the program.",
       "quote": "the Address Confidentiality Program (ACP) provides a substitute mailing address for relocated victims of domestic violence, with this office serving as legal agent for receipt of mail and service of process. If you require information regarding the Address Confidentiality Program, please contact the switchboard at (850) 414-3300. Once you call, please request to be connected to the Address Confidentiality Program, and you will be transferred to the appropriate personnel who can assist you further.",
       "source_id": "FL-S23",
       "pinpoint": "Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465"

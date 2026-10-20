@@ -258,9 +258,10 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "evidence collection"
    },
-   "summary": "Survivors have the right to evidence collection at no cost to them.",
+   "summary": "Survivors have the right to seek evidence collection at no cost to them.",
    "quote": "You have the right to seek evidence collection at no cost to you;",
    "source_id": "VA-S17",
    "pinpoint": "VVF Notice to Sexual Assault Patients"
@@ -279,15 +280,28 @@
   },
   {
    "id": "VA-EXAM-5",
-   "category": "exam_no_bill",
+   "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "consent_required"
+    "payer": "SAFE Payment Program, after any federally funded insurance such as Medicaid, Medicare or Tricare; billing private insurance first is not required unless the patient asks"
    },
-   "summary": "Billing the survivor's private health insurance first is not required unless the patient asks for it. Federally funded insurance (Medicaid, Medicare, Tricare) must be billed first, and the program pays the eligible remaining patient responsibility.",
+   "summary": "If you have Medicaid, Medicare, Tricare or other federally funded insurance, it must be billed first. Your private health insurance does not have to be billed first unless you ask for that. The program pays any eligible amount still owed.",
    "quote": "If the patient is covered by a federally funded insurance such as Medicaid, Medicare, Tricare, etc., insurance must be billed primary. Billing private health insurance primary is not required unless requested by the patient. The SAFE Payment Program will pay any eligible remaining patient responsibility.",
    "source_id": "VA-S10",
    "pinpoint": "VVF SAFE Payment Program page, Submit a SAFE claim"
+  },
+  {
+   "id": "VA-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "SAFE Payment Program, for crimes in Virginia when evidence is collected",
+    "condition": "if done within 120 hours of a Virginia crime"
+   },
+   "summary": "The SAFE Payment Program pays only if the crime was in Virginia and evidence is collected.",
+   "quote": "The crime occurred within the Commonwealth of Virginia . Collection of evidence took place as outlined in §19.2-165.1 of the Code of Virginia. Patients are not required to report the crime to law enforcement, nor cooperate with an investigation in order to request a Physical Evidence Recovery Kit (PERK) exam or for that exam to be paid per §19.2-165.1 (B). If the patient declines evidence collection, the claim is not eligible for reimbursement. The SAFE Payment Program does not reimburse for consults, only for collection of medical forensic evidence. Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, Eligibility Requirements"
   },
   {
    "id": "VA-EXAM-6",
@@ -306,7 +320,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Criminal Injuries Compensation Fund"
+    "payer": "Criminal Injuries Compensation Fund",
+    "outside_total_cap": true
    },
    "summary": "What the Fund pays for a PERK exam does not count against the survivor's maximum award.",
    "quote": "Funds paid for physical evidence recovery kit or anonymous trace evidence collection kit collection shall not be offset against the Fund's maximum allowable award as provided in subsection H.",
@@ -342,8 +357,21 @@
    "params": {
     "expense": "lost_wages"
    },
-   "summary": "Total loss of earnings from crime-caused incapacity is paid weekly at 66-2/3 percent of the victim's average weekly wages.",
+   "summary": "The weekly rate is 66-2/3 percent of the victim's average weekly wages.",
    "quote": "at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(A)"
+  },
+  {
+   "id": "VA-WAGE-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "detail": true
+   },
+   "summary": "If the crime leaves the victim totally unable to work, lost pay is paid weekly while that lasts. The rate is 66-2/3 percent of the victim's average weekly wages.",
+   "quote": "An award made pursuant to this chapter for total loss of earnings that results directly from incapacity incurred by a crime victim shall be payable during total incapacity to the victim or to such other eligible person, at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
    "source_id": "VA-S6",
    "pinpoint": "Va. Code § 19.2-368.11:1(A)"
   },
@@ -380,9 +408,10 @@
    "category": "covered_expense",
    "expense": "temporary_housing",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "scope": "temporary lodging, only if staying in the home where the crime happened is not safe, starting right after the crime, for up to 30 days"
    },
-   "summary": "Temporary lodging is covered only in limited situations where staying in the home would risk the victim's safety; it must start right after the crime and cannot exceed 30 days.",
+   "summary": "Temporary lodging is covered only in limited situations, when staying in the home where the crime happened would put the victim's safety at risk. Receipts must be in the victim's name. The stay must start right after the crime and cannot be longer than 30 days.",
    "quote": "Temporary Lodging: Limited situations only, when the physical safety of the victim would be risked by staying in the dwelling where the crime occurred. Receipts must be in the victim’s name. Temporary lodging must begin immediately following the crime and must not exceed 30 days.",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations"
@@ -452,7 +481,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage to and from medical care, police, and court, for minor victims only"
    },
    "summary": "Mileage to and from medical treatment, investigations and court is reimbursed for minor victims only.",
    "quote": "Mileage - Minor Victims Only: Reimbursement for mileage to/from medical treatment, criminal investigations and court proceedings. (Minor victims only.)",
@@ -464,7 +494,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing or bedding taken as evidence"
    },
    "summary": "When clothing or bedding is taken as evidence, the fund may pay for replacements.",
    "quote": "When clothing or bedding are taken as evidence, VVF may pay for the purchase of a replacement.",
@@ -507,29 +538,38 @@
    "pinpoint": "VVF How Compensation Works, Payer of Last Resort"
   },
   {
-   "id": "VA-DEADLINE-1",
-   "category": "filing_deadline",
-   "params": {
-    "years": 3,
-    "from": "crime",
-    "extension": "For good cause shown, the Commission may extend the time for filing."
-   },
-   "summary": "A claim must be filed within three years after the crime; the Commission may extend this for good cause.",
-   "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
-   "source_id": "VA-S3",
-   "pinpoint": "Va. Code § 19.2-368.5(B)"
-  },
-  {
    "id": "VA-DEADLINE-2",
    "category": "filing_deadline",
    "params": {
     "years": 3,
-    "from": "crime"
+    "from": "crime",
+    "condition": "for a crime on or after July 1, 2025"
    },
    "summary": "The program applies the three-year deadline to crimes committed on or after July 1, 2025.",
    "quote": "Crimes committed on and after July 1, 2025 The deadline to file a claim is three years from the crime.",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations"
+  },
+  {
+   "id": "VA-DEADLINE-6",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The date of the crime decides how long you have to file, based on the law in effect at that time.",
+   "quote": "The date of the crime will determine how long the victim has to file a claim with VVF based on the law in effect at the time.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations"
+  },
+  {
+   "id": "VA-DEADLINE-1",
+   "category": "filing_deadline",
+   "params": {
+    "years": 3,
+    "from": "crime"
+   },
+   "summary": "The current statute says a claim must be filed within three years after the crime.",
+   "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
+   "source_id": "VA-S3",
+   "pinpoint": "Va. Code § 19.2-368.5(B)"
   },
   {
    "id": "VA-DEADLINE-3",
@@ -556,6 +596,15 @@
    "quote": "in cases involving claims of sexual abuse of a minor, the claim shall be filed within 10 years after the minor's eighteenth birthday, except for in cases involving claims of sexual abuse of a minor where the conduct constitutes a felony, the passage of time shall not be a barrier to when the victim can file a claim.",
    "source_id": "VA-S3",
    "pinpoint": "Va. Code § 19.2-368.5(B)(iii)"
+  },
+  {
+   "id": "VA-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "For a crime on or after July 1, 2001, the Commission may give more time to file for good cause.",
+   "quote": "For good cause shown, the Commission may extend the time for filing for a crime committed on or after July 1, 2001.",
+   "source_id": "VA-S3",
+   "pinpoint": "Va. Code § 19.2-368.5(B)"
   },
   {
    "id": "VA-REPORT-1",
@@ -606,7 +655,7 @@
    "params": {
     "amount_cents": 300000
    },
-   "summary": "If an award is probable and waiting would cause undue hardship, the program may make an emergency award of up to $3,000, deducted from the final award.",
+   "summary": "An emergency award can be no more than $3,000.",
    "quote": "the amount of such emergency award shall not exceed $3,000",
    "source_id": "VA-S4",
    "pinpoint": "Va. Code § 19.2-368.9"
@@ -693,9 +742,10 @@
    "params": {
     "method": "online",
     "target": "WebFile",
-    "note": "Only trained Victim/Witness advocates (and medical providers) can use WebFile; a survivor files online by working with a local Victim/Witness program."
+    "note": "Only trained Victim/Witness advocates (and medical providers) can use WebFile; a survivor files online by working with a local Victim/Witness program.",
+    "condition": "for victim advocates with special training"
    },
-   "summary": "There is no public online application: trained Victim/Witness advocates can file the claim electronically through WebFile on the survivor's behalf.",
+   "summary": "WebFile, the program's online claim system, is for victim advocates with special training.",
    "quote": "Victim advocates that have been through specialized training may file via WebFile, the Fund's online claims submission system.",
    "source_id": "VA-S14",
    "pinpoint": "VVF Policies (Sept 2025), Where a Claim Must Be Filed, p. 12"
@@ -868,6 +918,9 @@
    "pinpoint": "VVF Confidentiality page, Your Claim is Confidential"
   }
  ],
+ "page_notes": {
+  "police": "Note: Virginia law says the prompt-report rule does not apply to claims of sexual abuse. The program's 2025 policy manual says only victims of child sexual assault are exempt. The program may ask you for a police report."
+ },
  "coverage": {
   "found": [
    "exam_payment",

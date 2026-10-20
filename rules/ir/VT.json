@@ -17,7 +17,7 @@
    "field_count": 180
   }
  },
- "source_sha256": "8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66",
+ "source_sha256": "86c717c6b86d71a3ff69f3098ccb3e6e2c6934a2f93cfde3dd59c96ba13585db",
  "rules": [
   {
    "id": "VT-EXAM-1",
@@ -35,6 +35,10 @@
    "id": "VT-EXAM-4",
    "kind": "covered",
    "expense": "forensic_exam"
+  },
+  {
+   "id": "VT-EXAM-5",
+   "kind": "exam_payment"
   },
   {
    "id": "VT-CAP-1",
@@ -152,6 +156,21 @@
    "category": "filing_deadline"
   },
   {
+   "id": "VT-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "VT-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -159,11 +178,8 @@
   },
   {
    "id": "VT-REPORT-2",
-   "kind": "reporting",
-   "required": false,
-   "alternatives": [
-    "medical_provider"
-   ]
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "VT-COLL-1",

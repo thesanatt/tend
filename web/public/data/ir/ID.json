@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "ID",
- "source_sha256": "b75cf25c5fdb343bac8121147ed24ae96473b7d9b0e4ffcb57110119fd6fa6ce",
- "ir_sha256": "309b1da7e35e216fbd4c35eef493cb8bf50844989b201df987a820651c2c4200",
+ "source_sha256": "f5eab76327550162bfcf825719330abbabaf8588f6d93d49030c7a6fc484b457",
+ "ir_sha256": "4f14962fab0f94522c50282768b4e90da3862b42ccad1905d00477a26d891dcb",
  "fresh": true,
  "rules": [
   {
@@ -15,7 +15,7 @@
   },
   {
    "id": "ID-EXAM-3",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
   },
   {
    "id": "ID-EXAM-4",
@@ -23,7 +23,11 @@
   },
   {
    "id": "ID-EXAM-5",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
+  },
+  {
+   "id": "ID-EXAM-6",
+   "kind": "exam_payment"
   },
   {
    "id": "ID-CAP-1",

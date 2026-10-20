@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "VT",
- "source_sha256": "8fdd72161862c3478ec9e3ede594e1b78f66829faa79b7528bd49c62f42eab66",
- "ir_sha256": "3e71cd7b35a8d2a5e4271b7441e6a7da364818c31431290360bbd9c9b55c994f",
+ "source_sha256": "86c717c6b86d71a3ff69f3098ccb3e6e2c6934a2f93cfde3dd59c96ba13585db",
+ "ir_sha256": "07d22dc693b0eef86146a39606384ba67b060377af030961313a746ae1ff019e",
  "fresh": true,
  "rules": [
   {
@@ -21,6 +21,10 @@
    "id": "VT-EXAM-4",
    "kind": "covered",
    "expense": "forensic_exam"
+  },
+  {
+   "id": "VT-EXAM-5",
+   "kind": "exam_payment"
   },
   {
    "id": "VT-CAP-1",
@@ -138,6 +142,21 @@
    "category": "filing_deadline"
   },
   {
+   "id": "VT-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VT-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "VT-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -145,11 +164,8 @@
   },
   {
    "id": "VT-REPORT-2",
-   "kind": "reporting",
-   "required": false,
-   "alternatives": [
-    "medical_provider"
-   ]
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "VT-COLL-1",

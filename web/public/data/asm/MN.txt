@@ -1,8 +1,8 @@
 ; tend law image MN, Minnesota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 57f177bbc5710e337e75e436fea9481fc808c1c9b04cdb1498a538f41c0c7a54
-; image sha256  c3227f7d63c1c0e0ea0b7d976af7fcb680be1c9be3797a3b1f57995cdb0d047c
-; 56 rules, 15 sources, 28 proofs, 7 ints, 315 strings
+; source sha256 d248b60c6bffc2087439a181ad20e009344876d8b6eaa26820ade630c715265b
+; image sha256  f000584346e434e117d0a7bb93d97a8fac32a34084f93416427dceab9c146a0e
+; 58 rules, 15 sources, 28 proofs, 7 ints, 322 strings
 ; item program: 161 instructions, 544 bytes, max stack 2
 ; aggregate program: 211 instructions, 646 bytes, max stack 3, 7 loops
 
@@ -28,41 +28,43 @@
     R18   MN-EXC-SECURITY       excluded      security                                      CVRB training slides (10/4/2025), slide 33
     R19   MN-EXC-CLOTHING       excluded      clothing_bedding                              CVRB training slides (10/4/2025), slide 33
     R20   MN-EXC-LEGAL          excluded      legal                                         CVRB training slides (10/4/2025), slide 33
-    R21   MN-EXC-TUITION        excluded      tuition                                       Minn. R. 3050.3200, subp. 8
-    R22   MN-EXC-LEAVE          info          -                     excluded_expense        Minn. R. 3050.3200, subp. 4
-    R23   MN-DEADLINE-1         deadline      -                     from discovery          Minn. Stat. 611A.53, subd. 2(5)
-    R24   MN-DEADLINE-2         deadline      -                     from report             Minn. Stat. 611A.53, subd. 2
-    R25   MN-REPORT-1           reporting     -                                             Minn. Stat. 611A.53, subd. 2(1)
-    R26   MN-REPORT-2           reporting     -                                             Financial Help brochure (9/24), eligibility requirements
-    R27   MN-REPORT-3           reporting     -                                             Minn. Stat. 611A.53, subd. 2(2)
-    R28   MN-MIN-1              minimum_loss  -                                             Minn. Stat. 611A.53, subd. 2(6)
-    R29   MN-COLL-1             collateral    -                                             Minn. Stat. 611A.54(1)
-    R30   MN-COLL-2             collateral    -                                             Minn. Stat. 611A.52, subd. 5
-    R31   MN-CONDUCT-1          info          -                     conduct_reduction       Minn. Stat. 611A.54(2)
-    R32   MN-CONDUCT-2          info          -                     conduct_reduction       CVRB training slides (10/4/2025), slide 15
-    R33   MN-EMERG-1            info          -                     emergency_award         Minn. Stat. 611A.56, subd. 2(7)
-    R34   MN-CRIME-1            info          -                     eligible_crime          Financial Help brochure (9/24), types of crimes covered
-    R35   MN-CRIME-2            info          -                     eligible_crime          Minn. Stat. 611A.52, subd. 9
-    R36   MN-RES-1              info          -                     residency               CVRB training slides (10/4/2025), slide 9
-    R37   MN-RES-2              info          -                     residency               Minn. Stat. 611A.53, subd. 1b(a)
-    R38   MN-RES-3              info          -                     residency               Minn. Stat. 611A.52, subd. 6(a)(1)
-    R39   MN-SUBMIT-MAIL        info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
-    R40   MN-SUBMIT-FAX         info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
-    R41   MN-SUBMIT-EMAIL       info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
-    R42   MN-SUBMIT-ONLINE      info          -                     submission              DPS OJP program page, Apply for reimbursement
-    R43   MN-DOC-EXPENSES       info          -                     required_document       Application Form, Instructions
-    R44   MN-DOC-ITEMIZED       info          -                     required_document       Application Form, Section 10 (Medical and Dental Expenses)
-    R45   MN-DOC-EOB            info          -                     required_document       Application Form, Section 8 (Other Sources of Payment)
-    R46   MN-DOC-INSCARD        info          -                     required_document       Application Form, Section 8 (Other Sources of Payment)
-    R47   MN-DOC-TAXRETURN      info          -                     required_document       Application Form, Section 9 (Loss of Earnings)
-    R48   MN-DOC-W9             info          -                     required_document       Application Form, Instructions
-    R49   MN-DOC-RELEASE        info          -                     required_document       Application Form, Instructions
-    R50   MN-DOC-SIGNATURE      info          -                     required_document       Application Form, Section 18 (Victim and Claimant Signatures)
-    R51   MN-DOC-MILEAGE        info          -                     required_document       CVRB training slides (10/4/2025), slide 39, Application Instructions
-    R52   MN-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home page, program description
-    R53   MN-RECORDS-1          info          -                     record_confidentiality  Minn. Stat. 611A.57, subd. 6
-    R54   MN-CAP-WAGES          skipped       -                     expense_cap             Minn. R. 3050.3200, subp. 5  ; expense_cap without amount or expense
-    R55   MN-CAP-WAGES-2        skipped       -                     expense_cap             Minn. R. 3050.3200, subp. 6  ; expense_cap without amount or expense
+    R21   MN-EXC-MOVING         info          -                     excluded_expense        CVRB training slides (10/4/2025), slide 33
+    R22   MN-EXC-TUITION        excluded      tuition                                       Minn. R. 3050.3200, subp. 8
+    R23   MN-EXC-LEAVE          info          -                     excluded_expense        Minn. R. 3050.3200, subp. 4
+    R24   MN-DEADLINE-1         deadline      -                     from discovery          Minn. Stat. 611A.53, subd. 2(5)
+    R25   MN-DEADLINE-3         info          -                     filing_deadline         Minn. Stat. 611A.53, subd. 2(5)
+    R26   MN-DEADLINE-2         deadline      -                     from report             Minn. Stat. 611A.53, subd. 2
+    R27   MN-REPORT-1           reporting     -                                             Minn. Stat. 611A.53, subd. 2(1)
+    R28   MN-REPORT-2           reporting     -                                             Financial Help brochure (9/24), eligibility requirements
+    R29   MN-REPORT-3           reporting     -                                             Minn. Stat. 611A.53, subd. 2(2)
+    R30   MN-MIN-1              minimum_loss  -                                             Minn. Stat. 611A.53, subd. 2(6)
+    R31   MN-COLL-1             collateral    -                                             Minn. Stat. 611A.54(1)
+    R32   MN-COLL-2             collateral    -                                             Minn. Stat. 611A.52, subd. 5
+    R33   MN-CONDUCT-1          info          -                     conduct_reduction       Minn. Stat. 611A.54(2)
+    R34   MN-CONDUCT-2          info          -                     conduct_reduction       CVRB training slides (10/4/2025), slide 15
+    R35   MN-EMERG-1            info          -                     emergency_award         Minn. Stat. 611A.56, subd. 2(7)
+    R36   MN-CRIME-1            info          -                     eligible_crime          Financial Help brochure (9/24), types of crimes covered
+    R37   MN-CRIME-2            info          -                     eligible_crime          Minn. Stat. 611A.52, subd. 9
+    R38   MN-RES-1              info          -                     residency               CVRB training slides (10/4/2025), slide 9
+    R39   MN-RES-2              info          -                     residency               Minn. Stat. 611A.53, subd. 1b(a)
+    R40   MN-RES-3              info          -                     residency               Minn. Stat. 611A.52, subd. 6(a)(1)
+    R41   MN-SUBMIT-MAIL        info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
+    R42   MN-SUBMIT-FAX         info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
+    R43   MN-SUBMIT-EMAIL       info          -                     submission              Application Form (Rev. 5/24), page 1, 'Complete and submit to' box
+    R44   MN-SUBMIT-ONLINE      info          -                     submission              DPS OJP program page, Apply for reimbursement
+    R45   MN-DOC-EXPENSES       info          -                     required_document       Application Form, Instructions
+    R46   MN-DOC-ITEMIZED       info          -                     required_document       Application Form, Section 10 (Medical and Dental Expenses)
+    R47   MN-DOC-EOB            info          -                     required_document       Application Form, Section 8 (Other Sources of Payment)
+    R48   MN-DOC-INSCARD        info          -                     required_document       Application Form, Section 8 (Other Sources of Payment)
+    R49   MN-DOC-TAXRETURN      info          -                     required_document       Application Form, Section 9 (Loss of Earnings)
+    R50   MN-DOC-W9             info          -                     required_document       Application Form, Instructions
+    R51   MN-DOC-RELEASE        info          -                     required_document       Application Form, Instructions
+    R52   MN-DOC-SIGNATURE      info          -                     required_document       Application Form, Section 18 (Victim and Claimant Signatures)
+    R53   MN-DOC-MILEAGE        info          -                     required_document       CVRB training slides (10/4/2025), slide 39, Application Instructions
+    R54   MN-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home page, program description
+    R55   MN-RECORDS-1          info          -                     record_confidentiality  Minn. Stat. 611A.57, subd. 6
+    R56   MN-CAP-WAGES          skipped       -                     expense_cap             Minn. R. 3050.3200, subp. 5  ; expense_cap without amount or expense
+    R57   MN-CAP-WAGES-2        skipped       -                     expense_cap             Minn. R. 3050.3200, subp. 6  ; expense_cap without amount or expense
 
 .tags   cash=bit0, pain_suffering=bit1
 
@@ -111,7 +113,7 @@
     P24   (MN-MIN-1)
     P25   (MN-DEADLINE-1, MN-DEADLINE-2)
     P26   (MN-REPORT-1, MN-REPORT-2, MN-REPORT-3)
-    P27   (MN-EXC-LEAVE, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1)
+    P27   (MN-EXC-MOVING, MN-EXC-LEAVE, MN-DEADLINE-3, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1)
 
 .ints
     K0    300           ; $3.00
@@ -177,7 +179,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R29              ; MN-COLL-1
+  009d        seta     collateral, R31              ; MN-COLL-1
   00a1        ret
               ; MN-CAP-COUNSELING  CVRB training slides (10/4/2025), slide 25  "Counseling with licensed provider$7,500"
               ; MN-CAP-COUNSELING-2  Minn. Stat. 611A.52, subd. 8(b)(3)  "reasonable expenses incurred for psychological or psychiatric..."
@@ -196,7 +198,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R29              ; MN-COLL-1
+  00c3        seta     collateral, R31              ; MN-COLL-1
   00c7        ret
               ; MN-COV-WAGES  Minn. Stat. 611A.52, subd. 8(b)(4)  "loss of income that the victim would have earned had the victim..."
               ; MN-COLL-1  Minn. Stat. 611A.54(1)  "reimbursement shall be reduced to the extent that economic loss..."
@@ -213,7 +215,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R29              ; MN-COLL-1
+  00e9        seta     collateral, R31              ; MN-COLL-1
   00ed        ret
               ; MN-COV-TRANSPORT  Mileage Reimbursement Request form  "The reparations program reimburses mileage to medical and..."
               ; MN-COLL-1  Minn. Stat. 611A.54(1)  "reimbursement shall be reduced to the extent that economic loss..."
@@ -230,7 +232,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R29              ; MN-COLL-1
+  010f        seta     collateral, R31              ; MN-COLL-1
   0113        ret
               ; MN-CAP-RELOCATION  Minn. Stat. 611A.52, subd. 8(b)(7)  "the claimant's moving expenses, storage fees, and phone and..."
               ; MN-COLL-1  Minn. Stat. 611A.54(1)  "reimbursement shall be reduced to the extent that economic loss..."
@@ -247,7 +249,7 @@
   012e        subs
   012f        push     0
   0134        max
-  0135        seta     collateral, R29              ; MN-COLL-1
+  0135        seta     collateral, R31              ; MN-COLL-1
   0139        ret
   013a  L12:  push     0
   013f        decide   unknown_rule, P0             ; (none)
@@ -271,7 +273,7 @@
   0168        subs
   0169        push     0
   016e        max
-  016f        seta     collateral, R29              ; MN-COLL-1
+  016f        seta     collateral, R31              ; MN-COLL-1
   0173        ret
               ; MN-CAP-CHILDCARE  Minn. Stat. 611A.52, subd. 8(b)(5)  "Licensed facilities must be paid at a rate not to exceed their..."
               ; MN-COV-CHILDCARE  Minn. Stat. 611A.52, subd. 8(b)(5)  "reasonable expenses incurred for substitute child care or..."
@@ -289,7 +291,7 @@
   018e        subs
   018f        push     0
   0194        max
-  0195        seta     collateral, R29              ; MN-COLL-1
+  0195        seta     collateral, R31              ; MN-COLL-1
   0199        ret
               ; MN-EXC-PROPERTY  Financial Help brochure (9/24), benefits list  "Pain and suffering, stolen money and property loss are not..."
               ; MN-EXC-PROPERTY-2  Application form (Rev. 5/24), page 1  "Expenses for damaged/stolen property are not covered."
@@ -340,7 +342,7 @@
   0214        subs
   0215        push     0
   021a        max
-  021b        seta     collateral, R29              ; MN-COLL-1
+  021b        seta     collateral, R31              ; MN-COLL-1
   021f        ret
 
 .aggregate
@@ -566,7 +568,9 @@
   0274        jmp      L37
   0279  L36:  push     0                            ; satisfied
   027e  L37:  check    reporting, P26               ; MN-REPORT-1, MN-REPORT-2, MN-REPORT-3
+              ; MN-EXC-MOVING  CVRB training slides (10/4/2025), slide 33  "Non-Covered Expenses Pain and suffering  Property Loss..."
               ; MN-EXC-LEAVE  Minn. R. 3050.3200, subp. 4  "The board must not pay for lost wages covered by a claimant's..."
+              ; MN-DEADLINE-3  Minn. Stat. 611A.53, subd. 2(5)  "The following circumstances do not render a claimant unable to..."
               ; MN-COLL-1  Minn. Stat. 611A.54(1)  "reimbursement shall be reduced to the extent that economic loss..."
               ; MN-COLL-2  Minn. Stat. 611A.52, subd. 5  "The term does not include a life insurance contract or benefits..."
               ; MN-CONDUCT-1  Minn. Stat. 611A.54(2)  "reimbursement shall be denied or reduced to the extent, if any..."
@@ -591,7 +595,7 @@
               ; MN-DOC-SIGNATURE  Application Form, Section 18 (Victim and Claimant Signatures)  "The victim must sign and date the application form."
               ; MN-DOC-MILEAGE  CVRB training slides (10/4/2025), slide 39, Application Instructions  "A mileage form will be sent to claimant after receipt of..."
               ; MN-ACP-1  Secretary of State, Safe at Home page, program description  "Safe at Home is a statewide address confidentiality program..."
-              ; MN-RECORDS-1  Minn. Stat. 611A.57, subd. 6  "Following the payment, denial, withdrawal, or abandonment of a..."
-  0282        info     P27                          ; MN-EXC-LEAVE, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1
+              ; MN-RECORDS-1  Minn. Stat. 611A.57, subd. 6  "Claims for reimbursement and supporting documents and reports..."
+  0282        info     P27                          ; MN-EXC-MOVING, MN-EXC-LEAVE, MN-DEADLINE-3, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1
   0285        ret
 

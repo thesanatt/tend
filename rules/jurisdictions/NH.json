@@ -104,9 +104,9 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "consent_required"
+        "insurance_billing": "unspecified"
       },
-      "summary": "A physician or hospital that examines a survivor to gather evidence must provide the exam without charge to the survivor. Private insurance is billed only if the survivor chooses to use it.",
+      "summary": "A physician or hospital that examines a survivor of an alleged sexual offense to gather evidence must provide the exam without charge to the survivor.",
       "quote": "If a physician or a hospital provides any physical examination of a victim of an alleged sexual offense to gather information and evidence of the alleged crime, these services shall be provided without charge to the individual.",
       "source_id": "NH-S6",
       "pinpoint": "RSA 21-M:8-c"
@@ -116,7 +116,7 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "consent_required"
+        "insurance_billing": "unspecified"
       },
       "summary": "The bill for a sexual assault medical exam may not be sent or given to the survivor or the survivor's family.",
       "quote": "The bill for the medical examination of a sexual assault victim shall not be sent or given to the victim or the family of the victim.",
@@ -130,7 +130,7 @@
       "params": {
         "insurance_billing": "consent_required"
       },
-      "summary": "If a survivor with insurance chooses to bill it, the provider bills the insurer, and neither the survivor nor the department may be billed for anything above the coverage limit. Survivors on Medicaid or Medicare whose kit is not anonymous are billed to Medicaid or Medicare under a separate rule.",
+      "summary": "If a survivor with insurance chooses to bill it, the provider bills the insurer, and neither the survivor nor the department may be billed for anything above the coverage limit. A separate rule says that for survivors on Medicaid or Medicare whose kit is not anonymous, the provider bills Medicaid or Medicare.",
       "quote": "If the victim of a felonious sexual assault has insurance, and chooses to bill their healthcare insurance, the health provider shall seek payment from the patient's healthcare insurer. Neither the patient nor the department shall be billed for anything above the coverage limit",
       "source_id": "NH-S4",
       "pinpoint": "N.H. Admin. Rules Jus 605.13(c)(2)"
@@ -176,7 +176,7 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "consent_required"
+        "insurance_billing": "unspecified"
       },
       "summary": "A person examined by a physician or hospital after a felonious sexual assault, for treatment or to gather evidence, may not be charged for services related to the assault or other crime-related injuries. Payments are at the fee for service Medicaid rate.",
       "quote": "a person who claims to be a victim of a felonious sexual assault who is examined by a physician or hospital for the purpose of treatment, gathering information or evidence shall not be charged for such services or examination that relate to the sexual assault and any other crime-related injuries",
@@ -328,7 +328,9 @@
       "id": "NH-COV-5",
       "category": "covered_expense",
       "expense": "lost_wages",
-      "params": {},
+      "params": {
+        "detail": true
+      },
       "summary": "Lost wages are covered at up to 75% of pre-crime wages for up to 3 months, counting any workers' compensation or disability benefits.",
       "quote": "The total compensation paid for lost wages shall not exceed 75% of the claimant's pre-crime wages, not to exceed 3 months, including any workers' compensation or disability benefits received.",
       "source_id": "NH-S4",
@@ -348,11 +350,13 @@
       "id": "NH-COV-7",
       "category": "covered_expense",
       "expense": "relocation",
-      "params": {},
-      "summary": "Relocation can be paid when the offender poses a continuing threat; without a restraining order, a letter from a victim's advocate explaining why can stand in.",
-      "quote": "If the claimant does not have a restraining order against the abuser, the claimant shall present a letter from a victim's advocate setting forth the basis for not obtaining a protective order, which may include, among other reasons, safety concerns for the claimant",
+      "params": {
+        "detail": true
+      },
+      "summary": "Relocation is paid only if the offender is a continuing, credible threat to your safety. You also need a police report and a temporary restraining order or other court order. A final restraining order also counts. If you have no restraining order, a letter from a victim's advocate explaining why can count instead.",
+      "quote": "The offender poses a continuing credible threat to the safety of the claimant; (2) There is either: a. A police report and a temporary restraining order or other court order have been issued against the claimant’s abuser or potential abuser or a final restraining order has been issued against the claimant’s abuser or potential abuser; or b. If the claimant does not have a restraining order against the abuser, the claimant shall present a letter from a victim’s advocate setting forth the basis for not obtaining a protective order, which may include, among other reasons, safety concerns for the claimant",
       "source_id": "NH-S4",
-      "pinpoint": "N.H. Admin. Rules Jus 605.07(a)(2)b."
+      "pinpoint": "N.H. Admin. Rules Jus 605.07(a)(1)-(2)"
     },
     {
       "id": "NH-COV-8",
@@ -368,7 +372,9 @@
       "id": "NH-COV-9",
       "category": "covered_expense",
       "expense": "transportation",
-      "params": {},
+      "params": {
+        "detail": true
+      },
       "summary": "Mileage to medical appointments is paid at the Medicaid rate for trips over 10 miles round trip, capped at 100 miles round trip.",
       "quote": "Mileage to and from appointments with licensed health care providers, at the rate used by Medicaid to compensate mileage. Mileage shall be paid for trips over 10 miles round trip and is capped at 100 miles round trip",
       "source_id": "NH-S4",
@@ -376,7 +382,7 @@
     },
     {
       "id": "NH-COV-10",
-      "category": "covered_expense",
+      "category": "emergency_award",
       "expense": "temporary_housing",
       "params": {},
       "summary": "Shelter for the survivor and family is one of the goods a crisis center can pay for from emergency funds, which the commission then reimburses to the crisis center.",
@@ -454,7 +460,7 @@
       "params": {
         "years": 2,
         "from": "crime",
-        "extension": "good cause; no deadline for a victim of sexual abuse or human trafficking who was a minor at the time"
+        "extension": "You can apply later with good cause, and some sexual abuse survivors have no deadline."
       },
       "summary": "A claim must be filed within 2 years of the crime unless good cause is shown. A survivor of sexual abuse that happened when they were a minor may file at any time.",
       "quote": "The claimant, guardian ad litem or child advocate, or parent may file a claim for compensation within 2 years of the crime, unless good cause is shown. A claimant who was the victim of sexual abuse or human trafficking under subparagraph I(a)(3), or a guardian ad litem, child advocate, or parent on behalf of such claimant, may file a claim at any time.",
@@ -466,10 +472,7 @@
       "category": "reporting_requirement",
       "params": {
         "required": true,
-        "within_days": 5,
-        "alternatives": [
-          "forensic_exam"
-        ]
+        "within_days": 5
       },
       "summary": "A claim is denied if the crime was not reported within 5 days, unless good cause is shown, such as a medical condition, fear for safety, fear of retribution, or the survivor's emotional state or mental health.",
       "quote": "The crime was not reported within 5 days of the crime unless good cause, which shall include but not be limited to the following, is shown",
@@ -489,6 +492,19 @@
       "quote": "A victim who has sought medical treatment pursuant to (a) and (d) above shall be deemed to: (1) Have made a report to law enforcement in compliance with Jus 605.02(c); and (2) Have presented credible evidence that an eligible crime has occurred",
       "source_id": "NH-S4",
       "pinpoint": "N.H. Admin. Rules Jus 605.13(h)"
+    },
+    {
+      "id": "NH-REP-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "A claim is denied if the victim did not cooperate in a meaningful way with law enforcement, unless there was good cause, such as fear of retaliation.",
+      "quote": "The primary victim failed to cooperate materially with law enforcement agencies without good cause such as fear of retaliation by or on behalf of the offender",
+      "source_id": "NH-S4",
+      "pinpoint": "N.H. Admin. Rules Jus 605.02(h)"
     },
     {
       "id": "NH-MIN-1",
@@ -788,8 +804,21 @@
         "covers_sexual_assault": true,
         "enroll": "Contact a New Hampshire crisis center first for consultation and assistance, which the law requires; the application is then filed with the attorney general on the form the attorney general prescribes, with a sworn statement that the applicant is a victim of domestic violence, stalking, or sexual assault and fears for their safety. A restraining order, pending charges, or a police report are not required."
       },
-      "summary": "New Hampshire's Address Confidentiality Program, run by the Attorney General, gives survivors of sexual assault, domestic violence, or stalking a substitute address to use on state and local records, with first class mail forwarded to their real address. Survivors apply through a crisis center advocate, and no police report or restraining order is needed.",
+      "summary": "Survivors of domestic violence, sexual assault, or stalking can apply to New Hampshire's Address Confidentiality Program if they meet its eligibility guidelines.",
       "quote": "Any adult person, a parent or guardian acting on behalf of a minor or guardian acting on behalf of an incapacitated person, may apply to the program if they are a victim of domestic violence, sexual assault or stalking and meet the eligibility guidelines.",
+      "source_id": "NH-S9",
+      "pinpoint": "DOJ ACP page, FAQ: What are the eligibility guidelines?"
+    },
+    {
+      "id": "NH-ACP-2",
+      "category": "address_confidentiality",
+      "params": {
+        "program_name": "Address Confidentiality Program (ACP)",
+        "agency": "New Hampshire Department of Justice, Office of the Attorney General",
+        "covers_sexual_assault": true
+      },
+      "summary": "You do not need a restraining order, pending criminal charges, or a police report to take part in the program.",
+      "quote": "Having a restraining order, criminal charges pending or even reporting the abuse to law enforcement are not required in order to participate in the ACP.",
       "source_id": "NH-S9",
       "pinpoint": "DOJ ACP page, FAQ: What are the eligibility guidelines?"
     },

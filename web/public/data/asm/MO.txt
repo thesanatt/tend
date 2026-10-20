@@ -1,51 +1,53 @@
 ; tend law image MO, Missouri
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 7ebc1144d4f9bbc9b1a5dd577ddce33b87192057cfd62ffdfcd32f9a8025eb32
-; image sha256  c006a7f089e6813538e89fd7504f913b8786ebb72a85dec946c6fea285e7c4b6
-; 39 rules, 20 sources, 20 proofs, 3 ints, 251 strings
+; source sha256 5b4dfb3865fe47f1a4577d9f06027c8c1c0c142bca0ecc2a6660673b284370f9
+; image sha256  1588769049b9a9a7aad46b5d7b1a5838b26a99b65fcc7e57ac02234165ea3d3b
+; 41 rules, 20 sources, 20 proofs, 3 ints, 260 strings
 ; item program: 127 instructions, 448 bytes, max stack 2
 ; aggregate program: 109 instructions, 347 bytes, max stack 3, 3 loops
 
 .rules
     R0    MO-EXAM-1             exam_no_bill  -                                             Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section
     R1    MO-EXAM-2             exam_payment  -                                             RSMo 595.220.6
-    R2    MO-MED-1              covered       medical                                       RSMo 595.220.6
-    R3    MO-CAP-1              total_cap     -                                             RSMo 595.030.5
-    R4    MO-WAGE-1             expense_cap   lost_wages            per week                RSMo 595.030.5
-    R5    MO-WAGE-2             covered       lost_wages                                    CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview
-    R6    MO-FUN-1              expense_cap   funeral               per claim               RSMo 595.030.4
-    R7    MO-COUN-1             covered       counseling                                    RSMo 595.030.3
-    R8    MO-DENT-1             covered       dental                                        CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview
-    R9    MO-RX-1               covered       prescription                                  CVC Brochure (Rev. 1/2024), Benefit Payments
-    R10   MO-EXCL-1             excluded      property_replacement                          CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R11   MO-EXCL-2             excluded      relocation                                    CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R12   MO-EXCL-3             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R13   MO-EXCL-4             excluded      tuition                                       CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R14   MO-EXCL-5             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
-    R15   MO-DEAD-1             deadline      -                     from discovery          RSMo 595.025.2
-    R16   MO-REP-1              reporting     -                                             RSMo 595.030.1
-    R17   MO-REP-2              reporting     -                                             RSMo 595.030.1
-    R18   MO-COLL-1             collateral    -                                             RSMo 595.035.2
-    R19   MO-COLL-2             collateral    -                                             CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund
-    R20   MO-COND-1             info          -                     conduct_reduction       RSMo 595.035.3
-    R21   MO-CRIME-1            info          -                     eligible_crime          RSMo 595.020.1(2)
-    R22   MO-RES-1              info          -                     residency               CVC Brochure (Rev. 1/2024), Eligibility Requirements
-    R23   MO-RES-2              info          -                     residency               RSMo 595.020.5
-    R24   MO-RES-3              info          -                     residency               RSMo 595.010.1(5)
-    R25   MO-SUBMIT-MAIL        info          -                     submission              CVC Compensation Checklist, letterhead
-    R26   MO-SUBMIT-ONLINE      info          -                     submission              DPS CVC program page, introduction
-    R27   MO-DOC-APP            info          -                     required_document       CVC fact sheet, Documentation
-    R28   MO-DOC-BILLS          info          -                     required_document       CVC Compensation Checklist, Medical/Counseling Claims
-    R29   MO-DOC-BILLS-2        info          -                     required_document       Form 812-1321 (10-18), Section V
-    R30   MO-DOC-RX             info          -                     required_document       CVC Compensation Checklist, Medical/Counseling Claims
-    R31   MO-DOC-WAGES          info          -                     required_document       CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims
-    R32   MO-DOC-WAGES-SELF     info          -                     required_document       Form 812-1321 (10-18), Section VIII
-    R33   MO-DOC-INSURANCE      info          -                     required_document       Form 812-1321 (10-18), Section VII
-    R34   MO-DOC-MEDREC         info          -                     required_document       RSMo 595.025.5
-    R35   MO-DOC-FUNERAL        info          -                     required_document       Form 812-1321 (10-18), Section VI
-    R36   MO-DOC-SUPPORT        info          -                     required_document       CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims
-    R37   MO-ACP-1              info          -                     address_confidentiality RSMo 589.663 (preamble)
-    R38   MO-REC-1              info          -                     record_confidentiality  RSMo 595.037.1(2)
+    R2    MO-EXAM-3             exam_payment  -                                             Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section
+    R3    MO-MED-1              covered       medical                                       RSMo 595.220.6
+    R4    MO-CAP-1              total_cap     -                                             RSMo 595.030.5
+    R5    MO-WAGE-1             expense_cap   lost_wages            per week                RSMo 595.030.5
+    R6    MO-WAGE-2             covered       lost_wages                                    CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview
+    R7    MO-FUN-1              expense_cap   funeral               per claim               RSMo 595.030.4
+    R8    MO-COUN-1             covered       counseling                                    RSMo 595.030.3
+    R9    MO-DENT-1             covered       dental                                        CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview
+    R10   MO-RX-1               covered       prescription                                  CVC Brochure (Rev. 1/2024), Benefit Payments
+    R11   MO-EXCL-1             excluded      property_replacement                          CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R12   MO-EXCL-2             excluded      relocation                                    CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R13   MO-EXCL-3             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R14   MO-EXCL-4             excluded      tuition                                       CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R15   MO-EXCL-5             info          -                     excluded_expense        CVC Brochure (Rev. 1/2024), What CVC Cannot Pay
+    R16   MO-DEAD-1             deadline      -                     from discovery          RSMo 595.025.2
+    R17   MO-REP-1              reporting     -                                             RSMo 595.030.1
+    R18   MO-REP-2              reporting     -                                             RSMo 595.030.1
+    R19   MO-REP-3              info          -                     reporting_requirement   RSMo 595.015.4
+    R20   MO-COLL-1             collateral    -                                             RSMo 595.035.2
+    R21   MO-COLL-2             collateral    -                                             CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund
+    R22   MO-COND-1             info          -                     conduct_reduction       RSMo 595.035.3
+    R23   MO-CRIME-1            info          -                     eligible_crime          RSMo 595.020.1(2)
+    R24   MO-RES-1              info          -                     residency               CVC Brochure (Rev. 1/2024), Eligibility Requirements
+    R25   MO-RES-2              info          -                     residency               RSMo 595.020.5
+    R26   MO-RES-3              info          -                     residency               RSMo 595.010.1(5)
+    R27   MO-SUBMIT-MAIL        info          -                     submission              CVC Compensation Checklist, letterhead
+    R28   MO-SUBMIT-ONLINE      info          -                     submission              DPS CVC program page, introduction
+    R29   MO-DOC-APP            info          -                     required_document       CVC fact sheet, Documentation
+    R30   MO-DOC-BILLS          info          -                     required_document       CVC Compensation Checklist, Medical/Counseling Claims
+    R31   MO-DOC-BILLS-2        info          -                     required_document       Form 812-1321 (10-18), Section V
+    R32   MO-DOC-RX             info          -                     required_document       CVC Compensation Checklist, Medical/Counseling Claims
+    R33   MO-DOC-WAGES          info          -                     required_document       CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims
+    R34   MO-DOC-WAGES-SELF     info          -                     required_document       Form 812-1321 (10-18), Section VIII
+    R35   MO-DOC-INSURANCE      info          -                     required_document       Form 812-1321 (10-18), Section VII
+    R36   MO-DOC-MEDREC         info          -                     required_document       RSMo 595.025.5
+    R37   MO-DOC-FUNERAL        info          -                     required_document       Form 812-1321 (10-18), Section VI
+    R38   MO-DOC-SUPPORT        info          -                     required_document       CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims
+    R39   MO-ACP-1              info          -                     address_confidentiality RSMo 589.663 (preamble)
+    R40   MO-REC-1              info          -                     record_confidentiality  RSMo 595.037.1(2)
 
 .tags   vehicle=bit0
 
@@ -73,7 +75,7 @@
 
 .proofs
     P0    ()
-    P1    (MO-EXAM-1, MO-EXAM-2)
+    P1    (MO-EXAM-1, MO-EXAM-2, MO-EXAM-3)
     P2    (MO-MED-1)
     P3    (MO-MED-1, MO-COLL-1, MO-COLL-2)
     P4    (MO-COUN-1)
@@ -91,7 +93,7 @@
     P16   (MO-EXCL-4)
     P17   (MO-DEAD-1)
     P18   (MO-REP-1, MO-REP-2)
-    P19   (MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1)
+    P19   (MO-EXCL-3, MO-EXCL-5, MO-REP-3, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1)
 
 .ints
     K0    40000         ; $400.00
@@ -133,8 +135,9 @@
   0071        ret
               ; MO-EXAM-1  Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section  "While SAFE is the "payor of first resort" for these fees, health..."
               ; MO-EXAM-2  RSMo 595.220.6  "All appropriate medical provider charges for eligible forensic..."
+              ; MO-EXAM-3  Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section  "The Sexual Assault Forensic Examination (SAFE) Program covers..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; MO-EXAM-1, MO-EXAM-2
+  0077        decide   held, P1                     ; MO-EXAM-1, MO-EXAM-2, MO-EXAM-3
   007b        ret
               ; MO-MED-1  RSMo 595.220.6  "For appropriate medical provider charges related to the medical..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
@@ -151,7 +154,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R18              ; MO-COLL-1
+  009d        seta     collateral, R20              ; MO-COLL-1
   00a1        ret
               ; MO-COUN-1  RSMo 595.030.3  "No compensation shall be paid for psychiatric treatment or other..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
@@ -168,7 +171,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R18              ; MO-COLL-1
+  00c3        seta     collateral, R20              ; MO-COLL-1
   00c7        ret
               ; MO-WAGE-1  RSMo 595.030.5  "Any compensation for loss of earnings or support from gainful..."
               ; MO-WAGE-2  CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview  "If the victim was gainfully employed at the time of the crime..."
@@ -186,7 +189,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R18              ; MO-COLL-1
+  00e9        seta     collateral, R20              ; MO-COLL-1
   00ed        ret
   00ee  L8:   push     0
   00f3        decide   unknown_rule, P0             ; (none)
@@ -231,7 +234,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R18              ; MO-COLL-1
+  0165        seta     collateral, R20              ; MO-COLL-1
   0169        ret
               ; MO-DENT-1  CVC Fact Sheet (10/2021), p. 2, Crime Victim Compensation Program Overview  "If the eligibility requirements are met, potential benefits may..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
@@ -248,7 +251,7 @@
   0184        subs
   0185        push     0
   018a        max
-  018b        seta     collateral, R18              ; MO-COLL-1
+  018b        seta     collateral, R20              ; MO-COLL-1
   018f        ret
               ; MO-FUN-1  RSMo 595.030.4  "In the event of death of the victim, an award may be made for..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
@@ -265,7 +268,7 @@
   01aa        subs
   01ab        push     0
   01b0        max
-  01b1        seta     collateral, R18              ; MO-COLL-1
+  01b1        seta     collateral, R20              ; MO-COLL-1
   01b5        ret
               ; MO-EXCL-4  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Tuition Reimbursement"
   01b6  L20:  push     0
@@ -290,11 +293,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R4                 ; MO-WAGE-1
+  002e        cap      unit_cap, R5                 ; MO-WAGE-1
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R4                           ; rate_unverified MO-WAGE-1
+  003d  L2:   flag     R5                           ; rate_unverified MO-WAGE-1
   0040  L3:   next     L0
               ; MO-FUN-1  RSMo 595.030.4  "In the event of death of the victim, an award may be made for..."
   0045  L4:   push     0
@@ -313,7 +316,7 @@
   006d        ldk      K1                           ; $5,000.00
   0070        ldr      r0
   0072        subs
-  0073        cap      expense_cap, R6              ; MO-FUN-1
+  0073        cap      expense_cap, R7              ; MO-FUN-1
   0077        push     1
   007c        str      r1
   007e  L6:   ldr      r0
@@ -322,7 +325,7 @@
   0082        str      r0
   0084        jmp      L8
   0089  L7:   push     0
-  008e        cap      expense_cap, R6              ; MO-FUN-1
+  008e        cap      expense_cap, R7              ; MO-FUN-1
   0092  L8:   next     L5
               ; MO-CAP-1  RSMo 595.030.5  "no award pursuant to sections 595.010 to 595.075 shall exceed..."
   0097  L9:   push     0
@@ -341,7 +344,7 @@
   00bf        ldk      K2                           ; $25,000.00
   00c2        ldr      r0
   00c4        subs
-  00c5        cap      total_cap, R3                ; MO-CAP-1
+  00c5        cap      total_cap, R4                ; MO-CAP-1
   00c9        push     1
   00ce        str      r1
   00d0  L11:  ldr      r0
@@ -350,7 +353,7 @@
   00d4        str      r0
   00d6        jmp      L13
   00db  L12:  push     0
-  00e0        cap      total_cap, R3                ; MO-CAP-1
+  00e0        cap      total_cap, R4                ; MO-CAP-1
   00e4  L13:  next     L10
   00e9  L14:  push     0                            ; met
   00ee        check    minimum_loss, P0             ; (none)
@@ -388,6 +391,7 @@
   0153  L19:  check    reporting, P18               ; MO-REP-1, MO-REP-2
               ; MO-EXCL-3  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Rent/Mortgage/Utilities"
               ; MO-EXCL-5  CVC Brochure (Rev. 1/2024), What CVC Cannot Pay  "Food/Clothing Costs"
+              ; MO-REP-3  RSMo 595.015.4  "The claimant, victim or dependent shall cooperate with law..."
               ; MO-COLL-1  RSMo 595.035.2  "any compensation paid pursuant to sections 595.010 to 595.075..."
               ; MO-COLL-2  CVC Program Guidelines, Costs Eligible for Reimbursement from the Fund  "However, if a claimant has a health insurance but still has..."
               ; MO-COND-1  RSMo 595.035.3  "the department of public safety shall determine whether, because..."
@@ -409,6 +413,6 @@
               ; MO-DOC-SUPPORT  CVC Compensation Checklist, Loss of Earnings/Loss of Support Claims  "If you are applying for loss of support, please provide a copy..."
               ; MO-ACP-1  RSMo 589.663 (preamble)  "There is created in the office of the secretary of state a..."
               ; MO-REC-1  RSMo 595.037.1(2)  "A claim in which the offense allegedly perpetrated against the..."
-  0157        info     P19                          ; MO-EXCL-3, MO-EXCL-5, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
+  0157        info     P19                          ; MO-EXCL-3, MO-EXCL-5, MO-REP-3, MO-COLL-1, MO-COLL-2, MO-COND-1, MO-CRIME-1, MO-RES-1, MO-RES-2, MO-RES-3, MO-SUBMIT-MAIL, MO-SUBMIT-ONLINE, MO-DOC-APP, MO-DOC-BILLS, MO-DOC-BILLS-2, MO-DOC-RX, MO-DOC-WAGES, MO-DOC-WAGES-SELF, MO-DOC-INSURANCE, MO-DOC-MEDREC, MO-DOC-FUNERAL, MO-DOC-SUPPORT, MO-ACP-1, MO-REC-1
   015a        ret
 

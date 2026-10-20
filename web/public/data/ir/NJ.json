@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NJ",
- "source_sha256": "d2ef5124e4b5144f017ce0ae9a5fba06a98351690d9ec247676abe65d880a969",
- "ir_sha256": "cc5edce2539d3f8df18cf0359f3d66d797360d82dd23c0aca52aa6526078d4ae",
+ "source_sha256": "6b88572db31351c97c87a48cd86be8b4a32fac71757ebe533c19c017542e5ea9",
+ "ir_sha256": "c4bf7e41d20ccfb6c0baeb679fca13a20c4b4234abbc6380e8a5867d6f3e56a3",
  "fresh": true,
  "rules": [
   {
@@ -19,6 +19,11 @@
   },
   {
    "id": "NJ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NJ-CAP-2",
    "kind": "total_cap",
    "cap_cents": 2500000
   },
@@ -177,6 +182,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "NJ-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NJ-MINLOSS-1",

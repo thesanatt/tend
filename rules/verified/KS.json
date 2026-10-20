@@ -186,7 +186,8 @@
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Kansas Crime Victims Compensation Board (crime victims compensation fund)"
+    "payer": "Kansas Crime Victims Compensation Board (crime victims compensation fund)",
+    "condition": "if the crime was in Kansas"
    },
    "summary": "For assaults in Kansas, the state Crime Victims Compensation program pays for sexual assault forensic exams starting July 1, 2026.",
    "quote": "Effective July 1, 2026, sexual assault forensic examinations for assaults that occur in Kansas, are to be paid by Kansas Crime Victims Compensation.",
@@ -303,7 +304,7 @@
    "quote": "\"Allowance expense\" includes a total charge not in excess of $2,500 for expenses in any way related to crime scene cleanup.",
    "source_id": "KS-S5",
    "pinpoint": "K.S.A. 74-7301(a)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0001_section/074_073_0001_k/#:~:text=%22Allowance%20expense%22%20includes%20a%20total,related%20to%20crime%20scene%20cleanup."
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0001_section/074_073_0001_k/#:~:text=%22Allowance%20expense%22%20includes%20a%20total%20charge%20not%20in%20excess%20of%20%242%2C500,related%20to%20crime%20scene%20cleanup."
   },
   {
    "id": "KS-CAP-7",
@@ -338,7 +339,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "mileage for medically necessary travel"
    },
    "summary": "Mileage for medically necessary travel can be covered, at no more than the state mileage rate.",
    "quote": "Mileage costs may be deemed allowable expenses for medically necessary travel.",
@@ -351,7 +353,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "scope": "moving costs, if a law enforcement officer, a prosecutor, or a victim advocate at a law enforcement agency or prosecutor's office recommends the move in writing"
    },
    "summary": "Moving costs can be covered when a law enforcement officer, a prosecutor, or a victim advocate at a law enforcement agency or prosecutor's office recommends the move in writing for reasons related to the crime.",
    "quote": "Moving costs may be deemed allowable expenses if one of the following individuals has recommended the move in writing for reasons related to the crime: (1) A law enforcement officer; (2) a prosecutor; or (3) a victims' advocate working for a law enforcement agency or prosecutor's office.",
@@ -364,7 +367,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "scope": "replacing clothing and bedding seized as evidence"
    },
    "summary": "Reasonable costs to replace clothing and bedding seized as evidence are covered.",
    "quote": "Reasonable costs for replacement of clothing and bedding seized as evidence are compensable.",
@@ -413,13 +417,13 @@
    "params": {
     "years": 5,
     "from": "crime",
-    "extension": "Two years from notice of a DNA match to a suspect or of a suspect's identification; the longest applicable limit applies (74-7305(b)(3)); the board may also award if denial would be a severe injustice (74-7305(b)(2)(D))."
+    "extension": "or within 2 years of being told a suspect was identified, through DNA or otherwise"
    },
-   "summary": "Most claims must be filed within five years of the injury. If a survivor is told that DNA testing of a sexual assault kit or other evidence matched a suspect, or that a suspect was identified, they have two years from that notice. The longest deadline that applies is the one that counts, and the board can also accept a late claim if denying it would be a severe injustice.",
+   "summary": "Most claims must be filed within five years of the injury. If a survivor is told that DNA testing of a sexual assault kit or other evidence matched a suspect, or that a suspect was identified, they have two years from that notice.",
    "quote": "(A) The claim has been filed with the division within five years after the injury or death upon which the claim is based; (B) in a case where a victim who is notified that DNA testing of a sexual assault kit or other evidence has revealed a DNA profile of a suspected offender who victimized the victim or the victim on whose behalf the claim is made, or is notified of the identification of a suspected offender who victimized the victim or the victim on whose behalf the claim is made, the claim has been filed with the division within two years of such notification",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(b)(2)(A)-(B)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=%28A%29%20The%20claim%20has%20been,two%20years%20of%20such%20notification"
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=The%20claim%20has%20been%20filed,two%20years%20of%20such%20notification"
   },
   {
    "id": "KS-DEAD-2",
@@ -441,41 +445,52 @@
     "years": 10,
     "from": "age_18"
    },
-   "summary": "If the survivor of a sexually violent crime was under 18 when it happened, the claim can be filed up to 10 years after they turn 18.",
+   "summary": "If the survivor of a sexually violent crime was under 18 when it happened, the board may accept a claim filed up to 10 years after they turn 18.",
    "quote": "the victim was less than 18 years of age at the time such crime was committed, and the claim has been filed within 10 years after the date the victim turns 18 years of age",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(b)(2)(C)(ii)(b)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=the%20victim%20was%20less%20than,turns%2018%20years%20of%20age"
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=the%20victim%20was%20less%20than%2018,turns%2018%20years%20of%20age"
   },
   {
    "id": "KS-DEAD-4",
    "category": "filing_deadline",
    "params": {
     "years": 2,
-    "from": "report",
-    "extension": "If more than one limit applies, the longest one applies (74-7305(b)(3))."
+    "from": "report"
    },
-   "summary": "When the victim was under 16 and the crime was a sexually violent crime or certain trafficking or enticement crimes, the claim is due within two years of the report to law enforcement, unless a longer limit also applies.",
+   "summary": "If the victim was under 16, a claim is due within 2 years of the report to police. This applies to a sexually violent crime and to some trafficking or enticement crimes.",
    "quote": "Compensation may not be awarded unless an application has been filed with the division within two years of the reporting of the incident to law enforcement officials if the victim was less than 16 years of age",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(b)(1)",
    "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Compensation%20may%20not%20be%20awarded,than%2016%20years%20of%20age"
   },
   {
+   "id": "KS-DEAD-5",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The board may still award compensation if denying it would be a severe injustice to the victim. If more than one time limit applies, the longest one counts.",
+   "quote": "(D) the board determines that denying compensation would be a severe injustice to the victim. (3) If more than one of the time limitations described in subsection (b)(1) or (b)(2) apply to a victim, the longest time limitation to file a claim shall apply to the victim.",
+   "source_id": "KS-S4",
+   "pinpoint": "K.S.A. 74-7305(b)(2)(D), (b)(3)",
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=the%20board%20determines%20that%20denying,shall%20apply%20to%20the%20victim."
+  },
+  {
    "id": "KS-REP-1",
    "category": "reporting_requirement",
    "params": {
-    "required": false,
+    "required": true,
     "alternatives": [
      "forensic_exam",
      "other"
-    ]
+    ],
+    "within_hours": 72,
+    "exam_condition": "done within seven days"
    },
    "summary": "To qualify, the crime must be reported to law enforcement within 72 hours, OR the survivor must have had a forensic medical exam within seven days, OR the board must find good cause for missing both.",
    "quote": "Compensation may not be awarded unless: (1) The criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within 72 hours after the occurrence of the criminally injurious conduct; (2) the victim obtained a forensic medical examination within seven days after the occurrence of the criminally injurious conduct; or (3) the board finds there was good cause for the failure to report or obtain an examination within the time limits provided in this subsection.",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(f)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Compensation%20may%20not%20be%20awarded,limits%20provided%20in%20this%20subsection."
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=The%20criminally%20injurious%20conduct%20resulting,limits%20provided%20in%20this%20subsection."
   },
   {
    "id": "KS-REP-2",
@@ -510,6 +525,16 @@
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(d)(1)(A)",
    "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Economic%20loss%20upon%20which%20the,other%20persons%2C%20including%20collateral%20sources"
+  },
+  {
+   "id": "KS-NEED-1",
+   "category": "minimum_loss",
+   "params": {},
+   "summary": "Kansas pays only if the board finds that, without an award, the costs of the crime would cause the claimant financial stress. That means the claimant could not keep up their usual level of health, safety, and education for themselves and their dependents without undue financial hardship.",
+   "quote": "Compensation may be awarded only if the board finds that unless the claimant is awarded compensation the claimant will suffer financial stress as the result of economic loss otherwise reparable. A claimant suffers financial stress only if the claimant cannot maintain the claimant's customary level of health, safety and education for self and dependents without undue financial hardship.",
+   "source_id": "KS-S4",
+   "pinpoint": "K.S.A. 74-7305(e)",
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Compensation%20may%20be%20awarded%20only,dependents%20without%20undue%20financial%20hardship."
   },
   {
    "id": "KS-CON-1",
@@ -585,7 +610,7 @@
    "quote": "Contact Division of Crime Victims Compensation 120 SW 10th Ave, 2nd Floor Topeka, KS 66612-1597",
    "source_id": "KS-S1",
    "pinpoint": "Crime Victims Compensation Board page, Contact",
-   "fragment_url": "https://www.ag.ks.gov/reports-resources/affiliated-organizations/crime-victims-compensation-board#:~:text=Contact%20Division%20of%20Crime%20Victims,2nd%20Floor%20Topeka%2C%20KS%2066612%2D1597"
+   "fragment_url": "https://www.ag.ks.gov/reports-resources/affiliated-organizations/crime-victims-compensation-board#:~:text=Division%20of%20Crime%20Victims%20Compensation,Topeka%2C%20KS%2066612%2D1597"
   },
   {
    "id": "KS-DOC-1",
@@ -735,7 +760,7 @@
     "covers_sexual_assault": true,
     "enroll": "All victims must go through a certified enrolling assistant to apply to participate in the program. A person seeking enrollment cannot apply directly to the Attorney General's office."
    },
-   "summary": "Kansas's Safe at Home address confidentiality program, run by the Attorney General's Victim Services Division, lets survivors of sexual assault, domestic violence, stalking, and human trafficking use a substitute address on state and local public records and get free forwarding of first-class mail. Survivors apply through a certified enrolling assistant, not directly to the Attorney General.",
+   "summary": "A survivor of sexual assault, domestic violence, stalking or human trafficking who fears for their safety may apply to Kansas's Safe at Home program.",
    "quote": "Anyone who is a victim of domestic violence, sexual assault, trafficking, or stalking and fears for their safety may apply to Safe at Home.",
    "source_id": "KS-S14",
    "pinpoint": "How Safe at Home Works, Eligibility Criteria"
@@ -744,7 +769,7 @@
    "id": "KS-CONF-1",
    "category": "record_confidentiality",
    "params": {},
-   "summary": "All records and information given to the Crime Victims Compensation Board and division to process a claim are confidential, and the records gathered to evaluate a claim cannot be obtained through discovery in a civil or criminal case except in narrow, listed situations.",
+   "summary": "All records and information given to the Crime Victims Compensation Board and division to process a claim are confidential, and the records gathered to evaluate a claim cannot be obtained through discovery in a civil or criminal case except in situations the law lists.",
    "quote": "All records and information given to the board and the crime victims compensation division created by K.S.A. 75-773, and amendments thereto, to process a claim on behalf of a crime victim shall be confidential.",
    "source_id": "KS-S13",
    "pinpoint": "K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)",

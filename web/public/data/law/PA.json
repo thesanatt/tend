@@ -174,9 +174,9 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
-   "summary": "The cost of a forensic rape exam and the medications prescribed to the survivor may not be charged to the survivor. Insurance is billed first unless the survivor asks that it not be.",
+   "summary": "The cost of a forensic rape exam and the medications prescribed to the survivor may not be charged to the survivor.",
    "quote": "The cost of a forensic rape examination and the cost of medications prescribed to the direct victim shall not be charged to the victim.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(h)(2)"
@@ -206,11 +206,35 @@
    "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
   },
   {
+   "id": "PA-EXAM-9",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims Compensation Assistance Program (VCAP)"
+   },
+   "summary": "For the program to pay for the exam, the hospital must notify the local police where the assault happened within 12 hours of collecting the evidence.",
+   "quote": "In order for payments to be considered, hospitals or licensed health care providers requesting reimbursement of costs associated with a forensic rape examination are required to notify the local law enforcement agency where the reported sexual assault occurred within 12 hours of collection of the sexual assault evidence as per the Sexual Assault Testing and Evidence Collection Act (Act 165 of 2006).",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
+  },
+  {
+   "id": "PA-EXAM-10",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims Compensation Assistance Program (VCAP)"
+   },
+   "summary": "Adults 18 or older can choose an anonymous report when evidence is collected, if they are worried about the kit going to police. A minor's exam cannot be done anonymously.",
+   "quote": "Adult victims (age 18 or older) have the option of anonymous reporting and gathering of evidence and may consider this option if they have concerns about the kit being provided to police. An exam cannot be completed anonymously for a minor.",
+   "source_id": "PA-S11",
+   "pinpoint": "FRE FAQ, Question 10"
+  },
+  {
    "id": "PA-EXAM-4",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "If the program pays the maximum and a balance remains, the provider still may not bill the survivor; the program payment is payment in full.",
    "quote": "No. A health care provider must accept the payment in full for the costs of the forensic rape examination.",
@@ -222,7 +246,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "The provider must file the exam claim within one year of the crime or its discovery; if the provider misses that deadline, the survivor still cannot be billed.",
    "quote": "The claim must be filed by a hospital or other licensed health care provider, within one year of the date of the crime or discovery of the crime. Failure to file within the prescribed time frame will result in non-payment of the claim and the victim cannot be billed for those costs.",
@@ -272,7 +296,8 @@
    "id": "PA-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 3500000
+    "amount_cents": 3500000,
+    "exception": "not counting some costs that are paid on top"
    },
    "summary": "The total award is capped at $35,000, except that counseling, forensic rape exam costs, and crime scene cleanup are paid on top of that cap.",
    "quote": "In no case shall the total amount of an award exceed $35,000 except for payment of the following",
@@ -370,7 +395,7 @@
    "quote": "OVS may make an award within the monetary limitations of the act to compensate a direct victim, intervenor or claimant for loss of earnings attributable to the injury not to exceed the average weekly wage if the claimant was not otherwise reimbursed for the loss.",
    "source_id": "PA-S3",
    "pinpoint": "37 Pa. Code 411.43(b)",
-   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=OVS%20may%20make%20an%20award,otherwise%20reimbursed%20for%20the%20loss."
+   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=OVS%20may%20make%20an%20award%20within,otherwise%20reimbursed%20for%20the%20loss."
   },
   {
    "id": "PA-RELOC-1",
@@ -392,7 +417,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "detail": true
    },
    "summary": "Temporary or permanent relocation is covered when there is an immediate need to protect the safety and health of the victim and household, verified by a medical provider, human services provider, or law enforcement.",
    "quote": "expenses resulting from the temporary or permanent relocation of a direct victim and individuals residing in the household of the direct victim due to the incident forming the basis of the victim's claim when there is an immediate need to protect the safety and health of the victim and individuals residing in the household, as verified by a medical provider, human services provider or law enforcement",
@@ -404,7 +430,8 @@
    "category": "covered_expense",
    "expense": "relocation",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "detail": true
    },
    "summary": "The move must happen within 120 days of the crime, or within 120 days of a new threat or sign of danger.",
    "quote": "Relocation must occur within 120 days from the date of crime, or 120 days from the date the victim is threatened by any change of circumstance or indicator of danger.",
@@ -498,7 +525,8 @@
    "params": {
     "expense": "property_replacement",
     "amount_cents": 100000,
-    "per": "claim"
+    "per": "claim",
+    "item": "replacing medical devices, eyeglasses, and prescription medicine"
    },
    "summary": "Replacing eyeglasses, hearing aids, dental devices, prescription medications and similar health items stolen or damaged in the crime is capped at $1,000, with eyeglass frames limited to $200. This is not a cap on ordinary medical bills.",
    "quote": "OVS will reimburse a claimant for costs for the replacement of each prosthetic device, wheelchair, cane, walker, hearing aid, eyeglasses or other corrective lenses, dental device or prescription medications. Reimbursement will not exceed $1,000 and will be subject to the following limitations: (1)  Two hundred dollars for eyeglass frames.",
@@ -511,13 +539,29 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "services needed because of the crime, such as child care, cleaning, or laundry"
    },
    "summary": "Services needed because of the crime, such as child care, cleaning, laundry, and meal preparation, can be reimbursed.",
    "quote": "The cost of obtaining services needed as a result of the crime such as laundering, cleaning, child care, administration of medication, food shopping and meal preparation.",
    "source_id": "PA-S3",
    "pinpoint": "37 Pa. Code 411.42(i)(2)",
    "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=The%20cost%20of%20obtaining%20services,food%20shopping%20and%20meal%20preparation."
+  },
+  {
+   "id": "PA-CHILD-2",
+   "category": "expense_cap",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 800,
+    "per": "hour",
+    "scope": "helpers who are not family members"
+   },
+   "summary": "A helper who is not a family member is paid at most $8 an hour. A family member who does the work is paid their own lost earnings, up to the average weekly wage.",
+   "quote": "The cost of obtaining services needed as a result of the crime such as laundering, cleaning, child care, administration of medication, food shopping and meal preparation. (i) Members of the family of the direct victim or intervenor engaged to perform the services will be paid their net loss of earnings not to exceed the average weekly wage and if not otherwise reimbursed for the loss of earnings. (ii) Individuals engaged to perform services who are not family members will be paid a maximum hourly rate of $8.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(i)(2)",
+   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=The%20cost%20of%20obtaining%20services,maximum%20hourly%20rate%20of%20%248."
   },
   {
    "id": "PA-CLEAN-1",
@@ -561,27 +605,90 @@
    "params": {
     "years": 5,
     "from": "discovery",
-    "extension": "Good cause can excuse a late filing (incapacity, victim was a minor, fear of retaliation, crime not readily apparent, other good cause; 18 P.S. 11.702(b)(2)(iii.1)). For a victim under 18 abused by a parent, caretaker, household member or parent's paramour, the period is tolled until age 21 and runs to the later of the criminal limitation period or the standard period. Sexual abuse counseling claims under 18 P.S. 11.701.1 are excepted from this deadline."
+    "extension": "or later in some cases, such as sexual abuse counseling claims, some survivors who were children, or when the program finds good cause"
    },
-   "summary": "A claim must be filed within five years after the crime is discovered, under the current law; the program may accept a late claim for good cause. Older crimes had a shorter deadline, so those survivors should call the program.",
+   "summary": "Under the current law, a claim must be filed within five years after the crime is discovered.",
    "quote": "a claim must be filed not later than five years after the discovery of the occurrence of the crime upon which the claim is based",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.702(b)(1)"
+  },
+  {
+   "id": "PA-DEADLINE-6",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The program's page says the 5-year limit is for crimes on or after 9/8/2022. For an older crime, it asks you to contact the program to find out the filing rules.",
+   "quote": "For crimes occurring on or after 9/8/2022, the claim must be filed within 5 years of the crime. For crimes occurring prior to 9/8/2022, please contact the Program to determine filing requirements.",
+   "source_id": "PA-S4",
+   "pinpoint": "PA.gov Apply for Victims' Compensation page, Who is eligible?",
+   "fragment_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation#:~:text=For%20crimes%20occurring%20on%20or,Program%20to%20determine%20filing%20requirements."
+  },
+  {
+   "id": "PA-DEADLINE-2",
+   "category": "filing_deadline",
+   "params": {
+    "from": "discovery"
+   },
+   "summary": "Claims for counseling related to sexual abuse are an exception to the filing deadline.",
+   "quote": "(2) Exceptions shall be as follows: (i) ((i) deleted by amendment). (i.1) Claims for counseling services related to sexual abuse under section 701.1.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.702(b)(2)(i.1)"
+  },
+  {
+   "id": "PA-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "from": "discovery"
+   },
+   "summary": "If the survivor was under 18 and the abuser was a parent, a caretaker, someone living in the same home, or a parent's partner, the deadline does not start until the survivor turns 21. It then runs until the later of the criminal time limit for the crime or the usual deadline.",
+   "quote": "If a direct victim is under 18 years of age at the time of the occurrence of the crime and the alleged offender is the direct victim's parent or a person responsible for the direct victim's welfare, an individual residing in the same home as the direct victim or a paramour of the direct victim's parent, all of the following shall apply: (A) The limitation period under this subsection is tolled until the direct victim reaches 21 years of age. (B) The limitation period shall run until the later of: (I) the end of the limitation period for the offense as set forth in 42 Pa.C.S. Ch. 55 Subch. C (relating to criminal proceedings); or (II) the end of the limitation period under paragraph (1).",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.702(b)(2)(ii)"
+  },
+  {
+   "id": "PA-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {
+    "from": "discovery"
+   },
+   "summary": "If the survivor was under 18 and the claim is only for counseling, the deadline does not start until the survivor turns 21.",
+   "quote": "(ii.1) If a direct victim is under 18 years of age at the time of the occurrence of the crime and the direct victim is seeking reimbursement for counseling services only, all of the following shall apply: (A) The limitation period under this subsection is tolled until the direct victim reaches 21 years of age.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.702(b)(2)(ii.1)"
+  },
+  {
+   "id": "PA-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {
+    "from": "discovery"
+   },
+   "summary": "The Office of Victims' Services may accept a late claim for good cause, such as when the victim was incapacitated or a minor, feared retaliation, or the crime was not readily apparent.",
+   "quote": "(iii.1) The Office of Victims' Services may find good cause to accept a claim beyond the limitation period under paragraph (1) if one of the following circumstances existed at the time of the occurrence of the crime or the discovery of the occurrence of the crime: (A) The direct victim, intervenor or claimant was mentally or physically incapacitated. (B) The victim was a minor. (C) There was a fear of retaliation. (D) The occurrence of the crime was not readily apparent. (E) Other circumstances when good cause is shown by the claimant.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.702(b)(2)(iii.1)"
   },
   {
    "id": "PA-REPORT-1",
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": [
-     "protective_order",
-     "forensic_exam"
-    ]
+    "alternatives": []
    },
-   "summary": "The crime must have been promptly reported to the proper authorities; the statute sets no fixed number of hours. A protection order filing (statute) or a forensic rape exam (program policy) also counts.",
+   "summary": "Under the current law, the crime must have been promptly reported to the proper authorities. The law sets no fixed number of hours.",
    "quote": "The crime was promptly reported to the proper authorities.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a)(3)"
+  },
+  {
+   "id": "PA-REPORT-7",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "crimes before 9/8/2022"
+   },
+   "summary": "The program's manual says the filing, reporting, and minimum loss rules are different for a crime before 9/8/2022, and asks you to contact the program about them.",
+   "quote": "For eligibility requirements for crime occurring prior to 9/8/2022, please contact the program as there are different filing requirement, reporting requirement, and minimum loss requirements.",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual for Compensation Assistance, Eligibility"
   },
   {
    "id": "PA-REPORT-2",
@@ -592,8 +699,20 @@
      "protective_order"
     ]
    },
-   "summary": "Filing for a sexual violence or intimidation protection order satisfies the reporting requirement, even without a police report.",
+   "summary": "Starting a court case for a sexual violence or intimidation protection order can meet the reporting requirement without a police report.",
    "quote": "may satisfy the eligibility requirement under subsection (a)(3) for reporting a crime to the proper authorities by commencing an action brought in accordance with 42 Pa.C.S. Ch. 62A (relating to protection of victims of sexual violence or intimidation)",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a.2)"
+  },
+  {
+   "id": "PA-REPORT-6",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "a protection order case that is later withdrawn"
+   },
+   "summary": "If you start a protection order case to meet the report rule and then drop it, you cannot get an award unless the program finds you had good reason to drop it.",
+   "quote": "An award may not be made if the record shows that the petition was withdrawn, except if the Office of Victims' Services finds the withdrawal to have been justified, consistent with regulations of the Office of Victims' Services.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a.2)"
   },
@@ -604,9 +723,10 @@
     "required": true,
     "alternatives": [
      "forensic_exam"
-    ]
+    ],
+    "exam_condition": "for a crime on or after September 8, 2022"
    },
-   "summary": "Having a forensic rape exam counts as reporting to the proper authorities, so a survivor who had the exam can file a standard claim without going to police.",
+   "summary": "For crimes on or after 9/8/2022, having a forensic rape exam counts as reporting to the proper authorities, so a survivor who had the exam can file a standard claim without reporting the crime to police.",
    "quote": "Effective for crimes occurring on or after 9/8/2022, a forensic rape exam is considered acceptable for reporting to proper authorities. This change allows victims who have the FRE completed to be eligible for a standard claim without having to report the crime to law enforcement.",
    "source_id": "PA-S10",
    "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
@@ -622,6 +742,33 @@
    "source_id": "PA-S4",
    "pinpoint": "PA.gov VCAP page, Sexual Assault Counseling Claims",
    "fragment_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation#:~:text=A%20direct%20victim%20of%20sexual,services%20related%20to%20their%20abuse."
+  },
+  {
+   "id": "PA-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "For a standard claim, the survivor must also have fully cooperated with law enforcement and the program, unless the program finds there was a good reason not to.",
+   "quote": "The direct victim, intervenor or claimant has fully cooperated with all law enforcement agencies and the Office of Victims' Services, unless the Office of Victims' Services finds the noncompliance to have been justified consistent with the Office of Victims' Services regulations.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a)(4)"
+  },
+  {
+   "id": "PA-COOP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program may excuse not cooperating if the survivor was incapacitated, feared retaliation, was a minor, or shows other good cause.",
+   "quote": "OVS may consider a failure to cooperate with law enforcement and OVS to be justified when one of the following circumstances exist: (1) The direct victim, intervenor or the claimant is mentally or physically incapacitated. (2) There is a fear of retaliation. (3) The victim is a minor. (4) Other circumstances when good cause is shown by the claimant.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.15(g)",
+   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=OVS%20may%20consider%20a%20failure,is%20shown%20by%20the%20claimant."
   },
   {
    "id": "PA-MIN-1",
@@ -670,7 +817,7 @@
    "params": {
     "amount_cents": 500000
    },
-   "summary": "An emergency award of up to $5,000 per claim is available for urgent financial need.",
+   "summary": "An emergency award can be no more than $5,000 per claim.",
    "quote": "The total amount of an emergency award will not exceed $5,000 per claim.",
    "source_id": "PA-S3",
    "pinpoint": "37 Pa. Code 411.17(c)",
@@ -884,7 +1031,7 @@
     "covers_sexual_assault": true,
     "enroll": "Complete an online ACP application; Visit your local Victim Service Program to complete an ACP Application; Call OVA at 800-563-6399. Online applications are returned to OVA by email (RA-PMOVA-ACPPROGRAM@pa.gov) or mail (Office of Victim Advocate, 1101 S. Front St, Suite 5200, Harrisburg, PA 17112)."
    },
-   "summary": "Pennsylvania's Address Confidentiality Program, run by the Office of Victim Advocate, gives survivors of sexual assault, domestic violence, stalking, human trafficking, or child abduction an alternate mailing address to keep their address out of public records.",
+   "summary": "Pennsylvania's Address Confidentiality Program, run by the Office of Victim Advocate, can give survivors of sexual assault, domestic violence, stalking, human trafficking, or child abduction an alternate mailing address to keep their address out of public records, once the office approves their application.",
    "quote": "The ACP can provide you with an alternate mailing address to keep your address out of public records if you are a victim of domestic violence, sexual assault, stalking, human trafficking, or child abduction.",
    "source_id": "PA-S14",
    "pinpoint": "OVA Address Confidentiality Program page; statute: 23 Pa.C.S. 6703(a), 6704(2)",

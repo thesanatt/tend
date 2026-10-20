@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MS",
- "source_sha256": "706056643c418206090ef1e852768f8d9a9d851a7cf0694568df0a0a20f58408",
- "ir_sha256": "8da34797b9ccab5857c897c5b20896694f5b900ab67e55317d5c007c1c6b087e",
+ "source_sha256": "7307a880fcdae9f281ceb61eb200e1762cdba8891762d6fe6a6fe841fb74111e",
+ "ir_sha256": "948ef0e605a6842815490ad7aff06300ffbd4c018b7aef2690d145e4ffde896a",
  "fresh": true,
  "rules": [
   {
@@ -15,6 +15,10 @@
   },
   {
    "id": "MS-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MS-EXAM-7",
    "kind": "exam_payment"
   },
   {
@@ -186,6 +190,12 @@
    "alternatives": []
   },
   {
+   "id": "MS-REPORT-3",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
    "id": "MS-COLLAT-1",
    "kind": "collateral"
   },
@@ -230,8 +240,7 @@
   },
   {
    "id": "MS-RES-2",
-   "kind": "info",
-   "category": "residency"
+   "kind": "exam_payment"
   },
   {
    "id": "MS-SUBMIT-ONLINE",
@@ -339,11 +348,6 @@
    "id": "MS-DEADLINE-2",
    "category": "filing_deadline",
    "reason": "applies_to \"child sexual abuse\""
-  },
-  {
-   "id": "MS-REPORT-3",
-   "category": "reporting_requirement",
-   "reason": "applies_to \"forensic_exam_payment_only\""
   }
  ]
 }

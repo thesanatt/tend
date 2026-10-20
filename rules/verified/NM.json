@@ -194,7 +194,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "collecting the evidence kit"
    },
    "summary": "A health care provider may not charge the survivor, directly or indirectly, for the costs of collecting a sexual assault examination kit. The statute does not say whether the survivor's insurance may be billed.",
    "quote": "No costs incurred by a health care provider for the collection of a sexual assault examination kit shall be charged directly or indirectly to the survivor of the sexual assault.",
@@ -213,7 +214,7 @@
    "quote": "The administrator shall: A. provide free forensic medical exams to victims of sexual crimes; B. arrange for victims of sexual crimes to obtain free forensic medical exams; or C. reimburse victims of sexual crimes for the cost of forensic medical exams",
    "source_id": "NM-S11",
    "pinpoint": "NMSA 1978, Section 29-11-7",
-   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=The%20administrator%20shall%3A%20A.%20provide,cost%20of%20forensic%20medical%20exams"
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=The%20administrator%20shall%3A,cost%20of%20forensic%20medical%20exams"
   },
   {
    "id": "NM-EXAM-3",
@@ -226,13 +227,14 @@
    "quote": "the reimbursement covers the full cost of the forensic medical exam, without any deductible requirement or limit on the amount of the reimbursement; (2) the victim of a sexual crime is entitled to apply for reimbursement for a period of one year from the date of the forensic medical exam",
    "source_id": "NM-S11",
    "pinpoint": "NMSA 1978, Section 29-11-7(C)(1)-(2)",
-   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=the%20reimbursement%20covers%20the%20full,of%20the%20forensic%20medical%20exam"
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-29/article-11/section-29-11-7/#:~:text=the%20reimbursement%20covers%20the%20full,date%20of%20the%20forensic%20medical%20exam"
   },
   {
    "id": "NM-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2000000
+    "amount_cents": 2000000,
+    "exception": "or up to $30,000 more if an injury leaves you fully disabled for life"
    },
    "summary": "The maximum award is $20,000 per victim. The commission may add up to $30,000 more for extraordinary losses when the injury is catastrophic and causes permanent total disability.",
    "quote": "No award of reparation shall be in excess of twenty thousand dollars ($20,000) per victim, except that the commission may award up to an additional thirty thousand dollars ($30,000) for extraordinary pecuniary losses, if the personal injury to a victim is catastrophic and results in a permanent total disability.",
@@ -277,7 +279,8 @@
    "params": {
     "expense": "other",
     "amount_cents": 35000,
-    "per": "claim"
+    "per": "claim",
+    "item": "eyeglasses or contact lenses"
    },
    "summary": "Replacement of eyeglasses or contact lenses damaged in the crime is capped at $350.",
    "quote": "Awards for eyeglasses or contact lenses shall not exceed three hundred fifty dollars ($350.00).",
@@ -292,7 +295,8 @@
    "params": {
     "expense": "other",
     "amount_cents": 300000,
-    "per": "claim"
+    "per": "claim",
+    "item": "Native American medicine man treatment"
    },
    "summary": "Native American medicine man treatment fees can be considered, up to $3,000 per application unless the board approves more in advance.",
    "quote": "In all cases of medicine man care, the commission board shall only approve up to $3,000.00 per application unless prior approval has been granted by the commission board for additional treatment.",
@@ -324,7 +328,7 @@
    "quote": "Medical and dental care; Mental health counseling; (30 session maximum)",
    "source_id": "NM-S1",
    "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
-   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Medical%20and%20dental%20care%3B%20Mental%20health%20counseling%3B%20%2830%20session%20maximum%29"
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Medical%20and%20dental%20care%3B,health%20counseling%3B%20%2830%20session%20maximum%29"
   },
   {
    "id": "NM-COV-3",
@@ -350,14 +354,15 @@
    "quote": "Loss of wages may be paid to the victim, claimant, and/or, in the case of a minor victim, guardian, for up to fourteen calendar days after the crime for a recovery period.",
    "source_id": "NM-S12",
    "pinpoint": "10.40.2.10(G) NMAC",
-   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Loss%20of%20wages%20may%20be,crime%20for%20a%20recovery%20period."
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=Loss%20of%20wages%20may%20be%20paid%20to%20the,crime%20for%20a%20recovery%20period."
   },
   {
    "id": "NM-COV-5",
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "gas for trips over 30 miles one way to a health provider"
    },
    "summary": "Gas to get to a health provider can be reimbursed at 20 cents per mile when the trip is over 30 miles one way from home.",
    "quote": "Gas expenses to transport the victim to a health provider may be considered if the travel is over thirty miles one way from the victim's residence. This travel shall be verified by the health provider's billing and reports for the travel requested. The gas will be reimbursed at the rate of twenty cents per mile.",
@@ -376,7 +381,7 @@
    "quote": "can be made for the following: Medical and dental care;",
    "source_id": "NM-S1",
    "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
-   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=can%20be%20made%20for%20the%20following%3A%20Medical%20and%20dental%20care%3B"
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=can%20be%20made%20for%20the,Medical%20and%20dental%20care%3B"
   },
   {
    "id": "NM-COV-7",
@@ -407,7 +412,8 @@
    "category": "covered_expense",
    "expense": "transportation",
    "params": {
-    "expense": "transportation"
+    "expense": "transportation",
+    "scope": "gas for trips over 30 miles one way from home, at 20 cents a mile"
    },
    "summary": "Gas to travel to a law enforcement agency on official business about the incident can be reimbursed at 20 cents per mile when the trip is more than 30 miles one way.",
    "quote": "The distance traveled shall be more than thirty miles one way from the victim's residence and the gas will be reimbursed at the rate of twenty cents per mile.",
@@ -438,7 +444,7 @@
    "quote": "No awards are made for property loss, pain and suffering, or attorney",
    "source_id": "NM-S1",
    "pinpoint": "CVRC Compensation FAQ, What are the types of reparation?",
-   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=No%20awards%20are%20made%20for,pain%20and%20suffering%2C%20or%20attorney"
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=No%20awards%20are%20made%20for,pain%20and%20suffering%2C%20or%20attorney%E2%80%99s"
   },
   {
    "id": "NM-EXC-3",
@@ -463,7 +469,7 @@
    "quote": "The following expenses shall not be considered for reimbursement: (1) phone bills; (2) copying fees; (3) postage costs.",
    "source_id": "NM-S12",
    "pinpoint": "10.40.2.10(P) NMAC",
-   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=The%20following%20expenses%20shall%20not,copying%20fees%3B%20%283%29%20postage%20costs."
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=The%20following%20expenses%20shall%20not,postage%20costs."
   },
   {
    "id": "NM-DEAD-1",
@@ -471,9 +477,9 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "Statutory exception for minor victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse. The CVRC FAQ also says some exceptions may be allowed for good cause."
+    "extension": "The statute makes an exception for minors hurt by child abuse or some sex crimes, but does not say what deadline applies to them."
    },
-   "summary": "Apply within two years after the injury. Minors who are victims of criminal sexual penetration, criminal sexual contact of a minor, or child abuse are excepted from this limit.",
+   "summary": "Apply within two years after the injury. The statute makes an exception for minors who were victims of child abuse or abandonment, criminal sexual penetration, or criminal sexual contact of a minor. It does not say what deadline applies to them instead.",
    "quote": "An application for reparation shall be made within two years after the injury or death, except for minors who are victims of criminal activity under the provisions of Section 30-6-1 NMSA 1978, regarding abandonment or abuse of a child, Section 30-9-11 NMSA 1978, regarding criminal sexual penetration, or Section 30-9-13 NMSA 1978, regarding criminal sexual contact of a minor.",
    "source_id": "NM-S8",
    "pinpoint": "NMSA 1978, Section 31-22-14(A)",
@@ -555,7 +561,7 @@
    "quote": "(9) criminal sexual penetration; (10) criminal sexual contact of a minor;",
    "source_id": "NM-S6",
    "pinpoint": "NMSA 1978, Section 31-22-8(A)(9)-(10)",
-   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/#:~:text=%289%29%20criminal%20sexual%20penetration%3B%20%2810%29,sexual%20contact%20of%20a%20minor%3B"
+   "fragment_url": "https://law.justia.com/codes/new-mexico/chapter-31/article-22/section-31-22-8/#:~:text=%289%29%20criminal%20sexual%20penetration%3B,sexual%20contact%20of%20a%20minor%3B"
   },
   {
    "id": "NM-CRIME-2",
@@ -604,7 +610,7 @@
    "quote": "Crime Victims Reparation Commission 6200 Uptown Blvd., Suite 210 Albuquerque, NM 87110",
    "source_id": "NM-S1",
    "pinpoint": "Compensation Application page, How do I apply?",
-   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=Crime%20Victims%20Reparation%20Commission%206200,Suite%20210%20Albuquerque%2C%20NM%2087110"
+   "fragment_url": "https://www.cvrc.nm.gov/for-victims/cvrc-application/#:~:text=6200%20Uptown%20Blvd.%2C%20Suite%20210,Albuquerque%2C%20NM%2087110"
   },
   {
    "id": "NM-SUBMIT-3",
@@ -682,7 +688,7 @@
    "quote": "a copy of a doctor's statement certifying that the victim is unable to work; or a doctor's statement included in a medical document, or medical documentation showing the inability of the victim to work.",
    "source_id": "NM-S12",
    "pinpoint": "10.40.2.10(G)(1) NMAC",
-   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=a%20copy%20of%20a%20doctor%27s,of%20the%20victim%20to%20work."
+   "fragment_url": "https://www.srca.nm.gov/parts/title10/10.040.0002.html#:~:text=a%20copy%20of%20a%20doctor%E2%80%99s,of%20the%20victim%20to%20work."
   },
   {
    "id": "NM-DOC-6",

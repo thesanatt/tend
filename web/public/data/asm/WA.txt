@@ -1,8 +1,8 @@
 ; tend law image WA, Washington
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 e67dc45a75fa26fc59d10e13b1d86f87ff40271faf8112cf673ddee6ff3360ba
-; image sha256  b41e73285fae65a01f214ebf1321d83bc341008f9d8ce753260bd74f9044a5a4
-; 58 rules, 25 sources, 20 proofs, 4 ints, 365 strings
+; source sha256 336709ca78a7bd4958d3bb21297f869b7a94c9b6df097302b0c58607d6bfd5d3
+; image sha256  a5bc8fb1b821dd9c8b8690071318766b5efffa987a9d0cd364258917ae1d9d05
+; 60 rules, 25 sources, 20 proofs, 4 ints, 374 strings
 ; item program: 120 instructions, 410 bytes, max stack 2
 ; aggregate program: 170 instructions, 526 bytes, max stack 3, 5 loops
 
@@ -27,44 +27,46 @@
     R17   WA-COV-MEDICAL        covered       medical                                       L&I Who Can File and What is Covered, What are the benefits?
     R18   WA-COV-TRANSPORT      covered       transportation                                RCW 7.68.080(1)
     R19   WA-COV-TRANSPORT-2    covered       transportation                                L&I Who Can File and What is Covered, Travel Reimbursement
-    R20   WA-COV-TRANSPORT-3    covered       transportation                                L&I Who Can File and What is Covered, How to get reimbursed
+    R20   WA-COV-TRANSPORT-3    info          -                     filing_deadline         L&I Who Can File and What is Covered, How to get reimbursed
     R21   WA-COV-CLOTHING       covered       clothing_bedding                              RCW 7.68.074
-    R22   WA-COV-PEP            covered       prescription                                  F800-100-000, Post-exposure prophylaxis (PEP) drugs for HIV
-    R23   WA-COV-GLASSES        covered       medical                                       L&I Who Can File and What is Covered, Will I be reimbursed for damaged personal property?
-    R24   WA-EXC-PROPERTY       info          -                     excluded_expense        L&I Who Can File and What is Covered, How much we may pay
-    R25   WA-EXC-CLEANUP        excluded      crime_scene_cleanup                           L&I Who Can File and What is Covered, How much we may pay
-    R26   WA-EXC-MEDICAID       info          -                     excluded_expense        RCW 7.68.070(12)
-    R27   WA-DEADLINE-1         deadline      -                     from report             RCW 7.68.060(1)(a)
-    R28   WA-DEADLINE-2         deadline      -                     from report             RCW 7.68.060(1)(a)
-    R29   WA-DEADLINE-3         info          -                     filing_deadline         RCW 7.68.060(5)
-    R30   WA-DEADLINE-4         info          -                     filing_deadline         L&I Who Can File and What is Covered, Do I qualify?
-    R31   WA-DEADLINE-5         info          -                     filing_deadline         RCW 7.68.060(6)(b)
-    R32   WA-REPORT-1           reporting     -                                             RCW 7.68.060(1)(b)
-    R33   WA-REPORT-2           reporting     -                                             WAC 296-30-060
-    R34   WA-REPORT-3           reporting     -                                             RCW 7.68.060(3)
-    R35   WA-COLLATERAL-1       collateral    -                                             RCW 7.68.130(3)
-    R36   WA-COLLATERAL-2       collateral    -                                             RCW 7.68.130(5)
-    R37   WA-COLLATERAL-3       collateral    -                                             WAC 296-30-087(1)
-    R38   WA-CONDUCT-1          info          -                     conduct_reduction       RCW 7.68.060(2)(a)-(b)
-    R39   WA-CONDUCT-2          info          -                     conduct_reduction       RCW 7.68.060(4)
-    R40   WA-CRIME-1            info          -                     eligible_crime          L&I Who Can File and What is Covered, Do I qualify?
-    R41   WA-CRIME-2            info          -                     eligible_crime          RCW 7.68.080(5)
-    R42   WA-RESIDENCY-1        info          -                     residency               RCW 7.68.020(6)(c)
-    R43   WA-RESIDENCY-2        info          -                     residency               RCW 7.68.170
-    R44   WA-SUBMIT-1           info          -                     submission              L&I Apply for Crime Victim Benefits page, filing instructions
-    R45   WA-SUBMIT-2           info          -                     submission              L&I Apply for Crime Victim Benefits page, Application for Benefits (F800-042-000)
-    R46   WA-SUBMIT-3           info          -                     submission              F800-042-000, page 1 header
-    R47   WA-DOC-1              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Note under the application form
-    R48   WA-DOC-2              info          -                     required_document       F800-042-000, Authorization to Release Confidential Information
-    R49   WA-DOC-3              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have
-    R50   WA-DOC-4              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have
-    R51   WA-DOC-5              info          -                     required_document       F800-042-000, Provider Information
-    R52   WA-DOC-6              info          -                     required_document       F800-042-000, Insurance Information
-    R53   WA-DOC-7              info          -                     required_document       F800-042-000, Authorization to Release Confidential Information
-    R54   WA-DOC-8              info          -                     required_document       F800-042-000, Wage Information
-    R55   WA-TIME-1             info          -                     processing_time         L&I Apply for Crime Victim Benefits page, after the filing instructions
-    R56   WA-ACP-1              info          -                     address_confidentiality WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)
-    R57   WA-RECCONF-1          info          -                     record_confidentiality  RCW 7.68.140
+    R22   WA-COV-MEDICATION     covered       prescription                                  L&I Who Can File and What is Covered, What are the benefits?
+    R23   WA-COV-PEP            covered       prescription                                  F800-100-000, Post-exposure prophylaxis (PEP) drugs for HIV
+    R24   WA-COV-GLASSES        covered       medical                                       L&I Who Can File and What is Covered, Will I be reimbursed for damaged personal property?
+    R25   WA-EXC-PROPERTY       info          -                     excluded_expense        L&I Who Can File and What is Covered, How much we may pay
+    R26   WA-EXC-CLEANUP        excluded      crime_scene_cleanup                           L&I Who Can File and What is Covered, How much we may pay
+    R27   WA-EXC-MEDICAID       info          -                     excluded_expense        RCW 7.68.070(12)
+    R28   WA-DEADLINE-1         deadline      -                     from report             RCW 7.68.060(1)(a)
+    R29   WA-DEADLINE-2         deadline      -                     from report             RCW 7.68.060(1)(a)
+    R30   WA-DEADLINE-3         info          -                     filing_deadline         RCW 7.68.060(5)
+    R31   WA-DEADLINE-4         info          -                     filing_deadline         L&I Who Can File and What is Covered, Do I qualify?
+    R32   WA-DEADLINE-5         info          -                     filing_deadline         RCW 7.68.060(6)(b)
+    R33   WA-REPORT-1           reporting     -                                             RCW 7.68.060(1)(b)
+    R34   WA-REPORT-2           reporting     -                                             WAC 296-30-060
+    R35   WA-REPORT-3           reporting     -                                             RCW 7.68.060(3)
+    R36   WA-COLLATERAL-1       collateral    -                                             RCW 7.68.130(3)
+    R37   WA-COLLATERAL-2       collateral    -                                             RCW 7.68.130(5)
+    R38   WA-COLLATERAL-3       collateral    -                                             WAC 296-30-087(1)
+    R39   WA-CONDUCT-1          info          -                     conduct_reduction       RCW 7.68.060(2)(a)-(b)
+    R40   WA-CONDUCT-2          info          -                     conduct_reduction       RCW 7.68.060(4)
+    R41   WA-CRIME-1            info          -                     eligible_crime          L&I Who Can File and What is Covered, Do I qualify?
+    R42   WA-CRIME-2            info          -                     eligible_crime          RCW 7.68.080(5)
+    R43   WA-RESIDENCY-1        info          -                     residency               RCW 7.68.020(6)(c)
+    R44   WA-RESIDENCY-2        info          -                     residency               RCW 7.68.170
+    R45   WA-SUBMIT-1           info          -                     submission              L&I Apply for Crime Victim Benefits page, filing instructions
+    R46   WA-SUBMIT-2           info          -                     submission              L&I Apply for Crime Victim Benefits page, Application for Benefits (F800-042-000)
+    R47   WA-SUBMIT-3           info          -                     submission              F800-042-000, page 1 header
+    R48   WA-DOC-1              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Note under the application form
+    R49   WA-DOC-2              info          -                     required_document       F800-042-000, Authorization to Release Confidential Information
+    R50   WA-DOC-3              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have
+    R51   WA-DOC-4              info          -                     required_document       L&I Apply for Crime Victim Benefits page, Questions crime victim applicants have
+    R52   WA-DOC-5              info          -                     required_document       F800-042-000, Provider Information
+    R53   WA-DOC-6              info          -                     required_document       F800-042-000, Insurance Information
+    R54   WA-DOC-7              info          -                     required_document       F800-042-000, Authorization to Release Confidential Information
+    R55   WA-DOC-8              info          -                     required_document       F800-042-000, Wage Information
+    R56   WA-TIME-1             info          -                     processing_time         L&I Apply for Crime Victim Benefits page, after the filing instructions
+    R57   WA-ACP-1              info          -                     address_confidentiality WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)
+    R58   WA-RECCONF-1          info          -                     record_confidentiality  RCW 7.68.140
+    R59   WA-COV-TRANSPORT-4    skipped       -                     expense_cap             L&I Who Can File and What is Covered, Travel Reimbursement  ; expense_cap without amount or expense
 
 .sources
     S0    WA-S1       sha256 c5850be29664e7f3  https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.020
@@ -102,18 +104,18 @@
     P5    (WA-CAP-COUNSELING, WA-COV-COUNSELING, WA-COV-COUNSELING-2, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
     P6    (WA-CAP-WAGES, WA-COV-WAGES-2, WA-COV-WAGES)
     P7    (WA-CAP-WAGES, WA-COV-WAGES-2, WA-COV-WAGES, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
-    P8    (WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COV-TRANSPORT-3)
-    P9    (WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COV-TRANSPORT-3, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
+    P8    (WA-COV-TRANSPORT, WA-COV-TRANSPORT-2)
+    P9    (WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
     P10   (WA-EXC-CLEANUP)
     P11   (WA-COV-CLOTHING)
     P12   (WA-COV-CLOTHING, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
-    P13   (WA-COV-PEP)
-    P14   (WA-COV-PEP, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
+    P13   (WA-COV-MEDICATION, WA-COV-PEP)
+    P14   (WA-COV-MEDICATION, WA-COV-PEP, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
     P15   (WA-CAP-NONMEDICAL)
     P16   (WA-CAP-NONMEDICAL, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3)
     P17   (WA-DEADLINE-1, WA-DEADLINE-2)
     P18   (WA-REPORT-1, WA-REPORT-2, WA-REPORT-3)
-    P19   (WA-EXC-WAGES, WA-EXC-PROPERTY, WA-EXC-MEDICAID, WA-DEADLINE-3, WA-DEADLINE-4, WA-DEADLINE-5, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3, WA-CONDUCT-1, WA-CONDUCT-2, WA-CRIME-1, WA-CRIME-2, WA-RESIDENCY-1, WA-RESIDENCY-2, WA-SUBMIT-1, WA-SUBMIT-2, WA-SUBMIT-3, WA-DOC-1, WA-DOC-2, WA-DOC-3, WA-DOC-4, WA-DOC-5, WA-DOC-6, WA-DOC-7, WA-DOC-8, WA-TIME-1, WA-ACP-1, WA-RECCONF-1)
+    P19   (WA-EXC-WAGES, WA-COV-TRANSPORT-3, WA-EXC-PROPERTY, WA-EXC-MEDICAID, WA-DEADLINE-3, WA-DEADLINE-4, WA-DEADLINE-5, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3, WA-CONDUCT-1, WA-CONDUCT-2, WA-CRIME-1, WA-CRIME-2, WA-RESIDENCY-1, WA-RESIDENCY-2, WA-SUBMIT-1, WA-SUBMIT-2, WA-SUBMIT-3, WA-DOC-1, WA-DOC-2, WA-DOC-3, WA-DOC-4, WA-DOC-5, WA-DOC-6, WA-DOC-7, WA-DOC-8, WA-TIME-1, WA-ACP-1, WA-RECCONF-1)
 
 .ints
     K0    4000000       ; $40,000.00
@@ -182,7 +184,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R35              ; WA-COLLATERAL-1
+  009d        seta     collateral, R36              ; WA-COLLATERAL-1
   00a1        ret
               ; WA-CAP-COUNSELING  L&I Who Can File and What is Covered, How much we may pay  "Medical/Mental Health treatment: $150,000 maximum"
               ; WA-COV-COUNSELING  RCW 7.68.080(5)  "Victims of sexual assault are eligible to receive appropriate..."
@@ -202,7 +204,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R35              ; WA-COLLATERAL-1
+  00c3        seta     collateral, R36              ; WA-COLLATERAL-1
   00c7        ret
               ; WA-CAP-WAGES  RCW 7.68.070(1)(a)  "Benefits payable for temporary total disability that results in..."
               ; WA-COV-WAGES-2  RCW 7.68.070(5)  "sixty percent of the victim's monthly wage but no more than one..."
@@ -222,27 +224,26 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R35              ; WA-COLLATERAL-1
+  00e9        seta     collateral, R36              ; WA-COLLATERAL-1
   00ed        ret
               ; WA-COV-TRANSPORT  RCW 7.68.080(1)  "When the injury to any victim is so serious as to require the..."
               ; WA-COV-TRANSPORT-2  L&I Who Can File and What is Covered, Travel Reimbursement  "The travel must be more than 15 miles one way from your home..."
-              ; WA-COV-TRANSPORT-3  L&I Who Can File and What is Covered, How to get reimbursed  "Your request must be made within 1 year of the trip and must..."
               ; WA-COLLATERAL-1  RCW 7.68.130(3)  "Payment by the department under this chapter shall be secondary..."
               ; WA-COLLATERAL-2  RCW 7.68.130(5)  "Before payment of benefits will be considered victims shall use..."
               ; WA-COLLATERAL-3  WAC 296-30-087(1)  "If claim costs are under the maximum benefit, the claimant..."
   00ee  L8:   ldi      confirmed
   00f0        jnz      L9
   00f5        push     0
-  00fa        decide   needs_confirmation, P8       ; WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COV-TRANSPORT-3
+  00fa        decide   needs_confirmation, P8       ; WA-COV-TRANSPORT, WA-COV-TRANSPORT-2
   00fe        ret
   00ff  L9:   ldi      amount_cents
-  0101        decide   eligible, P9                 ; WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COV-TRANSPORT-3, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3
+  0101        decide   eligible, P9                 ; WA-COV-TRANSPORT, WA-COV-TRANSPORT-2, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3
   0105        lda
   0106        ldi      insurance_paid_cents
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R35              ; WA-COLLATERAL-1
+  010f        seta     collateral, R36              ; WA-COLLATERAL-1
   0113        ret
   0114  L10:  push     0
   0119        decide   unknown_rule, P0             ; (none)
@@ -267,8 +268,9 @@
   0142        subs
   0143        push     0
   0148        max
-  0149        seta     collateral, R35              ; WA-COLLATERAL-1
+  0149        seta     collateral, R36              ; WA-COLLATERAL-1
   014d        ret
+              ; WA-COV-MEDICATION  L&I Who Can File and What is Covered, What are the benefits?  "What we may pay for Medical/Dental treatment Medication"
               ; WA-COV-PEP  F800-100-000, Post-exposure prophylaxis (PEP) drugs for HIV  "Crime Victims Compensation Programs will cover up to a 28-day..."
               ; WA-COLLATERAL-1  RCW 7.68.130(3)  "Payment by the department under this chapter shall be secondary..."
               ; WA-COLLATERAL-2  RCW 7.68.130(5)  "Before payment of benefits will be considered victims shall use..."
@@ -276,16 +278,16 @@
   014e  L14:  ldi      confirmed
   0150        jnz      L15
   0155        push     0
-  015a        decide   needs_confirmation, P13      ; WA-COV-PEP
+  015a        decide   needs_confirmation, P13      ; WA-COV-MEDICATION, WA-COV-PEP
   015e        ret
   015f  L15:  ldi      amount_cents
-  0161        decide   eligible, P14                ; WA-COV-PEP, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3
+  0161        decide   eligible, P14                ; WA-COV-MEDICATION, WA-COV-PEP, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3
   0165        lda
   0166        ldi      insurance_paid_cents
   0168        subs
   0169        push     0
   016e        max
-  016f        seta     collateral, R35              ; WA-COLLATERAL-1
+  016f        seta     collateral, R36              ; WA-COLLATERAL-1
   0173        ret
               ; WA-CAP-NONMEDICAL  RCW 7.68.070(1)  "Except for medical benefits authorized under RCW 7.68.080 , no..."
               ; WA-COLLATERAL-1  RCW 7.68.130(3)  "Payment by the department under this chapter shall be secondary..."
@@ -303,7 +305,7 @@
   018e        subs
   018f        push     0
   0194        max
-  0195        seta     collateral, R35              ; WA-COLLATERAL-1
+  0195        seta     collateral, R36              ; WA-COLLATERAL-1
   0199        ret
 
 .aggregate
@@ -486,6 +488,7 @@
   0201  L28:  push     0                            ; satisfied
   0206  L29:  check    reporting, P18               ; WA-REPORT-1, WA-REPORT-2, WA-REPORT-3
               ; WA-EXC-WAGES  RCW 7.68.070(4)  "If a victim's employer continues to pay the victim's wages that..."
+              ; WA-COV-TRANSPORT-3  L&I Who Can File and What is Covered, How to get reimbursed  "Your request must be made within 1 year of the trip and must..."
               ; WA-EXC-PROPERTY  L&I Who Can File and What is Covered, How much we may pay  "We don't pay for the following Crime scene cleanup Identity..."
               ; WA-EXC-MEDICAID  RCW 7.68.070(12)  "Crime victims' compensation is not available to pay for services..."
               ; WA-DEADLINE-3  RCW 7.68.060(5)  "the rights of adult victims of childhood criminal acts shall..."
@@ -514,6 +517,6 @@
               ; WA-TIME-1  L&I Apply for Crime Victim Benefits page, after the filing instructions  "You will hear from us within 5-7 days regarding receipt of your..."
               ; WA-ACP-1  WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)  "The Washington Address Confidentiality Program (ACP) offers..."
               ; WA-RECCONF-1  RCW 7.68.140  "Information contained in the claim files and records of victims..."
-  020a        info     P19                          ; WA-EXC-WAGES, WA-EXC-PROPERTY, WA-EXC-MEDICAID, WA-DEADLINE-3, WA-DEADLINE-4, WA-DEADLINE-5, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3, WA-CONDUCT-1, WA-CONDUCT-2, WA-CRIME-1, WA-CRIME-2, WA-RESIDENCY-1, WA-RESIDENCY-2, WA-SUBMIT-1, WA-SUBMIT-2, WA-SUBMIT-3, WA-DOC-1, WA-DOC-2, WA-DOC-3, WA-DOC-4, WA-DOC-5, WA-DOC-6, WA-DOC-7, WA-DOC-8, WA-TIME-1, WA-ACP-1, WA-RECCONF-1
+  020a        info     P19                          ; WA-EXC-WAGES, WA-COV-TRANSPORT-3, WA-EXC-PROPERTY, WA-EXC-MEDICAID, WA-DEADLINE-3, WA-DEADLINE-4, WA-DEADLINE-5, WA-COLLATERAL-1, WA-COLLATERAL-2, WA-COLLATERAL-3, WA-CONDUCT-1, WA-CONDUCT-2, WA-CRIME-1, WA-CRIME-2, WA-RESIDENCY-1, WA-RESIDENCY-2, WA-SUBMIT-1, WA-SUBMIT-2, WA-SUBMIT-3, WA-DOC-1, WA-DOC-2, WA-DOC-3, WA-DOC-4, WA-DOC-5, WA-DOC-6, WA-DOC-7, WA-DOC-8, WA-TIME-1, WA-ACP-1, WA-RECCONF-1
   020d        ret
 

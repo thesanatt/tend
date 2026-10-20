@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e8fb64c36bfa3e41318dc1f176896e53e693ebaf430a908008cf15c398ecd9c5",
+ "source_sha256": "2e1c37b31de5356e5f48a4577a2635b5c669715b45d967c8f7d8fc06d9f6aa14",
  "rules": [
   {
    "id": "NH-EXAM-1",
@@ -144,8 +144,8 @@
   },
   {
    "id": "NH-COV-10",
-   "kind": "covered",
-   "expense": "temporary_housing"
+   "kind": "info",
+   "category": "emergency_award"
   },
   {
    "id": "NH-COV-11",
@@ -191,9 +191,7 @@
    "id": "NH-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "forensic_exam"
-   ],
+   "alternatives": [],
    "within_days": 5
   },
   {
@@ -203,6 +201,11 @@
    "alternatives": [
     "forensic_exam"
    ]
+  },
+  {
+   "id": "NH-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NH-MIN-1",
@@ -336,6 +339,11 @@
   },
   {
    "id": "NH-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NH-ACP-2",
    "kind": "info",
    "category": "address_confidentiality"
   },

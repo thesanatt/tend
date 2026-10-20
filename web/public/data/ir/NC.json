@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NC",
- "source_sha256": "5ac3957e483ba6cf4fab08a0ef3888955958a6d15b7b83ec4bdc6569ae3943f3",
- "ir_sha256": "88c88fb2d1bd34de9f1129ad41f5adef6d87e160bc537668189a1b5087188dae",
+ "source_sha256": "077936315afd129851c7d205103ae12861d37b237342cf6781a324b8a2e07257",
+ "ir_sha256": "c63cff7900b31f75ab59e6f589f64575fd3ca4e09a10c1815ea0a4cbce10d306",
  "fresh": true,
  "rules": [
   {
@@ -99,6 +99,11 @@
    "category": "excluded_expense"
   },
   {
+   "id": "NC-DEAD-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "NC-REPL-1",
    "kind": "expense_cap",
    "expense": "other",
@@ -112,6 +117,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "NC-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "NC-REPORT-1",
@@ -223,5 +233,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NC-FUN-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "CA",
- "source_sha256": "2d7d1307f1a948cea8af46d94c8d999bfe48b8ee6bbfc66a11afa3ed79329497",
- "ir_sha256": "ab361ac819c5b45e987f4577beaa4d74f2fb6580451f0bd7ef6d0290c8dae43c",
+ "source_sha256": "d069e20df87d523925304bcd661437f305e6a6f44a8dd2cd8c85eb02497b01fb",
+ "ir_sha256": "a2702735a1ee93ce4518ef9017e1f7f668fd6db9a45ef67db69a0b937d152397",
  "fresh": true,
  "rules": [
   {
@@ -42,6 +42,11 @@
    "expense": "relocation",
    "cap_cents": 341800,
    "per": "claim"
+  },
+  {
+   "id": "CA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
   },
   {
    "id": "CA-SECURITY-1",
@@ -87,6 +92,11 @@
    "kind": "deadline",
    "days": 2556,
    "from": "discovery"
+  },
+  {
+   "id": "CA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "CA-REPORT-1",

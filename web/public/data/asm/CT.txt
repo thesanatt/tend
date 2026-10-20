@@ -1,8 +1,8 @@
 ; tend law image CT, Connecticut
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 85b9830e195e3e3df4525d4d7a82ca2aefb639ef768ac0eb16b60b0301c9d24e
-; image sha256  76bf955c900012f4261b7b4a0f95e7b60ce025d87904fbff9a0270fa181cf79c
-; 45 rules, 7 sources, 26 proofs, 1 ints, 228 strings
+; source sha256 0058a546837db9346d1097eee73645df60778e6acd31bf0b0607be7a935a21c0
+; image sha256  f3def2142b85fe9b5083861f0ff501708fe50a2adb5d02cd0eef1fcee8a7970a
+; 49 rules, 7 sources, 26 proofs, 1 ints, 249 strings
 ; item program: 327 instructions, 1153 bytes, max stack 2
 ; aggregate program: 117 instructions, 367 bytes, max stack 3, 3 loops
 
@@ -27,31 +27,35 @@
     R17   CT-EXCL-3             excluded      -                                             Conn. Gen. Stat. 54-211(c)
     R18   CT-DEADLINE-1         deadline      -                     from crime              Conn. Gen. Stat. 54-211(a)(1)(A)
     R19   CT-DEADLINE-2         deadline      -                     from crime              Conn. Gen. Stat. 54-211(a)(2)
-    R20   CT-REPORT-1           reporting     -                                             Conn. Gen. Stat. 54-211(a)(1)(C)
-    R21   CT-REPORT-2           reporting     -                                             Conn. Gen. Stat. 54-209(d)(1)(K)
-    R22   CT-REPORT-3           reporting     -                                             Conn. Gen. Stat. 54-209(d)(2)
-    R23   CT-COLL-1             collateral    -                                             Conn. Gen. Stat. 54-208(e)
-    R24   CT-COLL-2             collateral    -                                             Conn. Gen. Stat. 54-208(e)
-    R25   CT-CONDUCT-1          info          -                     conduct_reduction       Conn. Gen. Stat. 54-208(c)
-    R26   CT-CONDUCT-2          info          -                     conduct_reduction       Conn. Gen. Stat. 54-211(b)
-    R27   CT-CRIME-1            info          -                     eligible_crime          Conn. Gen. Stat. 54-209(d)
-    R28   CT-RES-1              info          -                     residency               Conn. Gen. Stat. 54-211(f)(1)
-    R29   CT-SUBMIT-1           info          -                     submission              JD-VS-8PI, end of Section 10
-    R30   CT-SUBMIT-2           info          -                     submission              JD-VS-8PI, end of Section 10
-    R31   CT-SUBMIT-3           info          -                     submission              JD-VS-8PI, end of Section 10
-    R32   CT-DOC-1              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
-    R33   CT-DOC-2              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
-    R34   CT-DOC-3              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
-    R35   CT-DOC-4              info          -                     required_document       JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses
-    R36   CT-DOC-5              info          -                     required_document       JD-VS-8PI, Section 9, Wage Loss
-    R37   CT-DOC-6              info          -                     required_document       JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements
-    R38   CT-DOC-7              info          -                     required_document       JD-VS-8PI, Section 7a
-    R39   CT-DOC-8              info          -                     required_document       JDP-VS-10 brochure, overview
-    R40   CT-DOC-9              info          -                     required_document       JD-VS-8PI, Section 10
-    R41   CT-ACP-1              info          -                     address_confidentiality Conn. Gen. Stat. sec. 54-240a(a)
-    R42   CT-RECCONF-1          info          -                     record_confidentiality  Conn. Gen. Stat. sec. 54-204(b)
-    R43   CT-CAP-1              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(A)  ; applies_to "personal_injury"
-    R44   CT-CAP-2              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(D)  ; applies_to "emotional_harm_only"
+    R20   CT-DEADLINE-3         info          -                     filing_deadline         Conn. Gen. Stat. 54-211(a)(3)
+    R21   CT-DEADLINE-4         info          -                     filing_deadline         Conn. Gen. Stat. 54-211(a)(6)
+    R22   CT-REPORT-1           reporting     -                                             Conn. Gen. Stat. 54-211(a)(1)(C)
+    R23   CT-REPORT-2           reporting     -                                             Conn. Gen. Stat. 54-209(d)(1)(K)
+    R24   CT-REPORT-3           reporting     -                                             Conn. Gen. Stat. 54-209(d)(2)
+    R25   CT-COLL-1             collateral    -                                             Conn. Gen. Stat. 54-208(e)
+    R26   CT-COLL-2             collateral    -                                             Conn. Gen. Stat. 54-208(e)
+    R27   CT-CONDUCT-1          info          -                     conduct_reduction       Conn. Gen. Stat. 54-208(c)
+    R28   CT-CONDUCT-2          info          -                     conduct_reduction       Conn. Gen. Stat. 54-211(b)
+    R29   CT-CRIME-1            info          -                     eligible_crime          Conn. Gen. Stat. 54-209(d)
+    R30   CT-RES-1              info          -                     residency               Conn. Gen. Stat. 54-211(f)(1)
+    R31   CT-SUBMIT-1           info          -                     submission              JD-VS-8PI, end of Section 10
+    R32   CT-SUBMIT-2           info          -                     submission              JD-VS-8PI, end of Section 10
+    R33   CT-SUBMIT-3           info          -                     submission              JD-VS-8PI, end of Section 10
+    R34   CT-DOC-1              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R35   CT-DOC-2              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R36   CT-DOC-3              info          -                     required_document       JD-VS-8PI, Section 9, Medical, Mental Health, Dental, and Prescription Expenses
+    R37   CT-DOC-4              info          -                     required_document       JD-VS-8PI, Section 9, Crime Scene Cleanup and Security System Expenses
+    R38   CT-DOC-5              info          -                     required_document       JD-VS-8PI, Section 9, Wage Loss
+    R39   CT-DOC-6              info          -                     required_document       JD-VS-47, Lost Wages and Travel Expenses to Attend Proceedings, Requirements
+    R40   CT-DOC-7              info          -                     required_document       JD-VS-8PI, Section 7a
+    R41   CT-DOC-8              info          -                     required_document       JDP-VS-10 brochure, overview
+    R42   CT-DOC-9              info          -                     required_document       JD-VS-8PI, Section 10
+    R43   CT-ACP-1              info          -                     address_confidentiality Conn. Gen. Stat. sec. 54-240a(a)
+    R44   CT-RECCONF-1          info          -                     record_confidentiality  Conn. Gen. Stat. sec. 54-204(b)
+    R45   CT-CAP-1              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(A)  ; applies_to "personal_injury"
+    R46   CT-CAP-2              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(1)(D)  ; applies_to "emotional_harm_only"
+    R47   CT-CAP-6              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(2)  ; total_cap without amount
+    R48   CT-CAP-7              skipped       -                     total_cap               Conn. Gen. Stat. 54-211(d)(3)  ; total_cap without amount
 
 .tags   phone=bit0, pain_suffering=bit1
 
@@ -90,7 +94,7 @@
     P22   (CT-COV-3, CT-COLL-1, CT-COLL-2)
     P23   (CT-DEADLINE-1, CT-DEADLINE-2)
     P24   (CT-REPORT-1, CT-REPORT-2, CT-REPORT-3)
-    P25   (CT-EXCL-2, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1)
+    P25   (CT-EXCL-2, CT-DEADLINE-3, CT-DEADLINE-4, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1)
 
 .ints
     K0    100000        ; $1,000.00
@@ -167,7 +171,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R23              ; CT-COLL-1
+  00d5        seta     collateral, R25              ; CT-COLL-1
   00d9        ret
               ; CT-COV-2  JD-VS-47, Mental Health Expenses  "Mental health therapy including individual, family, group..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -202,7 +206,7 @@
   012c        subs
   012d        push     0
   0132        max
-  0133        seta     collateral, R23              ; CT-COLL-1
+  0133        seta     collateral, R25              ; CT-COLL-1
   0137        ret
               ; CT-COV-5  Conn. Gen. Stat. 54-210(a)(2)  "(2) loss of earning power as a result of total or partial..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -237,7 +241,7 @@
   018a        subs
   018b        push     0
   0190        max
-  0191        seta     collateral, R23              ; CT-COLL-1
+  0191        seta     collateral, R25              ; CT-COLL-1
   0195        ret
               ; CT-COV-6  JDP-VS-10 brochure, Eligible Expenses Continued  "For physical injury and homicide cases, lost wages and travel..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -272,7 +276,7 @@
   01e8        subs
   01e9        push     0
   01ee        max
-  01ef        seta     collateral, R23              ; CT-COLL-1
+  01ef        seta     collateral, R25              ; CT-COLL-1
   01f3        ret
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
   01f4  L22:  push     0
@@ -329,7 +333,7 @@
   0288        subs
   0289        push     0
   028e        max
-  028f        seta     collateral, R23              ; CT-COLL-1
+  028f        seta     collateral, R25              ; CT-COLL-1
   0293        ret
               ; CT-CAP-5  JD-VS-8PI, Section 9  "CRIME SCENE CLEANUP AND SECURITY SYSTEM EXPENSES (maximum..."
               ; CT-COV-9  JD-VS-47, Crime Scene Clean-up and Security Systems  "Costs for replacement or repair of damaged locks, doors, and..."
@@ -365,7 +369,7 @@
   02e6        subs
   02e7        push     0
   02ec        max
-  02ed        seta     collateral, R23              ; CT-COLL-1
+  02ed        seta     collateral, R25              ; CT-COLL-1
   02f1        ret
               ; CT-EXCL-1  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -439,7 +443,7 @@
   03b9        subs
   03ba        push     0
   03bf        max
-  03c0        seta     collateral, R23              ; CT-COLL-1
+  03c0        seta     collateral, R25              ; CT-COLL-1
   03c4        ret
               ; CT-COV-4  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -474,7 +478,7 @@
   0417        subs
   0418        push     0
   041d        max
-  041e        seta     collateral, R23              ; CT-COLL-1
+  041e        seta     collateral, R25              ; CT-COLL-1
   0422        ret
               ; CT-COV-3  JD-VS-47, Medical Expenses  "Hospital, doctor, cosmetic, and dental fees; co-pays and other..."
               ; CT-EXCL-3  Conn. Gen. Stat. 54-211(c)  "no compensation shall be awarded for losses sustained for crimes..."
@@ -509,7 +513,7 @@
   0475        subs
   0476        push     0
   047b        max
-  047c        seta     collateral, R23              ; CT-COLL-1
+  047c        seta     collateral, R25              ; CT-COLL-1
   0480        ret
 
 .aggregate
@@ -637,6 +641,8 @@
   0162  L18:  push     0                            ; satisfied
   0167  L19:  check    reporting, P24               ; CT-REPORT-1, CT-REPORT-2, CT-REPORT-3
               ; CT-EXCL-2  JDP-VS-10 brochure, Eligible Expenses Continued  "Property loss and damage, pain and suffering, and travel to and..."
+              ; CT-DEADLINE-3  Conn. Gen. Stat. 54-211(a)(3)  "any minor, including, but not limited to, a minor who is a..."
+              ; CT-DEADLINE-4  Conn. Gen. Stat. 54-211(a)(6)  "Notwithstanding the provisions of subdivision (1), (2) or (3) of..."
               ; CT-COLL-1  Conn. Gen. Stat. 54-208(e)  "shall take into consideration any amounts that the applicant has..."
               ; CT-COLL-2  Conn. Gen. Stat. 54-208(e)  "In a case involving circumstances under which a victim of..."
               ; CT-CONDUCT-1  Conn. Gen. Stat. 54-208(c)  "shall consider all circumstances determined to be relevant..."
@@ -657,6 +663,6 @@
               ; CT-DOC-9  JD-VS-8PI, Section 10  "Applications that are not signed will be returned for signature."
               ; CT-ACP-1  Conn. Gen. Stat. sec. 54-240a(a)  "There shall be an address confidentiality program established in..."
               ; CT-RECCONF-1  Conn. Gen. Stat. sec. 54-204(b)  "Any information received which is confidential in accordance..."
-  016b        info     P25                          ; CT-EXCL-2, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1
+  016b        info     P25                          ; CT-EXCL-2, CT-DEADLINE-3, CT-DEADLINE-4, CT-COLL-1, CT-COLL-2, CT-CONDUCT-1, CT-CONDUCT-2, CT-CRIME-1, CT-RES-1, CT-SUBMIT-1, CT-SUBMIT-2, CT-SUBMIT-3, CT-DOC-1, CT-DOC-2, CT-DOC-3, CT-DOC-4, CT-DOC-5, CT-DOC-6, CT-DOC-7, CT-DOC-8, CT-DOC-9, CT-ACP-1, CT-RECCONF-1
   016e        ret
 

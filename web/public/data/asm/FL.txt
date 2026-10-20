@@ -1,8 +1,8 @@
 ; tend law image FL, Florida
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 dcfe24d4d301a829fe50d8d1ba0eb88378ccebd6ac8241db07011a131f9935e6
-; image sha256  338c1c9e913aea7a50d4e567bdcd3397a04fd43ecb7606bf2e0ff7d0b08ffa6a
-; 49 rules, 24 sources, 19 proofs, 5 ints, 308 strings
+; source sha256 edcf36eaaf5b82b9d2c46229480b9d1377666ea4bc41851a4d87afdf115c9589
+; image sha256  4d80c2d256cdfd76bc6a23c10133e24fba42fd08a82495665721a683b477eb4b
+; 59 rules, 24 sources, 19 proofs, 6 ints, 358 strings
 ; item program: 209 instructions, 757 bytes, max stack 2
 ; aggregate program: 223 instructions, 688 bytes, max stack 3, 7 loops
 
@@ -13,49 +13,59 @@
     R3    FL-EXAM-4             expense_cap   forensic_exam         per claim               Fla. Stat. 960.28(2)
     R4    FL-CAP-1              total_cap     -                                             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2)(c))
     R5    FL-CAP-2              expense_cap   medical               per claim               Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
-    R6    FL-CAP-4              expense_cap   counseling            per claim               Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
-    R7    FL-CAP-5              expense_cap   lost_wages            per claim               Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
-    R8    FL-CAP-6              expense_cap   relocation            per claim               Fla. Stat. 960.199(1)
-    R9    FL-CAP-7              expense_cap   property_replacement  per claim               Fla. Stat. 960.195(1)
-    R10   FL-COV-1              covered       counseling                                    Fla. Admin. Code R. 2A-2.2002(2)(g)5.
-    R11   FL-COV-2              covered       lost_wages                                    Fla. Admin. Code R. 2A-2.2002(2)(c)1.a.
-    R12   FL-COV-3              covered       transportation                                Fla. Admin. Code R. 2A-2.2002(2)(h)4.
-    R13   FL-COV-4              covered       transportation                                Fla. Admin. Code R. 2A-2.2002(2)(g)8.
-    R14   FL-COV-5              covered       medical                                       Fla. Admin. Code R. 2A-2.2002(2)(e)2.
-    R15   FL-COV-6              covered       relocation                                    Fla. Stat. 960.199(2)(c)-(e)
-    R16   FL-EXC-1              excluded      -                                             Fla. Admin. Code R. 2A-2.2002(3)(g)
-    R17   FL-DEADLINE-1         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)1.
-    R18   FL-DEADLINE-3         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)2.-3.
-    R19   FL-DEADLINE-2         info          -                     filing_deadline         Fla. Stat. 960.07(3)(c)
-    R20   FL-REPORT-1           reporting     -                                             Fla. Stat. 960.13(1)(b)2.
-    R21   FL-REPORT-2           reporting     -                                             Fla. Admin. Code R. 2A-2.2001(9)
-    R22   FL-COLLATERAL-1       collateral    -                                             Fla. Stat. 960.13(3)
-    R23   FL-CONDUCT-1          info          -                     conduct_reduction       Fla. Stat. 960.13(7)
-    R24   FL-CONDUCT-2          info          -                     conduct_reduction       Fla. Admin. Code R. 2A-2.2002(1)(b)2.
-    R25   FL-EMERG-1            info          -                     emergency_award         Fla. Stat. 960.12(1)-(2)
-    R26   FL-CRIME-1            info          -                     eligible_crime          Fla. Stat. 960.03(3)(a)
-    R27   FL-CRIME-2            info          -                     eligible_crime          Fla. Stat. 776.08
-    R28   FL-RES-1              info          -                     residency               Fla. Stat. 960.03(3)(d)
-    R29   FL-RES-2              info          -                     residency               Fla. Admin. Code R. 2A-2.2001(8)
-    R30   FL-SUBMIT-1           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R31   FL-SUBMIT-2           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R32   FL-SUBMIT-3           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R33   FL-SUBMIT-4           info          -                     submission              Fla. Stat. 960.07(5)
-    R34   FL-DOC-1              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R35   FL-DOC-2              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R36   FL-DOC-3              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R37   FL-DOC-4              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement
-    R38   FL-DOC-5              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R39   FL-DOC-6              info          -                     required_document       Claim Form BVC100 (08/24), Section Nine
-    R40   FL-DOC-7              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss
-    R41   FL-DOC-8              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve
-    R42   FL-DOC-9              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R43   FL-DOC-10             info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R44   FL-DOC-11             info          -                     required_document       Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations
-    R45   FL-ACP-1              info          -                     address_confidentiality Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465
-    R46   FL-RECORDS-1          info          -                     record_confidentiality  Fla. Stat. 119.071(2)(j)1.b.(I)
-    R47   FL-CAP-3              skipped       -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  ; less generous duplicate of FL-CAP-4
-    R48   FL-CAP-8              skipped       -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  ; less generous duplicate of FL-CAP-4
+    R6    FL-CAP-3              expense_cap   counseling            per claim               Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
+    R7    FL-CAP-4              info          -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
+    R8    FL-CAP-5              expense_cap   lost_wages            per claim               Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))
+    R9    FL-CAP-6              expense_cap   relocation            per claim               Fla. Stat. 960.199(1)
+    R10   FL-CAP-7              expense_cap   property_replacement  per claim               Fla. Stat. 960.195(1)
+    R11   FL-COV-1              covered       counseling                                    Fla. Admin. Code R. 2A-2.2002(2)(g)5.
+    R12   FL-COV-2              covered       lost_wages                                    Fla. Admin. Code R. 2A-2.2002(2)(c)1.a.
+    R13   FL-COV-3              covered       transportation                                Fla. Admin. Code R. 2A-2.2002(2)(h)4.
+    R14   FL-COV-4              covered       transportation                                Fla. Admin. Code R. 2A-2.2002(2)(g)8.
+    R15   FL-COV-5              covered       medical                                       Fla. Admin. Code R. 2A-2.2002(2)(e)2.
+    R16   FL-COV-6              covered       relocation                                    Fla. Stat. 960.199(2)(c)-(e)
+    R17   FL-COV-7              covered       relocation                                    Fla. Admin. Code R. 2A-2.2001(43)
+    R18   FL-EXC-1              excluded      -                                             Fla. Admin. Code R. 2A-2.2002(3)(g)
+    R19   FL-DEADLINE-1         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)1.
+    R20   FL-DEADLINE-3         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)2.-3.
+    R21   FL-DEADLINE-6         info          -                     filing_deadline         Fla. Stat. 960.07(2)(a)1.-2.
+    R22   FL-DEADLINE-7         info          -                     filing_deadline         Fla. Stat. 960.07(2)(a)3.
+    R23   FL-DEADLINE-2         info          -                     filing_deadline         Fla. Stat. 960.07(3)(c)
+    R24   FL-DEADLINE-5         info          -                     filing_deadline         Fla. Stat. 960.07(3)(b)
+    R25   FL-DEADLINE-4         info          -                     filing_deadline         Fla. Stat. 960.07(3)
+    R26   FL-REPORT-1           reporting     -                                             Fla. Stat. 960.13(1)(b)2.
+    R27   FL-REPORT-2           reporting     -                                             Fla. Admin. Code R. 2A-2.2001(9)
+    R28   FL-REPORT-3           info          -                     reporting_requirement   Fla. Stat. 960.13(1)(b)
+    R29   FL-COLLATERAL-1       collateral    -                                             Fla. Stat. 960.13(3)
+    R30   FL-NEED-1             info          -                     minimum_loss            Fla. Stat. 960.13(8)
+    R31   FL-CONDUCT-1          info          -                     conduct_reduction       Fla. Stat. 960.13(7)
+    R32   FL-CONDUCT-2          info          -                     conduct_reduction       Fla. Admin. Code R. 2A-2.2002(1)(b)2.
+    R33   FL-EMERG-1            info          -                     emergency_award         Fla. Stat. 960.12(1)-(2)
+    R34   FL-CRIME-1            info          -                     eligible_crime          Fla. Stat. 960.03(3)(a)
+    R35   FL-CRIME-2            info          -                     eligible_crime          Fla. Stat. 776.08
+    R36   FL-RES-1              info          -                     residency               Fla. Stat. 960.03(3)(d)
+    R37   FL-RES-2              info          -                     residency               Fla. Admin. Code R. 2A-2.2001(8)
+    R38   FL-SUBMIT-1           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R39   FL-SUBMIT-2           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R40   FL-SUBMIT-3           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R41   FL-SUBMIT-4           info          -                     submission              Fla. Stat. 960.07(5)
+    R42   FL-DOC-1              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R43   FL-DOC-2              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R44   FL-DOC-3              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R45   FL-DOC-4              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement
+    R46   FL-DOC-5              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R47   FL-DOC-6              info          -                     required_document       Claim Form BVC100 (08/24), Section Nine
+    R48   FL-DOC-7              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss
+    R49   FL-DOC-8              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve
+    R50   FL-DOC-9              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R51   FL-DOC-10             info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R52   FL-DOC-11             info          -                     required_document       Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations
+    R53   FL-ACP-1              info          -                     address_confidentiality Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465
+    R54   FL-RECORDS-1          info          -                     record_confidentiality  Fla. Stat. 119.071(2)(j)1.b.(I)
+    R55   FL-CAP-9              skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment  ; expense_cap without amount or expense
+    R56   FL-CAP-10             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim  ; expense_cap without amount or expense
+    R57   FL-CAP-11             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss  ; expense_cap without amount or expense
+    R58   FL-CAP-8              skipped       -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  ; less generous duplicate of FL-CAP-3
 
 .tags   cash=bit0
 
@@ -91,27 +101,28 @@
     P2    (FL-EXC-1)
     P3    (FL-CAP-2, FL-COV-5)
     P4    (FL-CAP-2, FL-COV-5, FL-COLLATERAL-1)
-    P5    (FL-CAP-3, FL-CAP-8)
-    P6    (FL-CAP-4, FL-COV-1)
-    P7    (FL-CAP-4, FL-COV-1, FL-COLLATERAL-1)
+    P5    (FL-CAP-8)
+    P6    (FL-CAP-3, FL-COV-1)
+    P7    (FL-CAP-3, FL-COV-1, FL-COLLATERAL-1)
     P8    (FL-CAP-5, FL-COV-2)
     P9    (FL-CAP-5, FL-COV-2, FL-COLLATERAL-1)
     P10   (FL-COV-3, FL-COV-4)
     P11   (FL-COV-3, FL-COV-4, FL-COLLATERAL-1)
-    P12   (FL-CAP-6, FL-COV-6)
-    P13   (FL-CAP-6, FL-COV-6, FL-COLLATERAL-1)
+    P12   (FL-CAP-6, FL-COV-6, FL-COV-7)
+    P13   (FL-CAP-6, FL-COV-6, FL-COV-7, FL-COLLATERAL-1)
     P14   (FL-CAP-7)
     P15   (FL-CAP-7, FL-COLLATERAL-1)
     P16   (FL-DEADLINE-1, FL-DEADLINE-3)
     P17   (FL-REPORT-1, FL-REPORT-2)
-    P18   (FL-DEADLINE-2, FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
+    P18   (FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-7, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
 
 .ints
     K0    100000        ; $1,000.00
     K1    1000000       ; $10,000.00
-    K2    1500000       ; $15,000.00
-    K3    150000        ; $1,500.00
-    K4    50000         ; $500.00
+    K2    500000        ; $5,000.00
+    K3    1500000       ; $15,000.00
+    K4    150000        ; $1,500.00
+    K5    50000         ; $500.00
 
 .item
   0000        ldi      date
@@ -185,9 +196,9 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R22              ; FL-COLLATERAL-1
+  00d5        seta     collateral, R29              ; FL-COLLATERAL-1
   00d9        ret
-              ; FL-CAP-4  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Minor (until age 18) $10,000 at a rate of..."
+              ; FL-CAP-3  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Adult Victim $5,000 at a rate of 50%"
               ; FL-COV-1  Fla. Admin. Code R. 2A-2.2002(2)(g)5.  "Persons who suffered a psychological or psychiatric injury as a..."
               ; FL-EXC-1  Fla. Admin. Code R. 2A-2.2002(3)(g)  "Examples of property that is not compensable includes real..."
               ; FL-COLLATERAL-1  Fla. Stat. 960.13(3)  "Payment made in accordance with this section shall be considered..."
@@ -208,20 +219,20 @@
   0108  L9:   push     0
   010d        decide   excluded, P2                 ; FL-EXC-1
   0111        ret
-  0112  L10:  alts     P5                           ; FL-CAP-3, FL-CAP-8
+  0112  L10:  alts     P5                           ; FL-CAP-8
   0115        ldi      confirmed
   0117        jnz      L11
   011c        push     0
-  0121        decide   needs_confirmation, P6       ; FL-CAP-4, FL-COV-1
+  0121        decide   needs_confirmation, P6       ; FL-CAP-3, FL-COV-1
   0125        ret
   0126  L11:  ldi      amount_cents
-  0128        decide   eligible, P7                 ; FL-CAP-4, FL-COV-1, FL-COLLATERAL-1
+  0128        decide   eligible, P7                 ; FL-CAP-3, FL-COV-1, FL-COLLATERAL-1
   012c        lda
   012d        ldi      insurance_paid_cents
   012f        subs
   0130        push     0
   0135        max
-  0136        seta     collateral, R22              ; FL-COLLATERAL-1
+  0136        seta     collateral, R29              ; FL-COLLATERAL-1
   013a        ret
               ; FL-CAP-5  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Wage Loss $15,000 at a rate of 50% or GAWW"
               ; FL-COV-2  Fla. Admin. Code R. 2A-2.2002(2)(c)1.a.  "Who missed time from work because they were unable to work as a..."
@@ -256,7 +267,7 @@
   018d        subs
   018e        push     0
   0193        max
-  0194        seta     collateral, R22              ; FL-COLLATERAL-1
+  0194        seta     collateral, R29              ; FL-COLLATERAL-1
   0198        ret
               ; FL-COV-3  Fla. Admin. Code R. 2A-2.2002(2)(h)4.  "Reimbursement for transportation costs to medical/dental..."
               ; FL-COV-4  Fla. Admin. Code R. 2A-2.2002(2)(g)8.  "Reimbursement for transportation costs to mental health..."
@@ -291,10 +302,11 @@
   01eb        subs
   01ec        push     0
   01f1        max
-  01f2        seta     collateral, R22              ; FL-COLLATERAL-1
+  01f2        seta     collateral, R29              ; FL-COLLATERAL-1
   01f6        ret
               ; FL-CAP-6  Fla. Stat. 960.199(1)  "The department may award a one-time payment of up to $1,500 on..."
               ; FL-COV-6  Fla. Stat. 960.199(2)(c)-(e)  "(c) The victim’s need for assistance must be certified by a..."
+              ; FL-COV-7  Fla. Admin. Code R. 2A-2.2001(43)  ""Relocation assistance" compensation is defined as compensable..."
               ; FL-EXC-1  Fla. Admin. Code R. 2A-2.2002(3)(g)  "Examples of property that is not compensable includes real..."
               ; FL-COLLATERAL-1  Fla. Stat. 960.13(3)  "Payment made in accordance with this section shall be considered..."
   01f7  L22:  push     0
@@ -317,16 +329,16 @@
   022f  L25:  ldi      confirmed
   0231        jnz      L26
   0236        push     0
-  023b        decide   needs_confirmation, P12      ; FL-CAP-6, FL-COV-6
+  023b        decide   needs_confirmation, P12      ; FL-CAP-6, FL-COV-6, FL-COV-7
   023f        ret
   0240  L26:  ldi      amount_cents
-  0242        decide   eligible, P13                ; FL-CAP-6, FL-COV-6, FL-COLLATERAL-1
+  0242        decide   eligible, P13                ; FL-CAP-6, FL-COV-6, FL-COV-7, FL-COLLATERAL-1
   0246        lda
   0247        ldi      insurance_paid_cents
   0249        subs
   024a        push     0
   024f        max
-  0250        seta     collateral, R22              ; FL-COLLATERAL-1
+  0250        seta     collateral, R29              ; FL-COLLATERAL-1
   0254        ret
               ; FL-EXC-1  Fla. Admin. Code R. 2A-2.2002(3)(g)  "Examples of property that is not compensable includes real..."
   0255  L27:  push     0
@@ -381,7 +393,7 @@
   02e9        subs
   02ea        push     0
   02ef        max
-  02f0        seta     collateral, R22              ; FL-COLLATERAL-1
+  02f0        seta     collateral, R29              ; FL-COLLATERAL-1
   02f4        ret
 
 .aggregate
@@ -441,7 +453,7 @@
   0096  L7:   push     0
   009b        cap      expense_cap, R5              ; FL-CAP-2
   009f  L8:   next     L5
-              ; FL-CAP-4  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Minor (until age 18) $10,000 at a rate of..."
+              ; FL-CAP-3  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Adult Victim $5,000 at a rate of 50%"
   00a4  L9:   push     0
   00a9        str      r0
   00ab        push     0
@@ -452,13 +464,13 @@
   00bf        ldr      r0
   00c1        lda
   00c2        adds
-  00c3        ldk      K1                           ; $10,000.00
+  00c3        ldk      K2                           ; $5,000.00
   00c6        gt
   00c7        jz       L11
-  00cc        ldk      K1                           ; $10,000.00
+  00cc        ldk      K2                           ; $5,000.00
   00cf        ldr      r0
   00d1        subs
-  00d2        cap      expense_cap, R6              ; FL-CAP-4
+  00d2        cap      expense_cap, R6              ; FL-CAP-3
   00d6        push     1
   00db        str      r1
   00dd  L11:  ldr      r0
@@ -467,7 +479,7 @@
   00e1        str      r0
   00e3        jmp      L13
   00e8  L12:  push     0
-  00ed        cap      expense_cap, R6              ; FL-CAP-4
+  00ed        cap      expense_cap, R6              ; FL-CAP-3
   00f1  L13:  next     L10
               ; FL-CAP-5  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Wage Loss $15,000 at a rate of 50% or GAWW"
   00f6  L14:  push     0
@@ -480,13 +492,13 @@
   0111        ldr      r0
   0113        lda
   0114        adds
-  0115        ldk      K2                           ; $15,000.00
+  0115        ldk      K3                           ; $15,000.00
   0118        gt
   0119        jz       L16
-  011e        ldk      K2                           ; $15,000.00
+  011e        ldk      K3                           ; $15,000.00
   0121        ldr      r0
   0123        subs
-  0124        cap      expense_cap, R7              ; FL-CAP-5
+  0124        cap      expense_cap, R8              ; FL-CAP-5
   0128        push     1
   012d        str      r1
   012f  L16:  ldr      r0
@@ -495,7 +507,7 @@
   0133        str      r0
   0135        jmp      L18
   013a  L17:  push     0
-  013f        cap      expense_cap, R7              ; FL-CAP-5
+  013f        cap      expense_cap, R8              ; FL-CAP-5
   0143  L18:  next     L15
               ; FL-CAP-6  Fla. Stat. 960.199(1)  "The department may award a one-time payment of up to $1,500 on..."
   0148  L19:  push     0
@@ -508,13 +520,13 @@
   0163        ldr      r0
   0165        lda
   0166        adds
-  0167        ldk      K3                           ; $1,500.00
+  0167        ldk      K4                           ; $1,500.00
   016a        gt
   016b        jz       L21
-  0170        ldk      K3                           ; $1,500.00
+  0170        ldk      K4                           ; $1,500.00
   0173        ldr      r0
   0175        subs
-  0176        cap      expense_cap, R8              ; FL-CAP-6
+  0176        cap      expense_cap, R9              ; FL-CAP-6
   017a        push     1
   017f        str      r1
   0181  L21:  ldr      r0
@@ -523,7 +535,7 @@
   0185        str      r0
   0187        jmp      L23
   018c  L22:  push     0
-  0191        cap      expense_cap, R8              ; FL-CAP-6
+  0191        cap      expense_cap, R9              ; FL-CAP-6
   0195  L23:  next     L20
               ; FL-CAP-7  Fla. Stat. 960.195(1)  "the department may award a maximum of $500 on any one claim and..."
   019a  L24:  push     0
@@ -536,13 +548,13 @@
   01b5        ldr      r0
   01b7        lda
   01b8        adds
-  01b9        ldk      K4                           ; $500.00
+  01b9        ldk      K5                           ; $500.00
   01bc        gt
   01bd        jz       L26
-  01c2        ldk      K4                           ; $500.00
+  01c2        ldk      K5                           ; $500.00
   01c5        ldr      r0
   01c7        subs
-  01c8        cap      expense_cap, R9              ; FL-CAP-7
+  01c8        cap      expense_cap, R10             ; FL-CAP-7
   01cc        push     1
   01d1        str      r1
   01d3  L26:  ldr      r0
@@ -551,7 +563,7 @@
   01d7        str      r0
   01d9        jmp      L28
   01de  L27:  push     0
-  01e3        cap      expense_cap, R9              ; FL-CAP-7
+  01e3        cap      expense_cap, R10             ; FL-CAP-7
   01e7  L28:  next     L25
               ; FL-CAP-1  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2)(c))  "Total benefits paid on a single claim cannot exceed $15,000 when..."
   01ec  L29:  push     0
@@ -564,10 +576,10 @@
   0207        ldr      r0
   0209        lda
   020a        adds
-  020b        ldk      K2                           ; $15,000.00
+  020b        ldk      K3                           ; $15,000.00
   020e        gt
   020f        jz       L31
-  0214        ldk      K2                           ; $15,000.00
+  0214        ldk      K3                           ; $15,000.00
   0217        ldr      r0
   0219        subs
   021a        cap      total_cap, R4                ; FL-CAP-1
@@ -617,8 +629,15 @@
   029e        jmp      L39
   02a3  L38:  push     0                            ; satisfied
   02a8  L39:  check    reporting, P17               ; FL-REPORT-1, FL-REPORT-2
+              ; FL-CAP-4  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Minor (until age 18) $10,000 at a rate of..."
+              ; FL-DEADLINE-6  Fla. Stat. 960.07(2)(a)1.-2.  "(a)1. A claim arising from a crime occurring before October 1..."
+              ; FL-DEADLINE-7  Fla. Stat. 960.07(2)(a)3.  "3. For good cause based on reason other than a delay described..."
               ; FL-DEADLINE-2  Fla. Stat. 960.07(3)(c)  "(c) For a claim arising from a crime occurring on or after..."
+              ; FL-DEADLINE-5  Fla. Stat. 960.07(3)(b)  "(b) For a claim arising from a crime that occurred before..."
+              ; FL-DEADLINE-4  Fla. Stat. 960.07(3)  "Upon a showing that a delay in filing a claim occurred because..."
+              ; FL-REPORT-3  Fla. Stat. 960.13(1)(b)  "The department, upon finding that any claimant or award..."
               ; FL-COLLATERAL-1  Fla. Stat. 960.13(3)  "Payment made in accordance with this section shall be considered..."
+              ; FL-NEED-1  Fla. Stat. 960.13(8)  "If the department finds that the claimant, if not granted..."
               ; FL-CONDUCT-1  Fla. Stat. 960.13(7)  "In determining the amount of an award, the department shall..."
               ; FL-CONDUCT-2  Fla. Admin. Code R. 2A-2.2002(1)(b)2.  "Penalty assessments, if imposed, based on contribution will be..."
               ; FL-EMERG-1  Fla. Stat. 960.12(1)-(2)  "if it appears to the department that such claim is one with..."
@@ -643,6 +662,6 @@
               ; FL-DOC-11  Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations  "A standard housing contract or a No fica on of Residen al..."
               ; FL-ACP-1  Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465  "the Address Confidentiality Program (ACP) provides a substitute..."
               ; FL-RECORDS-1  Fla. Stat. 119.071(2)(j)1.b.(I)  "Any portion of a public record which reveals the identity..."
-  02ac        info     P18                          ; FL-DEADLINE-2, FL-COLLATERAL-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
+  02ac        info     P18                          ; FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-7, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
   02af        ret
 

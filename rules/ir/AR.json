@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "3c3b5e3148a1c23299f090910b9739b230cba748a4a708fd877c4870ac885ad6",
+ "source_sha256": "5aa63804f946d13bb1f83009a848f5425070730adb1f0171bcf7000f628d8d6e",
  "rules": [
   {
    "id": "AR-EXAM-1",
@@ -25,7 +25,7 @@
   },
   {
    "id": "AR-EXAM-2",
-   "kind": "exam_no_bill"
+   "kind": "exam_payment"
   },
   {
    "id": "AR-EXAM-3",
@@ -33,6 +33,12 @@
   },
   {
    "id": "AR-EXAM-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "AR-REPORT-4",
    "kind": "reporting",
    "required": false,
    "alternatives": []
@@ -74,6 +80,11 @@
    "per": "claim"
   },
   {
+   "id": "AR-CAP-6",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
    "id": "AR-CAP-5",
    "kind": "expense_cap",
    "expense": "funeral",
@@ -100,13 +111,24 @@
    "id": "AR-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "AR-REPORT-2",
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "AR-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "AR-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "AR-COLL-1",

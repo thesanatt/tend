@@ -236,7 +236,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "If the survivor's health coverage leaves a co-payment, coinsurance, deductible, or other cost-sharing for the exam, the Fund pays that share directly to the provider, so the survivor does not owe it.",
    "quote": "If the victim's health coverage does not cover all of the medical care provided pursuant to this section and the victim would otherwise be responsible for any co-payment, coinsurance, deductible, or other cost-sharing, the Fund shall pay the victim's share directly to the health care facility or provider.",
@@ -248,7 +248,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "required"
    },
    "summary": "Providers must bill the survivor's health plan, Medicaid, or Medicare for the exam first. If the survivor is uninsured or the plan denies the claim, the Fund pays Vermont providers 60 percent of billed charges and the provider may not bill the survivor for the balance.",
    "quote": "Health care facilities and health care providers shall bill the victim's health insurance plan, Medicaid, Medicare, or another health benefit plan, as applicable, for the services described in subsection (b) of this section. If the victim does not have health coverage or if the victim's health benefit plan denies the claim, the Fund shall reimburse health care facilities and health care providers located in Vermont as defined in 18 V.S.A. § 9402 at 60 percent of the billed charges for these claims, and the health care provider or facility shall not bill any balance to the crime victim.",
@@ -266,6 +266,19 @@
    "quote": "Resources are available to pay for the initial sexual assault medical examination to include: collection of evidence STI (sexually transmitted infections) and HIV screening prophylaxis pregnancy testing treatment of related injuries",
    "source_id": "VT-S6",
    "pinpoint": "CCVS Sexual Assault Program page, What is covered?"
+  },
+  {
+   "id": "VT-EXAM-5",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "State of Vermont, for victims of crime committed in Vermont",
+    "condition": "if the crime was in Vermont"
+   },
+   "summary": "As this section describes, the State covers the costs of certain medical care for victims of a crime committed in Vermont who have no health insurance or whose insurance does not pay for all of the care.",
+   "quote": "As described in this section, the State shall cover the costs of certain medical care for victims of crime committed in this State without health insurance or whose health insurance does not pay for all of the care provided.",
+   "source_id": "VT-S15",
+   "pinpoint": "32 V.S.A. § 1407(a)"
   },
   {
    "id": "VT-CAP-1",
@@ -350,7 +363,8 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost wages are paid at 85% of the victim's gross wages at the time of the loss.",
    "quote": "lost wages will be paid at 85% of the victim's gross wages at the time of the loss.",
@@ -518,6 +532,39 @@
    "pinpoint": "13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)"
   },
   {
+   "id": "VT-DEADLINE-3",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "Prosecution for lewd and lascivious conduct must begin within 6 years, so that is also the time limit to apply for it.",
+   "quote": "(b) Prosecutions for lewd and lascivious conduct, sexual abuse of a vulnerable adult under subsection 1379(a) of this title, grand larceny, robbery, burglary, embezzlement, forgery, bribery offenses, false claims, fraud under 33 V.S.A. § 141(d), and felony tax offenses shall be commenced within six years after the commission of the offense, and not after.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(b), read with 13 V.S.A. § 5355(b)(1)"
+  },
+  {
+   "id": "VT-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "For lewd and lascivious conduct against a child under 18, lewd or lascivious conduct with a child, and sexual exploitation of children, prosecution must begin within 40 years. That is also the time limit to apply.",
+   "quote": "(c) Prosecutions for any of the following offenses shall be commenced within 40 years after the commission of the offense, and not after: (1) lewd and lascivious conduct alleged to have been committed against a child under 18 years of age; (2) maiming; (3) lewd or lascivious conduct with a child; (4) sexual exploitation of children under chapter 64 of this title; and (5) sexual abuse of a vulnerable adult under subsection 1379(b) of this title.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(c), read with 13 V.S.A. § 5355(b)(1)"
+  },
+  {
+   "id": "VT-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {
+    "from": "crime"
+   },
+   "summary": "For other felonies and misdemeanors, prosecution must begin within 3 years. That is also the time limit to apply.",
+   "quote": "(e) Prosecutions for other felonies and for misdemeanors shall be commenced within three years after the commission of the offense, and not after.",
+   "source_id": "VT-S17",
+   "pinpoint": "13 V.S.A. § 4501(e), read with 13 V.S.A. § 5355(b)(1)"
+  },
+  {
    "id": "VT-REPORT-1",
    "category": "reporting_requirement",
    "params": {
@@ -533,9 +580,8 @@
    "category": "reporting_requirement",
    "params": {
     "required": false,
-    "alternatives": [
-     "medical_provider"
-    ]
+    "alternatives": [],
+    "scope": "the separate Sexual Assault Program"
    },
    "summary": "The separate CCVS Sexual Assault Program does not require a police report. The assault only has to be reported to a medical provider.",
    "quote": "The victim does not have to report the crime to the police to be eligible , only to a medical provider .",
@@ -564,7 +610,7 @@
    "id": "VT-CONDUCT-1",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "An application is denied if the victim broke a Vermont criminal law that caused or contributed to the victim's injuries.",
+   "summary": "A claim must be denied if the victim broke a Vermont criminal law that caused or helped cause the victim's injuries.",
    "quote": "(2) The victim violated a criminal law of this State that caused or contributed to the victim's injuries or death.",
    "source_id": "VT-S1",
    "pinpoint": "13 V.S.A. § 5355(b)(2)"
@@ -735,7 +781,7 @@
     "covers_sexual_assault": true,
     "enroll": "Ready to apply? Apply Now Find an Applicant Assistant Some applicants find it helpful to use an Applicant Assistant. This is not a requirement to participate in the program."
    },
-   "summary": "The Secretary of State's Safe at Home program gives survivors of sexual assault, domestic violence, stalking, and human trafficking a substitute post office box address and mail forwarding, and lets them use that address on state and local government records so they are harder to locate. Survivors can apply online on the program page, on their own or with help from an Applicant Assistant at a local advocacy agency.",
+   "summary": "The Secretary of State's Safe at Home program offers an address confidentiality service and a protected records service to survivors of sexual assault, domestic violence, stalking, and human trafficking. You can apply online on the program page, on your own or with help from an Applicant Assistant at a local advocacy agency.",
    "quote": "Safe at Home provides an address confidentiality service and a protected records service. The program serves survivors of domestic violence, sexual assault, stalking, human trafficking, providers of legally protected healthcare (reproductive and gender-affirming care), and patients of legally protected healthcare.",
    "source_id": "VT-S19",
    "pinpoint": "Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160"

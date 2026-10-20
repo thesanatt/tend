@@ -17,14 +17,10 @@
    "field_count": 0
   }
  },
- "source_sha256": "4bd25991fd25c229b72d87000aa0ea36a5320ff21fbff1e3a0601a3dff6b0bac",
+ "source_sha256": "a192ca3e4550fe474403b9750fb82832b86dac38fce0acff62b07407a8684812",
  "rules": [
   {
    "id": "MT-EXAM-1",
-   "kind": "exam_no_bill"
-  },
-  {
-   "id": "MT-EXAM-2",
    "kind": "exam_no_bill"
   },
   {
@@ -37,6 +33,10 @@
   },
   {
    "id": "MT-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-7",
    "kind": "exam_payment"
   },
   {
@@ -139,10 +139,26 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MT-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "MT-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MT-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
+  },
+  {
+   "id": "MT-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MT-COL-1",
@@ -219,6 +235,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "MT-EXAM-2",
+   "category": "exam_no_bill",
+   "reason": "applies_to \"exams paid by the state exam fund for cases not reported to police\""
+  },
   {
    "id": "MT-CAP-2",
    "category": "expense_cap",

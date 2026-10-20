@@ -114,9 +114,9 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
-   "summary": "Hospitals and health care professionals must give sexual offense forensic medical exams free of charge, and the survivor pays no out-of-pocket cost and does not have to file a compensation application for the exam. The provider bills the patient's insurance first.",
+   "summary": "A survivor of a sexual offense pays nothing out of pocket for the forensic medical exam and does not have to file an application with the program for it.",
    "quote": "The victim of the sexual offense shall not pay any out-of-pocket costs associated with the forensic medical examination and shall not be required to file an application with the Agency.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9023(d)",
@@ -127,7 +127,7 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "unspecified"
    },
    "summary": "Hospitals and health care professionals must provide forensic medical exams free of charge to sexual offense victims.",
    "quote": "Hospitals and health-care professionals shall provide forensic medical examinations free of charge to the victims of sexual offenses.",
@@ -142,17 +142,32 @@
    "params": {
     "payer": "Patient's insurance first (including Medicaid and Medicare), then the Victims' Compensation Fund for any uncovered cost"
    },
-   "summary": "The provider must bill the patient's insurance (including Medicaid and Medicare) first; whatever insurance does not cover can be billed to the Victims' Compensation Fund, not the survivor.",
+   "summary": "The provider must first seek payment from the patient's insurance, including Medicaid and Medicare, if available. If there is no insurance, or it does not cover the full cost, the provider may seek payment from the Victims' Compensation Fund.",
    "quote": "Any hospital or health-care professional performing a forensic medical examination shall seek reimbursement for the examination from the patient's insurance carrier, including Medicaid and Medicare, if available. If insurance is unavailable, or does not cover the full costs of the forensic medical examination, the service provider may seek reimbursement from the Victims' Compensation Fund.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9023(c)",
-   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Any%20hospital%20or%20health%2Dcare%20professional,from%20the%20Victims%27%20Compensation%20Fund."
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Any%20hospital%20or%20health%2Dcare%20professional,from%20the%20Victims%E2%80%99%20Compensation%20Fund."
+  },
+  {
+   "id": "DE-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims' Compensation Fund, for crimes committed in Delaware",
+    "condition": "if the crime was in Delaware"
+   },
+   "summary": "Delaware's victim compensation law applies to victims of crimes committed in Delaware, including people who do not live there. That law includes the free forensic exam rule.",
+   "quote": "This chapter shall apply to: (1) All persons, including nonresidents of Delaware, who are victims of crimes committed on January 1, 1975, or thereafter within this State",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9021(1)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=This%20chapter%20shall%20apply%20to%3A,or%20thereafter%20within%20this%20State"
   },
   {
    "id": "DE-CAP-1",
    "category": "total_cap",
    "params": {
-    "amount_cents": 2500000
+    "amount_cents": 2500000,
+    "exception": "or up to $50,000 if you are left fully and permanently disabled"
    },
    "summary": "Total compensation is capped at $25,000, or up to $50,000 for victims who are permanently and totally disabled.",
    "quote": "Compensation may not be awarded under the chapter to a claimant in a total amount in excess of $25,000; provided, however, that the Agency may award compensation to victims who are permanently and totally disabled in an amount not to exceed $50,000.",
@@ -307,7 +322,8 @@
    "category": "covered_expense",
    "expense": "property_replacement",
    "params": {
-    "expense": "property_replacement"
+    "expense": "property_replacement",
+    "scope": "replacing items seized as evidence"
    },
    "summary": "Replacing items seized as evidence is covered; this is separate from the general bar on property loss.",
    "quote": "k. The cost to change locks and replace items seized as evidence.",
@@ -320,7 +336,8 @@
    "category": "covered_expense",
    "expense": "childcare",
    "params": {
-    "expense": "childcare"
+    "expense": "childcare",
+    "scope": "the deposit plus up to 2 months of care by a state-approved or licensed day care provider"
    },
    "summary": "Child care is covered, limited to the deposit plus 2 months of care by a state-approved or licensed provider.",
    "quote": "l. Child care not to exceed the deposit plus 2 months of care by a state-approved or licensed day care provider.",
@@ -381,6 +398,20 @@
    "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=m.%20Reimbursement%20for%20reasonable%20expenses,a%20witness%20for%20the%20prosecution."
   },
   {
+   "id": "DE-COV-11",
+   "category": "covered_expense",
+   "expense": "legal",
+   "params": {
+    "expense": "legal",
+    "scope": "fees for a lawyer who represents you before the Appeals Board"
+   },
+   "summary": "You do not need a lawyer before the Appeals Board, but if you have one, the Board may award an amount for the lawyer's services.",
+   "quote": "A claimant need not be represented by an attorney before the Appeals Board, but if such person is represented the Appeals Board may award an amount for services rendered.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9013",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20claimant%20need%20not%20be,an%20amount%20for%20services%20rendered."
+  },
+  {
    "id": "DE-EXCL-1",
    "category": "excluded_expense",
    "expense": "property_replacement",
@@ -411,13 +442,43 @@
    "params": {
     "years": 1,
     "from": "crime",
-    "extension": "Agency may grant an extension or waive the deadline when the circumstances make it unreasonable; claims from child sexual assault or abuse may not be barred by a statute of limitations (§ 9009(12))"
+    "extension": "unless the program gives you more time"
    },
    "summary": "The claim must be filed within 1 year after the injury, unless the Agency grants an extension or finds the deadline unreasonable in the circumstances.",
    "quote": "Where the claim has not been filed within 1 year after the personal injury on which the claim in based, unless an extension is granted by the Agency or the Agency, in its discretion, determines that the circumstances render this requirement unreasonable.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9010(a)(4)",
    "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Where%20the%20claim%20has%20not,circumstances%20render%20this%20requirement%20unreasonable."
+  },
+  {
+   "id": "DE-DEAD-2",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The program may not turn away a claim from sexual assault or abuse of a child because it was filed late.",
+   "quote": "Notwithstanding any provision to the contrary, the Agency may not limit acceptance or consideration of any applications arising from sexual assault or abuse of a child which may have otherwise been barred from consideration by a statute of limitations.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(12)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Notwithstanding%20any%20provision%20to%20the,by%20a%20statute%20of%20limitations."
+  },
+  {
+   "id": "DE-DEAD-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If the crime happened before your eighteenth birthday, the program may pay for mental health counseling. This holds even if you applied late, did not report to police in time, or did not cooperate with police. The crime must be properly documented, and you must apply before your twentieth birthday.",
+   "quote": "Notwithstanding the provision of paragraph (10) of this section and § 9010(a)(3), (4), and (5) of this title to the contrary, the Agency may make an award for the payment of mental health counseling services under this chapter on a claim made by the victim of a crime that occurred before the victim’s eighteenth birthday so long as the occurrence of the crime is appropriately documented, and the claim is filed before the victim’s twentieth birthday.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(11)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Notwithstanding%20the%20provision%20of%20paragraph,before%20the%20victim%E2%80%99s%20twentieth%20birthday."
+  },
+  {
+   "id": "DE-DEAD-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "For sexual assault or abuse, that twentieth-birthday limit does not apply.",
+   "quote": "However, the foregoing limitations in this paragraph (11) regarding the victim’s twentieth birthday do not apply in cases of crimes involving sexual assault or abuse.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(11)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=However%2C%20the%20foregoing%20limitations%20in,involving%20sexual%20assault%20or%20abuse."
   },
   {
    "id": "DE-REPORT-1",
@@ -427,7 +488,9 @@
     "alternatives": [
      "protective_order",
      "other"
-    ]
+    ],
+    "within_hours": 72,
+    "report_gate": true
    },
    "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
    "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",
@@ -446,6 +509,19 @@
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9010(a)(3)",
    "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=Where%20the%20victim%20refused%20to,of%20the%20crime%20in%20question."
+  },
+  {
+   "id": "DE-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "child victims of sexual assault or abuse"
+   },
+   "summary": "If you were a child when the sexual assault or abuse happened, the program cannot deny your claim just because you waited to report or to apply.",
+   "quote": "In no event may the Agency deny any claim solely because the victim was a child victim of sexual assault or abuse, and the victim either delayed reporting the abuse or assault to authorities or the victim delayed an application for services to mitigate the effects of the impact of sexual assault or abuse.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9010(d)",
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=In%20no%20event%20may%20the,of%20sexual%20assault%20or%20abuse."
   },
   {
    "id": "DE-MIN-1",
@@ -532,7 +608,7 @@
    "quote": "A person whose domicile is in Delaware and who is the victim or secondary victim of a crime that occurs in another state, possession, or territory of the United States may make an application for compensation if both of the following are true: a. The crimes would be compensable had they occurred in Delaware. b. The placement of the crime occurred in states, possessions, or territories of the United States not having eligible crime victim compensation programs that provide benefits equal to the benefits provided under this chapter.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9009(9)",
-   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20person%20whose%20domicile%20is,benefits%20provided%20under%20this%20chapter."
+   "fragment_url": "https://delcode.delaware.gov/title11/c090/index.html#:~:text=A%20person%20whose%20domicile%20is%20in%20Delaware%20and,benefits%20provided%20under%20this%20chapter."
   },
   {
    "id": "DE-SUB-1",
@@ -620,7 +696,7 @@
    "quote": "If VCAP, in its investigation of a claim, requires further documentation from the claimant, such documentation must be submitted to VCAP no later than 45 days of the date of VCAP's request.",
    "source_id": "DE-S3",
    "pinpoint": "1 Del. Admin. Code 301-11.2",
-   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=If%20VCAP%2C%20in%20its%20investigation,the%20date%20of%20VCAP%27s%20request."
+   "fragment_url": "https://regulations.delaware.gov/AdminCode/title1/300/301.shtml#:~:text=If%20VCAP%2C%20in%20its%20investigation,the%20date%20of%20VCAP%E2%80%99s%20request."
   },
   {
    "id": "DE-DOC-5",

@@ -50,7 +50,10 @@ describe("state page /mi", () => {
     const doc = new DOMParser().parseFromString(page, "text/html");
     const facts = [...doc.querySelectorAll("section > ul > li")];
     expect(facts.length).toBeGreaterThan(40);
-    for (const li of facts) {
+    // Tend's own page notes ("Note: ...") carry no citation by design; every law line has one.
+    const notes = facts.filter((li) => (li.textContent ?? "").trim().startsWith("Note: "));
+    expect(notes.map((li) => li.querySelector("details"))).toEqual(notes.map(() => null));
+    for (const li of facts.filter((x) => !notes.includes(x))) {
       const details = li.querySelector("details");
       expect(details, li.textContent ?? "").not.toBeNull();
       expect(details!.querySelector("mark, a[href]")).not.toBeNull();
@@ -200,12 +203,12 @@ describe("home page", () => {
     }[];
     const rules = list.reduce((n, j) => n + j.rules, 0).toLocaleString("en-US");
     const sources = list.reduce((n, j) => n + j.sources, 0).toLocaleString("en-US");
-    expect(rules).toBe("2,578");
+    expect(rules).toBe("2,728");
     expect(sources).toBe("824");
     expect(document.body.textContent).toContain(`${rules} verified rules from ${sources} saved sources`);
     // Some saved copies are Justia or Cornell LII reproductions, so neither the count nor the garden says official.
     expect(document.body.textContent).not.toMatch(/official/i);
-    expect(screen.getByRole("link", { name: "MI Michigan, 83 rules verified, in bloom" }).getAttribute("href")).toBe(
+    expect(screen.getByRole("link", { name: "MI Michigan, 85 rules verified, in bloom" }).getAttribute("href")).toBe(
       "/mi",
     );
     expect(screen.getAllByRole("listitem").length).toBeGreaterThan(51);

@@ -1,8 +1,8 @@
 ; tend law image WY, Wyoming
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 047a61a66c768f24553908d6abaa5d2832ee3428a3925e31a0f1c261a9cbd338
-; image sha256  9abe7c98c7574fdbec43ba20a6e2d7a2b820a526810d206c94cb8c621a1dd052
-; 56 rules, 12 sources, 30 proofs, 7 ints, 290 strings
+; source sha256 3ce69094399e54abc053df63d9f901265aa8a8b4ea0f22f4d88857b941d6a95d
+; image sha256  e10c0a28be2c87a4bef078010451415a40a0e3c24a0719f8170c051d2cdfc4a6
+; 58 rules, 12 sources, 30 proofs, 7 ints, 299 strings
 ; item program: 205 instructions, 669 bytes, max stack 2
 ; aggregate program: 214 instructions, 666 bytes, max stack 3, 7 loops
 
@@ -34,35 +34,37 @@
     R24   WY-EXC-2              excluded      property_replacement                          WY DVS Primary Victim Compensation Application Instructions, General Information
     R25   WY-EXC-3              info          -                     excluded_expense        WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence
     R26   WY-EXC-4              info          -                     excluded_expense        WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses, Ineligible Expenses
-    R27   WY-DEAD-1             deadline      -                     from crime              W.S. 1-40-106(a)(v)
-    R28   WY-REP-1              reporting     -                                             W.S. 1-40-106(a)(iv)
-    R29   WY-REP-3              reporting     -                                             WY DVS Compensation FAQ, Does There Have To Be An Arrest Or Conviction
-    R30   WY-COL-1              collateral    -                                             W.S. 1-40-110(d)
-    R31   WY-COL-2              collateral    -                                             WY DVS Compensation FAQ, Insurance or Another Source
-    R32   WY-COL-3              collateral    -                                             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources
-    R33   WY-CON-1              info          -                     conduct_reduction       W.S. 1-40-110(b)(i)
-    R34   WY-CON-2              info          -                     conduct_reduction       WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Contributory Factors to be Considered
-    R35   WY-EMER-1             info          -                     emergency_award         W.S. 1-40-111(b)
-    R36   WY-ELIG-1             info          -                     eligible_crime          WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Primary Victim Eligibility, Examples of violent crimes
-    R37   WY-ELIG-2             info          -                     eligible_crime          W.S. 1-40-102(a)(iii)
-    R38   WY-RES-1              info          -                     residency               W.S. 1-40-106(b)(ii)
-    R39   WY-RES-2              info          -                     residency               W.S. 1-40-102(a)(ix)(B)(II)
-    R40   WY-SUB-1              info          -                     submission              Application, authorization page
-    R41   WY-DOC-1              info          -                     required_document       Application, Crime Information
-    R42   WY-DOC-2              info          -                     required_document       Application, checklist before sending
-    R43   WY-DOC-3              info          -                     required_document       Application, Types of Compensation Requested
-    R44   WY-DOC-4              info          -                     required_document       Application, checklist before sending
-    R45   WY-DOC-5              info          -                     required_document       Application, Insurance/Other Collateral Sources
-    R46   WY-DOC-6              info          -                     required_document       Guidelines, Medical/Dental Expenses, Requirements
-    R47   WY-DOC-7              info          -                     required_document       Guidelines, Loss of Earnings, Requirements
-    R48   WY-DOC-8              info          -                     required_document       Guidelines, Mental Health Expenses, Requirements
-    R49   WY-DOC-9              info          -                     required_document       Application, checklist before sending
-    R50   WY-DOC-10             info          -                     required_document       Application, Request for Taxpayer Identification Number & Certification
-    R51   WY-RECORDS-1          info          -                     record_confidentiality  W.S. 1-40-107(d)
-    R52   WY-EXAM-2             skipped       -                     exam_no_bill            WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Law Enforcement Reporting of Sexual Assault  ; applies_to "exams reported to law enforcement"
-    R53   WY-CAP-3              skipped       -                     expense_cap             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Payment Threshold on Associated Victim Claims  ; applies_to "associated_victims"
-    R54   WY-REP-2              skipped       -                     reporting_requirement   WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Primary Victim Eligibility  ; applies_to "mental health counseling only"
-    R55   WY-CAP-9              skipped       -                     expense_cap             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Financial Limits  ; less generous duplicate of WY-CAP-4
+    R27   WY-EXC-5              info          -                     excluded_expense        W.S. 1-40-109(d)
+    R28   WY-DEAD-1             deadline      -                     from crime              W.S. 1-40-106(a)(v)
+    R29   WY-REP-1              reporting     -                                             W.S. 1-40-106(a)(iv)
+    R30   WY-REP-2              info          -                     reporting_requirement   WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Primary Victim Eligibility
+    R31   WY-REP-3              reporting     -                                             WY DVS Compensation FAQ, Does There Have To Be An Arrest Or Conviction
+    R32   WY-COL-1              collateral    -                                             W.S. 1-40-110(d)
+    R33   WY-COL-2              collateral    -                                             WY DVS Compensation FAQ, Insurance or Another Source
+    R34   WY-COL-3              collateral    -                                             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources
+    R35   WY-CON-1              info          -                     conduct_reduction       W.S. 1-40-110(b)(i)
+    R36   WY-CON-2              info          -                     conduct_reduction       WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Contributory Factors to be Considered
+    R37   WY-EMER-1             info          -                     emergency_award         W.S. 1-40-111(b)
+    R38   WY-ELIG-1             info          -                     eligible_crime          WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Primary Victim Eligibility, Examples of violent crimes
+    R39   WY-ELIG-2             info          -                     eligible_crime          W.S. 1-40-102(a)(iii)
+    R40   WY-RES-1              info          -                     residency               W.S. 1-40-106(b)(ii)
+    R41   WY-RES-2              info          -                     residency               W.S. 1-40-102(a)(ix)(B)(II)
+    R42   WY-SUB-1              info          -                     submission              Application, authorization page
+    R43   WY-DOC-1              info          -                     required_document       Application, Crime Information
+    R44   WY-DOC-2              info          -                     required_document       Application, checklist before sending
+    R45   WY-DOC-3              info          -                     required_document       Application, Types of Compensation Requested
+    R46   WY-DOC-4              info          -                     required_document       Application, checklist before sending
+    R47   WY-DOC-5              info          -                     required_document       Application, Insurance/Other Collateral Sources
+    R48   WY-DOC-6              info          -                     required_document       Guidelines, Medical/Dental Expenses, Requirements
+    R49   WY-DOC-7              info          -                     required_document       Guidelines, Loss of Earnings, Requirements
+    R50   WY-DOC-8              info          -                     required_document       Guidelines, Mental Health Expenses, Requirements
+    R51   WY-DOC-9              info          -                     required_document       Application, checklist before sending
+    R52   WY-DOC-10             info          -                     required_document       Application, Request for Taxpayer Identification Number & Certification
+    R53   WY-RECORDS-1          info          -                     record_confidentiality  W.S. 1-40-107(d)
+    R54   WY-EXAM-2             skipped       -                     exam_no_bill            WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Law Enforcement Reporting of Sexual Assault  ; applies_to "exams reported to law enforcement"
+    R55   WY-CAP-10             skipped       -                     total_cap               W.S. 1-40-109(e)  ; total_cap without amount
+    R56   WY-CAP-3              skipped       -                     expense_cap             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Payment Threshold on Associated Victim Claims  ; applies_to "associated_victims"
+    R57   WY-CAP-9              skipped       -                     expense_cap             WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Financial Limits  ; less generous duplicate of WY-CAP-4
 
 .tags   phone=bit0, pain_suffering=bit1
 
@@ -110,7 +112,7 @@
     P26   (WY-CAP-8, WY-COL-1, WY-COL-2, WY-COL-3)
     P27   (WY-DEAD-1)
     P28   (WY-REP-1, WY-REP-3)
-    P29   (WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1)
+    P29   (WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-EXC-5, WY-REP-2, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1)
 
 .ints
     K0    8500          ; $85.00
@@ -173,7 +175,7 @@
   0093        subs
   0094        push     0
   0099        max
-  009a        seta     collateral, R30              ; WY-COL-1
+  009a        seta     collateral, R32              ; WY-COL-1
   009e        ret
               ; WY-CAP-2  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses  "The initial counseling visit shall be paid in full. Thereafter..."
               ; WY-COV-5  W.S. 1-40-109(d)  "However, the division may extend the twenty-four (24) month..."
@@ -193,7 +195,7 @@
   00b9        subs
   00ba        push     0
   00bf        max
-  00c0        seta     collateral, R30              ; WY-COL-1
+  00c0        seta     collateral, R32              ; WY-COL-1
   00c4        ret
               ; WY-COV-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Loss of Earnings, Financial Limits  "Maximum amount must not exceed the federal minimum hourly wage..."
               ; WY-COV-8  W.S. 1-40-109(b)  "Loss of earnings and loss of future earnings shall be determined..."
@@ -212,7 +214,7 @@
   00df        subs
   00e0        push     0
   00e5        max
-  00e6        seta     collateral, R30              ; WY-COL-1
+  00e6        seta     collateral, R32              ; WY-COL-1
   00ea        ret
               ; WY-COV-9  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Travel Expenses  "Expenses incurred when required to travel at least ten (10)..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
@@ -230,7 +232,7 @@
   0105        subs
   0106        push     0
   010b        max
-  010c        seta     collateral, R30              ; WY-COL-1
+  010c        seta     collateral, R32              ; WY-COL-1
   0110        ret
               ; WY-CAP-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Financial Limits  "$1,200.00 per claim $500.00 maximum award for persons not safe..."
               ; WY-COV-10  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Relocation, Requirements  "Victim may need to relocate if the crime scene was the home of..."
@@ -250,7 +252,7 @@
   012e        subs
   012f        push     0
   0134        max
-  0135        seta     collateral, R30              ; WY-COL-1
+  0135        seta     collateral, R32              ; WY-COL-1
   0139        ret
   013a  L12:  push     0
   013f        decide   unknown_rule, P0             ; (none)
@@ -271,7 +273,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R30              ; WY-COL-1
+  0165        seta     collateral, R32              ; WY-COL-1
   0169        ret
               ; WY-EXC-1  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence, Exemptions  "Cell phones, laptops, tablets, and any other elective electronic..."
               ; WY-EXC-2  WY DVS Primary Victim Compensation Application Instructions, General Information  "The law does not allow compensation for property loss or pain..."
@@ -328,7 +330,7 @@
   01f9        subs
   01fa        push     0
   01ff        max
-  0200        seta     collateral, R30              ; WY-COL-1
+  0200        seta     collateral, R32              ; WY-COL-1
   0204        ret
               ; WY-COV-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Prescriptions needed as a result of the crime."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
@@ -346,7 +348,7 @@
   021f        subs
   0220        push     0
   0225        max
-  0226        seta     collateral, R30              ; WY-COL-1
+  0226        seta     collateral, R32              ; WY-COL-1
   022a        ret
               ; WY-COV-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Dental services directly related to the crime."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
@@ -364,7 +366,7 @@
   0245        subs
   0246        push     0
   024b        max
-  024c        seta     collateral, R30              ; WY-COL-1
+  024c        seta     collateral, R32              ; WY-COL-1
   0250        ret
               ; WY-CAP-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Funeral/Burial Expenses  "Up to a maximum award of $7,000.00 per claim and is deducted..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
@@ -382,7 +384,7 @@
   026b        subs
   026c        push     0
   0271        max
-  0272        seta     collateral, R30              ; WY-COL-1
+  0272        seta     collateral, R32              ; WY-COL-1
   0276        ret
               ; WY-CAP-8  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Medical/Dental Expenses  "Replacement of eyeglasses. o not to exceed $300.00."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
@@ -400,7 +402,7 @@
   0291        subs
   0292        push     0
   0297        max
-  0298        seta     collateral, R30              ; WY-COL-1
+  0298        seta     collateral, R32              ; WY-COL-1
   029c        ret
 
 .aggregate
@@ -632,6 +634,8 @@
               ; WY-EXAM-7  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Law Enforcement Reporting of Sexual Assault  "ONLY costs associated with the SANE Exam and associated evidence..."
               ; WY-EXC-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Replacement of Personal Property Seized as Evidence  "Items destroyed or damaged during the crime are not eligible."
               ; WY-EXC-4  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Mental Health Expenses, Ineligible Expenses  "Substance use/abuse treatment is not eligible for reimbursement."
+              ; WY-EXC-5  W.S. 1-40-109(d)  "Compensation shall only be awarded for economic losses occurring..."
+              ; WY-REP-2  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), Primary Victim Eligibility  "A valid Order of Protection (Mental Health Counseling Only). A..."
               ; WY-COL-1  W.S. 1-40-110(d)  "Payment made in accordance with this section shall be considered..."
               ; WY-COL-2  WY DVS Compensation FAQ, Insurance or Another Source  "If the collateral source does not pay the entire amount, then..."
               ; WY-COL-3  WY DVS Compensation Guidelines and Policy (eff. Jan 1, 2025), NOT considered Collateral Sources  "Indian Health Services Crowd-sourced funding on behalf of a..."
@@ -654,6 +658,6 @@
               ; WY-DOC-9  Application, checklist before sending  "Sign/date following authorization page"
               ; WY-DOC-10  Application, Request for Taxpayer Identification Number & Certification  "IN ORDER TO RECEIVE APPROVED BENEFITS, THIS FORM MUST BE..."
               ; WY-RECORDS-1  W.S. 1-40-107(d)  "Information contained in the claim files and records of victims..."
-  0296        info     P29                          ; WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1
+  0296        info     P29                          ; WY-EXAM-1, WY-EXAM-4, WY-EXAM-5, WY-EXAM-7, WY-EXC-3, WY-EXC-4, WY-EXC-5, WY-REP-2, WY-COL-1, WY-COL-2, WY-COL-3, WY-CON-1, WY-CON-2, WY-EMER-1, WY-ELIG-1, WY-ELIG-2, WY-RES-1, WY-RES-2, WY-SUB-1, WY-DOC-1, WY-DOC-2, WY-DOC-3, WY-DOC-4, WY-DOC-5, WY-DOC-6, WY-DOC-7, WY-DOC-8, WY-DOC-9, WY-DOC-10, WY-RECORDS-1
   0299        ret
 

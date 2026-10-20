@@ -260,13 +260,14 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "allowed"
+    "insurance_billing": "allowed",
+    "detail": true
    },
    "summary": "The state SAFE program pays first for the sexual assault forensic exam and no forensic fees may be billed to the patient. The program says health insurance may be billed as a secondary payer. SAFE does not cover medical treatment.",
    "quote": "While SAFE is the \"payor of first resort\" for these fees, health insurance carriers may be billed secondary. NO forensic fees may be billed to the patient. However, the SAFE program does not cover any medical treatment that may be required due to the sexual assault.",
    "source_id": "MO-S1",
    "pinpoint": "Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section",
-   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/#:~:text=While%20SAFE%20is%20the%20%22payor,due%20to%20the%20sexual%20assault."
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/#:~:text=While%20SAFE%20is%20the%20%E2%80%9Cpayor,due%20to%20the%20sexual%20assault."
   },
   {
    "id": "MO-EXAM-2",
@@ -280,6 +281,20 @@
    "source_id": "MO-S14",
    "pinpoint": "RSMo 595.220.6",
    "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.220#:~:text=All%20appropriate%20medical%20provider%20charges,victim%20for%20the%20forensic%20examination."
+  },
+  {
+   "id": "MO-EXAM-3",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Missouri Department of Public Safety SAFE Program, for sexual crimes in Missouri",
+    "condition": "if the crime was in Missouri"
+   },
+   "summary": "The SAFE program pays for collecting and keeping evidence during the forensic exam. It is for victims of sexual crimes that happened in Missouri.",
+   "quote": "The Sexual Assault Forensic Examination (SAFE) Program covers the cost of gathering, collecting and preserving evidence during the forensic examination for victims of sexual crimes that occurred in Missouri.",
+   "source_id": "MO-S1",
+   "pinpoint": "Missouri DPS CVC page, Sexual Assault Forensic Examination Program (SAFE) section",
+   "fragment_url": "https://dps.mo.gov/dir/programs/cvc/#:~:text=The%20Sexual%20Assault%20Forensic%20Examination,crimes%20that%20occurred%20in%20Missouri."
   },
   {
    "id": "MO-MED-1",
@@ -359,7 +374,7 @@
    "quote": "No compensation shall be paid for psychiatric treatment or other counseling services, including psychotherapy, unless the service provider is a:",
    "source_id": "MO-S12",
    "pinpoint": "RSMo 595.030.3",
-   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=No%20compensation%20shall%20be%20paid,the%20service%20provider%20is%20a%3A"
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=No%20compensation%20shall%20be%20paid%20for%20psychiatric,the%20service%20provider%20is%20a%3A"
   },
   {
    "id": "MO-DENT-1",
@@ -454,7 +469,7 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "or two years from discovery of the crime"
+    "extension": "or within 2 years of when the crime was discovered"
    },
    "summary": "A claim must be filed within two years after the crime or after the crime was discovered.",
    "quote": "A claim shall be filed not later than two years after the occurrence of the crime or the discovery of the crime upon which it is based.",
@@ -473,7 +488,7 @@
      "medical_provider"
     ]
    },
-   "summary": "The crime must be reported to proper authorities, but for a sexual offense that can include the medical provider filing the forensic exam report with the county prosecutor, simply receiving a forensic exam, or getting an order of protection. No police-report time limit was found in the statute.",
+   "summary": "For a sexual offense, reporting the crime to the proper authorities can include several things. One is the medical provider sending the forensic exam report to the county prosecutor. Others are getting a forensic exam or getting an order of protection.",
    "quote": "In the case of a sexual offense, filing a report of the offense to the proper authorities may include, but not be limited to, the filing of the report of the forensic examination by the appropriate medical provider, as defined in section 595.220 , with the prosecuting attorney of the county in which the alleged incident occurred, receiving a forensic examination, or securing an order of protection.",
    "source_id": "MO-S12",
    "pinpoint": "RSMo 595.030.1",
@@ -495,10 +510,24 @@
    "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.030#:~:text=In%20lieu%20of%20other%20records,from%20his%20or%20her%20assailant."
   },
   {
+   "id": "MO-REP-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "To be eligible, you must cooperate with law enforcement in catching the offender, unless the department finds you had good cause not to.",
+   "quote": "The claimant, victim or dependent shall cooperate with law enforcement officials in the apprehension of the offender in order to be eligible, or the department has found that the failure to cooperate was for good cause.",
+   "source_id": "MO-S9",
+   "pinpoint": "RSMo 595.015.4",
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.015#:~:text=The%20claimant%2C%20victim%20or%20dependent,cooperate%20was%20for%20good%20cause."
+  },
+  {
    "id": "MO-COLL-1",
    "category": "collateral_source",
    "params": {},
-   "summary": "The fund is a payor of last resort: awards are reduced by payments from the offender, public or private insurance (not life insurance), and other public or private funds.",
+   "summary": "An award is reduced by payments, benefits, or awards received or to be received because of the injury or death. Life insurance proceeds do not count.",
    "quote": "any compensation paid pursuant to sections 595.010 to 595.075 shall be reduced by the amount of any payments, benefits or awards received or to be received as a result of the injury or death",
    "source_id": "MO-S13",
    "pinpoint": "RSMo 595.035.2",
@@ -522,7 +551,7 @@
    "quote": "the department of public safety shall determine whether, because of the victim's consent, provocation, incitement or negligence, the victim contributed to the infliction of the victim's injury or death, and shall reduce the amount of the compensation or deny the claim altogether, in accordance with such determination",
    "source_id": "MO-S13",
    "pinpoint": "RSMo 595.035.3",
-   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.035#:~:text=the%20department%20of%20public%20safety,in%20accordance%20with%20such%20determination"
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.035#:~:text=the%20department%20of%20public%20safety%20shall%20determine,in%20accordance%20with%20such%20determination"
   },
   {
    "id": "MO-CRIME-1",
@@ -738,7 +767,7 @@
    "quote": "A claim in which the offense allegedly perpetrated against the victim is rape, sodomy or sexual abuse and it is determined by the department to be in the best interest of the victim or of the victim's dependents that the information be kept confidential or that the public be excluded from the hearing;",
    "source_id": "MO-S20",
    "pinpoint": "RSMo 595.037.1(2)",
-   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.037#:~:text=A%20claim%20in%20which%20the,be%20excluded%20from%20the%20hearing%3B"
+   "fragment_url": "https://revisor.mo.gov/main/OneSection.aspx?section=595.037#:~:text=A%20claim%20in%20which%20the%20offense,be%20excluded%20from%20the%20hearing%3B"
   }
  ]
 }

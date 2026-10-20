@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "KS",
- "source_sha256": "c2651dca2238df54a9bbb393caa43b949979de3d35988554ed147d11e14fa534",
- "ir_sha256": "3e9177c3579344f463c803eb6b5742210b48e1e77cf0d182cddf8f28a3d1e289",
+ "source_sha256": "3debfa82dca3114d14c8b60a1ecaf6f4c4ecbdbe7049db603efd95d915a2564a",
+ "ir_sha256": "e3a111b7aa1622f792b5aef973c7d640c06d5c19b6a1bdb7e66279df1af3c436",
  "fresh": true,
  "rules": [
   {
@@ -130,13 +130,19 @@
    "from": "report"
   },
   {
+   "id": "KS-DEAD-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "KS-REP-1",
    "kind": "reporting",
-   "required": false,
+   "required": true,
    "alternatives": [
     "forensic_exam",
     "other"
-   ]
+   ],
+   "within_days": 3
   },
   {
    "id": "KS-REP-2",
@@ -151,6 +157,11 @@
   {
    "id": "KS-COL-1",
    "kind": "collateral"
+  },
+  {
+   "id": "KS-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
   },
   {
    "id": "KS-CON-1",

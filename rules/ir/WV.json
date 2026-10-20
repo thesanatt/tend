@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "853cd109532cd1bad13625d633842f66bc8c2cbebecc97b0f9ba584f1916f85a",
+ "source_sha256": "8af91734f6e484369bc3d1071fe563643e6631e410dd4dee66cd9aeb6751dd5b",
  "rules": [
   {
    "id": "WV-EXAM-1",
@@ -103,12 +103,18 @@
    "from": "crime"
   },
   {
+   "id": "WV-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "WV-REP-1",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "forensic_exam"
-   ]
+   ],
+   "within_days": 4
   },
   {
    "id": "WV-REP-2",

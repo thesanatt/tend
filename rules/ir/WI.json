@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "1353629fd0a655498943871d5449d2edcd293b01c1c1bfe95393ea151b255232",
+ "source_sha256": "29a6684fc2283e59dd4287402033ea04bf6b0a1ec2a8fb74a1240250c9ff9a59",
  "rules": [
   {
    "id": "WI-EXAM-1",
@@ -145,6 +145,11 @@
    "category": "excluded_expense"
   },
   {
+   "id": "WI-EXCL-6",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "WI-DEADLINE-1",
    "kind": "deadline",
    "days": 365,
@@ -155,6 +160,16 @@
    "kind": "deadline",
    "days": 365,
    "from": "crime"
+  },
+  {
+   "id": "WI-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WI-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WI-REPORT-1",

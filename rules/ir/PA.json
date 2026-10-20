@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "cce617988cd5dd33fb3ea12d7f077595f82747ee58e26ac0ac97a66ec39eb61a",
+ "source_sha256": "2521289f6ce194655ee728b82b6fc7c96c389ed586300ee2f454b12697690cfa",
  "rules": [
   {
    "id": "PA-EXAM-1",
@@ -29,6 +29,14 @@
   },
   {
    "id": "PA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-9",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-10",
    "kind": "exam_payment"
   },
   {
@@ -157,6 +165,11 @@
    "expense": "childcare"
   },
   {
+   "id": "PA-CHILD-2",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
    "id": "PA-CLEAN-1",
    "kind": "expense_cap",
    "expense": "crime_scene_cleanup",
@@ -184,13 +197,40 @@
    "from": "discovery"
   },
   {
+   "id": "PA-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "PA-DEADLINE-5",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "PA-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": [
-    "forensic_exam",
-    "protective_order"
-   ]
+   "alternatives": []
+  },
+  {
+   "id": "PA-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "PA-REPORT-2",
@@ -199,6 +239,11 @@
    "alternatives": [
     "protective_order"
    ]
+  },
+  {
+   "id": "PA-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "PA-REPORT-3",
@@ -213,6 +258,16 @@
    "kind": "reporting",
    "required": false,
    "alternatives": []
+  },
+  {
+   "id": "PA-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "PA-COOP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "PA-MIN-1",

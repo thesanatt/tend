@@ -17,7 +17,7 @@
    "field_count": 202
   }
  },
- "source_sha256": "3dcdc6b4b2ad99b860267e12a539c1a74ac7d8027232bfbee2755b2b134fda68",
+ "source_sha256": "7fcc3b2f2198d9a332a216efcd822570651ea802f2a97172ff909614f2417a5e",
  "rules": [
   {
    "id": "MI-EXAM-1",
@@ -70,6 +70,11 @@
    "expense": "relocation",
    "cap_cents": 380000,
    "per": "claim"
+  },
+  {
+   "id": "MI-CAP-12",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "MI-CAP-8",
@@ -214,6 +219,11 @@
    "alternatives": [
     "forensic_exam"
    ]
+  },
+  {
+   "id": "MI-REPORT-4",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MI-MIN-1",
