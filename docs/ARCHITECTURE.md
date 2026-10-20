@@ -221,7 +221,8 @@ Money is integer cents end to end. Adding a jurisdiction is new data, never new 
   start) and the deadline check gets the flag `deadline_from_discovery`, after
   `deadline_from_report` when both apply. The engine's check uses the longest deadline rule. The
   flow and the packet lead with the general deadline rule instead (`web/lib/deadline.ts`: the rule
-  each state page leads with, dated with the IR's days) and add "Some cases have until {date}"
+  each state page leads with, or where every rule counts from a later day, as in Washington, the
+  first one; a rule for one trip's travel request never leads; dated with the IR's days) and add "Some cases have until {date}"
   when the engine's longest date is later. A report or discovery note follows the general rule's
   own provision, so a rule for minors counted from the report (MI-FILE-2, KS-DEAD-4) adds none. A
   passed general date is never shown as "File by", and is not shown as plainly late while the

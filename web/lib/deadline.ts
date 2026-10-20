@@ -67,7 +67,11 @@ const num = (v: unknown): number | null => (typeof v === "number" && Number.isFi
 
 export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule | null {
   const setAside = new Set((ir.skipped ?? []).filter((s) => !LOWER_LIMIT.test(s.reason)).map((s) => s.id));
-  const active = law.rules.filter((r) => r.category === "filing_deadline" && !setAside.has(r.id));
+  // A deadline counted from a trip is for one travel request, not the application (WA-COV-TRANSPORT-3),
+  // as on the state page.
+  const active = law.rules.filter(
+    (r) => r.category === "filing_deadline" && !setAside.has(r.id) && r.params?.from !== "trip",
+  );
   const rules = active.filter(timed);
   const rule = rules.find((r) => FROM_INCIDENT.has(String(r.params?.from ?? ""))) ?? rules[0];
   const compiled = (id: string) => ir.rules.find((r) => r.id === id && r.kind === "deadline");
