@@ -165,6 +165,22 @@ Response shapes are in `lib/types.ts`; examples are in `fixtures/` (Rowan from t
 - `components/flow/samples/rowan.ts`: the sample statement rows and the sample itemized bill (PDF),
   generated from `seed/snapshots/rowan-mi.json` and `seed/bills/rowan-mi-riverbend.pdf`. Fictional.
 
+## Press kit
+
+`/press` offers the files in `public/press`. Four scripts make them; run each from `web/` again when what it
+draws changes:
+
+- `scripts/press-logos.py`: the logo, the reversed logo, the mark, and the icon, as SVG with the word in
+  outline (`uv run scripts/press-logos.py`), and as PNG with `--png`.
+- `scripts/press-social.tsx`: GitHub's social preview, the home page's link card at 1280 x 640
+  (`npx tsx scripts/press-social.tsx`).
+- `scripts/press-factsheet.ts`: the one-page fact sheet PDF, printed from `app/press/facts.ts`, the module
+  `/press` renders (`npx tsx scripts/press-factsheet.ts`). `tests/press-factsheet.test.ts` fails until the
+  PDF in the repo matches what the facts make.
+- `scripts/press-screenshots.py`: six screenshots of the home page, Michigan's page, and the fictional demo,
+  taken in Chromium from a production build (`npx next build`, then
+  `uv run --python 3.12 scripts/press-screenshots.py`). Retake them when one of those screens changes.
+
 ## Privacy and safety
 
 Answers and costs live in memory. Save this puts them in the encrypted vault on the device (`lib/vault`,
