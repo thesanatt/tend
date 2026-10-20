@@ -19,7 +19,7 @@ describe("share card image", () => {
     expect(dynamicParams).toBe(false);
   });
 
-  it.each(["mi", "il", "dc", "ny"])(
+  it.each(["mi", "il", "dc", "ny", "al"])(
     "renders %s as a 1200 x 630 PNG",
     async (st) => {
       const res = await get(st);

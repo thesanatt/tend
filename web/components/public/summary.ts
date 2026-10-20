@@ -113,6 +113,9 @@ const LAW_KINDS = new Set(["statute", "regulation"]);
 export const SHARE_WORD_LIMIT = 32;
 // The card's report clause where every award needs a police report and no record replaces it.
 export const ASKS_FOR_REPORT = "the program asks for a police report";
+// The card's report clause where a criminal charge is generally needed and an exam cannot replace it
+// (West Virginia 14-2A-18). Like ASKS_FOR_REPORT, it always takes the card's second slot.
+export const NEEDS_CHARGE = "the program generally needs a criminal charge to be filed";
 
 export function placeName(st: string, name: string): string {
   return st === "DC" ? "DC" : name;
@@ -273,14 +276,34 @@ function totalSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: 
   // The engine applies the smallest total cap (docs/SPEC.md step 8).
   const min = Math.min(...decision.map((r) => num(r, "amount_cents")!));
   const lead = decision.filter((r) => num(r, "amount_cents") === min);
-  const exc = lead.map((r) => ({ r, t: phrase(r, "exception") })).find((x) => x.t);
+  const leadExc = lead.map((r) => ({ r, t: phrase(r, "exception") })).find((x) => x.t);
+  // A higher tier or an added award for the survivor that another total cap states in its own quote
+  // (Arkansas 16-90-716(a)(2), Wyoming 1-40-109(e), Maryland 11-811(b)(1)(ii)) hedges the total with that
+  // rule's exception. The rule is cited after the lead and is not repeated below the line.
+  const exc =
+    leadExc ??
+    c
+      .of("total_cap")
+      .filter((r) => !lead.includes(r) && !params(r).applies_to)
+      .filter((r) => (num(r, "amount_cents") === null ? true : num(r, "amount_cents")! > min && !c.setAside(r)))
+      .map((r) => ({ r, t: phrase(r, "exception") }))
+      .find((x) => x.t);
   const cond = lead.map((r) => ({ r, t: phrase(r, "condition") })).find((x) => x.t);
+  // A cost that is the only one some survivors can get also bounds what they can ask for in total
+  // (Florida: counseling for adults who were not physically hurt). Its rule says, in its own words,
+  // whom the total is for, and the tile and the card carry it.
+  const only = c
+    .of("covered_expense")
+    .find((r) => !c.setAside(r) && phrase(r, "only_benefit_if") && phrase(r, "total_condition"));
+  const tc = only ? phrase(only, "total_condition") : null;
   // Payments the law keeps outside the total (MA-EXAM-6, VA-EXAM-7).
   const outside = c.rules.filter((r) => params(r).outside_total_cap === true && !c.setAside(r));
-  const rest = all.filter((r) => !lead.includes(r));
-  // The rule whose quote holds the exception or condition is cited first, so the card prints it.
-  const first = [exc?.r, cond?.r].filter((r): r is Rule => Boolean(r));
-  const cites = [...new Set([...first, ...lead].map((r) => r.id))];
+  const shownAbove = (r: Rule) => r === exc?.r && !lead.includes(r);
+  const rest = all.filter((r) => !lead.includes(r) && !shownAbove(r));
+  // The rule whose quote holds the exception or condition is cited first, so the card prints it; a
+  // higher tier from another rule follows the lead, whose amount the line states.
+  const first = [leadExc?.r, cond?.r].filter((r): r is Rule => Boolean(r));
+  const cites = [...new Set([...first, ...lead, ...(exc && !leadExc ? [exc.r] : [])].map((r) => r.id))];
   const hedged = Boolean(exc) || outside.length > 0;
   const line =
     hedged || cond
@@ -304,15 +327,27 @@ function totalSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: 
       kind: "law",
     });
   }
-  facts.push(...summaryFacts(rest, "total"), ...summaryFacts(noAmount, "total-over"));
-  const small = `the most you can ask for in total${cond ? `, ${cond.t}` : ""}${exc ? ", except in some cases" : ""}`;
+  facts.push(
+    ...summaryFacts(rest, "total"),
+    ...summaryFacts(
+      noAmount.filter((r) => !shownAbove(r)),
+      "total-over",
+    ),
+  );
+  const who = tc ? ` ${tc}` : "";
+  const small = `the most you can ask for in total${cond ? `, ${cond.t}` : ""}${who}${exc ? ", except in some cases" : ""}`;
+  const keyCites = only ? [...cites, only.id] : cites;
   return {
     facts,
-    key: { id: "total", big: money(min), small, cites },
+    key: { id: "total", big: money(min), small, cites: keyCites },
     // A dated or conditioned total does not fit the card; the covered clause takes its place.
     clause: cond
       ? null
-      : { id: "total", text: `you can ask for up to ${money(min)}${exc ? ", or more in some cases" : ""}`, cites },
+      : {
+          id: "total",
+          text: `you can ask for up to ${money(min)}${who}${exc ? ", or more in some cases" : ""}`,
+          cites: keyCites,
+        },
   };
 }
 
@@ -395,8 +430,13 @@ function coveredRows(c: Corpus): CoveredRow[] {
     if (row.covered.length && scopes.every((x) => x.s)) {
       const distinct = [...new Set(scopes.map((x) => x.s!))];
       row.scoped = true;
-      // One scope names the row. Several keep the cost's name, and each rule's own summary says what it covers.
-      if (distinct.length === 1) row.label = capitalize(distinct[0]);
+      // One scope names the row, unless a limit on the row is about something else: a limit with its own
+      // scope (West Virginia's court travel) or limits for different items (Wisconsin's evidence property).
+      // Then, as with several scopes, the row keeps the cost's name and each rule's own summary says what
+      // it covers.
+      const items = new Set(row.caps.map((r) => phrase(r, "item")).filter(Boolean));
+      const otherLimits = row.caps.some((r) => phrase(r, "scope")) || items.size > 1;
+      if (distinct.length === 1 && !otherLimits) row.label = capitalize(distinct[0]);
       else row.scopeDetails = row.covered.map((r) => ({ text: sentence(r.summary), cite: r.id }));
     } else if (scopes.some((x) => x.s)) {
       // A row with a general rule and narrower ones keeps the cost's name, and each narrower rule's own
@@ -435,7 +475,10 @@ function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
       details: details.length ? details : undefined,
     };
   });
-  return { facts, rows };
+  // A covered cost the normalizer set aside as someone else's (a parent's counseling, a caregiver's
+  // travel) shows in its own words after the rows, so the page still says what it covers (ME-TRANS-1).
+  const setAside = c.of("covered_expense").filter((r) => c.setAside(r) && expenseOf(r) !== "forensic_exam");
+  return { facts: [...facts, ...summaryFacts(setAside, "covered-aside")], rows };
 }
 
 function coveredClause(rows: CoveredRow[]): ShareClause | null {
@@ -455,13 +498,14 @@ function coveredClause(rows: CoveredRow[]): ShareClause | null {
 }
 
 // One line on insurance, from the first value any no-bill rule carries in this order. "It" is the
-// exam the line above names, with its scope and condition. The consent line names private health
-// insurance: where a consent rule says which coverage it means, it means private insurance (New
-// Hampshire bills Medicaid and Medicare with no choice; New York). The bar names private insurance
-// only when every rule behind it does (Mississippi R. 602(3)).
+// exam the line above names, with its scope and condition. The bar and the consent line name private
+// health insurance only when every rule behind the line does (Mississippi R. 602(3), New York), or,
+// for consent, when another exam rule of the state bills Medicaid or Medicare with no choice (New
+// Hampshire Jus 605.13(c)(3)). Elsewhere they say "insurance", as the rules do (Michigan's "insurance
+// carrier", Minnesota's "insurer", Wisconsin's "insurance or another available source of payment").
 const INSURANCE_LINE: [string, string][] = [
   ["prohibited", "the provider should not bill your {insurance} for it either"],
-  ["consent_required", "your private health insurance can be billed for it only if you agree"],
+  ["consent_required", "your {insurance} can be billed for it only if you agree"],
   ["required", "if you have health insurance, it should be billed first"],
   ["allowed", "the provider may bill your insurance for it, but not you"],
 ];
@@ -510,9 +554,12 @@ function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: S
     for (const [value, line] of INSURANCE_LINE) {
       const rules = noBill.filter((r) => params(r).insurance_billing === value);
       if (!rules.length) continue;
+      const publicBilled =
+        value === "consent_required" &&
+        [...noBill, ...payment].some((r) => !rules.includes(r) && /\b(medicaid|medicare)\b/i.test(r.quote));
       const text = line.replace(
         "{insurance}",
-        rules.every((r) => /\bprivate\b/i.test(r.quote)) ? "private health insurance" : "insurance",
+        publicBilled || rules.every((r) => /\bprivate\b/i.test(r.quote)) ? "private health insurance" : "insurance",
       );
       // A bar or consent rule that holds only under its own condition starts the line with it
       // (Wisconsin 949.26(2)(b) binds a provider that asks the SAFE Fund to pay).
@@ -572,9 +619,12 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
   let lead: Fact | null = null;
+  // Where a required rule names other records, the lead asks only that the crime be reported: Georgia
+  // counts a report to an investigating agency or medical authorities, and Missouri a forensic exam, as
+  // the report itself (GA-1, MO-3).
   const askLead = (cites: Rule[]): Fact => ({
     key: "report-lead",
-    text: `The program asks for a police report. The rules below say when other records can count instead, like ${like}.`,
+    text: `The program asks that the crime be reported. The rules below say what can count besides a police report, like ${like}.`,
     cites: [...new Set(cites.map((r) => r.id))],
     kind: "law",
   });
@@ -621,6 +671,9 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       cites: [...new Set([...required, ...charge].map((r) => r.id))],
       kind: "law",
     };
+    // A charge an anonymous survivor may not have decides whether she can be paid at all, so the card
+    // says so in its second slot, as it does where every award needs a report (WV-REP-2).
+    clause = { id: "report", text: NEEDS_CHARGE, cites: [...new Set([...charge, ...examInRequired].map((r) => r.id))] };
   } else if (examInRequired.length && !ec.mixed) {
     // A rule stored as a waiver whose own words make the exam count (Illinois 6.1(b-1)) is cited before
     // the required rule, so the card and the tile point to the text that says so (IL-0).
@@ -640,12 +693,13 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
     lead = askLead([...required, ...altRules]);
   } else if (reqWithAlts.length) {
     // A required rule that names its own other records (Utah's advocate questionnaire).
-    const timedReq = required.some((r) => reportWindow(r));
+    const timedReq = required.filter((r) => reportWindow(r));
     key = {
       id: "report",
       big: "Police report",
-      small: `not the only record that counts${timedReq ? ", but time limits apply" : ""}`,
-      cites: [...new Set([...waivers, ...reqWithAlts].map((r) => r.id))],
+      small: `not the only record that counts${timedReq.length ? ", but time limits apply" : ""}`,
+      // The rule whose window makes time limits apply is cited too (Massachusetts c. 258C, s. 2(b)).
+      cites: [...new Set([...waivers, ...reqWithAlts, ...timedReq].map((r) => r.id))],
     };
     lead = askLead([...required, ...altRules]);
   } else {
@@ -657,7 +711,9 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       phrase(r, "exception"),
     );
     const exc = [...new Set(excRules.map((r) => phrase(r, "exception")!))].join(", ") || null;
-    const cites = [...new Set([...(timed ? [timed.r] : required), ...excRules].map((r) => r.id))];
+    // The timed rule and the exceptions first, then every other rule that sets the requirement (Hawaii:
+    // HRS 351-31(d) after the 72-hour definition in Haw. Admin. R. 23-605-2).
+    const cites = [...new Set([...(timed ? [timed.r] : []), ...excRules, ...required].map((r) => r.id))];
     key = {
       id: "report",
       big: "Police report",
@@ -665,14 +721,15 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       cites,
     };
     clause = { id: "report", text: ASKS_FOR_REPORT, cites };
-    lead = alts.length
-      ? askLead([...required, ...altRules])
-      : {
-          key: "report-lead",
-          text: "The program asks that the crime be reported to police.",
-          cites: required.map((r) => r.id),
-          kind: "law",
-        };
+    // The lead follows the rules that set the requirement. Waivers that name other records (South
+    // Carolina's anonymous route in program papers) show below in their own words, and a page note says
+    // where they disagree with the law.
+    lead = {
+      key: "report-lead",
+      text: "The program asks that the crime be reported to police.",
+      cites: required.map((r) => r.id),
+      kind: "law",
+    };
   }
   return { facts: lead ? [lead, ...facts] : facts, key, clause };
 }
@@ -701,23 +758,30 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
   if (primary) {
-    const cites = [primary.r.id];
     const others = [...rules.filter((r) => r !== primary.r), ...narrow];
-    const below = [...others, ...trips];
     const cond = phrase(primary.r, "condition");
     // An extension from the rule's own quote: a clause ("or later if the board finds good cause")
     // joins the sentence; a sentence (New Mexico's minors) follows it.
     const ext = phrase(primary.r, "extension");
     const extClause = ext && /^[a-z]/.test(ext) ? ext : null;
     const extSentence = ext && !extClause ? sentence(ext) : null;
+    // A rule counted from discovery that quotes the headline rule's own sentence says what the
+    // extension already says (Maine's 60 days, 5 M.R.S. 3360-C(1)(B)); the headline cites it instead of
+    // repeating it below.
+    const same = (r: Rule) =>
+      Boolean(ext) && params(r).from === "discovery" && r.quote.trim() === primary.r.quote.trim();
+    const below = [...others.filter((r) => !same(r)), ...trips];
     const more = below.length ? (ext ? " The rules below say more." : " The rules below cover other cases.") : "";
     facts.push({
       key: "deadline",
       text: `Apply within ${primary.d!.text} of the date it happened${cond ? `, ${cond}` : ""}${extClause ? `, ${extClause}` : ""}.${extSentence ? ` ${extSentence}` : ""}${more}`,
-      cites,
+      cites: [primary.r.id, ...others.filter(same).map((r) => r.id)],
       kind: "law",
     });
     const hedge = Boolean(ext) || others.length > 0;
+    // The tile and the card cite the rules that make "with exceptions" true, after the headline rule,
+    // whose pinpoint they show (Alaska: the program page that asks late applicants to explain).
+    const cites = [primary.r.id, ...(hedge ? others.map((r) => r.id) : [])];
     key = {
       id: "deadline",
       big: primary.d!.text,
@@ -915,17 +979,21 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
   const keyFacts = [total.key, deadline.key, report.key, exam.key].filter((k): k is KeyFact => k !== null);
 
   // "If you're Jane Doe in Michigan: <money>, and <one protection>." Where every award needs a
-  // police report, the protection clause says so. Otherwise the first protection clause that keeps
-  // the sentence within the word limit is used: an exam that counts for the report, then the exam
-  // itself, then the deadline. A clause is never cut down to fit; it is left out instead.
+  // police report, or a criminal charge, the protection clause says so. Otherwise the first protection
+  // clause that keeps the sentence within the word limit is used: an exam that counts for the report,
+  // then the exam itself, then the deadline. A clause is never cut down to fit; it is left out instead.
   const first = total.clause ?? coveredClause(covered.rows);
   const head = `If you're Jane Doe in ${place}:`;
-  const sentenceOf = (cl: ShareClause[]) => `${head} ${cl.map((x) => x.text).join(", and ")}.`;
+  const sentenceOf = (cl: ShareClause[]) => `${head} ${clauseText(cl)}`;
   const firstOnly = first ? [first] : [];
   const candidates = [report.clause, exam.clause, deadline.clause].filter((x): x is ShareClause => x !== null);
-  const gate = report.clause?.text === ASKS_FOR_REPORT ? report.clause : null;
+  const gate = report.clause && [ASKS_FOR_REPORT, NEEDS_CHARGE].includes(report.clause.text) ? report.clause : null;
   const second = gate ?? candidates.find((x) => wordCount(sentenceOf([...firstOnly, x])) <= SHARE_WORD_LIMIT) ?? null;
-  const clauses = [...firstOnly, ...(second ? [second] : [])];
+  const two = [...firstOnly, ...(second ? [second] : [])];
+  // Where the gate takes the second slot, the exam clause still follows it when the sentence stays within
+  // the word limit (Alabama, Montana, Washington).
+  const three = gate && first && exam.clause ? [first, gate, exam.clause] : null;
+  const clauses = three && wordCount(sentenceOf(three)) <= SHARE_WORD_LIMIT ? three : two;
   const text = sentenceOf(clauses);
 
   return {
@@ -939,6 +1007,13 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
     sections,
     share: { text, clauses },
   };
+}
+
+// The card's clauses as one sentence after "If you're Jane Doe in X:": "A, and B." or "A, B, and C."
+// The share text and the card image (og/card.tsx) both use it, so they never read differently.
+export function clauseText(clauses: ShareClause[]): string {
+  const t = clauses.map((c) => c.text);
+  return `${t.length === 3 ? `${t[0]}, ${t[1]}, and ${t[2]}` : t.join(", and ")}.`;
 }
 
 // Every rule or source id a summary cites, for the law page links and for tests.

@@ -3,7 +3,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { lawGrowth, lawStage, leafPath, plantShape } from "@/lib/garden";
-import type { StateSummary } from "../summary";
+import { clauseText, type StateSummary } from "../summary";
 
 export const CARD_SIZE = { width: 1200, height: 630 };
 
@@ -119,7 +119,7 @@ export interface CardProps {
   rules: number;
   // "youreowed.tech/mi"
   address: string;
-  // Pinpoints behind the two clauses, when they are short enough to print.
+  // Pinpoints behind the clauses, one per clause, when they are short enough to print.
   pinpoints: string[];
   // What the clauses rest on: "law", "law and program pages" or "program pages" (cardSources in
   // ../summary.ts). A clause that rests partly on a program page is not called law.
@@ -137,7 +137,7 @@ export function cardSourceLine(name: string, pinpoints: string[], label = "law")
 
 export function Card({ summary, rules, address, pinpoints, sourceLabel }: CardProps) {
   const lead = `If you're Jane Doe in ${summary.place}:`;
-  const body = `${summary.share.clauses.map((c) => c.text).join(", and ")}.`;
+  const body = clauseText(summary.share.clauses);
   const sourceLine = cardSourceLine(summary.name, pinpoints, sourceLabel);
 
   return (
