@@ -296,7 +296,12 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    usual deadline was ..." and adds "This deadline may count from when the crime was discovered,
    which can be later than the date it happened. The program decides." The readers are the web's
    Check and Track screens, the shared claim an advocate opens, and the PDF summary the web builds
-   and the one the API builds. A `late` with no flag is still shown as past the deadline.
+   and the one the API builds. A `late` with no flag is still shown as past the deadline. Since
+   October 2026 the web's Check, Track, and packet lead with the general deadline rule, the one
+   each state page leads with, instead of the engine's longest date (`web/lib/deadline.ts`, and
+   docs/ARCHITECTURE.md says how). They never show that date as plainly late while the engine
+   says ok. The advocate view and the API's PDF still show the engine's date. The engines' check
+   does not change.
 2. normalize.py carries the anchor. Rules already dated from discovery in their files keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",

@@ -219,8 +219,14 @@ Money is integer cents end to end. Adding a jurisdiction is new data, never new 
 
 - A deadline that can count from discovery is dated from the incident (the earliest it could
   start) and the deadline check gets the flag `deadline_from_discovery`, after
-  `deadline_from_report` when both apply. Every reader shows a flagged `late` as "The usual
-  deadline was ..." with a note saying it may count from a later date, never as plainly late.
+  `deadline_from_report` when both apply. The engine's check uses the longest deadline rule. The
+  flow and the packet lead with the general deadline rule instead (`web/lib/deadline.ts`: the rule
+  each state page leads with, dated with the IR's days) and add "Some cases have until {date}"
+  when the engine's longest date is later. A report or discovery note follows the general rule's
+  own provision, so a rule for minors counted from the report (MI-FILE-2, KS-DEAD-4) adds none. A
+  passed general date is never shown as "File by", and is not shown as plainly late while the
+  engine says ok. Without the IR they fall back to the engine's date and flags. The advocate view
+  (`web/components/claim/Checks.tsx`) and `api/tend_api/packet.py` still show the engine's date.
 - `as_of_date` is today in the state's own time zone, the westernmost where a state spans several
   (`api/tend_api/clock.py` and `web/lib/stateTime.ts` share one table), so a late night never
   counts a deadline a day early.
