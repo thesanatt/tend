@@ -87,7 +87,8 @@ describe("/press", () => {
   });
 
   it("quotes every number from the docs or counts it from the data", () => {
-    const docs = ["docs/SOURCES.md", "docs/EVAL.md", "docs/PRIVACY.md", "README.md"]
+    // The demo's numbers ($443.00, $325.00) live in docs/JUDGES.md, which holds the demo step by step.
+    const docs = ["docs/SOURCES.md", "docs/EVAL.md", "docs/PRIVACY.md", "docs/JUDGES.md", "README.md"]
       .map((f) => readFileSync(path.join(repo, f), "utf8"))
       .join("\n");
     const corpus = loadCorpus();
@@ -127,7 +128,7 @@ describe("/press", () => {
 
   it("says what can leave the device after a yes, and that the AI reads bills too", () => {
     // With a yes, the law check can run on Tend's server, and a bill or the bank rows Tend could not sort can
-    // go to cloud AI. docs/PRIVACY.md does not describe the server check; Design for safety does.
+    // go to cloud AI. Design for safety and docs/PRIVACY.md (item 5) both describe the server check.
     const device = kit.facts.find((f) => f.id === "device")!;
     expect(device.text).toContain("Tend's server");
     expect(device.text).toContain("cloud AI");

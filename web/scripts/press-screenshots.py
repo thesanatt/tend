@@ -6,8 +6,8 @@
 
 Each one shows a public page or the fictional demo (Rowan Hale, Riverbend General Hospital, made-up
 records). The script only clicks: it types nothing, so no screenshot can hold anything a person typed,
-and it stops if the privacy line says something left the device. app/press/files.ts lists the same
-files with their captions; keep the two in step.
+and it stops if the privacy line says anything left the device beyond the demo state's law request.
+app/press/files.ts lists the same files with their captions; keep the two in step.
 
 usage (from web/, after `npx next build`):
     uv run --python 3.12 scripts/press-screenshots.py              starts `next start` on port 3700, then stops it
@@ -36,7 +36,8 @@ OUT = WEB / "public" / "press" / "screenshots"
 
 DESKTOP = {"viewport": {"width": 1280, "height": 800}, "device_scale_factor": 2}
 PHONE = {"viewport": {"width": 390, "height": 844}, "device_scale_factor": 2, "is_mobile": True, "has_touch": True}
-QUIET = "On this device. Nothing has left it since this page opened."
+# The demo picks Michigan, and its law files are named for the state, so the line says that much went.
+QUIET = "On this device. Only the state you picked went to Tend's server, to get its law."
 HELD = "$325.00"
 # The itemized bill and, beside it on a wide screen, the held line's law.
 BILL = 'article[aria-labelledby^="bill-"]'
@@ -88,7 +89,7 @@ def settle(page: Page) -> None:
 
 
 def quiet(page: Page) -> None:
-    # Nothing a person could have entered has left the device, and nothing was sent at all.
+    # Beyond the state's law request, nothing a person could have entered has left the device.
     expect(page.locator("header [role=status]").first).to_have_text(QUIET)
 
 

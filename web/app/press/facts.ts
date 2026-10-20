@@ -1,7 +1,7 @@
 // The facts on /press and in its one-page fact sheet (public/press/tend-fact-sheet.pdf). Both read this
 // module, so the two cannot say different things: app/press/page.tsx renders it and
 // scripts/press-factsheet.ts prints it. Counts are read from the site's own files when it is built; every
-// other number is quoted from docs/SOURCES.md, docs/EVAL.md, docs/PRIVACY.md, or the README.
+// other number is quoted from docs/SOURCES.md, docs/EVAL.md, docs/PRIVACY.md, docs/JUDGES.md, or the README.
 // tests/press.test.tsx checks both, and tests/press-factsheet.test.ts that the PDF in public/press is what
 // these facts make today. It reads the file system, so only server components and scripts run from web/
 // may import it.
@@ -131,7 +131,7 @@ export function pressFacts(): PressFacts {
       {
         id: "device",
         text: `Each state's law runs in the browser, in an engine written in C++ and compiled to ${engineKb()} KB of WebAssembly. Bank statements and bills are read there too. Only a yes moves the law check to Tend's server, or bills and bank rows to cloud AI.`,
-        // docs/PRIVACY.md covers cloud AI but not the server law check; Design for safety covers both.
+        // Design for safety and docs/PRIVACY.md both cover cloud AI and the server law check.
         sources: [
           { label: "tend.wasm, the engine itself", href: ENGINE },
           { label: "Design for safety", href: "/how-it-works#safety" },

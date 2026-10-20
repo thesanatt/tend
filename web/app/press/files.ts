@@ -53,7 +53,7 @@ export const LOGOS: Logo[] = [
 // The home page's link card at 1280 x 640, made by scripts/press-social.tsx.
 export const LINK_CARD = {
   file: "tend-social-1280x640.png",
-  alt: "Tend's link card: the logo, the sentence about claiming compensation without giving up a name, the address youreowed.tech, and a row of plant drawings from sprout to bloom.",
+  alt: "Tend's link card: the logo, the sentence about applying for crime victim compensation without giving Tend a name, the address youreowed.tech, and a row of plant drawings from sprout to bloom.",
 };
 
 export interface Shot {
@@ -73,7 +73,7 @@ export const SHOTS: Shot[] = [
     file: "tend-home-desktop.png",
     device: "desktop",
     caption: "The home page.",
-    alt: "Tend's home page in a desktop browser: the sentence about claiming crime victim compensation without giving up a name, buttons for the 2-minute tour and How it works, and the heading Every state has money set aside to pay survivors back.",
+    alt: "Tend's home page in a desktop browser: the sentence about applying for crime victim compensation without giving Tend a name, the line on who built it and the prize, buttons for the 2-minute tour and How it works, and the heading Every state has money set aside to pay survivors back.",
   },
   {
     file: "tend-demo-bill-held-desktop.png",
