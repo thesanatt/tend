@@ -8,8 +8,8 @@ Two kinds of numbers appear here, and each row says which:
   v1.3, tend 1.3.0, tlaw 1.3), in a Linux container: 4 vCPUs of an Intel Xeon at 2.1 GHz (a
   shared VM), GCC 13.3, Node 22.22, Python 3.12.3, uv 0.8.17. The doc changes on this branch touch
   no code, so these are main's numbers.
-- **Recorded** by the author on an Apple M4 Max laptop, or on an earlier build, quoted from the
-  file named. Each says why it was not rerun.
+- **Recorded** on an Apple M4 Max laptop, or on an earlier build, quoted from the file named.
+  Each says why it was not rerun.
 
 Engine detail (the difftest breakdown, fuzzing, the review pass) is in
 [engine/EVAL.md](../engine/EVAL.md). Throughput detail is in [engine/BENCH.md](../engine/BENCH.md).
@@ -20,9 +20,9 @@ Neon detail is in [NEON.md](NEON.md).
 | Suite | Command | Result | When |
 |---|---|---|---|
 | C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build) | reproduced |
-| VM vs the independent C++ oracle | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | reproduced |
+| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | reproduced |
 | Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build on Linux | reproduced |
-| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass | on tend 1.2.0, Oct 4; not rerun on 1.3.0 for time |
+| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass | recorded on tend 1.3.0, Oct 3 ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container run was on 1.2.0 |
 | Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | reproduced |
 | Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,600 well-formed claims byte-identical; 3,000 random or broken laws, 0 disagreements (53.8 s) | reproduced |
 | WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (29.0 s in Node) | reproduced |
@@ -51,9 +51,9 @@ WASM), the Python reference (`refengine/`), and a plain C++ oracle used only in 
 window, amounts around each cap, typed units, tags, insurance, unconfirmed lines, deadlines from
 the report and from discovery, and broken JSON. On the merged branch it reached every status, check,
 and flag in the SPEC (eligible 317,609; held 28,214; per-unit cuts 11,786; total cap cuts 11,473;
-`deadline_from_discovery` on 29,916 claims and `deadline_from_report` on 16,161), with the same
-tallies engine/EVAL.md records. A harness test (`refengine/tests/test_difftest.py`) plants bugs and
-checks the difftest catches them.
+`deadline_from_discovery` on 29,916 claims and `deadline_from_report` on 16,161).
+[engine/EVAL.md](../engine/EVAL.md) has the full breakdown. A harness test
+(`refengine/tests/test_difftest.py`) plants bugs and checks the difftest catches them.
 
 ## Throughput
 
@@ -79,13 +79,13 @@ in WASM on the M4 Max (engine/BENCH.md).
 The classifier runs rules first (a merchant registry and keyword rules), then links rides to care
 days and pay dips to lost wages, and asks a model only for what is left. On the device the model
 is Gemini Nano through Chrome's Prompt API (`web/lib/local/deviceai.ts`), constrained to a fixed
-list of labels. A model may never set `forensic_exam` or `lost_wages` (`web/lib/local/classify.ts:262`):
+list of labels. A model may never set `forensic_exam` or `lost_wages` (`web/lib/local/classify.ts:263`):
 its exam label becomes `medical` and its lost-wage label becomes `unknown`. In Chrome 154 it
 labeled a phone bill payment as lost wages (commit `e202549`), which is why.
 
 | Check | Command | Result | When |
 |---|---|---|---|
-| Server classifier vs the plan's own labels, 4 personas | `cd seed && uv run python seeder.py classify all --no-model` | 190 of 190 for each persona: 87 keyword, 64 registry, 14 ride links, 11 income, 8 transfers, 3 pay dips, 4 from the committed model cache | reproduced on the merged branch |
+| Server classifier vs the plan's own labels, 4 personas | `cd seed && uv run python seeder.py classify all --no-model` | 190 of 190 for each persona. The method counts cover the 191 records it reads (the 190 plus the Riverbend bill): 87 keyword, 64 registry, 14 ride links, 11 income, 8 transfers, 3 pay dips, 4 from the committed model cache | reproduced on the merged branch |
 | TypeScript port vs the Python classifier, including the lost-pay workday estimate | `npx vitest run tests/local/classify-parity.test.ts` | passes on all 4 snapshots | reproduced on the merged branch |
 | Gemini Nano on held-out rows | `measureDeviceClassifier` (`web/lib/local/measure.ts`) in Chrome, with `web/tests/local/fixtures/device-eval.json` and `device-eval-b.json` (32 fictional rows each, no rule matches them) | no result is committed | not reproducible here: needs Chrome with the built-in model |
 | Gemini Nano reading a bill photo | in Chrome 154 | the seed bill photo read correctly 3 of 3 times; a bill whose lines do not add up stays "couldn't read reliably" | recorded Oct 3, commit `aaef95c` message only |
@@ -111,7 +111,8 @@ model picks starts confirmed.
 
 - Agreement between engines shows they read engine/FORMAT.md the same way. It does not show that
   FORMAT.md reads the law correctly. That rests on the verified quotes and the hand-computed golden
-  claims, and all three engines were written from one spec by one author.
+  claims, and all three engines were written from one spec. <!-- TODO(Sanat): this line used to say "by one author";
+  who wrote them is yours to state. -->
 - The difftest claims are synthetic, aimed at each law's numbers. Real bank histories look
   different.
 - The classifier numbers come from fictional data built for the demo. There is no accuracy number

@@ -5,7 +5,7 @@ shared device, after the worst week of their life. Every screen has one next act
 what happened, who did it, or where.
 
 ## Stay Jane Doe (the principle behind every screen)
-No account, no name, no story. Everything happens on the device. The survivor's name appears only
+No account, no name, no story. Everything happens on the device unless the survivor chooses to send something. The survivor's name appears only
 on the state's own form at the very end, typed by them. Tend surfaces the legal protections that
 keep them anonymous with the state itself: the address confidentiality program (a substitute
 address for government forms) and the law that keeps compensation records confidential, both
@@ -77,11 +77,23 @@ bud (filed), bloom (paid). The deadline is always visible. Reminders are opt-in,
 - Unlock the saved vault with Touch ID (passkey) or a passphrase.
 - Quick exit: corner button and Esc twice; replaces the page with a neutral one.
 - Neutral tab title ("Tend"). No push notifications. No analytics.
-- Pause and resume: progress saved on the device, optionally behind a short passcode.
+- Pause and resume: nothing is kept until the survivor taps Save this. Then progress is stored on the
+  device, encrypted, and locked with Touch ID or screen lock (a passkey) or a passcode of at least 6
+  characters. It locks itself after 5 minutes without use and when the page is left.
 - Plain-English summary first, the exact quote one tap away.
-- English and Spanish UI. Legal quotes stay in the original language with a plain summary in both.
-- Phone-first layout, 44 px tap targets, WCAG AA contrast, full keyboard and screen-reader support.
-- Reading level around grade 6 to 8 for everything except the quotes themselves.
+- English and Spanish UI. Legal quotes stay in their original language (English). Rule summaries are
+  written in English. In Spanish, Tend shows a translation only when the browser's built-in translator
+  (Chrome's Translator API) already has its English-to-Spanish model on the device; otherwise the
+  English summary shows with a note saying so.
+- Phone-first layout. Buttons and form fields are 48 px tall and the survivor flow's other tap targets
+  at least 44 px; a few controls elsewhere are smaller. The color tokens meet WCAG AA contrast against
+  the page in light and dark themes (ratios in web/DESIGN.md). Keyboard and screen-reader use are
+  design goals with some unit tests; no accessibility audit (Lighthouse, axe, or a screen-reader pass)
+  is recorded in this repository yet.
+- Reading level around grade 6 to 8 for Tend's own English sentences (web/tests/i18n.test.ts checks
+  the UI copy and web/tests/public-summary.test.ts the sentences templated from the rules). The rule
+  summaries shown above each quote are not held to it yet; by the same formula they average about
+  grade 11.
 
 ## Separate from the survivor flow
 - "How Tend decides": the verified rules, sources, and the compiled law listing for any state.

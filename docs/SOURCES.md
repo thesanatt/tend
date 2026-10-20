@@ -9,8 +9,9 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
   Alliance for Safety and Justice (now Just Safe), [Beyond the Headlines: A Decade of Listening to Crime Survivors](https://justsafe.org/news/beyond-headlines-decade-listening-crime-survivors/), October 1, 2025.
   The same 2022 survey is cited by [ABC News, June 22, 2024](https://abcnews.com/Health/super-bowl-parade-shooting-survivors-await-promised-donations/story?id=111316701):
   "96% of victims did not receive that support and many didn't know it existed."
-- **Every state and DC runs a crime victim compensation program.** Tend's library holds the official program
-  page for all 51, each saved with its sha256 (`rules/sources/`, `rules/verified/`).
+- **Every state and DC runs a crime victim compensation program.** Tend's library holds official program pages
+  or program documents for all 51 (for Kentucky, the program's FAQ, brochure, and application), each saved with
+  its sha256 (`rules/sources/`, `rules/verified/`).
 - **In 49 of 51 jurisdictions, Tend's verified rules say a survivor should not be billed for the forensic exam.**
   Counted from the rules the engine applies (kind `exam_no_bill` in `rules/ir/`), each a word-for-word quote of
   its source. Two are not counted. Wyoming's rule (`WY-EXAM-2`) covers only survivors who report to police, so the
@@ -24,18 +25,35 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
   bill for any portion of the costs of a sexual assault medical forensic examination to the victim of the
   sexual assault, including any insurance deductible or co-pay, denial of claim by an insurer, or any other
   out-of-pocket expense." [MCL 18.355a(2)](https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-355a#:~:text=A%20health%20care%20provider%20shall,or%20any%20other%20out%2Dof%2Dpocket).
-- **48 jurisdictions have an address confidentiality program.** Counted from the verified rules with category
-  `address_confidentiality`.
+- **In 45 jurisdictions, Tend's verified rules include an address confidentiality program open to sexual assault
+  survivors.** Counted from the verified rules in the category `address_confidentiality` whose `covers_sexual_assault`
+  is true: `python3 -c "import json,glob; print(sum(any(r.get('category')=='address_confidentiality' and
+  r['params'].get('covers_sexual_assault') is True for r in json.load(open(f))['rules']) for f in
+  glob.glob('rules/verified/*.json')))"`. Many of these programs have other conditions, and each program decides who
+  can enroll. Three more are not counted. Florida's program covers domestic violence, dating violence, and
+  stalking. Arkansas's puts a post office box on the driver's license or ID card of domestic violence victims.
+  South Dakota's only keeps a voter record private. Tend's rules include none for Alabama, North Dakota, or Wyoming.
+  Alaska's law took effect July 1, 2026, and is counted, though Tend's saved sources (October 3, 2026) include no
+  way to enroll yet. Each state page shows its program and the quote, under Privacy.
 - **In October 2026, people posted "I am Jane Doe" to protect a survivor's anonymity.** The Associated Press,
   via [ABC News, October 4, 2026](https://abcnews.com/US/wireStory/jane-doe-solidarity-posts-flood-social-media-after-136984033).
   Tend has no tie to her or to the posts.
 
 ## Tend's own numbers
 
-- **2,578 rules from 824 saved official sources, for 51 jurisdictions.** `rules/verified/`, checked by
-  `rules/tools/verify.py` (every quote word for word in its saved source, every number in its quote).
-- **121,000 test claims, 0 differences between the C++ engine and the Python reference engine.**
-  `uv run --project refengine python refengine/difftest.py`. All counts: [EVAL.md](EVAL.md).
-- **The law engine runs in the browser as 183 KB of WebAssembly.** `web/public/engine/tend.wasm`.
+- **2,578 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
+  `rules/tools/verify.py` (every quote word for word in its saved source; the numbers in eight detail fields, and
+  every number in its summary other than 0 and 1, appear in its quote). 120 of the sources are copies of state
+  statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint the law but are not
+  the official code. 234 rules, in 18 jurisdictions, quote those copies.
+- **121,000 test claims, 0 mismatches between the C++ engine and the Python reference engine.** On the 119,600
+  that are valid JSON, both return the same bytes; the other 1,400 are broken on purpose, and both refuse them with
+  the same error code. Build the engine with `make -C engine`, then run, from the repository root:
+  `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000`
+  (about a minute; 2,000 claims for each of the 51 jurisdictions and 2 test laws, plus 50 for each of 300 random
+  laws). All counts: [EVAL.md](EVAL.md).
+- **The law engine runs in the browser as 183 KB of WebAssembly.** `web/public/engine/tend.wasm` holds the
+  loader, the bytecode verifier, and the VM. The compiler is not in it: each state's law is compiled ahead of
+  time and arrives as its own image of 24 to 52 KB (`web/public/engine/laws/`).
 
 Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides.

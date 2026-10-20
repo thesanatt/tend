@@ -30,8 +30,8 @@ time; nothing secret is in the repository or in any page bundle.
 
 - **Engine.** `libtend` is not built on Linux, so the API answers `/api/claim` with the Python reference engine
   (`X-Tend-Engine: reference`). The function carries `web/public/engine/laws/*.tlaw`, so its answers name the
-  same `law_image_sha256` as the engine on the device (Michigan: `54f9809e...`). `/api/jurisdictions/{st}/asm`
-  answers 503; the law pages ship their own listings.
+  same `law_image_sha256` as the engine on the device (the hash `web/public/engine/laws/index.json` lists for that
+  state). `/api/jurisdictions/{st}/asm` answers 503; the law pages ship their own listings.
 - **Lowercase law links.** `web/proxy.ts` answers a law path whose code has a lowercase letter with a 308 to the
   same code in capitals (`/law/mi` to `/law/MI`, `/law/dc` to `/law/DC`). The 51 law pages stay static. A redirect in `next.config.ts` cannot do this: its matching ignores
   case, so it would loop on `/law/MI`.
@@ -104,8 +104,10 @@ a new web preview. To open a preview in a browser, sign in to Vercel, or use a s
 1. Make sure `main` has everything, the suites pass, and Neon's public schema is current:
    `make -C engine && make -C engine laws && cd api && uv run python -m tend_api.loader`.
    The loader records each state's law image hash only when the native engine is built, and only a build
-   from current `main` gives the hash the device reports (`/api/jurisdictions/MI/images` should list
-   `54f9809e...`). Without the engine it still loads the rules and leaves the recorded hashes alone. The
+   from current `main` gives the hash the device reports (`/api/jurisdictions/MI/images` should list the
+   `law_image_sha256` that `web/public/engine/laws/index.json` gives for MI; the retired tlaw 1.2 image
+   `54f9809e...` stays listed too, so seeing it proves nothing). Without the engine it still loads the rules and
+   leaves the recorded hashes alone. The
    preview schema was loaded without it, so its `/images` lists are empty; nothing in the app reads them.
    Then put the demo bank at its start: `cd seed && uv run python reset_demo.py` must exit 0 ("at the demo
    start"). The API's own reset only deletes Tend's stale writes and puts the bill back, so it leaves alone an
@@ -196,9 +198,12 @@ when the API's routes changed with the web. To take the site off the domain enti
   would need the Nessie key as a repository secret.
 - Every JSON error a deployed API sends has local paths and credentials taken out: the API keys, `TEND_SECRET`,
   the database addresses, and any `?key=` in a quoted URL become `[hidden]`.
-- Vercel's own request log keeps the method, path, and status of every function call, so a share id
-  (`/api/shares/<id>`) and the demo persona in `/api/bank/rowan-mi/...` appear there even though the API's own
-  access log drops those lines. A share id alone opens nothing: the key stays in the link's fragment.
+- Vercel's own request logs, which Tend's code cannot turn off, cover every request it serves (pages, law files,
+  and API calls) and can hold the time, the method, the path with its query, the status, and the visitor's IP
+  address and user agent ([log fields](https://vercel.com/docs/drains/reference/logs)). So a share id
+  (`/api/shares/<id>`), the demo persona in `/api/bank/rowan-mi/...`, and the state whose law was loaded appear
+  there next to an IP address, even though the API's own access log drops the private paths. A share id alone
+  opens nothing: the key stays in the link's fragment.
 - The CSP allows inline scripts because Next.js puts each prerendered page's data in inline scripts; a nonce
   would make every page render per request and break the offline path. Every script file, connection, frame,
   and font must come from this origin, plugins and framing are refused, and `'wasm-unsafe-eval'` lets the law

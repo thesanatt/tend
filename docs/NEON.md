@@ -1,22 +1,27 @@
 # Tend on Neon
 
 Tend is local-first (docs/PRIVACY.md is the contract). A survivor's claim, bank rows, bills, and
-answers stay on their device. The server keeps only what is public or sealed, and Neon holds all of
-it in one Postgres 18 project, `tend` (us-east-2). This page says what lives there and why, how each
-version of the law becomes its own Neon branch, and the numbers we measured.
+answers stay on their device unless they choose to send something. The server keeps the public law,
+sealed shares, payments waiting for a code, and a hash-chained log of payments, and Neon holds all
+of it in one Postgres 18 project, `tend` (us-east-2). This page says what lives there and why, how
+each version of the law becomes its own Neon branch, and the numbers we measured.
 
 ## What lives in Neon
 
-| What | Tables | Who can touch it | Why it is on a server at all |
+| What | Tables | Who the role grants allow (see Least privilege) | Why it is on a server at all |
 |---|---|---|---|
 | The public law corpus | `categories`, `jurisdictions`, `sources`, `rules`, `law_images` | read: `tend_reader`, `tend_app`; write: the owner (loader) only | Public, verified rules that every page and the API cite |
 | The law version index | `law_versions`, `law_version_files` | read: both roles; write: the owner (publish script) | Names every published law branch, so the API can read and compare them |
 | Sealed shares | `sealed_shares` | `tend_app` only | Ciphertext an advocate opens with a key that never reaches the server |
-| Payments waiting for a code | `pending_actions` | `tend_app` only | Ten minutes at most; the code is stored only as a MAC, the payee is cleared after |
+| Payments waiting for a code | `pending_actions` | `tend_app` only | The code works for ten minutes and is stored only as a MAC. The payee is cleared when the payment ends, and the row is deleted a day or more later |
 | The payment audit log | `audit_log` | `tend_app` may read and append, never change | Hash-chained; triggers refuse updates, deletes, truncation, and any insert that does not extend the chain |
 
-Never in Neon: claims, scans, bills, statements, names, or anything about what happened. There is no
-column for any of it.
+Never in Neon in readable form: claims, scans, bill files, statements, the survivor's name, or
+anything about what happened (a shared packet is there only as ciphertext). Payments are the one
+exception. The payee, the provider named on the bill, stays in `pending_actions` until the payment
+finishes or locks, or a sweep finds its code expired. The row itself, with the amount, the account, and for a
+demo bill the bill's id and totals, is deleted at the first sweep a day or more after the code
+expires. The audit log keeps amounts, ids, and keyed hashes permanently, never a name.
 
 ## Each law version is a Neon branch
 
@@ -32,7 +37,7 @@ law-2026-10-03-52abf94           br-square-leaf-b4kaa61u       schema-only root:
 `- law-2026-10-03-c8304df        br-weathered-mouse-b4jae2vp   +663 rules: documents to send, how to file, processing times
    `- law-2026-10-03-d83289a     br-lucky-mountain-b4nuurep    +97 rules: address confidentiality, record confidentiality
       `- law-2026-10-03-1e96ad5  br-young-frost-b43l8bnn       the law engine reads 66 rules differently (rule format v2)
-         `- law-2026-10-03-c959cb6  br-billowing-violet-b4h7wdk1  13 source pages saved again (AZ, ID, WY); in use now
+         `- law-2026-10-03-c959cb6  br-billowing-violet-b4h7wdk1  13 source pages saved again (AZ, ID, WY); newest published
 ```
 
 How `scripts/neon/law_versions.py publish` builds one:
@@ -54,11 +59,17 @@ newest corpus commit as a new child branch.
 ### Reading and comparing versions
 
 - `GET /api/law/versions` lists the index; `current` is the version whose corpus hash equals the one
-  production has loaded (today `law-2026-10-03-c959cb6`).
+  production has loaded. On Oct 19, 2026 none did: commit 4737814 changed the IR for 11 states (AK,
+  CA, IA, MN, MO, MT, NV, NY, SC, TX, WY) after the last published version, so `current` was null,
+  claims for those 11 states named no version, and claims for the other 40 still named
+  law-2026-10-03-c959cb6. Publishing the newer corpus (`law_versions.py publish`) is a write to
+  production Neon and waits for Sanat.
 - `GET /api/law/diff?from=&to=&st=` compares two versions. When a state's file hashes are the same in
   both, the index answers "unchanged" without opening a branch. Otherwise the API connects to both
-  branches by host, **as `tend_reader`**, reads them at the same time, and lines up every rule by id:
-  added, removed, or changed, each with its verbatim quote, pinpoint, and a link to the sentence. A
+  branches by host, **as `tend_reader`** when `DATABASE_URL_READER` is set (production does not set
+  it yet, so there it reads as the owner), reads them at the same time, and lines up every rule by
+  id: added, removed, or changed, each with its verbatim quote, pinpoint, and a link to its source,
+  which for web pages opens at the quoted text. A
   change is labeled by kind: the quote itself, Tend's reading of it, what the law engine does with
   it, or a source page saved again. Program details (phone, website, form) are compared too.
 - Before a branch is trusted, it must name the version in its own `law_versions` table and hold
@@ -94,7 +105,8 @@ next claim, and after a failed read the lookup is skipped for 30 s. In those cas
 - `ts_headline` marks the matched words; the API turns the marks into `[start, end)` offsets.
 - When no quote has every word, the API searches for any of them and says `"matched": "any"`.
 - With `version=`, the same query runs on that version's branch.
-- Results carry only the quote, rule id, pinpoint, source id, and the link to the sentence. The API's
+- Results carry only the quote, rule id, pinpoint, source id, and a link to the source, which for web
+  pages opens at the quoted text. The API's
   access log leaves these requests out, as it does for the older `/api/rules/search`.
 
 The state pages do not get a server-backed search box. docs/PRIVACY.md lists what may leave the
@@ -107,7 +119,7 @@ change after a search. So only someone calling the API directly uses the endpoin
 |---|---|---|
 | `tend_reader` | SELECT the corpus and the version index | read shares, payments, or the audit log; write anything (its transactions are read-only by default; statements stop at 5 s) |
 | `tend_app` | read and write `sealed_shares` and `pending_actions`; read and append `audit_log` and `meta`; read the corpus | change or delete a rule, rewrite or truncate the audit log, create a table or schema (statements stop at 15 s) |
-| `neondb_owner` | migrations, the corpus loader, publishing law branches | is never needed by the running API |
+| `neondb_owner` | migrations, the corpus loader, publishing law branches | is not needed by a running API that has both role URLs (production does not have them yet; see below) |
 
 The two roles are created with SQL (`scripts/neon/roles.py`), so they are not members of
 `neon_superuser` (roles made in the console are). Their passwords are 256-bit random strings kept in
@@ -141,6 +153,12 @@ create a schema             refused      refused
 The API uses `DATABASE_URL_APP` when it is set (otherwise the old pooled URL), sends corpus reads
 through `DATABASE_URL_READER`, and runs migrations only with the owner's `DATABASE_URL`. A deploy that
 holds only the two role URLs sets `TEND_MIGRATE=0`; migrations then run from the loader.
+
+The two roles exist and pass all 28 checks in roles.py. Production (tend-api) did not use them as
+of Oct 19, 2026. It is set up with the owner's URLs, so it serves requests as `neondb_owner`, runs
+its startup migration check as the owner, and reads law branches as the owner. Moving it to
+`DATABASE_URL_APP` and `DATABASE_URL_READER` is the next step, and it is Sanat's call (an
+environment change and a redeploy).
 
 ## Numbers
 
