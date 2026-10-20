@@ -111,7 +111,7 @@ export default function Sources() {
         <h2 id="tend">Tend&apos;s own numbers</h2>
 
         <div className={styles.claim}>
-          <h3>2,696 rules from 824 saved official sources, for 51 jurisdictions.</h3>
+          <h3>2,724 rules from 824 saved official sources, for 51 jurisdictions.</h3>
           <p className={styles.where}>
             The rules are in <a href={`${REPO}/tree/main/rules/verified`}>rules/verified</a>. A rule is accepted only if
             its quote appears word for word in the saved source and every number in it appears in the quote (

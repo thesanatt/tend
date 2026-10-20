@@ -1,7 +1,7 @@
 ; tend law image NH, New Hampshire
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 701183ddf169386fc0f7d3466c5c8d63b18183d7a1d5ed96291b4f78bd7c8881
-; image sha256  b38df8d4115bcfaf33e9465c3a053e6dd936b4e194d533e730594af4688c9930
+; source sha256 2e1c37b31de5356e5f48a4577a2635b5c669715b45d967c8f7d8fc06d9f6aa14
+; image sha256  2b265cc2389a6fba3f086b19c4d67221fc6992fa31c5cc0b475618524825dd98
 ; 64 rules, 8 sources, 25 proofs, 7 ints, 354 strings
 ; item program: 392 instructions, 1401 bytes, max stack 2
 ; aggregate program: 207 instructions, 640 bytes, max stack 3, 7 loops
@@ -28,7 +28,7 @@
     R18   NH-COV-4              covered       counseling                                    N.H. Admin. Rules Jus 605.04(d)(1)
     R19   NH-COV-5              covered       lost_wages                                    N.H. Admin. Rules Jus 605.05(e)(3)
     R20   NH-COV-6              covered       lost_wages                                    N.H. Admin. Rules Jus 605.05(d)
-    R21   NH-COV-7              covered       relocation                                    N.H. Admin. Rules Jus 605.07(a)(2)b.
+    R21   NH-COV-7              covered       relocation                                    N.H. Admin. Rules Jus 605.07(a)(1)-(2)
     R22   NH-COV-8              covered       security                                      N.H. Admin. Rules Jus 605.10(c)(1)-(3)
     R23   NH-COV-9              covered       transportation                                N.H. Admin. Rules Jus 605.03(d)(5)
     R24   NH-COV-10             info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(d)(3)
@@ -379,7 +379,7 @@
   02bb        seta     collateral, R36              ; NH-COL-1
   02bf        ret
               ; NH-CAP-4  N.H. Admin. Rules Jus 605.07(e)(3)  "Relocation expenses shall be capped at $5,000"
-              ; NH-COV-7  N.H. Admin. Rules Jus 605.07(a)(2)b.  "If the claimant does not have a restraining order against the..."
+              ; NH-COV-7  N.H. Admin. Rules Jus 605.07(a)(1)-(2)  "The offender poses a continuing credible threat to the safety of..."
               ; NH-COV-11  N.H. Admin. Rules Jus 605.07(d)(8)  "The cost, as billed by the cellular provider, for changing a..."
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
               ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."

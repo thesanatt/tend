@@ -1,8 +1,8 @@
 ; tend law image ND, North Dakota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 796a2f71e5ca3c4020161e5e90ac6952ea5be4b259e66d2d61647fb2f0a22759
-; image sha256  3d2f9c40ada05cbcbe2957e05c95fa328467d9216b4fdac15bee907dcba55255
-; 60 rules, 11 sources, 23 proofs, 5 ints, 300 strings
+; source sha256 a71d5e7780c287239a9d1f565a21a8d2735c8c1900640dcc4ef7ed1413bc0ab9
+; image sha256  b9422bf8fd023df5fd4a1ac7ed5d0218a28ee3c96635e3f97cb268afc93437ce
+; 61 rules, 11 sources, 23 proofs, 5 ints, 304 strings
 ; item program: 135 instructions, 451 bytes, max stack 2
 ; aggregate program: 269 instructions, 832 bytes, max stack 3, 9 loops
 
@@ -64,9 +64,10 @@
     R54   ND-DOC-15             info          -                     required_document       N.D. Admin. Code 94-03-03-06 (collateral sources)
     R55   ND-DOC-16             info          -                     required_document       Authorization to Disclose Protected Health Information, SFN 61353, Privacy Statement
     R56   ND-REC-1              info          -                     record_confidentiality  N.D.C.C. 54-23.4-17
-    R57   ND-CAP-TRAVEL-MIN     skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-16(2)(a)  ; expense_cap without amount or expense
-    R58   ND-CAP-COUNSEL-ADULT  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(1)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
-    R59   ND-CAP-COUNSEL-EXTRA  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(6)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+    R57   ND-CAP-COUNSEL-WINDOW skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)  ; expense_cap without amount or expense
+    R58   ND-CAP-TRAVEL-MIN     skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-16(2)(a)  ; expense_cap without amount or expense
+    R59   ND-CAP-COUNSEL-ADULT  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(1)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
+    R60   ND-CAP-COUNSEL-EXTRA  skipped       -                     expense_cap             N.D. Admin. Code 94-03-03-10(3)(b)(6)  ; less generous duplicate of ND-CAP-COUNSEL-MINOR
 
 .sources
     S0    ND-S1       sha256 88da8a9d21468105  https://www.ndlegis.gov/cencode/t54c23-4.pdf

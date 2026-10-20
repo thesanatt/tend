@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "KS",
- "source_sha256": "3ce3ec33d20703c22c98cdb3ad37db79df4f010edaa6dd443ef15b1ef2130f41",
- "ir_sha256": "7525b6f5f813fa90cf793146cf0c2bdffa7240d4e636e30736418191a1a9bbc9",
+ "source_sha256": "3debfa82dca3114d14c8b60a1ecaf6f4c4ecbdbe7049db603efd95d915a2564a",
+ "ir_sha256": "e3a111b7aa1622f792b5aef973c7d640c06d5c19b6a1bdb7e66279df1af3c436",
  "fresh": true,
  "rules": [
   {
@@ -128,6 +128,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "report"
+  },
+  {
+   "id": "KS-DEAD-5",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "KS-REP-1",

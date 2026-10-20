@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MO",
- "source_sha256": "b3738decf93893e071fbda1be6a6761699d6a3f5e6465558f01f8b8d99cf1e97",
- "ir_sha256": "b286836d330e06436a036f9c5d3bbf7bafe01f4e0377b8a8159aed3de588bb13",
+ "source_sha256": "5b4dfb3865fe47f1a4577d9f06027c8c1c0c142bca0ecc2a6660673b284370f9",
+ "ir_sha256": "40fa4032291dd390466ae277f667a1b8b6a823917b433c13842fd2926bf71418",
  "fresh": true,
  "rules": [
   {
@@ -11,6 +11,10 @@
   },
   {
    "id": "MO-EXAM-2",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MO-EXAM-3",
    "kind": "exam_payment"
   },
   {

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "DC",
- "source_sha256": "b9b4068d2f0b1eddf9d37aba737b8da6d2ca56a8e5279139505cfcc6ca098ed1",
- "ir_sha256": "923b1943f5219b4e8d55f8862e4ea6e6efc6ac388275575ae191568a77e252fe",
+ "source_sha256": "2401aec76c1c91e012f4b1aaad067d5ee6c2418805249fcbcbad9eaa3cb9a120",
+ "ir_sha256": "45ab9e8bac37e1228e3b70314f4dfd6eaa1b2e8e13a554be772dc0ad9925b634",
  "fresh": true,
  "rules": [
   {
@@ -151,6 +151,11 @@
   },
   {
    "id": "DC-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DC-DEAD-3",
    "kind": "info",
    "category": "filing_deadline"
   },

@@ -1,7 +1,7 @@
 ; tend law image MN, Minnesota
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 2fc747eb0668271ad37f8968d0c2042f4cc04fa6f4e3af5763b73bc9dc0c5c4b
-; image sha256  fe6d86f4daf9b18b9255e90541be7171caead4cb55a19531c288dcd2f0173eb0
+; source sha256 d248b60c6bffc2087439a181ad20e009344876d8b6eaa26820ade630c715265b
+; image sha256  f000584346e434e117d0a7bb93d97a8fac32a34084f93416427dceab9c146a0e
 ; 58 rules, 15 sources, 28 proofs, 7 ints, 322 strings
 ; item program: 161 instructions, 544 bytes, max stack 2
 ; aggregate program: 211 instructions, 646 bytes, max stack 3, 7 loops
@@ -595,7 +595,7 @@
               ; MN-DOC-SIGNATURE  Application Form, Section 18 (Victim and Claimant Signatures)  "The victim must sign and date the application form."
               ; MN-DOC-MILEAGE  CVRB training slides (10/4/2025), slide 39, Application Instructions  "A mileage form will be sent to claimant after receipt of..."
               ; MN-ACP-1  Secretary of State, Safe at Home page, program description  "Safe at Home is a statewide address confidentiality program..."
-              ; MN-RECORDS-1  Minn. Stat. 611A.57, subd. 6  "Following the payment, denial, withdrawal, or abandonment of a..."
+              ; MN-RECORDS-1  Minn. Stat. 611A.57, subd. 6  "Claims for reimbursement and supporting documents and reports..."
   0282        info     P27                          ; MN-EXC-MOVING, MN-EXC-LEAVE, MN-DEADLINE-3, MN-COLL-1, MN-COLL-2, MN-CONDUCT-1, MN-CONDUCT-2, MN-EMERG-1, MN-CRIME-1, MN-CRIME-2, MN-RES-1, MN-RES-2, MN-RES-3, MN-SUBMIT-MAIL, MN-SUBMIT-FAX, MN-SUBMIT-EMAIL, MN-SUBMIT-ONLINE, MN-DOC-EXPENSES, MN-DOC-ITEMIZED, MN-DOC-EOB, MN-DOC-INSCARD, MN-DOC-TAXRETURN, MN-DOC-W9, MN-DOC-RELEASE, MN-DOC-SIGNATURE, MN-DOC-MILEAGE, MN-ACP-1, MN-RECORDS-1
   0285        ret
 

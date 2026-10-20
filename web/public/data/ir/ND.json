@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "ND",
- "source_sha256": "796a2f71e5ca3c4020161e5e90ac6952ea5be4b259e66d2d61647fb2f0a22759",
- "ir_sha256": "10f65c0bea3baf33ffb7408854c4a8227cdf257f997696054610882b6f2e1386",
+ "source_sha256": "a71d5e7780c287239a9d1f565a21a8d2735c8c1900640dcc4ef7ed1413bc0ab9",
+ "ir_sha256": "ece174352f5869f87e1231c975b9337ba735e6d155569060a10472d6eab39d17",
  "fresh": true,
  "rules": [
   {
@@ -313,6 +313,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "ND-CAP-COUNSEL-WINDOW",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
   {
    "id": "ND-CAP-TRAVEL-MIN",
    "category": "expense_cap",

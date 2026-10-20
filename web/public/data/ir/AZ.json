@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AZ",
- "source_sha256": "e0ab90fc16c457f48d78c92fc3137980c8113ca462ecca5fdbe85a9211584b7a",
- "ir_sha256": "db7a1c0d5472bd3f7912bbf7891eb64f94202ab83b9441ea3fafa76acf59475b",
+ "source_sha256": "2c3e5c66b3d71344f0f8eef82398bb65cd4587cddc8e777546aed26bac7c7fa1",
+ "ir_sha256": "3a1fcbe98266fd61f45a804b7186fe2d00fc82039cce0abb1ef4a43cf75226e9",
  "fresh": true,
  "rules": [
   {
@@ -110,6 +110,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "discovery"
+  },
+  {
+   "id": "AZ-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "AZ-REP-1",

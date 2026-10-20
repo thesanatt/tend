@@ -188,7 +188,7 @@
     "per": "claim",
     "count_limit": 30
    },
-   "summary": "For adult victims, mental health counseling is limited to 30 sessions and $3,600 total (sessions must fall within the treatment window set by the rule).",
+   "summary": "For adult victims, mental health counseling is limited to 30 sessions and $3,600 total.",
    "quote": "For adult victims, no more than thirty sessions, and total compensation may not exceed three thousand six hundred dollars.",
    "source_id": "ND-S5",
    "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)(1)"
@@ -218,10 +218,23 @@
     "per": "claim",
     "count_limit": 10
    },
-   "summary": "If the provider shows a need, up to 10 more counseling sessions and up to $1,200 more may be allowed, still inside the same treatment window.",
+   "summary": "If the provider shows a need, up to 10 more counseling sessions and up to $1,200 more may be allowed.",
    "quote": "If a provider substantiates the need for additional sessions, the division may allow up to ten additional sessions and up to one thousand two hundred dollars total compensation for the additional sessions.",
    "source_id": "ND-S5",
    "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)(6)"
+  },
+  {
+   "id": "ND-CAP-COUNSEL-WINDOW",
+   "category": "expense_cap",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "per": "claim"
+   },
+   "summary": "Counseling is paid for no longer than 2 years from the first session.",
+   "quote": "No longer than a two-year period beginning on the date of the first session",
+   "source_id": "ND-S5",
+   "pinpoint": "N.D. Admin. Code 94-03-03-10(3)(b)"
   },
   {
    "id": "ND-CAP-WAGES-WEEK",
@@ -483,7 +496,7 @@
     "within_hours": 96,
     "exception": "or later if the program finds good cause for the delay"
    },
-   "summary": "The crime must be reported to law enforcement within ninety-six hours (96 hours) unless the program finds good cause for the delay. No sexual-assault-specific alternative to a police report was found.",
+   "summary": "The crime must be reported to law enforcement within 96 hours, unless the program finds good cause for the delay.",
    "quote": "Compensation may not be awarded unless the criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within ninety-six hours after its occurrence or the division finds there was good cause for the failure to report within that time.",
    "source_id": "ND-S1",
    "pinpoint": "N.D.C.C. 54-23.4-06(4)"

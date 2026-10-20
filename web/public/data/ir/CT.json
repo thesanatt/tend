@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "CT",
- "source_sha256": "2063d32eaf0a7bb6979900e64d4ac8eec8e52c6aeabc6db85a293ab51ff95427",
- "ir_sha256": "84d74f07468121fb1bc734cba96c500d03bcabc5f196138dc350f452fe509607",
+ "source_sha256": "0058a546837db9346d1097eee73645df60778e6acd31bf0b0607be7a935a21c0",
+ "ir_sha256": "4bb338eeb0b2dc227111797987922b58c795ea0417bf139c0e2f473204d41898",
  "fresh": true,
  "rules": [
   {
@@ -114,6 +114,16 @@
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
+  },
+  {
+   "id": "CT-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "CT-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "CT-REPORT-1",

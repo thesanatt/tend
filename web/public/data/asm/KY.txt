@@ -1,7 +1,7 @@
 ; tend law image KY, Kentucky
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 1eb49a9f8098a228099df1b65871dd0a2b22d66d10c39276010b4d1d3a7313cb
-; image sha256  92b0a52bb35a017584f996058e5ef80da0fdcc2aac25e0aa3e5518ae31fc7334
+; source sha256 89ced388c50f3af1c4cf32266dcdd368c00bae105532ed8809707c3a859921e7
+; image sha256  9c172bf97afdbb41e8797274305ac19ac21153a22fb928bb6b2bf9dcf3a544e8
 ; 49 rules, 22 sources, 30 proofs, 5 ints, 299 strings
 ; item program: 564 instructions, 1981 bytes, max stack 2
 ; aggregate program: 198 instructions, 615 bytes, max stack 3, 7 loops
@@ -54,7 +54,7 @@
     R44   KY-DOC-10             info          -                     required_document       CVCB Documents to include, item 3
     R45   KY-DOC-11             info          -                     required_document       CVCB Documents to include, item 5(a)
     R46   KY-TIME-1             info          -                     processing_time         802 KAR 3:010 Section 6(3)
-    R47   KY-ACP-1              info          -                     address_confidentiality KRS 14.302(2)-(3)
+    R47   KY-ACP-1              info          -                     address_confidentiality KRS 14.302(1)-(4)
     R48   KY-RECCONF-1          info          -                     record_confidentiality  802 KAR 3:010 Section 5(3)-(4)
 
 .tags   phone=bit0, pain_suffering=bit1
@@ -1045,7 +1045,7 @@
               ; KY-DOC-10  CVCB Documents to include, item 3  "3) Signed funeral service contract for funeral expenses"
               ; KY-DOC-11  CVCB Documents to include, item 5(a)  "a. Documentation outlining amount of support brought into..."
               ; KY-TIME-1  802 KAR 3:010 Section 6(3)  "(3) For claims filed after July 1, 2026, the claims investigator..."
-              ; KY-ACP-1  KRS 14.302(2)-(3)  "The Safe at Home Program shall be operated with the intent to..."
+              ; KY-ACP-1  KRS 14.302(1)-(4)  "The Safe at Home Program is hereby established within the Office..."
               ; KY-RECCONF-1  802 KAR 3:010 Section 5(3)-(4)  "A claimant or victim's personally identifiable information shall..."
   0263        info     P29                          ; KY-COLLATERAL, KY-CONDUCT, KY-EMERGENCY, KY-CRIME-1, KY-CRIME-2, KY-RES-1, KY-RES-2, KY-RES-3, KY-SUB-1, KY-SUB-2, KY-SUB-3, KY-SUB-4, KY-SUB-5, KY-DOC-1, KY-DOC-2, KY-DOC-3, KY-DOC-4, KY-DOC-5, KY-DOC-6, KY-DOC-7, KY-DOC-8, KY-DOC-9, KY-DOC-10, KY-DOC-11, KY-TIME-1, KY-ACP-1, KY-RECCONF-1
   0266        ret

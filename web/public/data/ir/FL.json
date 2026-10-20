@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "FL",
- "source_sha256": "386ffc29f2a4428570f1f8b3f712a8c0cc635cab6e7270d9a0b3c6c7966bd594",
- "ir_sha256": "e0322a5947164095870a47cf14780ba45abb961a85dd5508fdf0b2b4ed8625f4",
+ "source_sha256": "bbb6a6869740ad927b54f73d8b180e98cbcf41435860376f20c523affa3d0cf0",
+ "ir_sha256": "2f44b7e4460eb5766a7b7535962bdf937caa1c378bff1e48083b8dab56dc4777",
  "fresh": true,
  "rules": [
   {
@@ -127,7 +127,17 @@
    "from": "crime"
   },
   {
+   "id": "FL-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "FL-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-DEADLINE-5",
    "kind": "info",
    "category": "filing_deadline"
   },

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "CA",
- "source_sha256": "2f9af8e90b7de6f8dc48b3a4c324c12ebfb0ce7690ac2e305d1a8fcc00b61c0d",
- "ir_sha256": "3a03db754faa83951e10d57561ec4b938c1f958fc82037c2945d1e496ad9690c",
+ "source_sha256": "d069e20df87d523925304bcd661437f305e6a6f44a8dd2cd8c85eb02497b01fb",
+ "ir_sha256": "a2702735a1ee93ce4518ef9017e1f7f668fd6db9a45ef67db69a0b937d152397",
  "fresh": true,
  "rules": [
   {
@@ -92,6 +92,11 @@
    "kind": "deadline",
    "days": 2556,
    "from": "discovery"
+  },
+  {
+   "id": "CA-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "CA-REPORT-1",

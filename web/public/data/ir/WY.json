@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WY",
- "source_sha256": "f353b6af9431ea6132f45aa1fafbb1b3012b089276d94c004e2d1d720d664c62",
- "ir_sha256": "a821ee6d2cd83e1ea7f8976707e738c85359b12303a23c8b234e38696ab9e14d",
+ "source_sha256": "3ce69094399e54abc053df63d9f901265aa8a8b4ea0f22f4d88857b941d6a95d",
+ "ir_sha256": "99ae336583222e870d1ab26b3aff87f861da4a9c901de94ce1729d739c72fc7b",
  "fresh": true,
  "rules": [
   {
@@ -155,6 +155,11 @@
   },
   {
    "id": "WY-EXC-4",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WY-EXC-5",
    "kind": "info",
    "category": "excluded_expense"
   },

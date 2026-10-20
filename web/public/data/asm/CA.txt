@@ -1,8 +1,8 @@
 ; tend law image CA, California
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 2f9af8e90b7de6f8dc48b3a4c324c12ebfb0ce7690ac2e305d1a8fcc00b61c0d
-; image sha256  3b380842b3317bdb5a42519bfa86f4f1aea2a04bd93a98c726d8caa21b67873e
-; 40 rules, 18 sources, 19 proofs, 5 ints, 268 strings
+; source sha256 d069e20df87d523925304bcd661437f305e6a6f44a8dd2cd8c85eb02497b01fb
+; image sha256  086c95ea967b074693f6eeb83b520e5df04f0023ffb6c87984cd2c0afa7a6bae
+; 41 rules, 18 sources, 19 proofs, 5 ints, 273 strings
 ; item program: 209 instructions, 757 bytes, max stack 2
 ; aggregate program: 157 instructions, 488 bytes, max stack 3, 5 loops
 
@@ -22,31 +22,32 @@
     R12   CA-EXCL-2             excluded      -                                             CalVCB, What Is Covered, Non-eligible expenses
     R13   CA-EXCL-3             info          -                     excluded_expense        Cal. Gov. Code 13957.7(a)
     R14   CA-DEADLINE-1         deadline      -                     from discovery          Cal. Gov. Code 13953(a)
-    R15   CA-REPORT-1           reporting     -                                             Cal. Gov. Code 13956(b)(3)
-    R16   CA-REPORT-2           reporting     -                                             Cal. Code Regs. tit. 2, 649.49(a)(4)-(5)
-    R17   CA-REPORT-3           reporting     -                                             Cal. Gov. Code 13956(b)(1)
-    R18   CA-COLLATERAL-1       collateral    -                                             CalVCB, What Is Covered, Payor of last resort
-    R19   CA-CONDUCT-1          info          -                     conduct_reduction       Cal. Gov. Code 13956(a)
-    R20   CA-EMERGENCY-1        info          -                     emergency_award         Cal. Gov. Code 13952.5(a)
-    R21   CA-CRIME-1            info          -                     eligible_crime          CalVCB, Who Is Eligible, Crimes covered
-    R22   CA-CRIME-2            info          -                     eligible_crime          Cal. Gov. Code 13955(f)(3)(A)
-    R23   CA-RESIDENCY-1        info          -                     residency               CalVCB, Who Is Eligible, Eligibility criteria
-    R24   CA-SUBMIT-MAIL        info          -                     submission              Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a
-    R25   CA-SUBMIT-INPERSON    info          -                     submission              Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a
-    R26   CA-SUBMIT-ONLINE      info          -                     submission              CalVCB How To Get Compensated, Steps to apply, Step 2
-    R27   CA-DOC-BILLS          info          -                     required_document       Form VCGCB-VCP-005 (Rev. 10/2017), Section 4
-    R28   CA-DOC-INSURANCE      info          -                     required_document       Form VCGCB-VCP-005 (Rev. 10/2017), page 5, closing instructions
-    R29   CA-DOC-POLICE         info          -                     required_document       CalVCB How To Get Compensated, How we review your application
-    R30   CA-DOC-RECEIPTS       info          -                     required_document       CalVCB How To Get Compensated, How we review your application
-    R31   CA-DOC-WAGES          info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need
-    R32   CA-DOC-DISABILITY     info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need
-    R33   CA-DOC-MEDICAL        info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Medical and Dental Expenses, Examples of What We Need
-    R34   CA-DOC-COUNSEL        info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Mental Health Treatment, Examples of What We Need
-    R35   CA-TIME-1             info          -                     processing_time         CalVCB How To Get Compensated, Step 3
-    R36   CA-TIME-2             info          -                     processing_time         Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request
-    R37   CA-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home page, 'What is the Safe at Home program?'
-    R38   CA-RECORDS-1          info          -                     record_confidentiality  CalVCB Confidentiality page, 'Your claim is confidential'
-    R39   CA-COUNSEL-3          skipped       -                     expense_cap             CalVCB Benefit Reference Guide (Rev. 05/2025), Mental Health Treatment  ; less generous duplicate of CA-COUNSEL-1
+    R15   CA-DEADLINE-2         info          -                     filing_deadline         Cal. Gov. Code 13953(b)
+    R16   CA-REPORT-1           reporting     -                                             Cal. Gov. Code 13956(b)(3)
+    R17   CA-REPORT-2           reporting     -                                             Cal. Code Regs. tit. 2, 649.49(a)(4)-(5)
+    R18   CA-REPORT-3           reporting     -                                             Cal. Gov. Code 13956(b)(1)
+    R19   CA-COLLATERAL-1       collateral    -                                             CalVCB, What Is Covered, Payor of last resort
+    R20   CA-CONDUCT-1          info          -                     conduct_reduction       Cal. Gov. Code 13956(a)
+    R21   CA-EMERGENCY-1        info          -                     emergency_award         Cal. Gov. Code 13952.5(a)
+    R22   CA-CRIME-1            info          -                     eligible_crime          CalVCB, Who Is Eligible, Crimes covered
+    R23   CA-CRIME-2            info          -                     eligible_crime          Cal. Gov. Code 13955(f)(3)(A)
+    R24   CA-RESIDENCY-1        info          -                     residency               CalVCB, Who Is Eligible, Eligibility criteria
+    R25   CA-SUBMIT-MAIL        info          -                     submission              Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a
+    R26   CA-SUBMIT-INPERSON    info          -                     submission              Form VCGCB-VCP-005 (Rev. 10/2017), page 6, after Section 13a
+    R27   CA-SUBMIT-ONLINE      info          -                     submission              CalVCB How To Get Compensated, Steps to apply, Step 2
+    R28   CA-DOC-BILLS          info          -                     required_document       Form VCGCB-VCP-005 (Rev. 10/2017), Section 4
+    R29   CA-DOC-INSURANCE      info          -                     required_document       Form VCGCB-VCP-005 (Rev. 10/2017), page 5, closing instructions
+    R30   CA-DOC-POLICE         info          -                     required_document       CalVCB How To Get Compensated, How we review your application
+    R31   CA-DOC-RECEIPTS       info          -                     required_document       CalVCB How To Get Compensated, How we review your application
+    R32   CA-DOC-WAGES          info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need
+    R33   CA-DOC-DISABILITY     info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Income Loss, Examples of What We Need
+    R34   CA-DOC-MEDICAL        info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Medical and Dental Expenses, Examples of What We Need
+    R35   CA-DOC-COUNSEL        info          -                     required_document       Benefit Reference Guide (Rev. 05/2025), Mental Health Treatment, Examples of What We Need
+    R36   CA-TIME-1             info          -                     processing_time         CalVCB How To Get Compensated, Step 3
+    R37   CA-TIME-2             info          -                     processing_time         Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request
+    R38   CA-ACP-1              info          -                     address_confidentiality Secretary of State, Safe at Home page, 'What is the Safe at Home program?'
+    R39   CA-RECORDS-1          info          -                     record_confidentiality  CalVCB Confidentiality page, 'Your claim is confidential'
+    R40   CA-COUNSEL-3          skipped       -                     expense_cap             CalVCB Benefit Reference Guide (Rev. 05/2025), Mental Health Treatment  ; less generous duplicate of CA-COUNSEL-1
 
 .tags   pain_suffering=bit0
 
@@ -89,7 +90,7 @@
     P15   (CA-SECURITY-1, CA-COLLATERAL-1)
     P16   (CA-DEADLINE-1)
     P17   (CA-REPORT-1, CA-REPORT-2, CA-REPORT-3)
-    P18   (CA-EXCL-1, CA-EXCL-3, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1)
+    P18   (CA-EXCL-1, CA-EXCL-3, CA-DEADLINE-2, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1)
 
 .ints
     K0    1500          ; $15.00
@@ -168,7 +169,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R18              ; CA-COLLATERAL-1
+  00d5        seta     collateral, R19              ; CA-COLLATERAL-1
   00d9        ret
               ; CA-COUNSEL-1  Cal. Gov. Code 13957(a)(2)(A)(i)  "The following persons may be reimbursed for the expense of their..."
               ; CA-COUNSEL-2  Cal. Gov. Code 13957.7(d)  "Payments for peer counseling services provided by a rape crisis..."
@@ -204,7 +205,7 @@
   012f        subs
   0130        push     0
   0135        max
-  0136        seta     collateral, R18              ; CA-COLLATERAL-1
+  0136        seta     collateral, R19              ; CA-COLLATERAL-1
   013a        ret
               ; CA-WAGES-1  Cal. Gov. Code 13957(a)(3)  "Subject to the limitations set forth in Section 13957.5..."
               ; CA-EXCL-2  CalVCB, What Is Covered, Non-eligible expenses  "Compensation for pain and suffering"
@@ -238,7 +239,7 @@
   018d        subs
   018e        push     0
   0193        max
-  0194        seta     collateral, R18              ; CA-COLLATERAL-1
+  0194        seta     collateral, R19              ; CA-COLLATERAL-1
   0198        ret
               ; CA-TRANSPORT-1  CalVCB, What Is Covered, Eligible expenses  "Round trip mileage costs to medical, dental, or mental health..."
               ; CA-EXCL-2  CalVCB, What Is Covered, Non-eligible expenses  "Compensation for pain and suffering"
@@ -272,7 +273,7 @@
   01eb        subs
   01ec        push     0
   01f1        max
-  01f2        seta     collateral, R18              ; CA-COLLATERAL-1
+  01f2        seta     collateral, R19              ; CA-COLLATERAL-1
   01f6        ret
               ; CA-RELOC-1  Cal. Gov. Code 13957(a)(7)(A)  "Authorize a cash payment or reimbursement not to exceed three..."
               ; CA-RELOC-2  Cal. Gov. Code 13957(a)(7)(D)  "When a relocation payment or reimbursement is provided to a..."
@@ -307,7 +308,7 @@
   0249        subs
   024a        push     0
   024f        max
-  0250        seta     collateral, R18              ; CA-COLLATERAL-1
+  0250        seta     collateral, R19              ; CA-COLLATERAL-1
   0254        ret
               ; CA-EXCL-2  CalVCB, What Is Covered, Non-eligible expenses  "Compensation for pain and suffering"
   0255  L27:  push     0
@@ -362,7 +363,7 @@
   02e9        subs
   02ea        push     0
   02ef        max
-  02f0        seta     collateral, R18              ; CA-COLLATERAL-1
+  02f0        seta     collateral, R19              ; CA-COLLATERAL-1
   02f4        ret
 
 .aggregate
@@ -532,6 +533,7 @@
   01e0  L28:  check    reporting, P17               ; CA-REPORT-1, CA-REPORT-2, CA-REPORT-3
               ; CA-EXCL-1  CalVCB, What Is Covered, Non-eligible expenses  "Personal property losses, except for medically necessary items..."
               ; CA-EXCL-3  Cal. Gov. Code 13957.7(a)  "No reimbursement may be made for any expense that is submitted..."
+              ; CA-DEADLINE-2  Cal. Gov. Code 13953(b)  "The board may for good cause grant an extension of the time..."
               ; CA-COLLATERAL-1  CalVCB, What Is Covered, Payor of last resort  "CalVCB is a payor of last resort. This means CalVCB pays only..."
               ; CA-CONDUCT-1  Cal. Gov. Code 13956(a)  "An application may be denied, in whole or in part, if the board..."
               ; CA-EMERGENCY-1  Cal. Gov. Code 13952.5(a)  "An emergency award shall be available to a person eligible for..."
@@ -553,6 +555,6 @@
               ; CA-TIME-2  Form VCGCB-VCP-005 (Rev. 10/2017), Section 4, Emergency Award Request  "Qualifying emergency awards are generally paid within 30..."
               ; CA-ACP-1  Secretary of State, Safe at Home page, 'What is the Safe at Home program?'  "Safe at Home offers a substitute mailing address to receive..."
               ; CA-RECORDS-1  CalVCB Confidentiality page, 'Your claim is confidential'  "The information you share with CalVCB is strictly confidential."
-  01e4        info     P18                          ; CA-EXCL-1, CA-EXCL-3, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1
+  01e4        info     P18                          ; CA-EXCL-1, CA-EXCL-3, CA-DEADLINE-2, CA-COLLATERAL-1, CA-CONDUCT-1, CA-EMERGENCY-1, CA-CRIME-1, CA-CRIME-2, CA-RESIDENCY-1, CA-SUBMIT-MAIL, CA-SUBMIT-INPERSON, CA-SUBMIT-ONLINE, CA-DOC-BILLS, CA-DOC-INSURANCE, CA-DOC-POLICE, CA-DOC-RECEIPTS, CA-DOC-WAGES, CA-DOC-DISABILITY, CA-DOC-MEDICAL, CA-DOC-COUNSEL, CA-TIME-1, CA-TIME-2, CA-ACP-1, CA-RECORDS-1
   01e7        ret
 

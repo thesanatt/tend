@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WI",
- "source_sha256": "20b2f61af18c925868c6edaf2917ec970219087af220d8656c3b394f786c4599",
- "ir_sha256": "38620ba348cf659b9322104e22fcda9366e6b1305be9d1d6ec0e201822dcbe6d",
+ "source_sha256": "29a6684fc2283e59dd4287402033ea04bf6b0a1ec2a8fb74a1240250c9ff9a59",
+ "ir_sha256": "fe179caf46d8aaf62e494349de91383e84b11db086362522055976d3ff8b1b57",
  "fresh": true,
  "rules": [
   {
@@ -127,6 +127,11 @@
   },
   {
    "id": "WI-EXCL-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "WI-EXCL-6",
    "kind": "info",
    "category": "excluded_expense"
   },

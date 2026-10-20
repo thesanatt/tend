@@ -246,6 +246,19 @@
    "fragment_url": "https://dojmt.gov/victim-services/sexual-assault-response-network/forensic-rape-examination-payment-program/#:~:text=For%20cases%20that%20are%20not,the%20Montana%20Department%20of%20Justice."
   },
   {
+   "id": "MT-EXAM-7",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "FREPP, Montana Department of Justice"
+   },
+   "summary": "A state rule says FREPP pays only if the exam is done within 72 hours of the assault. The survivor must also choose not to report to police.",
+   "quote": "To be eligible to receive FREPP coverage, a victim must have a forensic rape examination performed within 72 hours of the alleged sexual assault and must choose not to report the alleged incident to law enforcement.",
+   "source_id": "MT-S14",
+   "pinpoint": "Mont. Admin. r. 23.15.402(1)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/montana/Mont-Admin-r-23.15.402#:~:text=To%20be%20eligible%20to%20receive,alleged%20incident%20to%20law%20enforcement."
+  },
+  {
    "id": "MT-EXAM-6",
    "category": "exam_payment",
    "expense": "forensic_exam",
@@ -497,6 +510,16 @@
    "fragment_url": "https://mca.legmt.gov/bills/mca/title_0530/chapter_0090/part_0010/section_0250/0530-0090-0010-0250.html#:~:text=The%20time%20for%20filing%20a,office%20for%20good%20cause%20shown."
   },
   {
+   "id": "MT-DEAD-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "A state rule says there is no good cause for more time if the claim is filed more than 2 years after the last day it could have been filed.",
+   "quote": "There is no good cause to extend the time limit if the claim is filed more than two years after the latest date the claim could have been filed in accordance with 53-9-125 , MCA.",
+   "source_id": "MT-S13",
+   "pinpoint": "Mont. Admin. r. 23.15.103(2)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/montana/Mont-Admin-r-23.15.103#:~:text=There%20is%20no%20good%20cause,in%20accordance%20with%2053%2D9%2D125%2C%20MCA."
+  },
+  {
    "id": "MT-REP-1",
    "category": "reporting_requirement",
    "params": {
@@ -510,6 +533,19 @@
    "source_id": "MT-S8",
    "pinpoint": "MCA 53-9-125(3)",
    "fragment_url": "https://mca.legmt.gov/bills/mca/title_0530/chapter_0090/part_0010/section_0250/0530-0090-0010-0250.html#:~:text=Compensation%20may%20not%20be%20awarded%20unless%20the%20criminally,to%20report%20within%20that%20time."
+  },
+  {
+   "id": "MT-REP-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "scope": "what counts as good cause for a late report or claim"
+   },
+   "summary": "A state rule lists what can count as good cause for a late report or a late claim. It includes the victim's age when the crime happened and physical or mental incapacity. It also includes a delay that was reasonable given the crime and the injuries, or police or prosecutors not telling the victim about the program.",
+   "quote": "Factors considered when determining whether \"good cause\" exists for extending the one-year time limit for filing a claim, or for extending the 72 hour deadline to report criminally injurious conduct to law enforcement after its occurrence include, but are not limited to the following: (a) age of the victim when the crime occurred; (b) whether the delay in filing or reporting was reasonable, considering the circumstances of the crime and the resulting injuries to the victim; (c) physical or mental incapacity; or, (d) failure of law enforcement or prosecutors to notify the victim about the crime victim compensation.",
+   "source_id": "MT-S13",
+   "pinpoint": "Mont. Admin. r. 23.15.103(1)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/montana/Mont-Admin-r-23.15.103#:~:text=Factors%20considered%20when%20determining%20whether,about%20the%20crime%20victim%20compensation."
   },
   {
    "id": "MT-COL-1",
@@ -715,5 +751,5 @@
   "notes": "Montana has no fixed dollar cap on lost wages for employed victims; MCA 53-9-128(1) pays 66 2/3% of wages up to one-half the state's average weekly wage, and 53-9-128(7)(a) caps victims who were employable but not employed at $100 per week. ARM 23.15.306(3) limits primary-victim counseling to 12 consecutive months or $2,000 with extensions available, but the same rule's secondary-victim limit ($2,000) has been superseded by the statute ($5,000), and the DOJ page names no primary-victim cap, so I did not encode a primary-victim counseling cap. I found no relocation, security, or minimum-loss provision. Neither the statute nor FREPP pages say whether the survivor's insurance may be billed for the exam."
  },
  "confidence": "high",
- "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report; the current DOJ FREPP page does not repeat the 72-hour condition, so I left it out of the rules. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute. How to file: the only submission method the official sources state is mail to P.O. Box 201410, Helena, MT 59620-1410 (Request a Claim Form page; the 12-25 claim form also carries a postage-paid business reply panel). The OVS contact block lists fax (406) 444-5335 and an email address, but no source says claims may be filed by fax or email, and the email is obfuscated in the saved snapshot, so I did not add fax or email submission rules. There is no online filing; the page's online request only mails a blank form. The claim form PDF (MT-S6, Version 10/2025) has no AcroForm fields, so it is printed and filled by hand. The 60-day processing time is a stated goal, not a guarantee. Address confidentiality: the DOJ Office of Victim Services runs the Address Confidentiality Program (substitute address plus free confidential first-class mail forwarding); the program page lists sexual assault among the qualifying victimizations and requires Montana residency. Record confidentiality: MCA 53-9-107(1) makes the compensation office's records open to public inspection by default; only personal, medical, or similar information whose release would be an unreasonable invasion of privacy is exempt under 53-9-107(3)(a), and the party seeking disclosure carries the burden. This is weaker than a blanket confidentiality statute, so the app should not tell survivors their claim file is fully sealed. The 12-25 claim form's release language also says the program will keep confidential information it receives confidential."
+ "researcher_notes": "Total cap of $25,000 comes from the DOJ program page; the statute itself only caps death cases at $25,000 (MCA 53-9-128(5)). Reporting: adult survivors must report to law enforcement within 72 hours unless good cause is shown (ARM 23.15.103 lists factors such as the reasonableness of the delay and incapacity); there is no statutory alternative such as a forensic exam or advocate report. The exam itself does not require a report: unreported exams are paid by FREPP (MCA 46-15-411(2); DOJ FREPP page). ARM 23.15.402(1) (2005) says FREPP requires the exam within 72 hours and that the victim choose not to report. The current DOJ FREPP page does not repeat the 72-hour condition; the state rule is now shown as its own rule, and the DOJ page gives no time window. MCA 46-15-411(3) and the FREPP page say treatment of physical injuries from the assault is not covered by the exam payment and may be billed to the survivor; CVC may still cover such medical costs under MCA 53-9-128(2). ARM rules were saved from Cornell LII because the Secretary of State ARM site is script-driven. Reviewer note: MCA 53-9-103(3)(b) and (6)(a) define criminally injurious conduct and victim in terms of bodily injury or death, while the DOJ page describes a primary victim as someone who suffered direct physical or emotional harm; a survivor without a physical injury should confirm eligibility with the office. MT-CAP-2 uses the non-standard param applies_to: secondary_victims; the $5,000 counseling cap does not apply to the primary victim under the statute. How to file: the only submission method the official sources state is mail to P.O. Box 201410, Helena, MT 59620-1410 (Request a Claim Form page; the 12-25 claim form also carries a postage-paid business reply panel). The OVS contact block lists fax (406) 444-5335 and an email address, but no source says claims may be filed by fax or email, and the email is obfuscated in the saved snapshot, so I did not add fax or email submission rules. There is no online filing; the page's online request only mails a blank form. The claim form PDF (MT-S6, Version 10/2025) has no AcroForm fields, so it is printed and filled by hand. The 60-day processing time is a stated goal, not a guarantee. Address confidentiality: the DOJ Office of Victim Services runs the Address Confidentiality Program (substitute address plus free confidential first-class mail forwarding); the program page lists sexual assault among the qualifying victimizations and requires Montana residency. Record confidentiality: MCA 53-9-107(1) makes the compensation office's records open to public inspection by default; only personal, medical, or similar information whose release would be an unreasonable invasion of privacy is exempt under 53-9-107(3)(a), and the party seeking disclosure carries the burden. This is weaker than a blanket confidentiality statute, so the app should not tell survivors their claim file is fully sealed. The 12-25 claim form's release language also says the program will keep confidential information it receives confidential."
 }

@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "OK",
- "source_sha256": "f1b908cae5e10932eee4d64978b410036a975cbdfde11d688a5161879466f80d",
- "ir_sha256": "166e4f4cf5495d2c034696392f3e9033aaac940fcddbdf50420399d48afd7481",
+ "source_sha256": "aa3417ff587aee98d317e24188a6c7d036b25d49b1db48ceed8c1ebfbfa1a433",
+ "ir_sha256": "ae548afd9d8790c87b75f6f2caa0a8ded4e249ce9dfd24880973dfa7a0ebd00b",
  "fresh": true,
  "rules": [
   {
@@ -120,6 +120,11 @@
   },
   {
    "id": "OK-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OK-DEAD-3",
    "kind": "info",
    "category": "filing_deadline"
   },

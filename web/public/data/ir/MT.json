@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MT",
- "source_sha256": "da232ce045463c8c31316585a1cb04a5710e28c0068a4b0e4b34819526209499",
- "ir_sha256": "0eb36455661fcabdf9701f43c80ac47c5dead331195533f47d14791b49ed9056",
+ "source_sha256": "a192ca3e4550fe474403b9750fb82832b86dac38fce0acff62b07407a8684812",
+ "ir_sha256": "4606747445afd903eaccb9e428a131eed806da1e587d63d21cfad3f31417b6a0",
  "fresh": true,
  "rules": [
   {
@@ -19,6 +19,10 @@
   },
   {
    "id": "MT-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MT-EXAM-7",
    "kind": "exam_payment"
   },
   {
@@ -126,11 +130,21 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MT-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MT-REP-1",
    "kind": "reporting",
    "required": true,
    "alternatives": [],
    "within_days": 3
+  },
+  {
+   "id": "MT-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MT-COL-1",
