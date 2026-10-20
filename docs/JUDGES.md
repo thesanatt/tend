@@ -84,7 +84,7 @@ Nessie mock bank. Every name, merchant, and dollar below is made up.
    it needs the internet and sends nothing.
 
 These steps were walked in Chromium on Oct 4, 2026 against a local API, and `web/e2e/run.sh` runs
-the same path online and offline. It last passed on Oct 19, 2026, with the privacy line's words as
+the same path online and offline. It last passed on Oct 20, 2026, with the privacy line's words as
 quoted here.
 
 ## 5 minutes: check the claims

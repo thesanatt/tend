@@ -72,6 +72,7 @@ From engine/:
 
 ```
 make bench                                                  # ZZ fixture
+mkdir -p build/laws                                         # make does not create it
 ./build/tendc ../rules/ir/MI.json -o build/laws/MI.tlaw
 ./build/tendvm bench --law build/laws/MI.tlaw --items 1000000 --runs 5
 make wasm && node scripts/wasm_bench.mjs ../web/public/engine build/laws/MI.tlaw 1000000 3

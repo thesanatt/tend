@@ -71,8 +71,9 @@ More: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 Each count comes from the command next to it. Unless the row says otherwise, the counts were
 measured on October 20, 2026 on macOS, on an Apple M4 Max laptop, at `9dce7e1`, after every rule was
-checked again against its quote and the law data changed (2,578 rules became 2,728). The engines are
-the same code as on October 4, 2026, when these counts were first measured on Linux from `main` at
+checked again against its quote and the law data changed (2,578 rules became 2,728). Every suite was
+run again the same day at `b2f8698`, after the last review's fixes; only the web test count changed.
+The engines are the same code as on October 4, 2026, when these counts were first measured on Linux from `main` at
 `f720ae3` (tend 1.3.0). [docs/EVAL.md](docs/EVAL.md) has the machines, the other suites,
 and what these numbers do not show.
 
@@ -217,10 +218,10 @@ otherwise.
 | 586 reference engine tests <!-- measured: 2026-10-20 --> | `cd refengine && uv run pytest` |
 | 413 API tests pass, 23 skipped without Neon <!-- measured: 2026-10-20 --> | `cd api && uv run pytest` |
 | 163 seed tests pass, 4 skipped without a Nessie key <!-- measured: 2026-10-20 --> | `cd seed && uv run pytest` |
-| 1,840 web unit and screen tests in 56 files <!-- measured: 2026-10-20 --> | `cd web && npx vitest run` |
+| 1,929 web unit and screen tests in 57 files <!-- measured: 2026-10-20 --> | `cd web && npx vitest run` |
 | 31 end-to-end runs of 12 tests in Chromium, at several screen widths and text sizes and in both languages: the demo path, the same path offline, no request carrying transaction text, a bill line, or the share key, the guided tour, and phone layouts <!-- measured: 2026-10-20 --> | `web/e2e/run.sh` |
 | Offline: after a 0.48 s first visit, a reload with no network in 0.17 s and the packet built in 0.05 s (2.2 s, 0.34 s, and 0.17 s on the Linux VM on October 4) <!-- measured: 2026-10-20 --> | `web/e2e/run.sh` (prints step timings) |
-| 14.1M claim lines per second in the VM, single thread (recorded on an Apple M4 Max laptop, tend 1.2) <!-- measured: 2026-10-03 --> | `cd engine && ./build/tendc ../rules/ir/MI.json -o build/laws/MI.tlaw && ./build/tendvm bench --law build/laws/MI.tlaw --items 1000000 --runs 5` |
+| 14.1M claim lines per second in the VM, single thread (recorded on an Apple M4 Max laptop, tend 1.2) <!-- measured: 2026-10-03 --> | `cd engine && mkdir -p build/laws && ./build/tendc ../rules/ir/MI.json -o build/laws/MI.tlaw && ./build/tendvm bench --law build/laws/MI.tlaw --items 1000000 --runs 5` |
 
 ## Limits
 

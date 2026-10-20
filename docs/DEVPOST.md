@@ -55,10 +55,13 @@ Try it: **[youreowed.tech](https://youreowed.tech)**. Open /check?demo=rowan, or
 
 ## How I built it
 
-**The law as code.** I saved 824 official sources for 51 jurisdictions and wrote 2,728 rules. A rule gets
+**The law as code.** I saved 824 official sources for 51 jurisdictions and wrote 2,578 rules. A rule gets
 in only if its quote appears word for word in the saved source and every number in it is in the quote.
 
-<!-- TODO(Sanat): authorship, yours to write. Separately, "official sources": 120 of the 824 are Justia or
+<!-- TODO(Sanat): authorship, yours to write. The line above is the text as submitted for judging. The
+library has 2,728 rules now (the October rule rounds added 150 after the event); whether and how to say
+"I wrote" about those is your call. A neutral option: "Tend's library now holds 2,728 rules from 824 saved
+sources (2,578 at judging)." Separately, "official sources": 120 of the 824 are Justia or
 Cornell copies of state law, not the official code (docs/SOURCES.md). And "every number in it is in the quote"
 overstates what rules/tools/verify.py checks: the numbers in eight of a rule's detail fields (amounts, years,
 months, weeks, days, counts) and every number in its summary other than 0 and 1. Fields such as within_hours,

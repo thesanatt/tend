@@ -6,7 +6,10 @@ Four kinds of numbers appear here, and each row says which:
 
 - **Rerun Oct 20, 2026** on `press-ready-int` at `9dce7e1`, on the same laptop as Oct 19, after
   merging the rule checks (`press-ready-claims`). That merge changed the law data (rules, IR, and
-  all 51 shipped law images) and `verify.py`, not the engines: 2,578 rules became 2,728.
+  all 51 shipped law images) and `verify.py`, not the engines: 2,578 rules became 2,728. Every
+  suite in the tables, and the engine benchmark, ran again later that day at `b2f8698`, after the
+  last review's fixes (web only, plus `verify.py` escapes and the dataset README). Only the web
+  unit and screen test count changed.
 - **Rerun Oct 19, 2026** on the integration branch `press-ready-int` at `12508ea`, on an Apple M4
   Max laptop (14 cores): macOS 26.5, Apple clang 21, Node 24.14, Python 3.12.13, uv 0.11.12. The
   law data, the engines, and the shipped law images are the same files as on Oct 4; the web app,
@@ -39,7 +42,7 @@ Neon detail is in [NEON.md](NEON.md).
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
 | Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Oct 20 |
 | Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Oct 20 |
-| Web unit and screen tests | `cd web && npx vitest run` | 56 files, 1,840 passed (1,568 on Oct 19, before the rule checks and their tests; 42 files and 1,234 tests on Oct 4) | rerun Oct 20 |
+| Web unit and screen tests | `cd web && npx vitest run` | 57 files, 1,929 passed at `b2f8698` (1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Oct 20 |
 | Web lint | `cd web && npm run lint` | 0 errors and 19 warnings: 17 in the generated `public/engine/tend.js`, 2 unused parameters in a test | rerun Oct 20 |
 | Web production build | `cd web && npx next build` | builds, with 181 pages made ahead of time | rerun Oct 20 |
 | Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 31 passed (156 s with the build). They are 12 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts | rerun Oct 20; see the note below |
@@ -69,8 +72,10 @@ and flag in the SPEC (eligible 319,019; held 27,164; per-unit cuts 11,786; total
 
 `tendvm bench` on a synthetic 1,000,000-item claim, single thread, best of 5
 (`make -C engine bench` for the ZZ fixture; the MI line in [engine/BENCH.md](../engine/BENCH.md)).
-These were measured on tend 1.2.0 and not rerun on 1.3.0; v1.3 adds one flag check to the deadline
-step and does not touch the per-line program.
+The table gives the tend 1.2.0 runs. A rerun on tend 1.3.0 on Oct 20, 2026, on the same laptop at
+`b2f8698`, gave MI 16.7M items/s with trace on, 19.3M with trace off, and 2.26M JSON in to JSON out,
+and ZZ 13.9M, 15.2M, and 2.06M. v1.3 adds one flag check to the deadline step and does not touch the
+per-line program.
 
 | Law | Machine | VM, trace on | VM, trace off | JSON in -> JSON out |
 |---|---|---|---|---|
