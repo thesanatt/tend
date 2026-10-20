@@ -6,7 +6,6 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { NOT_A_BAR } from "@/app/sources/counts";
 import Sources from "@/app/sources/page";
 import STATES from "@/lib/states.json";
 import type { Jurisdiction } from "@/lib/types";
@@ -43,19 +42,41 @@ const Word = (x: number) => WORDS[x].charAt(0).toUpperCase() + WORDS[x].slice(1)
 // The numbers here are recounted from the corpus, so they follow the rules when the rules change. The comments
 // give today's values (corpus of Oct 3, 2026).
 describe("the exam billing count", () => {
-  // A jurisdiction counts when its engine applies an exam_no_bill rule that bars billing the survivor.
-  const counted = STATES.filter(({ st }) => {
-    const applied = new Set(
-      ir(st)
-        .rules.filter((r) => r.kind === "exam_no_bill")
-        .map((r) => r.id),
-    );
-    return law(st).rules.some((r) => r.category === "exam_no_bill" && applied.has(r.id) && !NOT_A_BAR.has(r.id));
-  }).map((s) => s.st);
-  const missing = STATES.filter((s) => !counted.includes(s.st));
-  const heading = `In ${counted.length} of ${STATES.length} jurisdictions`;
+  // The rules filed as exam_no_bill that each jurisdiction's engine applies.
+  const applied = new Map(
+    STATES.map(({ st }) => {
+      const kinds = new Set(
+        ir(st)
+          .rules.filter((r) => r.kind === "exam_no_bill")
+          .map((r) => r.id),
+      );
+      return [
+        st,
+        law(st)
+          .rules.filter((r) => r.category === "exam_no_bill" && kinds.has(r.id))
+          .map((r) => r.id),
+      ];
+    }),
+  );
+  const method = () =>
+    [...document.querySelectorAll("p")]
+      .map((p) => p.textContent!.replace(/\s+/g, " "))
+      .find((t) => t.startsWith("Counted from the verified rules (category exam_no_bill)"))!;
 
-  it("counts only rules that bar billing the survivor, so Idaho's insurance and payment rules are left out", () => {
+  let leftOut: string[];
+  let counted: string[];
+  let missing: typeof STATES;
+  let heading: string;
+  beforeEach(() => {
+    // The rules the method sentence says the count leaves out, read off the page the way a reader reruns it.
+    leftOut = method().match(/\b[A-Z]{2}-[A-Z]+-\d+\b/g) ?? [];
+    // A jurisdiction counts when its engine applies an exam_no_bill rule the method does not leave out.
+    counted = STATES.filter(({ st }) => applied.get(st)!.some((id) => !leftOut.includes(id))).map((s) => s.st);
+    missing = STATES.filter((s) => !counted.includes(s.st));
+    heading = `In ${counted.length} of ${STATES.length} jurisdictions`;
+  });
+
+  it("prints the number its stated method gives, with Idaho left out", () => {
     // 48 today: every jurisdiction but Idaho, Rhode Island, and Wyoming.
     expect(counted.length).toBeLessThanOrEqual(48);
     expect(missing.map((s) => s.st)).toEqual(expect.arrayContaining(["ID", "RI", "WY"]));
@@ -63,6 +84,23 @@ describe("the exam billing count", () => {
     expect(block).toContain(`${Word(missing.length)} are not counted.`);
     for (const { name } of missing) expect(block).toContain(name);
     expect(block).not.toMatch(/more likely|\byet\b/);
+  });
+
+  it("names each rule it leaves out and what that rule covers", () => {
+    // Idaho's two rules today. Once the rules file them outside exam_no_bill, the sentence names none.
+    expect(leftOut).toEqual(applied.get("ID"));
+    expect(rule("ID", "ID-EXAM-3").quote).toContain(
+      "an adult victim's (18 years of age and older) private insurance should not be billed",
+    );
+    expect(rule("ID", "ID-EXAM-5").quote).toContain("a medical provider who has received payment from the commission");
+    if (leftOut.length) {
+      expect(method()).toContain(
+        "each a word-for-word quote of its source, leaving out Idaho's ID-EXAM-3 and ID-EXAM-5, which cover only an adult's private insurance and a provider the program has paid. Some of the counted rules have limits",
+      );
+      for (const id of leftOut) expect(document.querySelector(`a[href="/law/ID#${id}"]`), id).not.toBeNull();
+    } else {
+      expect(method()).toContain("each a word-for-word quote of its source. Some of the counted rules have limits");
+    }
   });
 
   it("states Idaho's rules in their own terms", () => {
