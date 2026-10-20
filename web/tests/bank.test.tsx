@@ -277,6 +277,9 @@ describe("the program's demo payment", () => {
     expect(screen.getByText("It is not real money. The program decides what it pays, and when.")).toBeTruthy();
     expect(screen.getAllByRole("img", { name: /^Bloom: / })).toHaveLength(2);
     expect(screen.getAllByText("Paid in the demo")).toHaveLength(2);
+    // The tally never calls a demo bloom paid by the program.
+    expect(screen.getByText(/The program decides\. In bloom in the demo, not real money: \$80\.00\./)).toBeTruthy();
+    expect(screen.queryByText(/paid by the program/)).toBeNull();
     const [[, init]] = calls(fetch, "/payout", "POST");
     expect(JSON.parse(String(init?.body))).toEqual({ st: "MI", amount_cents: 8000 });
     expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();

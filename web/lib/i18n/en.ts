@@ -864,6 +864,7 @@ export const en = {
     deadlineMayBeLater: "You may have more time.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
     paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
+    paidDemo: (amount: string) => `In bloom in the demo, not real money: ${amount}.`,
     nothingPaid: "The program decides. It has not paid any of it yet.",
     legendLabel: "How a plant grows",
     stage: { sprout: "Sprout", leaf: "Leaf", bud: "Bud", bloom: "Bloom" } satisfies Record<Stage, string>,

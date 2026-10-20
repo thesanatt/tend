@@ -290,7 +290,7 @@ export const es: Dict = {
     },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
-      `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
+      `En total, hasta ${amounts}, según tu caso. La regla dice cuándo se aplica cada uno`,
     privateTitle: "Tu privacidad ante el estado",
     acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
     acpMaybe: (name: string) =>
@@ -389,7 +389,7 @@ export const es: Dict = {
     medical: (n: number) => `los ${n} cargos médicos`,
     forensic_exam: (n: number) => `los ${n} cargos del examen`,
     counseling: (n: number) => `las ${n} sesiones de consejería`,
-    lost_wages: (n: number) => `los ${n} pagos más bajos`,
+    lost_wages: (n: number) => `los ${n} sueldos reducidos`,
     transportation: (n: number) => `los ${n} viajes`,
     relocation: (n: number) => `los ${n} gastos de mudanza`,
     temporary_housing: (n: number) => `las ${n} estadías`,
@@ -841,6 +841,7 @@ export const es: Dict = {
     deadlineMayBeLater: "Podrías tener más tiempo.",
     tally: (n: number, amount: string) => `${plural(n, "planta", "plantas")} por ${amount}.`,
     paidSoFar: (amount: string) => `El programa decide. En flor, pagado por el programa: ${amount}.`,
+    paidDemo: (amount: string) => `En flor en la demostración, no es dinero real: ${amount}.`,
     nothingPaid: "El programa decide. Todavía no ha pagado nada.",
     legendLabel: "Cómo crece una planta",
     stage: { sprout: "Brote", leaf: "Hoja", bud: "Capullo", bloom: "Flor" },

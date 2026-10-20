@@ -143,7 +143,12 @@ export default function TrackScreen() {
       : null;
   const deadline = summary?.deadline.kind === "date" ? summary.deadline : null;
   const held = output?.lines.filter((l) => l.status === "held") ?? [];
-  const paidCents = all.filter((p) => p.stage === "bloom").reduce((s, p) => s + p.line.allowed_cents, 0);
+  // A bloom from the demo of the program paying is not money the program paid.
+  const bloom = all.filter((p) => p.stage === "bloom");
+  const demoCents = bloom
+    .filter((p) => isDemoPaid(state, p.item.item_id))
+    .reduce((s, p) => s + p.line.allowed_cents, 0);
+  const paidCents = bloom.reduce((s, p) => s + p.line.allowed_cents, 0) - demoCents;
 
   if (!state.check.st) {
     return (
@@ -205,7 +210,12 @@ export default function TrackScreen() {
 
       <p className={styles.tallyLine}>
         {t.track.tally(all.length, f.money(output?.totals.allowed_cents ?? 0))}{" "}
-        {paidCents > 0 ? t.track.paidSoFar(f.money(paidCents)) : t.track.nothingPaid}
+        {paidCents > 0
+          ? t.track.paidSoFar(f.money(paidCents))
+          : demoCents > 0
+            ? t.common.programDecides
+            : t.track.nothingPaid}
+        {demoCents > 0 ? ` ${t.track.paidDemo(f.money(demoCents))}` : null}
       </p>
 
       <ol className={styles.legend} aria-label={t.track.legendLabel}>
