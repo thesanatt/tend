@@ -92,8 +92,9 @@ function Downloads({
     <section className={styles.downloads} aria-labelledby="share-downloads">
       <h2 id="share-downloads">Print or save</h2>
       <p>
-        The summary lists every cost with its record and the exact words of the law, ready to send with the application.
-        It is made in this browser. Nothing is uploaded.
+        The summary lists each cost that counts and any bill line Tend held, with its record and the exact words of the
+        law, ready to send with the application. Costs that do not count are left out. It is made in this browser.
+        Nothing is uploaded.
       </p>
       <div className="btn-row">
         <button type="button" className="btn btn-primary" onClick={() => get("summary")} disabled={busy !== null}>
@@ -146,7 +147,12 @@ export default function SharedClaim({
           <strong>Read-only view for an advocate.</strong>{" "}
           {sealed
             ? "It opened in this browser with the key in the link. Tend's server keeps only a locked copy it cannot read."
-            : "It shows costs and the law behind them, not bank account details."}
+            : "It shows the costs Tend found and the law behind them."}
+        </p>
+        {/* What a share holds (components/flow/packet/ShareBox.tsx): every cost not said no to, with its words. */}
+        <p>
+          That includes guesses still waiting for a yes and purchases Tend could not sort, each with its date, amount,
+          and the description from the bank or bill. Rows they said no to and the rest of the account are not here.
         </p>
         <p>
           {createdAt ? `Shared ${formatTimestamp(createdAt)}. ` : ""}

@@ -328,7 +328,9 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                     <p className={styles.note}>
                       {lastTry.status === "unverified"
                         ? t.bills.unverified(f.money(lastTry.amount_cents))
-                        : t.bills.notSent(f.money(lastTry.amount_cents))}
+                        : lastTry.status === "failed"
+                          ? t.bills.failed(f.money(lastTry.amount_cents))
+                          : t.bills.notSent(f.money(lastTry.amount_cents))}
                     </p>
                   ) : null}
                   <div className="btn-row">

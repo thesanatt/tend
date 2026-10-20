@@ -7,6 +7,7 @@ import path from "node:path";
 import { StrictMode } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import OpenShare from "@/app/share/OpenShare";
+import ShareScreen from "@/app/share/[token]/ShareScreen";
 import type { SharedPacket } from "@/lib/contracts";
 import type { BuiltPacket, TendPacketBuilder } from "@/lib/packet";
 import { ShareError, type ShareMeta, type TendShare } from "@/lib/share";
@@ -55,6 +56,15 @@ afterEach(() => {
   window.location.hash = "";
 });
 
+describe("the built-in demo link", () => {
+  it("does not say a fixed date when the link stops working", async () => {
+    render(<ShareScreen token="demo" />);
+    expect(await screen.findByRole("heading", { name: "Claim summary" })).toBeTruthy();
+    expect(screen.queryByText(/The link stops working/)).toBeNull();
+    expect(screen.queryByText(/This link has expired/)).toBeNull();
+  });
+});
+
 describe("the advocate viewer", () => {
   it("opens the link once, even when React renders twice, and shows the claim read-only", async () => {
     window.location.hash = link();
@@ -74,6 +84,11 @@ describe("the advocate viewer", () => {
     expect(calls).toHaveLength(1);
     expect(screen.getByText(/Read-only view for an advocate/)).toBeTruthy();
     expect(screen.getByText(/Tend's server keeps only a locked copy it cannot read/)).toBeTruthy();
+    // What a share holds, said plainly: guesses and unsorted purchases come with their bank words.
+    expect(
+      screen.getByText(/guesses still waiting for a yes and purchases Tend could not sort, each with its date/),
+    ).toBeTruthy();
+    expect(screen.queryByText(/not bank account details/)).toBeNull();
     expect(screen.getByText(/This link opens one time only/)).toBeTruthy();
     expect(screen.getByText("Amount they can ask for. The program decides.")).toBeTruthy();
     expect(screen.getAllByText("$3,142.00").length).toBeGreaterThan(0);

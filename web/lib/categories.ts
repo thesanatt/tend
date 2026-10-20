@@ -19,7 +19,7 @@ export const CATEGORY_LABEL: Record<RuleCategory, string> = {
   residency: "Where you live and where it happened",
   conduct_reduction: "How the program reviews a claim",
   address_confidentiality: "Keeping your address private",
-  record_confidentiality: "Your claim records are confidential",
+  record_confidentiality: "Keeping claim records private",
 };
 
 // Law view order: what helps a survivor first, the program's own review last.
@@ -55,7 +55,7 @@ const ABOUT_THEM: Partial<Record<RuleCategory, string>> = {
   exam_no_bill: "They should not be billed for the exam",
   residency: "Where they live and where it happened",
   address_confidentiality: "Keeping their address private",
-  record_confidentiality: "Their claim records are confidential",
+  record_confidentiality: "Keeping their claim records private",
 };
 
 export function categoryLabelAboutThem(c: string): string {

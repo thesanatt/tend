@@ -8,15 +8,17 @@ import { useKeptSends, withKept } from "./keptSends";
 import type { SentEvent } from "./state";
 import styles from "./shell.module.css";
 
-// The one line on every screen that says where the survivor's data is. It changes only when
-// something actually left the device because they chose to send it.
-export function privacyText(sent: SentEvent[], t: Dict, f: Formatters): string {
-  if (!sent.length) return t.privacy.quiet;
+// The one line on every screen that says where the survivor's data is. It changes when something
+// left the device. Picking a state is one: Tend asks its server for that state's law files, named for
+// the state (lib/api.ts fetchLaw, lib/engine/wasm.ts), so the server can tell which state it is.
+export function privacyText(sent: SentEvent[], t: Dict, f: Formatters, statePicked = false): string {
+  if (!sent.length) return statePicked ? t.privacy.quietState : t.privacy.quiet;
   const count = (k: SentEvent["kind"]) => sent.filter((e) => e.kind === k).length;
   // A payment that went ahead is said once, as a payment; one that stopped after the code is its own part.
   const paidIds = new Set(sent.filter((e) => e.kind === "payment" && e.action_id).map((e) => e.action_id));
   const started = sent.filter((e) => e.kind === "payment_setup" && !paidIds.has(e.action_id)).length;
   const parts = [
+    statePicked ? t.privacy.partState : null,
     count("payment") ? t.privacy.partPayment(count("payment")) : null,
     started ? t.privacy.partSetup(started) : null,
     count("share") ? t.privacy.partShare(count("share")) : null,
@@ -43,7 +45,11 @@ export function sentLine(e: SentEvent, t: Dict, f: Formatters): string {
   }
   const amount = f.money(e.amount_cents ?? 0);
   if (e.kind === "payment")
-    return e.dry_run ? t.privacy.eventPaymentDry(amount, e.to ?? "", when) : t.privacy.eventPayment(amount, e.to ?? "", when);
+    return e.dry_run
+      ? t.privacy.eventPaymentDry(amount, e.to ?? "", when)
+      : e.unsure
+        ? t.privacy.eventPaymentUnsure(amount, e.to ?? "", when)
+        : t.privacy.eventPayment(amount, e.to ?? "", when);
   if (e.kind === "payment_setup") return t.privacy.eventSetup(amount, e.to ?? "", when);
   if (e.kind === "share") return t.privacy.eventShare(when);
   if (e.kind === "bank") return t.privacy.eventBank(when);
@@ -82,7 +88,8 @@ export default function PrivacyLine() {
   // and once this page has put a new claim on screen, whose line no longer names what the page sent
   // before, it says only what is always true, never that nothing left since the page opened.
   const quiet = (kept === null || hidden || restarted) && !sent.length;
-  const text = quiet ? t.privacy.here : privacyText(sent, t, f);
+  const statePicked = Boolean(state.check.st);
+  const text = quiet ? t.privacy.here : privacyText(sent, t, f, statePicked);
 
   return (
     <div className={styles.privacy} data-sent={sent.length > 0 || undefined}>
@@ -116,8 +123,9 @@ export default function PrivacyLine() {
         {quiet ? null : (
           <section className={styles.sentList} aria-labelledby="sent-title">
             <h3 id="sent-title">{t.privacy.sentTitle}</h3>
-            {sent.length ? (
+            {sent.length || statePicked ? (
               <ol>
+                {statePicked ? <li>{t.privacy.stateLine}</li> : null}
                 {sent.map((e, i) => (
                   <li key={`${e.at}-${i}`}>{sentLine(e, t, f)}</li>
                 ))}

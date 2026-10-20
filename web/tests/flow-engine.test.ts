@@ -2,7 +2,7 @@
 // The engine part needs compiled law images (public/engine/laws/*.tlaw from `make -C ../engine wasm`)
 // and is skipped, and says so, when they are not built.
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -11,6 +11,7 @@ import { rawFinder } from "@/components/flow/FlowProvider";
 import { demoBankTxns, sampleBillFile, sampleStatementFile } from "@/components/flow/samples";
 import { SAMPLE_BILL_SHA256 } from "@/components/flow/samples/rowan";
 import { initialState, reducer, type FlowItem } from "@/components/flow/state";
+import { serverClaimBody } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
 import { mockBillReader, mockClassifier, mockStatementParser } from "@/lib/mocks";
 import type { EngineInput, EngineOutput } from "@/lib/types";
@@ -125,5 +126,30 @@ describe.skipIf(!haveEngine)("the flow on the real law engine (WebAssembly, Mich
     expect(out.totals.held_cents).toBe(32500);
     const sum = out.lines.filter((l) => l.status === "eligible").reduce((s, l) => s + l.allowed_cents, 0);
     expect(out.totals.allowed_cents).toBe(sum);
+  });
+
+  // The server check leaves out each cost's bank or bill words (lib/api.ts serverClaimBody). The C++ engine
+  // here is the one the server's Python reference engine is tested against, so the answer must not move.
+  it("gives the same answer without the bank and bill words, on every state's law", async () => {
+    const { loadTend } = (await import(pathToFileURL(path.join(web, "public/engine/tend_engine.mjs")).href)) as {
+      loadTend: () => Promise<{ evaluate: (img: Uint8Array, claim: unknown) => EngineOutput & { error?: unknown } }>;
+    };
+    const tend = await loadTend();
+    const base = await flowInput();
+    expect(base.items.filter((i) => i.description.trim()).length).toBeGreaterThan(40);
+    const dir = path.join(web, "public/engine/laws");
+    const laws = readdirSync(dir).filter((f) => f.endsWith(".tlaw"));
+    expect(laws).toHaveLength(51);
+    for (const file of laws) {
+      const st = file.replace(/\.tlaw$/, "");
+      const img = new Uint8Array(readFileSync(path.join(dir, file)));
+      for (const context of [base.context, { ...base.context, police_report: "yes" as const, forensic_exam: false }]) {
+        const claim = { ...base, jurisdiction: st, context };
+        const withWords = tend.evaluate(img, claim);
+        expect(withWords.error, st).toBeUndefined();
+        expect(withWords.lines, st).toHaveLength(claim.items.length);
+        expect(tend.evaluate(img, serverClaimBody(claim)), st).toEqual(withWords);
+      }
+    }
   });
 });

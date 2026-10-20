@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { isIsoDay } from "@/lib/dates";
 import { useI18n } from "@/lib/i18n";
 import STATES from "@/lib/states.json";
 import { useLaw } from "@/lib/useLaw";
 import { knowsDate } from "../claim";
 import { buildCheckSummary } from "../checkSummary";
-import { useSetAside } from "../useSetAside";
+import { setAsideOf, useLawIr } from "../useSetAside";
 import EngineNotice from "../EngineNotice";
 import FlowSheet from "../FlowSheet";
 import { useFlow } from "../FlowProvider";
@@ -117,7 +117,9 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [demo]);
   const law = useLaw(check.st || null);
-  const setAside = useSetAside(check.st || null);
+  // The IR dates the general deadline (lib/deadline.ts), so the summary waits for it as for the law.
+  const ir = useLawIr(check.st || null);
+  const setAside = useMemo(() => setAsideOf(ir), [ir]);
   const [saveOpen, setSaveOpen] = useState(false);
   const [notToday, setNotToday] = useState(false);
   const [announce, setAnnounce] = useState("");
@@ -126,9 +128,14 @@ export default function CheckScreen({ demo = false }: { demo?: boolean }) {
     check.date && !isIsoDay(check.date) ? t.check.dateBad : check.date > today ? t.check.dateFuture : null;
   const output = claim.evaluation && claim.evaluation.output.jurisdiction === check.st ? claim.evaluation.output : null;
   const summary =
-    law.law && check.st ? buildCheckSummary(law.law, output, check, knowsDate(state, today), setAside) : null;
+    law.law && check.st && ir !== undefined
+      ? buildCheckSummary(law.law, output, check, knowsDate(state, today), setAside, { ir, asOf: today })
+      : null;
+  // Only a deadline still ahead: "the usual deadline is" a passed date would mislead.
   const deadlineSentence =
-    summary?.deadline.kind === "date" ? t.check.notTodayDeadline(summary.name, f.date(summary.deadline.date)) : null;
+    summary?.deadline.kind === "date" && !summary.deadline.late
+      ? t.check.notTodayDeadline(summary.name, f.date(summary.deadline.date))
+      : null;
 
   useEffect(() => {
     if (!summary || !output) return;

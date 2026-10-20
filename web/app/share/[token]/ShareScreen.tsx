@@ -52,12 +52,13 @@ export default function ShareScreen({ token }: { token: string }) {
     );
   }
   const { view, expired } = state;
+  // The demo fixture's dates are fixed, so its expiry is not shown: it would read as a link that stopped.
   return (
     <SharedClaim
       input={view.input}
       output={view.output}
       createdAt={view.created_at}
-      expiresAt={view.expires_at}
+      expiresAt={view.token === "demo" ? null : view.expires_at}
       sealed={false}
       expired={expired}
       engine={view.engine ?? null}

@@ -101,6 +101,8 @@ export interface SentEvent {
   ref?: string;
   // A payment the server recorded without sending it to the bank.
   dry_run?: boolean;
+  // A payment with no clear answer: it reached Tend's server and may have reached the bank.
+  unsure?: boolean;
   // Where an unexpected request went.
   path?: string;
   // Only the kind and the time, which this tab kept from before a reload (keptSends.ts).

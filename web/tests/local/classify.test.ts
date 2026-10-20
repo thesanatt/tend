@@ -10,7 +10,7 @@ import {
   refundedPurchases,
   responseSchema,
 } from "@/lib/local/classify";
-import { CLOUD_LIMITS, scrubForCloud } from "@/lib/local/cloud";
+import { CLOUD_LIMITS, personPayment, scrubForCloud } from "@/lib/local/cloud";
 import { fromNessieRelay } from "@/lib/local/nessie";
 import { MODEL_LABELS } from "@/lib/local/rules";
 import { statementParser } from "@/lib/local/statement";
@@ -391,8 +391,33 @@ describe("what leaves the device for cloud sorting", () => {
     ["ODD SHOP #1043 ACCT 556677", "ODD SHOP"],
     ["Odd Shop (734) 555-0199 2026-06-14", "Odd Shop"],
     ["Odd Shop Route 66, 24 hour service", "Odd Shop Route 66, 24 hour service"],
+    // Dates with a month's name, and amounts beside a money word
+    ["ODD SHOP JUN 14", "ODD SHOP"],
+    ["ODD SHOP 14JUN", "ODD SHOP"],
+    ["ODD SHOP June 14, 2026", "ODD SHOP"],
+    ["ODD SHOP 14 JUN 26", "ODD SHOP"],
+    ["ODD SHOP SEPT 2026", "ODD SHOP"],
+    ["COPAY 25 DOLLARS ODD CLINIC", "COPAY DOLLARS ODD CLINIC"],
+    ["ODD CLINIC COPAY: 40", "ODD CLINIC COPAY"],
+    ["ODD SHOP DEC 25 2026 TOTAL 45", "ODD SHOP TOTAL"],
+    // Words that only start like a month stay
+    ["MARKET 12 ODD SHOP", "MARKET 12 ODD SHOP"],
+    ["MAYO CLINIC 3", "MAYO CLINIC 3"],
+    ["JUNIPER 5 CAFE", "JUNIPER 5 CAFE"],
   ])("%s", (input, out) => {
     expect(scrubForCloud(input)).toBe(out);
+  });
+
+  it.each([
+    ["VENMO PAYMENT JANE DOE", true],
+    ["APPLE CASH SENT MONEY JANE DOE", true],
+    ["CASH APP*JANE DOE*OAKLAND CA", true],
+    ["Zelle Transfer Conf# T0ABC; Jane Doe", true],
+    ["P2P SENT TO JANE", true],
+    ["PAYPAL *JOHNSMITH", false],
+    ["ODD SHOP", false],
+  ])("%s is a payment to a person: %s", (text, person) => {
+    expect(personPayment(text)).toBe(person);
   });
 });
 
@@ -460,28 +485,47 @@ describe("cloud Gemini only with consent", () => {
   it("takes card numbers, dates, amounts, contact details and other people's names out first", async () => {
     const fetch = okFetch();
     const rows = [
-      txn("ZELLE TO DOE JANE ON 06/14 REF # PP0ABC1234", 4000),
-      txn("CASH APP*JANE DOE*OAKLAND CA", 2500),
-      txn("Zelle Transfer Conf# T0ABC; Jane Doe", 3000),
       txn("UTILITY CO DES:BILL PAY ID:XXXXX12345 INDN:JANE DOE CO ID:1234567890 PPD", 5100),
       txn("ACH DEBIT ORIG CO NAME:CITY WATER IND NAME:JANE DOE TRN: 1234TC", 6100),
       txn("ODD SHOP 4111 1111 1111 1234 $45.10 CALL 415-555-0100 jdoe@example.com", 4510),
       txn("PURCHASE AUTHORIZED ON 06/18 NORTHSIDE HARDWARE ANN ARBOR MI S386169734567890 CARD 1234", 6400),
+      txn("ODD SHOP JUN 18 TOTAL 25 DOLLARS", 2500),
     ];
     await classifyDetailed(rows, ctx, { cloudConsent: true, deviceAi: false, fetch: asFetch(fetch) });
     const sent = JSON.parse(String(fetch.mock.calls[0][1].body)) as { txns: { description: string }[] };
     expect(sent.txns.map((t) => t.description)).toEqual([
-      "ZELLE TO a person",
-      "CASH APP payment",
-      "Zelle Transfer",
       "UTILITY CO DES:BILL PAY",
       "ACH DEBIT ORIG CO NAME:CITY WATER",
       "ODD SHOP CALL",
       "PURCHASE AUTHORIZED ON NORTHSIDE HARDWARE ANN ARBOR MI",
+      "ODD SHOP TOTAL DOLLARS",
     ]);
     const text = String(fetch.mock.calls[0][1].body);
-    for (const secret of ["JANE", "Jane", "DOE", "1234", "06/1", "45.10", "555", "@", "PP0ABC", "T0ABC"])
+    for (const secret of ["JANE", "Jane", "DOE", "1234", "06/1", "JUN 1", "45.10", "25", "555", "@"])
       expect(text).not.toContain(secret);
+  });
+
+  it("never sends a payment to a person, however its words name them", async () => {
+    const fetch = okFetch();
+    const people = [
+      txn("ZELLE TO DOE JANE ON 06/14 REF # PP0ABC1234", 4000),
+      txn("CASH APP*JANE DOE*OAKLAND CA", 2500),
+      txn("Zelle Transfer Conf# T0ABC; Jane Doe", 3000),
+      txn("VENMO PAYMENT JANE DOE", 3500),
+      txn("APPLE CASH SENT MONEY JANE DOE", 4500),
+    ];
+    const alone = await classifyDetailed(people, ctx, { cloudConsent: true, deviceAi: false, fetch: asFetch(fetch) });
+    expect(fetch).not.toHaveBeenCalled();
+    expect(alone.cloud.used).toBe(false);
+    expect(alone.items.map((i) => i.expense)).toEqual(Array(5).fill("unknown"));
+    await classifyDetailed([...people, txn("ODD SHOP", 1000)], ctx, {
+      cloudConsent: true,
+      deviceAi: false,
+      fetch: asFetch(fetch),
+    });
+    const text = String(fetch.mock.calls[0][1].body);
+    expect(JSON.parse(text).txns.map((t: { description: string }) => t.description)).toEqual(["ODD SHOP"]);
+    for (const secret of ["JANE", "Jane", "DOE", "ZELLE", "Zelle", "VENMO", "CASH"]) expect(text).not.toContain(secret);
   });
 
   it("keeps every field inside the API's limits, counted in characters as Python counts them", async () => {

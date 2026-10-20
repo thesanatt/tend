@@ -1,8 +1,9 @@
 "use client";
 
+import { spanText } from "@/lib/deadline";
 import { useI18n, type Dict } from "@/lib/i18n";
 import type { LawIndex } from "@/lib/useLaw";
-import { capText, spanText, type CheckSummary } from "../checkSummary";
+import { capText, type CheckSummary } from "../checkSummary";
 import Cite from "../Cite";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -64,20 +65,27 @@ export default function CheckSummaryView({
         >
           {d.kind === "date" ? (
             <>
+              {/* Never "File by" a date that has passed. */}
               <p className={styles.factLead}>
                 {d.late ? t.check.deadlineLate(f.date(d.date)) : t.check.deadlineDate(f.date(d.date))}
               </p>
-              {!d.late ? (
-                <p className={styles.factNote}>{t.check.deadlineLeft(f.span(today, d.date) ?? "")}</p>
-              ) : (
-                <p className={styles.factNote}>{d.canExtend ? t.check.deadlineExtend : t.check.deadlineAsk}</p>
-              )}
+              {d.late ? null : <p className={styles.factNote}>{t.check.deadlineLeft(f.span(today, d.date) ?? "")}</p>}
+              {d.longer && !d.late ? (
+                <p className={styles.factNote}>{t.check.deadlineLonger(f.date(d.longer))}</p>
+              ) : null}
+              {d.late ? (
+                <p className={styles.factNote}>
+                  {d.open && d.longer ? t.check.deadlineLongerAsk(f.date(d.longer)) : t.check.deadlineAsk}
+                </p>
+              ) : null}
               {d.fromReport ? <p className={styles.factNote}>{t.check.deadlineFromReport}</p> : null}
               {d.fromDiscovery ? <p className={styles.factNote}>{t.check.deadlineFromDiscovery}</p> : null}
+              {d.late && d.laterElsewhere ? <p className={styles.factNote}>{t.check.deadlineLaterElsewhere}</p> : null}
             </>
           ) : d.kind === "span" ? (
             <>
-              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t, f))}</p>
+              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t.units, f.and))}</p>
+              {d.longer ? <p className={styles.factNote}>{t.check.deadlineSpanLonger}</p> : null}
               <p className={styles.factNote}>{t.check.deadlineSpanNote}</p>
             </>
           ) : d.kind === "unknown" ? (

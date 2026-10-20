@@ -22,7 +22,8 @@ BILL, HELD, REST = "$443.00", "$325.00", "$118.00"
 # answered yet (questions are guesses and count only after a yes). The bank adds nothing new: its
 # rows were in the statement, and its pending hospital bill is the itemized bill.
 TOTAL = "$3,142.00"
-QUIET = "On this device. Nothing has left it since this page opened."
+# Every check of the line comes after Rowan's state is picked, and that state's law files name it.
+QUIET = "On this device. Only the state you picked went to Tend's server, to get its law."
 # Words that are Rowan's transactions and bill lines. None may leave the device.
 PRIVATE = [
     "Clearwater Counseling", "Wayfare Rides", "Larkfield Market", "Fernway Books", "Linen & Loom", "Linen &amp; Loom",
@@ -203,7 +204,8 @@ def track(page: Page, test: str) -> None:
         expect(page.get_by_role("heading", name="Your garden", level=1)).to_be_visible()
     bar = page.locator("[class*=deadlineBar]")
     expect(bar).to_contain_text("File by June 14, 2031.")
-    expect(bar).to_contain_text("The law counts from your report, so you may have longer.")
+    # MI-FILE-1 counts from the day it happened; the rule counted from a report (MI-FILE-2) is for minors.
+    expect(bar).not_to_contain_text("The law counts from your report")
     expect(page.get_by_text(f"Held: {HELD} on a bill the law says you should not pay.", exact=False)).to_be_visible()
     expect(page.get_by_text("You paid it through Tend").first).to_be_visible()
 
@@ -240,7 +242,7 @@ def test_demo_path(stack: Stack, browser: Browser) -> None:
             page.get_by_role("button", name=re.compile(rf"^Pay \{REST} now from Checking 0011")).click()
             sheet = page.get_by_role("dialog")
             sheet.get_by_role("button", name="Get a code").click()
-            expect(sheet.get_by_text("The bank already shows a payment from Tend for these lines of this bill", exact=False)).to_be_visible()
+            expect(sheet.get_by_text("The demo bank already shows a payment from Tend for these lines", exact=False)).to_be_visible()
         expect(sheet.get_by_label("Confirmation code")).to_have_count(0)
     finally:
         context.close()

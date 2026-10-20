@@ -5,8 +5,10 @@
 //   stillNeeded the state's required documents that fit this claim
 //   filing      where and how to send it
 // Nothing here reads the clock or random numbers: the same claim always gives the same bytes.
+import { fetchLawIr } from "../api";
 import type { Letter, Packet, PacketBuilder, PacketOptions } from "../contracts";
 import { isIsoDay } from "../dates";
+import type { LawIr } from "../deadline";
 import { assertCents } from "../money";
 import type { EngineInput, EngineOutput } from "../types";
 import { stillNeeded } from "./checklist";
@@ -40,6 +42,8 @@ export interface PacketDeps {
   loadLaw?: LawLoader;
   // The blank state form for a spec, or null when it cannot be had.
   loadForm?: (spec: FormSpec) => Promise<Uint8Array | null>;
+  // The state's law IR, which dates the general deadline (lib/deadline.ts); null when it cannot be had.
+  loadIr?: (st: string) => Promise<LawIr | null>;
 }
 
 export interface BuildOptions extends PacketOptions {
@@ -125,12 +129,14 @@ export async function renderLetter(letter: Letter): Promise<Uint8Array> {
 export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
   const loadLaw = deps.loadLaw ?? fetchLawLoader();
   const loadForm = deps.loadForm ?? fetchForm;
+  const loadIr = deps.loadIr ?? fetchLawIr;
 
   return {
     async build(st, input, output, opts: BuildOptions = {}) {
       const code = st.toUpperCase();
       validate(code, input, output);
       const law = new LawBook(await loadLaw(code));
+      const ir = await loadIr(code).catch(() => null);
       const needed = stillNeeded(law, input, output, opts.have, opts.lines);
       const filing = filingRoutes(law);
       const letters = buildLetters(law, input, output, { all: opts.allLetters, lines: opts.lines });
@@ -163,6 +169,8 @@ export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
         letters,
         form: formPdf ? spec : null,
         lines: opts.lines,
+        ir,
+        dateKnown: opts.dateKnown,
       });
       return {
         summaryPdf: pdfBlob(summary.bytes),
@@ -182,5 +190,5 @@ export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
   };
 }
 
-// The app's builder: rules from /data/law (or the API), the blank form from /forms.
+// The app's builder: rules from /data/law (or the API), the law IR from /data/ir, the blank form from /forms.
 export const packetBuilder: TendPacketBuilder = createPacketBuilder();

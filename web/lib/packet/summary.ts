@@ -1,11 +1,15 @@
-// The cited summary PDF: every line with its amount, transaction, rule pinpoint, verbatim quote,
-// and link; held lines with the exam billing law; the totals; what is still needed; where to
-// file; and the protections that keep the survivor's address and file private.
+// The cited summary PDF: each cost that counts with its amount, transaction, rule pinpoint, verbatim
+// quote, and link; held lines with the exam billing law; the totals; what is still needed; where to
+// file; and the protections that keep the survivor's address and file private. Costs that do not
+// count (guesses still waiting, rows Tend could not sort, costs the law leaves out) are counted but
+// never itemized: the PDF goes to the program, and their bank words can name a person.
 import { citedRuleIds, severalLimits } from "../cite";
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
+import { generalDeadline, generalSpan, spanText, type LawIr } from "../deadline";
 import { expenseLabel, expenseRank } from "../expenses";
 import { en } from "../i18n/en";
+import { listJoin } from "../i18n/format";
 import { formatCents } from "../money";
 import type { EngineInput, EngineItem, EngineLine, EngineOutput, LineStatus, Rule } from "../types";
 import { METHOD_LABEL, privacyNotes } from "./filing";
@@ -23,6 +27,10 @@ export interface SummaryInput {
   form: FormSpec | null;
   // Bill providers and payments made through Tend, by item id (lib/contracts.ts PacketLineInfo).
   lines?: Record<string, PacketLineInfo>;
+  // The state's law IR, which dates the general deadline (lib/deadline.ts).
+  ir?: LawIr | null;
+  // false when the survivor gave no date (lib/contracts.ts PacketOptions).
+  dateKnown?: boolean;
 }
 
 // "Paid on October 3, 2026 from Checking 0011 to Riverbend General Hospital, through Tend."
@@ -35,6 +43,9 @@ export function paidNote(paid: NonNullable<PacketLineInfo["paid"]>): string {
 }
 
 const ORDER: LineStatus[] = ["eligible", "held", "needs_confirmation", "excluded", "unknown_rule", "out_of_window"];
+// The lines the summary itemizes.
+const PRINTED: LineStatus[] = ["eligible", "held"];
+export const printed = (line: EngineLine) => PRINTED.includes(line.status);
 
 const STATUS_TITLE: Record<LineStatus, string> = {
   eligible: "Counted",
@@ -106,10 +117,71 @@ class Writer {
 }
 
 const DISCOVERY_NOTE = en.check.deadlineFromDiscovery;
+const LATE_ASK = "Ask the program whether a late claim can still be filed.";
 
-function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
+// The deadline the summary leads with: the general rule's date, as Check shows it (lib/deadline.ts),
+// and the engine's longer date when some cases have one. Without the IR, the engine's own date.
+// Without a date from the survivor, incident_date is the flow's stand-in, the earliest cost, which can
+// fall after the day it happened (components/flow/claim.ts countingDate). A date from it could be
+// later than the real deadline, so the summary gives the rule's length of time, as Check does.
+export function deadlineFacts(
+  law: LawBook,
+  input: EngineInput,
+  output: EngineOutput,
+  ir: LawIr | null,
+  dateKnown = true,
+): { text: string; ruleIds: string[]; fromReport: boolean; fromDiscovery: boolean } {
+  const d = output.checks.deadline;
+  const flags = d.flags ?? [];
+  const undated = d.rule_ids.length
+    ? "Tend could not turn this deadline into a date. Read the rule or ask the program."
+    : "Tend found no filing deadline in the verified rules. Ask the program.";
+  const byFlags = {
+    fromReport: flags.includes("deadline_from_report"),
+    fromDiscovery: flags.includes("deadline_from_discovery"),
+  };
+  if (!dateKnown) {
+    const span = generalSpan(law.law, ir, d);
+    if (!span) return { text: undated, ruleIds: d.rule_ids, ...byFlags };
+    const length = spanText(span, en.units, (parts) => listJoin(parts, "en"));
+    return {
+      text: `${en.check.deadlineSpan(length)}${span.longer ? ` ${en.check.deadlineSpanLonger}` : ""}`,
+      ruleIds: span.ruleIds,
+      fromReport: span.fromReport,
+      fromDiscovery: span.fromDiscovery,
+    };
+  }
+  const dated = Boolean(d.deadline_date) && (d.status === "ok" || d.status === "late");
+  const general = ir && dated ? generalDeadline(law.law, ir, input.context.incident_date, d) : null;
+  if (!general) {
+    const text =
+      d.status === "ok" && d.deadline_date
+        ? `On time. File by ${formatDay(d.deadline_date)}.`
+        : d.status === "late" && d.deadline_date
+          ? `The usual deadline was ${formatDay(d.deadline_date)}. ${LATE_ASK}`
+          : undated;
+    return { text, ruleIds: d.rule_ids, ...byFlags };
+  }
+  const day = formatDay(general.date);
+  // A passed date is not plainly late when another rule counts from a later day (docs/SPEC.md v1.3).
+  const usual = `The usual deadline was ${day}.${general.laterElsewhere ? ` ${en.check.deadlineLaterElsewhere}` : ""}`;
+  const text =
+    general.date >= input.context.as_of_date
+      ? `On time. File by ${day}.${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
+      : d.status === "ok" && general.longer
+        ? `${usual} ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
+        : `${usual} ${LATE_ASK}`;
+  return {
+    text,
+    ruleIds: general.ruleIds,
+    fromReport: general.fromReport,
+    fromDiscovery: general.fromDiscovery,
+  };
+}
+
+function checksSection(w: Writer, input: EngineInput, output: EngineOutput, ir: LawIr | null, dateKnown: boolean) {
   const { law, pdf } = w;
-  const { deadline, reporting, minimum_loss } = output.checks;
+  const { reporting, minimum_loss } = output.checks;
   w.h2("Checks");
   const cites = (ids: string[]) =>
     ids
@@ -119,14 +191,7 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
       .filter((p, i, all) => all.indexOf(p) === i)
       .join("; ");
 
-  const deadlineText =
-    deadline.status === "ok" && deadline.deadline_date
-      ? `On time. File by ${formatDay(deadline.deadline_date)}.`
-      : deadline.status === "late" && deadline.deadline_date
-        ? `The usual deadline was ${formatDay(deadline.deadline_date)}. Ask the program whether a late claim can still be filed.`
-        : deadline.rule_ids.length
-          ? "Tend could not turn this deadline into a date. Read the rule or ask the program."
-          : "Tend found no filing deadline in the verified rules. Ask the program.";
+  const deadline = deadlineFacts(law, input, output, ir, dateKnown);
   const reportingText =
     reporting.status === "satisfied"
       ? !reporting.rule_ids.length
@@ -149,7 +214,7 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     unknown: "Depends on how many days of work you missed.",
   };
   const rows: [string, string, string][] = [
-    ["Filing deadline", deadlineText, cites(deadline.rule_ids)],
+    ["Filing deadline", deadline.text, cites(deadline.ruleIds)],
     ["Police report", reportingText, cites(reporting.rule_ids)],
     [
       "Minimum loss",
@@ -173,13 +238,12 @@ function checksSection(w: Writer, input: EngineInput, output: EngineOutput) {
     pdf.space(6);
   }
   // A deadline counted from the report or from discovery may not be late (docs/SPEC.md v1.3).
-  const flags = output.checks.deadline.flags ?? [];
-  if (flags.includes("deadline_from_report")) {
+  if (deadline.fromReport) {
     w.small(
       "The deadline is measured from the date it happened. The law counts from your report, so you may have longer.",
     );
   }
-  if (flags.includes("deadline_from_discovery")) w.small(DISCOVERY_NOTE);
+  if (deadline.fromDiscovery) w.small(DISCOVERY_NOTE);
 }
 
 interface Group {
@@ -251,12 +315,20 @@ function lineNotes(law: LawBook, line: EngineLine, item: EngineItem | undefined,
 function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info: Record<string, PacketLineInfo> = {}) {
   const { law, pdf } = w;
   const items = new Map(input.items.map((i) => [i.item_id, i]));
-  w.h2("Every cost and the law behind it");
+  w.h2("Each cost that counts and the law behind it");
   w.small(
-    "Costs are grouped by kind and status. Each group quotes the law word for word, with a link to the official page. Each cost shows the record it came from.",
+    "Costs are grouped by kind. Each group quotes the law word for word, with a link to its source. Each cost shows the record it came from.",
   );
+  const left = output.lines.filter((l) => !printed(l)).length;
+  if (left) {
+    // A count only: no description, date, or record id of a cost that does not count.
+    w.small(
+      `Tend left out ${plural(left, "other cost")} that ${left === 1 ? "does" : "do"} not count toward this amount.`,
+      "ink2",
+    );
+  }
 
-  for (const g of groupsOf(output)) {
+  for (const g of groupsOf(output).filter((group) => PRINTED.includes(group.status))) {
     const asked = g.lines.reduce((s, l) => s + l.requested_cents, 0);
     const counted = g.lines.reduce((s, l) => s + l.allowed_cents, 0);
     w.h3([
@@ -284,19 +356,7 @@ function linesSection(w: Writer, input: EngineInput, output: EngineOutput, info:
         w.small(noBill.length ? "Who pays for the exam instead:" : "How the exam is paid for:", "ink2");
         for (const r of payers) w.quote(r, noBill.length ? "line" : "clay");
       }
-    } else if (g.status === "unknown_rule") {
-      w.p(
-        `None of ${law.name}'s verified rules name this kind of cost, so it is left out. An advocate or the program can tell you if it is covered.`,
-        "ink2",
-      );
-    } else if (g.status === "out_of_window") {
-      w.p(
-        `These are dated before ${formatDay(input.context.incident_date)} or after ${formatDay(input.context.as_of_date)}, so they are not counted.`,
-        "ink2",
-      );
     } else {
-      if (g.status === "needs_confirmation") w.p("Tend found these but does not count them until you say yes.", "ink2");
-      if (g.status === "excluded") w.p("The law says the program does not pay for this kind of cost.", "ink2");
       if (g.lines.some(severalLimits)) w.small(en.gather.severalLimits, "ink2");
       for (const r of rules) w.quote(r);
     }
@@ -481,14 +541,18 @@ function privacySection(w: Writer) {
   const { law } = w;
   const notes = privacyNotes(law);
   w.h2("Keeping your information private");
-  w.h3([{ text: "A substitute address" }]);
+  w.h3([{ text: "Keeping your address private" }]);
   if (notes.address.length) {
     for (const a of notes.address) {
       const who = a.agency ? `${a.agency} runs` : `${law.name} has`;
+      const program = `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}.`;
+      // A program whose rule does not name sexual assault may give no substitute address at all
+      // (South Dakota's keeps a voter record private), so only its own words are given. Those words
+      // may not say who it covers (SD-ACP-1, AR-ACP-1), so the survivor is sent to ask.
       w.p(
-        `${who} ${a.program_name ? `the ${a.program_name}` : "an address confidentiality program"}. It gives you a substitute address to use on government records and forms, like this application.${
-          a.covers_sexual_assault === true ? " It covers survivors of sexual assault." : ""
-        }`,
+        a.covers_sexual_assault === true
+          ? `${program} It gives you a substitute address to use on government records and forms, like this application. It covers survivors of sexual assault.`
+          : `${program} It covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you. The exact words:`,
       );
       if (a.enroll) w.p([{ text: "How to sign up: ", font: "bold" }, { text: a.enroll }]);
       w.quote(a.rule);
@@ -501,7 +565,8 @@ function privacySection(w: Writer) {
   }
   w.h3([{ text: "Your claim file" }]);
   if (notes.records.length) {
-    w.p(`${law.name} law limits who can see a compensation claim file. The exact words:`);
+    // Several of these rules cover only some records (MI-RECCONF-1 is a public records exemption).
+    w.p(`${law.name} has a rule on who can see claim records. It may not cover your whole file. The exact words:`);
     for (const r of notes.records) w.quote(r);
   } else {
     w.p(
@@ -515,7 +580,7 @@ function lettersSection(w: Writer, letters: Letter[]) {
   if (!letters.length) return;
   w.h2("Letters Tend wrote for you");
   w.small(
-    "Each letter quotes the law and leaves [blanks] for names, dates, and account numbers. Tend never fills those in.",
+    "Each letter quotes the law and leaves [blanks] for what Tend does not know, such as your name, the date you send it, and account numbers. Tend never fills those in.",
   );
   for (const l of letters) w.p([{ text: "-  " }, { text: l.title }]);
 }
@@ -560,8 +625,14 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   pdf.text(`${program.program_name}, ${law.name}`, { font: "serifBold", size: 21, leading: 25 });
   if (program.agency) pdf.text(program.agency, { size: 9, color: "ink2" });
   pdf.space(4);
+  const dateKnown = s.dateKnown !== false;
+  const from = formatDay(input.context.incident_date);
   w.p(
-    `Prepared ${formatDay(input.context.as_of_date)} under ${law.name} law. Costs counted from ${formatDay(input.context.incident_date)} to ${formatDay(input.context.as_of_date)}.`,
+    `Prepared ${formatDay(input.context.as_of_date)} under ${law.name} law. ${
+      dateKnown
+        ? `Costs counted from ${from} to ${formatDay(input.context.as_of_date)}.`
+        : `Costs counted from the earliest one, ${from}, because no date was given.`
+    }`,
     "ink2",
   );
   pdf.space(4);
@@ -598,7 +669,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
     );
   w.p(parts.join(" "), "ink2");
 
-  checksSection(w, input, output);
+  checksSection(w, input, output, s.ir ?? null, dateKnown);
   linesSection(w, input, output, s.lines);
   neededSection(w, output, s.stillNeeded, s.form);
   filingSection(w, s.filing);
@@ -606,7 +677,7 @@ export async function renderSummary(s: SummaryInput): Promise<{ bytes: Uint8Arra
   lettersSection(w, s.letters);
 
   const cited = new Set<string>([
-    ...output.lines.flatMap((l) => [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]),
+    ...output.lines.filter(printed).flatMap((l) => [...l.rule_ids, ...(l.cap_rule_id ? [l.cap_rule_id] : [])]),
     ...output.checks.deadline.rule_ids,
     ...output.checks.reporting.rule_ids,
     ...output.checks.minimum_loss.rule_ids,

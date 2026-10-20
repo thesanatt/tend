@@ -10,14 +10,22 @@ import BillsScreen from "@/components/flow/bills/BillsScreen";
 import { buildEngineInput, buildRows, offered, paidLines } from "@/components/flow/claim";
 import CloudConsent from "@/components/flow/CloudConsent";
 import { billLineId } from "@/components/flow/FlowProvider";
-import AddRecords from "@/components/flow/gather/AddRecords";
-import PrivacyLine from "@/components/flow/PrivacyLine";
+import AddRecords, { unsortedRows } from "@/components/flow/gather/AddRecords";
+import PrivacyLine, { sentLine } from "@/components/flow/PrivacyLine";
 import { demoBankTxns, ROWAN_ACCOUNT, sampleBillFile, sampleStatementCsv } from "@/components/flow/samples";
 import { ROWAN_ROWS } from "@/components/flow/samples/rowan";
-import { initialState, reducer, type Action, type BillRecord, type FlowItem } from "@/components/flow/state";
+import {
+  initialState,
+  reducer,
+  type Action,
+  type BillRecord,
+  type FlowItem,
+  type SourceRecord,
+} from "@/components/flow/state";
 import TrackScreen from "@/components/flow/track/TrackScreen";
 import { packetLineInfo } from "@/components/flow/usePacket";
-import { DICTS, I18nProvider } from "@/lib/i18n";
+import { resetLawCacheForTests } from "@/lib/api";
+import { DICTS, formatters, I18nProvider } from "@/lib/i18n";
 import { billReader, classifier, statementParser } from "@/lib/local";
 import { pdfLines } from "@/lib/local/pdf";
 import { mockEngineOutput } from "@/lib/mocks/engine";
@@ -44,6 +52,7 @@ vi.mock("next/navigation", () => ({
 }));
 
 beforeEach(() => {
+  resetLawCacheForTests();
   stubLawFetch();
 });
 afterEach(() => {
@@ -403,17 +412,76 @@ describe("the net log behind the privacy line", () => {
     expect(netSends()).toHaveLength(1);
   });
 
+  it("reports no payment when the bank refused it before any money moved, and marks an unclear one", async () => {
+    const answer = (body: object) =>
+      new Response(JSON.stringify(body), { status: 502, headers: { "content-type": "application/json" } });
+    const fake = vi
+      .fn()
+      .mockResolvedValueOnce(
+        answer({ detail: "The bank refused this payment, so no money moved", maybe_applied: false }),
+      )
+      .mockResolvedValueOnce(answer({ detail: "The bank did not answer", maybe_applied: true }))
+      .mockResolvedValueOnce(answer({ detail: "Bad gateway" }));
+    vi.stubGlobal("fetch", fake);
+    installNetLog(window);
+    for (let i = 0; i < 3; i++) await fetch("/api/actions/confirm", { method: "POST", body: `{"action_id":"a${i}"}` });
+    expect(netSends().map((s) => [s.kind, s.action_id, s.unsure])).toEqual([
+      ["payment", "a1", true],
+      ["payment", "a2", true],
+    ]);
+    const unsure = {
+      kind: "payment" as const,
+      at: "2026-10-03T17:00:00Z",
+      amount_cents: 11800,
+      to: "Riverbend",
+      unsure: true,
+    };
+    expect(sentLine(unsure, en, formatters("en"))).toBe(
+      en.privacy.eventPaymentUnsure("$118.00", "Riverbend", formatters("en").time("2026-10-03T17:00:00Z")),
+    );
+    expect(sentLine({ ...unsure, unsure: undefined }, en, formatters("en"))).toMatch(/It went to the bank\.$/);
+  });
+
+  it("reports a send that failed online with no answer, since it may have arrived", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        throw new TypeError("Failed to fetch");
+      }),
+    );
+    installNetLog(window);
+    const seen: (number | null)[] = [];
+    onNetSend((s) => seen.push(s.status));
+    await expect(fetch("/api/claim", { method: "POST", body: "{}" })).rejects.toThrow(TypeError);
+    expect(netSends().map((s) => [s.kind, s.status])).toEqual([["server_engine", null]]);
+    expect(seen).toEqual([null]);
+  });
+
+  it("says the state's law request once a state is picked, and nothing left before that", async () => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
+    );
+    renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
+    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+    cleanup();
+    renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: en.privacy.more }));
+    expect(within(await screen.findByRole("dialog")).getByText(en.privacy.stateLine)).toBeTruthy();
+  });
+
   it("a send no screen announced still shows on the privacy line", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn(async () => new Response("{}", { status: 200, headers: { "content-type": "application/json" } })),
     );
     renderFlow(<PrivacyLine />, { initial: stateFrom([MI_CHECK]) });
-    expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
     await act(async () => {
       await fetch("/api/ai/classify", { method: "POST", body: "{}" });
     });
-    expect(screen.getByText(en.privacy.sent(en.privacy.partCloudRows))).toBeTruthy();
+    expect(screen.getByText(en.privacy.sent(`${en.privacy.partState} and ${en.privacy.partCloudRows}`))).toBeTruthy();
   });
 });
 
@@ -449,7 +517,7 @@ describe("paying while offline", () => {
     goOffline();
     fireEvent.click(within(dialog).getByRole("button", { name: en.pay.getCode }));
     expect(await within(dialog).findByText(en.pay.offline)).toBeTruthy();
-    expect(screen.getByText(en.privacy.quiet)).toBeTruthy();
+    expect(screen.getByText(en.privacy.quietState)).toBeTruthy();
     Object.defineProperty(window.navigator, "onLine", { configurable: true, get: () => true });
     fireEvent.click(within(dialog).getByRole("button", { name: en.pay.retry }));
     expect(await within(dialog).findByLabelText(en.pay.codeLabel)).toBeTruthy();
@@ -478,7 +546,7 @@ describe("paying while offline", () => {
     expect(await within(dialog).findByText(en.pay.offline)).toBeTruthy();
     expect(within(dialog).getByLabelText(en.pay.codeLabel)).toBeTruthy();
     // The code request went out; the payment did not.
-    expect(screen.getByText(en.privacy.sent(en.privacy.partSetup(1)))).toBeTruthy();
+    expect(screen.getByText(en.privacy.sent(`${en.privacy.partState} and ${en.privacy.partSetup(1)}`))).toBeTruthy();
   });
 });
 
@@ -568,11 +636,15 @@ describe("cloud AI consent", () => {
     const onYes = vi.fn();
     render(
       <I18nProvider initial="en">
-        <CloudConsent ask={{ kind: "rows", rows: 2 }} onNo={onNo} onYes={onYes} />
+        <CloudConsent ask={{ kind: "rows", rows: 2, dated: true }} onNo={onNo} onYes={onYes} />
       </I18nProvider>,
     );
     const dialog = screen.getByRole("dialog");
     expect(within(dialog).getByText(en.cloud.whatRows(2))).toBeTruthy();
+    // What the scrub can miss is said before the yes, and payments to a person stay.
+    expect(within(dialog).getByText(en.cloud.scrub)).toBeTruthy();
+    expect(within(dialog).getByText(en.cloud.stayRows)).toBeTruthy();
+    expect(en.cloud.stayRows).toMatch(/Zelle, Venmo, Cash App, or Apple Cash/);
     expect(within(dialog).getByText(en.cloud.whoRows)).toBeTruthy();
     expect(within(dialog).getByText(en.cloud.googleRows)).toBeTruthy();
     const no = within(dialog).getByRole("button", { name: en.cloud.no });
@@ -580,6 +652,33 @@ describe("cloud AI consent", () => {
     fireEvent.click(no);
     expect(onNo).toHaveBeenCalled();
     expect(onYes).not.toHaveBeenCalled();
+  });
+
+  it("says that rows from before the date go too when no date was given", () => {
+    render(
+      <I18nProvider initial="es">
+        <CloudConsent ask={{ kind: "rows", rows: 1, dated: false }} onNo={vi.fn()} onYes={vi.fn()} />
+      </I18nProvider>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(es.cloud.whatRowsUndated(1))).toBeTruthy();
+    expect(within(dialog).queryByText(es.cloud.whatRows(1))).toBeNull();
+    expect(en.cloud.whatRowsUndated(1)).toMatch(/^For the 1 row Tend could not sort:/);
+    expect(en.cloud.whatRowsUndated(4)).toMatch(/^For all 4 rows .* rows from before it happened go too/);
+    expect(en.cloud.whatRows(1)).toMatch(/^For the 1 row Tend could not sort, from the date it happened on/);
+  });
+
+  it("says a bill goes whole, with everything printed on it", () => {
+    render(
+      <I18nProvider initial="en">
+        <CloudConsent ask={{ kind: "bill", label: "bill.jpg" }} onNo={vi.fn()} onYes={vi.fn()} />
+      </I18nProvider>,
+    );
+    const dialog = screen.getByRole("dialog");
+    expect(within(dialog).getByText(en.cloud.whatBill)).toBeTruthy();
+    expect(en.cloud.whatBill).toMatch(/your name, your address, your account numbers/);
+    expect(within(dialog).getByText(en.cloud.stayBill)).toBeTruthy();
+    expect(en.cloud.stayBill).not.toMatch(/anything about you/);
   });
 
   // Gemini's free tier lets Google keep and read what is sent, so a bill's consent says so before the yes.
@@ -620,19 +719,59 @@ describe("cloud AI consent", () => {
     expect(classify.mock.calls[1][2]).toEqual({ cloudConsent: true });
     expect(await screen.findByText(en.cloud.sorted(1))).toBeTruthy();
   });
+
+  it("does not count a payment to a person among the rows it offers to send", () => {
+    const row = (id: string, description: string): FlowItem => ({
+      item_id: `stmt:s:${id}`,
+      date: "2026-06-20",
+      amount_cents: 2000,
+      expense: "unknown",
+      confirmed: false,
+      insurance_paid_cents: 0,
+      is_bill: false,
+      units: 0,
+      unit: null,
+      tags: [],
+      description,
+      source: "rule",
+      reason: "",
+      confidence: 0,
+      origin: "statement",
+    });
+    const source: SourceRecord = {
+      id: "stmt:s",
+      kind: "statement",
+      label: "s.csv",
+      read: 3,
+      found: 3,
+      warnings: [],
+      sample: false,
+    };
+    const items = [
+      row("1", "ODD SHOP"),
+      row("2", "VENMO PAYMENT JANE DOE"),
+      row("3", "APPLE CASH SENT MONEY JANE DOE"),
+    ];
+    const state = reducer(stateFrom([MI_CHECK]), { type: "addSource", source, items });
+    expect(unsortedRows(state, "stmt:s", "2026-10-19")).toBe(1);
+  });
 });
 
 describe("Track", () => {
+  // Washington's general rule (WA-DEADLINE-1) counts from the report; the engine flags it too.
   it("repeats Check's note when the law counts the deadline from the report", async () => {
-    const state = stateFrom([MI_CHECK]);
+    const state = stateFrom([{ type: "check", patch: { st: "WA", date: "2026-06-14", exam: "yes", police: "yes" } }]);
     const services = testServices({
       evaluate: vi.fn(async (input) => {
         const out = michiganOutput(input);
+        const deadline = {
+          status: "ok" as const,
+          deadline_date: "2031-06-14",
+          rule_ids: ["WA-DEADLINE-1", "WA-DEADLINE-2"],
+          flags: ["deadline_from_report"],
+        };
         return {
-          output: {
-            ...out,
-            checks: { ...out.checks, deadline: { ...out.checks.deadline, flags: ["deadline_from_report"] } },
-          },
+          output: { ...out, jurisdiction: "WA", checks: { ...out.checks, deadline } },
           backend: "wasm" as const,
           detail: "test",
         };
@@ -640,6 +779,7 @@ describe("Track", () => {
     });
     renderFlow(<TrackScreen />, { services, initial: state });
     expect(await screen.findByText(en.check.deadlineFromReport)).toBeTruthy();
+    expect(screen.getByText(en.check.deadlineDate("June 13, 2029"))).toBeTruthy();
   });
 
   it("says nothing extra when the deadline counts from the day it happened", async () => {
@@ -678,11 +818,14 @@ describe("Track", () => {
 
   // The bar drops the box's long notes, so a late date that may count from the report or from
   // discovery would read as plainly late there without a short form of them (docs/SPEC.md v1.3).
+  // Without the law IR, the engine's own date and flags are what the flow has.
   it.each([
     [["deadline_from_discovery"], "The usual deadline was June 14, 2025. You may have more time.", false],
     [["deadline_from_report"], "The usual deadline was June 14, 2025. You may have more time.", false],
     [[], "The usual deadline was June 14, 2025.", true],
   ])("keeps a late deadline's caveat in the bar (flags %j)", async (flags, text, plainlyLate) => {
+    resetLawCacheForTests();
+    stubLawFetch({ ir: false });
     let report: ((entry: { isIntersecting: boolean; boundingClientRect: { top: number } }) => void) | null = null;
     vi.stubGlobal(
       "IntersectionObserver",

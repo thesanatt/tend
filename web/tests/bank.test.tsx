@@ -277,9 +277,12 @@ describe("the program's demo payment", () => {
     expect(screen.getByText("It is not real money. The program decides what it pays, and when.")).toBeTruthy();
     expect(screen.getAllByRole("img", { name: /^Bloom: / })).toHaveLength(2);
     expect(screen.getAllByText("Paid in the demo")).toHaveLength(2);
+    // The tally never calls a demo bloom paid by the program.
+    expect(screen.getByText(/The program decides\. In bloom in the demo, not real money: \$80\.00\./)).toBeTruthy();
+    expect(screen.queryByText(/paid by the program/)).toBeNull();
     const [[, init]] = calls(fetch, "/payout", "POST");
     expect(JSON.parse(String(init?.body))).toEqual({ st: "MI", amount_cents: 8000 });
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("undoes the demo payment in the bank and in the garden", async () => {
@@ -332,7 +335,7 @@ describe("the program's demo payment", () => {
     );
     fireEvent.click(await screen.findByRole("button", { name: /when the program pays \(demo\)/ }));
     await screen.findByRole("alert");
-    expect(screen.getByText("On this device, except what you chose to send: a payment.")).toBeTruthy();
+    expect(screen.getByText("On this device, except: the state you picked and a payment.")).toBeTruthy();
   });
 
   it("says why when the bank refuses, and nothing blooms", async () => {
@@ -379,12 +382,15 @@ describe("the bank records panel", () => {
     expect(within(panel).getByText("Michigan Crime Victim Compensation, demo payment")).toBeTruthy();
     expect(within(panel).getByText("The API calls behind this view (2)")).toBeTruthy();
     expect(within(panel).getByText(`GET /accounts/${ROWAN_ACCOUNT.id}/purchases`)).toBeTruthy();
-    expect(screen.getByText("On this device, except what you chose to send: a request to the bank.")).toBeTruthy();
+    expect(
+      screen.getByText("On this device, except: the state you picked and a request to the demo bank."),
+    ).toBeTruthy();
     fireEvent.click(within(panel).getByRole("button", { name: "Read them again" }));
     await waitFor(() => expect(calls(fetch, "/activity")).toHaveLength(2));
     // The panel's own report and the net log's are one send in the list, not two or three.
     fireEvent.click(screen.getByRole("button", { name: /What stays here/ }));
-    expect(await screen.findAllByText(/a request to the bank for your transactions\./)).toHaveLength(1);
+    const sent = await screen.findAllByText(/a request to the demo bank for the fictional account's records\./);
+    expect(sent).toHaveLength(1);
   });
 
   it("says so when Tend is not connected to the demo bank", async () => {

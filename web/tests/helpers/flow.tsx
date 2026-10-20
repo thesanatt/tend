@@ -117,17 +117,20 @@ export const MI_CHECK: Action = {
   patch: { st: "MI", date: "2026-06-14", exam: "yes", police: "not_yet" },
 };
 
-function lawFile(url: string) {
-  const st = /^\/data\/law\/([A-Z]{2})\.json$/.exec(url)?.[1];
-  const file = st ? path.join(web, "public/data/law", `${st}.json`) : null;
+function lawFile(url: string, ir: boolean) {
+  const [, dir, st] = /^\/data\/(law|ir)\/([A-Z]{2})\.json$/.exec(url) ?? [];
+  if (dir === "ir" && !ir) return null;
+  const file = st ? path.join(web, "public/data", dir, `${st}.json`) : null;
   return file && existsSync(file) ? readFileSync(file) : null;
 }
 
-// Serves each state's law file, as the site does; everything else (the API probe) is "not found", so
-// no server exists.
-export function stubLawFetch() {
+// Serves each state's law file and law IR, as the site does; everything else (the API probe) is "not
+// found", so no server exists. With ir false the IR is missing too, and the flow falls back to the
+// engine's own deadline date and flags (lib/deadline.ts). The IR is cached per page
+// (lib/api.ts fetchLawIr), so a test that changes this calls resetLawCacheForTests first.
+export function stubLawFetch({ ir = true }: { ir?: boolean } = {}) {
   const fn = vi.fn(async (url: string) => {
-    const body = lawFile(url);
+    const body = lawFile(url, ir);
     return body
       ? new Response(body, { status: 200, headers: { "content-type": "application/json" } })
       : new Response("not found", { status: 404, headers: { "content-type": "text/html" } });

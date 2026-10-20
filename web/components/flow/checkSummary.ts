@@ -2,6 +2,7 @@
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
 import { clothingCondition, type ClothingCondition } from "@/lib/cite";
+import { generalDeadline, generalSpan, type LawIr } from "@/lib/deadline";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -27,17 +28,31 @@ export interface CoveredCost {
   condition: ClothingCondition | null;
 }
 
+// The date shown is the general deadline (lib/deadline.ts), or the engine's own date when Tend has no
+// general rule or no law IR to date it. The engine's check stays the longest rule, so `open` can be
+// true when the shown date has passed: some cases have until `longer`.
 export type DeadlineFact =
   | {
       kind: "date";
       date: string;
-      late: boolean;
+      late: boolean; // the shown date has passed
+      open: boolean; // the engine's check is still ok
+      longer: string | null;
+      // The rule behind the shown date counts from the report or from discovery.
       fromReport: boolean;
       fromDiscovery: boolean;
-      canExtend: boolean;
+      // Another rule does (lib/deadline.ts), so a passed date may not be late.
+      laterElsewhere: boolean;
       ruleIds: string[];
     }
-  | { kind: "span"; years: number | null; months: number | null; days: number | null; ruleIds: string[] }
+  | {
+      kind: "span";
+      years: number | null;
+      months: number | null;
+      days: number | null;
+      longer: boolean; // another deadline rule allows more time
+      ruleIds: string[];
+    }
   | { kind: "unknown"; ruleIds: string[] }
   | { kind: "none" };
 
@@ -177,17 +192,11 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
   });
 }
 
-function longestSpan(rules: Rule[]): { years: number | null; months: number | null; days: number | null } | null {
-  let best: { years: number | null; months: number | null; days: number | null; total: number } | null = null;
-  for (const r of rules) {
-    const years = num(r.params?.years);
-    const months = num(r.params?.months);
-    const days = num(r.params?.days);
-    const total = (years ?? 0) * 365 + (months ?? 0) * 30 + (days ?? 0);
-    if (!total) continue;
-    if (!best || total > best.total) best = { years, months, days, total };
-  }
-  return best ? { years: best.years, months: best.months, days: best.days } : null;
+// The law IR (lib/deadline.ts) and today in the state's time, for the general deadline. Without the
+// IR, the deadline is the engine's own date.
+export interface SummaryContext {
+  ir?: LawIr | null;
+  asOf?: string;
 }
 
 export function buildCheckSummary(
@@ -196,29 +205,51 @@ export function buildCheckSummary(
   check: CheckAnswers,
   knowsDate: boolean,
   setAside: Set<string> = new Set(),
+  { ir = null, asOf }: SummaryContext = {},
 ): CheckSummary {
   const byCat = (c: string) => law.rules.filter((r) => r.category === c);
-  const byId = new Map(law.rules.map((r) => [r.id, r]));
 
   let deadline: DeadlineFact = { kind: "none" };
   const d = output?.checks.deadline;
-  const deadlineRules = (d?.rule_ids ?? []).map((id) => byId.get(id)).filter((r): r is Rule => Boolean(r));
   if (d && d.rule_ids.length) {
-    const flags = (d as { flags?: string[] }).flags ?? [];
-    const canExtend = byCat("filing_deadline").some((r) => typeof r.params?.extension === "string");
+    const flags = d.flags ?? [];
     if (knowsDate && d.deadline_date && (d.status === "ok" || d.status === "late")) {
-      deadline = {
-        kind: "date",
-        date: d.deadline_date,
-        late: d.status === "late",
-        fromReport: flags.includes("deadline_from_report"),
-        fromDiscovery: flags.includes("deadline_from_discovery"),
-        canExtend,
-        ruleIds: d.rule_ids,
-      };
+      const general = ir && asOf ? generalDeadline(law, ir, check.date, d) : null;
+      deadline = general
+        ? {
+            kind: "date",
+            date: general.date,
+            late: general.date < asOf!,
+            open: d.status === "ok",
+            longer: general.longer,
+            fromReport: general.fromReport,
+            fromDiscovery: general.fromDiscovery,
+            laterElsewhere: general.laterElsewhere,
+            ruleIds: general.ruleIds,
+          }
+        : {
+            kind: "date",
+            date: d.deadline_date,
+            late: d.status === "late",
+            open: d.status === "ok",
+            longer: null,
+            fromReport: flags.includes("deadline_from_report"),
+            fromDiscovery: flags.includes("deadline_from_discovery"),
+            laterElsewhere: false,
+            ruleIds: d.rule_ids,
+          };
     } else {
-      const span = longestSpan(deadlineRules);
-      deadline = span ? { kind: "span", ...span, ruleIds: d.rule_ids } : { kind: "unknown", ruleIds: d.rule_ids };
+      const span = generalSpan(law, ir, d);
+      deadline = span
+        ? {
+            kind: "span",
+            years: span.years,
+            months: span.months,
+            days: span.days,
+            longer: span.longer,
+            ruleIds: span.ruleIds,
+          }
+        : { kind: "unknown", ruleIds: d.rule_ids };
     }
   } else if (byCat("filing_deadline").length) {
     deadline = { kind: "unknown", ruleIds: byCat("filing_deadline").map((r) => r.id) };
@@ -303,13 +334,4 @@ export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | nul
     cap.countLimit && cap.countUnit ? t.countLimit(cap.countUnit, cap.countLimit) : null,
   ].filter((p): p is string => Boolean(p));
   return parts.length ? parts.join(", ") : null;
-}
-
-export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict, f: Formatters): string {
-  const parts = [
-    d.years ? t.units.years(d.years) : null,
-    d.months ? t.units.months(d.months) : null,
-    d.days ? t.units.days(d.days) : null,
-  ].filter((p): p is string => Boolean(p));
-  return f.and(parts);
 }

@@ -9,6 +9,7 @@ import type { EngineOutput } from "@/lib/types";
 import { useI18n, useSummary, type Dict } from "@/lib/i18n";
 import { useLaw, type LawIndex } from "@/lib/useLaw";
 import { localDay } from "@/lib/dates";
+import { FORM_SPECS } from "@/lib/packet/specs";
 import STATES from "@/lib/states.json";
 import { paidLines } from "../claim";
 import Cite from "../Cite";
@@ -144,6 +145,7 @@ export default function PacketScreen() {
   // The state is known before its law loads, so the form's sentence never reads "'s own form".
   const stateName = law.law?.name ?? STATES.find((s) => s.st === state.check.st)?.name ?? state.check.st;
   const have = (c: ChecklistItem) => state.have[`${c.document}:${c.rule_id}`] ?? c.have_it;
+  const fillable = Boolean(FORM_SPECS[state.check.st]);
 
   return (
     <div className={styles.packet}>
@@ -184,8 +186,13 @@ export default function PacketScreen() {
       <ol className={styles.packetParts}>
         <li className={styles.part} aria-labelledby="part-form">
           <h2 id="part-form">{t.packet.formTitle}</h2>
-          <p>{t.packet.formBody(stateName)}</p>
-          <p className={styles.onlyYou}>{t.packet.onlyYou}</p>
+          {/* Only a state with a form spec has its form filled in (Michigan today). */}
+          {fillable ? (
+            <>
+              <p>{t.packet.formBody(stateName)}</p>
+              <p className={styles.onlyYou}>{t.packet.onlyYou}</p>
+            </>
+          ) : null}
           {formUrl ? (
             <a href={formUrl} download={`${state.check.st}-application.pdf`} className="btn btn-primary">
               {t.packet.formDownload}

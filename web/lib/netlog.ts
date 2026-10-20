@@ -1,7 +1,8 @@
 // What actually left this page, seen where every request passes: window.fetch. The privacy line
 // is built from these, so it can only say what was really sent (docs/PRIVACY.md). Loading the app
-// and the public law (GETs of pages, scripts, law files, the forms) is not a send. A request that
-// fails before it reaches any network (the device is offline) sent nothing and is not reported.
+// and the public law (GETs of pages, scripts, law files, the forms) is not a send, though a law file
+// is named for its state, which the line says once a state is picked (PrivacyLine). A request that
+// fails while the device is offline sent nothing and is not reported.
 
 export type NetKind =
   | "payment_setup" // the amount, account, and payee, to get a confirm code
@@ -25,6 +26,8 @@ export interface NetSend {
   to?: string;
   action_id?: string;
   dry_run?: boolean;
+  // A payment with no clear answer (a server error or none at all): it may have reached the bank.
+  unsure?: boolean;
 }
 
 type Listener = (send: NetSend) => void;
@@ -119,6 +122,17 @@ async function details(kind: NetKind, sent: Record<string, unknown> | null, res:
   return out;
 }
 
+// The API's word that a payment failed before any money could move (maybe_applied false). Without
+// it, a server error on a payment may have gone through.
+async function nothingMoved(res: Response): Promise<boolean> {
+  try {
+    const body = (await res.clone().json()) as { maybe_applied?: unknown } | null;
+    return body?.maybe_applied === false;
+  } catch {
+    return false;
+  }
+}
+
 // No network at all: the browser says it is offline. Such a request never left the device.
 export function offline(): boolean {
   return typeof navigator !== "undefined" && navigator.onLine === false;
@@ -153,19 +167,23 @@ export function installNetLog(target: typeof globalThis = globalThis): void {
     };
     try {
       const res = await real(input, init);
-      // A confirm the service refused (a wrong or used code) moved nothing new off the device.
-      if (!(kind === "payment" && res.status >= 400 && res.status < 500)) {
+      // A confirm the service refused (a wrong or used code), or one the bank refused before any money
+      // moved, sent nothing new off the device: the amount and payee went with the code request.
+      const refused = kind === "payment" && res.status >= 400 && (res.status < 500 || (await nothingMoved(res)));
+      if (!refused) {
         const extra = await details(kind, sent, res);
-        emit({ ...base, ...extra, status: res.status, at: new Date().toISOString() });
+        const unsure = kind === "payment" && res.status >= 500 ? { unsure: true } : {};
+        emit({ ...base, ...extra, ...unsure, status: res.status, at: new Date().toISOString() });
       }
       return res;
     } catch (err) {
-      // Offline, or refused before any answer: nothing reached a server. A request that timed out
-      // or was cut off after it went may have arrived, so it is reported.
-      const name = (err as { name?: string })?.name;
-      if (!wasOffline && !offline() && (name === "AbortError" || name === "TimeoutError")) {
+      // Offline: nothing reached a server. Online, a request that failed with no answer (a timeout, a
+      // dropped connection, a TypeError) may have arrived first, so it is reported. A line too many is
+      // the safe mistake.
+      if (!wasOffline && !offline()) {
         const extra = await details(kind, sent, null);
-        emit({ ...base, ...extra, status: null, at: new Date().toISOString() });
+        const unsure = kind === "payment" ? { unsure: true } : {};
+        emit({ ...base, ...extra, ...unsure, status: null, at: new Date().toISOString() });
       }
       throw err;
     }

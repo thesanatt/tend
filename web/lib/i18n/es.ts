@@ -59,21 +59,27 @@ export const es: Dict = {
   privacy: {
     quiet: "En este dispositivo. No ha salido nada desde que se abrió esta página.",
     here: "En este dispositivo.",
-    sent: (parts: string) => `En este dispositivo, salvo lo que decidiste enviar: ${parts}.`,
+    quietState: "En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley.",
+    sent: (parts: string) => `En este dispositivo, salvo: ${parts}.`,
+    partState: "el estado que elegiste",
+    stateLine: "El estado que elegiste, al servidor de Tend, para traer su ley.",
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
-    partBank: "una consulta al banco",
+    partBank: "una consulta al banco de demostración",
     partServer: "tu solicitud, para revisar la ley en el servidor de Tend",
     partSetup: (n: number) => (n === 1 ? "un pago que empezaste" : `${n} pagos que empezaste`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}. Se envió al banco.`,
+    eventPaymentUnsure: (amount: string, to: string, when: string) =>
+      `${when}: tu sí a un pago de ${amount} a ${to}, al servidor de Tend. No llegó una respuesta clara, así que el pago pudo haber llegado al banco.`,
     eventShare: (when: string) =>
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
-    eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
+    eventBank: (when: string) =>
+      `${when}: una consulta al banco de demostración para ver los registros de la cuenta ficticia.`,
     eventSetup: (amount: string, to: string, when: string) =>
-      `${when}: el monto ${amount} y el destinatario ${to}, para recibir un código de confirmación. No se movió dinero.`,
+      `${when}: el monto ${amount}, la cuenta y el destinatario ${to}, al servidor de Tend para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>
-      `${when}: tus respuestas y gastos, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley.`,
+      `${when}: tu estado, la fecha, tus respuestas y cada gasto con su fecha, su monto y su tipo, al servidor de Tend para revisar la ley, porque este navegador no pudo usar el motor de la ley. Se envían otra vez cada vez que algo cambia.`,
     partCloudRows: "filas para que la IA en la nube las clasifique",
     partCloudBill: (n: number) =>
       n === 1 ? "una factura para que la IA en la nube la lea" : `${n} facturas para que la IA en la nube las lea`,
@@ -82,7 +88,7 @@ export const es: Dict = {
     eventPaymentDry: (amount: string, to: string, when: string) =>
       `${when}: un pago de ${amount} a ${to}, al servidor de Tend. Fue una prueba, así que no se envió al banco.`,
     eventCloudRows: (when: string) =>
-      `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el comercio, su categoría y la descripción. Sin montos ni fechas.`,
+      `${when}: filas que Tend no pudo clasificar, a la IA en la nube, porque dijiste que sí. Solo el tipo de transacción, el comercio, su categoría y la descripción, después de que Tend intentó quitar las fechas, los montos y otros números.`,
     eventCloudBill: (when: string) => `${when}: un archivo de factura, a la IA en la nube, porque dijiste que sí.`,
     eventOther: (path: string, when: string) => `${when}: una solicitud a ${path}.`,
     eventKept: (what: string, when: string) =>
@@ -90,8 +96,8 @@ export const es: Dict = {
     more: "Qué se queda aquí",
     sheetTitle: "Qué se queda en este dispositivo",
     facts: [
-      "Tus respuestas, tus gastos y tus archivos se quedan en este navegador. Tend lee aquí los estados de cuenta y las facturas, y el motor de la ley funciona aquí.",
-      "Algo sale solo cuando tú decides enviarlo: un pago que confirmas o un paquete que compartes. Un paquete compartido se protege antes de salir, y la clave se queda en el enlace.",
+      "Tus respuestas, tus gastos y tus archivos se quedan en este navegador, a menos que decidas enviarlos. Hay una excepción: Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tend lee aquí los estados de cuenta y las facturas, y el motor de la ley funciona aquí.",
+      "Todo lo demás sale solo cuando tú decides enviarlo: un pago que empiezas o confirmas, un paquete que compartes o una consulta para ver los registros del banco de demostración. Si dices que sí, unas filas o una factura pueden ir a la IA en la nube, y tu solicitud puede ir al servidor de Tend si este navegador no puede usar el motor de la ley. Un paquete compartido se protege antes de salir, y la clave se queda en el enlace.",
       "Tend nunca pregunta qué pasó, dónde ni quién.",
       "Si guardas, tu progreso queda protegido con Touch ID o un código. Usa Salir de esta página, o presiona Esc dos veces, para salir rápido.",
     ],
@@ -104,12 +110,12 @@ export const es: Dict = {
     onServer: "Cálculo de la ley: en el servidor de Tend, con tu permiso",
     offlineReady: "Guardado en este dispositivo, así que los pasos funcionan sin internet.",
     offlineNow:
-      "No tienes conexión. Todos los pasos siguen funcionando aquí. Los pagos y los enlaces para compartir esperan a que haya internet.",
+      "No tienes conexión. Todos los pasos siguen funcionando aquí. Los pagos y los enlaces para compartir necesitan internet.",
     computing: "Revisando la ley en este dispositivo",
     error: "Tend no pudo revisar la ley en este momento.",
     consentTitle: "¿Revisar en el servidor de Tend?",
     consentBody:
-      "Este navegador no pudo usar el motor de la ley. Tend puede revisar en su servidor. Eso envía tu estado, la fecha, tus respuestas y los gastos que confirmes. Sin nombres y nada más.",
+      "Este navegador no pudo usar el motor de la ley. Tend puede revisar en su servidor. Eso envía tu estado, la fecha, tus respuestas y cada gasto que Tend encontró y al que no le dijiste que no, con su fecha, su monto y su tipo. Eso incluye las suposiciones que aún no respondiste y las filas que Tend no pudo clasificar. Las palabras de tu banco o de tu factura no se envían, así que los nombres que aparecen en ellas se quedan aquí. Se envía otra vez cada vez que algo cambia. El servidor de Tend lo revisa y no lo guarda.",
     consentYes: "Revisar en el servidor",
     consentNo: "Si prefieres no hacerlo, intenta más tarde o en otro navegador.",
   },
@@ -129,14 +135,15 @@ export const es: Dict = {
     lock: "Bloquear ahora",
     sheetTitle: "Guarda tu progreso",
     sheetLead:
-      "Tend guarda tu progreso en este navegador, protegido. Solo tú puedes abrirlo. No se envía nada a ningún lugar.",
+      "Tend guarda tu progreso en este navegador, protegido, y no lo envía a ningún lugar. Si lo proteges con Touch ID o el bloqueo de pantalla, cualquiera que pueda desbloquear este dispositivo puede abrirlo. Si usas un código, cualquiera que lo sepa puede abrirlo.",
     replaces: "Esto reemplaza el progreso que guardaste antes.",
     passkey: "Proteger con Touch ID o bloqueo de pantalla",
-    passkeyHint: "Tu dispositivo te pedirá tu huella, tu cara o tu bloqueo de pantalla.",
+    passkeyHint:
+      "Tu dispositivo te pedirá tu huella, tu cara o tu bloqueo de pantalla. También guarda en su lista de contraseñas una llave de acceso llamada Tend para este sitio. Puede copiarse a tus otros dispositivos y se queda ahí aunque borres tu progreso aquí.",
     orPasscode: "O usa un código",
     passcodeLabel: "Código",
     passcodeHint: (n: number) =>
-      `Al menos ${n} caracteres. Tend no puede recuperarlo, así que elige uno que vayas a recordar.`,
+      `Al menos ${n} caracteres. Tend no puede recuperarlo, así que elige uno que vayas a recordar. Si tu navegador ofrece guardarlo, cualquiera que use este navegador podría rellenarlo.`,
     passcodeShort: (n: number) => `Usa al menos ${n} caracteres.`,
     savePasscode: "Guardar con este código",
     saving: "Guardando",
@@ -216,7 +223,7 @@ export const es: Dict = {
 
   check: {
     title: "Mira lo que tu estado puede pagar",
-    lead: "Cuatro preguntas. Responde lo que puedas. Siempre puedes decir que no sabes. Tus respuestas se quedan en este dispositivo.",
+    lead: "Cuatro preguntas. Responde lo que puedas. Siempre puedes decir que no sabes. Tend le pide a su servidor la ley del estado que elijas, así que el servidor puede saber qué estado es. Tus otras respuestas se quedan en este dispositivo, a menos que decidas enviarlas.",
     never: "Tend nunca pregunta qué pasó, dónde ni quién.",
     stateLabel: "¿En qué estado pasó?",
     stateHint: "El programa de ese estado se encarga, aunque vivas en otro lugar.",
@@ -243,17 +250,22 @@ export const es: Dict = {
     subjectExam: "Facturas del examen forense",
     subjectTotal: "El límite total",
     subjectAcp: "Mantener tu dirección privada",
-    subjectRecords: "Registros confidenciales",
+    subjectRecords: "Mantener privados los registros de la solicitud",
     deadlineDate: (date: string) => `Presenta la solicitud a más tardar el ${date}.`,
     deadlineLate: (date: string) => `El plazo normal era el ${date}.`,
     deadlineLeft: (span: string) => `Faltan ${span}.`,
-    deadlineExtend: "El programa puede extenderlo por una causa justificada, así que vale la pena preguntar.",
     deadlineAsk: "Pregunta al programa. Algunos hacen excepciones.",
+    deadlineLonger: (date: string) => `En algunos casos hay plazo hasta el ${date}. La regla dice cuándo.`,
+    deadlineLongerAsk: (date: string) =>
+      `En algunos casos hay plazo hasta el ${date}. Pregunta al programa si el tuyo es uno de ellos.`,
     deadlineFromReport:
       "Esta fecha se cuenta desde el día en que pasó. La ley la cuenta desde tu denuncia, así que podrías tener más tiempo.",
     deadlineFromDiscovery:
       "Este plazo puede contarse desde que se descubrió el delito, y eso puede ser después de la fecha en que pasó. El programa decide.",
+    deadlineLaterElsewhere:
+      "Otra regla de este estado cuenta desde un día posterior, como la denuncia o cuando se descubrió. Pregunta al programa si te aplica.",
     deadlineSpan: (span: string) => `Tienes ${span} desde la fecha en que pasó para presentar la solicitud.`,
+    deadlineSpanLonger: "En algunos casos hay más tiempo. La regla dice cuándo.",
     deadlineSpanNote: "Agrega la fecha arriba para ver el día exacto.",
     deadlineUnknown:
       "Tend no pudo convertir el plazo de este estado en una fecha. Lee la regla o pregunta al programa.",
@@ -281,13 +293,13 @@ export const es: Dict = {
     },
     totalCap: (amount: string) => `En total, hasta ${amount}`,
     totalCapDepends: (amounts: string) =>
-      `En total, hasta ${amounts}, según su caso. La regla dice cuándo se aplica cada uno`,
+      `En total, hasta ${amounts}, según tu caso. La regla dice cuándo se aplica cada uno`,
     privateTitle: "Tu privacidad ante el estado",
     acp: (name: string) => `${name} da a sobrevivientes una dirección sustituta para usar en formularios del gobierno.`,
     acpMaybe: (name: string) =>
-      `${name} da a algunas personas una dirección sustituta para formularios del gobierno. Pregunta si te incluye.`,
+      `${name} cubre solo a algunas personas, y su regla no menciona a sobrevivientes de agresión sexual. Pregunta al programa si te incluye.`,
     acpGeneric: "El programa de confidencialidad de domicilio de este estado",
-    records: "La ley mantiene confidenciales tus registros de compensación.",
+    records: "Algunos registros de compensación se mantienen privados. La regla dice cuáles y cuándo.",
     programTitle: "El programa",
     phone: "Teléfono",
     website: "Sitio web",
@@ -301,7 +313,8 @@ export const es: Dict = {
     notTodayBack: "Puedes volver cuando quieras.",
     notTodayDeadline: (name: string, date: string) => `En ${name}, el plazo normal es el ${date}.`,
     notTodaySaved: "Tu progreso guardado sigue protegido en este dispositivo.",
-    notTodayNotSaved: "No se queda nada en este dispositivo a menos que lo guardes.",
+    notTodayNotSaved:
+      "Al cerrar Tend, tus respuestas se borran a menos que las guardes. El historial de tu navegador sigue mostrando este sitio. Una ventana privada no guarda historial.",
   },
 
   per: {
@@ -379,7 +392,7 @@ export const es: Dict = {
     medical: (n: number) => `los ${n} cargos médicos`,
     forensic_exam: (n: number) => `los ${n} cargos del examen`,
     counseling: (n: number) => `las ${n} sesiones de consejería`,
-    lost_wages: (n: number) => `los ${n} pagos más bajos`,
+    lost_wages: (n: number) => `los ${n} sueldos reducidos`,
     transportation: (n: number) => `los ${n} viajes`,
     relocation: (n: number) => `los ${n} gastos de mudanza`,
     temporary_housing: (n: number) => `las ${n} estadías`,
@@ -576,8 +589,10 @@ export const es: Dict = {
       `Las reglas verificadas de ${state} no tienen una regla sobre el cobro del examen, así que Tend trata una línea de examen como otra atención médica.`,
     restTitle: (amount: string) => `El resto: ${amount}`,
     paid: (amount: string, payee: string, when: string) => `Pagaste ${amount} a ${payee} (${when}).`,
-    eitherWay: "Las dos opciones están bien. El programa te puede reembolsar estos gastos, los pagues ahora o no:",
+    eitherWay:
+      "Las dos opciones están bien. La ley menciona estos gastos, así que puedes pedírselos al programa, los pagues ahora o no:",
     notSent: (amount: string) => `El pago de ${amount} no se envió.`,
+    failed: (amount: string) => `El pago de ${amount} no se hizo. No se movió dinero.`,
     unverified: (amount: string) =>
       `El pago de ${amount} pudo haberse hecho. Revisa la cuenta antes de pagar otra vez.`,
     payNow: (amount: string, account: string) =>
@@ -646,7 +661,7 @@ export const es: Dict = {
       "El banco de prueba solo acepta pagos en dólares enteros, así que Tend no puede pagar este monto desde aquí. Puedes dejarlo sin pagar y reclamarlo.",
     notDemoAccount: "El banco aquí solo acepta pagos desde la cuenta de prueba. No se envió nada.",
     alreadyPaid:
-      "El banco ya muestra un pago de Tend para estas líneas de esta factura, así que esta vez no se envió nada. Tus registros del banco lo muestran.",
+      "El banco de demostración ya muestra un pago de Tend para estas líneas, así que esta vez no se envió nada. Todas las personas que prueban la demostración pagan desde esta misma cuenta ficticia, y el pago anterior puede ser de otra persona. Puedes seguir con tu paquete.",
     billRefused: "Este monto no coincide con lo que aún se puede pagar en la copia del banco de esta factura. No se envió nada.",
     codeWrong: "Ese código no coincide. Revisa los seis dígitos e inténtalo de nuevo.",
     codeExpired: "Este código venció o ya se usó. Pide otro código para intentarlo de nuevo.",
@@ -655,6 +670,7 @@ export const es: Dict = {
     bankUnsure:
       "El banco no dio una respuesta clara, así que este pago pudo haberse hecho. Revisa la cuenta antes de intentarlo de nuevo.",
     confirmFailed: "El pago no se completó. No se envió nada.",
+    bankRefused: "El pago no se completó y no se movió dinero. Pide otro código para intentarlo de nuevo.",
     offline:
       "No tienes conexión, así que esto no llegó al banco. No se envió nada. Conéctate a internet e inténtalo de nuevo.",
     retry: "Intentar de nuevo",
@@ -687,11 +703,12 @@ export const es: Dict = {
     onlyYou: "Solo tú llenas esto: tu nombre, tu firma, qué pasó, quién, dónde y tu número de Seguro Social.",
     formDownload: "Descargar el formulario llenado",
     formBlank:
-      "Tend todavía no puede llenar el formulario de este estado. Aquí está el formulario en blanco del programa.",
+      "Tend todavía no puede llenar el formulario de este estado, así que tú lo llenas completo. Aquí está el formulario en blanco del programa.",
     formBlankLink: "Abrir el formulario del programa",
     formNone: "Tend no encontró un formulario para este estado. El programa te puede enviar uno.",
     summaryTitle: "Resumen con citas",
-    summaryBody: "Cada gasto con su monto, el registro de donde viene y las palabras exactas de la ley.",
+    summaryBody:
+      "Cada gasto que cuenta, y cualquier línea de factura que Tend retuvo, con su monto, el registro de donde viene y las palabras exactas de la ley. Los gastos que no cuentan se quedan fuera.",
     summaryDownload: "Descargar el resumen (PDF)",
     summaryShow: (n: number) => (n === 1 ? "Mostrar la línea aquí" : `Mostrar las ${n} líneas aquí`),
     colCost: "Gasto",
@@ -707,7 +724,7 @@ export const es: Dict = {
       "Tend no encontró una dirección para presentar la solicitud en las reglas verificadas. Llama al programa.",
     shareTitle: "Compartir con una persona de apoyo",
     shareBody:
-      "Una persona de apoyo puede leer este paquete sin ver tu cuenta de banco. Se protege en este dispositivo antes de salir, y solo el enlace lo puede abrir.",
+      "Una persona de apoyo ve los gastos que Tend encontró, incluso las suposiciones que aún esperan tu sí y las compras que Tend no pudo clasificar, cada uno con su fecha, su monto y la descripción de tu banco o de la factura. Las filas a las que dijiste que no, tu saldo y el resto de tu cuenta se quedan fuera. Se protege en este dispositivo antes de salir, y solo el enlace lo puede abrir.",
     sentTitle: "Cuando lo envíes",
     sentBody:
       "Tend no presenta nada. Cuando tú envíes tu solicitud al programa, márcalo aquí y tu jardín empieza a dar capullos.",
@@ -761,8 +778,13 @@ export const es: Dict = {
     titleBill: "¿Leer esta factura con IA en la nube?",
     whatTitle: "Qué sale de este dispositivo",
     whatRows: (n: number) =>
-      `De las ${n} filas que Tend no pudo clasificar, desde la fecha en que pasó: el tipo de transacción, el comercio, su categoría y la descripción. Antes, Tend quita los números de tarjeta y de referencia, las fechas, los montos, los teléfonos, los correos y el nombre en una línea de una app de pagos.`,
-    whatBill: "Este archivo de factura, tal como está: la foto o el PDF.",
+      `De ${n === 1 ? "la fila" : `las ${n} filas`} que Tend no pudo clasificar, desde la fecha en que pasó: el tipo de transacción, el comercio, su categoría y la descripción.`,
+    whatRowsUndated: (n: number) =>
+      `De ${n === 1 ? "la fila" : `las ${n} filas`} que Tend no pudo clasificar: el tipo de transacción, el comercio, su categoría y la descripción. No diste una fecha, así que también se envían las filas de antes de lo que pasó. Si sabes la fecha, ponla en Revisar y esas filas se quedan aquí.`,
+    scrub:
+      "Antes, Tend intenta quitar los números de tarjeta y de referencia, las fechas, los montos, los teléfonos y los correos. Busca las formas usuales en que los bancos los escriben, así que uno escrito de otra forma todavía puede enviarse. Un nombre o una ciudad en una fila también puede enviarse, como un nombre en una línea de PayPal.",
+    whatBill:
+      "Este archivo de factura, tal como está: la foto o el PDF completo, con todo lo que tiene impreso, como tu nombre, tu dirección, tus números de cuenta y la atención que recibiste.",
     whoTitle: "Quién lo recibe",
     whoRows:
       "El servidor de Tend, que le pide a Gemini de Google elegir un tipo de gasto para cada fila. El servidor de Tend no guarda una copia.",
@@ -774,8 +796,9 @@ export const es: Dict = {
     googleBill:
       "Tend usa el servicio gratuito de Gemini de Google. Según sus términos, Google puede guardar lo que se envía, usarlo para mejorar sus productos y dejar que personas de Google lo lean. Una factura puede mostrar tu nombre, tu dirección y la atención que recibiste. Si no quieres que Google tenga eso, di que no.",
     stayTitle: "Qué se queda aquí",
-    stayRows: "Los montos, las fechas, tus otras transacciones, tus respuestas y todo lo que sea sobre ti.",
-    stayBill: "Tus otros archivos, tus respuestas y todo lo que sea sobre ti.",
+    stayRows:
+      "El monto y la fecha de cada fila, tus otras transacciones y tus respuestas. Los pagos a una persona por Zelle, Venmo, Cash App o Apple Cash también se quedan aquí.",
+    stayBill: "Tus otros archivos y tus respuestas.",
     yes: "Sí, enviarlo",
     no: "No, dejarlo aquí",
     noNote: "Decir que no está bien. Las reglas de Tend siguen funcionando, y puedes revisar cada fila tú.",
@@ -821,6 +844,7 @@ export const es: Dict = {
     deadlineMayBeLater: "Podrías tener más tiempo.",
     tally: (n: number, amount: string) => `${plural(n, "planta", "plantas")} por ${amount}.`,
     paidSoFar: (amount: string) => `El programa decide. En flor, pagado por el programa: ${amount}.`,
+    paidDemo: (amount: string) => `En flor en la demostración, no es dinero real: ${amount}.`,
     nothingPaid: "El programa decide. Todavía no ha pagado nada.",
     legendLabel: "Cómo crece una planta",
     stage: { sprout: "Brote", leaf: "Hoja", bud: "Capullo", bloom: "Flor" },

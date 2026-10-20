@@ -1,7 +1,7 @@
 // lib/packet: the cited summary for any of the 51 jurisdictions, Michigan's application filled from
 // an allowlist only, the still-needed checklist, filing routes, and the letters.
 import { createHash } from "node:crypto";
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { PDFArray, PDFCheckBox, PDFDict, PDFDocument, PDFHexString, PDFName, PDFString, PDFTextField } from "pdf-lib";
 import { describe, expect, it } from "vitest";
@@ -9,6 +9,7 @@ import { evaluatePreview } from "./helpers/preview-engine";
 import {
   allowlist,
   createPacketBuilder,
+  fetchLawLoader,
   docScope,
   filledFields,
   fillForm,
@@ -22,6 +23,7 @@ import {
   TOTAL_LINE,
   type BuiltPacket,
 } from "@/lib/packet";
+import type { LawIr } from "@/lib/deadline";
 import type { EngineInput, EngineOutput, Expense, Jurisdiction } from "@/lib/types";
 import { blankForm, hasVerified, rowanInput, rowanOutput, verifiedLaw, webDir, webLaw } from "./trust-helpers";
 
@@ -61,14 +63,17 @@ describe("Rowan's Michigan packet", () => {
   let built: BuiltPacket;
   const build = async () => (built ??= await builderFor(law).build("MI", rowanInput(), rowanOutput()));
 
-  it("cites every line: amount, transaction, pinpoint, verbatim quote, and link", async () => {
+  it("cites every line that counts or is held: amount, transaction, pinpoint, verbatim quote, and link", async () => {
     const p = await build();
     const pdf = (await bytesOf(p.summaryPdf))!;
     expect(new TextDecoder().decode(pdf.slice(0, 5))).toBe("%PDF-");
     const text = p.transcript.join("\n");
     const book = new LawBook(law("MI"));
     const links = await uriLinks(pdf);
-    for (const line of rowanOutput().lines) {
+    const lines = rowanOutput().lines;
+    const shown = lines.filter((l) => l.status === "eligible" || l.status === "held");
+    expect(shown.length).toBeGreaterThan(10);
+    for (const line of shown) {
       expect(text).toContain(line.item_id);
       for (const id of line.rule_ids) {
         const rule = book.rule(id)!;
@@ -82,8 +87,31 @@ describe("Rowan's Michigan packet", () => {
     expect(text).toContain("Held. Do not pay this.");
   });
 
-  it("quotes the rule that covers rides first, then both trip-length limits, and says the program picks", async () => {
+  // The PDF goes to the program: a guess still waiting for a yes, or a row Tend could not sort, is
+  // counted but never itemized, so its bank words (which can name a person) stay out.
+  it("leaves out the costs that do not count, with no description, date, or record id", async () => {
     const p = await build();
+    const text = p.transcript.join("\n");
+    const pdf = await pdfText((await bytesOf(p.summaryPdf))!);
+    const items = new Map(rowanInput().items.map((i) => [i.item_id, i]));
+    const left = rowanOutput().lines.filter((l) => l.status !== "eligible" && l.status !== "held");
+    expect(left.length).toBeGreaterThan(0);
+    expect(pdf).toContain(`Tend left out ${left.length} other costs that do not count toward this amount.`);
+    for (const line of left) {
+      expect(text).not.toContain(line.item_id);
+      expect(pdf).not.toContain(line.item_id);
+      const words = items.get(line.item_id)?.description.trim();
+      if (words) expect(pdf).not.toContain(words);
+    }
+  });
+
+  it("quotes the rule that covers rides first, then both trip-length limits, and says the program picks", async () => {
+    // Rides are Tend's guesses until the survivor says yes, so they count here.
+    const output = rowanOutput();
+    output.lines = output.lines.map((l) =>
+      l.expense === "transportation" ? { ...l, status: "eligible" as const, allowed_cents: l.requested_cents } : l,
+    );
+    const p = await builderFor(law).build("MI", rowanInput(), output);
     const text = p.transcript.join("\n");
     const book = new LawBook(law("MI"));
     const at = (id: string) => text.indexOf(`"${book.rule(id)!.quote.trim()}"`);
@@ -327,9 +355,13 @@ describe("a packet for each of the 51 jurisdictions", () => {
     expect((await PDFDocument.load(pdf)).getPageCount()).toBeGreaterThan(1);
     const text = p.transcript.join("\n");
     expect(text).toContain(TOTAL_LINE);
-    for (const line of output.lines) expect(text).toContain(line.item_id);
+    const shown = output.lines.filter((l) => l.status === "eligible" || l.status === "held");
+    for (const line of output.lines) {
+      if (shown.includes(line)) expect(text).toContain(line.item_id);
+      else expect(text).not.toContain(line.item_id);
+    }
     const book = new LawBook(law);
-    for (const id of new Set(output.lines.flatMap((l) => l.rule_ids))) {
+    for (const id of new Set(shown.flatMap((l) => l.rule_ids))) {
       expect(text).toContain(`"${book.rule(id)!.quote.trim()}"`);
     }
     expect(p.filing.length).toBeGreaterThan(0);
@@ -349,7 +381,10 @@ describe("a packet for each of the 51 jurisdictions", () => {
 describe("text the standard PDF fonts cannot draw", () => {
   it("is folded instead of failing", async () => {
     const input = rowanInput();
-    input.items[1] = { ...input.items[1], description: "Clínica São Paulo \u{1F49A} 病院 ≥ x" };
+    // A line that counts, so the summary prints its description.
+    const counted = rowanOutput().lines.find((l) => l.status === "eligible")!.item_id;
+    const at = input.items.findIndex((i) => i.item_id === counted);
+    input.items[at] = { ...input.items[at], description: "Clínica São Paulo \u{1F49A} 病院 ≥ x" };
     const p = await builderFor(webLaw).build("MI", input, rowanOutput());
     expect(p.transcript.join("\n")).toContain("Clínica São Paulo");
     expect(await bytesOf(p.summaryPdf)).not.toBeNull();
@@ -498,5 +533,168 @@ describe("review fixes: the summary says only what the rules support", () => {
     const links = await uriLinks(pdf);
     expect(links.length).toBeGreaterThan(0);
     for (const l of links) expect(l).toMatch(/^(https?:\/\/|mailto:)/);
+  });
+});
+
+describe("the packet's law", () => {
+  it("comes from the flow's own copy first, so building it asks no server for the state's law", async () => {
+    const asked: string[] = [];
+    const fetchImpl = () =>
+      (async (url: string) => {
+        asked.push(url);
+        return new Response("{}", { status: 404 });
+      }) as unknown as typeof fetch;
+    const load = fetchLawLoader(fetchImpl, false, async (st) => (st === "MI" ? webLaw("MI") : null));
+    expect((await load("MI")).jurisdiction).toBe("MI");
+    expect(asked).toEqual([]);
+    // Without that copy, the public file is asked for first and the API only after it.
+    const fallback = fetchLawLoader(fetchImpl, false, async () => null);
+    await expect(fallback("OH")).rejects.toThrow("Tend has no verified rules for OH.");
+    expect(asked).toEqual(["/data/law/OH.json", "/api/jurisdictions/OH"]);
+  });
+});
+
+// The summary's deadline row says what Check says (lib/deadline.ts): the general rule leads.
+describe("the summary's filing deadline", () => {
+  const irOf = (st: string) =>
+    JSON.parse(readFileSync(path.join(webDir, "public", "data", "ir", `${st}.json`), "utf8")) as LawIr;
+  const builderWithIr = createPacketBuilder({
+    loadLaw: async (st) => webLaw(st),
+    loadForm: blankForm,
+    loadIr: async (st) => irOf(st),
+  });
+  async function deadlineRow(
+    st: string,
+    incident: string,
+    asOf: string,
+    check: EngineOutput["checks"]["deadline"],
+    opts: { dateKnown?: boolean } = {},
+  ) {
+    const input: EngineInput = {
+      ...rowanInput(),
+      jurisdiction: st,
+      context: { ...rowanInput().context, incident_date: incident, as_of_date: asOf },
+    };
+    const output = { ...evaluatePreview(input, webLaw(st), "x"), checks: { ...rowanOutput().checks, deadline: check } };
+    const p = await builderWithIr.build(st, input, output, opts);
+    return pdfText((await bytesOf(p.summaryPdf))!);
+  }
+  const laterElsewhere =
+    "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.";
+  const florida = ["FL-DEADLINE-1", "FL-DEADLINE-3"];
+
+  it("leads with Florida's 3 years and says some cases have until the 5 good cause can give", async () => {
+    const text = await deadlineRow("FL", "2026-06-14", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: florida,
+      flags: [],
+    });
+    expect(text).toContain("On time. File by June 13, 2029. Some cases have until June 14, 2031. The rule says when.");
+    expect(text).not.toContain("File by June 14, 2031");
+  });
+
+  it("never says File by a date that has passed", async () => {
+    const text = await deadlineRow("FL", "2023-06-01", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2028-05-31",
+      rule_ids: florida,
+      flags: [],
+    });
+    expect(text).toContain(
+      "The usual deadline was May 31, 2026. Some cases have until May 31, 2028. Ask the program whether yours is one.",
+    );
+    expect(text).not.toContain("File by");
+  });
+
+  it("Rowan's Michigan claim: on time, with no report note, since MI-FILE-2 turns on age at the time of the crime", async () => {
+    const text = await deadlineRow("MI", "2026-06-14", "2026-10-19", {
+      status: "ok",
+      deadline_date: "2031-06-14",
+      rule_ids: ["MI-FILE-1", "MI-FILE-2"],
+      flags: ["deadline_from_report"],
+    });
+    expect(text).toContain("On time. File by June 14, 2031.");
+    expect(text).not.toContain("The law counts from your report");
+    expect(text).not.toContain(laterElsewhere);
+  });
+
+  // The flag comes from another rule (MA-DEAD-3; MI-FILE-2 and NJ-FILE-3 turn on age at the time of
+  // the crime), so a passed date says so instead of reading as plainly late (docs/SPEC.md v1.3).
+  it.each([
+    ["MA", "2023-06-01", "2026-05-31", "May 31, 2026", ["MA-DEAD-1", "MA-DEAD-3"], "deadline_from_discovery"],
+    ["MI", "2021-01-01", "2026-01-01", "January 1, 2026", ["MI-FILE-1", "MI-FILE-2"], "deadline_from_report"],
+    ["NJ", "2021-01-01", "2026-01-01", "January 1, 2026", ["NJ-FILE-1", "NJ-FILE-3"], "deadline_from_discovery"],
+  ])("%s, %s: says another rule counts from a later day", async (st, incident, date, day, ids, flag) => {
+    const text = await deadlineRow(st, incident, "2026-10-19", {
+      status: "late",
+      deadline_date: date,
+      rule_ids: ids,
+      flags: [flag],
+    });
+    expect(text).toContain(`The usual deadline was ${day}. ${laterElsewhere}`);
+    expect(text).not.toContain("The law counts from your report");
+    expect(text).not.toContain("may count from when the crime was discovered");
+  });
+
+  it("without a date, gives the general rule's length of time and never a date to file by", async () => {
+    // The flow's stand-in date is the earliest cost, which can be after the day it happened.
+    const text = await deadlineRow(
+      "FL",
+      "2026-06-20",
+      "2026-10-19",
+      { status: "ok", deadline_date: "2031-06-20", rule_ids: florida, flags: [] },
+      { dateKnown: false },
+    );
+    expect(text).not.toContain("File by");
+    expect(text).not.toContain("2029");
+    expect(text).toContain(
+      "You have 3 years from the date it happened to apply. Some cases have longer. The rule says when.",
+    );
+    expect(text).toContain("Costs counted from the earliest one, June 20, 2026, because no date was given.");
+    expect(text).not.toContain("Costs counted from June 20, 2026 to");
+  });
+
+  it("without a date or the IR, gives the length of the engine's longest rule", async () => {
+    const input: EngineInput = { ...rowanInput(), context: { ...rowanInput().context, incident_date: "2026-06-20" } };
+    const noIr = createPacketBuilder({
+      loadLaw: async (st) => webLaw(st),
+      loadForm: blankForm,
+      loadIr: async () => null,
+    });
+    const p = await noIr.build("MI", input, rowanOutput(), { dateKnown: false });
+    const text = p.transcript.join("\n");
+    expect(text).not.toContain("File by");
+    expect(text).toContain("You have 5 years from the date it happened to apply.");
+  });
+});
+
+describe("the summary's privacy section says only what its rules cover", () => {
+  // South Dakota's program keeps a voter record private, Arkansas's puts a post office box on a
+  // license, and Florida's is for relocated victims of domestic violence. The first two quotes do not
+  // say who is covered, so the sentence sends the survivor to ask.
+  it.each(["SD", "AR", "FL"])(
+    "%s: does not promise a substitute address, or that the quote says who it covers",
+    async (st) => {
+      const input: EngineInput = { ...rowanInput(), jurisdiction: st };
+      const output = evaluatePreview(input, webLaw(st), "x");
+      const text = (await builderFor(webLaw).build(st, input, output)).transcript.join("\n");
+      expect(text).not.toContain("It gives you a substitute address");
+      expect(text).toContain(
+        "It covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you.",
+      );
+      expect(text).not.toMatch(/says who it covers/);
+    },
+  );
+
+  it("keeps Michigan's sentence: its program covers survivors of sexual assault", async () => {
+    const mi = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
+    expect(mi).toContain("It gives you a substitute address to use on government records and forms");
+  });
+
+  it("says a records rule may not cover the whole file", async () => {
+    const text = (await builderFor(webLaw).build("MI", rowanInput(), rowanOutput())).transcript.join("\n");
+    expect(text).toContain("Michigan has a rule on who can see claim records. It may not cover your whole file.");
+    expect(text).not.toContain("law limits who can see a compensation claim file");
   });
 });

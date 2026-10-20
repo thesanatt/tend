@@ -1,6 +1,6 @@
-// Where and how to send a claim (submission rules), and the two protections that keep a survivor
-// anonymous with the state: the address confidentiality program and the law that keeps claim
-// files confidential. All of it comes from verified rules, each with its quote.
+// Where and how to send a claim (submission rules), and the two protections that can keep a
+// survivor's address and claim records private: the address confidentiality program and the rules
+// on who can see claim records. All of it comes from verified rules, each with its quote.
 import type { FilingRoute } from "../contracts";
 import type { Rule } from "../types";
 import { param, type LawBook } from "./law";

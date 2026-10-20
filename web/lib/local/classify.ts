@@ -6,7 +6,7 @@
 import type { Source, StatementTxn, Unit } from "../contracts";
 import { daysBetween, isIsoDay } from "../dates";
 import type { ItemExpense } from "../types";
-import { CLOUD_LIMITS, cloudClassify, type ModelAnswer, type ModelRow } from "./cloud";
+import { CLOUD_LIMITS, cloudClassify, personPayment, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPay } from "./paydip";
 import {
@@ -390,7 +390,11 @@ async function askCloud(
   canCount: (key: string) => boolean,
 ) {
   const started = Date.now();
-  const keys = [...pending.keys()].filter((k) => !answers.has(k) && canCount(k));
+  // A payment to a person stays here: its words name them, and they say nothing about the cost.
+  const keys = [...pending.keys()].filter((k) => {
+    const f = pending.get(k)!;
+    return !answers.has(k) && canCount(k) && !personPayment(f.merchant_name, f.description);
+  });
   if (!keys.length) return;
   for (let start = 0; start < keys.length; start += CLOUD_BATCH) {
     const batch = keys.slice(start, start + CLOUD_BATCH);

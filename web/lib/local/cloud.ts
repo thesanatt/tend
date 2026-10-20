@@ -1,8 +1,10 @@
 // Cloud Gemini, only after the survivor says yes on a consent screen (docs/PRIVACY.md, item 3).
 // Classification sends, for rows from the date it happened on that the rules and the device could
-// not sort, only kind, merchant, category, and description under short refs: never amounts,
-// dates, account numbers, or record ids, and scrubForCloud takes those out of the text too. A
-// bill goes as the file itself, because reading it is the point.
+// not sort, only kind, merchant, category, and description under short refs: never the amount or
+// date fields, account numbers, or record ids. scrubForCloud tries to take those out of the text
+// too; it knows the usual bank formats, not every way to write a date or a name. A payment to a
+// person through an app never goes (personPayment). A bill goes as the file itself, because
+// reading it is the point.
 import { isPdf } from "./pdf";
 
 export interface ModelRow {
@@ -32,8 +34,20 @@ interface CloudOptions {
 // amounts, phone numbers, emails, the account holder's own name on an ACH line, and the person on
 // the other end of a payment app. None of it helps pick a category, so it is removed before a row
 // leaves the device.
-const PAY_APP = String.raw`zelle|venmo|cash ?app|apple cash|paypal|p2p`;
-const PERSON_APP = String.raw`zelle|venmo|cash ?app|apple cash`; // "PAYPAL *NAME" is usually a shop
+const PAY_APP = String.raw`zelle|venmo|cash ?app|apple ?cash|paypal|p2p`;
+const PERSON_APP = String.raw`zelle|venmo|cash ?app|apple ?cash|p2p`; // "PAYPAL *NAME" is usually a shop
+const PERSON_APP_WORD = new RegExp(String.raw`\b(?:${PERSON_APP})\b`, "i");
+
+// A payment to a person through Zelle, Venmo, Cash App, Apple Cash, or a bank's P2P line. Its words
+// name the other person in more ways than a pattern can catch ("VENMO PAYMENT JANE DOE"), and a
+// model cannot tell from them what it paid for, so such a row is never sent to cloud AI.
+export function personPayment(...texts: (string | null | undefined)[]): boolean {
+  return texts.some((t) => Boolean(t) && PERSON_APP_WORD.test(t!));
+}
+
+const MONTH = String.raw`(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|june?|july?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)`;
+const MONEY_WORD = String.raw`co-?pay(?:ment)?|coinsurance|deductible|payment|pmt|amt|amount|balance|bal|fee|charge|total|tip|usd`;
+
 const SCRUB: [RegExp, string][] = [
   // "Zelle payment to Jane Doe", "ZELLE FROM DOE JANE ON 06/14 REF # PP0ABC"
   [new RegExp(String.raw`\b(${PAY_APP})\b(.*?)\b(to|from)\s+.*$`, "i"), "$1$2$3 a person"],
@@ -46,7 +60,17 @@ const SCRUB: [RegExp, string][] = [
   [/[\w.+-]+@[\w-]+(\.[\w-]+)+/g, " "],
   [/\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b/g, " "],
   [/\b\d{1,2}[/-]\d{1,2}(?:[/-]\d{2,4})?\b/g, " "],
+  // "14JUN", "14 JUN 26", "1st Dec" first, so the year of "14 JUN 26" is not read as a day; then
+  // "JUN 14", "June 14, 2026", "JUN14", "SEPT 2026"
+  [new RegExp(String.raw`\b\d{1,2}(?:st|nd|rd|th)?\s?${MONTH}(?![a-z])\.?(?:,?\s?(?:\d{4}|\d{2})\b)?`, "gi"), " "],
+  [
+    new RegExp(String.raw`\b${MONTH}\.?\s?(?:\d{1,2}(?:st|nd|rd|th)?\b(?:,?\s?(?:\d{4}|'\d{2})\b)?|\d{4}\b)`, "gi"),
+    " ",
+  ],
   [/\$\s?\d[\d,]*(?:\.\d+)?|\b\d[\d,]*\.\d{2}\b/g, " "],
+  // A bare amount beside a money word: "COPAY 25", "25 DOLLARS"
+  [new RegExp(String.raw`\b(${MONEY_WORD})(\s?[:#]?\s?)\d[\d,]*(?:\.\d+)?\b`, "gi"), "$1 "],
+  [/\b\d[\d,]*(?:\.\d+)?\s?(?=(?:dollars?|usd|bucks|cents?)\b)/gi, " "],
   // A labeled code: "Conf# T0ABC", "REF # PP0ABC", "WEB ID: 3264681992", "TRACE#:123"
   [/\b(?:conf(?:irmation)?|ref(?:erence)?|trace|trn|txn|id)\s*(?:#\s*:?|:|no\.?\s|number\s)\s*\S+/gi, " "],
   [/(?:\b[x*#]+|\b(?:card|acct|account|ref|conf|id|no)\s*[:#.]?\s*)[x*]*\d{2,}\w*/gi, " "],

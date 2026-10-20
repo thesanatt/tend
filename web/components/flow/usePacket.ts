@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Packet, PacketBuilder, PacketLineInfo } from "@/lib/contracts";
-import { paidLines } from "./claim";
+import { knowsDate, paidLines } from "./claim";
 import { useFlow } from "./FlowProvider";
 import type { FlowState } from "./state";
 
@@ -43,7 +43,7 @@ export function usePacket(enabled: boolean): {
   error: string | null;
   retry(): void;
 } {
-  const { services, input, claim, state } = useFlow();
+  const { services, input, claim, state, today } = useFlow();
   const output = claim.evaluation?.output ?? null;
   const ready = Boolean(input && output && output.jurisdiction === input.jurisdiction && claim.status === "ready");
   const lines = useMemo(
@@ -52,7 +52,10 @@ export function usePacket(enabled: boolean): {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [state.items, state.bills, state.payments],
   );
-  const key = ready ? JSON.stringify([input, output!.totals, output!.lines.length, lines]) : "";
+  // Without a date, the engine input counts from a stand-in (claim.ts countingDate), so the summary
+  // must not date the deadline from it.
+  const dateKnown = knowsDate(state, today);
+  const key = ready ? JSON.stringify([input, output!.totals, output!.lines.length, lines, dateKnown]) : "";
   const [result, setResult] = useState<{ key: string; packet: Packet | null; error: string | null } | null>(null);
   const [attempt, setAttempt] = useState(0);
 
@@ -62,7 +65,7 @@ export function usePacket(enabled: boolean): {
     const cache = cacheFor(services.packetBuilder);
     let pending = cache.get(key);
     if (!pending) {
-      pending = services.packetBuilder.build(state.check.st, input, output, { lines });
+      pending = services.packetBuilder.build(state.check.st, input, output, { lines, dateKnown });
       cache.set(key, pending);
       pending.catch(() => cache.delete(key));
     }

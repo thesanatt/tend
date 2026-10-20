@@ -7,7 +7,8 @@ import { useI18n } from "@/lib/i18n";
 import FlowSheet from "./FlowSheet";
 import styles from "./flow.module.css";
 
-export type CloudAsk = { kind: "rows"; rows: number } | { kind: "bill"; label: string };
+// dated: the survivor gave the date it happened, so only rows from that day on can go.
+export type CloudAsk = { kind: "rows"; rows: number; dated: boolean } | { kind: "bill"; label: string };
 
 export default function CloudConsent({
   ask,
@@ -41,7 +42,16 @@ export default function CloudConsent({
       <dl className={styles.consentList}>
         <div>
           <dt>{c.whatTitle}</dt>
-          <dd>{ask?.kind === "rows" ? c.whatRows(ask.rows) : c.whatBill}</dd>
+          <dd>
+            {ask?.kind === "rows" ? (
+              <>
+                <p>{ask.dated ? c.whatRows(ask.rows) : c.whatRowsUndated(ask.rows)}</p>
+                <p>{c.scrub}</p>
+              </>
+            ) : (
+              c.whatBill
+            )}
+          </dd>
         </div>
         <div>
           <dt>{c.whoTitle}</dt>

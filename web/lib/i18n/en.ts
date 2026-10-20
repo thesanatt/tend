@@ -88,28 +88,36 @@ export const en = {
     // Shown until the page has read what this tab sent before a reload, while saved progress is locked
     // or being checked, and once this page has put a new claim on screen (FlowProvider.restarted).
     here: "On this device.",
-    sent: (parts: string) => `On this device, except what you chose to send: ${parts}.`,
+    // Once a state is picked: its law files, named for it, came from Tend's server.
+    quietState: "On this device. Only the state you picked went to Tend's server, to get its law.",
+    sent: (parts: string) => `On this device, except: ${parts}.`,
+    partState: "the state you picked",
+    stateLine: "The state you picked, to Tend's server, to get its law.",
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
-    partBank: "a request to the bank",
+    partBank: "a request to the demo bank",
     partServer: "your claim, to check the law on Tend's server",
     partSetup: (n: number) => (n === 1 ? "a payment you started" : `${n} payments you started`),
     eventPayment: (amount: string, to: string, when: string) =>
       `${when}: a payment of ${amount} to ${to}. It went to the bank.`,
+    eventPaymentUnsure: (amount: string, to: string, when: string) =>
+      `${when}: your yes to a payment of ${amount} to ${to}, to Tend's server. No clear answer came back, so the payment may have reached the bank.`,
     eventShare: (when: string) =>
       `${when}: a share link. The packet was locked on this device first, so the server holds only locked data.`,
-    eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
+    // Only Track's bank records panel asks, and only for the demo bank's fictional account.
+    eventBank: (when: string) => `${when}: a request to the demo bank for the fictional account's records.`,
     eventSetup: (amount: string, to: string, when: string) =>
-      `${when}: the amount ${amount} and the payee ${to}, to get a confirmation code. No money moved.`,
+      `${when}: the amount ${amount}, the account, and the payee ${to}, to Tend's server to get a confirmation code. No money moved.`,
+    // Every check after the first yes is one more send of the same kind, so the list keeps one line for them.
     eventServer: (when: string) =>
-      `${when}: your answers and costs, to Tend's server to check the law, because this browser could not run the law engine.`,
+      `${when}: your state, the date, your answers, and each cost with its date, amount, and kind, to Tend's server to check the law, because this browser could not run the law engine. They go again each time something changes.`,
     partCloudRows: "rows for cloud AI to sort",
     partCloudBill: (n: number) => (n === 1 ? "a bill for cloud AI to read" : `${n} bills for cloud AI to read`),
     partOther: (n: number) => (n === 1 ? "a request Tend did not expect" : `${n} requests Tend did not expect`),
     eventPaymentDry: (amount: string, to: string, when: string) =>
       `${when}: a payment of ${amount} to ${to}, to Tend's server. It was a dry run, so it did not go to the bank.`,
     eventCloudRows: (when: string) =>
-      `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the merchant, its category, and the description. No amounts or dates.`,
+      `${when}: rows Tend could not sort, to cloud AI, because you said yes. Only the kind of transaction, the merchant, its category, and the description, after Tend tried to take out dates, amounts, and other numbers.`,
     eventCloudBill: (when: string) => `${when}: a bill file, to cloud AI, because you said yes.`,
     eventOther: (path: string, when: string) => `${when}: a request to ${path}.`,
     eventKept: (what: string, when: string) =>
@@ -117,8 +125,8 @@ export const en = {
     more: "What stays here",
     sheetTitle: "What stays on this device",
     facts: [
-      "Your answers, your costs, and your files stay in this browser. Tend reads statements and bills here, and the law engine runs here.",
-      "Something leaves only when you choose to send it: a payment you confirm, or a packet you share. A shared packet is locked before it leaves, and the key stays in the link.",
+      "Your answers, your costs, and your files stay in this browser unless you choose to send them. One exception: Tend asks its server for the law of the state you pick, so the server can tell which state it is. Tend reads statements and bills here, and the law engine runs here.",
+      "Anything else leaves only when you choose to send it: a payment you start or confirm, a packet you share, or a request to see the demo bank's records. After a yes, rows or a bill can go to cloud AI, and your claim can go to Tend's server if this browser can't run the law engine. A shared packet is locked before it leaves, and the key stays in the link.",
       "Tend never asks what happened, where, or who.",
       "If you save, your progress is locked with Touch ID or a passcode. Exit this page, or press Esc twice, to leave fast.",
     ],
@@ -130,12 +138,13 @@ export const en = {
     onDevice: "Law math: on this device (WebAssembly)",
     onServer: "Law math: on Tend's server, with your OK",
     offlineReady: "Saved on this device, so the steps work without internet.",
-    offlineNow: "You are offline. Every step still works here. Payments and share links wait for the internet.",
+    offlineNow: "You are offline. Every step still works here. Payments and share links need the internet.",
     computing: "Checking the law on this device",
     error: "Tend could not check the law right now.",
     consentTitle: "Check on Tend's server instead?",
+    // What lib/api.ts serverClaimBody sends: every cost the engine reads, without the bank or bill words.
     consentBody:
-      "This browser could not run the law engine. Tend can check on its server instead. That sends your state, the date, your answers, and the costs you confirm. No names, and nothing else.",
+      "This browser could not run the law engine. Tend can check on its server instead. That sends your state, the date, your answers, and each cost Tend found that you have not said no to, with its date, amount, and kind. That includes guesses you have not answered and rows Tend could not sort. The words from your bank or bill do not go, so the names in them stay here. It is sent again each time something changes. Tend's server checks it and does not keep it.",
     consentYes: "Check on the server",
     consentNo: "If you would rather not, try again later or on another browser.",
   },
@@ -154,13 +163,18 @@ export const en = {
     notSaved: "Not saved yet",
     lock: "Lock now",
     sheetTitle: "Save your progress",
-    sheetLead: "Tend keeps your progress in this browser, locked. Only you can open it. Nothing is sent anywhere.",
+    // Who else can open it: anyone who can get into the device (passkey) or who knows the passcode.
+    sheetLead:
+      "Tend keeps your progress in this browser, locked, and does not send it anywhere. If you lock it with Touch ID or screen lock, anyone who can get into this device can open it. If you use a passcode, anyone who knows the passcode can.",
     replaces: "This replaces the progress you saved before.",
     passkey: "Lock with Touch ID or screen lock",
-    passkeyHint: "Your device asks for your fingerprint, face, or screen lock.",
+    // lib/vault/passkey.ts names the passkey "Tend"; the device's password manager keeps it.
+    passkeyHint:
+      "Your device asks for your fingerprint, face, or screen lock. It also saves a passkey named Tend for this site in its password list. That may copy to your other devices, and it stays there after you delete your progress here.",
     orPasscode: "Or use a passcode",
     passcodeLabel: "Passcode",
-    passcodeHint: (n: number) => `At least ${n} characters. Tend cannot reset it, so pick one you will remember.`,
+    passcodeHint: (n: number) =>
+      `At least ${n} characters. Tend cannot reset it, so pick one you will remember. If your browser offers to save it, anyone who uses this browser may be able to fill it in.`,
     passcodeShort: (n: number) => `Use at least ${n} characters.`,
     savePasscode: "Save with this passcode",
     saving: "Saving",
@@ -240,7 +254,7 @@ export const en = {
 
   check: {
     title: "See what your state can pay for",
-    lead: "Four questions. Answer what you can. Not sure is always fine. Your answers stay on this device.",
+    lead: "Four questions. Answer what you can. Not sure is always fine. Tend gets the law for the state you pick from its server, so the server can tell which state it is. Your other answers stay on this device unless you choose to send them.",
     never: "Tend never asks what happened, where, or who.",
     stateLabel: "Which state did it happen in?",
     stateHint: "That state's program handles it, even if you live somewhere else.",
@@ -267,17 +281,24 @@ export const en = {
     subjectExam: "Bills for the forensic exam",
     subjectTotal: "The total limit",
     subjectAcp: "Keeping your address private",
-    subjectRecords: "Confidential records",
+    subjectRecords: "Keeping claim records private",
     deadlineDate: (date: string) => `File by ${date}.`,
     deadlineLate: (date: string) => `The usual deadline was ${date}.`,
     deadlineLeft: (span: string) => `That is ${span} from today.`,
-    deadlineExtend: "The program can extend it for good cause, so it is still worth asking.",
     deadlineAsk: "Ask the program. Some make exceptions.",
+    // The engine's longest deadline, when it is later than the general one (lib/deadline.ts).
+    deadlineLonger: (date: string) => `Some cases have until ${date}. The rule says when.`,
+    deadlineLongerAsk: (date: string) => `Some cases have until ${date}. Ask the program whether yours is one.`,
     deadlineFromReport:
       "This date counts from the day it happened. The law counts from your report, so you may have longer.",
     deadlineFromDiscovery:
       "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides.",
+    // A passed date when another rule counts from the report or from discovery (lib/deadline.ts
+    // laterElsewhere). Whether it fits can turn on age at the time of the crime, which Tend never asks.
+    deadlineLaterElsewhere:
+      "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
+    deadlineSpanLonger: "Some cases have longer. The rule says when.",
     deadlineSpanNote: "Add the date above to see the exact day.",
     deadlineUnknown: "Tend could not turn this state's deadline into a date. Read the rule, or ask the program.",
     deadlineNone: "Tend found no filing deadline in this state's verified rules. Ask the program.",
@@ -308,10 +329,14 @@ export const en = {
       `In total, up to ${amounts}, depending on your case. The rule says when each one applies`,
     privateTitle: "Staying private with the state",
     acp: (name: string) => `${name} gives survivors a substitute address to use on government forms.`,
+    // A program whose rule does not name sexual assault (covers_sexual_assault false): some give no
+    // substitute address at all, like South Dakota's voter record program.
     acpMaybe: (name: string) =>
-      `${name} gives some people a substitute address for government forms. Ask whether it covers you.`,
+      `${name} covers only some people, and its rule does not name survivors of sexual assault. Ask the program whether it covers you.`,
     acpGeneric: "This state's address confidentiality program",
-    records: "The law keeps your compensation records confidential.",
+    // Several of these rules cover only some records: a public records exemption, some documents, or all
+    // but the amount awarded.
+    records: "Some compensation records are kept private. The rule says which ones, and when.",
     programTitle: "The program",
     phone: "Phone",
     website: "Website",
@@ -325,7 +350,9 @@ export const en = {
     notTodayBack: "You can come back any time.",
     notTodayDeadline: (name: string, date: string) => `In ${name}, the usual deadline is ${date}.`,
     notTodaySaved: "Your saved progress stays locked on this device.",
-    notTodayNotSaved: "Nothing stays on this device unless you save it.",
+    // Exit this page replaces only the current history entry, and the browser keeps its history.
+    notTodayNotSaved:
+      "When you close Tend, your answers are cleared unless you save them. Your browser's history still shows this site. A private window does not keep history.",
   },
 
   per: {
@@ -592,8 +619,10 @@ export const en = {
       `${state}'s verified rules have no exam billing rule, so Tend treats an exam line like other medical care.`,
     restTitle: (amount: string) => `The rest: ${amount}`,
     paid: (amount: string, payee: string, when: string) => `You paid ${amount} to ${payee} (${when}).`,
-    eitherWay: "Both choices are fine. The program can pay you back for these, whether you pay now or not:",
+    eitherWay:
+      "Both choices are fine. The law names these costs, so you can ask the program for them whether you pay now or not:",
     notSent: (amount: string) => `The payment of ${amount} was not sent.`,
+    failed: (amount: string) => `The payment of ${amount} did not go through. No money moved.`,
     unverified: (amount: string) =>
       `The payment of ${amount} may have gone through. Check the account before you pay again.`,
     payNow: (amount: string, account: string) => (account ? `Pay ${amount} now from ${account}` : `Pay ${amount} now`),
@@ -658,8 +687,9 @@ export const en = {
     wholeDollars:
       "The demo bank only takes whole-dollar payments, so Tend can't pay this amount from here. You can leave it unpaid and claim it.",
     notDemoAccount: "The bank here only takes payments from the demo account. Nothing was sent.",
+    // Every visitor to the demo pays from the same fictional account, so an earlier payment may not be theirs.
     alreadyPaid:
-      "The bank already shows a payment from Tend for these lines of this bill, so nothing was sent this time. Your bank records show it.",
+      "The demo bank already shows a payment from Tend for these lines, so nothing was sent this time. Everyone who tries the demo pays from this one fictional account, so the earlier payment may be someone else's. You can go on to your packet.",
     billRefused: "This amount does not match what is still payable on the bank's copy of this bill. Nothing was sent.",
     codeWrong: "That code does not match. Check the six digits and try again.",
     codeExpired: "This code has expired or was already used. Get a new code to try again.",
@@ -667,6 +697,7 @@ export const en = {
     bankUnsure:
       "The bank did not give a clear answer, so this payment may have gone through. Check the account before you try again.",
     confirmFailed: "The payment did not go through. Nothing was sent.",
+    bankRefused: "The payment did not go through, and no money moved. Get a new code to try again.",
     offline:
       "You are offline, so this did not reach the bank. Nothing was sent. Connect to the internet and try again.",
     retry: "Try again",
@@ -698,11 +729,14 @@ export const en = {
     onlyYou:
       "Only you fill these in: your name, your signature, what happened, who, where, and your Social Security number.",
     formDownload: "Download the filled form",
-    formBlank: "Tend can't fill in this state's form yet. Here is the blank form from the program.",
+    formBlank:
+      "Tend can't fill in this state's form yet, so you fill in all of it. Here is the blank form from the program.",
     formBlankLink: "Open the program's form",
     formNone: "Tend did not find a form for this state. The program can send you one.",
     summaryTitle: "Cited summary",
-    summaryBody: "Every cost with its amount, the record it came from, and the exact words of the law.",
+    // lib/packet/summary.ts itemizes only lines that count or are held.
+    summaryBody:
+      "Each cost that counts, and any bill line Tend held, with its amount, the record it came from, and the exact words of the law. Costs that do not count are left out.",
     summaryDownload: "Download the summary (PDF)",
     summaryShow: (n: number) => `Show the ${plural(n, "line", "lines")} here`,
     colCost: "Cost",
@@ -717,8 +751,9 @@ export const en = {
     questionsPhone: "Questions, by phone",
     fileNone: "Tend found no filing address in the verified rules. Call the program.",
     shareTitle: "Share with an advocate",
+    // What ShareBox seals: the claim's engine input, every cost not said no to, with its words.
     shareBody:
-      "An advocate can read this packet without seeing your bank account. It is locked on this device before it leaves, and only the link can open it.",
+      "An advocate sees the costs Tend found, including guesses still waiting for your yes and purchases Tend could not sort, each with its date, amount, and the description from your bank or bill. Rows you said no to, your balance, and the rest of your account stay out. It is locked on this device before it leaves, and only the link can open it.",
     sentTitle: "When you send it",
     sentBody:
       "Tend does not file anything. When you send your claim to the program yourself, mark it here and your garden starts to bud.",
@@ -765,8 +800,15 @@ export const en = {
     titleBill: "Read this bill with cloud AI?",
     whatTitle: "What leaves this device",
     whatRows: (n: number) =>
-      `For the ${n} rows Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description. Tend first takes out card and reference numbers, dates, amounts, phone numbers, emails, and the name in a payment app line.`,
-    whatBill: "This bill file, as it is: the picture or the PDF.",
+      `For the ${n === 1 ? "1 row" : `${n} rows`} Tend could not sort, from the date it happened on: the kind of transaction, the merchant, its category, and the description.`,
+    // Without a date, every unsorted row is offered (components/flow/claim.ts offered), older ones too.
+    whatRowsUndated: (n: number) =>
+      `For ${n === 1 ? "the 1 row" : `all ${n} rows`} Tend could not sort: the kind of transaction, the merchant, its category, and the description. You did not give a date, so rows from before it happened go too. If you know the date, adding it in Check keeps those rows here.`,
+    // What lib/local/cloud.ts scrubForCloud can and cannot catch.
+    scrub:
+      "Tend first tries to take out card and reference numbers, dates, amounts, phone numbers, and emails. It looks for the usual ways banks write them, so one written another way can still go. A name or a town in a row can go too, such as a name on a PayPal line.",
+    whatBill:
+      "This bill file, as it is: the picture or the whole PDF, with everything printed on it, such as your name, your address, your account numbers, and the care you got.",
     whoTitle: "Who gets it",
     whoRows:
       "Tend's server, which asks Google's Gemini to pick a kind of cost for each row. Tend's server keeps no copy.",
@@ -779,8 +821,9 @@ export const en = {
     googleBill:
       "Tend uses Google's free Gemini service. Google's terms let Google keep what is sent, use it to improve its products, and have people at Google read it. A bill can show your name, your address, and the care you got. If you do not want Google to have that, say no.",
     stayTitle: "What stays here",
-    stayRows: "The amounts, the dates, your other transactions, your answers, and anything about you.",
-    stayBill: "Your other files, your answers, and anything about you.",
+    stayRows:
+      "Each row's amount and date, your other transactions, and your answers. Payments to a person through Zelle, Venmo, Cash App, or Apple Cash stay here too.",
+    stayBill: "Your other files and your answers.",
     yes: "Yes, send it",
     no: "No, keep it here",
     noNote: "No is fine. Tend's built-in rules still work, and you can check each row yourself.",
@@ -822,10 +865,11 @@ export const en = {
     title: "Your garden",
     lead: "One plant for each cost the program can pay. It grows as your claim moves.",
     deadlineAsk: "Ask the program for the filing deadline.",
-    // The bar that repeats a late deadline counted from the report or from discovery (docs/SPEC.md v1.3).
+    // The bar that repeats a passed deadline that may not be late (docs/SPEC.md v1.3).
     deadlineMayBeLater: "You may have more time.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
     paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
+    paidDemo: (amount: string) => `In bloom in the demo, not real money: ${amount}.`,
     nothingPaid: "The program decides. It has not paid any of it yet.",
     legendLabel: "How a plant grows",
     stage: { sprout: "Sprout", leaf: "Leaf", bud: "Bud", bloom: "Bloom" } satisfies Record<Stage, string>,

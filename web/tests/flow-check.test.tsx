@@ -87,7 +87,10 @@ describe("Check", () => {
         "Address Confidentiality Program (ACP) gives survivors a substitute address to use on government forms.",
       ),
     ).toBeTruthy();
-    expect(screen.getByText("The law keeps your compensation records confidential.")).toBeTruthy();
+    // MI-RECCONF-1 is a public records exemption, not the whole file, so the line says some records.
+    expect(
+      screen.getByText("Some compensation records are kept private. The rule says which ones, and when."),
+    ).toBeTruthy();
     expect(screen.getByRole("link", { name: "877-251-7373" }).getAttribute("href")).toBe("tel:8772517373");
     expect(screen.queryByText(/you qualify/i)).toBeNull();
 
@@ -98,7 +101,7 @@ describe("Check", () => {
       /show the law for Police report rules/,
       /show the law for Counseling/,
       /show the law for Keeping your address private/,
-      /show the law for Confidential records/,
+      /show the law for Keeping claim records private/,
     ]) {
       expect(screen.getByRole("button", { name })).toBeTruthy();
     }
@@ -163,7 +166,12 @@ describe("Check", () => {
       { initial: stateFrom([MI_CHECK]) },
     );
     fireEvent.click(screen.getByRole("button", { name: "Not today" }));
-    expect(await screen.findByText("Nothing stays on this device unless you save it.")).toBeTruthy();
+    // It says what the browser keeps anyway: its history still lists the site.
+    expect(
+      await screen.findByText(
+        "When you close Tend, your answers are cleared unless you save them. Your browser's history still shows this site. A private window does not keep history.",
+      ),
+    ).toBeTruthy();
     expect(screen.getByText("In Michigan, the usual deadline is June 14, 2031.")).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: "Close Tend" }));
     expect(nav.replace).toHaveBeenCalledWith("/");
@@ -185,7 +193,9 @@ describe("the law engine", () => {
       { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) },
     );
     expect(await screen.findByText("Check on Tend's server instead?")).toBeTruthy();
-    expect(screen.getByRole("status", { name: "" }).textContent).toBe("On this device. Nothing has left it since this page opened.");
+    expect(screen.getByRole("status", { name: "" }).textContent).toBe(
+      "On this device. Only the state you picked went to Tend's server, to get its law.",
+    );
     fireEvent.click(screen.getByRole("button", { name: "Check on the server" }));
     await screen.findByText(/your claim, to check the law on Tend's server/);
     expect(evaluate).toHaveBeenLastCalledWith(expect.anything(), { allowApi: true });
@@ -205,7 +215,9 @@ describe("language", () => {
     fireEvent.click(screen.getByRole("button", { name: "Español" }));
     expect(await screen.findByText("Mira lo que tu estado puede pagar")).toBeTruthy();
     expect(document.documentElement.lang).toBe("es");
-    expect(screen.getByText("En este dispositivo. No ha salido nada desde que se abrió esta página.")).toBeTruthy();
+    expect(
+      screen.getByText("En este dispositivo. Solo el estado que elegiste fue al servidor de Tend, para traer su ley."),
+    ).toBeTruthy();
     expect(screen.getByText("Presenta la solicitud a más tardar el 14 de junio de 2031.")).toBeTruthy();
     expect(screen.getByText("Probablemente puedes presentar una solicitud en Michigan.")).toBeTruthy();
     expect(screen.getByText("Ropa y ropa de cama guardadas como evidencia, hasta $250 en total")).toBeTruthy();

@@ -1,11 +1,13 @@
 // Client for the Tend API (docs/SPEC.md, prefix /api). next.config.ts proxies /api/* to TEND_API_URL.
 // One probe decides the mode: "live" talks to the API and surfaces its errors; "fixtures" serves
 // web/fixtures and never pretends that money moved.
+import type { LawIr } from "./deadline";
 import { assertCents } from "./money";
 import type {
   ActionProposal,
   ActionResult,
   EngineInput,
+  EngineItem,
   EngineOutput,
   Jurisdiction,
   JurisdictionSummary,
@@ -14,10 +16,13 @@ import type {
 
 export type DataMode = "live" | "fixtures";
 
+// maybeApplied: the API's word on a failed payment, when it gives one. false means the bank refused
+// it before any money could move; true, or no word, means it may have gone through.
 export class ApiError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    readonly maybeApplied?: boolean,
   ) {
     super(message);
   }
@@ -36,11 +41,13 @@ async function request<T>(path: string, init: RequestInit = {}, timeoutMs = 1500
   const type = res.headers.get("content-type") ?? "";
   if (!res.ok || !type.includes("json")) {
     let detail = `${res.status} ${res.statusText}`;
+    let maybeApplied: boolean | undefined;
     if (type.includes("json")) {
       const body = await res.json().catch(() => null);
       if (body?.detail) detail = typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail);
+      if (typeof body?.maybe_applied === "boolean") maybeApplied = body.maybe_applied;
     }
-    throw new ApiError(detail, res.status);
+    throw new ApiError(detail, res.status, maybeApplied);
   }
   return (await res.json()) as T;
 }
@@ -124,8 +131,29 @@ export function fetchLaw(st: string): Promise<{ law: Jurisdiction; sha256: strin
   return pending;
 }
 
+const irs = new Map<string, Promise<LawIr | null>>();
+
+// The law IR the engine compiles (public/data/ir/ST.json, from rules/tools/normalize.py), which dates
+// the general deadline (lib/deadline.ts). One request per state; the offline worker keeps every copy.
+export function fetchLawIr(st: string): Promise<LawIr | null> {
+  const key = st.toUpperCase();
+  let pending = irs.get(key);
+  if (!pending) {
+    pending = fetch(`/data/ir/${key}.json`)
+      .then(async (res) => {
+        if (!res.ok) return null;
+        const ir = (await res.json()) as LawIr;
+        return Array.isArray(ir?.rules) ? ir : null;
+      })
+      .catch(() => null);
+    irs.set(key, pending);
+  }
+  return pending;
+}
+
 export function resetLawCacheForTests() {
   laws.clear();
+  irs.clear();
 }
 
 export async function fetchAsmFromApi(st: string): Promise<string | null> {
@@ -146,12 +174,27 @@ export async function fetchAsmFixture(st: string): Promise<string | null> {
   return fixture.listing.join("\n");
 }
 
+export type ServerClaimItem = Omit<EngineItem, "description">;
+
+// No engine reads an item's description (docs/SPEC.md), and a bank or bill line can name a person or
+// a clinic, so those words stay on the device. The API's model takes "" when the field is left out.
+export function serverClaimBody(input: EngineInput): Omit<EngineInput, "items"> & { items: ServerClaimItem[] } {
+  return {
+    ...input,
+    items: input.items.map((item) => {
+      const sent: Partial<EngineItem> = { ...item };
+      delete sent.description;
+      return sent as ServerClaimItem;
+    }),
+  };
+}
+
 export async function claimFromApi(input: EngineInput): Promise<{ output: EngineOutput; engine: string } | null> {
   if ((await dataMode()) !== "live") return null;
   const res = await fetch("/api/claim", {
     method: "POST",
     headers: { "content-type": "application/json", accept: "application/json" },
-    body: JSON.stringify(input),
+    body: JSON.stringify(serverClaimBody(input)),
     signal: AbortSignal.timeout(15000),
   });
   if (!res.ok) throw new ApiError(`claim failed: ${res.status}`, res.status);
