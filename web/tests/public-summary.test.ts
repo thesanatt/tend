@@ -82,6 +82,10 @@ function reportRules(law: Jurisdiction, ir: IrSummary) {
   return {
     exam,
     examConditions,
+    // An exam that counts only in the program's discretion (Rhode Island 12-25-22(a)): "can sometimes count".
+    examSometimes: exam.some((r) =>
+      ([] as unknown[]).concat(r.params?.waiver_records ?? []).includes("forensic_exam"),
+    ),
     charge: rules.some((r) => r.params?.charge_required === true),
     // Every award needs a report: some required rule, and none names another record, or the other records
     // are ones an anonymous adult cannot get on her own (report_gate, Delaware 9010(a)(5)).
@@ -223,7 +227,7 @@ describe("state summaries for every jurisdiction", () => {
 
   it.each(states)("%s: the card's report clause follows the report rules", (st) => {
     const { law, ir, summary } = built.get(st)!;
-    const { exam, examConditions, charge, gate, sometimes } = reportRules(law, ir);
+    const { exam, examConditions, examSometimes, charge, gate, sometimes } = reportRules(law, ir);
     const report = summary.share.clauses.find((c) => c.id === "report");
     if (gate) {
       // Every award needs a police report, so the card says that instead of naming a protection.
@@ -240,7 +244,7 @@ describe("state summaries for every jurisdiction", () => {
       expect(report?.text).toBe(NEEDS_CHARGE);
     } else if (exam.length && !charge && examConditions.size <= 1) {
       const ec = [...examConditions][0];
-      const text = `a forensic exam${ec ? ` ${ec}` : ""} can count instead of a police report`;
+      const text = `a forensic exam${ec ? ` ${ec}` : ""} can ${examSometimes ? "sometimes " : ""}count instead of a police report`;
       if (report) expect(report.text).toBe(text);
       // Left out only when the sentence would run past the card's word limit.
       else
@@ -433,13 +437,16 @@ describe("other states", () => {
 
   it("leads with the program's general deadline, not a window for older crimes", () => {
     // Virginia: 3 years for crimes since July 1, 2025. The 1-year rule (VA-DEADLINE-3) covers only
-    // crimes from 2001 through June 2025, so it must not be the headline.
+    // crimes from 2001 through June 2025, so it must not be the headline, and the headline names its date.
     const va = built.get("VA")!.summary;
-    expect(va.keyFacts.find((k) => k.id === "deadline")).toMatchObject({ big: "3 years" });
-    expect(va.keyFacts.find((k) => k.id === "deadline")?.cites[0]).toBe("VA-DEADLINE-1");
+    expect(va.keyFacts.find((k) => k.id === "deadline")).toMatchObject({
+      big: "3 years",
+      small: "to apply, from the date it happened, for a crime on or after July 1, 2025, with exceptions",
+    });
+    expect(va.keyFacts.find((k) => k.id === "deadline")?.cites[0]).toBe("VA-DEADLINE-2");
     const vaDeadline = va.sections.find((s) => s.id === "deadline")!;
     expect(vaDeadline.facts[0].text).toBe(
-      "Apply within 3 years of the date it happened. The rules below cover other cases.",
+      "Apply within 3 years of the date it happened, for a crime on or after July 1, 2025. The rules below cover other cases.",
     );
     expect(vaDeadline.facts.map((f) => f.cites[0])).toContain("VA-DEADLINE-3");
   });
@@ -596,7 +603,7 @@ describe("limits in the rules reach the page and the card", () => {
 
   it("an exam that counts for the report carries its own limit and cites the text that says so", () => {
     expect(get("RI").share.clauses[1].text).toBe(
-      "a forensic exam done within 15 days of the crime can count instead of a police report",
+      "a forensic exam within 15 days of the crime can sometimes count instead of a police report",
     );
     expect(tile("OK", "report")?.small).toBe("in place of a police report, if it was within 120 hours");
     // With the shorter phrase the exam-counts clause fits the card (32 words).
@@ -904,10 +911,10 @@ describe("conditions the third review found missing", () => {
     );
     // Virginia: evidence collection, within 120 hours, for a crime in Virginia.
     expect(tile("VA", "exam")?.small).toBe(
-      "you should not have to pay for evidence collection if done within 120 hours of a crime in Virginia",
+      "you should not have to pay for evidence collection if done within 120 hours of a Virginia crime",
     );
-    // The exam clause no longer fits these cards, so the deadline takes its place.
-    for (const st of ["MA", "VA"]) expect(get(st).share.clauses.map((c) => c.id), st).toEqual(["total", "deadline"]);
+    // The exam clause does not fit Massachusetts's card, so the deadline takes its place.
+    expect(get("MA").share.clauses.map((c) => c.id)).toEqual(["total", "deadline"]);
   });
 
   it("where no record an anonymous adult can get replaces the report, the card says a report is asked for (Delaware)", () => {
@@ -967,7 +974,7 @@ describe("conditions the third review found missing", () => {
         (d) => d.cite,
       ),
     ).toEqual(["TX-TRAVEL-2"]);
-    expect(row("FL", "Medical care")?.details?.map((d) => d.cite)).toEqual(["FL-CAP-2", "FL-CAP-9"]);
+    expect(row("FL", "Medical care")?.details?.map((d) => d.cite)).toEqual(["FL-COV-5", "FL-CAP-2", "FL-CAP-9"]);
     expect(row("ND", "Travel")?.details?.map((d) => d.cite)).toEqual(["ND-CAP-TRAVEL", "ND-CAP-TRAVEL-MIN"]);
   });
 
@@ -983,6 +990,111 @@ describe("conditions the third review found missing", () => {
       expect(tile(st, "report")?.cites, id).not.toContain(id);
       expect(get(st).share.clauses.flatMap((c) => c.cites), id).not.toContain(id);
     }
+  });
+});
+
+// The topic verifiers' third read of the round 3 pages (round 4 of the fix).
+describe("conditions the fourth review found missing", () => {
+  const get = (st: string) => built.get(st)!.summary;
+  const section = (st: string, id: string) => get(st).sections.find((s) => s.id === id)?.facts ?? [];
+  const tile = (st: string, id: string) => get(st).keyFacts.find((k) => k.id === id);
+  const row = (st: string, label: string) => section(st, "costs").find((f) => f.label === label);
+  const fromIncident = new Set(["crime", "incident", "injury", "offense", "occurrence"]);
+
+  it("a card never gives a deadline when a shorter window counted from the day it happened applies (Virginia)", () => {
+    // VA-DEADLINE-3 gives 1 year for crimes from July 2001 through June 2025, and the card's hedge only says "more".
+    expect(get("VA").share.text).toBe(
+      "If you're Jane Doe in Virginia: you can ask for up to $35,000, and you should not have to pay for evidence collection if done within 120 hours of a Virginia crime.",
+    );
+    expect(get("VA").share.clauses.map((c) => c.id)).toEqual(["total", "exam"]);
+    for (const [st, { law, ir, summary }] of built) {
+      const clause = summary.share.clauses.find((c) => c.id === "deadline");
+      if (!clause) continue;
+      const aside = setAside(ir);
+      const head = law.rules.find((r) => r.id === clause.cites[0])!;
+      const shorter = law.rules.filter(
+        (r) =>
+          r.category === "filing_deadline" &&
+          r.id !== head.id &&
+          !aside.has(r.id) &&
+          fromIncident.has(String(r.params?.from ?? "")) &&
+          duration(r) !== null &&
+          duration(r)!.days < duration(head)!.days,
+      );
+      expect(shorter.map((r) => r.id), st).toEqual([]);
+    }
+  });
+
+  it("Virginia's exam section says each rule once", () => {
+    const own = section("VA", "exam").filter((f) => f.verbatimSummary);
+    expect(own.filter((f) => /120 hours/.test(f.text)).map((f) => f.cites[0])).toEqual(["VA-EXAM-6"]);
+    expect(own.find((f) => f.cites[0] === "VA-EXAM-8")?.text).toBe(
+      "The SAFE Payment Program pays only if the crime was in Virginia and evidence is collected.",
+    );
+  });
+
+  it("an exam that counts only in the program's discretion says so on the tile and the card (Rhode Island)", () => {
+    // 12-25-22(a): "the office shall have the authority to allow" an unreported claim after an exam within 15 days.
+    expect(tile("RI", "report")).toMatchObject({
+      big: "Exam can count",
+      small: "in place of a police report in some cases, if it was within 15 days of the crime",
+    });
+    expect(get("RI").share.text).toBe(
+      "If you're Jane Doe in Rhode Island: you can ask for up to $25,000, and a forensic exam within 15 days of the crime can sometimes count instead of a police report.",
+    );
+  });
+
+  it("an exam rule's place limit reaches the lead and the tile (Georgia, Kansas, Missouri)", () => {
+    for (const [st, place, first] of [
+      ["GA", "Georgia", "GA-EXAM-7"],
+      ["KS", "Kansas", "KS-EXAM-2"],
+      ["MO", "Missouri", "MO-EXAM-3"],
+    ]) {
+      expect(section(st, "exam")[0].text, st).toBe(
+        `You should not have to pay for a sexual assault forensic exam if the crime was in ${place}.`,
+      );
+      expect(tile(st, "exam"), st).toMatchObject({
+        big: "Forensic exam",
+        small: `you should not have to pay for it if the crime was in ${place}`,
+      });
+      expect(tile(st, "exam")?.cites[0], st).toBe(first);
+    }
+    expect(get("GA").share.text).toBe(
+      "If you're Jane Doe in Georgia: you can ask for up to $25,000, and you should not have to pay for a forensic exam if the crime was in Georgia.",
+    );
+  });
+
+  it("police lines say what their quotes say, not what Tend searched for", () => {
+    for (const [st, { summary }] of built) {
+      const police = summary.sections.find((s) => s.id === "police")?.facts ?? [];
+      for (const f of police.filter((x) => x.verbatimSummary))
+        expect(f.text, `${st} ${f.cites[0]}`).not.toMatch(
+          /\bwas found\b|lists no alternative|no (?:separate )?alternative .* appears|No fixed reporting window/,
+        );
+    }
+  });
+
+  it("cost rows print the limits their own rules hold (lost pay, moving, care windows)", () => {
+    const cites = (st: string, label: string) => row(st, label)?.details?.map((d) => d.cite) ?? [];
+    expect(cites("MI", "Moving")[0]).toBe("MI-COV-4");
+    expect(cites("NH", "Lost pay")).toContain("NH-COV-5");
+    expect(cites("WA", "Lost pay")).toEqual(expect.arrayContaining(["WA-COV-WAGES", "WA-COV-WAGES-2"]));
+    expect(cites("RI", "Moving")).toEqual(["RI-RELOC-3", "RI-RELOC-2"]);
+    expect(cites("ND", "Counseling")).toContain("ND-CAP-COUNSEL-WINDOW");
+    expect(cites("SD", "Home security")).toEqual(["SD-SEC-3", "SD-CAP-2"]);
+    // Colorado pays moving costs only as needed for the victim's safety.
+    expect(row("CO", "Moving costs needed for your safety")?.cites).toEqual(["CO-COV-5"]);
+    // Wisconsin and Wyoming: the time limits on costs print under "What it does not pay for".
+    expect(section("WI", "not-covered").map((f) => f.cites[0])).toContain("WI-EXCL-6");
+    expect(section("WY", "not-covered").map((f) => f.cites[0])).toContain("WY-EXC-5");
+  });
+
+  it("Colorado's deadline section says what Tend found and shows the property damage limit", () => {
+    const deadline = section("CO", "deadline");
+    expect(deadline[0]).toMatchObject({ kind: "note", cites: [] });
+    expect(deadline[0].text).toMatch(/^Note: Tend found no time limit in Colorado law for injury claims\./);
+    expect(deadline.slice(1).map((f) => f.cites)).toEqual([["CO-DEADLINE-1"]]);
+    expect(tile("CO", "deadline")).toBeUndefined();
   });
 });
 
@@ -1153,6 +1265,44 @@ describe("summary rules on a made-up jurisdiction", () => {
     });
     expect(two.share.clauses.some((c) => c.id === "report")).toBe(false);
     expect(templatedText(two).join(" ")).not.toMatch(/exam can count/i);
+    // Where the rule only lets the program allow the claim after an exam (waiver_records), it counts sometimes.
+    const sometimes = zz([
+      rule("ZZ-R1", "reporting_requirement", {
+        required: true,
+        alternatives: ["forensic_exam"],
+        waiver_records: ["forensic_exam"],
+        exam_condition: "within 5 days of the crime",
+      }),
+    ]);
+    expect(sometimes.keyFacts.find((k) => k.id === "report")).toMatchObject({
+      big: "Exam can count",
+      small: "in place of a police report in some cases, if it was within 5 days of the crime",
+    });
+    expect(sometimes.share.clauses.find((c) => c.id === "report")?.text).toBe(
+      "a forensic exam within 5 days of the crime can sometimes count instead of a police report",
+    );
+  });
+
+  it("leaves the deadline off the card when a shorter window counted from the day it happened applies", () => {
+    const shorter = zz([
+      rule("ZZ-T1", "total_cap", { amount_cents: 1500000 }),
+      rule("ZZ-D1", "filing_deadline", { years: 3, from: "crime", condition: "for a crime on or after July 1, 2025" }),
+      rule("ZZ-D2", "filing_deadline", { years: 1, from: "crime" }),
+    ]);
+    expect(shorter.share.clauses.map((c) => c.id)).toEqual(["total"]);
+    // The tile and the line keep the headline's own condition, and "with exceptions" covers the shorter rule.
+    expect(shorter.keyFacts.find((k) => k.id === "deadline")).toMatchObject({
+      small: "to apply, from the date it happened, for a crime on or after July 1, 2025, with exceptions",
+      cites: ["ZZ-D1", "ZZ-D2"],
+    });
+    const longer = zz([
+      rule("ZZ-T1", "total_cap", { amount_cents: 1500000 }),
+      rule("ZZ-D1", "filing_deadline", { years: 3, from: "crime" }),
+      rule("ZZ-D2", "filing_deadline", { years: 5, from: "crime" }),
+    ]);
+    expect(longer.share.text).toBe(
+      "If you're Jane Doe in Zedland: you can ask for up to $15,000, and you have 3 years to apply, or more in some cases.",
+    );
   });
 
   it("shows waivers for the exam alone and narrower report rules only in their own words", () => {

@@ -683,15 +683,19 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
     // the required rule, so the card and the tile point to the text that says so (IL-0).
     const inLieu = waivers.filter((r) => list(r, "alternatives").includes("forensic_exam"));
     const cites = [...new Set([...ec.rules, ...inLieu, ...examInRequired].map((r) => r.id))];
+    // Where the rule's own words only let the program allow the claim after an exam, in its discretion
+    // (Rhode Island 12-25-22(a): "shall have the authority to allow"), it is marked waiver_records too, and
+    // the tile and the card say the exam counts only sometimes, as Iowa's card does.
+    const sometimes = examInRequired.some((r) => list(r, "waiver_records").includes("forensic_exam"));
     key = {
       id: "report",
       big: "Exam can count",
-      small: `in place of a police report${ec.value ? `, if it was ${ec.value}` : ""}`,
+      small: `in place of a police report${sometimes ? " in some cases" : ""}${ec.value ? `, if it was ${ec.value}` : ""}`,
       cites,
     };
     clause = {
       id: "report",
-      text: `a forensic exam${ec.value ? ` ${ec.value}` : ""} can count instead of a police report`,
+      text: `a forensic exam${ec.value ? ` ${ec.value}` : ""} can ${sometimes ? "sometimes " : ""}count instead of a police report`,
       cites,
     };
     lead = askLead([...required, ...altRules]);
@@ -812,11 +816,19 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
       small: `to apply, from the date it happened${cond ? `, ${cond}` : ""}${hedge ? ", with exceptions" : ""}`,
       cites,
     };
-    clause = {
-      id: "deadline",
-      text: `you have ${primary.d!.text} to apply${cond ? ` ${cond}` : ""}${hedge ? ", or more in some cases" : ""}`,
-      cites,
-    };
+    // The card's hedge can only say "more". Where another window counted from the day it happened is
+    // shorter (Virginia's 1 year for crimes from July 2001 through June 2025, VA-DEADLINE-3), the card says
+    // nothing about the deadline; the tile and the line above name the headline's own condition.
+    const shorter = timed.some(
+      (x) => x.r !== primary.r && FROM_INCIDENT.has(x.from) && x.d!.days < primary.d!.days,
+    );
+    clause = shorter
+      ? null
+      : {
+          id: "deadline",
+          text: `you have ${primary.d!.text} to apply${cond ? ` ${cond}` : ""}${hedge ? ", or more in some cases" : ""}`,
+          cites,
+        };
     facts.push(...summaryFacts(below, "deadline"));
   } else {
     facts.push(...summaryFacts([...rules, ...narrow, ...trips], "deadline"));
