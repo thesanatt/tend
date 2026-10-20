@@ -17,7 +17,7 @@
    "field_count": 176
   }
  },
- "source_sha256": "1693b0122a956fde22586894d56ed7fd8a8d5ce1daa43a33111735fea97eff34",
+ "source_sha256": "0b9b499865a05a2ef184fde5dc9463878db83fd1018d77a639448e23755f5701",
  "rules": [
   {
    "id": "NV-EXAM-1",
@@ -373,5 +373,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NV-CAP-3",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  }
+ ]
 }

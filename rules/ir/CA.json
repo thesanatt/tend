@@ -17,7 +17,7 @@
    "field_count": 207
   }
  },
- "source_sha256": "5d7403f127c0ba64047dfa534fd0a97ae8e283e41a52c67822eaf2bdf0c151d6",
+ "source_sha256": "f26570688f5c795ff65d58a147f4e6aabb00bc4ccc59e940d64457856a292378",
  "rules": [
   {
    "id": "CA-EXAM-1",
@@ -56,6 +56,11 @@
    "expense": "relocation",
    "cap_cents": 341800,
    "per": "claim"
+  },
+  {
+   "id": "CA-RELOC-2",
+   "kind": "covered",
+   "expense": "relocation"
   },
   {
    "id": "CA-SECURITY-1",

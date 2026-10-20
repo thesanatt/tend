@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "417f5845fe312adcc8a1c511cc74061cfa4e217a088a58619be31138210b3254",
+ "source_sha256": "1b4b8c306d9dc6faae637bbb024c64f30b0c5be10a22a6fe18e16f16c5ad8103",
  "rules": [
   {
    "id": "AR-EXAM-1",
@@ -72,6 +72,11 @@
    "expense": "medical",
    "cap_cents": 1000000,
    "per": "claim"
+  },
+  {
+   "id": "AR-CAP-6",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "AR-CAP-5",

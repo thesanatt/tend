@@ -17,7 +17,7 @@
    "field_count": 245
   }
  },
- "source_sha256": "8d8af719a9c0d658659bd07b97a66b2ad42d4bfad73102518a82f47b95e1aea3",
+ "source_sha256": "21bedaa5b4b77f833f0386df24ae63d7eb59bb0881dce73eb09f52e277b48964",
  "rules": [
   {
    "id": "TX-EXAM-1",
@@ -55,6 +55,11 @@
    "expense": "relocation"
   },
   {
+   "id": "TX-RELO-4",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
    "id": "TX-RELO-2",
    "kind": "expense_cap",
    "expense": "relocation",
@@ -73,6 +78,11 @@
   },
   {
    "id": "TX-MED-1",
+   "kind": "covered",
+   "expense": "medical"
+  },
+  {
+   "id": "TX-EXAM-5",
    "kind": "covered",
    "expense": "medical"
   },

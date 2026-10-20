@@ -313,7 +313,7 @@
    "quote": "The payment shall be made only out of moneys allocated to the Crime Victims’ Services Office for the purposes of this section, and the payment may not exceed $1,000 with respect to any violation. The department shall develop and maintain separate protocols for the initial forensic physical examination of adults and children. Payment under this section is limited to medical expenses connected with the initial forensic physical examination",
    "source_id": "FL-S5",
    "pinpoint": "Fla. Stat. 960.28(2)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=The%20payment%20shall%20be%20made,the%20initial%20forensic%20physical%20examination"
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=The%20payment%20shall%20be%20made,with%20the%20initial%20forensic%20physical%20examination"
   },
   {
    "id": "FL-CAP-1",
@@ -336,7 +336,7 @@
     "amount_cents": 1000000,
     "per": "claim"
    },
-   "summary": "Medical and dental treatment is capped at $10,000, paid to providers at a rate of 50%.",
+   "summary": "Medical and dental treatment is capped at $10,000, paid at a rate of 50%.",
    "quote": "Medical/Dental Treatment $10,000 at a rate of 50%",
    "source_id": "FL-S16",
    "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -350,7 +350,7 @@
     "amount_cents": 500000,
     "per": "claim"
    },
-   "summary": "Mental health care for an injured adult victim is capped at $5,000, paid to providers at a rate of 50%.",
+   "summary": "Mental health care for an injured adult victim is capped at $5,000, paid at a rate of 50%.",
    "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50%",
    "source_id": "FL-S16",
    "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -365,7 +365,7 @@
     "per": "claim",
     "scope": "injured minors until age 18"
    },
-   "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid to providers at a rate of 50%.",
+   "summary": "Mental health care for an injured minor (until age 18) is capped at $10,000, paid at a rate of 50%.",
    "quote": "Mental Health Injured Minor (until age 18) $10,000 at a rate of 50%",
    "source_id": "FL-S16",
    "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
@@ -435,7 +435,8 @@
    "expense": "counseling",
    "params": {
     "expense": "counseling",
-    "only_benefit_if": "if you are an adult and were not physically hurt"
+    "only_benefit_if": "if you are an adult and were not physically hurt",
+    "total_condition": "if you were physically hurt"
    },
    "summary": "People who suffered a psychological injury as a direct result of a forcible felony may get mental health care if the law enforcement report names them as a victim of the crime. For adults who were not physically hurt, this is the only benefit.",
    "quote": "Persons who suffered a psychological or psychiatric injury as a direct result of a forcible felony may receive mental health care, when the law enforcement report identifies the individual as a victim of the crime. This is the only benefit available to adult victims who did not suffer a physical injury or death.",
@@ -469,7 +470,7 @@
    "quote": "Reimbursement for transportation costs to medical/dental treatment appointments requires the submission of an itemized bill by the treating provider and a reasonable estimate of the mileage between the victim/applicant's residence.",
    "source_id": "FL-S13",
    "pinpoint": "Fla. Admin. Code R. 2A-2.2002(2)(h)4.",
-   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Reimbursement%20for%20transportation%20costs%20to,mileage%20between%20the%20victim%2Fapplicant%27s%20residence."
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2002#:~:text=Reimbursement%20for%20transportation%20costs%20to%20medical%2Fdental,mileage%20between%20the%20victim%2Fapplicant%27s%20residence."
   },
   {
    "id": "FL-COV-4",
@@ -549,7 +550,7 @@
    "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3.",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=2.%20Upon%20a%20showing%20that,5%20years%20after%20such%20occurrence."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=2.%20Upon%20a%20showing%20that%20a%20delay%20in%20filing%20a%20claim%20under%20this%20paragraph%20occurred%20because%20of%20a%20delay%20in%20the%20testing%20of%2C%20or%20a%20delay%20in%20the%20DNA%20profile%20matching%20from%2C%20a%20sexual%20assault%20forensic%20examination%20kit%20or%20biological%20material%20collected%20as%20evidence%20related%20to%20a%20sexual%20offense%2C%20a%20person%20who%20is%20eligible%20for%20compensation%20under%20subsection%20%281%29%20may%20receive%20a%20waiver%20of%20any%20claim%20filing%20deadline.%203.%20For%20good%20cause%20based%20on%20a,5%20years%20after%20such%20occurrence."
   },
   {
    "id": "FL-DEADLINE-2",

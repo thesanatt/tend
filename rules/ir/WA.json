@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "7fb45794a0db3f9b3727b83986ca6f0ef25665d76cf1419943fa18e775afb9b1",
+ "source_sha256": "7e3fa1efb683d27d842ff3eda32a8fac5eed9622b88a8d55fcacd79593e02e1a",
  "rules": [
   {
    "id": "WA-EXAM-1",
@@ -129,6 +129,11 @@
    "id": "WA-COV-CLOTHING",
    "kind": "covered",
    "expense": "clothing_bedding"
+  },
+  {
+   "id": "WA-COV-MEDICATION",
+   "kind": "covered",
+   "expense": "prescription"
   },
   {
    "id": "WA-COV-PEP",

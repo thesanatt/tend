@@ -17,7 +17,7 @@
    "field_count": 296
   }
  },
- "source_sha256": "fe30f4e22f40a2c35b95891e4ff26fb387723339d288da9119a0d4749846e724",
+ "source_sha256": "71ea1954fa2f5c498f4dad93d92a34c79d185551b63408fcc5932e227b16a388",
  "rules": [
   {
    "id": "CT-EXAM-1",
@@ -268,6 +268,16 @@
    "id": "CT-CAP-2",
    "category": "total_cap",
    "reason": "applies_to \"emotional_harm_only\""
+  },
+  {
+   "id": "CT-CAP-6",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
+  {
+   "id": "CT-CAP-7",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
   }
  ]
 }

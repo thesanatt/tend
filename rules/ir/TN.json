@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "595294f49d672bbfde0d2ba08e4dc69e44996cd3a82b3efd4c8567dcb402052d",
+ "source_sha256": "2826002f3defe406c5ecdb4ce1ac32498c0961a513586c5d3dabc48d50ebb5c6",
  "rules": [
   {
    "id": "TN-EXAM-1",
@@ -57,6 +57,11 @@
    "expense": "other",
    "cap_cents": 300000,
    "per": "claim"
+  },
+  {
+   "id": "TN-COUNS-3",
+   "kind": "covered",
+   "expense": "counseling"
   },
   {
    "id": "TN-MED-1",
@@ -132,6 +137,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "TN-FILE-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "TN-REPORT-1",

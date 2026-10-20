@@ -303,7 +303,7 @@
    "quote": "\"Allowance expense\" includes a total charge not in excess of $2,500 for expenses in any way related to crime scene cleanup.",
    "source_id": "KS-S5",
    "pinpoint": "K.S.A. 74-7301(a)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0001_section/074_073_0001_k/#:~:text=%22Allowance%20expense%22%20includes%20a%20total,related%20to%20crime%20scene%20cleanup."
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0001_section/074_073_0001_k/#:~:text=%22Allowance%20expense%22%20includes%20a%20total%20charge%20not%20in%20excess%20of%20%242%2C500,related%20to%20crime%20scene%20cleanup."
   },
   {
    "id": "KS-CAP-7",
@@ -448,7 +448,7 @@
    "quote": "the victim was less than 18 years of age at the time such crime was committed, and the claim has been filed within 10 years after the date the victim turns 18 years of age",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(b)(2)(C)(ii)(b)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=the%20victim%20was%20less%20than,turns%2018%20years%20of%20age"
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=the%20victim%20was%20less%20than%2018,turns%2018%20years%20of%20age"
   },
   {
    "id": "KS-DEAD-4",
@@ -467,18 +467,19 @@
    "id": "KS-REP-1",
    "category": "reporting_requirement",
    "params": {
-    "required": false,
+    "required": true,
     "alternatives": [
      "forensic_exam",
      "other"
     ],
-    "within_hours": 72
+    "within_hours": 72,
+    "exam_condition": "done within seven days"
    },
    "summary": "To qualify, the crime must be reported to law enforcement within 72 hours, OR the survivor must have had a forensic medical exam within seven days, OR the board must find good cause for missing both.",
    "quote": "Compensation may not be awarded unless: (1) The criminally injurious conduct resulting in injury or death was reported to a law enforcement officer within 72 hours after the occurrence of the criminally injurious conduct; (2) the victim obtained a forensic medical examination within seven days after the occurrence of the criminally injurious conduct; or (3) the board finds there was good cause for the failure to report or obtain an examination within the time limits provided in this subsection.",
    "source_id": "KS-S4",
    "pinpoint": "K.S.A. 74-7305(f)",
-   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Compensation%20may%20not%20be%20awarded,limits%20provided%20in%20this%20subsection."
+   "fragment_url": "https://www.kslegislature.gov/b2025_26/laws/074_000_0000_chapter/074_073_0000_article/074_073_0005_section/074_073_0005_k/#:~:text=Compensation%20may%20not%20be%20awarded%20unless%3A%20%281%29,limits%20provided%20in%20this%20subsection."
   },
   {
    "id": "KS-REP-2",

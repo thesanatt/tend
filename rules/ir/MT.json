@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "7c38bffec2fdc656e549e0552c064eb40b77295f37946cc9731de12fba163e58",
+ "source_sha256": "51efc72551e114ec820a26d53eae8f6295eac26747b31f9cf1b778d011419124",
  "rules": [
   {
    "id": "MT-EXAM-1",
@@ -135,10 +135,16 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MT-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MT-REP-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "MT-COL-1",

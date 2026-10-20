@@ -379,6 +379,20 @@
    "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-105/#:~:text=In%20the%20case%20of%20a,of%20the%20victim%2C%20or%20both"
   },
   {
+   "id": "TN-COUNS-3",
+   "category": "covered_expense",
+   "expense": "counseling",
+   "params": {
+    "expense": "counseling",
+    "scope": "counseling you need because of the injury"
+   },
+   "summary": "The program says it may consider paying for counseling the victim needs because of the injury. The most it can pay is the overall limit.",
+   "quote": "Any counseling services must be necessary due to the injury and may be considered for the victim up to the maximum award.",
+   "source_id": "TN-S15",
+   "pinpoint": "Program page, Eligible (Covered) Expenses Explained: Medical Bills/Mental Health Counseling",
+   "fragment_url": "https://treasury.tn.gov/Services/Claims-and-Risk-Management/Criminal-Injuries-Compensation#:~:text=Any%20counseling%20services%20must%20be,up%20to%20the%20maximum%20award."
+  },
+  {
    "id": "TN-MED-1",
    "category": "covered_expense",
    "expense": "medical",
@@ -551,13 +565,26 @@
    "params": {
     "years": 2,
     "from": "crime",
-    "extension": "or later if good cause is shown"
+    "extension": "or later if the program extends it for good cause"
    },
    "summary": "A claim must be filed within 2 years after the crime. For listed sexual offenses against a minor, it can also be filed within 2 years after a resulting injury is diagnosed, and good cause can extend the time.",
    "quote": "A claim for compensation must be filed not later than two (2) years after the occurrence of the crime upon which the claim is based, two (2) years after the death of the victim, or two (2) years after any mental or physical manifestation or injury is diagnosed as a result of an act committed against a minor that would constitute a criminal offense under §§ 39-13-502 – 39-13-505, § 39-13-522, § 39-15-302, § 39-17-902, or §§ 39-17-1003 – 39-17-1005, or an attempt, conspiracy, or solicitation to commit such offenses; provided, that upon good cause shown, the time period for filing such claim may be extended either before or after the expiration of the filing period.",
    "source_id": "TN-S9",
    "pinpoint": "T.C.A. 29-13-108(a)",
    "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-108/#:~:text=A%20claim%20for%20compensation%20must,expiration%20of%20the%20filing%20period."
+  },
+  {
+   "id": "TN-FILE-2",
+   "category": "filing_deadline",
+   "params": {
+    "years": 2,
+    "from": "diagnosis"
+   },
+   "summary": "Some sex crimes against a minor allow more time. A claim can also be filed within 2 years after a mental or physical injury from the crime is diagnosed.",
+   "quote": "two (2) years after any mental or physical manifestation or injury is diagnosed as a result of an act committed against a minor that would constitute a criminal offense under §§ 39-13-502 – 39-13-505, § 39-13-522, § 39-15-302, § 39-17-902, or §§ 39-17-1003 – 39-17-1005, or an attempt, conspiracy, or solicitation to commit such offenses",
+   "source_id": "TN-S9",
+   "pinpoint": "T.C.A. 29-13-108(a)",
+   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-108/#:~:text=two%20%282%29%20years%20after%20any,solicitation%20to%20commit%20such%20offenses"
   },
   {
    "id": "TN-REPORT-1",
@@ -599,7 +626,7 @@
    "quote": "no award shall be made unless the claimant has incurred a minimum out of pocket loss of one hundred dollars ($100) or has lost at least two (2) continuous weeks earnings or support, unless it is determined that the interest of justice would not be served by such a limitation",
    "source_id": "TN-S7",
    "pinpoint": "T.C.A. 29-13-106(d)",
-   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-106/#:~:text=no%20award%20shall%20be%20made,served%20by%20such%20a%20limitation"
+   "fragment_url": "https://law.justia.com/codes/tennessee/title-29/chapter-13/part-1/section-29-13-106/#:~:text=no%20award%20shall%20be%20made%20unless,served%20by%20such%20a%20limitation"
   },
   {
    "id": "TN-COLL-1",
@@ -780,7 +807,7 @@
    "quote": "The Safe at Home Address Confidentiality Program is a statewide address confidentiality program administered by the Office of the Tennessee Secretary of State. It is open to all victims of domestic abuse, stalking, human trafficking, rape, sexual battery, or any other sexual offense who satisfy eligibility and application requirements at no cost. Once a participant has been approved, they are provided with a 'substitute' address that can be used by them and their children as their official mailing address for all state and local government purposes",
    "source_id": "TN-S21",
    "pinpoint": "Secretary of State, Safe at Home FAQ 'What is the Safe at Home Address Confidentiality Program?'; statute T.C.A. 40-38-601 to 40-38-604 (enroll text from 40-38-604(a))",
-   "fragment_url": "https://sos.tn.gov/safeathome/faqs/what-is-the-safe-at-home-address-confidentiality-program#:~:text=The%20Safe%20at%20Home%20Address,state%20and%20local%20government%20purposes"
+   "fragment_url": "https://sos.tn.gov/safeathome/faqs/what-is-the-safe-at-home-address-confidentiality-program#:~:text=The%20Safe%20at%20Home%20Address%20Confidentiality%20Program%20is,state%20and%20local%20government%20purposes"
   },
   {
    "id": "TN-RECORDS-1",

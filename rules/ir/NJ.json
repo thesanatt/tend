@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "c70dcbc425eac3433159637e055c8a0d9238893d693fc7b105f3a9ce76535dd1",
+ "source_sha256": "892c1730d90e4a97f4f75b113d290e19059afd2a67385f384198db4c55298f64",
  "rules": [
   {
    "id": "NJ-EXAM-1",
@@ -33,6 +33,11 @@
   },
   {
    "id": "NJ-CAP-1",
+   "kind": "total_cap",
+   "cap_cents": 2500000
+  },
+  {
+   "id": "NJ-CAP-2",
    "kind": "total_cap",
    "cap_cents": 2500000
   },

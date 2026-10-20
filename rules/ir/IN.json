@@ -17,7 +17,7 @@
    "field_count": 89
   }
  },
- "source_sha256": "024db990440601565ed34aa30210f7bc862d14e87ac190b93b1d2895e48efdd6",
+ "source_sha256": "6ad595b00a1326580c4eed6b45b73b0ad4a0fe86775e9e1da055a7e4b4a5169a",
  "rules": [
   {
    "id": "IN-EXAM-1",
@@ -137,6 +137,16 @@
    "kind": "deadline",
    "days": 180,
    "from": "crime"
+  },
+  {
+   "id": "IN-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "IN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "IN-REPORT-1",

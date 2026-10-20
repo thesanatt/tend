@@ -17,7 +17,7 @@
    "field_count": 53
   }
  },
- "source_sha256": "b3db9d950acab36db40196eb396cc7c8fc6da5b22f12bb487d49adfa5c536d63",
+ "source_sha256": "86f0c768feea20fd1d55fcd500806a43dd671952be6d22e412df97fccdc20c46",
  "rules": [
   {
    "id": "MN-EXAM-1",
@@ -134,6 +134,11 @@
    "id": "MN-EXC-LEGAL",
    "kind": "excluded",
    "expense": "legal"
+  },
+  {
+   "id": "MN-EXC-MOVING",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "MN-EXC-TUITION",

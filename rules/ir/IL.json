@@ -17,7 +17,7 @@
    "field_count": 297
   }
  },
- "source_sha256": "5ae5fdda61156ebee1d513dba501c2c3da008e9b5e26041b9915dbdcc961fa2c",
+ "source_sha256": "173ba62abda13a538bbb5da05bdacd2edac4b520d8ce2555485c86cf63881fda",
  "rules": [
   {
    "id": "IL-EXAM-1",
@@ -185,13 +185,15 @@
    ]
   },
   {
+   "id": "IL-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "IL-REPORT-3",
    "kind": "reporting",
    "required": false,
-   "alternatives": [
-    "forensic_exam",
-    "medical_provider"
-   ]
+   "alternatives": []
   },
   {
    "id": "IL-REPORT-4",

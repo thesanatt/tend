@@ -17,10 +17,14 @@
    "field_count": 0
   }
  },
- "source_sha256": "cb7a5dee081a436b4ae9053157069be3fabb773b9aac4b57716f6f83839a614c",
+ "source_sha256": "4a9d655da44f0fbbf687cbb9f79de9ad097cc7c0e483b0412ede7d3135f101ce",
  "rules": [
   {
    "id": "SD-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "SD-EXAM-4",
    "kind": "exam_payment"
   },
   {
@@ -80,6 +84,11 @@
    "id": "SD-MED-2",
    "kind": "covered",
    "expense": "medical"
+  },
+  {
+   "id": "SD-TRANS-3",
+   "kind": "covered",
+   "expense": "transportation"
   },
   {
    "id": "SD-TRANS-1",
@@ -276,6 +285,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "SD-CAP-5",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
   {
    "id": "SD-CAP-4",
    "category": "expense_cap",

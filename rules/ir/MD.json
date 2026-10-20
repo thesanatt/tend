@@ -17,7 +17,7 @@
    "field_count": 135
   }
  },
- "source_sha256": "964d19814ff5d8a14e6aef7372384fee02679d2efb36ed3378c98cc121a6de53",
+ "source_sha256": "5bd3612c274e0002d18fb0546a8ed962c22ecd41a20e739b9974d2e026e8f0f0",
  "rules": [
   {
    "id": "MD-EXAM-1",
@@ -129,6 +129,11 @@
    "kind": "deadline",
    "days": 1461,
    "from": "discovery"
+  },
+  {
+   "id": "MD-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MD-DEADLINE-2",
@@ -272,6 +277,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "MD-CAP-8",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  },
   {
    "id": "MD-COV-10",
    "category": "covered_expense",

@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "5b106892831491c470af16f5b64632f2948ef049945edd86315590a1025505d2",
+ "source_sha256": "894c0682472ec7651a1f784f24071fd72b970bfa96557d4854c8d661ff5ea531",
  "rules": [
   {
    "id": "WY-EXAM-1",
@@ -308,6 +308,11 @@
    "id": "WY-EXAM-2",
    "category": "exam_no_bill",
    "reason": "applies_to \"exams reported to law enforcement\""
+  },
+  {
+   "id": "WY-CAP-10",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
   },
   {
    "id": "WY-CAP-3",

@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "7146976c472a60599f38591c05b404774e2f2be27c3330fbef87a7585a1b9ea0",
+ "source_sha256": "b5c448698e400b0792b66927c59f581ae63264503e3bf24bc88ba77f45cb5f99",
  "rules": [
   {
    "id": "DE-EXAM-1",
@@ -129,6 +129,11 @@
    "expense": "other"
   },
   {
+   "id": "DE-COV-11",
+   "kind": "covered",
+   "expense": "legal"
+  },
+  {
    "id": "DE-EXCL-1",
    "kind": "info",
    "category": "excluded_expense"
@@ -153,7 +158,8 @@
    "alternatives": [
     "other",
     "protective_order"
-   ]
+   ],
+   "within_days": 3
   },
   {
    "id": "DE-REPORT-2",
