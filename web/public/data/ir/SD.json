@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "SD",
- "source_sha256": "472e93984e677a503b38143d09a29ada378eeb1364791b8d7df3c2327839ee87",
- "ir_sha256": "381fc33ecc628f0c45794f71f864da33e257331371cf9f74dbdeea26798f3a07",
+ "source_sha256": "acb4650435bb867f6715e12227978645d6487a9d280883b96769abff750afd28",
+ "ir_sha256": "b7e1477463efb3128f81b84b58c52f88ec5e7cb80c9b3676400412aaa674e88f",
  "fresh": true,
  "rules": [
   {
@@ -290,6 +290,11 @@
    "id": "SD-CAP-4",
    "category": "expense_cap",
    "reason": "applies_to \"homicide scene cleanup\""
+  },
+  {
+   "id": "SD-CAP-6",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
   }
  ]
 }

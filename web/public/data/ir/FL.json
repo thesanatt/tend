@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "FL",
- "source_sha256": "bbb6a6869740ad927b54f73d8b180e98cbcf41435860376f20c523affa3d0cf0",
- "ir_sha256": "2f44b7e4460eb5766a7b7535962bdf937caa1c378bff1e48083b8dab56dc4777",
+ "source_sha256": "edcf36eaaf5b82b9d2c46229480b9d1377666ea4bc41851a4d87afdf115c9589",
+ "ir_sha256": "4cbf4ae00e5e1bb27556f5c79594c502f81024f67516b5c9b05c0486cb8d458b",
  "fresh": true,
  "rules": [
   {
@@ -128,6 +128,11 @@
   },
   {
    "id": "FL-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "FL-DEADLINE-7",
    "kind": "info",
    "category": "filing_deadline"
   },

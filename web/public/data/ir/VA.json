@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "VA",
- "source_sha256": "98e479fcf132ec6620029919493669726c9968a9e11a2704e19bb78e0b9c33d6",
- "ir_sha256": "20e5eac04bb30b52e892f97803f075f0f09c00112237850647bc8021ea01f338",
+ "source_sha256": "40c091ce0d86437a80f7a7e7993461271092430a4e3d02a65cda5c1758c43cfe",
+ "ir_sha256": "9b18f7b050a618ee1ad59f3f5cd166316b10ba179f72dd93102c1b610b26af62",
  "fresh": true,
  "rules": [
   {
@@ -51,6 +51,11 @@
   },
   {
    "id": "VA-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VA-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
   },
@@ -135,6 +140,11 @@
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "VA-DEADLINE-1",

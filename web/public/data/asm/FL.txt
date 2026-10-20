@@ -1,8 +1,8 @@
 ; tend law image FL, Florida
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 bbb6a6869740ad927b54f73d8b180e98cbcf41435860376f20c523affa3d0cf0
-; image sha256  e29f3ca96c9edd59a44276ac5d47c0210514f3e2f34b18bd296c747df92855b4
-; 58 rules, 24 sources, 19 proofs, 6 ints, 353 strings
+; source sha256 edcf36eaaf5b82b9d2c46229480b9d1377666ea4bc41851a4d87afdf115c9589
+; image sha256  4d80c2d256cdfd76bc6a23c10133e24fba42fd08a82495665721a683b477eb4b
+; 59 rules, 24 sources, 19 proofs, 6 ints, 358 strings
 ; item program: 209 instructions, 757 bytes, max stack 2
 ; aggregate program: 223 instructions, 688 bytes, max stack 3, 7 loops
 
@@ -29,42 +29,43 @@
     R19   FL-DEADLINE-1         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)1.
     R20   FL-DEADLINE-3         deadline      -                     from crime              Fla. Stat. 960.07(2)(b)2.-3.
     R21   FL-DEADLINE-6         info          -                     filing_deadline         Fla. Stat. 960.07(2)(a)1.-2.
-    R22   FL-DEADLINE-2         info          -                     filing_deadline         Fla. Stat. 960.07(3)(c)
-    R23   FL-DEADLINE-5         info          -                     filing_deadline         Fla. Stat. 960.07(3)(b)
-    R24   FL-DEADLINE-4         info          -                     filing_deadline         Fla. Stat. 960.07(3)
-    R25   FL-REPORT-1           reporting     -                                             Fla. Stat. 960.13(1)(b)2.
-    R26   FL-REPORT-2           reporting     -                                             Fla. Admin. Code R. 2A-2.2001(9)
-    R27   FL-REPORT-3           info          -                     reporting_requirement   Fla. Stat. 960.13(1)(b)
-    R28   FL-COLLATERAL-1       collateral    -                                             Fla. Stat. 960.13(3)
-    R29   FL-NEED-1             info          -                     minimum_loss            Fla. Stat. 960.13(8)
-    R30   FL-CONDUCT-1          info          -                     conduct_reduction       Fla. Stat. 960.13(7)
-    R31   FL-CONDUCT-2          info          -                     conduct_reduction       Fla. Admin. Code R. 2A-2.2002(1)(b)2.
-    R32   FL-EMERG-1            info          -                     emergency_award         Fla. Stat. 960.12(1)-(2)
-    R33   FL-CRIME-1            info          -                     eligible_crime          Fla. Stat. 960.03(3)(a)
-    R34   FL-CRIME-2            info          -                     eligible_crime          Fla. Stat. 776.08
-    R35   FL-RES-1              info          -                     residency               Fla. Stat. 960.03(3)(d)
-    R36   FL-RES-2              info          -                     residency               Fla. Admin. Code R. 2A-2.2001(8)
-    R37   FL-SUBMIT-1           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R38   FL-SUBMIT-2           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R39   FL-SUBMIT-3           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
-    R40   FL-SUBMIT-4           info          -                     submission              Fla. Stat. 960.07(5)
-    R41   FL-DOC-1              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R42   FL-DOC-2              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R43   FL-DOC-3              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R44   FL-DOC-4              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement
-    R45   FL-DOC-5              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R46   FL-DOC-6              info          -                     required_document       Claim Form BVC100 (08/24), Section Nine
-    R47   FL-DOC-7              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss
-    R48   FL-DOC-8              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve
-    R49   FL-DOC-9              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R50   FL-DOC-10             info          -                     required_document       Victim Compensation Brochure, Documentation Needed
-    R51   FL-DOC-11             info          -                     required_document       Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations
-    R52   FL-ACP-1              info          -                     address_confidentiality Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465
-    R53   FL-RECORDS-1          info          -                     record_confidentiality  Fla. Stat. 119.071(2)(j)1.b.(I)
-    R54   FL-CAP-9              skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment  ; expense_cap without amount or expense
-    R55   FL-CAP-10             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim  ; expense_cap without amount or expense
-    R56   FL-CAP-11             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss  ; expense_cap without amount or expense
-    R57   FL-CAP-8              skipped       -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  ; less generous duplicate of FL-CAP-3
+    R22   FL-DEADLINE-7         info          -                     filing_deadline         Fla. Stat. 960.07(2)(a)3.
+    R23   FL-DEADLINE-2         info          -                     filing_deadline         Fla. Stat. 960.07(3)(c)
+    R24   FL-DEADLINE-5         info          -                     filing_deadline         Fla. Stat. 960.07(3)(b)
+    R25   FL-DEADLINE-4         info          -                     filing_deadline         Fla. Stat. 960.07(3)
+    R26   FL-REPORT-1           reporting     -                                             Fla. Stat. 960.13(1)(b)2.
+    R27   FL-REPORT-2           reporting     -                                             Fla. Admin. Code R. 2A-2.2001(9)
+    R28   FL-REPORT-3           info          -                     reporting_requirement   Fla. Stat. 960.13(1)(b)
+    R29   FL-COLLATERAL-1       collateral    -                                             Fla. Stat. 960.13(3)
+    R30   FL-NEED-1             info          -                     minimum_loss            Fla. Stat. 960.13(8)
+    R31   FL-CONDUCT-1          info          -                     conduct_reduction       Fla. Stat. 960.13(7)
+    R32   FL-CONDUCT-2          info          -                     conduct_reduction       Fla. Admin. Code R. 2A-2.2002(1)(b)2.
+    R33   FL-EMERG-1            info          -                     emergency_award         Fla. Stat. 960.12(1)-(2)
+    R34   FL-CRIME-1            info          -                     eligible_crime          Fla. Stat. 960.03(3)(a)
+    R35   FL-CRIME-2            info          -                     eligible_crime          Fla. Stat. 776.08
+    R36   FL-RES-1              info          -                     residency               Fla. Stat. 960.03(3)(d)
+    R37   FL-RES-2              info          -                     residency               Fla. Admin. Code R. 2A-2.2001(8)
+    R38   FL-SUBMIT-1           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R39   FL-SUBMIT-2           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R40   FL-SUBMIT-3           info          -                     submission              Claim Form BVC100 (08/24), page 1 header and Section One, instruction 4
+    R41   FL-SUBMIT-4           info          -                     submission              Fla. Stat. 960.07(5)
+    R42   FL-DOC-1              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R43   FL-DOC-2              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R44   FL-DOC-3              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R45   FL-DOC-4              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Emergency Reimbursement
+    R46   FL-DOC-5              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R47   FL-DOC-6              info          -                     required_document       Claim Form BVC100 (08/24), Section Nine
+    R48   FL-DOC-7              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss
+    R49   FL-DOC-8              info          -                     required_document       Claim Form BVC100 (08/24), Section Two, Wage Loss; Section Twelve
+    R50   FL-DOC-9              info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R51   FL-DOC-10             info          -                     required_document       Victim Compensation Brochure, Documentation Needed
+    R52   FL-DOC-11             info          -                     required_document       Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations
+    R53   FL-ACP-1              info          -                     address_confidentiality Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465
+    R54   FL-RECORDS-1          info          -                     record_confidentiality  Fla. Stat. 119.071(2)(j)1.b.(I)
+    R55   FL-CAP-9              skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment  ; expense_cap without amount or expense
+    R56   FL-CAP-10             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim  ; expense_cap without amount or expense
+    R57   FL-CAP-11             skipped       -                     expense_cap             Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss  ; expense_cap without amount or expense
+    R58   FL-CAP-8              skipped       -                     expense_cap             Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  ; less generous duplicate of FL-CAP-3
 
 .tags   cash=bit0
 
@@ -113,7 +114,7 @@
     P15   (FL-CAP-7, FL-COLLATERAL-1)
     P16   (FL-DEADLINE-1, FL-DEADLINE-3)
     P17   (FL-REPORT-1, FL-REPORT-2)
-    P18   (FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
+    P18   (FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-7, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1)
 
 .ints
     K0    100000        ; $1,000.00
@@ -195,7 +196,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R28              ; FL-COLLATERAL-1
+  00d5        seta     collateral, R29              ; FL-COLLATERAL-1
   00d9        ret
               ; FL-CAP-3  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Adult Victim $5,000 at a rate of 50%"
               ; FL-COV-1  Fla. Admin. Code R. 2A-2.2002(2)(g)5.  "Persons who suffered a psychological or psychiatric injury as a..."
@@ -231,7 +232,7 @@
   012f        subs
   0130        push     0
   0135        max
-  0136        seta     collateral, R28              ; FL-COLLATERAL-1
+  0136        seta     collateral, R29              ; FL-COLLATERAL-1
   013a        ret
               ; FL-CAP-5  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Wage Loss $15,000 at a rate of 50% or GAWW"
               ; FL-COV-2  Fla. Admin. Code R. 2A-2.2002(2)(c)1.a.  "Who missed time from work because they were unable to work as a..."
@@ -266,7 +267,7 @@
   018d        subs
   018e        push     0
   0193        max
-  0194        seta     collateral, R28              ; FL-COLLATERAL-1
+  0194        seta     collateral, R29              ; FL-COLLATERAL-1
   0198        ret
               ; FL-COV-3  Fla. Admin. Code R. 2A-2.2002(2)(h)4.  "Reimbursement for transportation costs to medical/dental..."
               ; FL-COV-4  Fla. Admin. Code R. 2A-2.2002(2)(g)8.  "Reimbursement for transportation costs to mental health..."
@@ -301,7 +302,7 @@
   01eb        subs
   01ec        push     0
   01f1        max
-  01f2        seta     collateral, R28              ; FL-COLLATERAL-1
+  01f2        seta     collateral, R29              ; FL-COLLATERAL-1
   01f6        ret
               ; FL-CAP-6  Fla. Stat. 960.199(1)  "The department may award a one-time payment of up to $1,500 on..."
               ; FL-COV-6  Fla. Stat. 960.199(2)(c)-(e)  "(c) The victim’s need for assistance must be certified by a..."
@@ -337,7 +338,7 @@
   0249        subs
   024a        push     0
   024f        max
-  0250        seta     collateral, R28              ; FL-COLLATERAL-1
+  0250        seta     collateral, R29              ; FL-COLLATERAL-1
   0254        ret
               ; FL-EXC-1  Fla. Admin. Code R. 2A-2.2002(3)(g)  "Examples of property that is not compensable includes real..."
   0255  L27:  push     0
@@ -392,7 +393,7 @@
   02e9        subs
   02ea        push     0
   02ef        max
-  02f0        seta     collateral, R28              ; FL-COLLATERAL-1
+  02f0        seta     collateral, R29              ; FL-COLLATERAL-1
   02f4        ret
 
 .aggregate
@@ -630,6 +631,7 @@
   02a8  L39:  check    reporting, P17               ; FL-REPORT-1, FL-REPORT-2
               ; FL-CAP-4  Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))  "Mental Health Injured Minor (until age 18) $10,000 at a rate of..."
               ; FL-DEADLINE-6  Fla. Stat. 960.07(2)(a)1.-2.  "(a)1. A claim arising from a crime occurring before October 1..."
+              ; FL-DEADLINE-7  Fla. Stat. 960.07(2)(a)3.  "3. For good cause based on reason other than a delay described..."
               ; FL-DEADLINE-2  Fla. Stat. 960.07(3)(c)  "(c) For a claim arising from a crime occurring on or after..."
               ; FL-DEADLINE-5  Fla. Stat. 960.07(3)(b)  "(b) For a claim arising from a crime that occurred before..."
               ; FL-DEADLINE-4  Fla. Stat. 960.07(3)  "Upon a showing that a delay in filing a claim occurred because..."
@@ -660,6 +662,6 @@
               ; FL-DOC-11  Claim Form BVC100 (08/24), Section Four, Relocation Payment Limitations  "A standard housing contract or a No fica on of Residen al..."
               ; FL-ACP-1  Office of the Attorney General, Address Confidentiality Program page; Fla. Stat. 741.401-741.465  "the Address Confidentiality Program (ACP) provides a substitute..."
               ; FL-RECORDS-1  Fla. Stat. 119.071(2)(j)1.b.(I)  "Any portion of a public record which reveals the identity..."
-  02ac        info     P18                          ; FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
+  02ac        info     P18                          ; FL-CAP-4, FL-DEADLINE-6, FL-DEADLINE-7, FL-DEADLINE-2, FL-DEADLINE-5, FL-DEADLINE-4, FL-REPORT-3, FL-COLLATERAL-1, FL-NEED-1, FL-CONDUCT-1, FL-CONDUCT-2, FL-EMERG-1, FL-CRIME-1, FL-CRIME-2, FL-RES-1, FL-RES-2, FL-SUBMIT-1, FL-SUBMIT-2, FL-SUBMIT-3, FL-SUBMIT-4, FL-DOC-1, FL-DOC-2, FL-DOC-3, FL-DOC-4, FL-DOC-5, FL-DOC-6, FL-DOC-7, FL-DOC-8, FL-DOC-9, FL-DOC-10, FL-DOC-11, FL-ACP-1, FL-RECORDS-1
   02af        ret
 

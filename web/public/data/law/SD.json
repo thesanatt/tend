@@ -312,14 +312,27 @@
    "category": "covered_expense",
    "expense": "medical",
    "params": {
-    "expense": "medical",
-    "detail": true
+    "expense": "medical"
    },
-   "summary": "Apart from mental health care, medical services are paid only if provided in the 12 months after the crime, unless the department extends that for good cause.",
+   "summary": "Payment for medical expenses is limited to medical services provided in the 12 months right after the crime. The department may extend this 12-month period for good cause.",
    "quote": "payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
    "source_id": "SD-S8",
    "pinpoint": "ARSD 67:55:04:19",
    "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=payment%20for%20medical%20expenses%20is,if%20good%20cause%20is%20shown."
+  },
+  {
+   "id": "SD-CAP-6",
+   "category": "expense_cap",
+   "expense": "medical",
+   "params": {
+    "expense": "medical",
+    "per": "claim"
+   },
+   "summary": "Medical services are paid only if given in the 12 months after the crime. The department may extend this for good cause. This 12-month limit does not apply to mental health care or to medicine for a mental condition.",
+   "quote": "Except for mental health expenses covered under § 67:55:04:03 and the costs of medications related to the treatment of a mental condition, payment for medical expenses is limited to those medical services provided during the 12-month period immediately following the date the crime occurred. The department may extend this 12-month period if good cause is shown.",
+   "source_id": "SD-S8",
+   "pinpoint": "ARSD 67:55:04:19",
+   "fragment_url": "https://sdlegislature.gov/Rules/Administrative/67:55#:~:text=Except%20for%20mental%20health%20expenses,if%20good%20cause%20is%20shown."
   },
   {
    "id": "SD-TRANS-3",
