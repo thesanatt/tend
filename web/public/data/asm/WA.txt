@@ -1,8 +1,8 @@
 ; tend law image WA, Washington
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 7e3fa1efb683d27d842ff3eda32a8fac5eed9622b88a8d55fcacd79593e02e1a
-; image sha256  7dbeaad999831df93443b1aed97d2baaa05e974ebf6a678b79c07b4a680f6b19
-; 59 rules, 25 sources, 20 proofs, 4 ints, 369 strings
+; source sha256 28d4fac09553a5e25acfbf702b49328770e0c04a7fcad3abd78b2757560e0e91
+; image sha256  463e5f7f41ceeb8a4e0f04870df44ee3b317c12c81bb5e165d34d031590d7f3e
+; 60 rules, 25 sources, 20 proofs, 4 ints, 374 strings
 ; item program: 120 instructions, 410 bytes, max stack 2
 ; aggregate program: 170 instructions, 526 bytes, max stack 3, 5 loops
 
@@ -66,6 +66,7 @@
     R56   WA-TIME-1             info          -                     processing_time         L&I Apply for Crime Victim Benefits page, after the filing instructions
     R57   WA-ACP-1              info          -                     address_confidentiality WA Secretary of State ACP page, opening paragraph; enrollment through an Application Assistant per the How to Apply section and the Application Process page (WA-S25); statutory basis chapter 40.24 RCW (RCW 40.24.030, WA-S23)
     R58   WA-RECCONF-1          info          -                     record_confidentiality  RCW 7.68.140
+    R59   WA-COV-TRANSPORT-4    skipped       -                     expense_cap             L&I Who Can File and What is Covered, Travel Reimbursement  ; expense_cap without amount or expense
 
 .sources
     S0    WA-S1       sha256 c5850be29664e7f3  https://app.leg.wa.gov/RCW/default.aspx?cite=7.68.020

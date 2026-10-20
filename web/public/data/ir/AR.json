@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AR",
- "source_sha256": "1b4b8c306d9dc6faae637bbb024c64f30b0c5be10a22a6fe18e16f16c5ad8103",
- "ir_sha256": "738f666516f1ad03e4626312bcc4c2022b66ab2e5160d116a90cddf386f7ba97",
+ "source_sha256": "26e708006c4dd54828a3946fbb928df4df6d27c0108ddc9481e719b3460f25dc",
+ "ir_sha256": "a320677b8a4b41eebd12ca76fc99cf2b0147eceda360c3a355d1bba3d854356f",
  "fresh": true,
  "rules": [
   {
@@ -19,6 +19,12 @@
   },
   {
    "id": "AR-EXAM-4",
+   "kind": "reporting",
+   "required": false,
+   "alternatives": []
+  },
+  {
+   "id": "AR-REPORT-4",
    "kind": "reporting",
    "required": false,
    "alternatives": []
@@ -99,6 +105,16 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "AR-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "AR-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "AR-COLL-1",

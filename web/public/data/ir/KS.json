@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "KS",
- "source_sha256": "48f48cd7eece9c0f2c88bc5be04e80600282308a848d3aef392665424a5880ca",
- "ir_sha256": "c5743493db131f3482d4b9eb32c0f682d6b35ef567d54be228e210d4216405c3",
+ "source_sha256": "3ce3ec33d20703c22c98cdb3ad37db79df4f010edaa6dd443ef15b1ef2130f41",
+ "ir_sha256": "7525b6f5f813fa90cf793146cf0c2bdffa7240d4e636e30736418191a1a9bbc9",
  "fresh": true,
  "rules": [
   {
@@ -152,6 +152,11 @@
   {
    "id": "KS-COL-1",
    "kind": "collateral"
+  },
+  {
+   "id": "KS-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
   },
   {
    "id": "KS-CON-1",

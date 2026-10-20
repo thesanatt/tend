@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WA",
- "source_sha256": "7e3fa1efb683d27d842ff3eda32a8fac5eed9622b88a8d55fcacd79593e02e1a",
- "ir_sha256": "13ea111d697947217e880d13c934277898a503dd0cdfb760ede7d0b32c0ed934",
+ "source_sha256": "28d4fac09553a5e25acfbf702b49328770e0c04a7fcad3abd78b2757560e0e91",
+ "ir_sha256": "e84d876dd373f06f3697652e80b9a2cafc1737da0bbcb4faf1e56579bc5fe771",
  "fresh": true,
  "rules": [
   {
@@ -304,5 +304,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "WA-COV-TRANSPORT-4",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

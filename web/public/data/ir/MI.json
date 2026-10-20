@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MI",
- "source_sha256": "76786f68980318b3f93f4fa8a0d8d40f66c76d459ca832b6fb4043e186d9413c",
- "ir_sha256": "30148c585e8a14714625ae5928d7045360c6a630e1f038d035290070774f05f1",
+ "source_sha256": "e7d21e8f0aecf4cec30d313b379990533d5dde0e243ca35d214b4a0c813c623a",
+ "ir_sha256": "36dd71b69863bcd93d6a309a6f763e631d5981bc7e69af76494a3a70f8ef665a",
  "fresh": true,
  "rules": [
   {
@@ -56,6 +56,11 @@
    "expense": "relocation",
    "cap_cents": 380000,
    "per": "claim"
+  },
+  {
+   "id": "MI-CAP-12",
+   "kind": "info",
+   "category": "expense_cap"
   },
   {
    "id": "MI-CAP-8",
@@ -200,6 +205,11 @@
    "alternatives": [
     "forensic_exam"
    ]
+  },
+  {
+   "id": "MI-REPORT-4",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MI-MIN-1",

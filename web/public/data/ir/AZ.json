@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "AZ",
- "source_sha256": "bce27425e22d28c45ced7994674ebc71e3d7643307924a5369f5270b575889da",
- "ir_sha256": "a68f480b83982ed7388ca3ca391f614445c76ac0fa87c09d18b737c64f8e3546",
+ "source_sha256": "e0ab90fc16c457f48d78c92fc3137980c8113ca462ecca5fdbe85a9211584b7a",
+ "ir_sha256": "db7a1c0d5472bd3f7912bbf7891eb64f94202ab83b9441ea3fafa76acf59475b",
  "fresh": true,
  "rules": [
   {
@@ -123,6 +123,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "AZ-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "AZ-COLL-1",

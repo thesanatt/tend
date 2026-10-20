@@ -246,7 +246,7 @@
    "params": {
     "payer": "Sexual Assault Victim Emergency Payment (SAVE) program, Colorado Division of Criminal Justice"
    },
-   "summary": "The state SAVE program (Division of Criminal Justice) must cover medical fees tied to getting the forensic exam, such as ER, lab, prescription, and physician fees, as long as funds are available.",
+   "summary": "The state's SAVE program must pay medical costs that come with getting the forensic exam. These include emergency room, lab, medicine, and doctor fees. It pays as long as it has the money.",
    "quote": "The program must cover medical fees and costs associated with obtaining the medical forensic examination, including but not limited to emergency department fees and costs, laboratory fees, prescription medication, and physician's fees, as long as funds are available.",
    "source_id": "CO-S9",
    "pinpoint": "C.R.S. 18-3-407.7(2)(a)",
@@ -277,6 +277,19 @@
    "source_id": "CO-S10",
    "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For",
    "fragment_url": "https://dcj.colorado.gov/dcj-offices/ovp/save-paymt-prgm#:~:text=If%20the%20victim%20makes%20an,for%20insurance%20deductibles%20and%20co%2Dpays."
+  },
+  {
+   "id": "CO-EXAM-9",
+   "category": "exam_payment",
+   "expense": "medical",
+   "params": {
+    "payer": "The survivor's insurance, if the survivor asks; the patient owes any balance after SAVE pays up to its cap"
+   },
+   "summary": "If the survivor has insurance and asks for it to be billed, the hospital bills that insurance for related costs. After SAVE has paid the hospital for eligible costs, up to its cap, the patient must pay any balance left.",
+   "quote": "If the victim has insurance and requests that their insurance is billed, the hospital bills the survivor's insurance for related costs. If the victim makes an anonymous or medical report, the SAVE program will pay for insurance deductibles and co-pays. After the SAVE program has paid the hospital for eligible medical expenses (up to the cap), the patient is responsible for paying any outstanding balances.",
+   "source_id": "CO-S10",
+   "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For",
+   "fragment_url": "https://dcj.colorado.gov/dcj-offices/ovp/save-paymt-prgm#:~:text=If%20the%20victim%20has%20insurance,for%20paying%20any%20outstanding%20balances."
   },
   {
    "id": "CO-CAP-1",
@@ -354,7 +367,7 @@
    "quote": "Reasonable relocation expenses for a victim to relocate as necessary to ensure the victim's safety.",
    "source_id": "CO-S5",
    "pinpoint": "C.R.S. 24-4.1-109(1)(l)",
-   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=Reasonable%20relocation%20expenses%20for%20a,to%20ensure%20the%20victim%27s%20safety."
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=Reasonable%20relocation%20expenses%20for%20a,to%20ensure%20the%20victim%E2%80%99s%20safety."
   },
   {
    "id": "CO-COV-6",
@@ -380,7 +393,7 @@
    "quote": "Any modification to the victim's residence that is necessary to ensure victim safety;",
    "source_id": "CO-S5",
    "pinpoint": "C.R.S. 24-4.1-109(1.5)(a)(II)",
-   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=Any%20modification%20to%20the%20victim%27s,necessary%20to%20ensure%20victim%20safety%3B"
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=Any%20modification%20to%20the%20victim%E2%80%99s,necessary%20to%20ensure%20victim%20safety%3B"
   },
   {
    "id": "CO-COV-8",
@@ -393,7 +406,7 @@
    "quote": "The rekeying of a motor vehicle or other lock that is necessary to ensure the victim's safety;",
    "source_id": "CO-S5",
    "pinpoint": "C.R.S. 24-4.1-109(1.5)(a)(III)",
-   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=The%20rekeying%20of%20a%20motor,to%20ensure%20the%20victim%27s%20safety%3B"
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-109/#:~:text=The%20rekeying%20of%20a%20motor,to%20ensure%20the%20victim%E2%80%99s%20safety%3B"
   },
   {
    "id": "CO-COV-9",
@@ -462,6 +475,20 @@
    "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-108/#:~:text=The%20appropriate%20law%20enforcement%20officials%20were%20notified%20of%20the%20perpetration%20of%20the%20crime%20causing,for%20the%20failure%20of%20notification%3B"
   },
   {
+   "id": "CO-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "To be approved, you must also have cooperated reasonably with law enforcement in catching and prosecuting the assailant. The board can find good cause for not cooperating.",
+   "quote": "The applicant has cooperated reasonably with law enforcement officials in the apprehension and prosecution of the assailant, or the board has found good cause exists for the failure to cooperate",
+   "source_id": "CO-S4",
+   "pinpoint": "C.R.S. 24-4.1-108(1)(c)",
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-108/#:~:text=The%20applicant%20has%20cooperated%20reasonably,for%20the%20failure%20to%20cooperate"
+  },
+  {
    "id": "CO-COLL-1",
    "category": "collateral_source",
    "params": {},
@@ -479,7 +506,7 @@
    "quote": "The death of or injury to the victim was not substantially attributable to the victim's wrongful act or substantial provocation of the victim's assailant; and",
    "source_id": "CO-S4",
    "pinpoint": "C.R.S. 24-4.1-108(1)(e)",
-   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-108/#:~:text=The%20death%20of%20or%20injury%20to%20the%20victim%20was,of%20the%20victim%27s%20assailant%3B%20and"
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-1/section-24-4-1-108/#:~:text=The%20death%20of%20or%20injury%20to%20the%20victim%20was,of%20the%20victim%E2%80%99s%20assailant%3B%20and"
   },
   {
    "id": "CO-EMERG-1",
@@ -499,7 +526,7 @@
    "quote": "(n) (I) Sexual assault, in violation of section 18-3-402, C. R. S.;",
    "source_id": "CO-S14",
    "pinpoint": "C.R.S. 24-4.1-302(1)(n)",
-   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-3/section-24-4-1-302/#:~:text=%28n%29%20%28I%29%20Sexual%20assault%2C%20in,section%2018%2D3%2D402%2C%20C.%20R.%20S.%3B"
+   "fragment_url": "https://law.justia.com/codes/colorado/title-24/administration/article-4-1/part-3/section-24-4-1-302/#:~:text=%28n%29,section%2018%2D3%2D402%2C%20C.%20R.%20S.%3B"
   },
   {
    "id": "CO-RES-1",

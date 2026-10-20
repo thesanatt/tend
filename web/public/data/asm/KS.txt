@@ -1,8 +1,8 @@
 ; tend law image KS, Kansas
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 48f48cd7eece9c0f2c88bc5be04e80600282308a848d3aef392665424a5880ca
-; image sha256  70ffab4dbcd37e932c4e61bb63eeddf642ed3a650e72706ab83eeadb4b99f521
-; 46 rules, 15 sources, 25 proofs, 6 ints, 273 strings
+; source sha256 3ce3ec33d20703c22c98cdb3ad37db79df4f010edaa6dd443ef15b1ef2130f41
+; image sha256  98448f5844da84b318877125c8b21e749a83002c2d61d02470391bc8be6f83df
+; 47 rules, 15 sources, 25 proofs, 6 ints, 279 strings
 ; item program: 299 instructions, 1062 bytes, max stack 2
 ; aggregate program: 193 instructions, 598 bytes, max stack 3, 6 loops
 
@@ -32,27 +32,28 @@
     R22   KS-REP-2              info          -                     reporting_requirement   K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1
     R23   KS-CON-3              info          -                     conduct_reduction       K.S.A. 74-7305(g)
     R24   KS-COL-1              collateral    -                                             K.S.A. 74-7305(d)(1)(A)
-    R25   KS-CON-1              info          -                     conduct_reduction       K.S.A. 74-7305(d)(1)(B)
-    R26   KS-CON-2              info          -                     conduct_reduction       K.S.A. 74-7305(d)(2)
-    R27   KS-EMR-1              info          -                     emergency_award         K.S.A. 74-7314
-    R28   KS-ELIG-1             info          -                     eligible_crime          Application, Section D, Subsection 1
-    R29   KS-RES-1              info          -                     residency               K.S.A. 74-7301(e)(1)(A)
-    R30   KS-RES-2              info          -                     residency               K.S.A. 74-7301(e)(2)
-    R31   KS-SUBMIT-1           info          -                     submission              Crime Victims Compensation Board page, Contact
-    R32   KS-DOC-1              info          -                     required_document       Application, Section H (Medical Information)
-    R33   KS-DOC-2              info          -                     required_document       Application, Section H (Medical Information)
-    R34   KS-DOC-3              info          -                     required_document       Application, Section H (Medical Information)
-    R35   KS-DOC-4              info          -                     required_document       Application, Section I (Counseling Information)
-    R36   KS-DOC-5              info          -                     required_document       Application, Section I (Counseling Information)
-    R37   KS-DOC-6              info          -                     required_document       Application, Section I (Counseling Information)
-    R38   KS-DOC-7              info          -                     required_document       Application, Section L (Wage Loss)
-    R39   KS-DOC-8              info          -                     required_document       Application, Section F (Funeral/burial expenses)
-    R40   KS-DOC-9              info          -                     required_document       Application, Section G (Loss of support)
-    R41   KS-DOC-10             info          -                     required_document       Application, How to File Your Application for Compensation
-    R42   KS-TIME-1             info          -                     processing_time         Application, How to File Your Application for Compensation
-    R43   KS-ACP-1              info          -                     address_confidentiality How Safe at Home Works, Eligibility Criteria
-    R44   KS-CONF-1             info          -                     record_confidentiality  K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)
-    R45   KS-CAP-5              skipped       -                     expense_cap             K.A.R. 20-2-3(f)(2)  ; less generous duplicate of KS-CAP-4
+    R25   KS-NEED-1             info          -                     minimum_loss            K.S.A. 74-7305(e)
+    R26   KS-CON-1              info          -                     conduct_reduction       K.S.A. 74-7305(d)(1)(B)
+    R27   KS-CON-2              info          -                     conduct_reduction       K.S.A. 74-7305(d)(2)
+    R28   KS-EMR-1              info          -                     emergency_award         K.S.A. 74-7314
+    R29   KS-ELIG-1             info          -                     eligible_crime          Application, Section D, Subsection 1
+    R30   KS-RES-1              info          -                     residency               K.S.A. 74-7301(e)(1)(A)
+    R31   KS-RES-2              info          -                     residency               K.S.A. 74-7301(e)(2)
+    R32   KS-SUBMIT-1           info          -                     submission              Crime Victims Compensation Board page, Contact
+    R33   KS-DOC-1              info          -                     required_document       Application, Section H (Medical Information)
+    R34   KS-DOC-2              info          -                     required_document       Application, Section H (Medical Information)
+    R35   KS-DOC-3              info          -                     required_document       Application, Section H (Medical Information)
+    R36   KS-DOC-4              info          -                     required_document       Application, Section I (Counseling Information)
+    R37   KS-DOC-5              info          -                     required_document       Application, Section I (Counseling Information)
+    R38   KS-DOC-6              info          -                     required_document       Application, Section I (Counseling Information)
+    R39   KS-DOC-7              info          -                     required_document       Application, Section L (Wage Loss)
+    R40   KS-DOC-8              info          -                     required_document       Application, Section F (Funeral/burial expenses)
+    R41   KS-DOC-9              info          -                     required_document       Application, Section G (Loss of support)
+    R42   KS-DOC-10             info          -                     required_document       Application, How to File Your Application for Compensation
+    R43   KS-TIME-1             info          -                     processing_time         Application, How to File Your Application for Compensation
+    R44   KS-ACP-1              info          -                     address_confidentiality How Safe at Home Works, Eligibility Criteria
+    R45   KS-CONF-1             info          -                     record_confidentiality  K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)
+    R46   KS-CAP-5              skipped       -                     expense_cap             K.A.R. 20-2-3(f)(2)  ; less generous duplicate of KS-CAP-4
 
 .tags   phone=bit0, pain_suffering=bit1
 
@@ -98,7 +99,7 @@
     P21   (KS-CAP-7, KS-COL-1)
     P22   (KS-DEAD-1, KS-DEAD-2, KS-DEAD-4)
     P23   (KS-REP-1)
-    P24   (KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1)
+    P24   (KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-NEED-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1)
 
 .ints
     K0    80000         ; $800.00
@@ -689,6 +690,7 @@
               ; KS-REP-2  K.S.A. 65-448(h) as amended by 2026 HB 2613, sec. 1  "refusal of the victim to report the alleged offense to law..."
               ; KS-CON-3  K.S.A. 74-7305(g)  "The board, upon finding that the claimant or victim has not..."
               ; KS-COL-1  K.S.A. 74-7305(d)(1)(A)  "Economic loss upon which the claimant's claim is based is..."
+              ; KS-NEED-1  K.S.A. 74-7305(e)  "Compensation may be awarded only if the board finds that unless..."
               ; KS-CON-1  K.S.A. 74-7305(d)(1)(B)  "board deems reasonable because of the contributory misconduct of..."
               ; KS-CON-2  K.S.A. 74-7305(d)(2)  "The provisions of subsection (d)(1)(C) shall not be construed to..."
               ; KS-EMR-1  K.S.A. 74-7314  "If the board determines that the claimant will suffer financial..."
@@ -709,6 +711,6 @@
               ; KS-TIME-1  Application, How to File Your Application for Compensation  "The complete application/investigation process may take..."
               ; KS-ACP-1  How Safe at Home Works, Eligibility Criteria  "Anyone who is a victim of domestic violence, sexual assault..."
               ; KS-CONF-1  K.S.A. 74-7308(e) (renumbered (e)(1) by 2026 HB 2613, sec. 3)  "All records and information given to the board and the crime..."
-  0252        info     P24                          ; KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
+  0252        info     P24                          ; KS-EXC-3, KS-DEAD-3, KS-REP-2, KS-CON-3, KS-COL-1, KS-NEED-1, KS-CON-1, KS-CON-2, KS-EMR-1, KS-ELIG-1, KS-RES-1, KS-RES-2, KS-SUBMIT-1, KS-DOC-1, KS-DOC-2, KS-DOC-3, KS-DOC-4, KS-DOC-5, KS-DOC-6, KS-DOC-7, KS-DOC-8, KS-DOC-9, KS-DOC-10, KS-TIME-1, KS-ACP-1, KS-CONF-1
   0255        ret
 

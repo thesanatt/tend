@@ -1,12 +1,16 @@
 {
  "ir_version": 2,
  "jurisdiction": "RI",
- "source_sha256": "af3f4dad62bb4d45e53bcf44abfcaf5f20fd9209a191042da4f04b33aa5b20ca",
- "ir_sha256": "7da1de6133a802d2bcbdbc49df95e8207ec9c118b196297befb9f3038303d02d",
+ "source_sha256": "f2107cd3507d6c8d99ab20897b9b22d1da7977e5c4956ce113eb8a94af54e1cc",
+ "ir_sha256": "049502bfb9817fe09ca8994d647e910f84178070400daab0aed0e074ad2c8411",
  "fresh": true,
  "rules": [
   {
    "id": "RI-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "RI-EXAM-2",
    "kind": "exam_payment"
   },
   {
@@ -75,12 +79,22 @@
    "alternatives": []
   },
   {
+   "id": "RI-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "RI-REPORT-5",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "RI-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "RI-COLLATERAL-1",

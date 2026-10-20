@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MN",
- "source_sha256": "86f0c768feea20fd1d55fcd500806a43dd671952be6d22e412df97fccdc20c46",
- "ir_sha256": "128632e343a5bf00f96ca0e81e0b3f259acbfe6801d58c83685771a2ee9928c0",
+ "source_sha256": "2fc747eb0668271ad37f8968d0c2042f4cc04fa6f4e3af5763b73bc9dc0c5c4b",
+ "ir_sha256": "769c6b5e405e572b4ec6cc066c95c77a161a8338a0e07c20e0750644f0fe8d04",
  "fresh": true,
  "rules": [
   {
@@ -141,6 +141,11 @@
    "kind": "deadline",
    "days": 1095,
    "from": "discovery"
+  },
+  {
+   "id": "MN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MN-DEADLINE-2",

@@ -183,6 +183,18 @@
    "fragment_url": "https://riag.ri.gov/savbor#:~:text=Victims%20are%20eligible%20to%20receive,with%20any%20investigation%20or%20prosecution."
   },
   {
+   "id": "RI-EXAM-2",
+   "category": "exam_payment",
+   "params": {
+    "payer": "Crime Victim Compensation Program"
+   },
+   "summary": "The Attorney General's bill of rights page also warns that choosing not to take part in the criminal justice system will likely limit your eligibility for compensation benefits.",
+   "quote": "However, your decision not to participate in the criminal justice system will likely limit your eligibility for benefits under the crime victim compensation program.",
+   "source_id": "RI-S12",
+   "pinpoint": "Attorney General's Sexual Assault Victims Bill of Rights page, Your right to choose whether to report",
+   "fragment_url": "https://riag.ri.gov/savbor#:~:text=However%2C%20your%20decision%20not%20to,the%20crime%20victim%20compensation%20program."
+  },
+  {
    "id": "RI-CRIME-1",
    "category": "eligible_crime",
    "params": {},
@@ -316,6 +328,19 @@
    "pinpoint": "120-RICR-00-00-2.7(A)(3)(b)"
   },
   {
+   "id": "RI-REPORT-7",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "scope": "what counts as good cause for a late report"
+   },
+   "summary": "Believing police will not investigate, or not knowing that an award depends on reporting the crime, is not good cause for a late report. The program's rule also says good cause excuses only the delay, not the reporting requirement itself.",
+   "quote": "Delay resulting from a belief that law enforcement authorities will not investigate the crime, or delay resulting from lack of knowledge that an award under R.I. Gen. Laws § 12-25-1 et. seq. is contingent upon reporting the crime to law enforcement authorities, does not constitute good cause for delay. d. A finding of good cause for delay does not excuse the reporting requirement which must be satisfied as a condition of receiving compensation.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(3)(c)-(d)"
+  },
+  {
    "id": "RI-REPORT-5",
    "category": "reporting_requirement",
    "params": {
@@ -328,6 +353,19 @@
    "quote": "Crimes involving minor victims may be reported to the Department of Children, Youth and Families pursuant to the reporting requirements of R.I. Gen. Laws §§ 40-11-3 and 40-11-3.1.",
    "source_id": "RI-S11",
    "pinpoint": "120-RICR-00-00-2.7(A)(2)(b)"
+  },
+  {
+   "id": "RI-REPORT-6",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program's rule says a victim must cooperate with reasonable requests from law enforcement in the investigation and prosecution of the crime. It says this includes reporting the crime, helping identify the suspect, and following reasonable requests for information and help.",
+   "quote": "A victim must cooperate with the reasonable requests of law enforcement agencies and personnel in the investigation and prosecution of the crime. a. Victim’s obligations: Cooperation with law enforcement agencies and personnel includes reporting the crime to law enforcement authorities; assisting in identifying the suspect; and complying with all reasonable requests of law enforcement agencies and personnel for information and assistance.",
+   "source_id": "RI-S11",
+   "pinpoint": "120-RICR-00-00-2.7(A)(4)"
   },
   {
    "id": "RI-COLLATERAL-1",
@@ -602,7 +640,7 @@
    "quote": "Applications can be submitted online here . (registration required)",
    "source_id": "RI-S8",
    "pinpoint": "Crime Victim Compensation Program page, how to apply (link target http://cvcapp.treasury.ri.gov/)",
-   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=Applications%20can%20be%20submitted%20online%20here%20.%20%28registration%20required%29"
+   "fragment_url": "https://treasury.ri.gov/programs/crime-victim-compensation-program#:~:text=Applications%20can%20be%20submitted%20online%20here.%20%28registration%20required%29"
   },
   {
    "id": "RI-DOC-1",

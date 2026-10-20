@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "GA",
- "source_sha256": "2f8b3d051115ca674b5de886bfc09a3c77dc7f28dfa4421e8d62821abfb7721e",
- "ir_sha256": "d4d963985641196a6c925fb0bf61f489c93a923b4e19453bc3a5ab2ae595e6ad",
+ "source_sha256": "3e9ad5db11f2c124fe92f3a3dfaa03384c097b759f99990a68b0d9fb90c63543",
+ "ir_sha256": "25247d733dab7f5b5cdcd0557aaa72d3dfc6513f08bea26485cc067190a4bc10",
  "fresh": true,
  "rules": [
   {
@@ -131,7 +131,8 @@
    "id": "GA-REPORT-1",
    "kind": "reporting",
    "required": true,
-   "alternatives": []
+   "alternatives": [],
+   "within_days": 3
   },
   {
    "id": "GA-REPORT-2",

@@ -260,7 +260,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "evidence collection"
    },
    "summary": "Survivors have the right to seek evidence collection at no cost to them.",
    "quote": "You have the right to seek evidence collection at no cost to you;",
@@ -293,12 +294,25 @@
    "fragment_url": "https://vvf.virginia.gov/safe-payment-program#:~:text=If%20the%20patient%20is%20covered,any%20eligible%20remaining%20patient%20responsibility."
   },
   {
+   "id": "VA-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "SAFE Payment Program, for crimes in Virginia when evidence is collected",
+    "condition": "if done within 120 hours of a crime in Virginia"
+   },
+   "summary": "The SAFE Payment Program pays only when the crime happened in Virginia and evidence is collected. You do not have to report to police or help an investigation. An exam more than 120 hours after the crime, or for chronic sexual abuse, needs approval from a law enforcement officer or prosecutor to be paid.",
+   "quote": "The crime occurred within the Commonwealth of Virginia . Collection of evidence took place as outlined in §19.2-165.1 of the Code of Virginia. Patients are not required to report the crime to law enforcement, nor cooperate with an investigation in order to request a Physical Evidence Recovery Kit (PERK) exam or for that exam to be paid per §19.2-165.1 (B). If the patient declines evidence collection, the claim is not eligible for reimbursement. The SAFE Payment Program does not reimburse for consults, only for collection of medical forensic evidence. Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, Eligibility Requirements",
+   "fragment_url": "https://vvf.virginia.gov/safe-payment-program#:~:text=The%20crime%20occurred%20within%20the,for%20payment%20per%20%C2%A719.2%2D165.1%20%28A%29."
+  },
+  {
    "id": "VA-EXAM-6",
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams",
-    "condition": "if done within 120 hours of the assault"
+    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams"
    },
    "summary": "Non-acute exams (more than 120 hours after the crime) and chronic sexual abuse cases need authorization from a law enforcement officer or prosecutor to be paid.",
    "quote": "Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
@@ -385,7 +399,7 @@
    "quote": "Home Security: Reimbursement of the purchase and installation of home security measures. This expense is based on an immediate need for safety; therefore, the system should be installed within thirty (30) days after the crime. (up to $1,000)",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
-   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Home%20Security%3A%20Reimbursement%20of%20the,the%20crime.%20%28up%20to%20%241%2C000%29"
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Home%20Security%3A,the%20crime.%20%28up%20to%20%241%2C000%29"
   },
   {
    "id": "VA-HOUSE-1",
@@ -399,7 +413,7 @@
    "quote": "Temporary Lodging: Limited situations only, when the physical safety of the victim would be risked by staying in the dwelling where the crime occurred. Receipts must be in the victim’s name. Temporary lodging must begin immediately following the crime and must not exceed 30 days.",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #4: Expense Stipulations",
-   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Temporary%20Lodging%3A%20Limited%20situations%20only%2C,must%20not%20exceed%2030%20days."
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Temporary%20Lodging%3A,must%20not%20exceed%2030%20days."
   },
   {
    "id": "VA-MED-1",
@@ -464,7 +478,7 @@
    "quote": "Counseling For direct victims",
    "source_id": "VA-S13",
    "pinpoint": "VVF How Compensation Works, Eligible Expenses",
-   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=Counseling%20For%20direct%20victims"
+   "fragment_url": "https://vvf.virginia.gov/compensation#:~:text=Counseling,For%20direct%20victims"
   },
   {
    "id": "VA-TRANS-1",
@@ -662,7 +676,7 @@
    "quote": "Sexual Abuse (minors and adults) (must result in physical injury for misdemeanors or emotional injury for felonies) Rape, sodomy, object sexual penetration Sexual battery",
    "source_id": "VA-S12",
    "pinpoint": "VVF Eligibility page, Requirement #1: Crime Stipulations",
-   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Sexual%20Abuse%20%28minors%20and%20adults%29,object%20sexual%20penetration%20Sexual%20battery"
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Sexual%20Abuse%20%28minors%20and%20adults%29,Sexual%20battery"
   },
   {
    "id": "VA-RES-1",

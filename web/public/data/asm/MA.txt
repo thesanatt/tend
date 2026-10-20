@@ -1,8 +1,8 @@
 ; tend law image MA, Massachusetts
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 0ab9f661bbc1ae9cc2c7880bc6af225c360568535c7bc4b8baa3c7f7171c92f6
-; image sha256  b736a3f75a3eb3ccba2aa20f460dbf3ac49f1197823864cf545cd1a527233fbc
-; 52 rules, 15 sources, 28 proofs, 6 ints, 297 strings
+; source sha256 b50d1bee4586aa49bd204d3ad3b2ab30196ec238da41a89da881893bf689ecfc
+; image sha256  b02e96032d8e3f2d65870494952eb68edef1aa5cd158bcebeb2e4ec730afb328
+; 56 rules, 15 sources, 28 proofs, 6 ints, 314 strings
 ; item program: 191 instructions, 618 bytes, max stack 2
 ; aggregate program: 192 instructions, 595 bytes, max stack 3, 6 loops
 
@@ -12,53 +12,57 @@
     R2    MA-EXAM-3             exam_no_bill  -                                             MSAECK survivor brochure, Payment of Related Expenses
     R3    MA-EXAM-4             exam_no_bill  -                                             Coverage and Billing Procedures for Sexual Assault Exams in Massachusetts (2018), If a Sexual Assault Forensic Exam is Administered
     R4    MA-EXAM-5             exam_payment  -                                             124 CMR 2.06(15)
-    R5    MA-EXAM-6             exam_payment  -                                             124 CMR 2.06(15)(g)
-    R6    MA-EXAM-7             reporting     -                                             MA SANE Protocol, Section X (Direct billing process)
-    R7    MA-EXAM-8             covered       medical                                       124 CMR 2.06(15)(b)
-    R8    MA-CAP-1              total_cap     -                                             M.G.L. c. 258C, s. 3(a)
-    R9    MA-CAP-2              expense_cap   security              per claim               M.G.L. c. 258C, s. 3(b)(2)(I)
-    R10   MA-CAP-3              expense_cap   clothing_bedding      per claim               M.G.L. c. 258C, s. 3(b)(2)(H)
-    R11   MA-CAP-4              expense_cap   crime_scene_cleanup   per claim               M.G.L. c. 258C, s. 3(b)(2)(G)
-    R12   MA-CAP-5              expense_cap   funeral               per claim               M.G.L. c. 258C, s. 3(b)(1)(A)
-    R13   MA-CAP-6              expense_cap   legal                 per hour                124 CMR 2.06(10)(b)
-    R14   MA-COV-1              covered       counseling                                    M.G.L. c. 258C, s. 3(b)(2)(C)
-    R15   MA-COV-2              covered       medical                                       M.G.L. c. 258C, s. 3(b)(2)(B)
-    R16   MA-COV-3              covered       lost_wages                                    M.G.L. c. 258C, s. 3(b)(2)(D)
-    R17   MA-COV-4              covered       prescription                                  MOVA, Applying for Victims of Violent Crime Assistance, What expenses are covered?
-    R18   MA-COV-5              covered       dental                                        M.G.L. c. 258C, s. 1 ("Medical care")
-    R19   MA-COV-6              covered       transportation                                124 CMR 2.06(4)(b)
-    R20   MA-COV-7              covered       security                                      124 CMR 2.06(13)(b)
-    R21   MA-EXCL-1             excluded      property_replacement                          MOVA, Applying for Victims of Violent Crime Assistance, What expenses are not covered?
-    R22   MA-EXCL-2             info          -                     excluded_expense        124 CMR 2.06(4)(b)
-    R23   MA-EXCL-3             info          -                     excluded_expense        124 CMR 2.06(5)(f)
-    R24   MA-DEAD-1             deadline      -                     from crime              M.G.L. c. 258C, s. 5(a)(1)
-    R25   MA-DEAD-2             info          -                     filing_deadline         124 CMR 2.05(7)(a)
-    R26   MA-DEAD-3             deadline      -                     from discovery          124 CMR 2.05(7)(c)
-    R27   MA-REPORT-1           reporting     -                                             M.G.L. c. 258C, s. 2(b)
-    R28   MA-REPORT-2           reporting     -                                             124 CMR 2.05(4)(d)
-    R29   MA-REPORT-3           reporting     -                                             124 CMR 2.05(4)(c)
-    R30   MA-REPORT-4           reporting     -                                             124 CMR 2.05(4)(e)
-    R31   MA-REPORT-5           reporting     -                                             124 CMR 2.05(5)(b)-(c)
-    R32   MA-REPORT-6           reporting     -                                             124 CMR 2.05(4)(b)
-    R33   MA-COLL-1             collateral    -                                             M.G.L. c. 258C, s. 10
-    R34   MA-COLL-2             collateral    -                                             124 CMR 2.08(2)(g)
-    R35   MA-COND-1             info          -                     conduct_reduction       M.G.L. c. 258C, s. 2(e)
-    R36   MA-COND-2             info          -                     conduct_reduction       124 CMR 2.07(1)(b)
-    R37   MA-CRIME-1            info          -                     eligible_crime          MA SANE Protocol, Section X (Victim compensation)
-    R38   MA-CRIME-2            info          -                     eligible_crime          124 CMR 2.03 (Crime)
-    R39   MA-RES-1              info          -                     residency               M.G.L. c. 258C, s. 1 ("Crime")
-    R40   MA-RES-2              info          -                     residency               124 CMR 2.03 (Crime)
-    R41   MA-SUB-1              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
-    R42   MA-SUB-2              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
-    R43   MA-SUB-3              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
-    R44   MA-DOC-1              info          -                     required_document       MOVA Application for Victim Compensation (2026, English), page 3, section 5 (Expenses)
-    R45   MA-DOC-2              info          -                     required_document       124 CMR 2.08(1)(c)
-    R46   MA-DOC-3              info          -                     required_document       MA SANE Protocol, Section X (Patient declines MSAECK or patient ineligible for MSAECK)
-    R47   MA-DOC-4              info          -                     required_document       124 CMR 2.06(6)(f)1.
-    R48   MA-DOC-5              info          -                     required_document       124 CMR 2.06(6)(a)
-    R49   MA-TIME-1             info          -                     processing_time         Mass.gov, Applying for Victims of Violent Crime Assistance, 'To apply'
-    R50   MA-ACP-1              info          -                     address_confidentiality Secretary of the Commonwealth, Address Confidentiality Program page, introduction
-    R51   MA-RECORDS-1          info          -                     record_confidentiality  124 CMR 2.09, Confidentiality of Records
+    R5    MA-EXAM-10            exam_payment  -                                             MA SANE Protocol, Section X (Victim compensation)
+    R6    MA-EXAM-6             exam_payment  -                                             124 CMR 2.06(15)(g)
+    R7    MA-EXAM-7             reporting     -                                             MA SANE Protocol, Section X (Direct billing process)
+    R8    MA-EXAM-8             covered       medical                                       124 CMR 2.06(15)(b)
+    R9    MA-CAP-1              total_cap     -                                             M.G.L. c. 258C, s. 3(a)
+    R10   MA-CAP-2              expense_cap   security              per claim               M.G.L. c. 258C, s. 3(b)(2)(I)
+    R11   MA-CAP-3              expense_cap   clothing_bedding      per claim               M.G.L. c. 258C, s. 3(b)(2)(H)
+    R12   MA-CAP-4              expense_cap   crime_scene_cleanup   per claim               M.G.L. c. 258C, s. 3(b)(2)(G)
+    R13   MA-CAP-5              expense_cap   funeral               per claim               M.G.L. c. 258C, s. 3(b)(1)(A)
+    R14   MA-CAP-6              expense_cap   legal                 per hour                124 CMR 2.06(10)(b)
+    R15   MA-COV-1              covered       counseling                                    M.G.L. c. 258C, s. 3(b)(2)(C)
+    R16   MA-COV-2              covered       medical                                       M.G.L. c. 258C, s. 3(b)(2)(B)
+    R17   MA-COV-3              covered       lost_wages                                    M.G.L. c. 258C, s. 3(b)(2)(D)
+    R18   MA-COV-4              covered       prescription                                  MOVA, Applying for Victims of Violent Crime Assistance, What expenses are covered?
+    R19   MA-COV-5              covered       dental                                        M.G.L. c. 258C, s. 1 ("Medical care")
+    R20   MA-COV-6              covered       transportation                                124 CMR 2.06(4)(b)
+    R21   MA-COV-7              covered       security                                      124 CMR 2.06(13)(b)
+    R22   MA-EXCL-1             excluded      property_replacement                          MOVA, Applying for Victims of Violent Crime Assistance, What expenses are not covered?
+    R23   MA-EXCL-2             info          -                     excluded_expense        124 CMR 2.06(4)(b)
+    R24   MA-EXCL-3             info          -                     excluded_expense        124 CMR 2.06(5)(f)
+    R25   MA-DEAD-1             deadline      -                     from crime              M.G.L. c. 258C, s. 5(a)(1)
+    R26   MA-DEAD-2             info          -                     filing_deadline         124 CMR 2.05(7)(a)
+    R27   MA-DEAD-4             info          -                     filing_deadline         124 CMR 2.05(7)(b)
+    R28   MA-DEAD-3             deadline      -                     from discovery          124 CMR 2.05(7)(c)
+    R29   MA-REPORT-1           reporting     -                                             M.G.L. c. 258C, s. 2(b)
+    R30   MA-REPORT-2           reporting     -                                             124 CMR 2.05(4)(d)
+    R31   MA-REPORT-3           reporting     -                                             124 CMR 2.05(4)(c)
+    R32   MA-REPORT-4           reporting     -                                             124 CMR 2.05(4)(e)
+    R33   MA-REPORT-5           reporting     -                                             124 CMR 2.05(5)(b)-(c)
+    R34   MA-REPORT-6           reporting     -                                             124 CMR 2.05(4)(b)
+    R35   MA-REPORT-7           info          -                     reporting_requirement   M.G.L. c. 258C, s. 2(c)
+    R36   MA-REPORT-8           info          -                     reporting_requirement   124 CMR 2.05(6)(b)
+    R37   MA-COLL-1             collateral    -                                             M.G.L. c. 258C, s. 10
+    R38   MA-COLL-2             collateral    -                                             124 CMR 2.08(2)(g)
+    R39   MA-COND-1             info          -                     conduct_reduction       M.G.L. c. 258C, s. 2(e)
+    R40   MA-COND-2             info          -                     conduct_reduction       124 CMR 2.07(1)(b)
+    R41   MA-CRIME-1            info          -                     eligible_crime          MA SANE Protocol, Section X (Victim compensation)
+    R42   MA-CRIME-2            info          -                     eligible_crime          124 CMR 2.03 (Crime)
+    R43   MA-RES-1              info          -                     residency               M.G.L. c. 258C, s. 1 ("Crime")
+    R44   MA-RES-2              info          -                     residency               124 CMR 2.03 (Crime)
+    R45   MA-SUB-1              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
+    R46   MA-SUB-2              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
+    R47   MA-SUB-3              info          -                     submission              MOVA Application for Victim Compensation (2026, English), page 4, after section 9 (Acknowledgement)
+    R48   MA-DOC-1              info          -                     required_document       MOVA Application for Victim Compensation (2026, English), page 3, section 5 (Expenses)
+    R49   MA-DOC-2              info          -                     required_document       124 CMR 2.08(1)(c)
+    R50   MA-DOC-3              info          -                     required_document       MA SANE Protocol, Section X (Patient declines MSAECK or patient ineligible for MSAECK)
+    R51   MA-DOC-4              info          -                     required_document       124 CMR 2.06(6)(f)1.
+    R52   MA-DOC-5              info          -                     required_document       124 CMR 2.06(6)(a)
+    R53   MA-TIME-1             info          -                     processing_time         Mass.gov, Applying for Victims of Violent Crime Assistance, 'To apply'
+    R54   MA-ACP-1              info          -                     address_confidentiality Secretary of the Commonwealth, Address Confidentiality Program page, introduction
+    R55   MA-RECORDS-1          info          -                     record_confidentiality  124 CMR 2.09, Confidentiality of Records
 
 .tags   pain_suffering=bit0
 
@@ -81,7 +85,7 @@
 
 .proofs
     P0    ()
-    P1    (MA-EXAM-1, MA-EXAM-2, MA-EXAM-3, MA-EXAM-4, MA-EXAM-5, MA-EXAM-6)
+    P1    (MA-EXAM-1, MA-EXAM-2, MA-EXAM-3, MA-EXAM-4, MA-EXAM-5, MA-EXAM-10, MA-EXAM-6)
     P2    (MA-EXAM-8, MA-COV-2)
     P3    (MA-EXAM-8, MA-COV-2, MA-COLL-1, MA-COLL-2)
     P4    (MA-COV-1)
@@ -107,7 +111,7 @@
     P24   (MA-CAP-6, MA-COLL-1, MA-COLL-2)
     P25   (MA-DEAD-1, MA-DEAD-3)
     P26   (MA-EXAM-7, MA-REPORT-1, MA-REPORT-2, MA-REPORT-3, MA-REPORT-4, MA-REPORT-5, MA-REPORT-6)
-    P27   (MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1)
+    P27   (MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-DEAD-4, MA-REPORT-7, MA-REPORT-8, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1)
 
 .ints
     K0    7500          ; $75.00
@@ -155,9 +159,10 @@
               ; MA-EXAM-3  MSAECK survivor brochure, Payment of Related Expenses  "In Massachusetts, survivors of sexual violence who receive a..."
               ; MA-EXAM-4  Coverage and Billing Procedures for Sexual Assault Exams in Massachusetts (2018), If a Sexual Assault Forensic Exam is Administered  "The expenses outlined below, including the applicable..."
               ; MA-EXAM-5  124 CMR 2.06(15)  "Expenses incurred for medical care in response to reports in..."
+              ; MA-EXAM-10  MA SANE Protocol, Section X (Victim compensation)  "As of March 2016, MA hospitals are allowed to directly bill the..."
               ; MA-EXAM-6  124 CMR 2.06(15)(g)  "To ensure compliance with 28 CFR § 90.13 requiring states to..."
   0072  L1:   push     0
-  0077        decide   held, P1                     ; MA-EXAM-1, MA-EXAM-2, MA-EXAM-3, MA-EXAM-4, MA-EXAM-5, MA-EXAM-6
+  0077        decide   held, P1                     ; MA-EXAM-1, MA-EXAM-2, MA-EXAM-3, MA-EXAM-4, MA-EXAM-5, MA-EXAM-10, MA-EXAM-6
   007b        ret
               ; MA-EXAM-8  124 CMR 2.06(15)(b)  "Victims are not required to receive a forensic sexual assault..."
               ; MA-COV-2  M.G.L. c. 258C, s. 3(b)(2)(B)  "Expenses incurred for physician, dental, ambulance, or other..."
@@ -175,7 +180,7 @@
   0096        subs
   0097        push     0
   009c        max
-  009d        seta     collateral, R33              ; MA-COLL-1
+  009d        seta     collateral, R37              ; MA-COLL-1
   00a1        ret
               ; MA-COV-1  M.G.L. c. 258C, s. 3(b)(2)(C)  "A victim, parent or legal guardian of a victim who is a minor in..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -192,7 +197,7 @@
   00bc        subs
   00bd        push     0
   00c2        max
-  00c3        seta     collateral, R33              ; MA-COLL-1
+  00c3        seta     collateral, R37              ; MA-COLL-1
   00c7        ret
               ; MA-COV-3  M.G.L. c. 258C, s. 3(b)(2)(D)  "If the victim was employed or had received a bona fide..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -209,7 +214,7 @@
   00e2        subs
   00e3        push     0
   00e8        max
-  00e9        seta     collateral, R33              ; MA-COLL-1
+  00e9        seta     collateral, R37              ; MA-COLL-1
   00ed        ret
               ; MA-COV-6  124 CMR 2.06(4)(b)  "Compensation for transportation costs incurred while obtaining..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -226,7 +231,7 @@
   0108        subs
   0109        push     0
   010e        max
-  010f        seta     collateral, R33              ; MA-COLL-1
+  010f        seta     collateral, R37              ; MA-COLL-1
   0113        ret
   0114  L10:  push     0
   0119        decide   unknown_rule, P0             ; (none)
@@ -247,7 +252,7 @@
   0138        subs
   0139        push     0
   013e        max
-  013f        seta     collateral, R33              ; MA-COLL-1
+  013f        seta     collateral, R37              ; MA-COLL-1
   0143        ret
               ; MA-CAP-4  M.G.L. c. 258C, s. 3(b)(2)(G)  "Expenses incurred for professional crime scene cleanup services..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -264,7 +269,7 @@
   015e        subs
   015f        push     0
   0164        max
-  0165        seta     collateral, R33              ; MA-COLL-1
+  0165        seta     collateral, R37              ; MA-COLL-1
   0169        ret
               ; MA-EXCL-1  MOVA, Applying for Victims of Violent Crime Assistance, What expenses are not covered?  "Property losses, compensation for pain and suffering, and all..."
   016a  L15:  push     0
@@ -302,7 +307,7 @@
   01c6        subs
   01c7        push     0
   01cc        max
-  01cd        seta     collateral, R33              ; MA-COLL-1
+  01cd        seta     collateral, R37              ; MA-COLL-1
   01d1        ret
               ; MA-COV-4  MOVA, Applying for Victims of Violent Crime Assistance, What expenses are covered?  "Medical and dental expenses (including equipment, supplies and..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -319,7 +324,7 @@
   01ec        subs
   01ed        push     0
   01f2        max
-  01f3        seta     collateral, R33              ; MA-COLL-1
+  01f3        seta     collateral, R37              ; MA-COLL-1
   01f7        ret
               ; MA-COV-5  M.G.L. c. 258C, s. 1 ("Medical care")  ""Medical care'', the medical, psychological, surgical, dental..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -336,7 +341,7 @@
   0212        subs
   0213        push     0
   0218        max
-  0219        seta     collateral, R33              ; MA-COLL-1
+  0219        seta     collateral, R37              ; MA-COLL-1
   021d        ret
               ; MA-CAP-5  M.G.L. c. 258C, s. 3(b)(1)(A)  "The maximum award or compensation for funeral and burial..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -353,7 +358,7 @@
   0238        subs
   0239        push     0
   023e        max
-  023f        seta     collateral, R33              ; MA-COLL-1
+  023f        seta     collateral, R37              ; MA-COLL-1
   0243        ret
               ; MA-CAP-6  124 CMR 2.06(10)(b)  "Attorneys shall be compensated at a rate of no more than $75 per..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
@@ -370,7 +375,7 @@
   025e        subs
   025f        push     0
   0264        max
-  0265        seta     collateral, R33              ; MA-COLL-1
+  0265        seta     collateral, R37              ; MA-COLL-1
   0269        ret
 
 .aggregate
@@ -391,11 +396,11 @@
   0027        lda
   0028        lt
   0029        jz       L1
-  002e        cap      unit_cap, R13                ; MA-CAP-6
+  002e        cap      unit_cap, R14                ; MA-CAP-6
   0032        jmp      L3
   0037  L1:   pop
   0038        jmp      L3
-  003d  L2:   flag     R13                          ; rate_unverified MA-CAP-6
+  003d  L2:   flag     R14                          ; rate_unverified MA-CAP-6
   0040  L3:   next     L0
               ; MA-CAP-2  M.G.L. c. 258C, s. 3(b)(2)(I)  "A victim or a family member residing with the victim at the time..."
   0045  L4:   push     0
@@ -414,7 +419,7 @@
   006d        ldk      K1                           ; $3,000.00
   0070        ldr      r0
   0072        subs
-  0073        cap      expense_cap, R9              ; MA-CAP-2
+  0073        cap      expense_cap, R10             ; MA-CAP-2
   0077        push     1
   007c        str      r1
   007e  L6:   ldr      r0
@@ -423,7 +428,7 @@
   0082        str      r0
   0084        jmp      L8
   0089  L7:   push     0
-  008e        cap      expense_cap, R9              ; MA-CAP-2
+  008e        cap      expense_cap, R10             ; MA-CAP-2
   0092  L8:   next     L5
               ; MA-CAP-3  M.G.L. c. 258C, s. 3(b)(2)(H)  "A victim shall be eligible for compensation for the reasonable..."
   0097  L9:   push     0
@@ -442,7 +447,7 @@
   00bf        ldk      K2                           ; $250.00
   00c2        ldr      r0
   00c4        subs
-  00c5        cap      expense_cap, R10             ; MA-CAP-3
+  00c5        cap      expense_cap, R11             ; MA-CAP-3
   00c9        push     1
   00ce        str      r1
   00d0  L11:  ldr      r0
@@ -451,7 +456,7 @@
   00d4        str      r0
   00d6        jmp      L13
   00db  L12:  push     0
-  00e0        cap      expense_cap, R10             ; MA-CAP-3
+  00e0        cap      expense_cap, R11             ; MA-CAP-3
   00e4  L13:  next     L10
               ; MA-CAP-4  M.G.L. c. 258C, s. 3(b)(2)(G)  "Expenses incurred for professional crime scene cleanup services..."
   00e9  L14:  push     0
@@ -470,7 +475,7 @@
   0111        ldk      K3                           ; $1,500.00
   0114        ldr      r0
   0116        subs
-  0117        cap      expense_cap, R11             ; MA-CAP-4
+  0117        cap      expense_cap, R12             ; MA-CAP-4
   011b        push     1
   0120        str      r1
   0122  L16:  ldr      r0
@@ -479,7 +484,7 @@
   0126        str      r0
   0128        jmp      L18
   012d  L17:  push     0
-  0132        cap      expense_cap, R11             ; MA-CAP-4
+  0132        cap      expense_cap, R12             ; MA-CAP-4
   0136  L18:  next     L15
               ; MA-CAP-5  M.G.L. c. 258C, s. 3(b)(1)(A)  "The maximum award or compensation for funeral and burial..."
   013b  L19:  push     0
@@ -498,7 +503,7 @@
   0163        ldk      K4                           ; $13,000.00
   0166        ldr      r0
   0168        subs
-  0169        cap      expense_cap, R12             ; MA-CAP-5
+  0169        cap      expense_cap, R13             ; MA-CAP-5
   016d        push     1
   0172        str      r1
   0174  L21:  ldr      r0
@@ -507,7 +512,7 @@
   0178        str      r0
   017a        jmp      L23
   017f  L22:  push     0
-  0184        cap      expense_cap, R12             ; MA-CAP-5
+  0184        cap      expense_cap, R13             ; MA-CAP-5
   0188  L23:  next     L20
               ; MA-CAP-1  M.G.L. c. 258C, s. 3(a)  "The maximum award for compensation to a claimant pursuant to..."
   018d  L24:  push     0
@@ -526,7 +531,7 @@
   01b5        ldk      K5                           ; $25,000.00
   01b8        ldr      r0
   01ba        subs
-  01bb        cap      total_cap, R8                ; MA-CAP-1
+  01bb        cap      total_cap, R9                ; MA-CAP-1
   01bf        push     1
   01c4        str      r1
   01c6  L26:  ldr      r0
@@ -535,7 +540,7 @@
   01ca        str      r0
   01cc        jmp      L28
   01d1  L27:  push     0
-  01d6        cap      total_cap, R8                ; MA-CAP-1
+  01d6        cap      total_cap, R9                ; MA-CAP-1
   01da  L28:  next     L25
   01df  L29:  push     0                            ; met
   01e4        check    minimum_loss, P0             ; (none)
@@ -582,6 +587,9 @@
               ; MA-EXCL-2  124 CMR 2.06(4)(b)  "It does not include compensation for public transportation, or..."
               ; MA-EXCL-3  124 CMR 2.06(5)(f)  "Compensation for mental health counseling may be denied for..."
               ; MA-DEAD-2  124 CMR 2.05(7)(a)  "The three-year filing period shall not commence until the victim..."
+              ; MA-DEAD-4  124 CMR 2.05(7)(b)  "If the victim was a minor when the crime was committed and the..."
+              ; MA-REPORT-7  M.G.L. c. 258C, s. 2(c)  "A claimant shall be eligible for compensation only if such..."
+              ; MA-REPORT-8  124 CMR 2.05(6)(b)  "The Agency may find that the physical or psychological impact of..."
               ; MA-COLL-1  M.G.L. c. 258C, s. 10  "No compensation shall be awarded or paid unless the..."
               ; MA-COLL-2  124 CMR 2.08(2)(g)  "Claimants have no obligation to notify the Agency of crowd..."
               ; MA-COND-1  M.G.L. c. 258C, s. 2(e)  "To the extent that the victim's acts or conduct provoked or..."
@@ -601,6 +609,6 @@
               ; MA-TIME-1  Mass.gov, Applying for Victims of Violent Crime Assistance, 'To apply'  "In general, you will receive a decision 4 to 6 months later."
               ; MA-ACP-1  Secretary of the Commonwealth, Address Confidentiality Program page, introduction  "The Address Confidentiality Program (ACP) protects survivors of..."
               ; MA-RECORDS-1  124 CMR 2.09, Confidentiality of Records  "All information received, obtained or maintained by the Agency..."
-  024f        info     P27                          ; MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1
+  024f        info     P27                          ; MA-EXCL-2, MA-EXCL-3, MA-DEAD-2, MA-DEAD-4, MA-REPORT-7, MA-REPORT-8, MA-COLL-1, MA-COLL-2, MA-COND-1, MA-COND-2, MA-CRIME-1, MA-CRIME-2, MA-RES-1, MA-RES-2, MA-SUB-1, MA-SUB-2, MA-SUB-3, MA-DOC-1, MA-DOC-2, MA-DOC-3, MA-DOC-4, MA-DOC-5, MA-TIME-1, MA-ACP-1, MA-RECORDS-1
   0252        ret
 

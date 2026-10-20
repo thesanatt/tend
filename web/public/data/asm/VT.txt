@@ -1,8 +1,8 @@
 ; tend law image VT, Vermont
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 04a70d9d4d1a6345d308f300bba9a751644646d355ec557dea03e23196641de8
-; image sha256  45e3902e1a24757414dc408042f1f59caf646c92311214d98d5d059b0da67beb
-; 46 rules, 20 sources, 22 proofs, 5 ints, 298 strings
+; source sha256 0427e487b359a3cf3cf02a9438203dbf580519b8851bc4fc07852cac7a9c648e
+; image sha256  9d200ae294f7da80d1a156e6e5cbf026cbc64e236f011d19d37fc353277c131e
+; 49 rules, 20 sources, 22 proofs, 5 ints, 313 strings
 ; item program: 256 instructions, 917 bytes, max stack 2
 ; aggregate program: 187 instructions, 572 bytes, max stack 3, 6 loops
 
@@ -31,28 +31,31 @@
     R21   VT-EXCL-3             excluded      legal                                         CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program
     R22   VT-DEADLINE-1         info          -                     filing_deadline         13 V.S.A. § 5355(b)(1)
     R23   VT-DEADLINE-2         info          -                     filing_deadline         13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)
-    R24   VT-REPORT-1           reporting     -                                             13 V.S.A. § 5353(a)(1)
-    R25   VT-REPORT-2           info          -                     reporting_requirement   CCVS Sexual Assault Program page, Who is eligible?
-    R26   VT-COLL-1             collateral    -                                             13 V.S.A. § 5351(6)(A)
-    R27   VT-COLL-2             collateral    -                                             CCVS Victims Compensation FAQ
-    R28   VT-CONDUCT-1          info          -                     conduct_reduction       13 V.S.A. § 5355(b)(2)
-    R29   VT-EMERG-1            info          -                     emergency_award         Code Vt. R. 80-220-001, Section 5356(A)
-    R30   VT-CRIME-1            info          -                     eligible_crime          CCVS Eligibility page, Types of crimes that may qualify
-    R31   VT-CRIME-2            info          -                     eligible_crime          13 V.S.A. § 5351(4)
-    R32   VT-RES-1              info          -                     residency               13 V.S.A. § 5353(a)(2)-(3)
-    R33   VT-RES-2              info          -                     residency               CCVS Sexual Assault Program page, Who is eligible?
-    R34   VT-SUBMIT-1           info          -                     submission              Application for Vermont Victims Compensation, cover page; Application Instructions item 4
-    R35   VT-SUBMIT-2           info          -                     submission              CCVS Application & Forms page
-    R36   VT-DOC-1              info          -                     required_document       Victims Compensation FAQ, What happens when an application is received?
-    R37   VT-DOC-2              info          -                     required_document       Application for Vermont Victims Compensation, page 6
-    R38   VT-DOC-3              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 3
-    R39   VT-DOC-4              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 4b
-    R40   VT-DOC-5              info          -                     required_document       CCVS Victims Compensation Mental Health Policy, section 2, Treatment Plans
-    R41   VT-DOC-6              info          -                     required_document       CCVS Policy for Housing and Relocation, Security Deposits
-    R42   VT-DOC-7              info          -                     required_document       CCVS Sexual Assault Program page, How to access the Program?
-    R43   VT-ACP-1              info          -                     address_confidentiality Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160
-    R44   VT-REC-1              info          -                     record_confidentiality  13 V.S.A. § 5358a(a)
-    R45   VT-COUNSEL-2          skipped       -                     expense_cap             CCVS Sexual Assault Program Mental Health Policy, Guidelines & Fee Schedule  ; less generous duplicate of VT-COUNSEL-1
+    R24   VT-DEADLINE-3         info          -                     filing_deadline         13 V.S.A. § 4501(b), read with 13 V.S.A. § 5355(b)(1)
+    R25   VT-DEADLINE-4         info          -                     filing_deadline         13 V.S.A. § 4501(c), read with 13 V.S.A. § 5355(b)(1)
+    R26   VT-DEADLINE-5         info          -                     filing_deadline         13 V.S.A. § 4501(e), read with 13 V.S.A. § 5355(b)(1)
+    R27   VT-REPORT-1           reporting     -                                             13 V.S.A. § 5353(a)(1)
+    R28   VT-REPORT-2           info          -                     reporting_requirement   CCVS Sexual Assault Program page, Who is eligible?
+    R29   VT-COLL-1             collateral    -                                             13 V.S.A. § 5351(6)(A)
+    R30   VT-COLL-2             collateral    -                                             CCVS Victims Compensation FAQ
+    R31   VT-CONDUCT-1          info          -                     conduct_reduction       13 V.S.A. § 5355(b)(2)
+    R32   VT-EMERG-1            info          -                     emergency_award         Code Vt. R. 80-220-001, Section 5356(A)
+    R33   VT-CRIME-1            info          -                     eligible_crime          CCVS Eligibility page, Types of crimes that may qualify
+    R34   VT-CRIME-2            info          -                     eligible_crime          13 V.S.A. § 5351(4)
+    R35   VT-RES-1              info          -                     residency               13 V.S.A. § 5353(a)(2)-(3)
+    R36   VT-RES-2              info          -                     residency               CCVS Sexual Assault Program page, Who is eligible?
+    R37   VT-SUBMIT-1           info          -                     submission              Application for Vermont Victims Compensation, cover page; Application Instructions item 4
+    R38   VT-SUBMIT-2           info          -                     submission              CCVS Application & Forms page
+    R39   VT-DOC-1              info          -                     required_document       Victims Compensation FAQ, What happens when an application is received?
+    R40   VT-DOC-2              info          -                     required_document       Application for Vermont Victims Compensation, page 6
+    R41   VT-DOC-3              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 3
+    R42   VT-DOC-4              info          -                     required_document       CCVS Policy for Reimbursement of Lost Wages, item 4b
+    R43   VT-DOC-5              info          -                     required_document       CCVS Victims Compensation Mental Health Policy, section 2, Treatment Plans
+    R44   VT-DOC-6              info          -                     required_document       CCVS Policy for Housing and Relocation, Security Deposits
+    R45   VT-DOC-7              info          -                     required_document       CCVS Sexual Assault Program page, How to access the Program?
+    R46   VT-ACP-1              info          -                     address_confidentiality Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160
+    R47   VT-REC-1              info          -                     record_confidentiality  13 V.S.A. § 5358a(a)
+    R48   VT-COUNSEL-2          skipped       -                     expense_cap             CCVS Sexual Assault Program Mental Health Policy, Guidelines & Fee Schedule  ; less generous duplicate of VT-COUNSEL-1
 
 .tags   pain_suffering=bit0
 
@@ -100,7 +103,7 @@
     P18   (VT-EXCL-2, VT-EXCL-3)
     P19   (VT-EXCL-3)
     P20   (VT-REPORT-1)
-    P21   (VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1)
+    P21   (VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-DEADLINE-3, VT-DEADLINE-4, VT-DEADLINE-5, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1)
 
 .ints
     K0    10000         ; $100.00
@@ -183,7 +186,7 @@
   00ce        subs
   00cf        push     0
   00d4        max
-  00d5        seta     collateral, R26              ; VT-COLL-1
+  00d5        seta     collateral, R29              ; VT-COLL-1
   00d9        ret
               ; VT-COUNSEL-1  CCVS Mental Health Policy, Guidelines 1 (Fee Schedule)  "One-hour individual or family sessions will be paid at a maximum..."
               ; VT-COUNSEL-3  CCVS Sexual Assault Program Mental Health Policy, Introduction  "The Sexual Assault Program can consider payment of up to 20..."
@@ -221,7 +224,7 @@
   012f        subs
   0130        push     0
   0135        max
-  0136        seta     collateral, R26              ; VT-COLL-1
+  0136        seta     collateral, R29              ; VT-COLL-1
   013a        ret
               ; VT-WAGES-1  CCVS Policy for Reimbursement of Lost Wages, para. 5b  "5b) For Compensation claim filed on or after 9/8/2025: the..."
               ; VT-WAGES-2  CCVS Policy for Reimbursement of Lost Wages, para. 2  "lost wages will be paid at 85% of the victim's gross wages at..."
@@ -257,7 +260,7 @@
   018d        subs
   018e        push     0
   0193        max
-  0194        seta     collateral, R26              ; VT-COLL-1
+  0194        seta     collateral, R29              ; VT-COLL-1
   0198        ret
               ; VT-TRAVEL-1  CCVS Policy for Reimbursement of Travel Expenses  "For all non-homicide criminal cases there is a $2,000.00 travel..."
               ; VT-TRAVEL-2  Code Vt. R. 80-220-001, Section 5356(B)  "-transportation for medical/mental health treatment."
@@ -293,7 +296,7 @@
   01eb        subs
   01ec        push     0
   01f1        max
-  01f2        seta     collateral, R26              ; VT-COLL-1
+  01f2        seta     collateral, R29              ; VT-COLL-1
   01f6        ret
               ; VT-RELOC-1  CCVS Policy for Housing and Relocation, Relocation Costs  "Relocation costs could include the following: rental trucks..."
               ; VT-RELOC-3  CCVS Policy for Housing and Relocation, introduction  "The Victims Compensation Program will generally pay relocation..."
@@ -329,7 +332,7 @@
   0249        subs
   024a        push     0
   024f        max
-  0250        seta     collateral, R26              ; VT-COLL-1
+  0250        seta     collateral, R29              ; VT-COLL-1
   0254        ret
               ; VT-RELOC-2  CCVS Policy for Housing and Relocation, Emergency Housing  "Emergency housing will be paid at a maximum of $100.00 per..."
               ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
@@ -364,7 +367,7 @@
   02a7        subs
   02a8        push     0
   02ad        max
-  02ae        seta     collateral, R26              ; VT-COLL-1
+  02ae        seta     collateral, R29              ; VT-COLL-1
   02b2        ret
               ; VT-SEC-1  CCVS Eligibility page, Expenses the Victims Compensation Program may pay for  "Safety/security"
               ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
@@ -399,7 +402,7 @@
   0305        subs
   0306        push     0
   030b        max
-  030c        seta     collateral, R26              ; VT-COLL-1
+  030c        seta     collateral, R29              ; VT-COLL-1
   0310        ret
               ; VT-EXCL-2  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Damages for pain and suffering"
   0311  L37:  push     0
@@ -641,6 +644,9 @@
               ; VT-EXCL-1  CCVS Eligibility page, Expenses that cannot be paid by the Compensation Program  "Expenses for lost, stolen or damaged property (except medically..."
               ; VT-DEADLINE-1  13 V.S.A. § 5355(b)(1)  "(1) The application was not made within the period of time..."
               ; VT-DEADLINE-2  13 V.S.A. § 4501(a), read with 13 V.S.A. § 5355(b)(1)  "(a) Prosecutions for aggravated sexual assault, aggravated..."
+              ; VT-DEADLINE-3  13 V.S.A. § 4501(b), read with 13 V.S.A. § 5355(b)(1)  "(b) Prosecutions for lewd and lascivious conduct, sexual abuse..."
+              ; VT-DEADLINE-4  13 V.S.A. § 4501(c), read with 13 V.S.A. § 5355(b)(1)  "(c) Prosecutions for any of the following offenses shall be..."
+              ; VT-DEADLINE-5  13 V.S.A. § 4501(e), read with 13 V.S.A. § 5355(b)(1)  "(e) Prosecutions for other felonies and for misdemeanors shall..."
               ; VT-REPORT-2  CCVS Sexual Assault Program page, Who is eligible?  "The victim does not have to report the crime to the police to be..."
               ; VT-COLL-1  13 V.S.A. § 5351(6)(A)  "(A) that is not covered by medical, hospitalization, or..."
               ; VT-COLL-2  CCVS Victims Compensation FAQ  "Does insurance or other sources of payment have to be used? Yes...."
@@ -661,6 +667,6 @@
               ; VT-DOC-7  CCVS Sexual Assault Program page, How to access the Program?  "The signed Sexual Assault Billing Form serves as the application..."
               ; VT-ACP-1  Vermont SOS Safe at Home page, opening paragraph; statutory basis 15 V.S.A. §§ 1150 to 1160  "Safe at Home provides an address confidentiality service and a..."
               ; VT-REC-1  13 V.S.A. § 5358a(a)  "(a) All documents reviewed by the Victims Compensation Board for..."
-  0238        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
+  0238        info     P21                          ; VT-EXCL-1, VT-DEADLINE-1, VT-DEADLINE-2, VT-DEADLINE-3, VT-DEADLINE-4, VT-DEADLINE-5, VT-REPORT-2, VT-COLL-1, VT-COLL-2, VT-CONDUCT-1, VT-EMERG-1, VT-CRIME-1, VT-CRIME-2, VT-RES-1, VT-RES-2, VT-SUBMIT-1, VT-SUBMIT-2, VT-DOC-1, VT-DOC-2, VT-DOC-3, VT-DOC-4, VT-DOC-5, VT-DOC-6, VT-DOC-7, VT-ACP-1, VT-REC-1
   023b        ret
 

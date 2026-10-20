@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NE",
- "source_sha256": "7d99995ad97f836a01b527f251a0a365bfc8127e9426741fcb054e4824203b6c",
- "ir_sha256": "4893288a560c57ec913c522a408a95bcd0df90b9ed116ecdf20ff9d203948535",
+ "source_sha256": "dc0d922963a21cd79f29094c700e8261f118c47b12df807ed4b8425b3a392560",
+ "ir_sha256": "a25919bb791a16842b424314a0cd4cba5ed645306f102060161a9647098dde0c",
  "fresh": true,
  "rules": [
   {
@@ -95,6 +95,16 @@
    "from": "crime"
   },
   {
+   "id": "NE-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "NE-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "NE-REP-1",
    "kind": "reporting",
    "required": true,
@@ -110,6 +120,11 @@
     "other",
     "protective_order"
    ]
+  },
+  {
+   "id": "NE-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NE-COLL-1",
@@ -230,5 +245,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NE-CAP-6",
+   "category": "total_cap",
+   "reason": "total_cap without amount"
+  }
+ ]
 }

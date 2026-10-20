@@ -271,7 +271,7 @@
    "quote": "(1) A medical provider who performs an initial forensic physical examination may not bill a victim or the victim’s parent or guardian if the victim is a minor directly or indirectly for that examination.",
    "source_id": "FL-S5",
    "pinpoint": "Fla. Stat. 960.28(1)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=%281%29%20A%20medical%20provider%20who,or%20indirectly%20for%20that%20examination."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.28.html#:~:text=%281%29,or%20indirectly%20for%20that%20examination."
   },
   {
    "id": "FL-EXAM-2",
@@ -397,7 +397,7 @@
    "quote": "The department may award a one-time payment of up to $1,500 on any one claim and a lifetime maximum of $3,000 to a victim of sexual battery, as defined in s. 794.011 , who needs relocation assistance.",
    "source_id": "FL-S10",
    "pinpoint": "Fla. Stat. 960.199(1)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=The%20department%20may%20award%20a,%2C%20who%20needs%20relocation%20assistance."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=The%20department%20may%20award%20a,794.011%2C%20who%20needs%20relocation%20assistance."
   },
   {
    "id": "FL-CAP-7",
@@ -428,6 +428,42 @@
    "quote": "Mental Health Minor Victim Mental Injury (until age 18) Mental Health Adult or Minor Victim of Forcible Felony (non injury) $10,000 at a rate of 50% n/a $5,000 at a rate of 50% one year",
    "source_id": "FL-S16",
    "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
+  },
+  {
+   "id": "FL-CAP-9",
+   "category": "expense_cap",
+   "params": {
+    "expense": "medical",
+    "per": "claim"
+   },
+   "summary": "Medical and dental costs are paid only for care within one year of the crime.",
+   "quote": "Medical/Dental Treatment $10,000 at a rate of 50% one year",
+   "source_id": "FL-S16",
+   "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment"
+  },
+  {
+   "id": "FL-CAP-10",
+   "category": "expense_cap",
+   "params": {
+    "expense": "counseling",
+    "per": "claim"
+   },
+   "summary": "For an injured adult, mental health care is paid only within one year of the crime.",
+   "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50% one year",
+   "source_id": "FL-S16",
+   "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim"
+  },
+  {
+   "id": "FL-CAP-11",
+   "category": "expense_cap",
+   "params": {
+    "expense": "lost_wages",
+    "per": "claim"
+   },
+   "summary": "Wage loss is paid only for loss within one year of the crime.",
+   "quote": "Wage Loss $15,000 at a rate of 50% or GAWW Timeframe Within Which Loss Must Be Incurred From Date of Crime (up to) one year",
+   "source_id": "FL-S16",
+   "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss"
   },
   {
    "id": "FL-COV-1",
@@ -510,7 +546,20 @@
    "quote": "(c) The victim’s need for assistance must be certified by a certified rape crisis center in this state. (d) The center’s certification must assert that the victim is cooperating with law enforcement officials, if applicable, and must include documentation that the victim has developed a safety plan. (e) The act of sexual battery must be committed in the victim’s place of residence or in a location that would lead the victim to reasonably fear for his or her continued safety in the place of residence.",
    "source_id": "FL-S10",
    "pinpoint": "Fla. Stat. 960.199(2)(c)-(e)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=%28c%29%20The%20victim%E2%80%99s%20need%20for,in%20the%20place%20of%20residence."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.199.html#:~:text=%28c%29,in%20the%20place%20of%20residence."
+  },
+  {
+   "id": "FL-COV-7",
+   "category": "covered_expense",
+   "params": {
+    "expense": "relocation",
+    "scope": "housing only: short-term shelter, rent, or a lease"
+   },
+   "summary": "Relocation money pays only for housing: short-term shelter, rent, or a lease, which can include a security deposit, application fees, and the first month's payment.",
+   "quote": "\"Relocation assistance\" compensation is defined as compensable housing expenses limited to short-term interim shelter, rental agreements, or long-term leases, and may include security deposits, application fees, and/or the first month's contractual payment.",
+   "source_id": "FL-S14",
+   "pinpoint": "Fla. Admin. Code R. 2A-2.2001(43)",
+   "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001#:~:text=%22Relocation%20assistance%22%20compensation%20is%20defined,the%20first%20month%27s%20contractual%20payment."
   },
   {
    "id": "FL-EXC-1",
@@ -536,7 +585,7 @@
    "quote": "(b)1. A claim arising from a crime occurring on or after October 1, 2019, must be filed within 3 years after the later of: a. The occurrence of the crime upon which the claim is based; b. The death of the victim or intervenor; or c. The death of the victim or intervenor is determined to be the result of the crime.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(2)(b)1.",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28b%291.%20A%20claim%20arising%20from,the%20result%20of%20the%20crime."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28b%291.,the%20result%20of%20the%20crime."
   },
   {
    "id": "FL-DEADLINE-3",
@@ -546,11 +595,11 @@
     "from": "crime",
     "extension": "Waived entirely when the delay came from sexual assault forensic kit testing or DNA profile matching."
    },
-   "summary": "For newer crimes (see FL-DEADLINE-1), a delay caused by sexual assault kit testing or DNA matching can waive the filing deadline, and other good cause can extend it to 5 years after the crime.",
+   "summary": "For newer crimes, a delay in testing a sexual assault kit or matching DNA can waive the filing deadline. For other good cause, the department may allow up to 5 years after the crime.",
    "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3.",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=2.%20Upon%20a%20showing%20that%20a%20delay%20in%20filing%20a%20claim%20under%20this%20paragraph%20occurred%20because%20of%20a%20delay%20in%20the%20testing%20of%2C%20or%20a%20delay%20in%20the%20DNA%20profile%20matching%20from%2C%20a%20sexual%20assault%20forensic%20examination%20kit%20or%20biological%20material%20collected%20as%20evidence%20related%20to%20a%20sexual%20offense%2C%20a%20person%20who%20is%20eligible%20for%20compensation%20under%20subsection%20%281%29%20may%20receive%20a%20waiver%20of%20any%20claim%20filing%20deadline.%203.%20For%20good%20cause%20based%20on%20a,5%20years%20after%20such%20occurrence."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=For%20good%20cause%20based%20on%20a,5%20years%20after%20such%20occurrence."
   },
   {
    "id": "FL-DEADLINE-2",
@@ -560,11 +609,21 @@
     "from": "age_18",
     "extension": "Good cause can extend it, and a delay in sexual assault kit testing or DNA profile matching can waive it (same subsection; see researcher_notes)."
    },
-   "summary": "A victim who was under 18 at the time of a crime on or after October 1, 2019 has 3 years after turning 18 to file; good cause can extend this and kit testing or DNA matching delays can waive it.",
+   "summary": "If you were under 18 at the time of a crime on or after October 1, 2019, you have 3 years after turning 18 to file.",
    "quote": "(c) For a claim arising from a crime occurring on or after October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 3 years to file a claim.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(3)(c)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28c%29%20For%20a%20claim%20arising,years%20to%20file%20a%20claim."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28c%29,years%20to%20file%20a%20claim."
+  },
+  {
+   "id": "FL-DEADLINE-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If you were a minor when it happened, a delay in testing a sexual assault kit or matching DNA can waive the deadline. For other good cause, the department may add up to 1 more year for an older crime, or up to 2 more years for a newer one.",
+   "quote": "Upon a showing that a delay in filing a claim occurred because of delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under this subsection may receive a waiver of any claim filing deadline. For good cause based on any other reason, the department may extend the time period allowed for filing a claim under paragraph (b) for an additional period not to exceed 1 year or under paragraph (c) for an additional period not to exceed 2 years.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(3)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=Upon%20a%20showing%20that%20a%20delay%20in%20filing%20a%20claim%20occurred,not%20to%20exceed%202%20years."
   },
   {
    "id": "FL-REPORT-1",
@@ -579,7 +638,7 @@
    "quote": "2. Five days after the occurrence of such crime, if the crime occurred on or after October 1, 2019, unless the department, for good cause shown, finds the delay to have been justified.",
    "source_id": "FL-S4",
    "pinpoint": "Fla. Stat. 960.13(1)(b)2.",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=2.%20Five%20days%20after%20the,delay%20to%20have%20been%20justified."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=Five%20days%20after%20the%20occurrence,delay%20to%20have%20been%20justified."
   },
   {
    "id": "FL-REPORT-2",
@@ -595,6 +654,20 @@
    "fragment_url": "https://www.law.cornell.edu/regulations/florida/Fla-Admin-Code-Ann-R-2A-2-2001#:~:text=%22Proper%20authorities%22%20means%20state%20and,enforcement%20officials%20and%20prosecuting%20attorneys."
   },
   {
+   "id": "FL-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program may deny, reduce, or take back an award if it finds you have not cooperated with the state attorney, law enforcement, and the program.",
+   "quote": "The department, upon finding that any claimant or award recipient has not duly cooperated with the state attorney, all law enforcement agencies, and the department, may deny, reduce, or withdraw any award, as the case may be.",
+   "source_id": "FL-S4",
+   "pinpoint": "Fla. Stat. 960.13(1)(b)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=The%20department%2C%20upon%20finding%20that,as%20the%20case%20may%20be."
+  },
+  {
    "id": "FL-COLLATERAL-1",
    "category": "collateral_source",
    "params": {},
@@ -603,6 +676,16 @@
    "source_id": "FL-S4",
    "pinpoint": "Fla. Stat. 960.13(3)",
    "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=Payment%20made%20in%20accordance%20with,that%20follows%20all%20other%20sources."
+  },
+  {
+   "id": "FL-NEED-1",
+   "category": "minimum_loss",
+   "params": {},
+   "summary": "The program must deny an award if it finds you would not face serious financial hardship without it. It looks at all of your financial resources.",
+   "quote": "If the department finds that the claimant, if not granted assistance pursuant to this chapter to meet the loss of earnings or support or out-of-pocket loss, will not suffer serious financial hardship as a result of the loss of earnings or support and the out-of-pocket loss incurred as a result of the injury, the department shall deny the award. In determining serious financial hardship, the department shall consider all the financial resources of the claimant.",
+   "source_id": "FL-S4",
+   "pinpoint": "Fla. Stat. 960.13(8)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.13.html#:~:text=If%20the%20department%20finds%20that,financial%20resources%20of%20the%20claimant."
   },
   {
    "id": "FL-CONDUCT-1",
@@ -644,7 +727,7 @@
    "quote": "(a) A felony or misdemeanor offense committed by an adult or a juvenile which results in physical injury or death, a forcible felony committed by an adult or juvenile which directly results in psychiatric or psychological injury",
    "source_id": "FL-S1",
    "pinpoint": "Fla. Stat. 960.03(3)(a)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=%28a%29%20A%20felony%20or%20misdemeanor,in%20psychiatric%20or%20psychological%20injury"
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=A%20felony%20or%20misdemeanor%20offense,in%20psychiatric%20or%20psychological%20injury"
   },
   {
    "id": "FL-CRIME-2",
@@ -666,7 +749,7 @@
    "quote": "(d) A criminal act committed outside this state against a resident of this state which would have been compensable if it had occurred in this state and which occurred in a jurisdiction that does not have an eligible crime victim compensation program as the term is defined in the federal Victims of Crime Act of 1984.",
    "source_id": "FL-S1",
    "pinpoint": "Fla. Stat. 960.03(3)(d)",
-   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=%28d%29%20A%20criminal%20act%20committed,of%20Crime%20Act%20of%201984."
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.03.html#:~:text=A%20criminal%20act%20committed%20outside,of%20Crime%20Act%20of%201984."
   },
   {
    "id": "FL-RES-2",

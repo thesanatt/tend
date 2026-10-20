@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "SD",
- "source_sha256": "4a9d655da44f0fbbf687cbb9f79de9ad097cc7c0e483b0412ede7d3135f101ce",
- "ir_sha256": "e911703704c082d2443a4f64b3a3eaaa3d1ba4e9e97d245f5845764e4ba6a0fa",
+ "source_sha256": "434f1740a6cccdac335ef726a42b74dfe559d03c8b9128c52366abd4dca627b2",
+ "ir_sha256": "4c5ed2030f8925a48c0dc8c3e05e8fa0daf2e3d857db207b39549f97c0b7bf54",
  "fresh": true,
  "rules": [
   {
@@ -90,6 +90,11 @@
    "id": "SD-SEC-1",
    "kind": "covered",
    "expense": "security"
+  },
+  {
+   "id": "SD-SEC-2",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "SD-CLOTH-1",

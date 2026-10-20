@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "IA",
- "source_sha256": "aec4eeaa156eb15a98291c5c1ebdaa6268711977956434848cacd10558c2eb88",
- "ir_sha256": "27c8a34e7f60346de1e718b395e1fb368778c486254ecb47cf4ccc90b298b519",
+ "source_sha256": "f1bed65ca1d8bede3d3f0068811e1bfeecf7cdea5983ed519bc96526492e46db",
+ "ir_sha256": "04942471bc70062c09fa41ada1db59d27401e9705c5464f6224725d573bb731e",
  "fresh": true,
  "rules": [
   {
@@ -194,6 +194,21 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "IA-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-REPORT-4",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "IA-COLL-1",

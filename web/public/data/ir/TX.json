@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "TX",
- "source_sha256": "21bedaa5b4b77f833f0386df24ae63d7eb59bb0881dce73eb09f52e277b48964",
- "ir_sha256": "8e322b38dcc5783d289fe84fc20faf9ef848ad6e94c95ed56877182186e5fdde",
+ "source_sha256": "135a15918c11c718b195cf4f448240c4e930c3f04a64fb7e8b902738d6f8192d",
+ "ir_sha256": "8bc777902d737dae4048ad3a455e7024113cd75ed6ba10503e23855726f55d12",
  "fresh": true,
  "rules": [
   {
@@ -136,7 +136,23 @@
    "from": "crime"
   },
   {
+   "id": "TX-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "TX-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "TX-REPORT-1",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
+  },
+  {
+   "id": "TX-REPORT-3",
    "kind": "reporting",
    "required": true,
    "alternatives": []
@@ -244,6 +260,11 @@
  "skipped": [
   {
    "id": "TX-COUNSEL-1",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "TX-TRAVEL-2",
    "category": "expense_cap",
    "reason": "expense_cap without amount or expense"
   }

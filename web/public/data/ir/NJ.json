@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NJ",
- "source_sha256": "892c1730d90e4a97f4f75b113d290e19059afd2a67385f384198db4c55298f64",
- "ir_sha256": "742179462e3893e3cc78d0ad181094b40c6bab2481b6c010c296057d767c2e14",
+ "source_sha256": "6b88572db31351c97c87a48cd86be8b4a32fac71757ebe533c19c017542e5ea9",
+ "ir_sha256": "c4bf7e41d20ccfb6c0baeb679fca13a20c4b4234abbc6380e8a5867d6f3e56a3",
  "fresh": true,
  "rules": [
   {
@@ -182,6 +182,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "NJ-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NJ-MINLOSS-1",

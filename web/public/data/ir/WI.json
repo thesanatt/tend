@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WI",
- "source_sha256": "1cdf4d87db77b8aecd57e8bff0c8ae35b634e774180d4c11320021b19ce5cf48",
- "ir_sha256": "7948cce1d14d5c4d7301f8b3e93436ca36c568dff18bea12d087aeecba12bfaa",
+ "source_sha256": "20b2f61af18c925868c6edaf2917ec970219087af220d8656c3b394f786c4599",
+ "ir_sha256": "38620ba348cf659b9322104e22fcda9366e6b1305be9d1d6ec0e201822dcbe6d",
  "fresh": true,
  "rules": [
   {
@@ -141,6 +141,16 @@
    "kind": "deadline",
    "days": 365,
    "from": "crime"
+  },
+  {
+   "id": "WI-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WI-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WI-REPORT-1",

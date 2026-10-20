@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "MA",
- "source_sha256": "0ab9f661bbc1ae9cc2c7880bc6af225c360568535c7bc4b8baa3c7f7171c92f6",
- "ir_sha256": "3343ee8a9f1eea3f461aea8b0c4f6288c4c0431af0c99d45cdc85ec775ecc93e",
+ "source_sha256": "b50d1bee4586aa49bd204d3ad3b2ab30196ec238da41a89da881893bf689ecfc",
+ "ir_sha256": "5f7290f585676b9163ef5dd07a36c7849515c6c620d3bcd62f1512b4f7ac0497",
  "fresh": true,
  "rules": [
   {
@@ -23,6 +23,10 @@
   },
   {
    "id": "MA-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MA-EXAM-10",
    "kind": "exam_payment"
   },
   {
@@ -146,6 +150,11 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MA-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MA-DEAD-3",
    "kind": "deadline",
    "days": 1095,
@@ -194,6 +203,16 @@
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "MA-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "MA-REPORT-8",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MA-COLL-1",

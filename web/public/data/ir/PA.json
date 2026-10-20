@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "PA",
- "source_sha256": "4e44eb373c90e8716541789f6ca8c3a65b26bc55dcaa37d71faaf4a2b606aaa5",
- "ir_sha256": "81ad0f93802844c11d4a4e52936afa07fc9516db95064e852fee6553ca4ecccc",
+ "source_sha256": "dea5645a1c29012edc0685b64104a75de31e97e932c277bd0ac338b345fa5bc2",
+ "ir_sha256": "7a85b9f252dde7ca9179e36a667a332646c39fa01d879549871e1689cc454dd3",
  "fresh": true,
  "rules": [
   {
@@ -15,6 +15,14 @@
   },
   {
    "id": "PA-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-9",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "PA-EXAM-10",
    "kind": "exam_payment"
   },
   {
@@ -143,6 +151,11 @@
    "expense": "childcare"
   },
   {
+   "id": "PA-CHILD-2",
+   "kind": "info",
+   "category": "expense_cap"
+  },
+  {
    "id": "PA-CLEAN-1",
    "kind": "expense_cap",
    "expense": "crime_scene_cleanup",
@@ -168,6 +181,11 @@
    "kind": "deadline",
    "days": 1826,
    "from": "discovery"
+  },
+  {
+   "id": "PA-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "PA-DEADLINE-2",
@@ -196,12 +214,22 @@
    "alternatives": []
   },
   {
+   "id": "PA-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "PA-REPORT-2",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "protective_order"
    ]
+  },
+  {
+   "id": "PA-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "PA-REPORT-3",
@@ -216,6 +244,16 @@
    "kind": "reporting",
    "required": false,
    "alternatives": []
+  },
+  {
+   "id": "PA-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "PA-COOP-2",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "PA-MIN-1",

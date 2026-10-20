@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "ME",
- "source_sha256": "e30da7dcb7a572877ab5e5e945f89c34ade58846dfe55f0f293c21d1f2e82332",
- "ir_sha256": "4d607430b5198ce226da8d5449e702e9568978b3e509675ad3677a41941fd190",
+ "source_sha256": "718feda3bce9ac3c33452326914db891d1cba60ef21390f29cff765521812d5b",
+ "ir_sha256": "bddb263e3a9746981fdbf354b3c13048ac75d39ea2137828090c65669685c5a8",
  "fresh": true,
  "rules": [
   {
@@ -22,6 +22,10 @@
   {
    "id": "ME-EXAM-4",
    "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-6",
+   "kind": "exam_payment"
   },
   {
    "id": "ME-EXAM-5",
@@ -130,6 +134,12 @@
    "required": true,
    "alternatives": [],
    "within_days": 5
+  },
+  {
+   "id": "ME-REP-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
   },
   {
    "id": "ME-REP-2",

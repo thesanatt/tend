@@ -206,6 +206,30 @@
    "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
   },
   {
+   "id": "PA-EXAM-9",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims Compensation Assistance Program (VCAP)"
+   },
+   "summary": "For the program to pay for the exam, the hospital must notify the local police where the assault happened within 12 hours of collecting the evidence.",
+   "quote": "In order for payments to be considered, hospitals or licensed health care providers requesting reimbursement of costs associated with a forensic rape examination are required to notify the local law enforcement agency where the reported sexual assault occurred within 12 hours of collection of the sexual assault evidence as per the Sexual Assault Testing and Evidence Collection Act (Act 165 of 2006).",
+   "source_id": "PA-S10",
+   "pinpoint": "VCAP Protocol and Billing Procedures for FREs, introduction"
+  },
+  {
+   "id": "PA-EXAM-10",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims Compensation Assistance Program (VCAP)"
+   },
+   "summary": "Adults 18 or older can choose an anonymous report when evidence is collected, if they are worried about the kit going to police. A minor's exam cannot be done anonymously.",
+   "quote": "Adult victims (age 18 or older) have the option of anonymous reporting and gathering of evidence and may consider this option if they have concerns about the kit being provided to police. An exam cannot be completed anonymously for a minor.",
+   "source_id": "PA-S11",
+   "pinpoint": "FRE FAQ, Question 10"
+  },
+  {
    "id": "PA-EXAM-4",
    "category": "exam_no_bill",
    "expense": "forensic_exam",
@@ -523,6 +547,21 @@
    "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=The%20cost%20of%20obtaining%20services,food%20shopping%20and%20meal%20preparation."
   },
   {
+   "id": "PA-CHILD-2",
+   "category": "expense_cap",
+   "params": {
+    "expense": "childcare",
+    "amount_cents": 800,
+    "per": "hour",
+    "scope": "helpers who are not family members"
+   },
+   "summary": "A helper who is not a family member is paid at most $8 an hour. A family member who does the work is paid their own lost earnings, up to the average weekly wage.",
+   "quote": "The cost of obtaining services needed as a result of the crime such as laundering, cleaning, child care, administration of medication, food shopping and meal preparation. (i) Members of the family of the direct victim or intervenor engaged to perform the services will be paid their net loss of earnings not to exceed the average weekly wage and if not otherwise reimbursed for the loss of earnings. (ii) Individuals engaged to perform services who are not family members will be paid a maximum hourly rate of $8.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.42(i)(2)",
+   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=The%20cost%20of%20obtaining%20services,maximum%20hourly%20rate%20of%20%248."
+  },
+  {
    "id": "PA-CLEAN-1",
    "category": "expense_cap",
    "expense": "crime_scene_cleanup",
@@ -570,6 +609,16 @@
    "quote": "a claim must be filed not later than five years after the discovery of the occurrence of the crime upon which the claim is based",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.702(b)(1)"
+  },
+  {
+   "id": "PA-DEADLINE-6",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The program's page says the 5-year limit is for crimes on or after 9/8/2022. For an older crime, it asks you to contact the program to find out the filing rules.",
+   "quote": "For crimes occurring on or after 9/8/2022, the claim must be filed within 5 years of the crime. For crimes occurring prior to 9/8/2022, please contact the Program to determine filing requirements.",
+   "source_id": "PA-S4",
+   "pinpoint": "PA.gov Apply for Victims' Compensation page, Who is eligible?",
+   "fragment_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation#:~:text=For%20crimes%20occurring%20on%20or,Program%20to%20determine%20filing%20requirements."
   },
   {
    "id": "PA-DEADLINE-2",
@@ -622,10 +671,22 @@
     "required": true,
     "alternatives": []
    },
-   "summary": "Under the current law, the crime must have been promptly reported to the proper authorities; the law sets no fixed number of hours. Older crimes had a stricter rule, so those survivors should call the program.",
+   "summary": "Under the current law, the crime must have been promptly reported to the proper authorities. The law sets no fixed number of hours.",
    "quote": "The crime was promptly reported to the proper authorities.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a)(3)"
+  },
+  {
+   "id": "PA-REPORT-7",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "crimes before 9/8/2022"
+   },
+   "summary": "The program's manual says the filing, reporting, and minimum loss rules are different for a crime before 9/8/2022, and asks you to contact the program about them.",
+   "quote": "For eligibility requirements for crime occurring prior to 9/8/2022, please contact the program as there are different filing requirement, reporting requirement, and minimum loss requirements.",
+   "source_id": "PA-S5",
+   "pinpoint": "VCAP Manual for Compensation Assistance, Eligibility"
   },
   {
    "id": "PA-REPORT-2",
@@ -638,6 +699,18 @@
    },
    "summary": "Starting a court case for a sexual violence or intimidation protection order can meet the reporting requirement without a police report.",
    "quote": "may satisfy the eligibility requirement under subsection (a)(3) for reporting a crime to the proper authorities by commencing an action brought in accordance with 42 Pa.C.S. Ch. 62A (relating to protection of victims of sexual violence or intimidation)",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a.2)"
+  },
+  {
+   "id": "PA-REPORT-6",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "a protection order case that is later withdrawn"
+   },
+   "summary": "If you start a protection order case to meet the report rule and then drop it, you cannot get an award unless the program finds you had good reason to drop it.",
+   "quote": "An award may not be made if the record shows that the petition was withdrawn, except if the Office of Victims' Services finds the withdrawal to have been justified, consistent with regulations of the Office of Victims' Services.",
    "source_id": "PA-S1",
    "pinpoint": "18 P.S. 11.707(a.2)"
   },
@@ -667,6 +740,33 @@
    "source_id": "PA-S4",
    "pinpoint": "PA.gov VCAP page, Sexual Assault Counseling Claims",
    "fragment_url": "https://www.pa.gov/services/pcv/apply-for-victims-compensation#:~:text=A%20direct%20victim%20of%20sexual,services%20related%20to%20their%20abuse."
+  },
+  {
+   "id": "PA-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "For a standard claim, the survivor must also have fully cooperated with law enforcement and the program, unless the program finds there was a good reason not to.",
+   "quote": "The direct victim, intervenor or claimant has fully cooperated with all law enforcement agencies and the Office of Victims' Services, unless the Office of Victims' Services finds the noncompliance to have been justified consistent with the Office of Victims' Services regulations.",
+   "source_id": "PA-S1",
+   "pinpoint": "18 P.S. 11.707(a)(4)"
+  },
+  {
+   "id": "PA-COOP-2",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program may excuse not cooperating if the survivor was incapacitated, feared retaliation, was a minor, or shows other good cause.",
+   "quote": "OVS may consider a failure to cooperate with law enforcement and OVS to be justified when one of the following circumstances exist: (1) The direct victim, intervenor or the claimant is mentally or physically incapacitated. (2) There is a fear of retaliation. (3) The victim is a minor. (4) Other circumstances when good cause is shown by the claimant.",
+   "source_id": "PA-S3",
+   "pinpoint": "37 Pa. Code 411.15(g)",
+   "fragment_url": "https://www.pacodeandbulletin.gov/Display/pacode?file=/secure/pacode/data/037/chapter411/chap411toc.html#:~:text=OVS%20may%20consider%20a%20failure,is%20shown%20by%20the%20claimant."
   },
   {
    "id": "PA-MIN-1",

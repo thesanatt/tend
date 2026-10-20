@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "WV",
- "source_sha256": "f3155cefe38b5e0eb98d593584f60cef8decafb8e50289dab17aa47492737b55",
- "ir_sha256": "6ec6f1653f6bf8d78e9591544fe277620aff0103c3579f4de4820ab855313b2e",
+ "source_sha256": "8af91734f6e484369bc3d1071fe563643e6631e410dd4dee66cd9aeb6751dd5b",
+ "ir_sha256": "cfc02bfbdeb5e3dbe602ec0f719be66e99690771566aef84fd7b86be6e48d936",
  "fresh": true,
  "rules": [
   {
@@ -87,6 +87,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "WV-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WV-REP-1",

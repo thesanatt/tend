@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "DE",
- "source_sha256": "b5c448698e400b0792b66927c59f581ae63264503e3bf24bc88ba77f45cb5f99",
- "ir_sha256": "ede72f613f86f066ed672f56e972758573dad55e90521b1a8f98ea5134c4b430",
+ "source_sha256": "69966ca2eea5a4df119282e9489bb61e199bf6d405f9012010fe0083334c2576",
+ "ir_sha256": "a3d256a19c47f92b53bfad6545638b1a54ac43c180a9240b44379d66dd764eaf",
  "fresh": true,
  "rules": [
   {
@@ -15,6 +15,10 @@
   },
   {
    "id": "DE-EXAM-3",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "DE-EXAM-4",
    "kind": "exam_payment"
   },
   {
@@ -138,6 +142,21 @@
    "from": "crime"
   },
   {
+   "id": "DE-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DE-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "DE-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "DE-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -152,6 +171,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "DE-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "DE-MIN-1",

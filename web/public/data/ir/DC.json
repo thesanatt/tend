@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "DC",
- "source_sha256": "b781dea3fa03bc0ffa2c28369e9b06935e98fb11d9a1962024fef20958b17202",
- "ir_sha256": "6c50dfd530025d26e6a218e4629e1e2ec18ba41895915f3bfd476f6f50984fc6",
+ "source_sha256": "b9b4068d2f0b1eddf9d37aba737b8da6d2ca56a8e5279139505cfcc6ca098ed1",
+ "ir_sha256": "923b1943f5219b4e8d55f8862e4ea6e6efc6ac388275575ae191568a77e252fe",
  "fresh": true,
  "rules": [
   {
@@ -148,6 +148,11 @@
    "kind": "deadline",
    "days": 365,
    "from": "crime"
+  },
+  {
+   "id": "DC-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "DC-REP-1",

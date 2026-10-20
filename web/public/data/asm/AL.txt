@@ -1,8 +1,8 @@
 ; tend law image AL, Alabama
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 bddfc1c7777976d900deda29bc10dbc36f8aafec81d4d6d6b3058f08cb6d8577
-; image sha256  9c7d3d897e131195bd519c00db0030c8dd8e896aaa98aa0844c5f63e362b609e
-; 58 rules, 27 sources, 28 proofs, 6 ints, 379 strings
+; source sha256 55a42f4dbcbaba6cb2489861c1f08f9fd0f3435742d5ea43b2e2835e730a4763
+; image sha256  f67975f049b176e008a1f43b27630778e4488acdcce5649aa25d89696461dea8
+; 60 rules, 27 sources, 28 proofs, 6 ints, 388 strings
 ; item program: 424 instructions, 1518 bytes, max stack 2
 ; aggregate program: 197 instructions, 605 bytes, max stack 3, 6 loops
 
@@ -23,48 +23,50 @@
     R13   AL-COV-TRAVEL-MED     covered       transportation                                Ala. Admin. Code r. 262-X-4-.04(15)(a)
     R14   AL-COV-MED            covered       medical                                       Ala. Code 15-23-3(6)
     R15   AL-COV-MED-OOP        covered       medical                                       Ala. Admin. Code r. 262-X-4-.04(3)
-    R16   AL-COV-HIV            covered       prescription                                  Ala. Admin. Code r. 262-X-11-.01(10)(a)1
-    R17   AL-COV-SEC            covered       security                                      Ala. Admin. Code r. 262-X-4-.04(16)1
-    R18   AL-CAP-GLASSES        expense_cap   other                 per claim               Ala. Admin. Code r. 262-X-4-.04(16)2
-    R19   AL-EXCL-PROP          info          -                     excluded_expense        Ala. Admin. Code r. 262-X-4-.04(16)
-    R20   AL-EXCL-PROP-2        excluded      -                                             ACVCC Compensation page
-    R21   AL-EXCL-PAIN          excluded      -                                             ACVCC Compensation page
-    R22   AL-EXCL-LEGAL         excluded      legal                                         Ala. Admin. Code r. 262-X-4-.04(17)(b)
-    R23   AL-DEADLINE-1         deadline      -                     from crime              Ala. Code 15-23-12(a)(1)
-    R24   AL-REPORT-1           reporting     -                                             Ala. Code 15-23-12(a)(4)
-    R25   AL-REPORT-2           reporting     -                                             Ala. Admin. Code r. 262-X-4-.02(2)
-    R26   AL-COLL-1             collateral    -                                             Ala. Admin. Code r. 262-X-4-.02(6)
-    R27   AL-COLL-2             collateral    -                                             Ala. Code 15-23-12(b)
-    R28   AL-CONDUCT-1          info          -                     conduct_reduction       Ala. Code 15-23-12(b)
-    R29   AL-CONDUCT-2          info          -                     conduct_reduction       Ala. Code 15-23-12(c)
-    R30   AL-EMERG-1            info          -                     emergency_award         Ala. Admin. Code r. 262-X-4-.05
-    R31   AL-CRIME-1            info          -                     eligible_crime          ACVCC brochure, Sexual Assault Victimization
-    R32   AL-CRIME-2            info          -                     eligible_crime          Ala. Code 15-23-13
-    R33   AL-RES-1              info          -                     residency               Ala. Code 15-23-3(2)a
-    R34   AL-RES-2              info          -                     residency               Ala. Code 15-23-3(2)b
-    R35   AL-RES-3              info          -                     residency               Ala. Admin. Code r. 262-X-4-.02(11)
-    R36   AL-SUBMIT-1           info          -                     submission              Compensation page, How Do I File A Claim?
-    R37   AL-SUBMIT-2           info          -                     submission              Application, Claim Authorization page, submission box
-    R38   AL-SUBMIT-3           info          -                     submission              Application, Claim Authorization page, submission box
-    R39   AL-DOC-1              info          -                     required_document       Ala. Admin. Code r. 262-X-4-.02(10)
-    R40   AL-DOC-2              info          -                     required_document       Application, Section 1 note
-    R41   AL-DOC-3              info          -                     required_document       Application, Section 5 (Crime Information)
-    R42   AL-DOC-4              info          -                     required_document       Application, Section 6 (Compensation Request)
-    R43   AL-DOC-5              info          -                     required_document       Application, Patient Authorization for Use and Disclosure of Protected Health Information
-    R44   AL-DOC-6              info          -                     required_document       Application Form page, Additional Requirements
-    R45   AL-DOC-7              info          -                     required_document       Application Form page, Additional Requirements
-    R46   AL-DOC-8              info          -                     required_document       Application, Claim Authorization page, signature note
-    R47   AL-DOC-9              info          -                     required_document       Application, Section 3 (Claimant Information)
-    R48   AL-DOC-10             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
-    R49   AL-DOC-11             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
-    R50   AL-DOC-12             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(28)
-    R51   AL-DOC-13             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(a)
-    R52   AL-DOC-14             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(b)
-    R53   AL-DOC-15             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(c)
-    R54   AL-DOC-16             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(a)
-    R55   AL-DOC-17             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(b)
-    R56   AL-REC-1              info          -                     record_confidentiality  Ala. Code 15-23-4(k)
-    R57   AL-CAP-COUNS-MINOR    skipped       -                     expense_cap             Ala. Admin. Code r. 262-X-4-.07(4)(c)  ; expense_cap without amount or expense
+    R16   AL-CAP-MED-UNPAID     info          -                     expense_cap             Ala. Admin. Code r. 262-X-4-.04(3)
+    R17   AL-COV-HIV            covered       prescription                                  Ala. Admin. Code r. 262-X-11-.01(10)(a)1
+    R18   AL-COV-SEC            covered       security                                      Ala. Admin. Code r. 262-X-4-.04(16)1
+    R19   AL-CAP-GLASSES        expense_cap   other                 per claim               Ala. Admin. Code r. 262-X-4-.04(16)2
+    R20   AL-EXCL-PROP          info          -                     excluded_expense        Ala. Admin. Code r. 262-X-4-.04(16)
+    R21   AL-EXCL-PROP-2        excluded      -                                             ACVCC Compensation page
+    R22   AL-EXCL-PAIN          excluded      -                                             ACVCC Compensation page
+    R23   AL-EXCL-LEGAL         excluded      legal                                         Ala. Admin. Code r. 262-X-4-.04(17)(b)
+    R24   AL-DEADLINE-1         deadline      -                     from crime              Ala. Code 15-23-12(a)(1)
+    R25   AL-REPORT-1           reporting     -                                             Ala. Code 15-23-12(a)(4)
+    R26   AL-REPORT-2           reporting     -                                             Ala. Admin. Code r. 262-X-4-.02(2)
+    R27   AL-COLL-1             collateral    -                                             Ala. Admin. Code r. 262-X-4-.02(6)
+    R28   AL-COLL-2             collateral    -                                             Ala. Code 15-23-12(b)
+    R29   AL-CONDUCT-1          info          -                     conduct_reduction       Ala. Code 15-23-12(b)
+    R30   AL-CONDUCT-2          info          -                     conduct_reduction       Ala. Code 15-23-12(c)
+    R31   AL-EMERG-1            info          -                     emergency_award         Ala. Admin. Code r. 262-X-4-.05
+    R32   AL-CRIME-1            info          -                     eligible_crime          ACVCC brochure, Sexual Assault Victimization
+    R33   AL-CRIME-2            info          -                     eligible_crime          Ala. Code 15-23-13
+    R34   AL-RES-1              info          -                     residency               Ala. Code 15-23-3(2)a
+    R35   AL-RES-2              info          -                     residency               Ala. Code 15-23-3(2)b
+    R36   AL-RES-3              info          -                     residency               Ala. Admin. Code r. 262-X-4-.02(11)
+    R37   AL-SUBMIT-1           info          -                     submission              Compensation page, How Do I File A Claim?
+    R38   AL-SUBMIT-2           info          -                     submission              Application, Claim Authorization page, submission box
+    R39   AL-SUBMIT-3           info          -                     submission              Application, Claim Authorization page, submission box
+    R40   AL-DOC-1              info          -                     required_document       Ala. Admin. Code r. 262-X-4-.02(10)
+    R41   AL-DOC-2              info          -                     required_document       Application, Section 1 note
+    R42   AL-DOC-3              info          -                     required_document       Application, Section 5 (Crime Information)
+    R43   AL-DOC-4              info          -                     required_document       Application, Section 6 (Compensation Request)
+    R44   AL-DOC-5              info          -                     required_document       Application, Patient Authorization for Use and Disclosure of Protected Health Information
+    R45   AL-DOC-6              info          -                     required_document       Application Form page, Additional Requirements
+    R46   AL-DOC-7              info          -                     required_document       Application Form page, Additional Requirements
+    R47   AL-DOC-8              info          -                     required_document       Application, Claim Authorization page, signature note
+    R48   AL-DOC-9              info          -                     required_document       Application, Section 3 (Claimant Information)
+    R49   AL-DOC-10             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
+    R50   AL-DOC-11             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(8)
+    R51   AL-DOC-12             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(28)
+    R52   AL-DOC-13             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(a)
+    R53   AL-DOC-14             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(b)
+    R54   AL-DOC-15             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.07(2)(c)
+    R55   AL-DOC-16             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(a)
+    R56   AL-DOC-17             info          -                     required_document       Ala. Admin. Code r. 262-X-4-.04(14)(b)
+    R57   AL-REC-1              info          -                     record_confidentiality  Ala. Code 15-23-4(k)
+    R58   AL-CAP-COUNS-MINOR    skipped       -                     expense_cap             Ala. Admin. Code r. 262-X-4-.07(4)(c)  ; expense_cap without amount or expense
+    R59   AL-CAP-HIV-INS        skipped       -                     expense_cap             Ala. Admin. Code r. 262-X-11-.01(10)(a)3  ; expense_cap without amount or expense
 
 .tags   cash=bit0, pain_suffering=bit1
 
@@ -125,7 +127,7 @@
     P24   (AL-CAP-GLASSES, AL-COLL-1, AL-COLL-2)
     P25   (AL-DEADLINE-1)
     P26   (AL-REPORT-1, AL-REPORT-2)
-    P27   (AL-EXCL-PROP, AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1)
+    P27   (AL-CAP-MED-UNPAID, AL-EXCL-PROP, AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1)
 
 .ints
     K0    40000         ; $400.00
@@ -229,7 +231,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R26              ; AL-COLL-1
+  0108        seta     collateral, R27              ; AL-COLL-1
   010c        ret
               ; AL-CAP-COUNS  Ala. Admin. Code r. 262-X-4-.07(4)(c)  "Reimbursement for therapy expenses shall not exceed $6,250, or..."
               ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
@@ -281,7 +283,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R26              ; AL-COLL-1
+  0199        seta     collateral, R27              ; AL-COLL-1
   019d        ret
               ; AL-CAP-WAGES  Ala. Admin. Code r. 262-X-4-.04(12)(a)  "For incidents of criminally injurious conduct occurring on or..."
               ; AL-WAGES-SA  Ala. Admin. Code r. 262-X-4-.04(28)  "A victim of sexual assault may be granted compensation for..."
@@ -334,7 +336,7 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R26              ; AL-COLL-1
+  022a        seta     collateral, R27              ; AL-COLL-1
   022e        ret
               ; AL-CAP-TRAVEL  Ala. Admin. Code r. 262-X-4-.04(15)(a)  "The maximum award for travel expenses is $3,000."
               ; AL-COV-TRAVEL-MED  Ala. Admin. Code r. 262-X-4-.04(15)(a)  "Travel may be allowed for medical and psychological treatment..."
@@ -387,7 +389,7 @@
   02b4        subs
   02b5        push     0
   02ba        max
-  02bb        seta     collateral, R26              ; AL-COLL-1
+  02bb        seta     collateral, R27              ; AL-COLL-1
   02bf        ret
               ; AL-CAP-RELO  Ala. Admin. Code r. 262-X-4-.04(14)(c)  "Moving and temporary relocation expenses may not exceed a..."
               ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
@@ -439,7 +441,7 @@
   0345        subs
   0346        push     0
   034b        max
-  034c        seta     collateral, R26              ; AL-COLL-1
+  034c        seta     collateral, R27              ; AL-COLL-1
   0350        ret
               ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
               ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
@@ -529,7 +531,7 @@
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R26              ; AL-COLL-1
+  0452        seta     collateral, R27              ; AL-COLL-1
   0456        ret
               ; AL-COV-HIV  Ala. Admin. Code r. 262-X-11-.01(10)(a)1  "If it is determined that a victim of sexual violence is at risk..."
               ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
@@ -581,7 +583,7 @@
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R26              ; AL-COLL-1
+  04e3        seta     collateral, R27              ; AL-COLL-1
   04e7        ret
               ; AL-EXCL-PROP-2  ACVCC Compensation page  "Stolen property, property damage, checks or cash will not be..."
               ; AL-EXCL-PAIN  ACVCC Compensation page  "The Commission does not provide compensation for pain and..."
@@ -672,7 +674,7 @@
   05e2        subs
   05e3        push     0
   05e8        max
-  05e9        seta     collateral, R26              ; AL-COLL-1
+  05e9        seta     collateral, R27              ; AL-COLL-1
   05ed        ret
 
 .aggregate
@@ -810,7 +812,7 @@
   0178        ldk      K4                           ; $350.00
   017b        ldr      r0
   017d        subs
-  017e        cap      expense_cap, R18             ; AL-CAP-GLASSES
+  017e        cap      expense_cap, R19             ; AL-CAP-GLASSES
   0182        push     1
   0187        str      r1
   0189  L21:  ldr      r0
@@ -819,7 +821,7 @@
   018d        str      r0
   018f        jmp      L23
   0194  L22:  push     0
-  0199        cap      expense_cap, R18             ; AL-CAP-GLASSES
+  0199        cap      expense_cap, R19             ; AL-CAP-GLASSES
   019d  L23:  next     L20
               ; AL-CAP-1  Ala. Admin. Code r. 262-X-4-.04(1)  "(1) Compensation payable to a victim or claimant sustaining..."
   01a2  L24:  push     0
@@ -880,6 +882,7 @@
   024b        jmp      L34
   0250  L33:  push     0                            ; satisfied
   0255  L34:  check    reporting, P26               ; AL-REPORT-1, AL-REPORT-2
+              ; AL-CAP-MED-UNPAID  Ala. Admin. Code r. 262-X-4-.04(3)  "Outstanding charges for medical treatment, excluding psychiatric..."
               ; AL-EXCL-PROP  Ala. Admin. Code r. 262-X-4-.04(16)  "The Commission does not provide property reimbursement or..."
               ; AL-COLL-1  Ala. Admin. Code r. 262-X-4-.02(6)  "(6) Requested expenses shall not be eligible for compensation in..."
               ; AL-COLL-2  Ala. Code 15-23-12(b)  "Compensation otherwise payable to a claimant may be diminished..."
@@ -912,6 +915,6 @@
               ; AL-DOC-16  Ala. Admin. Code r. 262-X-4-.04(14)(a)  "Written estimates and/or receipts are required for payment of..."
               ; AL-DOC-17  Ala. Admin. Code r. 262-X-4-.04(14)(b)  "A copy of the hotel bill, credit card receipt, or other..."
               ; AL-REC-1  Ala. Code 15-23-4(k)  "The commission may not disclose the names and addresses of..."
-  0259        info     P27                          ; AL-EXCL-PROP, AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1
+  0259        info     P27                          ; AL-CAP-MED-UNPAID, AL-EXCL-PROP, AL-COLL-1, AL-COLL-2, AL-CONDUCT-1, AL-CONDUCT-2, AL-EMERG-1, AL-CRIME-1, AL-CRIME-2, AL-RES-1, AL-RES-2, AL-RES-3, AL-SUBMIT-1, AL-SUBMIT-2, AL-SUBMIT-3, AL-DOC-1, AL-DOC-2, AL-DOC-3, AL-DOC-4, AL-DOC-5, AL-DOC-6, AL-DOC-7, AL-DOC-8, AL-DOC-9, AL-DOC-10, AL-DOC-11, AL-DOC-12, AL-DOC-13, AL-DOC-14, AL-DOC-15, AL-DOC-16, AL-DOC-17, AL-REC-1
   025c        ret
 

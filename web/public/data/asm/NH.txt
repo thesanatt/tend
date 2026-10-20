@@ -1,8 +1,8 @@
 ; tend law image NH, New Hampshire
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 8df2383d66c3f2474c80738952b2db328e27c69f46d732b85b2f0eaebb640e84
-; image sha256  b33f386073787173d3dca6a94abaef81023a16478a6c910b32eed58cfcf848d1
-; 62 rules, 8 sources, 25 proofs, 7 ints, 345 strings
+; source sha256 701183ddf169386fc0f7d3466c5c8d63b18183d7a1d5ed96291b4f78bd7c8881
+; image sha256  b38df8d4115bcfaf33e9465c3a053e6dd936b4e194d533e730594af4688c9930
+; 64 rules, 8 sources, 25 proofs, 7 ints, 354 strings
 ; item program: 392 instructions, 1401 bytes, max stack 2
 ; aggregate program: 207 instructions, 640 bytes, max stack 3, 7 loops
 
@@ -41,34 +41,36 @@
     R31   NH-DEAD-1             deadline      -                     from crime              RSA 21-M:8-h, II
     R32   NH-REP-1              reporting     -                                             N.H. Admin. Rules Jus 605.02(c)
     R33   NH-REP-2              reporting     -                                             N.H. Admin. Rules Jus 605.13(h)
-    R34   NH-MIN-1              minimum_loss  -                                             RSA 21-M:8-h, V
-    R35   NH-COL-1              collateral    -                                             N.H. Admin. Rules Jus 603.01
-    R36   NH-COL-2              collateral    -                                             RSA 21-M:8-h, V
-    R37   NH-CON-1              info          -                     conduct_reduction       RSA 21-M:8-h, IV
-    R38   NH-CON-2              info          -                     conduct_reduction       RSA 21-M:8-h, IV
-    R39   NH-EMG-1              info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(a)
-    R40   NH-EMG-2              info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(e)(2)
-    R41   NH-ELIG-1             info          -                     eligible_crime          RSA 21-M:8-h, I(a)(1)
-    R42   NH-ELIG-2             info          -                     eligible_crime          N.H. Admin. Rules Jus 602.23
-    R43   NH-ELIG-3             info          -                     eligible_crime          RSA 21-M:8-h, I(a)(3)
-    R44   NH-RES-1              info          -                     residency               N.H. Admin. Rules Jus 602.32(a)
-    R45   NH-RES-2              info          -                     residency               RSA 21-M:8-h, I(c)
-    R46   NH-SUBMIT-1           info          -                     submission              Application, page 7 (return address)
-    R47   NH-SUBMIT-2           info          -                     submission              Program page, How To Contact Our Office
-    R48   NH-DOC-1              info          -                     required_document       Application, Section 6 (Medical/Counseling Information)
-    R49   NH-DOC-2              info          -                     required_document       Jus 604.02(b)(3)
-    R50   NH-DOC-3              info          -                     required_document       Jus 604.06(a)
-    R51   NH-DOC-4              info          -                     required_document       Application, Section 8 (Employment Information)
-    R52   NH-DOC-5              info          -                     required_document       Application, Section 8 (Employment Information)
-    R53   NH-DOC-6              info          -                     required_document       Application, Section 8 (Employment Information)
-    R54   NH-DOC-7              info          -                     required_document       Jus 605.05(b)(5)
-    R55   NH-DOC-8              info          -                     required_document       Application, Section 9 (Restitution and Civil Action)
-    R56   NH-DOC-9              info          -                     required_document       Application, Section 12 (Statement of Facts and Authorization)
-    R57   NH-DOC-10             info          -                     required_document       Application, Section 12 (Statement of Facts and Authorization)
-    R58   NH-PROC-1             info          -                     processing_time         Program page FAQ, How Long Will It Take?
-    R59   NH-PROC-2             info          -                     processing_time         Jus 603.03(f)
-    R60   NH-ACP-1              info          -                     address_confidentiality DOJ ACP page, FAQ: What are the eligibility guidelines?
-    R61   NH-REC-1              info          -                     record_confidentiality  Jus 603.02(i)
+    R34   NH-REP-3              info          -                     reporting_requirement   N.H. Admin. Rules Jus 605.02(h)
+    R35   NH-MIN-1              minimum_loss  -                                             RSA 21-M:8-h, V
+    R36   NH-COL-1              collateral    -                                             N.H. Admin. Rules Jus 603.01
+    R37   NH-COL-2              collateral    -                                             RSA 21-M:8-h, V
+    R38   NH-CON-1              info          -                     conduct_reduction       RSA 21-M:8-h, IV
+    R39   NH-CON-2              info          -                     conduct_reduction       RSA 21-M:8-h, IV
+    R40   NH-EMG-1              info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(a)
+    R41   NH-EMG-2              info          -                     emergency_award         N.H. Admin. Rules Jus 605.09(e)(2)
+    R42   NH-ELIG-1             info          -                     eligible_crime          RSA 21-M:8-h, I(a)(1)
+    R43   NH-ELIG-2             info          -                     eligible_crime          N.H. Admin. Rules Jus 602.23
+    R44   NH-ELIG-3             info          -                     eligible_crime          RSA 21-M:8-h, I(a)(3)
+    R45   NH-RES-1              info          -                     residency               N.H. Admin. Rules Jus 602.32(a)
+    R46   NH-RES-2              info          -                     residency               RSA 21-M:8-h, I(c)
+    R47   NH-SUBMIT-1           info          -                     submission              Application, page 7 (return address)
+    R48   NH-SUBMIT-2           info          -                     submission              Program page, How To Contact Our Office
+    R49   NH-DOC-1              info          -                     required_document       Application, Section 6 (Medical/Counseling Information)
+    R50   NH-DOC-2              info          -                     required_document       Jus 604.02(b)(3)
+    R51   NH-DOC-3              info          -                     required_document       Jus 604.06(a)
+    R52   NH-DOC-4              info          -                     required_document       Application, Section 8 (Employment Information)
+    R53   NH-DOC-5              info          -                     required_document       Application, Section 8 (Employment Information)
+    R54   NH-DOC-6              info          -                     required_document       Application, Section 8 (Employment Information)
+    R55   NH-DOC-7              info          -                     required_document       Jus 605.05(b)(5)
+    R56   NH-DOC-8              info          -                     required_document       Application, Section 9 (Restitution and Civil Action)
+    R57   NH-DOC-9              info          -                     required_document       Application, Section 12 (Statement of Facts and Authorization)
+    R58   NH-DOC-10             info          -                     required_document       Application, Section 12 (Statement of Facts and Authorization)
+    R59   NH-PROC-1             info          -                     processing_time         Program page FAQ, How Long Will It Take?
+    R60   NH-PROC-2             info          -                     processing_time         Jus 603.03(f)
+    R61   NH-ACP-1              info          -                     address_confidentiality DOJ ACP page, FAQ: What are the eligibility guidelines?
+    R62   NH-ACP-2              info          -                     address_confidentiality DOJ ACP page, FAQ: What are the eligibility guidelines?
+    R63   NH-REC-1              info          -                     record_confidentiality  Jus 603.02(i)
 
 .tags   pain_suffering=bit0, phone=bit1
 
@@ -107,7 +109,7 @@
     P21   (NH-MIN-1)
     P22   (NH-DEAD-1)
     P23   (NH-REP-1, NH-REP-2)
-    P24   (NH-COV-10, NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1)
+    P24   (NH-COV-10, NH-EXC-3, NH-REP-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-ACP-2, NH-REC-1)
 
 .ints
     K0    7500          ; $75.00
@@ -214,7 +216,7 @@
   0101        subs
   0102        push     0
   0107        max
-  0108        seta     collateral, R35              ; NH-COL-1
+  0108        seta     collateral, R36              ; NH-COL-1
   010c        ret
               ; NH-CAP-2  N.H. Admin. Rules Jus 605.04(e)(2)  "The commission shall award compensation up to $4,000 in total..."
               ; NH-CAP-3  N.H. Admin. Rules Jus 604.08(c)(3)  "I will accept the NH Victims' Compensation Program's..."
@@ -268,7 +270,7 @@
   0192        subs
   0193        push     0
   0198        max
-  0199        seta     collateral, R35              ; NH-COL-1
+  0199        seta     collateral, R36              ; NH-COL-1
   019d        ret
               ; NH-COV-5  N.H. Admin. Rules Jus 605.05(e)(3)  "The total compensation paid for lost wages shall not exceed 75%..."
               ; NH-COV-6  N.H. Admin. Rules Jus 605.05(d)  "Wages lost for any of the reasons listed under (c) above shall..."
@@ -321,7 +323,7 @@
   0223        subs
   0224        push     0
   0229        max
-  022a        seta     collateral, R35              ; NH-COL-1
+  022a        seta     collateral, R36              ; NH-COL-1
   022e        ret
               ; NH-CAP-6  N.H. Admin. Rules Jus 605.11(a)  "A $500 cap for mileage reimbursement for travel to crime-related..."
               ; NH-COV-9  N.H. Admin. Rules Jus 605.03(d)(5)  "Mileage to and from appointments with licensed health care..."
@@ -374,7 +376,7 @@
   02b4        subs
   02b5        push     0
   02ba        max
-  02bb        seta     collateral, R35              ; NH-COL-1
+  02bb        seta     collateral, R36              ; NH-COL-1
   02bf        ret
               ; NH-CAP-4  N.H. Admin. Rules Jus 605.07(e)(3)  "Relocation expenses shall be capped at $5,000"
               ; NH-COV-7  N.H. Admin. Rules Jus 605.07(a)(2)b.  "If the claimant does not have a restraining order against the..."
@@ -428,7 +430,7 @@
   0345        subs
   0346        push     0
   034b        max
-  034c        seta     collateral, R35              ; NH-COL-1
+  034c        seta     collateral, R36              ; NH-COL-1
   0350        ret
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
               ; NH-EXC-2  N.H. Admin. Rules Jus 605.07(e)(5)  "No compensation shall be awarded for cable television..."
@@ -519,7 +521,7 @@
   044b        subs
   044c        push     0
   0451        max
-  0452        seta     collateral, R35              ; NH-COL-1
+  0452        seta     collateral, R36              ; NH-COL-1
   0456        ret
               ; NH-COV-3  N.H. Admin. Rules Jus 605.03(d)(2)  "The portion of the cost of all prescription medications..."
               ; NH-COV-12  N.H. Admin. Rules Jus 605.13(f)  "If it is determined by the examining health care provider that..."
@@ -572,7 +574,7 @@
   04dc        subs
   04dd        push     0
   04e2        max
-  04e3        seta     collateral, R35              ; NH-COL-1
+  04e3        seta     collateral, R36              ; NH-COL-1
   04e7        ret
               ; NH-COV-2  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "Medical and dental care;"
               ; NH-EXC-1  NH DOJ Victims' Compensation Program page, What Costs May Be Paid?  "The program does not have authority to award money for property..."
@@ -624,7 +626,7 @@
   056d        subs
   056e        push     0
   0573        max
-  0574        seta     collateral, R35              ; NH-COL-1
+  0574        seta     collateral, R36              ; NH-COL-1
   0578        ret
 
 .aggregate
@@ -846,6 +848,7 @@
   0278  L37:  check    reporting, P23               ; NH-REP-1, NH-REP-2
               ; NH-COV-10  N.H. Admin. Rules Jus 605.09(d)(3)  "The cost of shelter for the victim and the victim's family"
               ; NH-EXC-3  N.H. Admin. Rules Jus 605.03(e)(2)  "The commission shall not award compensation for hospital care..."
+              ; NH-REP-3  N.H. Admin. Rules Jus 605.02(h)  "The primary victim failed to cooperate materially with law..."
               ; NH-COL-1  N.H. Admin. Rules Jus 603.01  "help eligible victims of eligible crimes with the expenses that..."
               ; NH-COL-2  RSA 21-M:8-h, V  "If expenses paid through the victims' assistance program fund..."
               ; NH-CON-1  RSA 21-M:8-h, IV  "In determining eligibility and the amount of compensation to be..."
@@ -872,7 +875,8 @@
               ; NH-PROC-1  Program page FAQ, How Long Will It Take?  "Once the program receives your application, you will be..."
               ; NH-PROC-2  Jus 603.03(f)  "In no case shall placement on the agenda result in the passage..."
               ; NH-ACP-1  DOJ ACP page, FAQ: What are the eligibility guidelines?  "Any adult person, a parent or guardian acting on behalf of a..."
+              ; NH-ACP-2  DOJ ACP page, FAQ: What are the eligibility guidelines?  "Having a restraining order, criminal charges pending or even..."
               ; NH-REC-1  Jus 603.02(i)  "All information received, obtained, or maintained by the program..."
-  027c        info     P24                          ; NH-COV-10, NH-EXC-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-REC-1
+  027c        info     P24                          ; NH-COV-10, NH-EXC-3, NH-REP-3, NH-COL-1, NH-COL-2, NH-CON-1, NH-CON-2, NH-EMG-1, NH-EMG-2, NH-ELIG-1, NH-ELIG-2, NH-ELIG-3, NH-RES-1, NH-RES-2, NH-SUBMIT-1, NH-SUBMIT-2, NH-DOC-1, NH-DOC-2, NH-DOC-3, NH-DOC-4, NH-DOC-5, NH-DOC-6, NH-DOC-7, NH-DOC-8, NH-DOC-9, NH-DOC-10, NH-PROC-1, NH-PROC-2, NH-ACP-1, NH-ACP-2, NH-REC-1
   027f        ret
 

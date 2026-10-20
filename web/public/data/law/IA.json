@@ -569,12 +569,54 @@
    "category": "reporting_requirement",
    "params": {
     "required": true,
-    "alternatives": []
+    "alternatives": [],
+    "waiver_records": [
+     "forensic_exam",
+     "medical_provider",
+     "advocate"
+    ]
    },
    "summary": "For sexual abuse, the 72-hour police report rule may be waived for good cause if a forensic exam was done within 72 hours or the survivor told a medical provider, mental health professional, or victim service provider.",
    "quote": "For a victim of sexual abuse, the 72-hour reporting requirement may be waived for good cause if a sexual abuse evidentiary examination was completed within 72 hours of the crime or if the crime was disclosed to another provider including but not limited to a licensed medical provider, a licensed mental health professional, or a designated victim service provider.",
    "source_id": "IA-S7",
    "pinpoint": "Iowa Admin. Code r. 61-9.29(4)(c)"
+  },
+  {
+   "id": "IA-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "claims a licensed professional files for a child victim's short-term care"
+   },
+   "summary": "When a licensed professional gives a child victim emergency or short-term medical care under the state's child victim services law, the professional files the claim. That claim does not need a police report.",
+   "quote": "When immediate or short-term medical services to a victim are provided pursuant to section 915.35 by a professional licensed or certified by the state to provide such services, the professional shall file the claim for compensation, unless the department of health and human services is required to file the claim under this section. The requirement to report the crime to the local police department or county sheriff department under subsection 3 does not apply to this subsection.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.84(6)"
+  },
+  {
+   "id": "IA-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "a child or dependent adult abused by a caregiver"
+   },
+   "summary": "A child or dependent adult who was sexually abused by a caregiver does not need a police report. The abuse must have been reported to the state health and human services department, and the department must verify the report.",
+   "quote": "a victim under the age of eighteen or dependent adult as defined in section 235B.2 who has been sexually abused or subjected to any other unlawful sexual conduct under chapter 709 or 726 or who has been the subject of a forcible felony is not required to report the crime to the local police department or county sheriff department to be eligible for compensation if the crime was allegedly committed upon a child by a person responsible for the care of a child, as defined in section 232.68, subsection 8, or upon a dependent adult by a caretaker as defined in section 235B.2, and was reported to an employee",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.84(4)"
+  },
+  {
+   "id": "IA-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The victim must cooperate with reasonable requests from law enforcement in the investigation or prosecution of the crime.",
+   "quote": "The victim shall cooperate with reasonable requests by the appropriate law enforcement agencies in the investigation or prosecution of the crime.",
+   "source_id": "IA-S6",
+   "pinpoint": "Iowa Code 915.84(7)"
   },
   {
    "id": "IA-COLL-1",
@@ -659,7 +701,7 @@
    "params": {
     "rule": "Iowa residents victimized in a state without an eligible VOCA compensation program."
    },
-   "summary": "Under the statute, an Iowa resident hurt in another state can apply to Iowa if that state has no eligible compensation program. The program's administrative rules go further (see the next residency rule).",
+   "summary": "Under the statute, an Iowa resident hurt in another state can apply to Iowa if the act would be covered had it happened in Iowa and that state has no eligible compensation program. The program's administrative rules go further.",
    "quote": "To a victim of an act committed outside this state who is a resident of this state, if the act would be compensable had it occurred within this state and the act occurred in a state that does not have an eligible crime victim compensation program",
    "source_id": "IA-S6",
    "pinpoint": "Iowa Code 915.85(4)"
@@ -698,7 +740,7 @@
    "quote": "Office of the Attorney General of Iowa Victim Assistance Section Hoover Building, First Floor 1305 E Walnut Street Des Moines, Iowa 50319",
    "source_id": "IA-S10",
    "pinpoint": "ccvcia.org home page, Contact Us",
-   "fragment_url": "https://ccvcia.org/#:~:text=Office%20of%20the%20Attorney%20General,Street%20Des%20Moines%2C%20Iowa%2050319"
+   "fragment_url": "https://ccvcia.org/#:~:text=Office%20of%20the%20Attorney%20General,Des%20Moines%2C%20Iowa%2050319"
   },
   {
    "id": "IA-DOC-1",
