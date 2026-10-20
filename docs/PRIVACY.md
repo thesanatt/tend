@@ -11,11 +11,11 @@ when you tap it, and the list below names all five.
 
 | Step | Where it runs | How |
 |---|---|---|
-| Eligibility check (state, date, exam, report) | Device, or Tend's server after you say yes | C++ law engine compiled to WebAssembly, with the state's compiled law image. Loading that image shows Tend's host which state you picked (see "What loading the law shows") |
+| Eligibility check (state, date, exam, report) | Device, or Tend's server after you say yes | On the device: the C++ law engine built to WebAssembly, with the state's compiled law image. Loading that image shows Tend's host which state you picked (see "What loading the law shows"). On Tend's server, after a yes: the Python reference engine, reading the same law IR the image is compiled from |
 | Reading a bank statement (CSV, OFX, PDF) | Device | Parsers in the browser; PDF text via pdf.js |
 | Sorting transactions into costs | Device, or cloud AI after you say yes | Deterministic merchant and keyword rules first, then Gemini Nano running on the device through Chrome's built-in Prompt API, constrained to a fixed list of categories |
 | Reading a bill photo or PDF | Device, or cloud AI after you say yes | A PDF with a text layer is read by code; a photo, or a PDF that is only a picture, goes to Gemini Nano's image input on the device. Line items must add up to the bill total or the bill is marked "couldn't read reliably" |
-| Deciding eligibility, caps, held bills, totals | Device, or Tend's server after you say yes | The same WebAssembly law engine; every dollar carries its proof |
+| Deciding eligibility, caps, held bills, totals | Device, or Tend's server after you say yes | On the device, the same WebAssembly engine; on Tend's server, the Python reference engine. Every dollar carries its proof |
 | Filling the state's application (Michigan only today) | Device | pdf-lib fills the program's own PDF form in the browser from an allowlist of safe fields |
 | Translation (Spanish) | Device | Rule summaries are written in English. Chrome's on-device Translator API translates them only when its model is already on the device; UI strings are written in both languages |
 | Storage between sessions | Device, encrypted | IndexedDB vault encrypted with AES-256-GCM; the key is derived from a passkey (WebAuthn PRF, Touch ID) or a passphrase (PBKDF2-SHA-256, 600,000 iterations); the key lives only in memory while unlocked |
