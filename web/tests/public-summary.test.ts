@@ -38,8 +38,9 @@ const built = new Map(states.map((st) => [st, { ...load(st), summary: buildState
 
 // "$25,000" but not the comma after it in "$25,000, or more".
 const DOLLARS = /\$\d{1,3}(?:,\d{3})*(?:\.\d\d)?/g;
-// Text params the page prints inside its own sentences. verify.py checks every number in them
-// against the rule's quote, so an amount written there may be printed too.
+// Text params the page prints inside its own sentences. verify.py does not check numbers in text
+// params, only the numeric ones and the summary, so an amount written there may be printed only
+// because the rule's summary carries it too, which verify.py does check against the quote (below).
 const TEXT_PARAMS = ["exception", "condition", "scope", "extension", "exam_condition", "item", "only_benefit_if"];
 
 // Every amount a rule's params name, as the page prints it.
@@ -121,6 +122,23 @@ function templatedText(s: StateSummary): string[] {
 }
 
 describe("state summaries for every jurisdiction", () => {
+  it("prints an amount from a text param only when the rule's summary, checked against the quote, has it", () => {
+    let seen = 0;
+    for (const st of states) {
+      for (const r of load(st).law.rules) {
+        for (const key of TEXT_PARAMS) {
+          const v = r.params?.[key];
+          if (typeof v !== "string") continue;
+          for (const m of v.match(DOLLARS) ?? []) {
+            seen++;
+            expect(r.summary ?? "", `${r.id} params.${key} ${m}`).toContain(m);
+          }
+        }
+      }
+    }
+    expect(seen).toBeGreaterThan(10);
+  });
+
   it("covers all 51", () => {
     expect(states).toHaveLength(51);
   });

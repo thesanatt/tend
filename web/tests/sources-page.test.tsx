@@ -261,3 +261,24 @@ describe("Tend's own numbers", () => {
     expect(text).toMatch(/^[\x20-\x7e]*$/);
   });
 });
+
+// verify.py checks the numbers in its NUMERIC_PARAMS and in the summary, not in text params such as
+// a note or a condition. /sources and every /law page say only that.
+describe("what the checker is said to check", () => {
+  it("names the eight fields verify.py checks, and never says every number", () => {
+    const verify = readFileSync(path.join(repo, "rules/tools/verify.py"), "utf8");
+    const fields = /^NUMERIC_PARAMS = \{([^}]*)\}/m
+      .exec(verify)![1]
+      .split(",")
+      .map((s) => s.trim());
+    expect(fields).toHaveLength(8);
+    expect(WORDS[fields.length]).toBe("eight");
+    const sentence =
+      "the numbers in its summary and in eight of its fields (amounts, years, months, weeks, days, counts)";
+    expect(text).toContain(sentence);
+    expect(text).not.toMatch(/every number in (it|the rule)/);
+    const lawPage = readFileSync(path.join(web, "app/law/[st]/page.tsx"), "utf8").replace(/\s+/g, " ");
+    expect(lawPage).toContain(sentence);
+    expect(lawPage).not.toMatch(/every number in (it|the rule)/);
+  });
+});

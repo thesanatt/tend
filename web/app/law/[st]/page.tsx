@@ -158,8 +158,8 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             fingerprint of that saved copy, so anyone can confirm the text has not changed.
           </li>
           <li>
-            A checker keeps a rule only if its quote matches the saved text and every number in the rule appears in the
-            quote.
+            A checker keeps a rule only if its quote matches the saved text, and the numbers in its summary and in eight
+            of its fields (amounts, years, months, weeks, days, counts) appear in the quote.
           </li>
           <li>
             A normalizer turns the rules into the law IR. It sets a rule aside, with a reason, when the rule is about

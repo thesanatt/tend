@@ -238,7 +238,8 @@ export default function Sources() {
           </h3>
           <p className={styles.where}>
             The rules are in <a href={`${REPO}/tree/main/rules/verified`}>rules/verified</a>. A rule is accepted only if
-            its quote appears word for word in the saved source and every number in it appears in the quote (
+            its quote appears word for word in the saved source, and the numbers in its summary and in eight of its
+            fields (amounts, years, months, weeks, days, counts) appear in the quote (
             <a href={`${REPO}/blob/main/rules/tools/verify.py`}>verify.py</a>).
           </p>
           {copies.sources ? (
