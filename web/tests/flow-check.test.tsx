@@ -1,17 +1,27 @@
 // @vitest-environment jsdom
 // Check (docs/UX.md step 1) and the always-on pieces: the privacy line, language, Exit this page.
-import { act, cleanup, fireEvent, screen, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import AppHeader from "@/components/flow/AppHeader";
 import CheckScreen from "@/components/flow/check/CheckScreen";
 import EngineNotice from "@/components/flow/EngineNotice";
 import { ExitControl } from "@/components/flow/ExitControl";
-import { useFlow } from "@/components/flow/FlowProvider";
+import { FlowProvider, useFlow } from "@/components/flow/FlowProvider";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import { EXIT_URL, navigation } from "@/components/QuickExit";
 import { EngineUnavailableError } from "@/lib/engine";
+import { I18nProvider } from "@/lib/i18n";
 import { en } from "@/lib/i18n/en";
-import { MI_CHECK, MI_LAW, michiganOutput, renderFlow, stateFrom, stubLawFetch, testServices } from "./helpers/flow";
+import {
+  MI_CHECK,
+  MI_LAW,
+  michiganOutput,
+  renderFlow,
+  stateFrom,
+  stubLawFetch,
+  testServices,
+  TODAY,
+} from "./helpers/flow";
 
 const nav = vi.hoisted(() => ({ replace: vi.fn(), path: "/check" }));
 vi.mock("next/navigation", () => ({
@@ -197,6 +207,27 @@ describe("the privacy line on a state's page", () => {
     nav.path = "/sources";
     renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
     expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
+  });
+
+  // Next can serve /mi from a copy it fetched ahead, so no request names the state. Leaving the page
+  // inside the app must not take back what the line said on it.
+  it("still says the state went after leaving its page inside the app", async () => {
+    const services = testServices();
+    const initial = stateFrom([]);
+    const tree = () => (
+      <I18nProvider initial="en">
+        <FlowProvider services={services} today={TODAY} initial={initial}>
+          <PrivacyLine />
+        </FlowProvider>
+      </I18nProvider>
+    );
+    nav.path = "/mi";
+    const view = render(tree());
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
+    nav.path = "/";
+    view.rerender(tree());
+    expect(await screen.findByText(en.privacy.quietState)).toBeTruthy();
+    expect(screen.queryByText(en.privacy.quiet)).toBeNull();
   });
 });
 

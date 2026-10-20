@@ -225,6 +225,12 @@ export function FlowProvider({
   // first page load and a step Next serves from a copy it fetched ahead.
   const pathname = usePathname();
   const pageState = useMemo(() => (pathname ? stateNamedIn(new URL(pathname, ORIGIN), ORIGIN) : null), [pathname]);
+  // It sticks once opened, as a fetched one does: leaving /mi inside the app makes no request, and
+  // the line must not take back that the state went.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (pageState) setStateSeen(true);
+  }, [pageState]);
   const anyState = Boolean(state.check.st) || stateSeen || Boolean(pageState);
   // The tab keeps the flag for a reload, under the same rule as a send.
   useEffect(() => {
