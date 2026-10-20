@@ -61,6 +61,19 @@ const gathered: Action[] = [
 ];
 
 describe("Packet", () => {
+  // Without a date the engine counts from the earliest cost (components/flow/claim.ts countingDate), so
+  // the summary must give the deadline's length, not a date from that stand-in.
+  it.each([
+    ["a date", [] as Action[], true],
+    ["Not sure", [{ type: "check", patch: { dateUnsure: true } }] as Action[], false],
+  ])("tells the packet builder whether the survivor gave a date (%s)", async (_, extra, known) => {
+    const services = testServices();
+    const build = vi.spyOn(services.packetBuilder, "build");
+    renderFlow(<PacketScreen />, { services, initial: stateFrom([...gathered, ...extra]) });
+    await waitFor(() => expect(build).toHaveBeenCalled());
+    expect(build.mock.calls.at(-1)![3]).toMatchObject({ dateKnown: known });
+  });
+
   it("is built on the device: the form note, the still-needed list, and where to file, each cited", async () => {
     const { services } = renderFlow(<PacketScreen />, { initial: stateFrom(gathered) });
     expect(await screen.findByText("$80.00")).toBeTruthy();

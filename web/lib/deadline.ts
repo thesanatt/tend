@@ -40,6 +40,21 @@ export interface FileBy extends GeneralRule {
   ruleIds: string[];
 }
 
+// A length of time as a rule writes it.
+export interface Span {
+  years: number | null;
+  months: number | null;
+  days: number | null;
+}
+
+export interface SpanBy extends Span {
+  // Another of the engine's deadline rules allows more time.
+  longer: boolean;
+  ruleIds: string[];
+  fromReport: boolean;
+  fromDiscovery: boolean;
+}
+
 type Check = Pick<EngineChecks["deadline"], "deadline_date" | "rule_ids" | "flags">;
 
 const FROM_INCIDENT = new Set(["crime", "incident", "injury", "offense", "occurrence"]);
@@ -47,6 +62,8 @@ const LOWER_LIMIT = /^less generous duplicate of /;
 
 const timed = (r: Rule) =>
   (["years", "months", "days"] as const).some((k) => typeof r.params?.[k] === "number" && (r.params[k] as number) > 0);
+
+const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : null);
 
 export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule | null {
   const setAside = new Set((ir.skipped ?? []).filter((s) => !LOWER_LIMIT.test(s.reason)).map((s) => s.id));
@@ -84,4 +101,50 @@ export function generalDeadline(law: Jurisdiction, ir: LawIr, incident: string, 
       (flags.includes("deadline_from_discovery") && !general.fromDiscovery),
     ruleIds: [general.rule.id, ...(check?.rule_ids ?? []).filter((id) => id !== general.rule.id)],
   };
+}
+
+export function longestSpan(rules: Rule[]): Span | null {
+  let best: (Span & { total: number }) | null = null;
+  for (const r of rules) {
+    const years = num(r.params?.years);
+    const months = num(r.params?.months);
+    const days = num(r.params?.days);
+    const total = (years ?? 0) * 365 + (months ?? 0) * 30 + (days ?? 0);
+    if (!total) continue;
+    if (!best || total > best.total) best = { years, months, days, total };
+  }
+  return best ? { years: best.years, months: best.months, days: best.days } : null;
+}
+
+// With no date to count from, the general rule's length of time, as the rule writes it. Without the
+// IR, the longest of the engine's deadline rules, with the engine's flags.
+export function generalSpan(law: Jurisdiction, ir: LawIr | null, check: Omit<Check, "deadline_date">): SpanBy | null {
+  const general = ir ? generalDeadlineRule(law, ir) : null;
+  const byId = new Map(law.rules.map((r) => [r.id, r]));
+  const engineRules = check.rule_ids.map((id) => byId.get(id)).filter((r): r is Rule => Boolean(r));
+  const span = longestSpan(general ? [general.rule] : engineRules);
+  if (!span) return null;
+  const days = (id: string) => ir?.rules.find((r) => r.id === id && r.kind === "deadline")?.days ?? 0;
+  const flags = check.flags ?? [];
+  return {
+    ...span,
+    longer: Boolean(general && check.rule_ids.some((id) => days(id) > general.days)),
+    ruleIds: general ? [general.rule.id, ...check.rule_ids.filter((id) => id !== general.rule.id)] : check.rule_ids,
+    fromReport: general ? general.fromReport : flags.includes("deadline_from_report"),
+    fromDiscovery: general ? general.fromDiscovery : flags.includes("deadline_from_discovery"),
+  };
+}
+
+// "5 years", or "1 year and 6 months", in the caller's language.
+export function spanText(
+  s: Span,
+  units: { years(n: number): string; months(n: number): string; days(n: number): string },
+  and: (items: string[]) => string,
+): string {
+  const parts = [
+    s.years ? units.years(s.years) : null,
+    s.months ? units.months(s.months) : null,
+    s.days ? units.days(s.days) : null,
+  ].filter((p): p is string => Boolean(p));
+  return and(parts);
 }

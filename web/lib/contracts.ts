@@ -120,6 +120,9 @@ export interface PacketLineInfo {
 }
 export interface PacketOptions {
   lines?: Record<string, PacketLineInfo>;
+  // false when the survivor gave no date: incident_date is then the earliest cost, a stand-in, so the
+  // summary gives the deadline's length of time instead of a date. Unset means the date was given.
+  dateKnown?: boolean;
 }
 export interface PacketBuilder {
   build(st: string, input: EngineInput, output: EngineOutput, opts?: PacketOptions): Promise<Packet>;

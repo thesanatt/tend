@@ -170,6 +170,7 @@ export function createPacketBuilder(deps: PacketDeps = {}): TendPacketBuilder {
         form: formPdf ? spec : null,
         lines: opts.lines,
         ir,
+        dateKnown: opts.dateKnown,
       });
       return {
         summaryPdf: pdfBlob(summary.bytes),

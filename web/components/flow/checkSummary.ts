@@ -2,7 +2,7 @@
 // come from the law engine's checks; lists, caps, and contacts come from the verified rules. The
 // component turns this into sentences in the survivor's language.
 import { clothingCondition, type ClothingCondition } from "@/lib/cite";
-import { generalDeadline, generalDeadlineRule, type LawIr } from "@/lib/deadline";
+import { generalDeadline, generalSpan, type LawIr } from "@/lib/deadline";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -192,19 +192,6 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
   });
 }
 
-function longestSpan(rules: Rule[]): { years: number | null; months: number | null; days: number | null } | null {
-  let best: { years: number | null; months: number | null; days: number | null; total: number } | null = null;
-  for (const r of rules) {
-    const years = num(r.params?.years);
-    const months = num(r.params?.months);
-    const days = num(r.params?.days);
-    const total = (years ?? 0) * 365 + (months ?? 0) * 30 + (days ?? 0);
-    if (!total) continue;
-    if (!best || total > best.total) best = { years, months, days, total };
-  }
-  return best ? { years: best.years, months: best.months, days: best.days } : null;
-}
-
 // The law IR (lib/deadline.ts) and today in the state's time, for the general deadline. Without the
 // IR, the deadline is the engine's own date.
 export interface SummaryContext {
@@ -221,13 +208,11 @@ export function buildCheckSummary(
   { ir = null, asOf }: SummaryContext = {},
 ): CheckSummary {
   const byCat = (c: string) => law.rules.filter((r) => r.category === c);
-  const byId = new Map(law.rules.map((r) => [r.id, r]));
 
   let deadline: DeadlineFact = { kind: "none" };
   const d = output?.checks.deadline;
-  const deadlineRules = (d?.rule_ids ?? []).map((id) => byId.get(id)).filter((r): r is Rule => Boolean(r));
   if (d && d.rule_ids.length) {
-    const flags = (d as { flags?: string[] }).flags ?? [];
+    const flags = d.flags ?? [];
     if (knowsDate && d.deadline_date && (d.status === "ok" || d.status === "late")) {
       const general = ir && asOf ? generalDeadline(law, ir, check.date, d) : null;
       deadline = general
@@ -254,12 +239,17 @@ export function buildCheckSummary(
             ruleIds: d.rule_ids,
           };
     } else {
-      const general = ir ? generalDeadlineRule(law, ir) : null;
-      const span = longestSpan(general ? [general.rule] : deadlineRules);
-      const days = (id: string) => ir?.rules.find((r) => r.id === id && r.kind === "deadline")?.days ?? 0;
-      const longer = Boolean(general && d.rule_ids.some((id) => days(id) > general.days));
-      const ruleIds = general ? [general.rule.id, ...d.rule_ids.filter((id) => id !== general.rule.id)] : d.rule_ids;
-      deadline = span ? { kind: "span", ...span, longer, ruleIds } : { kind: "unknown", ruleIds: d.rule_ids };
+      const span = generalSpan(law, ir, d);
+      deadline = span
+        ? {
+            kind: "span",
+            years: span.years,
+            months: span.months,
+            days: span.days,
+            longer: span.longer,
+            ruleIds: span.ruleIds,
+          }
+        : { kind: "unknown", ruleIds: d.rule_ids };
     }
   } else if (byCat("filing_deadline").length) {
     deadline = { kind: "unknown", ruleIds: byCat("filing_deadline").map((r) => r.id) };
@@ -344,13 +334,4 @@ export function capText(cost: CoveredCost, t: Dict, f: Formatters): string | nul
     cap.countLimit && cap.countUnit ? t.countLimit(cap.countUnit, cap.countLimit) : null,
   ].filter((p): p is string => Boolean(p));
   return parts.length ? parts.join(", ") : null;
-}
-
-export function spanText(d: Extract<DeadlineFact, { kind: "span" }>, t: Dict, f: Formatters): string {
-  const parts = [
-    d.years ? t.units.years(d.years) : null,
-    d.months ? t.units.months(d.months) : null,
-    d.days ? t.units.days(d.days) : null,
-  ].filter((p): p is string => Boolean(p));
-  return f.and(parts);
 }

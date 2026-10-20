@@ -1,8 +1,9 @@
 "use client";
 
+import { spanText } from "@/lib/deadline";
 import { useI18n, type Dict } from "@/lib/i18n";
 import type { LawIndex } from "@/lib/useLaw";
-import { capText, spanText, type CheckSummary } from "../checkSummary";
+import { capText, type CheckSummary } from "../checkSummary";
 import Cite from "../Cite";
 import { useFlow } from "../FlowProvider";
 import styles from "../flow.module.css";
@@ -83,7 +84,7 @@ export default function CheckSummaryView({
             </>
           ) : d.kind === "span" ? (
             <>
-              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t, f))}</p>
+              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t.units, f.and))}</p>
               {d.longer ? <p className={styles.factNote}>{t.check.deadlineSpanLonger}</p> : null}
               <p className={styles.factNote}>{t.check.deadlineSpanNote}</p>
             </>

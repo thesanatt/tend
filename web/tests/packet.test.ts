@@ -563,14 +563,20 @@ describe("the summary's filing deadline", () => {
     loadForm: blankForm,
     loadIr: async (st) => irOf(st),
   });
-  async function deadlineRow(st: string, incident: string, asOf: string, check: EngineOutput["checks"]["deadline"]) {
+  async function deadlineRow(
+    st: string,
+    incident: string,
+    asOf: string,
+    check: EngineOutput["checks"]["deadline"],
+    opts: { dateKnown?: boolean } = {},
+  ) {
     const input: EngineInput = {
       ...rowanInput(),
       jurisdiction: st,
       context: { ...rowanInput().context, incident_date: incident, as_of_date: asOf },
     };
     const output = { ...evaluatePreview(input, webLaw(st), "x"), checks: { ...rowanOutput().checks, deadline: check } };
-    const p = await builderWithIr.build(st, input, output);
+    const p = await builderWithIr.build(st, input, output, opts);
     return pdfText((await bytesOf(p.summaryPdf))!);
   }
   const laterElsewhere =
@@ -629,6 +635,37 @@ describe("the summary's filing deadline", () => {
     expect(text).toContain(`The usual deadline was ${day}. ${laterElsewhere}`);
     expect(text).not.toContain("The law counts from your report");
     expect(text).not.toContain("may count from when the crime was discovered");
+  });
+
+  it("without a date, gives the general rule's length of time and never a date to file by", async () => {
+    // The flow's stand-in date is the earliest cost, which can be after the day it happened.
+    const text = await deadlineRow(
+      "FL",
+      "2026-06-20",
+      "2026-10-19",
+      { status: "ok", deadline_date: "2031-06-20", rule_ids: florida, flags: [] },
+      { dateKnown: false },
+    );
+    expect(text).not.toContain("File by");
+    expect(text).not.toContain("2029");
+    expect(text).toContain(
+      "You have 3 years from the date it happened to apply. Some cases have longer. The rule says when.",
+    );
+    expect(text).toContain("Costs counted from the earliest one, June 20, 2026, because no date was given.");
+    expect(text).not.toContain("Costs counted from June 20, 2026 to");
+  });
+
+  it("without a date or the IR, gives the length of the engine's longest rule", async () => {
+    const input: EngineInput = { ...rowanInput(), context: { ...rowanInput().context, incident_date: "2026-06-20" } };
+    const noIr = createPacketBuilder({
+      loadLaw: async (st) => webLaw(st),
+      loadForm: blankForm,
+      loadIr: async () => null,
+    });
+    const p = await noIr.build("MI", input, rowanOutput(), { dateKnown: false });
+    const text = p.transcript.join("\n");
+    expect(text).not.toContain("File by");
+    expect(text).toContain("You have 5 years from the date it happened to apply.");
   });
 });
 
