@@ -92,6 +92,10 @@ what happened, where, or who did it. Statements and bills are read in the browse
 there, and saved progress stays there, encrypted (AES-256-GCM in IndexedDB, opened with a passkey
 such as Touch ID or with a passcode).
 
+Exit this page, at the top of every screen (or Esc twice), blanks the screen, locks saved progress,
+and replaces the page with a neutral one. It replaces only the current history entry, so Back can
+still reach an earlier Tend page.
+
 The survivor's data leaves the device only when they tap to send it, and the line under the header
 says what went:
 
