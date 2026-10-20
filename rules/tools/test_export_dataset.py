@@ -365,11 +365,14 @@ def test_the_export_is_deterministic(files, doc):
     assert hour not in json.dumps(doc["metadata"]) or hour in {s["retrieved_at"][:13] for s in doc["sources"]}
 
 
-def test_readme_is_ascii_and_keeps_the_placeholders_marked(files):
+def test_readme_is_ascii_and_says_plainly_what_is_not_set_up(files):
     readme = files["README.md"].decode("ascii")
     assert "Tend is not legal advice" in readme and "The program decides." in readme
-    for section in ("## How to cite", "## License", "## Contact"):
-        assert f"{section}\n\n> **TODO (Sanat)" in readme
+    # A reader of the download sees plain lines, as on /data, never a draft's TODO.
+    assert "TODO" not in readme and "placeholder" not in readme.lower()
+    assert "## How to cite\n\nNot set up yet. This version has no DOI.\n" in readme
+    assert "## License\n\nNot chosen yet. Until one is added here, this dataset has no stated license.\n" in readme
+    assert f"## Contact\n\nNot set up yet. To report an error in a rule, open an issue at {X.REPO}/issues.\n" in readme
     assert "DOI" in readme and "10." not in readme.split("## How to cite")[1]
     for name in (X.JSON_FILE, X.RULES_CSV, X.SOURCES_CSV, X.JURISDICTIONS_CSV):
         assert f"| {len(files[name]):,} |" in readme
@@ -377,7 +380,7 @@ def test_readme_is_ascii_and_keeps_the_placeholders_marked(files):
     # Who drafted and reviewed the rules is Sanat's to say. The README describes the process the repo shows
     # and names no one, so "researcher" appears only in the column name.
     step = readme.split("## Methodology", 1)[1].split("\n3. Verify.", 1)[0]
-    assert f"\n   > {X.AUTHORSHIP_TODO}\n" in step
+    assert "drafted" not in step and "reviewed by" not in step
     assert "researcher" not in readme.replace("researcher_notes", "").lower()
 
 

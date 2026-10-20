@@ -33,7 +33,7 @@ decides.
 
 | File | What it holds | Bytes |
 |---|---|---|
-| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 4,166,663 |
+| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 4,166,657 |
 | `tend-rules-v1.0.csv` | One row per rule (2,728 rows) | 2,284,915 |
 | `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,194 |
 | `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,381 |
@@ -337,8 +337,6 @@ How the rules were made, as `rules/SCHEMA.md` and `docs/ARCHITECTURE.md` in the 
    sources disagree and record the disagreement in `researcher_notes`, and never to name people,
    describe specific crimes, or cite case law.
 
-   > **TODO (Sanat): placeholder.** Say who drafted the rules and how they were reviewed.
-
 3. Verify. `rules/tools/verify.py` accepts a rule only if three things hold:
    - Its quote is a substring of the saved source's text after both are normalized the same way:
      Unicode NFKC, soft hyphens removed, curly quotes made straight, en and em dashes made hyphens,
@@ -420,15 +418,12 @@ such as the Python 3.9.6 that macOS runs as `/usr/bin/python3`.
 
 ## How to cite
 
-> **TODO (Sanat): placeholder.** Add the citation once the release is published. There is no DOI
-> yet; do not cite one. Shape to fill in: Sanat Gupta, *Tend verified rules*, version 1.0 [data set],
-> [release URL], [DOI, if one is minted].
+Not set up yet. This version has no DOI.
 
 ## License
 
-> **TODO (Sanat): no license has been chosen yet.** Suggested for the data: CC BY 4.0. Until a
-> license is added here, this dataset has no stated license.
+Not chosen yet. Until one is added here, this dataset has no stated license.
 
 ## Contact
 
-> **TODO (Sanat): placeholder.** Add an address for corrections and questions.
+Not set up yet. To report an error in a rule, open an issue at https://github.com/thesanatt/tend/issues.

@@ -54,7 +54,10 @@ MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", 
 # --ignore-missing each one they skipped fails the check.
 CHECK_MACOS = "shasum -a 256 -c --ignore-missing SHA256SUMS"
 CHECK_LINUX = "sha256sum -c --ignore-missing SHA256SUMS"
-AUTHORSHIP_TODO = "**TODO (Sanat): placeholder.** Say who drafted the rules and how they were reviewed."
+# TODO(Sanat): who drafted the rules and how they were reviewed is yours to say. The README describes only
+# the process the repo shows and names no one; add a line under "2. Write the rule." when you choose to.
+# TODO(Sanat): the citation (no DOI yet), the license (CC BY 4.0 is the suggestion for the data), and a
+# contact address. Until then the README says plainly that each is not set up, as /data does.
 
 
 def sha256(data: bytes) -> str:
@@ -204,7 +207,7 @@ def metadata(jurisdictions: list, sources: list, rules: list) -> dict:
             "rules_quoting_republishers": sum(r["source_id"] in copies for r in rules),
             "sources_redacted": sum(redacted(s) for s in sources),
         },
-        "license": "TODO: not chosen yet",
+        "license": "not chosen yet",
         "not_legal_advice": "Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides.",
     }
 
@@ -728,9 +731,6 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "   sources disagree and record the disagreement in `researcher_notes`, and never to name people,",
         "   describe specific crimes, or cite case law.",
         "",
-        # Who drafted and reviewed the rules is Sanat's to say; the README describes only the process.
-        f"   > {AUTHORSHIP_TODO}",
-        "",
         "3. Verify. `rules/tools/verify.py` accepts a rule only if three things hold:",
         "   - Its quote is a substring of the saved source's text after both are normalized the same way:",
         "     Unicode NFKC, soft hyphens removed, curly quotes made straight, en and em dashes made hyphens,",
@@ -823,18 +823,15 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         "## How to cite",
         "",
-        "> **TODO (Sanat): placeholder.** Add the citation once the release is published. There is no DOI",
-        "> yet; do not cite one. Shape to fill in: Sanat Gupta, *Tend verified rules*, version 1.0 [data set],",
-        "> [release URL], [DOI, if one is minted].",
+        "Not set up yet. This version has no DOI.",
         "",
         "## License",
         "",
-        "> **TODO (Sanat): no license has been chosen yet.** Suggested for the data: CC BY 4.0. Until a",
-        "> license is added here, this dataset has no stated license.",
+        "Not chosen yet. Until one is added here, this dataset has no stated license.",
         "",
         "## Contact",
         "",
-        "> **TODO (Sanat): placeholder.** Add an address for corrections and questions.",
+        f"Not set up yet. To report an error in a rule, open an issue at {REPO}/issues.",
         "",
     ]
     return "\n".join(L)
