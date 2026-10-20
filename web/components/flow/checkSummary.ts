@@ -128,7 +128,12 @@ function covered(law: Jurisdiction, setAside: Set<string>): CoveredCost[] {
     const cents = num(r.params?.amount_cents);
     const countLimit = num(r.params?.count_limit);
     const per = UNIT_PERS[String(r.params?.per ?? "")];
-    if (r.category === "expense_cap" && per && (cents !== null || countLimit !== null)) {
+    // A cap with a scope is about something narrower than the cost (Alabama's unpaid bills, Arkansas's
+    // catastrophic injuries): the law IR lists it as information only (rules/SCHEMA.md), so Check does not
+    // show it as the cost's limit either.
+    const scope = r.params?.scope;
+    const scoped = typeof scope === "string" && scope.trim() !== "";
+    if (r.category === "expense_cap" && per && !scoped && (cents !== null || countLimit !== null)) {
       caps.set(expense, [...(caps.get(expense) ?? []), { cents, per, countLimit }]);
     }
   }

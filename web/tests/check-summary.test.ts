@@ -119,6 +119,21 @@ describe("caps that only cover one kind of provider", () => {
     expect(counseling.cap).toEqual({ cents: 1000000, per: "claim", countLimit: 60, countUnit: "session" });
   });
 
+  it("does not show a limit with a scope as the cost's limit, as the law IR does not apply it", () => {
+    const capOf = (st: string, expense: string) =>
+      buildCheckSummary(load(st), output(load(st)), { ...answers, st }, true).covered.find((c) => c.expense === expense)!;
+    // Arkansas: AR-CAP-6's $25,000 is only for a catastrophic injury; the general medical limit is $10,000.
+    const ar = capOf("AR", "medical");
+    expect(ar.ruleIds).toContain("AR-CAP-6");
+    expect(ar.cap?.cents).toBe(1000000);
+    // Alabama: AL-CAP-MED-UNPAID's $6,000 is for unpaid bills only; there is no limit on the cost as a whole.
+    const al = capOf("AL", "medical");
+    expect(al.ruleIds).toContain("AL-CAP-MED-UNPAID");
+    expect(al.cap).toBeNull();
+    // Pennsylvania: $8 an hour is for helpers who are not family.
+    expect(capOf("PA", "childcare").cap).toBeNull();
+  });
+
   it("says how many sessions when the law limits only the count (Texas counseling)", () => {
     const tx = load("TX");
     const counseling = buildCheckSummary(tx, output(tx), { ...answers, st: "TX" }, true).covered.find(
