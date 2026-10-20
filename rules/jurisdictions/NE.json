@@ -287,6 +287,17 @@
       "pinpoint": "Neb. Rev. Stat. 81-1823"
     },
     {
+      "id": "NE-CAP-6",
+      "category": "total_cap",
+      "params": {
+        "exception": "or more in some cases"
+      },
+      "summary": "Except as section 81-1813 provides, the program cannot award more than $25,000 for each applicant per incident.",
+      "quote": "Except as provided in section 81-1813 , no compensation shall be awarded under the Nebraska Crime Victim's Reparations Act from the Victim's Compensation Fund in an amount in excess of twenty-five thousand dollars for each applicant per incident.",
+      "source_id": "NE-S9",
+      "pinpoint": "Neb. Rev. Stat. 81-1823"
+    },
+    {
       "id": "NE-CAP-2",
       "category": "expense_cap",
       "expense": "counseling",
@@ -439,6 +450,24 @@
       "pinpoint": "Neb. Rev. Stat. 81-1821(2)(a)"
     },
     {
+      "id": "NE-DEAD-2",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If you were under 19 when it happened, you can apply on or before your twenty-second birthday.",
+      "quote": "For a victim who was under nineteen years of age at the time of the personal injury, on or before the victim's twenty-second birthday",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(2)(c)"
+    },
+    {
+      "id": "NE-DEAD-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "The committee may still look at a late application if it finds good cause for the delay.",
+      "quote": "The committee may evaluate applications submitted beyond the deadline established in this section if the committee finds that good cause existed for missing such deadline.",
+      "source_id": "NE-S7",
+      "pinpoint": "Neb. Rev. Stat. 81-1821(3)"
+    },
+    {
       "id": "NE-REP-1",
       "category": "reporting_requirement",
       "params": {
@@ -466,6 +495,19 @@
       "quote": "An application submitted by or for a victim of sexual assault, domestic assault, child abuse, or sex trafficking is not subject to the five-day reporting requirement in subsection (1) of this section if, prior to submitting the application the: (a) Applicant or victim has reported such crime to the police; (b) Applicant or victim has obtained a protection order related to such incident or offense; or (c) Victim has presented for a forensic medical exam.",
       "source_id": "NE-S7",
       "pinpoint": "Neb. Rev. Stat. 81-1821(4)"
+    },
+    {
+      "id": "NE-REP-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "The program's FAQ says you must cooperate with criminal justice officials in the investigation and prosecution of the crime.",
+      "quote": "You must cooperate with criminal justice officials in the investigation of the crime and the prosecution of the offender.",
+      "source_id": "NE-S13",
+      "pinpoint": "CVR Frequently Asked Questions (4-5-2023), What must I do to be eligible?"
     },
     {
       "id": "NE-COLL-1",

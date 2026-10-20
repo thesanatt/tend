@@ -355,6 +355,18 @@
       "pinpoint": "SDCL 23A-28B-1(15)"
     },
     {
+      "id": "SD-SEC-2",
+      "category": "excluded_expense",
+      "params": {
+        "expense": "security",
+        "item": "monthly service cost of a security device"
+      },
+      "summary": "The monthly service cost of a security device is the victim's to pay.",
+      "quote": "monthly service cost , if any, of a security device installed for the benefit of a victim is the victim's responsibility.",
+      "source_id": "SD-S8",
+      "pinpoint": "ARSD 67:55:04:12"
+    },
+    {
       "id": "SD-CLOTH-1",
       "category": "covered_expense",
       "expense": "clothing_bedding",
@@ -467,7 +479,7 @@
       "id": "SD-COLL-1",
       "category": "collateral_source",
       "params": {},
-      "summary": "Any award is reduced by any payment the victim gets, or will get, from a collateral source because of the crime.",
+      "summary": "Any award is reduced by money the victim gets, or will get, from other sources because of the crime. These include the offender, insurance, Medicaid or Medicare, workers compensation, and an employer's wage continuation.",
       "quote": "Any award of victims' compensation made pursuant to this chapter shall be reduced by the amount of any payment received, or to be received, by the victim from any collateral source as a result of the conduct giving rise to the application for compensation.",
       "source_id": "SD-S1",
       "pinpoint": "SDCL 23A-28B-22"

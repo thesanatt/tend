@@ -250,6 +250,18 @@
       "pinpoint": "A.C.A. 12-12-403(b)(2)(A)"
     },
     {
+      "id": "AR-REPORT-4",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "expense": "forensic_exam"
+      },
+      "summary": "Not having to report for the exam does not stop a report of suspected child abuse or neglect that the state's child abuse law allows or requires.",
+      "quote": "Subdivision (b)(2)(A) of this section does not preclude a report of suspected abuse or neglect as permitted or required by the Child Maltreatment Act, § 12-18-101 et seq.",
+      "source_id": "AR-S12",
+      "pinpoint": "A.C.A. 12-12-403(b)(2)(B)"
+    },
+    {
       "id": "AR-EXAM-5",
       "category": "collateral_source",
       "expense": "forensic_exam",
@@ -422,6 +434,31 @@
       "quote": "Good cause shall include, but not be limited to, the: (A) Physical incapacity of a victim; (B) Mental incompetence of a victim; (C) Age of the victim; and (D) Injury was not reasonably discoverable.",
       "source_id": "AR-S13",
       "pinpoint": "16 CAR 60-203(c)(2)"
+    },
+    {
+      "id": "AR-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "scope": "minors, per the DPS criteria page"
+      },
+      "summary": "The program's criteria page says minors are excluded from the 72-hour report rule. The board's rules count the victim's age as one kind of good cause for a late report.",
+      "quote": "reported to authorities within 72 hours (minors excluded)",
+      "source_id": "AR-S3",
+      "pinpoint": "DPS Criteria to Receive Compensation page"
+    },
+    {
+      "id": "AR-COOP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "If the board finds the claimant or victim did not fully cooperate with law enforcement, it may deny, withdraw, or reduce the award. This does not apply to a minor victim of a sex offense or a victim of human trafficking.",
+      "quote": "Except as provided in subdivision (c)(2) of this section, upon finding that the claimant or victim has not fully cooperated with appropriate law enforcement agencies, the board may deny, withdraw, or reduce an award of reparations. (2) This subsection does not apply if the claimant or victim is a victim of human trafficking or a minor victim of a sex offense, as defined in § 12-12-903.",
+      "source_id": "AR-S9",
+      "pinpoint": "A.C.A. 16-90-712(c)"
     },
     {
       "id": "AR-COLL-1",

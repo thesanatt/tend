@@ -146,6 +146,19 @@
    "pinpoint": "11 Del. C. § 9023(c)"
   },
   {
+   "id": "DE-EXAM-4",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims' Compensation Fund, for crimes committed in Delaware",
+    "condition": "if the crime was in Delaware"
+   },
+   "summary": "Delaware's victim compensation law applies to victims of crimes committed in Delaware, including people who do not live there. That law includes the free forensic exam rule.",
+   "quote": "This chapter shall apply to: (1) All persons, including nonresidents of Delaware, who are victims of crimes committed on January 1, 1975, or thereafter within this State",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9021(1)"
+  },
+  {
    "id": "DE-CAP-1",
    "category": "total_cap",
    "params": {
@@ -413,6 +426,33 @@
    "pinpoint": "11 Del. C. § 9010(a)(4)"
   },
   {
+   "id": "DE-DEAD-2",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The program may not turn away a claim from sexual assault or abuse of a child because it was filed late.",
+   "quote": "Notwithstanding any provision to the contrary, the Agency may not limit acceptance or consideration of any applications arising from sexual assault or abuse of a child which may have otherwise been barred from consideration by a statute of limitations.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(12)"
+  },
+  {
+   "id": "DE-DEAD-3",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "If the crime happened before your eighteenth birthday, the program may pay for mental health counseling. This holds even if you applied late, did not report to police in time, or did not cooperate with police. The crime must be properly documented, and you must apply before your twentieth birthday.",
+   "quote": "Notwithstanding the provision of paragraph (10) of this section and § 9010(a)(3), (4), and (5) of this title to the contrary, the Agency may make an award for the payment of mental health counseling services under this chapter on a claim made by the victim of a crime that occurred before the victim’s eighteenth birthday so long as the occurrence of the crime is appropriately documented, and the claim is filed before the victim’s twentieth birthday.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(11)"
+  },
+  {
+   "id": "DE-DEAD-4",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "For sexual assault or abuse, that twentieth-birthday limit does not apply.",
+   "quote": "However, the foregoing limitations in this paragraph (11) regarding the victim’s twentieth birthday do not apply in cases of crimes involving sexual assault or abuse.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9009(11)"
+  },
+  {
    "id": "DE-REPORT-1",
    "category": "reporting_requirement",
    "params": {
@@ -421,7 +461,8 @@
      "protective_order",
      "other"
     ],
-    "within_hours": 72
+    "within_hours": 72,
+    "report_gate": true
    },
    "summary": "The crime must be reported to law enforcement within 72 hours, but this is waived if it was reported to protective services or Family Court, the victim has a protection from abuse order, the victim cooperated with law enforcement or an appropriate government agency in a sexual assault case, or the Agency finds the requirement unreasonable.",
    "quote": "Where the victim has failed to report the crime to a law-enforcement agency within 72 hours of its occurrence. This requirement is waived in any of the following circumstances: a. The crime has been reported to an appropriate governmental agency, such as child or adult protective services or the Family Court. b. The victim can provide a protection from abuse order. c. The victim has cooperated with law enforcement or an appropriate government agency in cases of crimes involving domestic violence, sexual assault or abuse. d. Where the Agency, in its discretion, determines that the circumstances of the crime or the victim render this requirement unreasonable.",
@@ -438,6 +479,18 @@
    "quote": "Where the victim refused to give reasonable cooperation to state or local law-enforcement agencies in their efforts to apprehend or convict the perpetrator of the crime in question.",
    "source_id": "DE-S1",
    "pinpoint": "11 Del. C. § 9010(a)(3)"
+  },
+  {
+   "id": "DE-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "child victims of sexual assault or abuse"
+   },
+   "summary": "If you were a child when the sexual assault or abuse happened, the program cannot deny your claim just because you waited to report or to apply.",
+   "quote": "In no event may the Agency deny any claim solely because the victim was a child victim of sexual assault or abuse, and the victim either delayed reporting the abuse or assault to authorities or the victim delayed an application for services to mitigate the effects of the impact of sexual assault or abuse.",
+   "source_id": "DE-S1",
+   "pinpoint": "11 Del. C. § 9010(d)"
   },
   {
    "id": "DE-MIN-1",

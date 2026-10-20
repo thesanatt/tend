@@ -506,6 +506,20 @@
       "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(3)"
     },
     {
+      "id": "AL-CAP-MED-UNPAID",
+      "category": "expense_cap",
+      "params": {
+        "expense": "medical",
+        "amount_cents": 600000,
+        "per": "claim",
+        "scope": "unpaid bills only; bills already paid out of pocket can be paid back up to $15,000"
+      },
+      "summary": "Medical bills that are still unpaid (not psychiatric care, counseling, or dental) may be paid at a reduced rate of 30% of eligible charges, up to $6,000. Medical bills you already paid yourself may be paid back in full, up to $15,000.",
+      "quote": "Outstanding charges for medical treatment, excluding psychiatric care, counseling, and dental treatment, may be compensated at a reduced rate of thirty percent (30%) of eligible charges up to a maximum amount of six thousand dollars ($6,000). When the claimant has already paid out-of-pocket for medical treatment and services, the claimant may be fully reimbursed for all eligible expenses not to exceed $15,000.",
+      "source_id": "AL-S25",
+      "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(3)"
+    },
+    {
       "id": "AL-COV-HIV",
       "category": "covered_expense",
       "expense": "prescription",
@@ -517,6 +531,18 @@
       "quote": "If it is determined that a victim of sexual violence is at risk for exposure to HIV, the Commission may provide payment for a 28-day drug regimen of HIV prophylaxis to a SANE facility, hospital, medical clinic, pharmacy, or victim of sexual violence.",
       "source_id": "AL-S28",
       "pinpoint": "Ala. Admin. Code r. 262-X-11-.01(10)(a)1"
+    },
+    {
+      "id": "AL-CAP-HIV-INS",
+      "category": "expense_cap",
+      "params": {
+        "expense": "prescription",
+        "per": "claim"
+      },
+      "summary": "If the survivor has health insurance, the pharmacy, hospital, or clinic filling the prescription must first seek payment from the insurance.",
+      "quote": "If a victim of sexual violence has health insurance, the pharmacy, hospital, or medical clinic filling the prescription for HIV prophylaxis must first seek payment of the expense from the health insurance provider.",
+      "source_id": "AL-S28",
+      "pinpoint": "Ala. Admin. Code r. 262-X-11-.01(10)(a)3"
     },
     {
       "id": "AL-COV-SEC",
@@ -702,7 +728,7 @@
       "params": {
         "rule": "Crimes in Alabama that cause serious personal injury or death can qualify; the victim does not have to live in Alabama."
       },
-      "summary": "A crime committed or attempted in Alabama that causes serious personal injury or death can qualify, wherever the victim lives.",
+      "summary": "A crime in Alabama, or an attempt, that causes serious injury or death can qualify, wherever the victim lives.",
       "quote": "An act occurring or attempted within the geographical boundaries of this state which results in serious personal injury or death to a victim for which punishment by fine, imprisonment, or death may be imposed.",
       "source_id": "AL-S14",
       "pinpoint": "Ala. Code 15-23-3(2)a"

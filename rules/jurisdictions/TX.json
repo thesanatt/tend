@@ -388,6 +388,18 @@
       "pinpoint": "OAG Travel Cost Reimbursement page"
     },
     {
+      "id": "TX-TRAVEL-2",
+      "category": "expense_cap",
+      "params": {
+        "expense": "transportation",
+        "per": "claim"
+      },
+      "summary": "If you were subpoenaed to appear in court, the program does not pay for those trips. Its page says to ask the prosecutor's office instead.",
+      "quote": "Note: Victims or claimants subpoenaed to appear in court cannot receive reimbursement through the CVC program for those appearances. If subpoenaed, please seek reimbursement from the prosecutor’s office.",
+      "source_id": "TX-S10",
+      "pinpoint": "OAG Travel Cost Reimbursement page, Note"
+    },
+    {
       "id": "TX-MED-1",
       "category": "covered_expense",
       "expense": "medical",
@@ -509,7 +521,7 @@
       "params": {
         "item": "property theft, damage, or loss"
       },
-      "summary": "The program does not pay for property theft, damage, or loss. Replacing clothing, bedding, or property seized as evidence or made unusable by the investigation is a separate covered cost (see TX-SEIZED-1).",
+      "summary": "The program does not pay for property theft, damage, or loss. Replacing clothing, bedding, or property seized as evidence or made unusable by the investigation is a separate covered cost.",
       "quote": "The CVC Program cannot make payments for the following: Property theft, damage, or loss Identity theft costs Pain, suffering, or emotional distress Any cost not a direct result of the crime",
       "source_id": "TX-S3",
       "pinpoint": "OAG CVC Covered Costs page, Costs Not Covered"
@@ -547,7 +559,25 @@
       "summary": "Apply within 3 years of the crime; the program can accept a late application for good cause.",
       "quote": "You're applying within 3 years of the crime (unless good cause can be shown for the delay).",
       "source_id": "TX-S4",
-      "pinpoint": "OAG CVC Eligibility page; Tex. Code Crim. Proc. art. 56B.052(a)-(b)"
+      "pinpoint": "OAG CVC Eligibility page"
+    },
+    {
+      "id": "TX-DEADLINE-2",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If the victim is a child, the time to apply counts from the day the victim or claimant learns of the crime. It ends on the third anniversary of that day, and no later than the child's 21st birthday.",
+      "quote": "If the victim is a child, the application must be filed not later than the third anniversary of the date the claimant or victim is made aware of the offense, but not after the child attains 21 years of age.",
+      "source_id": "TX-S1",
+      "pinpoint": "Tex. Code Crim. Proc. art. 56B.052(c)"
+    },
+    {
+      "id": "TX-DEADLINE-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If medical records show the crime left you unable to apply, that time does not count toward the deadline.",
+      "quote": "If a claimant or victim presents medically documented evidence of a physical or mental incapacity that was incurred by the claimant or victim as a result of the criminally injurious conduct and that reasonably prevented the claimant or victim from filing the application within the limitations period under Subsection (a), the period of the incapacity is not included.",
+      "source_id": "TX-S1",
+      "pinpoint": "Tex. Code Crim. Proc. art. 56B.052(d)"
     },
     {
       "id": "TX-REPORT-1",
@@ -555,10 +585,23 @@
       "params": {
         "required": true
       },
-      "summary": "For a full compensation claim, the crime must be reported to law enforcement within a reasonable time that does not hamper the investigation; the Attorney General can extend this for extraordinary circumstances, and it does not apply when the victim is a child.",
+      "summary": "You may not apply unless the crime was reported to police or another public safety agency in a reasonable time. The report cannot be so late that it gets in the way of the investigation and prosecution.",
       "quote": "a claimant or victim may not file an application unless the victim reports the criminally injurious conduct to the appropriate state or local public safety or law enforcement agency within a reasonable period, but not so late as to interfere with or hamper the investigation and prosecution of the offense after the criminally injurious conduct is committed.",
       "source_id": "TX-S1",
       "pinpoint": "Tex. Code Crim. Proc. art. 56B.053(a)"
+    },
+    {
+      "id": "TX-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": [],
+        "exception": "unless the victim is a child"
+      },
+      "summary": "The attorney general may give more time to report in extraordinary circumstances. The report rule does not apply if the victim is a child.",
+      "quote": "The attorney general may extend the time for reporting the criminally injurious conduct if the attorney general determines that the extension is justified by extraordinary circumstances. (c) Subsection (a) does not apply if the victim is a child.",
+      "source_id": "TX-S1",
+      "pinpoint": "Tex. Code Crim. Proc. art. 56B.053(b)-(c)"
     },
     {
       "id": "TX-REPORT-2",

@@ -243,7 +243,7 @@
       "params": {
         "payer": "Sexual Assault Victim Emergency Payment (SAVE) program, Colorado Division of Criminal Justice"
       },
-      "summary": "The state SAVE program (Division of Criminal Justice) must cover medical fees tied to getting the forensic exam, such as ER, lab, prescription, and physician fees, as long as funds are available.",
+      "summary": "The state's SAVE program must pay medical costs that come with getting the forensic exam. These include emergency room, lab, medicine, and doctor fees. It pays as long as it has the money.",
       "quote": "The program must cover medical fees and costs associated with obtaining the medical forensic examination, including but not limited to emergency department fees and costs, laboratory fees, prescription medication, and physician's fees, as long as funds are available.",
       "source_id": "CO-S9",
       "pinpoint": "C.R.S. 18-3-407.7(2)(a)"
@@ -269,6 +269,18 @@
       },
       "summary": "For medical or anonymous reports, SAVE pays the survivor's insurance deductibles and co-pays.",
       "quote": "If the victim makes an anonymous or medical report, the SAVE program will pay for insurance deductibles and co-pays.",
+      "source_id": "CO-S10",
+      "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For"
+    },
+    {
+      "id": "CO-EXAM-9",
+      "category": "exam_payment",
+      "expense": "medical",
+      "params": {
+        "payer": "The survivor's insurance, if the survivor asks; the patient owes any balance after SAVE pays up to its cap"
+      },
+      "summary": "If the survivor has insurance and asks for it to be billed, the hospital bills that insurance for related costs. After SAVE has paid the hospital for eligible costs, up to its cap, the patient must pay any balance left.",
+      "quote": "If the victim has insurance and requests that their insurance is billed, the hospital bills the survivor's insurance for related costs. If the victim makes an anonymous or medical report, the SAVE program will pay for insurance deductibles and co-pays. After the SAVE program has paid the hospital for eligible medical expenses (up to the cap), the patient is responsible for paying any outstanding balances.",
       "source_id": "CO-S10",
       "pinpoint": "DCJ SAVE program page, How Are Medical Forensic Exams Paid For"
     },
@@ -440,6 +452,19 @@
       "quote": "The appropriate law enforcement officials were notified of the perpetration of the crime causing property damage within seventy-two hours after its perpetration, unless the board finds good cause exists for the failure of notification;",
       "source_id": "CO-S4",
       "pinpoint": "C.R.S. 24-4.1-108(1.5)(b)"
+    },
+    {
+      "id": "CO-COOP-1",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "To be approved, you must also have cooperated reasonably with law enforcement in catching and prosecuting the assailant. The board can find good cause for not cooperating.",
+      "quote": "The applicant has cooperated reasonably with law enforcement officials in the apprehension and prosecution of the assailant, or the board has found good cause exists for the failure to cooperate",
+      "source_id": "CO-S4",
+      "pinpoint": "C.R.S. 24-4.1-108(1)(c)"
     },
     {
       "id": "CO-COLL-1",

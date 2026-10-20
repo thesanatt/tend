@@ -387,6 +387,20 @@
       "pinpoint": "MCL 18.361(2)(c)"
     },
     {
+      "id": "MI-CAP-12",
+      "category": "expense_cap",
+      "params": {
+        "expense": "temporary_housing",
+        "amount_cents": 380000,
+        "per": "claim",
+        "scope": "temporary lodging for not more than 30 days"
+      },
+      "summary": "Temporary lodging is one of the relocation costs. It counts toward the same $3,800 limit per claimant as the first month of rent, a security deposit, starting utilities, and moving costs.",
+      "quote": "An award for expenses under this subdivision may not exceed $3,800.00 per claimant. Eligible relocation expenses under this subdivision include, but are not limited to, all of the following expenses: (i) The first month of rent, a security deposit, and the costs to start utilities in the dwelling unit to which the claimant relocates. The commission may require the claimant to provide a signed rental agreement to verify these expenses. (ii) Moving expenses, including, but not limited to, costs to rent a truck, travel, and for moving services. (iii) Costs for temporary lodging for not more than 30 days.",
+      "source_id": "MI-S6",
+      "pinpoint": "MCL 18.361(2)(c)"
+    },
+    {
       "id": "MI-CAP-7",
       "category": "expense_cap",
       "params": {
@@ -499,7 +513,8 @@
       "id": "MI-COV-5",
       "category": "covered_expense",
       "params": {
-        "expense": "temporary_housing"
+        "expense": "temporary_housing",
+        "detail": true
       },
       "summary": "As part of relocation, temporary lodging is covered for up to 30 days.",
       "quote": "(iii) Costs for temporary lodging for not more than 30 days.",
@@ -684,6 +699,18 @@
       "pinpoint": "MDHHS Do I Qualify?, Eligibility Requirements"
     },
     {
+      "id": "MI-REPORT-4",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "scope": "medical bills for injuries other than the forensic exam"
+      },
+      "summary": "The program's SAFE Response page covers medical bills for injuries other than the exam. To get that help, it says a victim would have to apply, report to police, and cooperate with the investigation. The victim would also have to use their medical insurance, including Medicaid or Medicare, or any other way to pay.",
+      "quote": "If a sexual assault victim sustains a personal physical injury that needs to be treated other than the forensic exam, he or she may be eligible for assistance with medical bills through the Crime Victim Services Commission compensation program. The victim would have to submit a compensation claim application, report the incident to the police, cooperate with the investigation and utilize their medical insurance, including Medicaid, Medicare, or any other resource available for payment.",
+      "source_id": "MI-S17",
+      "pinpoint": "MDHHS SAFE Response page, Other physical injuries"
+    },
+    {
       "id": "MI-MIN-1",
       "category": "minimum_loss",
       "params": {
@@ -739,7 +766,7 @@
       "id": "MI-CONDUCT-2",
       "category": "conduct_reduction",
       "params": {},
-      "summary": "The commission must reject a claim if it finds the victim or claimant willfully refused to cooperate with law enforcement or the prosecutor.",
+      "summary": "If the commission finds the victim or claimant chose not to cooperate with law enforcement or the prosecutor, it must turn down the claim.",
       "quote": "In the event of determination of willful noncooperation by the victim or other claimant, the commission shall reject the claim.",
       "source_id": "MI-S5",
       "pinpoint": "MCL 18.356(2)"
@@ -1247,6 +1274,9 @@
       "pinpoint": "MCL 18.363"
     }
   ],
+  "page_notes": {
+    "police": "Note: Michigan law says a sexual assault forensic exam meets the police report and cooperation rules. The program's SAFE Response page still says a survivor who wants help with bills for other injuries would have to report to police and cooperate. The program may ask you for a police report."
+  },
   "coverage": {
     "found": [
       "exam_no_bill",

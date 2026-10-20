@@ -230,8 +230,20 @@
       "params": {
         "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
       },
-      "summary": "The program's provider guide says a medical forensic exam with no evidence kit collected (NKC) is also paid, so a victim who declines the rape kit is still covered.",
+      "summary": "The program's provider guide says an exam with no evidence kit collected (NKC) is also paid. It covers victims who decline the rape kit.",
       "quote": "This expense covers victims who decline the rape kit.",
+      "source_id": "SC-S12",
+      "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
+    },
+    {
+      "id": "SC-EXAM-7",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
+      },
+      "summary": "For a victim who declines the kit, the nurse offers the same exam without collecting evidence, within the program's set time of 72-120 hours after the assault.",
+      "quote": "The SANE will offer the medical forensic exam without evidence collection and will follow the same procedures including a thorough examination of the victim within the set time parameters which is 72 -120 hours post assault.",
       "source_id": "SC-S12",
       "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
     },
@@ -548,6 +560,18 @@
       "quote": "For the purposes of subsection (A)(3), a crime reported more than forty-eight hours after its occurrence is not \"promptly reported\", absent a showing of special circumstances or causes which justify the delay.",
       "source_id": "SC-S1",
       "pinpoint": "S.C. Code 16-3-1170(A)(3), (B)"
+    },
+    {
+      "id": "SC-REPORT-4",
+      "category": "reporting_requirement",
+      "params": {
+        "required": true,
+        "alternatives": []
+      },
+      "summary": "No award can be made unless the crime was promptly reported and recorded in police records. The crime must have directly caused the victim physical or mental harm. The claimant must also have fully cooperated with all law enforcement agencies and with the program.",
+      "quote": "No award may be made unless: (1) a crime was committed; (2) the crime directly resulted in physical or psychic trauma to the victim; (3) the crime was promptly reported to the proper authority and recorded in police records; and (4) the claimant or other award recipient has fully cooperated with all law enforcement agencies and with the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation.",
+      "source_id": "SC-S1",
+      "pinpoint": "S.C. Code 16-3-1170(A)"
     },
     {
       "id": "SC-REPORT-2",

@@ -424,6 +424,42 @@
       "pinpoint": "Schedule of Benefits (Fla. Admin. Code R. 2A-2.2003(2))"
     },
     {
+      "id": "FL-CAP-9",
+      "category": "expense_cap",
+      "params": {
+        "expense": "medical",
+        "per": "claim"
+      },
+      "summary": "Medical and dental costs are paid only for care within one year of the crime.",
+      "quote": "Medical/Dental Treatment $10,000 at a rate of 50% one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Medical/Dental Treatment"
+    },
+    {
+      "id": "FL-CAP-10",
+      "category": "expense_cap",
+      "params": {
+        "expense": "counseling",
+        "per": "claim"
+      },
+      "summary": "For an injured adult, mental health care is paid only within one year of the crime.",
+      "quote": "Mental Health Injured Adult Victim $5,000 at a rate of 50% one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Mental Health Injured Adult Victim"
+    },
+    {
+      "id": "FL-CAP-11",
+      "category": "expense_cap",
+      "params": {
+        "expense": "lost_wages",
+        "per": "claim"
+      },
+      "summary": "Wage loss is paid only for loss within one year of the crime.",
+      "quote": "Wage Loss $15,000 at a rate of 50% or GAWW Timeframe Within Which Loss Must Be Incurred From Date of Crime (up to) one year",
+      "source_id": "FL-S16",
+      "pinpoint": "Bureau of Victim Compensation Schedule of Benefits (Jan. 6, 2022), Wage Loss"
+    },
+    {
       "id": "FL-COV-1",
       "category": "covered_expense",
       "expense": "counseling",
@@ -501,6 +537,18 @@
       "pinpoint": "Fla. Stat. 960.199(2)(c)-(e)"
     },
     {
+      "id": "FL-COV-7",
+      "category": "covered_expense",
+      "params": {
+        "expense": "relocation",
+        "scope": "housing only: short-term shelter, rent, or a lease"
+      },
+      "summary": "Relocation money pays only for housing: short-term shelter, rent, or a lease, which can include a security deposit, application fees, and the first month's payment.",
+      "quote": "\"Relocation assistance\" compensation is defined as compensable housing expenses limited to short-term interim shelter, rental agreements, or long-term leases, and may include security deposits, application fees, and/or the first month's contractual payment.",
+      "source_id": "FL-S14",
+      "pinpoint": "Fla. Admin. Code R. 2A-2.2001(43)"
+    },
+    {
       "id": "FL-EXC-1",
       "category": "excluded_expense",
       "params": {
@@ -532,7 +580,7 @@
         "from": "crime",
         "extension": "Waived entirely when the delay came from sexual assault forensic kit testing or DNA profile matching."
       },
-      "summary": "For newer crimes (see FL-DEADLINE-1), a delay caused by sexual assault kit testing or DNA matching can waive the filing deadline, and other good cause can extend it to 5 years after the crime.",
+      "summary": "For newer crimes, a delay in testing a sexual assault kit or matching DNA can waive the filing deadline. For other good cause, the department may allow up to 5 years after the crime.",
       "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
       "source_id": "FL-S3",
       "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3."
@@ -545,10 +593,19 @@
         "from": "age_18",
         "extension": "Good cause can extend it, and a delay in sexual assault kit testing or DNA profile matching can waive it (same subsection; see researcher_notes)."
       },
-      "summary": "A victim who was under 18 at the time of a crime on or after October 1, 2019 has 3 years after turning 18 to file; good cause can extend this and kit testing or DNA matching delays can waive it.",
+      "summary": "If you were under 18 at the time of a crime on or after October 1, 2019, you have 3 years after turning 18 to file.",
       "quote": "(c) For a claim arising from a crime occurring on or after October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 3 years to file a claim.",
       "source_id": "FL-S3",
       "pinpoint": "Fla. Stat. 960.07(3)(c)"
+    },
+    {
+      "id": "FL-DEADLINE-4",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "If you were a minor when it happened, a delay in testing a sexual assault kit or matching DNA can waive the deadline. For other good cause, the department may add up to 1 more year for an older crime, or up to 2 more years for a newer one.",
+      "quote": "Upon a showing that a delay in filing a claim occurred because of delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under this subsection may receive a waiver of any claim filing deadline. For good cause based on any other reason, the department may extend the time period allowed for filing a claim under paragraph (b) for an additional period not to exceed 1 year or under paragraph (c) for an additional period not to exceed 2 years.",
+      "source_id": "FL-S3",
+      "pinpoint": "Fla. Stat. 960.07(3)"
     },
     {
       "id": "FL-REPORT-1",
@@ -577,6 +634,19 @@
       "pinpoint": "Fla. Admin. Code R. 2A-2.2001(9)"
     },
     {
+      "id": "FL-REPORT-3",
+      "category": "reporting_requirement",
+      "params": {
+        "required": false,
+        "alternatives": [],
+        "scope": "cooperation with law enforcement"
+      },
+      "summary": "The program may deny, reduce, or take back an award if it finds you have not cooperated with the state attorney, law enforcement, and the program.",
+      "quote": "The department, upon finding that any claimant or award recipient has not duly cooperated with the state attorney, all law enforcement agencies, and the department, may deny, reduce, or withdraw any award, as the case may be.",
+      "source_id": "FL-S4",
+      "pinpoint": "Fla. Stat. 960.13(1)(b)"
+    },
+    {
       "id": "FL-COLLATERAL-1",
       "category": "collateral_source",
       "params": {},
@@ -584,6 +654,15 @@
       "quote": "Payment made in accordance with this section shall be considered payment of last resort that follows all other sources.",
       "source_id": "FL-S4",
       "pinpoint": "Fla. Stat. 960.13(3)"
+    },
+    {
+      "id": "FL-NEED-1",
+      "category": "minimum_loss",
+      "params": {},
+      "summary": "The program must deny an award if it finds you would not face serious financial hardship without it. It looks at all of your financial resources.",
+      "quote": "If the department finds that the claimant, if not granted assistance pursuant to this chapter to meet the loss of earnings or support or out-of-pocket loss, will not suffer serious financial hardship as a result of the loss of earnings or support and the out-of-pocket loss incurred as a result of the injury, the department shall deny the award. In determining serious financial hardship, the department shall consider all the financial resources of the claimant.",
+      "source_id": "FL-S4",
+      "pinpoint": "Fla. Stat. 960.13(8)"
     },
     {
       "id": "FL-CONDUCT-1",

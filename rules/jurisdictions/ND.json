@@ -147,9 +147,10 @@
       "category": "exam_no_bill",
       "expense": "forensic_exam",
       "params": {
-        "insurance_billing": "prohibited"
+        "insurance_billing": "prohibited",
+        "detail": true
       },
-      "summary": "For a child forensic exam after alleged sexual abuse, physical abuse, or neglect, neither the exam nor any preliminary medical screening may be charged to the child or the child's parent, guardian, or custodian, directly or through insurance or another third-party payer.",
+      "summary": "When a child's forensic exam is done, neither the exam nor any medical screening before it may be charged to the child or to a parent, guardian, or custodian. This includes billing through insurance or another third-party payer.",
       "quote": "When a child forensic medical examination is performed, the costs incurred by a health care facility or health care professional for performing the child forensic medical examination or any preliminary medical screening examination may not be charged, either directly or through a third-party payer, to the alleged child victim or the child's parent, guardian, or custodian.",
       "source_id": "ND-S7",
       "pinpoint": "N.D.C.C. 12.1-34-07(2)"
@@ -263,6 +264,18 @@
       "quote": "The maximum reimbursement for lodging, meals, and mileage is one thousand dollars.",
       "source_id": "ND-S5",
       "pinpoint": "N.D. Admin. Code 94-03-03-16(2)(d)"
+    },
+    {
+      "id": "ND-CAP-TRAVEL-MIN",
+      "category": "expense_cap",
+      "params": {
+        "expense": "transportation",
+        "per": "claim"
+      },
+      "summary": "Travel is paid only when the trip is at least 150 miles round trip from home.",
+      "quote": "Travel distance must be at least one hundred fifty miles round trip from the claimant's residence in order for the claimant to be eligible for reimbursement of travel expenses.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-16(2)(a)"
     },
     {
       "id": "ND-CAP-RX",
@@ -437,6 +450,17 @@
       "quote": "Attorney's fees are not allowable for assisting a claimant in filing a claim.",
       "source_id": "ND-S1",
       "pinpoint": "N.D.C.C. 54-23.4-11"
+    },
+    {
+      "id": "ND-EXCL-TRAVEL",
+      "category": "excluded_expense",
+      "params": {
+        "item": "travel for the victim to meet with law enforcement or to go to court"
+      },
+      "summary": "The program does not pay travel costs for the victim to meet with law enforcement, or for the victim or a homicide victim's immediate family to go to court.",
+      "quote": "The division may not pay reimbursement for travel expenses for the victim or immediate family of a homicide victim to attend court proceedings or for the victim to meet with law enforcement.",
+      "source_id": "ND-S5",
+      "pinpoint": "N.D. Admin. Code 94-03-03-16(2)(i)"
     },
     {
       "id": "ND-DEADLINE-1",

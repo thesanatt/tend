@@ -258,7 +258,8 @@
    "category": "exam_no_bill",
    "expense": "forensic_exam",
    "params": {
-    "insurance_billing": "unspecified"
+    "insurance_billing": "unspecified",
+    "scope": "evidence collection"
    },
    "summary": "Survivors have the right to seek evidence collection at no cost to them.",
    "quote": "You have the right to seek evidence collection at no cost to you;",
@@ -290,12 +291,24 @@
    "pinpoint": "VVF SAFE Payment Program page, Submit a SAFE claim"
   },
   {
+   "id": "VA-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "SAFE Payment Program, for crimes in Virginia when evidence is collected",
+    "condition": "if done within 120 hours of a crime in Virginia"
+   },
+   "summary": "The SAFE Payment Program pays only when the crime happened in Virginia and evidence is collected. You do not have to report to police or help an investigation. An exam more than 120 hours after the crime, or for chronic sexual abuse, needs approval from a law enforcement officer or prosecutor to be paid.",
+   "quote": "The crime occurred within the Commonwealth of Virginia . Collection of evidence took place as outlined in §19.2-165.1 of the Code of Virginia. Patients are not required to report the crime to law enforcement, nor cooperate with an investigation in order to request a Physical Evidence Recovery Kit (PERK) exam or for that exam to be paid per §19.2-165.1 (B). If the patient declines evidence collection, the claim is not eligible for reimbursement. The SAFE Payment Program does not reimburse for consults, only for collection of medical forensic evidence. Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",
+   "source_id": "VA-S10",
+   "pinpoint": "VVF SAFE Payment Program page, Eligibility Requirements"
+  },
+  {
    "id": "VA-EXAM-6",
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams",
-    "condition": "if done within 120 hours of the assault"
+    "payer": "SAFE Payment Program, with law enforcement or prosecutor authorization for non-acute exams"
    },
    "summary": "Non-acute exams (more than 120 hours after the crime) and chronic sexual abuse cases need authorization from a law enforcement officer or prosecutor to be paid.",
    "quote": "Medical forensic examinations for non-acute (more than 120 hours after the crime) and/or chronic sexual abuse cases require authorization by law enforcement officer or prosecutor for payment per §19.2-165.1 (A).",

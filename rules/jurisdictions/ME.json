@@ -211,12 +211,24 @@
    "pinpoint": "Maine AG SAFE page, Notice to sexual assault victims"
   },
   {
+   "id": "ME-EXAM-6",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "Victims' Compensation Program, for sexual assaults in Maine",
+    "condition": "if an evidence kit is used for a crime in Maine"
+   },
+   "summary": "The Attorney General's page says Maine makes sure survivors of sexual assaults that happen in Maine do not pay for evidence collection, and the program pays hospitals and providers directly. Its notice to survivors is about exams done with an evidence collection kit.",
+   "quote": "Maine ensures that survivors of sexual assaults that occur in Maine are not responsible for the cost of evidence collection, also known as a Sexual Assault Forensic Examination (SAFE). The Victims' Compensation Program provides direct reimbursement to hospitals and other healthcare providers who perform SAFE. Learn more about the SAFE Program on the Department of Health and Human Services' SAFE Program webpage . Notice to sexual assault victims If you have had a sexual assault forensic examination (with evidence collection kit) performed, you should know the following:",
+   "source_id": "ME-S3",
+   "pinpoint": "Maine AG SAFE page, introduction and Notice to sexual assault victims"
+  },
+  {
    "id": "ME-EXAM-5",
    "category": "exam_payment",
    "expense": "forensic_exam",
    "params": {
-    "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used",
-    "condition": "if an evidence kit is used"
+    "payer": "Victims' Compensation Board, only when a sexual assault evidence collection kit is used"
    },
    "summary": "Direct billing to the Victims' Compensation Board applies only when the exam is done with a sexual assault forensic examination kit. If no kit is used, the provider bills the usual way.",
    "quote": "This direct billing and payment process is to be used only when a forensic examination is performed using a sexual assault forensic examination kit. If a kit is not used, use your customary billing procedures.",
@@ -442,10 +454,23 @@
     "alternatives": [],
     "exception": "counted from the crime, the injury, or when either was discovered"
    },
-   "summary": "For a compensation claim, the crime must be reported to law enforcement within 5 days of the crime, its discovery, or the resulting injury. The board can waive the time limit for good cause and must waive it for a child.",
+   "summary": "For a compensation claim, the crime must be reported to law enforcement within 5 days of when the crime or the resulting injury happened or was discovered.",
    "quote": "A. The crime was reported to a law enforcement officer within 5 days of the occurrence or discovery of the crime or of the resultant injury",
    "source_id": "ME-S8",
    "pinpoint": "5 M.R.S. 3360-C(1)(A)"
+  },
+  {
+   "id": "ME-REP-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": [],
+    "exception": "or later if the board waives it for good cause or for a child"
+   },
+   "summary": "The board may waive the time limits to report and to apply for good cause. It must waive them on behalf of a child, or when the claimant is a child and an adult who learned of the crime and the injury properly reported the crime and the claim to police and the board.",
+   "quote": "The board may waive the time requirements of subsection 1 for good cause shown and shall waive the time requirements on behalf of a child or when the claimant is a child and the crime and the claim have been properly reported to law enforcement officers and the board by an adult who becomes aware of the crime and of the compensable injury.",
+   "source_id": "ME-S8",
+   "pinpoint": "5 M.R.S. 3360-C(3)"
   },
   {
    "id": "ME-REP-2",

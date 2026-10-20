@@ -240,6 +240,18 @@
       "pinpoint": "SAFE Reimbursement Instructions, item 12 (Law enforcement reporting)"
     },
     {
+      "id": "OH-EXAM-9",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Ohio Attorney General SAFE Program"
+      },
+      "summary": "If an adult patient does not report to police and asks to stay fully anonymous, the provider can send the exam's payment form as Jane or John Doe.",
+      "quote": "If the adult patient chooses not to report to law enforcement and asks that their identity be kept completely confidential, a reimbursement form submitted on behalf of “Jane/John Doe” is an acceptable submission.",
+      "source_id": "OH-S14",
+      "pinpoint": "SAFE Reimbursement Instructions, item 5 (Patient name)"
+    },
+    {
       "id": "OH-EXAM-5",
       "category": "exam_payment",
       "expense": "forensic_exam",
@@ -250,6 +262,18 @@
       "quote": "Last incident(s) greater than 96 hours**** - procedures billable to patient",
       "source_id": "OH-S14",
       "pinpoint": "SAFE Reimbursement Instructions, mandated examination components table (18 and over); see item 9"
+    },
+    {
+      "id": "OH-EXAM-8",
+      "category": "exam_payment",
+      "expense": "forensic_exam",
+      "params": {
+        "payer": "Ohio Attorney General SAFE Program, for evidence collected after 96 hours when justified; payment not guaranteed"
+      },
+      "summary": "The instructions say evidence should sometimes be collected more than 96 hours after the assault, for example when the patient was unconscious. The provider must explain why, and that does not guarantee the SAFE Program will pay.",
+      "quote": "There are cases in which evidence should be collected beyond 96 hours. Examples include where the patient was unconscious or sedentary or where an exam may corroborate chronic injury or excessive force related to the sexual assault. Documentation must clearly justify the reasoning for the forensic collection as it relates to the sexual assault. Documentation does not guarantee payment by the SAFE Program.",
+      "source_id": "OH-S14",
+      "pinpoint": "SAFE Reimbursement Instructions, item 9 (Date/Time of Abuse/Assault)"
     },
     {
       "id": "OH-EXAM-6",
@@ -465,10 +489,10 @@
         "from": "crime",
         "extension": "or later in some cases"
       },
-      "summary": "Apply within three years of the crime. The statute points to ORC 2743.60 for exceptions: claimants who were minors or young adults at the time get extra time, and the Attorney General may accept a late claim at any time for good cause shown.",
+      "summary": "Apply within three years of the crime. Other parts of the law allow more time in some cases.",
       "quote": "All applications for an award of reparations may be filed at any time within three years after the occurrence of the criminally injurious conduct, except as provided in divisions (A)(2)(b) to (d) of section 2743.60 of the Revised Code.",
       "source_id": "OH-S4",
-      "pinpoint": "ORC 2743.56(B); ORC 2743.60(A)(2)(d)"
+      "pinpoint": "ORC 2743.56(B)"
     },
     {
       "id": "OH-DEADLINE-2",
@@ -480,6 +504,15 @@
       "quote": "If the claimant was under twenty-one years of age at the time of the criminally injurious conduct, the claim is not barred under division (A)(2)(a) of this section until after the claimant's twenty-fourth birthday.",
       "source_id": "OH-S3",
       "pinpoint": "ORC 2743.60(A)(2)(b)"
+    },
+    {
+      "id": "OH-DEADLINE-3",
+      "category": "filing_deadline",
+      "params": {},
+      "summary": "Even after these deadlines, the Attorney General may still make an award at any time for good cause.",
+      "quote": "(d) Notwithstanding divisions (A)(2)(a), (b), and (c) of this section, the attorney general is permitted to make an award of reparations at any time for good cause shown.",
+      "source_id": "OH-S3",
+      "pinpoint": "ORC 2743.60(A)(2)(d)"
     },
     {
       "id": "OH-REPORT-1",
