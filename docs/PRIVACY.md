@@ -5,18 +5,19 @@ so that the answer to "who can see my data?" is: only you, until you act to send
 packet you share is locked in your browser before it leaves, so our server cannot read it. The
 other sends can be read by our server while it handles them: a payment, a law check on our server,
 cloud AI (which also goes to Google's Gemini), and the demo bank's records. Each one happens only
-when you tap it, and the list below names all five.
+when you tap it. Picking a state asks our server for that state's law files, so it can tell which
+state you picked.
 
 ## What runs on your device
 
 | Step | Where it runs | How |
 |---|---|---|
-| Eligibility check (state, date, exam, report) | Device, or Tend's server after you say yes | On the device: the C++ law engine built to WebAssembly, with the state's compiled law image. Loading that image shows Tend's host which state you picked (see "What loading the law shows"). On Tend's server, after a yes: the Python reference engine, reading the same law IR the image is compiled from |
+| Eligibility check (state, date, exam, report) | Device, or Tend's server after you say yes | On the device: the C++ law engine built to WebAssembly, with the state's compiled law image. Getting the image, the rules, and the IR asks Tend's server for files named for the state (item 6 below). On Tend's server, after a yes: the Python reference engine, reading the same law IR the image is compiled from |
 | Reading a bank statement (CSV, OFX, PDF) | Device | Parsers in the browser; PDF text via pdf.js |
 | Sorting transactions into costs | Device, or cloud AI after you say yes | Deterministic merchant and keyword rules first, then Gemini Nano running on the device through Chrome's built-in Prompt API, constrained to a fixed list of categories |
 | Reading a bill photo or PDF | Device, or cloud AI after you say yes | A PDF with a text layer is read by code; a photo, or a PDF that is only a picture, goes to Gemini Nano's image input on the device. Line items must add up to the bill total or the bill is marked "couldn't read reliably" |
 | Deciding eligibility, caps, held bills, totals | Device, or Tend's server after you say yes | On the device, the same WebAssembly engine; on Tend's server, the Python reference engine. Every dollar carries its proof |
-| Filling the state's application (Michigan only today) | Device | pdf-lib fills the program's own PDF form in the browser from an allowlist of safe fields |
+| Filling the state's application (Michigan only today) | Device | pdf-lib fills the program's own PDF form in the browser from an allowlist of safe fields. For other states the packet links the program's blank form when Tend found one |
 | Translation (Spanish) | Device | Rule summaries are written in English. Chrome's on-device Translator API translates them only when its model is already on the device; UI strings are written in both languages |
 | Storage between sessions | Device, encrypted | IndexedDB vault encrypted with AES-256-GCM; the key is derived from a passkey (WebAuthn PRF, Touch ID) or a passphrase (PBKDF2-SHA-256, 600,000 iterations); the key lives only in memory while unlocked |
 
@@ -26,7 +27,8 @@ when you tap it, and the list below names all five.
    sends the amount, the account, and the payee to Tend's server, and no money moves yet. After
    you type the code, the server sends the payment to the bank (Capital One's Nessie, a mock bank,
    in the demo), labeled with the payee, Tend's payment id, and for a bill its id and line numbers.
-   The server keeps the payee until the payment finishes or locks, or until a cleanup finds its
+   If no clear answer comes back, the payment may have reached the bank, and the privacy list says
+   so. The server keeps the payee until the payment finishes or locks, or until a cleanup finds its
    code expired. The rest of the record (the amount, the account, the bill and its lines, and for a
    payment that went through, the bank's withdrawal id and the bill's totals) is deleted at a
    cleanup a day or more after the code expired. The payment log keeps amounts and ids, never a
@@ -36,13 +38,14 @@ when you tap it, and the list below names all five.
    fragment (`#...`), which browsers never send to servers, so we cannot decrypt it. Links expire,
    can be revoked, and can be set to open once.
 3. **Cloud AI, only if you ask.** On a phone or browser without on-device AI, Tend offers cloud AI
-   for the rows it could not sort or a bill it could not read, with a consent screen naming what
-   is sent. Default is off; the deterministic rules still work without it. Rows go as the kind of
-   transaction, the merchant, its category, and the description, from the date it happened on (or
-   every unsorted row, when you did not give a date). Tend first tries to take dates, amounts, card
-   and reference numbers, phone numbers, emails, and the name in a payment app line out of that
-   text; the filter looks for the usual formats, so something written another way can still go. A
-   bill goes as the file itself, with everything printed on it. Both go through Tend's server, which
+   for the rows it could not sort or a bill it could not read, with a consent screen that says what
+   is sent. Default is off; the deterministic rules still work without it. For rows: the kind of
+   transaction, the merchant, its category, and the description, from the date it happened on.
+   Without that date, every unsorted row goes, older ones too, and the consent screen says so. Tend
+   first tries to take out dates, amounts, card and reference numbers, phone numbers, and emails.
+   That is best effort: one written another way, or a name or a town in a row, can still go.
+   Payments to a person through Zelle, Venmo, Cash App, Apple Cash, or a P2P line never go. For a
+   bill: the file as it is, with everything printed on it. Both go through Tend's server, which
    keeps no copy, to Google's Gemini API. Tend calls Gemini on Google's free tier, whose terms
    ([Gemini API Additional Terms of Service](https://ai.google.dev/gemini-api/terms), last updated
    April 28, 2026) let Google keep what is sent, use it to improve its products, and have people
@@ -55,16 +58,17 @@ when you tap it, and the list below names all five.
    sends the claim's total. The relay holds the Nessie key and stores nothing. Each request happens
    only when tapped, and the privacy line shows it.
 5. **A check on Tend's server, only after a yes.** If this browser cannot run the law engine, Tend
-   asks first. A yes sends your state, the incident date, your exam and police answers, and every
-   cost you have not said no to, with its amount, date, kind, and description as it reads on your
-   statement or bill. Tend's server checks them, sends back the answer, and keeps nothing. After
-   that yes, each change to the claim is checked there too.
-
-**What loading the law shows.** Choosing a state loads that state's public law files from Tend's
-site: its compiled law, its verified rules, and its law summary, and on the Packet step the API's
-copy of its rules. None of it carries what you entered, and the privacy line does not count it, but
-the file names show Tend's host which state you picked, and its request logs can hold that next to
-your IP address (see "Request logs" below).
+   asks first. A yes sends your state, the incident date (or, without one, the date of the earliest
+   cost), your exam and police answers, and every cost you have not said no to, unanswered guesses
+   and rows Tend could not sort included, each with its date, amount, kind, and record id. The
+   words from your statement or bill are not sent. Tend's server checks the claim with the Python
+   reference engine, sends back the answer, and keeps nothing. After that yes, each change is
+   checked there too.
+6. **The state you pick.** Choosing a state fetches that state's law files (`/data/law/ST.json`,
+   `/engine/laws/ST.tlaw`, `/data/ir/ST.json`) from Tend's server, so the server can tell which
+   state was picked, and the host's request logs can hold that next to your IP address (see
+   "Request logs" below). Beyond the state, none of these requests carries anything you entered.
+   The privacy line says so.
 
 ## What our server holds
 
@@ -108,10 +112,13 @@ blank for the survivor to fill in.
   filled form, the summary PDF, letters) are ordinary files. If you lock with Touch ID or screen
   lock, your device keeps a passkey for youreowed.tech named Tend. Anyone who opens that password
   manager can see it, and with iCloud Keychain or Google Password Manager it can sync to your other
-  devices. Deleting saved progress does not remove it.
-- Until something is sent, the privacy line says "On this device. Nothing has left it since this
-  page opened." It vouches only for the page on screen: a reload, or a tab the browser reopens,
-  is a new page.
+  devices. Deleting saved progress does not remove it. A passcode the browser saved can be filled
+  in by anyone who uses that browser.
+- Until a state is picked or something is sent, the privacy line says "On this device. Nothing has
+  left it since this page opened." Once a state is picked it says "On this device. Only the state
+  you picked went to Tend's server, to get its law.", and the list of what was sent names that
+  request first. The line vouches only for the page on screen: a reload, or a tab the browser
+  reopens, is a new page.
 - So that a reload does not hide a send, the line keeps, for this tab only, the kind of each thing
   sent and when, in sessionStorage. It holds no amounts, payees, ids, or keys. The browser writes
   sessionStorage to its profile folder, so these kinds and times can sit on the device's disk,

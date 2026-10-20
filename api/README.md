@@ -81,7 +81,9 @@ Claims, evaluated and returned
   When the reference stands in, `law_image_sha256` is the sha256 of the compiled image on disk for exactly these
   rules (so both engines give the same document), or the verified file's sha256 when there is no such image.
   Items may carry `unit` and `tags`, and a ClassifiedItem's `source`, `reason`, and `confidence` are accepted and
-  dropped. Output that does not add up is refused with a 500 rather than shown.
+  dropped. An item's `description` defaults to "", and the web leaves it out, so a bank or bill line's words stay
+  on the device (`web/lib/api.ts` `serverClaimBody`). Output that does not add up is refused with a 500 rather
+  than shown.
 - `POST /packet?persona_id=`: the cited packet PDF (with the state's form when Tend has it), rendered and returned.
   A deadline counted from the police report or from discovery (docs/SPEC.md v1.3) gets its note and is never
   labeled "Past the filing deadline".

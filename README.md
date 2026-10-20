@@ -110,16 +110,16 @@ says what went:
   Google keep what is sent, use it to improve its products, and have people review it. Tend's
   server keeps no copy. In this prototype, don't send a real bill to cloud AI.
 - A check on Tend's server, after a yes, offered only when the browser cannot run the law engine:
-  it sends the state, the date, the answers, and each cost not said no to, with its description
-  from the statement or bill.
+  it sends the state, the date, the answers, and each cost not said no to, with its date, amount,
+  and kind, but never the words from the statement or bill.
 - The demo bank in Track, with the fictional account only: its records and a demo payout.
 
 The host sees each visit even without a send. Tend runs no analytics and no third-party scripts,
 but Vercel, which hosts it, keeps request logs Tend cannot turn off: for every page, law file, and
 API call, the path, the status, and the visitor's IP address and browser. Picking a state loads
-that state's public law files, so the host can tell which state was picked. Tend also does not hide
-that it was used: the browser's history, the offline copy of its pages, and a passkey named Tend, if
-one was made, stay on the device.
+that state's public law files, so the host can tell which state was picked, and the line under the
+header says so. Tend also does not hide that it was used: the browser's history, the offline copy
+of its pages, and a passkey named Tend, if one was made, stay on the device.
 
 The full contract and threat model: [docs/PRIVACY.md](docs/PRIVACY.md).
 

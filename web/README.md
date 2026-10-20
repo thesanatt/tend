@@ -67,9 +67,10 @@ Bump `VERSION` in `sw.js` when it changes. `NEXT_PUBLIC_TEND_SW=1` turns it on i
 
 The privacy line comes from what actually left: `lib/netlog.ts` wraps the page's `fetch` and reports each
 request that carries something off the device (a payment set up or confirmed, a share, the bank, the server
-engine, cloud AI, or anything unexpected), including one that was aborted or timed out after it went. Loading
-pages and public law files is not a send, though the law file a browser asks for shows the host which state
-was picked. With nothing sent it says
+engine, cloud AI, or anything unexpected), including any that failed online with no answer, which may have
+reached the server first. Loading pages is not a send. The law files a browser asks for are named for the
+state, so once a state is picked the line says "Only the state you picked went to Tend's server, to get its
+law." With nothing sent and no state picked it says
 "Nothing has left it since this page opened", which is as far as one page can vouch. After Lock now, Close
 Tend, or Delete it says only "On this device." until the next send or page load. The tab keeps each send's
 kind and time in sessionStorage (`components/flow/keptSends.ts`), never an amount, a payee, or an id, so the
@@ -132,14 +133,15 @@ account that ships with the app, and a payment walks through the same confirm sh
 
 The survivor flow calls the API only for what the survivor sends: `POST /api/actions/propose
 {from_account_id, payee, amount_cents}` and `POST /api/actions/confirm {action_id, confirm_code}` for a
-payment, `POST /api/claim <engine input>` after they agree to check on the server, a sealed share
-through `lib/share` (`POST /api/shares` with the ciphertext only; `DELETE` stops a link), and, only after
-a yes on the cloud AI consent screen, `POST /api/ai/classify` for the rows Tend could not sort (in
-batches) or `POST /api/ai/bill` for one bill. Track, with the demo bank only, calls
-`GET /api/bank/{persona}/activity` and `POST` or `DELETE /api/bank/{persona}/payout` when tapped. The
-share key stays in the link's `#fragment`. With the API connected, Packet asks `GET /api/jurisdictions/{st}`
-for the state's rules first, and the law and advocate pages also use `GET /api/jurisdictions`,
-`GET /api/jurisdictions/{st}/asm`, and `GET /api/shares/{id}`.
+payment, `POST /api/claim` after they agree to check on the server (the engine input without each cost's
+bank or bill words, `lib/api.ts` `serverClaimBody`), a sealed share through `lib/share` (`POST /api/shares`
+with the ciphertext only; `DELETE` stops a link), and, only after a yes on the cloud AI consent screen,
+`POST /api/ai/classify` for the rows Tend could not sort (in batches) or `POST /api/ai/bill` for one bill.
+Track, with the demo bank only, calls `GET /api/bank/{persona}/activity` and `POST` or
+`DELETE /api/bank/{persona}/payout` when tapped. The share key stays in the link's `#fragment`. Packet
+reuses the state's rules the flow already read from `/data/law/{ST}.json` and asks
+`GET /api/jurisdictions/{st}` only if that copy did not load. The law and advocate pages also use
+`GET /api/jurisdictions`, `GET /api/jurisdictions/{st}/asm`, and `GET /api/shares/{id}`.
 Response shapes are in `lib/types.ts`; examples are in `fixtures/` (Rowan from the seed, made by
 `uv run --project api python web/scripts/scan-fixtures.py` and `npm run fixtures`).
 
@@ -169,10 +171,10 @@ Answers and costs live in memory. Save this puts them in the encrypted vault on 
 AES-256-GCM in IndexedDB), behind Touch ID (a passkey with PRF) or a passcode; nothing is written in the
 clear. The vault locks itself after 5 minutes without a tap, key, or scroll, and when the page is left,
 and the screen clears with it. Exit this page also closes any on-device AI session. The line under the
-header says where the data is and changes when something is sent: a payment set up or confirmed, a share
-link, a request to the demo bank, cloud AI or a claim checked on the server (each after a yes), or any
-request the flow did not expect. Exit this page (or Esc twice) locks the vault, blanks the screen, clears
-the tab, and replaces the current history entry; earlier Tend pages stay in the browser's history. Tend
-stores no names and never asks what happened.
+header says where the data is and changes when something leaves: the picked state's law request, a payment
+set up or confirmed, a share link, a request to the demo bank, cloud AI or a claim checked on the server
+(each after a yes), or any request the flow did not expect. Exit this page (or Esc twice) locks the vault,
+blanks the screen, clears the tab, and replaces the current history entry; earlier Tend pages stay in the
+browser's history. Tend stores no names and never asks what happened.
 Responses send `Referrer-Policy: no-referrer`, so opening a source link does not reveal the page it
 came from.

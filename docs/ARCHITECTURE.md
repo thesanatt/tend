@@ -30,10 +30,12 @@ spec. This page points into them instead of restating them.
  saved progress                  -> web/lib/vault: AES-256-GCM in IndexedDB    |
                                                                                |
  ------ only when the survivor acts ------------------------------------------+----------------------
+ picking a state                 -> GET /data/law/ST.json, /data/ir/ST.json, ->|  public law files; their names
+                                    /engine/laws/ST.tlaw                       |  show which state
  a payment, set up and confirmed -> POST /api/actions/propose, /confirm ------>|  pending row, Nessie write, audit log
  a packet they share             -> sealed in the browser, POST /api/shares -->|  ciphertext + expiry
  cloud AI, only after a yes      -> POST /api/ai/classify, /api/ai/bill ------>|  Gemini (Google's terms); no copy kept
- a law check, only after a yes   -> POST /api/claim -------------------------->|  Python reference engine; nothing kept
+ a law check, only after a yes   -> POST /api/claim, no item descriptions ---->|  Python reference engine; nothing kept
  demo bank records (Track only)  -> GET /api/bank/{persona}/... -------------->|  Nessie relay; nothing kept
 ```
 
@@ -87,24 +89,29 @@ bank's withdrawal id and the bill's totals.
 **What crosses the boundary**, each only on a tap (docs/PRIVACY.md lists them): a payment, first
 set up (amount, account, payee, at Get a code) and then confirmed; a sealed share (ciphertext); cloud
 AI (only after a yes; the API refuses a request without `consent: true`, with 403 for false and
-422 when it is missing); a law check on the server (only after a yes, when the browser cannot run
-the engine: the claim, with each cost's amount, date, kind, and description); and, in Track with
-the demo bank only, the relay (holds the Nessie key, keeps no log lines for those paths). Loading
-a state's public law files sends nothing the survivor entered, but the file names show the host
-which state was picked. The privacy line under the header (`web/components/flow/PrivacyLine.tsx`)
-says "On this device. Nothing has left it since this page opened." until something is sent. It is
-built from `web/lib/netlog.ts`, which wraps the page's `fetch` and reports each request that
-carries something off the device, including any the flow did not expect and one that was aborted
-or timed out after it went.
+422 when it is missing); a check on Tend's server (only after a yes, when the browser cannot run
+the engine: `POST /api/claim` with the state, the dates, the answers, and each cost's date, amount,
+kind, and record id, never its words; `web/lib/api.ts` `serverClaimBody`); and, in Track with the
+demo bank only, the relay (holds the Nessie key, keeps no log lines for those paths). Picking a
+state also fetches files named for it, so the server can tell which state was picked. The privacy
+line under the header (`web/components/flow/PrivacyLine.tsx`) says "On this device. Nothing has
+left it since this page opened." until a state is picked, then "On this device. Only the state you
+picked went to Tend's server, to get its law." until something is sent. It is built from
+`web/lib/netlog.ts`, which wraps the page's `fetch` and reports each request that carries
+something off the device, including any the flow did not expect and any that failed online with
+no answer, which may have reached the server first.
 
 Cloud AI has its own consent screen (`web/components/flow/CloudConsent.tsx`). It names what would
 leave, starts at no, and saying no keeps the built-in rules working. For sorting: the kind of
-transaction, the merchant, its category, and the description. The amount and date fields never go.
-From the text, Tend first removes what looks like a date, an amount, a card or reference number, a
-phone number, an email, or the name in a payment app line. That filter is best effort, so a date
-or amount written an unusual way can still get through. For a bill: the file. Both go through
-Tend's server, which keeps no copy, to Gemini on Google's free tier, whose terms let Google keep
-what is sent, use it to improve its products, and have people review it (docs/PRIVACY.md, item 3).
+transaction, the merchant, its category, and the description; the amount and date fields never go.
+From the text, `web/lib/local/cloud.ts` first tries to remove what looks like a date (numeric or
+with a month's name), an amount (with a $ or beside a money word), a card or reference number, a
+phone number, or an email. That is best effort, so one written an unusual way, or a name or a town,
+can still get through. Payments to a person (Zelle, Venmo, Cash App, Apple Cash, P2P) never go.
+Rows go from the date it happened on; without that date, every unsorted row goes, and the sheet
+says so. For a bill: the file. Both go through Tend's server, which keeps no copy, to Gemini on
+Google's free tier, whose terms let Google keep what is sent, use it to improve its products, and
+have people review it (docs/PRIVACY.md, item 3).
 
 **There is no field for what happened.** No table, request model, or form field takes a
 narrative, a location, or an accused person's name. The state form's crime-detail, offender,

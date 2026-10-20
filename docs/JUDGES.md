@@ -13,7 +13,7 @@ Both URLs are live. A phone or a laptop both work. To run it locally instead: `s
 | Seconds | Do this | Notice |
 |---|---|---|
 | 0 to 8 | Open **https://youreowed.tech/mi** | Michigan's public page: what its law says, every line with a citation, and a share card anyone can post. No account, no trackers |
-| 8 to 18 | Open **https://youreowed.tech/check?demo=rowan**. The fictional answers are filled in: Michigan, June 14, 2026, exam yes, report no | No name, no "what happened". The line under the header says "On this device. Nothing has left it since this page opened." Tap a citation (for example `MCL 18.355a(10)`) to see the verbatim quote and a link to that sentence of the statute |
+| 8 to 18 | Open **https://youreowed.tech/check?demo=rowan**. The fictional answers are filled in: Michigan, June 14, 2026, exam yes, report no | No name, no "what happened". The line under the header says "On this device. Only the state you picked went to Tend's server, to get its law." Tap a citation (for example `MCL 18.355a(10)`) to see the verbatim quote and a link to that sentence of the statute |
 | 18 to 28 | **Find my costs**, **Use the demo bank account**, then **Add another record** and **Use a sample bill**. Tap **Yes to all** on each group | Both are read in the browser. Each cost shows the law behind it; guesses wait for a yes |
 | 28 to 38 | **Next: your bill** | The $443.00 Riverbend General bill: the $325.00 forensic exam line is **Held**, quoting MCL 18.355a(2). **Get a letter for the billing office** writes a letter that quotes the law |
 | 38 to 48 | **Pay $118.00 now from Checking 0011**, **Get a code**, type the six digits, **Pay $118.00** | Nothing moves until the code is typed. On the live site this writes a withdrawal to Nessie (mock money), reads it back, and the bill then shows only the held $325.00. The header line now names the payment |
@@ -63,8 +63,8 @@ Nessie mock bank. Every name, merchant, and dollar below is made up.
    that includes the held line, writes the withdrawal to Nessie (on youreowed.tech; a local API
    defaults to a dry run), reads it back, updates the bill to show only the held $325.00, and
    appends a row to a hash-chained audit log. The line under the header changes from "On this
-   device. Nothing has left it since this page opened." to "On this device, except what you chose
-   to send: a payment."
+   device. Only the state you picked went to Tend's server, to get its law." to "On this device,
+   except: the state you picked and a payment."
 5. **Packet.** Built on the device: Michigan's own application with safe fields only (name,
    signature, SSN, and anything about what happened stay blank), a cited summary PDF, a "still
    needed" list in Michigan's own words, letters, and where to file. It reads "Amount you can ask

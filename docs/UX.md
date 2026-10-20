@@ -7,9 +7,9 @@ what happened, who did it, or where.
 ## Stay Jane Doe (the principle behind every screen)
 No account, no name, no story. Everything happens on the device unless the survivor chooses to send something. The survivor's name appears only
 on the state's own form at the very end, typed by them. Tend surfaces the legal protections that
-keep them anonymous with the state itself: the address confidentiality program (a substitute
-address for government forms) and the law that keeps compensation records confidential, both
-cited like every other rule.
+can keep their address and claim records private: the address confidentiality program (a
+substitute address for government forms, where the program covers survivors) and the rules on who
+can see claim records, both cited like every other rule.
 
 ## Share cards (awareness, the biggest barrier)
 Every jurisdiction gets a public page and a share card generated only from verified rules, e.g.
@@ -56,9 +56,11 @@ Bill triage, for each bill:
   are fine; the screen says which costs the program can repay either way.
 
 ### 3. Packet (what finishes the job)
-- The state's own application, pre-filled from an allowlist of safe fields only. Signature, crime
-  details, offender, location, and SSN fields stay blank with a note: "Only you fill these in."
-- A cited summary: every line with amount, transaction, rule, quote, and link.
+- The state's own application, pre-filled from an allowlist of safe fields only (Michigan's today;
+  other states get the program's blank form when Tend found one). Signature, crime details,
+  offender, location, and SSN fields stay blank with a note: "Only you fill these in."
+- A cited summary: every line that counts or is held, with amount, transaction, rule, quote, and
+  link.
 - "Still needed" checklist, specific to the state and the lines claimed, each with a template:
   ID copy, itemized bills (attached when uploaded), employer wage letter (template to send),
   counseling provider statement (template), exam documentation if the state uses it for reporting.
@@ -73,7 +75,9 @@ bud (filed), bloom (paid). The deadline is always visible. Reminders are opt-in,
 ## Always on
 - Local-first and encrypted (docs/PRIVACY.md is the contract). A small persistent line on every
   screen says what is happening: "On this device. Nothing has left it since this page opened." It
-  changes only when the survivor sends something (a confirmed payment or an encrypted share).
+  changes when something leaves the device: the state's law request, a payment set up or
+  confirmed, an encrypted share, a check on Tend's server, cloud AI, a request to the demo bank, or
+  any request the flow did not expect.
 - Unlock the saved vault with Touch ID (passkey) or a passphrase.
 - Quick exit: corner button and Esc twice; replaces the page with a neutral one.
 - Neutral tab title ("Tend"). No push notifications. No analytics.
