@@ -255,5 +255,6 @@ describe("the advocate viewer", () => {
   it("gives every citation a 44 px target", () => {
     const css = readFileSync(path.resolve(import.meta.dirname, "../components/Citation.module.css"), "utf8");
     expect(css).toMatch(/\.cite \{[^}]*min-height: 44px;/);
+    expect(css).toMatch(/\.cite \{[^}]*min-width: 44px;/);
   });
 });
