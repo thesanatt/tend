@@ -67,9 +67,11 @@ async function prepare(signal: { cancelled: boolean }, router: () => RouterLike 
     // A step that cannot be fetched now loads the usual way later.
   }
   // Load the PDF reader now, through the worker, so it is saved for later; and pdf-lib, which builds
-  // the sample statement (and fills the packet), so "Use a sample statement" works offline too.
+  // the sample statement (and fills the packet), so "Use a sample statement" works offline too. The
+  // packet builder loads only when needed (services.ts), so it is fetched here too.
   await import("@/lib/local/pdf").then((m) => m.pdfjs()).catch(() => undefined);
   await import("pdf-lib").catch(() => undefined);
+  await import("@/lib/packet").catch(() => undefined);
   // Files only: scripts, styles, fonts, the engine, the law. A step's page data (?_rsc=) is not
   // here, because fetched again without Next's headers it would come back as a web page.
   const urls = performance

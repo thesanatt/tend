@@ -13,7 +13,6 @@ import type {
 } from "@/lib/contracts";
 import { evaluateClaim, type Evaluation } from "@/lib/engine";
 import { billReader, classifier, releaseDeviceAi, startModelDownload, statementParser } from "@/lib/local";
-import { packetBuilder } from "@/lib/packet";
 import { share } from "@/lib/share";
 import type { AccountRef, ActionProposal, ActionResult, EngineInput } from "@/lib/types";
 import { vault } from "@/lib/vault";
@@ -96,6 +95,12 @@ async function propose(req: PaymentRequest): Promise<ActionProposal & { demo: bo
     accountLabel(req.from),
   );
 }
+
+// The packet builder brings pdf-lib, the largest library in the app. Every page mounts the flow's
+// provider, so it loads with the first packet instead of on the home page.
+const packetBuilder: PacketBuilder = {
+  build: async (...args) => (await import("@/lib/packet")).packetBuilder.build(...args),
+};
 
 export const defaultServices: FlowServices = {
   statementParser,
