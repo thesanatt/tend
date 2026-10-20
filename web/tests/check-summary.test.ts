@@ -447,6 +447,36 @@ describe("the deadline Check leads with", () => {
     expect(deadlineIn("IL", "2024-01-01", "2026-10-19")).toMatchObject({ date: "2029-01-01" });
   });
 
+  // Virginia's general rule is the program's 3 years for a crime on or after July 1, 2025 (VA-DEADLINE-2),
+  // and crimes from July 2001 through June 2025 had 1 year. Tend cannot check which, so the date comes with
+  // the rule's own condition, as the state page gives it.
+  it("keeps the general rule's own condition with the date and the length of time", () => {
+    expect(deadlineIn("VA", "2024-08-01")).toMatchObject({
+      kind: "date",
+      date: "2027-08-01",
+      condition: "for a crime on or after July 1, 2025",
+    });
+    // A crime on or after the start day meets the condition, so the date stands plain.
+    expect(deadlineIn("VA", "2025-08-01")).toMatchObject({ date: "2028-08-01", condition: null });
+    expect(deadlineIn("FL")).toMatchObject({ date: "2029-06-14", condition: null });
+    expect(deadlineIn("FL", "2019-09-30", "2020-01-01")).toMatchObject({
+      condition: "for a crime on or after October 1, 2019",
+    });
+    // An age is not something Tend asks.
+    expect(deadlineIn("NE")).toMatchObject({ kind: "date", condition: "if you were 19 or older when it happened" });
+    expect(deadlineIn("MI")).toMatchObject({ kind: "date", condition: null });
+    const va = load("VA");
+    const undated = buildCheckSummary(
+      va,
+      output(va, engineCheck("VA", "2026-06-14", "2026-10-19")),
+      { ...answers, st: "VA", date: "", dateUnsure: true },
+      false,
+      new Set(),
+      { ir: irOf("VA"), asOf: "2026-10-19" },
+    ).deadline;
+    expect(undated).toMatchObject({ kind: "span", years: 3, condition: "for a crime on or after July 1, 2025" });
+  });
+
   it("matches the state page's lead rule in every jurisdiction that has one", () => {
     let led = 0;
     for (const st of STATES) {

@@ -163,7 +163,7 @@ describe("the advocate's deadline and report checks", () => {
     // The share's incident date is then the earliest cost, which can be after the day it happened.
     const due = deadlineCheck(engine, "2026-10-04", { ...ctx, incident: "2026-06-20", dateKnown: false });
     expect(due.text).toBe(
-      "They have 3 years from the date it happened to apply. Some cases have longer. The rule says when. No date was shared, so Tend gives no day to file by.",
+      "They have 3 years from the date it happened to apply, if the rule covers them. The rule names the cases it covers, and other cases have other deadlines. Ask the program which one is theirs. Some cases have longer. The rule says when. No date was shared, so Tend gives no day to file by.",
     );
     expect(due.text).not.toMatch(/File by|2029|2031/);
     expect(due.copy).toEqual({ label: "No date shared", tone: "neutral" });
@@ -181,6 +181,23 @@ describe("the advocate's deadline and report checks", () => {
     };
     expect(deadlineCheck(waCheck, "2026-10-04", { law: wa.law, ir: ir("WA"), incident: "2026-06-14" }).text).toContain(
       "The law counts this from their report, so they may have longer.",
+    );
+  });
+
+  it("Virginia: the date holds only if the rule covers them, and never as plainly on time", () => {
+    const va = index("VA");
+    const vaCheck = {
+      status: "ok" as const,
+      deadline_date: "2027-08-01",
+      rule_ids: va.byCategory("filing_deadline").map((r) => r.id),
+    };
+    const vaCtx = { law: va.law, ir: ir("VA"), incident: "2024-08-01" };
+    const due = deadlineCheck(vaCheck, "2026-10-04", { ...vaCtx, dateKnown: true });
+    expect(due.text).toMatch(/^File by August 1, 2027 if the rule covers them\./);
+    expect(due.text).toContain("Ask the program which one is theirs.");
+    expect(due.copy.tone).toBe("neutral");
+    expect(deadlineCheck(vaCheck, "2026-10-04", { ...vaCtx, dateKnown: false }).text).toMatch(
+      /^They have 3 years from the date it happened to apply, if the rule covers them\./,
     );
   });
 

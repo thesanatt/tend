@@ -658,8 +658,9 @@ describe("the summary's filing deadline", () => {
     );
     expect(text).not.toContain("File by");
     expect(text).not.toContain("2029");
+    // With no date, Florida's "for a crime on or after October 1, 2019" cannot be settled, so it shows.
     expect(text).toContain(
-      "You have 3 years from the date it happened to apply. Some cases have longer. The rule says when.",
+      "You have 3 years from the date it happened to apply, if the rule covers you. The rule gives this deadline for a crime on or after October 1, 2019. Other cases have other deadlines. Ask the program which one is yours. Some cases have longer. The rule says when.",
     );
     expect(text).toContain("Costs counted from the earliest one, June 20, 2026, because no date was given.");
     expect(text).not.toContain("Costs counted from June 20, 2026 to");

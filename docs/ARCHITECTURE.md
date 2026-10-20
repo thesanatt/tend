@@ -230,7 +230,9 @@ Money is integer cents end to end. Adding a jurisdiction is new data, never new 
   month as 30 days (docs/SPEC.md step 10). A report or discovery note follows the general rule's
   own provision, so a rule for minors counted from the report (MI-FILE-2, KS-DEAD-4) adds none. A
   passed general date is never shown as "File by", and is not shown as plainly late while a longer
-  rule's window is open. Without the IR they fall back to the engine's date and flags. The advocate
+  rule's window is open. A general rule's own condition (VA-DEADLINE-2, FL-DEADLINE-1, NE-DEAD-1)
+  is shown with the date, unless the condition is a start date ("for a crime on or after ...")
+  that the date given meets. Without the IR they fall back to the engine's date and flags. The advocate
   view (`web/components/claim/Checks.tsx`) does the same when the law IR loads;
   `api/tend_api/packet.py` still shows the engine's date.
 - `as_of_date` is today in the state's own time zone, the westernmost where a state spans several

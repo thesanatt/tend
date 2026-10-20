@@ -1,6 +1,6 @@
 "use client";
 
-import { spanText } from "@/lib/deadline";
+import { deadlineTerms, spanText } from "@/lib/deadline";
 import { useI18n, type Dict } from "@/lib/i18n";
 import type { LawIndex } from "@/lib/useLaw";
 import { capText, type CheckSummary } from "../checkSummary";
@@ -68,8 +68,16 @@ export default function CheckSummaryView({
             <>
               {/* Never "File by" a date that has passed. */}
               <p className={styles.factLead}>
-                {d.late ? t.check.deadlineLate(f.date(d.date)) : t.check.deadlineDate(f.date(d.date))}
+                {(d.late
+                  ? d.condition
+                    ? t.check.deadlineLateIf
+                    : t.check.deadlineLate
+                  : d.condition
+                    ? t.check.deadlineDateIf
+                    : t.check.deadlineDate)(f.date(d.date))}
               </p>
+              {d.condition ? <RuleTerms text={deadlineTerms(d.condition)} className={styles.factNote} /> : null}
+              {d.condition ? <p className={styles.factNote}>{t.check.deadlineOtherCases}</p> : null}
               {d.late ? null : <p className={styles.factNote}>{t.check.deadlineLeft(f.span(today, d.date) ?? "")}</p>}
               {d.longer && !d.late ? (
                 <p className={styles.factNote}>{t.check.deadlineLonger(f.date(d.longer))}</p>
@@ -85,7 +93,11 @@ export default function CheckSummaryView({
             </>
           ) : d.kind === "span" ? (
             <>
-              <p className={styles.factLead}>{t.check.deadlineSpan(spanText(d, t.units, f.and))}</p>
+              <p className={styles.factLead}>
+                {(d.condition ? t.check.deadlineSpanIf : t.check.deadlineSpan)(spanText(d, t.units, f.and))}
+              </p>
+              {d.condition ? <RuleTerms text={deadlineTerms(d.condition)} className={styles.factNote} /> : null}
+              {d.condition ? <p className={styles.factNote}>{t.check.deadlineOtherCases}</p> : null}
               {d.longer ? <p className={styles.factNote}>{t.check.deadlineSpanLonger}</p> : null}
               {d.fromReport ? <p className={styles.factNote}>{t.check.deadlineSpanFromReport}</p> : null}
               {d.fromDiscovery ? <p className={styles.factNote}>{t.check.deadlineFromDiscovery}</p> : null}

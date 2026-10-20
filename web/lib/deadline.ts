@@ -13,7 +13,9 @@
 // children when it happened (MI-FILE-2) does not tell every survivor "the law counts from your report". A flag from another rule is kept as laterElsewhere, and a passed date is
 // then never shown as plainly late (docs/SPEC.md v1.3): whether that rule fits turns on what Tend
 // never asks, such as age at the time of the crime (MI-FILE-2, KS-DEAD-4, MN-DEADLINE-2, NJ-FILE-3)
-// or a crime found out more than three years later (MA-DEAD-3).
+// or a crime found out more than three years later (MA-DEAD-3). A general rule with its own condition
+// (Virginia's 3 years are for a crime on or after July 1, 2025) keeps it, and every reader shows it
+// with the date, as the state page does, unless the date given settles it.
 import { addDays, addMonths, addYears, isIsoDay } from "./dates";
 import type { EngineChecks, Jurisdiction, Rule } from "./types";
 
@@ -29,6 +31,8 @@ export interface GeneralRule {
   // The provision counts from the report or from discovery (the engine dates it from the incident).
   fromReport: boolean;
   fromDiscovery: boolean;
+  // The rule's own condition (params.condition), in English, or null.
+  condition: string | null;
 }
 
 export interface FileBy extends GeneralRule {
@@ -54,6 +58,7 @@ export interface SpanBy extends Span {
   ruleIds: string[];
   fromReport: boolean;
   fromDiscovery: boolean;
+  condition: string | null;
 }
 
 type Check = Pick<EngineChecks["deadline"], "deadline_date" | "rule_ids" | "flags">;
@@ -67,6 +72,40 @@ const timed = (r: Rule) =>
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : null);
 
 const whole = (v: unknown): number => (typeof v === "number" && Number.isInteger(v) && v > 0 ? v : 0);
+
+const conditionOf = (r: Rule): string | null => {
+  const v = r.params?.condition;
+  return typeof v === "string" && v.trim() ? v.trim() : null;
+};
+
+// The general rule's condition as one English sentence, for RuleTerms and the PDF.
+export const deadlineTerms = (condition: string): string => `The rule gives this deadline ${condition}.`;
+
+// A condition the date itself settles: "for a crime on or after July 1, 2025" (Virginia, Florida). Any
+// other wording, such as Nebraska's age, stays a condition Tend cannot check.
+const ON_OR_AFTER = /^for a crime on or after ([A-Z][a-z]+) (\d{1,2}), (\d{4})$/;
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export function conditionStart(condition: string): string | null {
+  const m = ON_OR_AFTER.exec(condition);
+  const month = m ? MONTHS.indexOf(m[1]) + 1 : 0;
+  if (!m || !month) return null;
+  const day = `${m[3]}-${String(month).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
+  return isIsoDay(day) ? day : null;
+}
 
 type Compiled = LawIr["rules"][number];
 
@@ -123,6 +162,7 @@ export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule |
     days: own.days,
     fromReport: anchors.includes("report"),
     fromDiscovery: anchors.includes("discovery"),
+    condition: conditionOf(rule),
   };
 }
 
@@ -135,8 +175,11 @@ export function generalDeadline(law: Jurisdiction, ir: LawIr, incident: string, 
   const engine = check?.deadline_date ?? null;
   const last = latestEnd(law, ir, incident, check?.rule_ids ?? []) ?? (engine && isIsoDay(engine) ? engine : null);
   const flags = check?.flags ?? [];
+  // A crime on or after the rule's start day meets its condition; an earlier one may have another deadline.
+  const start = general.condition ? conditionStart(general.condition) : null;
   return {
     ...general,
+    condition: start && incident >= start ? null : general.condition,
     date,
     longer: last && last > date ? last : null,
     laterElsewhere:
@@ -177,6 +220,7 @@ export function generalSpan(law: Jurisdiction, ir: LawIr | null, check: Omit<Che
     ruleIds: general ? [general.rule.id, ...check.rule_ids.filter((id) => id !== general.rule.id)] : check.rule_ids,
     fromReport: general ? general.fromReport : flags.includes("deadline_from_report"),
     fromDiscovery: general ? general.fromDiscovery : flags.includes("deadline_from_discovery"),
+    condition: general ? general.condition : null,
   };
 }
 

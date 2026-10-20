@@ -7,6 +7,7 @@ import PayoutDemo, { DemoPaidNote, isDemoPaid } from "@/components/bank/PayoutDe
 import Money from "@/components/Money";
 import Plant from "@/components/Plant";
 import { addDays, localDay } from "@/lib/dates";
+import { deadlineTerms } from "@/lib/deadline";
 import { moneyGrowth } from "@/lib/garden";
 import { useI18n, type Dict } from "@/lib/i18n";
 import { useLaw } from "@/lib/useLaw";
@@ -14,6 +15,7 @@ import { buildCheckSummary } from "../checkSummary";
 import { setAsideOf, useExamHold, useLawIr } from "../useSetAside";
 import { GROUPS, groupOf, knowsDate, paidLines, plants, type PlantView, type Stage } from "../claim";
 import { useFlow } from "../FlowProvider";
+import RuleTerms from "../RuleTerms";
 import styles from "../flow.module.css";
 
 const STAGES: Stage[] = ["sprout", "leaf", "bud", "bloom"];
@@ -165,13 +167,23 @@ export default function TrackScreen() {
 
   // Plainly late only when no rule leaves more time: not when the engine's longer date is still ahead,
   // and not when the shown date, or another rule, counts from a later day than the one given.
+  // Nor when the rule behind it has a condition Tend cannot check.
   const late =
-    (deadline?.late && !deadline.open && !deadline.fromReport && !deadline.fromDiscovery && !deadline.laterElsewhere) ||
+    (deadline?.late &&
+      !deadline.open &&
+      !deadline.fromReport &&
+      !deadline.fromDiscovery &&
+      !deadline.laterElsewhere &&
+      !deadline.condition) ||
     undefined;
   const due = deadline
-    ? deadline.late
-      ? t.check.deadlineLate(f.date(deadline.date))
-      : t.check.deadlineDate(f.date(deadline.date))
+    ? (deadline.late
+        ? deadline.condition
+          ? t.check.deadlineLateIf
+          : t.check.deadlineLate
+        : deadline.condition
+          ? t.check.deadlineDateIf
+          : t.check.deadlineDate)(f.date(deadline.date))
     : summary
       ? t.track.deadlineAsk
       : // The law and the claim are still loading; "ask the program" would be wrong for a moment.
@@ -188,6 +200,10 @@ export default function TrackScreen() {
           from discovery, may not be late (docs/SPEC.md v1.3): it is explained, never shown as plainly late. */}
       <p ref={deadlineRef} className={styles.deadlineBar} data-late={late}>
         <strong>{due}</strong>
+        {deadline?.condition ? (
+          <RuleTerms as="span" text={deadlineTerms(deadline.condition)} className={styles.deadlineNote} />
+        ) : null}
+        {deadline?.condition ? <span className={styles.deadlineNote}>{t.check.deadlineOtherCases}</span> : null}
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
         {deadline?.longer && !deadline.late ? (
           <span className={styles.deadlineNote}>{t.check.deadlineLonger(f.date(deadline.longer))}</span>

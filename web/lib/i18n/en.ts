@@ -288,6 +288,11 @@ export const en = {
     subjectRecords: "Keeping claim records private",
     deadlineDate: (date: string) => `File by ${date}.`,
     deadlineLate: (date: string) => `The usual deadline was ${date}.`,
+    // The general rule has a condition the flow cannot check (lib/deadline.ts), such as Virginia's
+    // "for a crime on or after July 1, 2025". The rule's terms follow it.
+    deadlineDateIf: (date: string) => `File by ${date} if the rule covers you.`,
+    deadlineLateIf: (date: string) => `The usual deadline was ${date} if the rule covers you.`,
+    deadlineOtherCases: "Other cases have other deadlines. Ask the program which one is yours.",
     deadlineLeft: (span: string) => `That is ${span} from today.`,
     deadlineAsk: "Ask the program. Some make exceptions.",
     // The engine's longest deadline, when it is later than the general one (lib/deadline.ts).
@@ -302,6 +307,7 @@ export const en = {
     deadlineLaterElsewhere:
       "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
+    deadlineSpanIf: (span: string) => `You have ${span} from the date it happened to apply, if the rule covers you.`,
     deadlineSpanLonger: "Some cases have longer. The rule says when.",
     // deadlineFromReport for a length of time, with no date to point at.
     deadlineSpanFromReport: "The law counts this from your report, so you may have longer.",

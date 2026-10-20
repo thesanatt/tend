@@ -255,6 +255,9 @@ export const es: Dict = {
     subjectRecords: "Mantener privados los registros de la solicitud",
     deadlineDate: (date: string) => `Presenta la solicitud a más tardar el ${date}.`,
     deadlineLate: (date: string) => `El plazo normal era el ${date}.`,
+    deadlineDateIf: (date: string) => `Presenta la solicitud a más tardar el ${date} si la regla te cubre.`,
+    deadlineLateIf: (date: string) => `El plazo normal era el ${date} si la regla te cubre.`,
+    deadlineOtherCases: "Otros casos tienen otros plazos. Pregunta al programa cuál es el tuyo.",
     deadlineLeft: (span: string) => `Faltan ${span}.`,
     deadlineAsk: "Pregunta al programa. Algunos hacen excepciones.",
     deadlineLonger: (date: string) => `En algunos casos hay plazo hasta el ${date}. La regla dice cuándo.`,
@@ -267,6 +270,8 @@ export const es: Dict = {
     deadlineLaterElsewhere:
       "Otra regla de este estado cuenta desde un día posterior, como la denuncia o cuando se descubrió. Pregunta al programa si te aplica.",
     deadlineSpan: (span: string) => `Tienes ${span} desde la fecha en que pasó para presentar la solicitud.`,
+    deadlineSpanIf: (span: string) =>
+      `Tienes ${span} desde la fecha en que pasó para presentar la solicitud, si la regla te cubre.`,
     deadlineSpanLonger: "En algunos casos hay más tiempo. La regla dice cuándo.",
     deadlineSpanFromReport: "La ley lo cuenta desde tu denuncia, así que podrías tener más tiempo.",
     deadlineSpanNote: "Agrega la fecha arriba para ver el día exacto.",

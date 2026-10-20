@@ -6,7 +6,7 @@
 import { citedRuleIds, severalLimits } from "../cite";
 import type { ChecklistItem, FilingRoute, Letter, PacketLineInfo } from "../contracts";
 import { formatDay, isIsoDay, localDay } from "../dates";
-import { generalDeadline, generalSpan, spanText, type LawIr } from "../deadline";
+import { deadlineTerms, generalDeadline, generalSpan, spanText, type LawIr } from "../deadline";
 import { expenseLabel, expenseRank } from "../expenses";
 import { examCountsIf, examHold, reportAltRules } from "../hedge";
 import { en } from "../i18n/en";
@@ -148,8 +148,9 @@ export function deadlineFacts(
     const span = generalSpan(law.law, ir, d);
     if (!span) return { text: undated, ruleIds: d.rule_ids, ...byFlags };
     const length = spanText(span, en.units, (parts) => listJoin(parts, "en"));
+    const terms = span.condition ? ` ${deadlineTerms(span.condition)} ${en.check.deadlineOtherCases}` : "";
     return {
-      text: `${en.check.deadlineSpan(length)}${span.longer ? ` ${en.check.deadlineSpanLonger}` : ""}`,
+      text: `${(span.condition ? en.check.deadlineSpanIf : en.check.deadlineSpan)(length)}${terms}${span.longer ? ` ${en.check.deadlineSpanLonger}` : ""}`,
       ruleIds: span.ruleIds,
       fromReport: span.fromReport,
       fromDiscovery: span.fromDiscovery,
@@ -167,11 +168,13 @@ export function deadlineFacts(
     return { text, ruleIds: d.rule_ids, ...byFlags };
   }
   const day = formatDay(general.date);
+  // A rule with a condition Tend cannot check gives its date only for the case it names.
+  const terms = general.condition ? ` ${deadlineTerms(general.condition)} ${en.check.deadlineOtherCases}` : "";
   // A passed date is not plainly late when another rule counts from a later day (docs/SPEC.md v1.3).
-  const usual = `The usual deadline was ${day}.${general.laterElsewhere ? ` ${en.check.deadlineLaterElsewhere}` : ""}`;
+  const usual = `${general.condition ? en.check.deadlineLateIf(day) : `The usual deadline was ${day}.`}${terms}${general.laterElsewhere ? ` ${en.check.deadlineLaterElsewhere}` : ""}`;
   const text =
     general.date >= input.context.as_of_date
-      ? `On time. File by ${day}.${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
+      ? `${general.condition ? en.check.deadlineDateIf(day) : `On time. File by ${day}.`}${terms}${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
       : general.longer && general.longer >= input.context.as_of_date
         ? `${usual} ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
         : `${usual} ${LATE_ASK}`;

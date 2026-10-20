@@ -44,6 +44,8 @@ export type DeadlineFact =
       fromDiscovery: boolean;
       // Another rule does (lib/deadline.ts), so a passed date may not be late.
       laterElsewhere: boolean;
+      // The general rule's own condition, which the flow cannot check (lib/deadline.ts).
+      condition: string | null;
       ruleIds: string[];
     }
   | {
@@ -55,6 +57,7 @@ export type DeadlineFact =
       // The general rule's own provision counts from the report or from discovery.
       fromReport: boolean;
       fromDiscovery: boolean;
+      condition: string | null;
       ruleIds: string[];
     }
   | { kind: "unknown"; ruleIds: string[] }
@@ -245,6 +248,7 @@ export function buildCheckSummary(
             fromReport: general.fromReport,
             fromDiscovery: general.fromDiscovery,
             laterElsewhere: general.laterElsewhere,
+            condition: general.condition,
             ruleIds: general.ruleIds,
           }
         : {
@@ -256,6 +260,7 @@ export function buildCheckSummary(
             fromReport: flags.includes("deadline_from_report"),
             fromDiscovery: flags.includes("deadline_from_discovery"),
             laterElsewhere: false,
+            condition: null,
             ruleIds: d.rule_ids,
           };
     } else {
@@ -269,6 +274,7 @@ export function buildCheckSummary(
             longer: span.longer,
             fromReport: span.fromReport,
             fromDiscovery: span.fromDiscovery,
+            condition: span.condition,
             ruleIds: span.ruleIds,
           }
         : { kind: "unknown", ruleIds: d.rule_ids };

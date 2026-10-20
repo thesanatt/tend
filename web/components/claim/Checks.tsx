@@ -39,6 +39,8 @@ interface ChecksProps {
 
 const LATE_ASK = "Ask the program whether a late claim can still be filed.";
 const NO_DATE = { label: "No date shared", tone: "neutral" as const };
+const CONDITIONAL =
+  "The rule names the cases it covers, and other cases have other deadlines. Ask the program which one is theirs.";
 
 // The deadline check as the advocate reads it: the general rule's date (lib/deadline.ts), as Check and
 // the cited summary PDF give it, with the engine's longer date when some cases have one. Without the
@@ -64,11 +66,16 @@ export function deadlineCheck(
       .map((n) => ` ${n}`)
       .join("");
     const day = formatDay(general.date);
+    // A condition Tend cannot check (Virginia's 3 years are for a crime on or after July 1, 2025).
+    const covered = general.condition ? " if the rule covers them" : "";
+    // The condition itself can say "you" (Nebraska's "if you were 19 or older"), so this view names it
+    // only through the cited rule.
+    const terms = general.condition ? ` ${CONDITIONAL}` : "";
     if (general.date >= today) {
       const longer = general.longer ? ` Some cases have until ${formatDay(general.longer)}. The rule says when.` : "";
       return {
-        text: `File by ${day}. That is ${describeSpan(today, general.date)} from today.${longer}${notes}`,
-        copy: DEADLINE.ok,
+        text: `File by ${day}${covered}. That is ${describeSpan(today, general.date)} from today.${terms}${longer}${notes}`,
+        copy: general.condition ? { label: "Check the rule", tone: "neutral" } : DEADLINE.ok,
         ruleIds: general.ruleIds,
       };
     }
@@ -78,9 +85,9 @@ export function deadlineCheck(
       : general.laterElsewhere
         ? " Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits them."
         : ` ${LATE_ASK}`;
-    const maybe = open || general.laterElsewhere || notes.length > 0;
+    const maybe = open || general.laterElsewhere || notes.length > 0 || Boolean(general.condition);
     return {
-      text: `The usual deadline was ${day}.${after}${notes}`,
+      text: `The usual deadline was ${day}${covered}.${terms}${after}${notes}`,
       copy: maybe ? { label: "May have more time", tone: "neutral" } : DEADLINE.late,
       ruleIds: general.ruleIds,
     };
@@ -102,6 +109,7 @@ function undatedCheck(c: EngineChecks["deadline"], ctx: DeadlineContext) {
   }
   const length = spanText(span, en.units, (parts) => listJoin(parts, "en"));
   const notes = [
+    span.condition ? CONDITIONAL : null,
     span.longer ? "Some cases have longer. The rule says when." : null,
     span.fromReport ? "The law counts this from their report, so they may have longer." : null,
     span.fromDiscovery ? en.check.deadlineFromDiscovery : null,
@@ -111,7 +119,7 @@ function undatedCheck(c: EngineChecks["deadline"], ctx: DeadlineContext) {
     .map((n) => ` ${n}`)
     .join("");
   return {
-    text: `They have ${length} from the date it happened to apply.${notes}`,
+    text: `They have ${length} from the date it happened to apply${span.condition ? ", if the rule covers them" : ""}.${notes}`,
     copy: NO_DATE,
     ruleIds: span.ruleIds,
   };

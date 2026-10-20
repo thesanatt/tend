@@ -309,8 +309,10 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    October 2026 the web's Check, Track, packet, and the advocate view lead with the general
    deadline rule, the one each state page leads with, instead of the engine's longest date
    (`web/lib/deadline.ts`, and docs/ARCHITECTURE.md says how). They never show that date as plainly
-   late while a longer rule's window is still open. The API's PDF still shows the engine's date.
-   The engines' check does not change.
+   late while a longer rule's window is still open. A general rule with its own condition
+   (Virginia's 3 years are for a crime on or after July 1, 2025) is shown with that condition and
+   "if the rule covers you", unless the date given is on or after a start date the condition names.
+   The API's PDF still shows the engine's date. The engines' check does not change.
 2. normalize.py carries the anchor. Rules already dated from discovery in their files keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",
