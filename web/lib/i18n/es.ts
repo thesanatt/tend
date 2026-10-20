@@ -65,7 +65,7 @@ export const es: Dict = {
     stateLine: "El estado que elegiste, al servidor de Tend, para traer su ley.",
     partPayment: (n: number) => (n === 1 ? "un pago" : `${n} pagos`),
     partShare: (n: number) => (n === 1 ? "un enlace protegido" : `${n} enlaces protegidos`),
-    partBank: "una consulta al banco",
+    partBank: "una consulta al banco de demostración",
     partServer: "tu solicitud, para revisar la ley en el servidor de Tend",
     partSetup: (n: number) => (n === 1 ? "un pago que empezaste" : `${n} pagos que empezaste`),
     eventPayment: (amount: string, to: string, when: string) =>
@@ -74,7 +74,8 @@ export const es: Dict = {
       `${when}: tu sí a un pago de ${amount} a ${to}, al servidor de Tend. No llegó una respuesta clara, así que el pago pudo haber llegado al banco.`,
     eventShare: (when: string) =>
       `${when}: un enlace para compartir. El paquete se protegió primero en este dispositivo, así que el servidor solo guarda datos cifrados.`,
-    eventBank: (when: string) => `${when}: una consulta al banco para ver tus transacciones.`,
+    eventBank: (when: string) =>
+      `${when}: una consulta al banco de demostración para ver los registros de la cuenta ficticia.`,
     eventSetup: (amount: string, to: string, when: string) =>
       `${when}: el monto ${amount}, la cuenta y el destinatario ${to}, al servidor de Tend para recibir un código de confirmación. No se movió dinero.`,
     eventServer: (when: string) =>

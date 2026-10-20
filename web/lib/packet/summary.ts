@@ -559,7 +559,7 @@ function lettersSection(w: Writer, letters: Letter[]) {
   if (!letters.length) return;
   w.h2("Letters Tend wrote for you");
   w.small(
-    "Each letter quotes the law and leaves [blanks] for names, dates, and account numbers. Tend never fills those in.",
+    "Each letter quotes the law and leaves [blanks] for what Tend does not know, such as your name, the date you send it, and account numbers. Tend never fills those in.",
   );
   for (const l of letters) w.p([{ text: "-  " }, { text: l.title }]);
 }

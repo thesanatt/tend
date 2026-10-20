@@ -95,7 +95,7 @@ export const en = {
     stateLine: "The state you picked, to Tend's server, to get its law.",
     partPayment: (n: number) => (n === 1 ? "a payment" : `${n} payments`),
     partShare: (n: number) => (n === 1 ? "a locked share link" : `${n} locked share links`),
-    partBank: "a request to the bank",
+    partBank: "a request to the demo bank",
     partServer: "your claim, to check the law on Tend's server",
     partSetup: (n: number) => (n === 1 ? "a payment you started" : `${n} payments you started`),
     eventPayment: (amount: string, to: string, when: string) =>
@@ -104,7 +104,8 @@ export const en = {
       `${when}: your yes to a payment of ${amount} to ${to}, to Tend's server. No clear answer came back, so the payment may have reached the bank.`,
     eventShare: (when: string) =>
       `${when}: a share link. The packet was locked on this device first, so the server holds only locked data.`,
-    eventBank: (when: string) => `${when}: a request to the bank for your transactions.`,
+    // Only Track's bank records panel asks, and only for the demo bank's fictional account.
+    eventBank: (when: string) => `${when}: a request to the demo bank for the fictional account's records.`,
     eventSetup: (amount: string, to: string, when: string) =>
       `${when}: the amount ${amount}, the account, and the payee ${to}, to Tend's server to get a confirmation code. No money moved.`,
     // Every check after the first yes is one more send of the same kind, so the list keeps one line for them.

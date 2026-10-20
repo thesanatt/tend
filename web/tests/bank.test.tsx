@@ -382,12 +382,15 @@ describe("the bank records panel", () => {
     expect(within(panel).getByText("Michigan Crime Victim Compensation, demo payment")).toBeTruthy();
     expect(within(panel).getByText("The API calls behind this view (2)")).toBeTruthy();
     expect(within(panel).getByText(`GET /accounts/${ROWAN_ACCOUNT.id}/purchases`)).toBeTruthy();
-    expect(screen.getByText("On this device, except: the state you picked and a request to the bank.")).toBeTruthy();
+    expect(
+      screen.getByText("On this device, except: the state you picked and a request to the demo bank."),
+    ).toBeTruthy();
     fireEvent.click(within(panel).getByRole("button", { name: "Read them again" }));
     await waitFor(() => expect(calls(fetch, "/activity")).toHaveLength(2));
     // The panel's own report and the net log's are one send in the list, not two or three.
     fireEvent.click(screen.getByRole("button", { name: /What stays here/ }));
-    expect(await screen.findAllByText(/a request to the bank for your transactions\./)).toHaveLength(1);
+    const sent = await screen.findAllByText(/a request to the demo bank for the fictional account's records\./);
+    expect(sent).toHaveLength(1);
   });
 
   it("says so when Tend is not connected to the demo bank", async () => {
