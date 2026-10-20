@@ -197,6 +197,9 @@ describe("/press", () => {
         subject,
       ).toBe(true);
     expect(new Set(SHOTS.map((s) => s.device))).toEqual(new Set(["desktop", "phone"]));
+    // A downloaded frame leaves its caption behind, so a frame the caption calls fictional says demo in its name.
+    for (const shot of SHOTS)
+      expect(shot.file.startsWith("tend-demo-"), shot.file).toBe(/fictional/i.test(shot.caption));
     for (const shot of SHOTS) {
       const name = `${SHOT_DIR}/${shot.file}`;
       const bytes = readFileSync(path.join(PRESS_DIR, name));

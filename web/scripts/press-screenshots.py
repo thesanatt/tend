@@ -157,9 +157,9 @@ def run(base: str) -> None:
             shoot(page, "tend-home-desktop.png")
             demo_bill(page)
             to_top(page, BILL)
-            shoot(page, "tend-bill-held-desktop.png")
+            shoot(page, "tend-demo-bill-held-desktop.png")
             demo_packet(page)
-            shoot(page, "tend-packet-desktop.png")
+            shoot(page, "tend-demo-packet-desktop.png")
             page.context.close()
 
             page = new_page(browser, base, PHONE)
@@ -170,7 +170,7 @@ def run(base: str) -> None:
             shoot(page, "tend-share-card-phone.png")
             demo_bill(page)
             to_top(page, BILL)
-            shoot(page, "tend-bill-held-phone.png")
+            shoot(page, "tend-demo-bill-held-phone.png")
             page.context.close()
         finally:
             browser.close()

@@ -65,6 +65,8 @@ export interface Shot {
 
 // Made by scripts/press-screenshots.py, which keeps the same names. The alt text says what each frame shows
 // without quoting the state page's wording, which comes from the verified rules and can change with them.
+// A frame of the fictional demo has "demo" in its name, because a downloaded file leaves its caption behind
+// and the packet frame shows no Fictional tag.
 export const SHOT_DIR = "screenshots";
 export const SHOTS: Shot[] = [
   {
@@ -74,14 +76,14 @@ export const SHOTS: Shot[] = [
     alt: "Tend's home page in a desktop browser: the sentence about claiming crime victim compensation without giving up a name, buttons for the 2-minute tour and How it works, and the heading Every state has money set aside to pay survivors back.",
   },
   {
-    file: "tend-bill-held-desktop.png",
+    file: "tend-demo-bill-held-desktop.png",
     device: "desktop",
     caption:
       "The fictional demo bill. Tend holds the $325.00 forensic exam line and quotes the Michigan law behind it.",
     alt: "A fictional itemized bill from Riverbend General Hospital, $443.00 in three lines. The $325.00 medical forensic exam line is struck through and marked Held. Beside the bill: Don't pay this line, the quote from MCL 18.355a(2), and a button for a letter to the billing office.",
   },
   {
-    file: "tend-packet-desktop.png",
+    file: "tend-demo-packet-desktop.png",
     device: "desktop",
     caption: "The packet for the fictional demo claim, built in the browser.",
     alt: "The Your packet screen: the amount the fictional claim can ask for, with The program decides under it, the $325.00 held bill line kept apart, and Michigan's application, filled in with safe details only.",
@@ -99,7 +101,7 @@ export const SHOTS: Shot[] = [
     alt: "The Share this page section of Michigan's page on a phone: the card's sentence, buttons to copy the link and save the card, and the card itself with its citations.",
   },
   {
-    file: "tend-bill-held-phone.png",
+    file: "tend-demo-bill-held-phone.png",
     device: "phone",
     caption: "The same fictional bill on a phone.",
     alt: "The fictional Riverbend General Hospital bill on a phone. The $325.00 medical forensic exam line is struck through and marked Held, You should not be billed for this, and the rest comes to $118.00.",
