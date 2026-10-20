@@ -17,7 +17,7 @@
    "field_count": 202
   }
  },
- "source_sha256": "3ce3ec33d20703c22c98cdb3ad37db79df4f010edaa6dd443ef15b1ef2130f41",
+ "source_sha256": "3debfa82dca3114d14c8b60a1ecaf6f4c4ecbdbe7049db603efd95d915a2564a",
  "rules": [
   {
    "id": "KS-EXAM-1",
@@ -142,6 +142,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "report"
+  },
+  {
+   "id": "KS-DEAD-5",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "KS-REP-1",

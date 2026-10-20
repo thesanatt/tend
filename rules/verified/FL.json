@@ -527,7 +527,8 @@
    "category": "covered_expense",
    "expense": "medical",
    "params": {
-    "expense": "medical"
+    "expense": "medical",
+    "detail": true
    },
    "summary": "Medical, dental, and mental health costs the victim paid out of pocket are reimbursed at 100 percent, within the time limits and caps.",
    "quote": "Out-of-pocket reimbursement to the victim/applicant for qualified funeral/burial, mental health (includes grief counseling), medical/dental expenses, and crime scene cleanup shall be compensated at 100 percent, when services or treatment was rendered within the timeframes established and up to the maximum benefit amount on the Schedule of Benefits.",
@@ -595,11 +596,21 @@
     "from": "crime",
     "extension": "Waived entirely when the delay came from sexual assault forensic kit testing or DNA profile matching."
    },
-   "summary": "For newer crimes, a delay in testing a sexual assault kit or matching DNA can waive the filing deadline. For other good cause, the department may allow up to 5 years after the crime.",
+   "summary": "For newer crimes, if you filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived. For other good cause, the department may allow up to 5 years after the crime.",
    "quote": "2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline. 3. For good cause based on a reason other than a delay described in subparagraph 2., the department may extend the time for filing a claim under subparagraph 1. for a period not to exceed 5 years after such occurrence.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(2)(b)2.-3.",
    "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=For%20good%20cause%20based%20on%20a,5%20years%20after%20such%20occurrence."
+  },
+  {
+   "id": "FL-DEADLINE-6",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "For a crime before October 1, 2019, the claim must be filed within 1 year after the crime. If you filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived.",
+   "quote": "(a)1. A claim arising from a crime occurring before October 1, 2019, must be filed within 1 year after: a. The occurrence of the crime upon which the claim is based. b. The death of the victim or intervenor. c. The death of the victim or intervenor is determined to be the result of a crime, and the crime occurred after June 30, 1994. 2. Upon a showing that a delay in filing a claim under this paragraph occurred because of a delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under subsection (1) may receive a waiver of any claim filing deadline.",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(2)(a)1.-2.",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28a%291.,of%20any%20claim%20filing%20deadline."
   },
   {
    "id": "FL-DEADLINE-2",
@@ -616,10 +627,23 @@
    "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=%28c%29,years%20to%20file%20a%20claim."
   },
   {
+   "id": "FL-DEADLINE-5",
+   "category": "filing_deadline",
+   "params": {
+    "years": 1,
+    "from": "age_18"
+   },
+   "summary": "If you were under 18 at the time of a crime before October 1, 2019, you have 1 year after turning 18 to file.",
+   "quote": "(b) For a claim arising from a crime that occurred before October 1, 2019, when a victim or intervenor who was under the age of 18 at the time the crime occurred reaches the age of 18, the victim or intervenor has 1 year to file a claim",
+   "source_id": "FL-S3",
+   "pinpoint": "Fla. Stat. 960.07(3)(b)",
+   "fragment_url": "http://www.leg.state.fl.us/statutes/index.cfm?App_mode=Display_Statute&URL=0900-0999/0960/Sections/0960.07.html#:~:text=For%20a%20claim%20arising%20from,year%20to%20file%20a%20claim"
+  },
+  {
    "id": "FL-DEADLINE-4",
    "category": "filing_deadline",
    "params": {},
-   "summary": "If you were a minor when it happened, a delay in testing a sexual assault kit or matching DNA can waive the deadline. For other good cause, the department may add up to 1 more year for an older crime, or up to 2 more years for a newer one.",
+   "summary": "If you were a minor when it happened and filed late because testing a sexual assault kit or matching DNA was delayed, the deadline can be waived. For other good cause, the department may add up to 1 more year for an older crime, or up to 2 more years for a newer one.",
    "quote": "Upon a showing that a delay in filing a claim occurred because of delay in the testing of, or a delay in the DNA profile matching from, a sexual assault forensic examination kit or biological material collected as evidence related to a sexual offense, a person who is eligible for compensation under this subsection may receive a waiver of any claim filing deadline. For good cause based on any other reason, the department may extend the time period allowed for filing a claim under paragraph (b) for an additional period not to exceed 1 year or under paragraph (c) for an additional period not to exceed 2 years.",
    "source_id": "FL-S3",
    "pinpoint": "Fla. Stat. 960.07(3)",

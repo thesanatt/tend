@@ -313,7 +313,8 @@
    "id": "IA-WAGES-3",
    "category": "covered_expense",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
    "summary": "Lost wages are figured from gross pay for scheduled hours missed, then reduced by 25 percent.",
    "quote": "Lost wages are computed as the gross rate of pay multiplied by the number of scheduled hours of work missed, decreased by 25 percent",
@@ -383,7 +384,8 @@
    "id": "IA-RELOC-2",
    "category": "covered_expense",
    "params": {
-    "expense": "relocation"
+    "expense": "relocation",
+    "detail": true
    },
    "summary": "To count as emergency relocation, the move must happen within 30 days of the crime, its discovery, or when it could reasonably be reported, or within 30 days before or after the offender's release from incarceration.",
    "quote": "\"Emergency relocation\" means a relocation that takes place within thirty days of the date of a crime or the discovery of a crime, or within thirty days after a crime could reasonably be reported. \"Emergency relocation\" also includes a relocation that takes place within the thirty days before or after an offender related to the crime is released from incarceration.",

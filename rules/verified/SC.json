@@ -250,6 +250,30 @@
    "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
   },
   {
+   "id": "SC-EXAM-8",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
+   },
+   "summary": "The program's brochure says its exam for adults 18 and older is for evidence collected within 120 hours of the assault.",
+   "quote": "Evidence collected within 120 hours of the assault for victims 18 and older",
+   "source_id": "SC-S9",
+   "pinpoint": "DCVC sexual assault brochure, Sexual Assault (ACUTE) Protocol"
+  },
+  {
+   "id": "SC-EXAM-9",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
+   },
+   "summary": "The program's brochure lists reasons it may delay or deny exam payments. One is that police did not order the exam or interview for a victim 17 or younger.",
+   "quote": "Law enforcement did not order the exam/interview for victim 17 and younger",
+   "source_id": "SC-S9",
+   "pinpoint": "DCVC sexual assault brochure, Reasons Payments Are Delayed or Denied"
+  },
+  {
    "id": "SC-EXCL-1",
    "category": "excluded_expense",
    "params": {
@@ -356,9 +380,10 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages"
+    "expense": "lost_wages",
+    "detail": true
    },
-   "summary": "Lost earnings or support are covered if the claimant lost that income for at least two weeks in a row, it is not reimbursed elsewhere, and it stays under the workers' compensation maximum rate in Section 42-1-50; these conditions can be waived in severe hardship cases.",
+   "summary": "Lost pay is paid only if you lost the income for at least 2 weeks in a row and nothing else pays it back, up to the maximum rate state law sets. The program can waive these limits in cases of severe hardship.",
    "quote": "loss of earning or support, provided that: (a) claimant is deprived of that income for at least two consecutive weeks; (b) the loss is not reimbursable; (c) the amount may not exceed the maximum rate provided in Section 42-1-50; (d) conditions (a), (b), and (c) may be waived in severe hardship cases;",
    "source_id": "SC-S1",
    "pinpoint": "S.C. Code 16-3-1180(A)(3)",
@@ -612,10 +637,10 @@
      "forensic_exam"
     ]
    },
-   "summary": "For the anonymous route, an eligible sexual assault exam claim must be on file and DCVC must receive a compensation application with \"Anonymous\" written in section 4 within 180 days of the forensic exam.",
-   "quote": "DCVC received a Compensation Application with \"Anonymous\" written in section 4, within 180 days from the date of forensic medical examination.",
+   "summary": "The program's provider guide lists what the anonymous route needs. An eligible sexual assault claim is on file with the program. The crime happened in South Carolina. The hospital recorded the victim's physical or psychological injuries. The program got a compensation application with \"Anonymous\" written in section 4 within 180 days of the forensic exam.",
+   "quote": "Anonymous Waiver Reporting Criteria: • An eligible Sexual Assault claim is on file with DCVC. • The crime must have occurred in SC. • The victim sustained physical or psychological injuries recorded by the hospital. • DCVC received a Compensation Application with “Anonymous” written in section 4, within 180 days from the date of forensic medical examination.",
    "source_id": "SC-S12",
-   "pinpoint": "DCVC Sexual Assault Program provider instructions, Anonymous Waiver Reporting Criteria"
+   "pinpoint": "DCVC Sexual Assault Program provider instructions, Anonymous Reporting: Sexual Assault (Acute) Protocols (Victims 18 and older), Anonymous Waiver Reporting Criteria"
   },
   {
    "id": "SC-MIN-1",

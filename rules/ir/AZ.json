@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e0ab90fc16c457f48d78c92fc3137980c8113ca462ecca5fdbe85a9211584b7a",
+ "source_sha256": "2c3e5c66b3d71344f0f8eef82398bb65cd4587cddc8e777546aed26bac7c7fa1",
  "rules": [
   {
    "id": "AZ-EXAM-1",
@@ -124,6 +124,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "discovery"
+  },
+  {
+   "id": "AZ-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "AZ-REP-1",

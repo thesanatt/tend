@@ -17,7 +17,7 @@
    "field_count": 175
   }
  },
- "source_sha256": "97fa1660d004b2b2582a1230f019e0b3366c99dba92a00c4693e7a32f022b413",
+ "source_sha256": "98e479fcf132ec6620029919493669726c9968a9e11a2704e19bb78e0b9c33d6",
  "rules": [
   {
    "id": "VA-EXAM-1",
@@ -145,13 +145,13 @@
    ]
   },
   {
-   "id": "VA-DEADLINE-1",
+   "id": "VA-DEADLINE-2",
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
   },
   {
-   "id": "VA-DEADLINE-2",
+   "id": "VA-DEADLINE-1",
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
@@ -164,6 +164,11 @@
   },
   {
    "id": "VA-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "VA-DEADLINE-5",
    "kind": "info",
    "category": "filing_deadline"
   },

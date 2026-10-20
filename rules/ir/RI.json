@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "f2107cd3507d6c8d99ab20897b9b22d1da7977e5c4956ce113eb8a94af54e1cc",
+ "source_sha256": "5a99ca6393f7ee903de74f5464708adc23f38195b6d1c6acc749edeee098fdab",
  "rules": [
   {
    "id": "RI-EXAM-1",
@@ -50,6 +50,11 @@
   },
   {
    "id": "RI-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "RI-DEADLINE-5",
    "kind": "info",
    "category": "filing_deadline"
   },
@@ -175,6 +180,18 @@
   },
   {
    "id": "RI-RELOC-1",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
+   "id": "RI-RELOC-2",
+   "kind": "expense_cap",
+   "expense": "relocation",
+   "cap_cents": 500000,
+   "per": "claim"
+  },
+  {
+   "id": "RI-RELOC-3",
    "kind": "covered",
    "expense": "relocation"
   },
