@@ -28,8 +28,7 @@ hours are the hackathon build, judged at commit [5d1f7bd](https://github.com/the
 Work continued after the event: the document preview and the 2-minute tour on October 5, 2026, and
 fixes and additions in mid-October.
 
-<!-- TODO(Sanat): how Tend was built, in your own words, before this goes public (who wrote what, which tools,
-what you reviewed). Not written for you on purpose. -->
+<!-- TODO(Sanat): how Tend was built, in your own words, before this goes public. -->
 
 Tend is not legal advice. It shows what each state's own rules say, with the quote, and the program
 decides.

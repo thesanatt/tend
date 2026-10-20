@@ -1,8 +1,8 @@
 **A survivor shouldn't have to give up her name to get money the law already owes her.**
 
-> **TODO (Sanat):** two calls for you here. "Her" or "their" (brief P1.13). And "already owes her" overstates:
-> nothing is owed until the program approves a claim, and Tend's own pages say "The program decides".
-> Suggested: "money the law sets aside for them".
+<!-- TODO(Sanat): two calls for you here. "Her" or "their" (brief P1.13). And "already owes her" overstates:
+nothing is owed until the program approves a claim, and Tend's own pages say "The program decides".
+Suggested: "money the law sets aside for them". -->
 
 ## Inspiration
 
@@ -10,9 +10,9 @@ Every state and DC runs a crime victim compensation program. It can pay a sexual
 for therapy, hospital bills, lost pay, moving, and new locks. In 2022, 96% of violent crime victims got
 none of it ([Alliance for Safety and Justice](https://justsafe.org/news/beyond-headlines-decade-listening-crime-survivors/)).
 
-> **TODO (Sanat):** not every program pays for moving or new locks. Tend's own quotes say Missouri, Oregon, and
-> South Carolina don't pay for moving, and Minnesota lists security systems as not covered. Suggested:
-> "costs like therapy, hospital bills, and lost pay. Many states also pay for moving or new locks."
+<!-- TODO(Sanat): not every program pays for moving or new locks. Tend's own quotes say Missouri, Oregon, and
+South Carolina don't pay for moving, and Minnesota lists security systems as not covered. Suggested:
+"costs like therapy, hospital bills, and lost pay. Many states also pay for moving or new locks." -->
 
 The money is there. Getting it means finding your state's statute, its deadline, and its form, then
 matching months of bank charges to what the law covers, and handing your story to strangers to start.
@@ -21,8 +21,8 @@ This week, people flooded social media with "I am Jane Doe" to protect one survi
 ([AP, Oct 4](https://abcnews.com/US/wireStory/jane-doe-solidarity-posts-flood-social-media-after-136984033)).
 That became my design rule: **you should be able to claim what you're owed and stay Jane Doe.**
 
-> **TODO (Sanat):** "This week" is dated now (the posts were in early October 2026). "Claim what you're owed" has the
-> same problem as the tagline; suggested: "ask for what the law offers you and stay Jane Doe".
+<!-- TODO(Sanat): "This week" is dated now (the posts were in early October 2026). "Claim what you're owed" has the
+same problem as the tagline; suggested: "ask for what the law offers you and stay Jane Doe". -->
 
 ## What it does
 
@@ -39,8 +39,8 @@ what happened. Here's the demo with Rowan, who is fictional and lives in Michiga
 4. **Pay the $118 you actually owe** through Capital One's Nessie bank, only after typing a 6-digit code.
    It can't pay twice, and it can never pay the held line.
 
-   > **TODO (Sanat):** read alone, step 4 sounds like a real Capital One payment. Nessie is Capital One's mock
-   > bank, so no real money moves; say so in this step.
+   <!-- TODO(Sanat): read alone, step 4 sounds like a real Capital One payment. Nessie is Capital One's mock
+   bank, so no real money moves; say so in this step. -->
 
 5. **Get your packet:** Michigan's own form with safe fields only (name, SSN, and story stay blank), a
    summary where every dollar shows its law, and a checklist of what's still needed. Rowan can ask for
@@ -58,25 +58,27 @@ Try it: **[youreowed.tech](https://youreowed.tech)**. Open /check?demo=rowan, or
 **The law as code.** I saved 824 official sources for 51 jurisdictions and wrote 2,578 rules. A rule gets
 in only if its quote appears word for word in the saved source and every number in it is in the quote.
 
-> **TODO (Sanat):** authorship. Who saved the sources, who wrote the rules, and what you checked by hand are
-> yours to say, in your own words; this draft does not say it for you. Separately, "official sources": 120 of the
-> 824 are Justia or Cornell copies of state law, not the official code (docs/SOURCES.md).
+<!-- TODO(Sanat): authorship, yours to write. Separately, "official sources": 120 of the 824 are Justia or
+Cornell copies of state law, not the official code (docs/SOURCES.md). And "every number in it is in the quote"
+overstates what rules/tools/verify.py checks: the numbers in eight of a rule's detail fields (amounts, years,
+months, weeks, days, counts) and every number in its summary other than 0 and 1. Fields such as within_hours,
+min_days, and min_months are not checked there. Suggested: "and the numbers in its summary and in eight of its
+detail fields appear in the quote". -->
 
 **A compiler and a tiny VM.** C++20 turns each state's rules into a small bytecode file, and a verifier
 checks every file before it runs: it can't crash or loop forever, and each cost gets exactly one
 decision. The instruction that sets each dollar also records the rule and quote behind it, so the
 explanation can't drift from the math. The same C++ runs in your browser as 183 KB of WebAssembly.
 
-> **TODO (Sanat):** the compiler is not in the WebAssembly; the verifier and the VM are, and each state's law
-> arrives already compiled, in a file under 52 KB. Suggested: "The same C++ verifier and VM run in your
-> browser as 183 KB of WebAssembly. The compiler runs ahead of time, so each state's law arrives already compiled."
+<!-- TODO(Sanat): the compiler is not in the WebAssembly; the verifier and the VM are, and each state's law
+arrives already compiled, in a file under 52 KB. Suggested: "The same C++ verifier and VM run in your
+browser as 183 KB of WebAssembly. The compiler runs ahead of time, so each state's law arrives already compiled." -->
 
 **Two engines, zero disagreements.** I wrote a second engine in Python from the same spec. On 121,000
 random claims, the two agree byte for byte.
 
-> **TODO (Sanat):** authorship again: who wrote the second engine is yours to say. Also, byte for byte holds for
-> the 119,600 well-formed claims; the other 1,400 are broken on purpose, and both engines refuse them with the same
-> error code.
+<!-- TODO(Sanat): authorship, yours to write. Also, byte for byte holds for the 119,600 well-formed claims; the
+other 1,400 are broken on purpose, and both engines refuse them with the same error code. -->
 
 **Private by default.** Statements and bills are read in the browser. Plain rules sort charges first, and
 Gemini Nano, built into Chrome, suggests labels for the rest on the device. Cloud Gemini runs only after
@@ -86,18 +88,18 @@ you say yes on a consent screen. Saved progress is AES-256-GCM encrypted in the 
 shares, and an append-only payment log. Every version of the law is its own Neon branch, so you can see
 exactly what changed.
 
-> **TODO (Sanat):** Neon also holds payments waiting for a code, with the payee until the payment ends and the
-> rest for a day or more, so "holds only" leaves something out. And the newest rules are not published as a Neon
-> branch yet, so the live site cannot show what changed since the last version (docs/NEON.md).
+<!-- TODO(Sanat): Neon also holds payments waiting for a code, with the payee until the payment ends and the
+rest for a day or more, so "holds only" leaves something out. And the newest rules are not published as a Neon
+branch yet, so the live site cannot show what changed since the last version (docs/NEON.md). -->
 
 ## Challenges I ran into
 
 - 51 states write law 51 ways: caps per claim, per session, per week, per mile. I had to fit all of it in
   one format without bending a single rule.
 
-  > **TODO (Sanat):** there are 50 states plus DC, and no verified rule caps "per mile"; mileage shows up as
-  > rates in the quotes. Suggested: "The 50 states and DC write law 51 ways: caps per claim, per session, per
-  > week, per day, and rates per mile."
+  <!-- TODO(Sanat): there are 50 states plus DC, and no verified rule caps "per mile"; mileage shows up as
+  rates in the quotes. Suggested: "The 50 states and DC write law 51 ways: caps per claim, per session, per
+  week, per day, and rates per mile." -->
 
 - Some deadlines count from when a crime is discovered, which Tend never asks. In 12 jurisdictions, Tend
   flags that instead of telling someone they're late.
@@ -110,9 +112,9 @@ exactly what changed.
 - It works with the Wi-Fi off.
 - Nothing in the database can hold who you are or what happened.
 
-> **TODO (Sanat):** the last line is too strong: the database holds locked shares, and a payment's payee (the
-> provider named on the bill) until the payment ends. Suggested: "Nothing the database can read says who you are
-> or what happened."
+<!-- TODO(Sanat): the last line is too strong: the database holds locked shares, and a payment's payee (the
+provider named on the bill) until the payment ends. Suggested: "Nothing the database can read says who you are
+or what happened." -->
 
 ## What I learned
 

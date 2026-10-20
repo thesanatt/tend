@@ -272,7 +272,7 @@ shares no code with the compiler or VM.
 Numbers are in docs/EVAL.md. The limit: three implementations written from one spec can share a
 misreading. The verified quotes and hand-computed golden claims are the check on the spec itself.
 
-<!-- TODO(Sanat): this paragraph used to say "by one author". Who wrote the engines, and with what help, is yours to state. -->
+<!-- TODO(Sanat): this paragraph used to say "by one author". Who wrote the engines is yours to state. -->
 
 ## The API
 

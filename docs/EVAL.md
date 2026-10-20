@@ -8,8 +8,8 @@ Two kinds of numbers appear here, and each row says which:
   v1.3, tend 1.3.0, tlaw 1.3), in a Linux container: 4 vCPUs of an Intel Xeon at 2.1 GHz (a
   shared VM), GCC 13.3, Node 22.22, Python 3.12.3, uv 0.8.17. The doc changes on this branch touch
   no code, so these are main's numbers.
-- **Recorded** by the author on an Apple M4 Max laptop, or on an earlier build, quoted from the
-  file named. Each says why it was not rerun.
+- **Recorded** on an Apple M4 Max laptop, or on an earlier build, quoted from the file named.
+  Each says why it was not rerun.
 
 Engine detail (the difftest breakdown, fuzzing, the review pass) is in
 [engine/EVAL.md](../engine/EVAL.md). Throughput detail is in [engine/BENCH.md](../engine/BENCH.md).
