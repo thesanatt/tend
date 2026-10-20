@@ -32,6 +32,8 @@ export interface SharedClaimProps {
   engine?: string | null;
   // The built-in demo link with fictional data.
   demo?: boolean;
+  // The survivor gave the date it happened (SharedPacket.date_known). Unset counts as no date.
+  dateKnown?: boolean;
   builder?: TendPacketBuilder;
 }
 
@@ -55,10 +57,12 @@ const loadBuilder = async () => (await import("@/lib/packet")).packetBuilder;
 function Downloads({
   input,
   output,
+  dateKnown,
   builder,
 }: {
   input: EngineInput;
   output: EngineOutput;
+  dateKnown: boolean;
   builder?: TendPacketBuilder;
 }) {
   const st = output.jurisdiction.toUpperCase();
@@ -71,7 +75,9 @@ function Downloads({
     setBusy(kind);
     setProblem(null);
     try {
-      built.current ??= (builder ? Promise.resolve(builder) : loadBuilder()).then((b) => b.build(st, input, output));
+      built.current ??= (builder ? Promise.resolve(builder) : loadBuilder()).then((b) =>
+        b.build(st, input, output, { dateKnown }),
+      );
       const packet = await built.current;
       if (kind === "summary") save(packet.summaryPdf, `claim-summary-${st}.pdf`);
       else if (packet.formPdf) save(packet.formPdf, `${st}-application.pdf`);
@@ -134,11 +140,14 @@ export default function SharedClaim({
   notes,
   engine,
   demo,
+  dateKnown = false,
   builder,
 }: SharedClaimProps) {
   const law = useLaw(input.jurisdiction);
   // The law IR dates the general deadline, as in the cited summary PDF (lib/deadline.ts).
   const ir = useLawIr(input.jurisdiction);
+  // Both have to be in before the deadline row reads them; until then it says it is checking.
+  const lawReady = law.law !== null || law.missing === true;
   const plainHold = useMemo(() => examHold(law.law).plain, [law.law]);
   const rows = buildRows(input.items, {}, output);
   const beds = groupBeds(rows, output);
@@ -196,7 +205,7 @@ export default function SharedClaim({
         ) : null}
       </section>
 
-      <Downloads input={input} output={output} builder={builder} />
+      <Downloads input={input} output={output} dateKnown={dateKnown} builder={builder} />
 
       {notes ? (
         <section aria-labelledby="share-notes" className={styles.section}>
@@ -211,7 +220,7 @@ export default function SharedClaim({
           checks={output.checks}
           law={law}
           policeReport={input.context.police_report}
-          deadline={{ law: law.law, ir, incident: input.context.incident_date }}
+          deadline={{ law: law.law, ir: lawReady ? ir : undefined, incident: input.context.incident_date, dateKnown }}
         />
       </section>
 

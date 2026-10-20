@@ -136,6 +136,7 @@ export default function OpenShare({
       sealed
       once={meta.once}
       notes={packet.notes ?? null}
+      dateKnown={packet.date_known === true}
       builder={builder}
     />
   );

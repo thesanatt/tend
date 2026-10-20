@@ -130,7 +130,7 @@ describe("the advocate's deadline and report checks", () => {
     deadline_date: "2031-06-14",
     rule_ids: fl.byCategory("filing_deadline").map((r) => r.id),
   };
-  const ctx = { law: fl.law, ir: ir("FL"), incident: "2026-06-14" };
+  const ctx = { law: fl.law, ir: ir("FL"), incident: "2026-06-14", dateKnown: true };
 
   it("Florida: File by the general 3 years, with the 5 years good cause can give as a note", () => {
     const due = deadlineCheck(engine, "2026-10-04", ctx);
@@ -157,6 +157,39 @@ describe("the advocate's deadline and report checks", () => {
     for (const today of ["2026-10-04", "2030-01-02", "2032-01-01"]) {
       expect(deadlineCheck(engine, today, ctx).text).not.toMatch(/good cause|Many programs/);
     }
+  });
+
+  it("with no date shared, gives the general rule's length of time and never a day to file by", () => {
+    // The share's incident date is then the earliest cost, which can be after the day it happened.
+    const due = deadlineCheck(engine, "2026-10-04", { ...ctx, incident: "2026-06-20", dateKnown: false });
+    expect(due.text).toBe(
+      "They have 3 years from the date it happened to apply. Some cases have longer. The rule says when. No date was shared, so Tend gives no day to file by.",
+    );
+    expect(due.text).not.toMatch(/File by|2029|2031/);
+    expect(due.copy).toEqual({ label: "No date shared", tone: "neutral" });
+    expect(due.ruleIds[0]).toBe("FL-DEADLINE-1");
+    // A share made before date_known existed counts as undated.
+    expect(deadlineCheck(engine, "2026-10-04", { law: fl.law, ir: ir("FL"), incident: "2026-06-14" }).text).toMatch(
+      /^They have 3 years/,
+    );
+    // Washington counts its 3 years from the report.
+    const wa = index("WA");
+    const waCheck = {
+      status: "ok" as const,
+      deadline_date: "2031-06-14",
+      rule_ids: ["WA-DEADLINE-1", "WA-DEADLINE-2"],
+    };
+    expect(deadlineCheck(waCheck, "2026-10-04", { law: wa.law, ir: ir("WA"), incident: "2026-06-14" }).text).toContain(
+      "The law counts this from their report, so they may have longer.",
+    );
+  });
+
+  it("says it is checking while the law IR loads, so the engine's longest date never shows first", () => {
+    const due = deadlineCheck(engine, "2026-10-04", { ...ctx, ir: undefined });
+    expect(due.text).toBe("Checking the deadline.");
+    expect(due.text).not.toMatch(/2031/);
+    // If it cannot load, the engine's own date.
+    expect(deadlineCheck(engine, "2026-10-04", { ...ctx, ir: null }).text).toMatch(/^File by June 14, 2031\./);
   });
 
   it("Connecticut: the exam may count for the report, within the rule's own limit", () => {

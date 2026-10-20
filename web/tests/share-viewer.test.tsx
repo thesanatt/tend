@@ -20,6 +20,7 @@ const packet = (): SharedPacket => ({
   input: rowanInput(),
   output: rowanOutput(),
   notes: "Fictional demo claim for the walkthrough",
+  date_known: true,
 });
 
 function client(open: (link: string) => Promise<{ packet: SharedPacket; meta: ShareMeta }>) {
@@ -176,9 +177,30 @@ describe("the advocate viewer", () => {
       fireEvent.click(button);
     });
     await waitFor(() => expect(click).toHaveBeenCalledTimes(1));
-    expect(build).toHaveBeenCalledWith("MI", packet().input, packet().output);
+    expect(build).toHaveBeenCalledWith("MI", packet().input, packet().output, { dateKnown: true });
     expect(created).toEqual([summaryPdf]);
     expect(click).toHaveBeenCalledTimes(1);
+    click.mockRestore();
+  });
+
+  it("with no date shared, gives no day to file by, on the page or in the PDF", async () => {
+    window.location.hash = link();
+    const meta: ShareMeta = { id: "x", expires_at: null, once: false, created_at: null };
+    // The earliest cost stands in for the date it happened; the engine dated its deadline from it.
+    const undated = { ...packet(), date_known: false };
+    const { client: c } = client(async () => ({ packet: undated, meta }));
+    const build = vi.fn(async () => ({ summaryPdf: new Blob(["%PDF-1.7"]), formPdf: null, notes: [] }) as unknown as BuiltPacket);
+    const builder = { build, letterPdf: vi.fn() } as unknown as TendPacketBuilder;
+    URL.createObjectURL = vi.fn(() => "blob:summary");
+    URL.revokeObjectURL = vi.fn();
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+    render(<OpenShare client={c} builder={builder} />);
+    expect(await screen.findByText(/^They have 5 years from the date it happened to apply\./)).toBeTruthy();
+    expect(document.body.textContent).not.toMatch(/File by|The usual deadline was/);
+    await act(async () => {
+      fireEvent.click(screen.getByRole("button", { name: "Download the cited summary (PDF)" }));
+    });
+    await waitFor(() => expect(build).toHaveBeenCalledWith("MI", undated.input, undated.output, { dateKnown: false }));
     click.mockRestore();
   });
 

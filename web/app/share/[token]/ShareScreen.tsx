@@ -63,6 +63,8 @@ export default function ShareScreen({ token }: { token: string }) {
       expired={expired}
       engine={view.engine ?? null}
       demo={view.token === "demo"}
+      // Rowan's fictional claim gives its date. A link made before end-to-end sharing does not say.
+      dateKnown={view.token === "demo"}
     />
   );
 }

@@ -116,6 +116,7 @@ function isPacket(v: unknown): v is SharedPacket {
     return false;
   }
   if (v.notes !== undefined && (typeof v.notes !== "string" || v.notes.length > MAX_NOTES)) return false;
+  if (v.date_known !== undefined && typeof v.date_known !== "boolean") return false;
   const { input, output } = v;
   if (!isObj(input) || !isObj(output)) return false;
   const st = v.st;

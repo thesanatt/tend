@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { offline } from "@/lib/netlog";
 import type { EngineInput, EngineOutput } from "@/lib/types";
+import { knowsDate } from "../claim";
 import { useFlow } from "../FlowProvider";
 import { shareProblem } from "../problems";
 import styles from "../flow.module.css";
@@ -18,7 +19,7 @@ export function expired(expiresAt: string, now = Date.now()): boolean {
 // Share with an advocate: the packet is sealed in this browser, and only the link opens it.
 export default function ShareBox({ input, output }: { input: EngineInput; output: EngineOutput }) {
   const { t, f } = useI18n();
-  const { services, state, dispatch, logSent } = useFlow();
+  const { services, state, dispatch, logSent, today } = useFlow();
   const [hours, setHours] = useState<(typeof HOURS)[number]>(72);
   const [once, setOnce] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -33,7 +34,7 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
     try {
       const created_at = new Date().toISOString();
       const sealed: { url: string; id: string; expires_at?: string | null } = await services.share.seal(
-        { st: state.check.st, created_at, input, output },
+        { st: state.check.st, created_at, input, output, date_known: knowsDate(state, today) },
         { expires_hours: hours, once },
       );
       // The server's expiry when it gives one; the one asked for otherwise.

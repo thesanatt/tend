@@ -79,6 +79,10 @@ export interface SharedPacket {
   input: EngineInput;
   output: EngineOutput;
   notes?: string;
+  // The survivor gave the date it happened. Without it, input.context.incident_date is the earliest
+  // cost, so the viewer gives the deadline as a length of time. Shares made before this field count
+  // as undated.
+  date_known?: boolean;
 }
 export interface Share {
   seal(packet: SharedPacket, opts: { expires_hours: number; once: boolean }): Promise<{ url: string; id: string }>;
