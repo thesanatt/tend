@@ -101,7 +101,7 @@ const PAGES: {
     image: "/card.png",
     title: "Tend",
     description:
-      "Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without giving up their name.",
+      "Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving Tend their name.",
   },
   {
     path: "/how-it-works",
@@ -171,7 +171,7 @@ describe("link cards for the site's own pages", () => {
 
   it("describes the whole image in its alt text, address and drawing included", () => {
     expect(siteCardAlt("home")).toBe(
-      "Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without giving up their name. youreowed.tech, with a row of plant drawings from sprout to bloom.",
+      "Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving Tend their name. youreowed.tech, with a row of plant drawings from sprout to bloom.",
     );
     expect(siteCardAlt("how")).toMatch(
       /^How Tend works: Each state's .* youreowed\.tech\/how-it-works, with a row of plant drawings/,

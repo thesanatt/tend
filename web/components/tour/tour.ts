@@ -49,9 +49,10 @@ export const TOUR_NOTES: Record<TourStep, TourNoteCopy> = {
   },
   bills: {
     title: "Bills",
-    what: "Line 2 is a $325 forensic exam. Michigan law says hospitals can't bill the survivor for it, so Tend holds it and writes the letter. Pay the other $118 through Capital One's Nessie test bank with the 6-digit code.",
+    what: "Line 2 is a $325 forensic exam. Michigan law says hospitals can't bill the survivor for it, so Tend holds it and writes the letter. The other $118 can be paid through Capital One's Nessie test bank with a 6-digit code.",
     why: "A bill like this is easy to pay by mistake. Here the held line can't be paid at all, and nothing moves until the code is typed. The money is mock money.",
-    next: "Click **Pay $118.00 now from Checking 0011**, then **Get a code**. Type the six digits and click **Pay $118.00**. Then click **Build my packet**.",
+    // Every visitor pays the same demo bill, so an earlier visitor may have paid it already.
+    next: "Click **Pay $118.00 now from Checking 0011**, then **Get a code**. If someone already paid this demo bill, Tend says so and sends nothing, because it never pays the same lines twice. Otherwise, type the six digits and click **Pay $118.00**. Then click **Build my packet**.",
   },
   packet: {
     title: "Packet",

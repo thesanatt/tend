@@ -415,11 +415,14 @@ export function AllStates({ d }: { d: AllStatesDiff }) {
 export function VersionList({
   versions,
   current,
+  inUse = "In use now",
   notes,
   st,
 }: {
   versions: VersionRef[];
   current: string | null;
+  // A saved comparison knows only which version was in use when it was saved.
+  inUse?: string;
   notes: Record<string, AllStatesDiff>;
   st?: string;
 }) {
@@ -431,7 +434,7 @@ export function VersionList({
           <li key={v.name} className={styles.version}>
             <p className={styles.versionName}>
               <code>{v.name}</code>
-              {v.name === current ? <span className={styles.inUse}>In use now</span> : null}
+              {v.name === current ? <span className={styles.inUse}>{inUse}</span> : null}
             </p>
             <p className="meta">
               {when(v.committed_at)}. {count(v.rules, "rule", "rules")} from {count(v.sources, "source", "sources")}.

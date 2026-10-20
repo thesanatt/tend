@@ -44,6 +44,17 @@
   margin: 6px 0 0;
 }
 
+/* Commands to copy, each on one line: on a phone the box scrolls sideways, not the page. */
+.command {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  overflow-x: auto;
+  background: var(--paper-sunk);
+  border-radius: var(--radius-2);
+  font-size: var(--text-xs);
+  line-height: 1.7;
+}
+
 .note {
   border-left: 3px solid var(--ink);
   color: var(--ink-2);

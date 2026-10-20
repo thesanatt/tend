@@ -18,7 +18,7 @@ export const SITE_CARDS = {
   home: {
     path: "/",
     sentence:
-      "Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without giving up their name.",
+      "Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving Tend their name.",
   },
   how: {
     path: "/how-it-works",

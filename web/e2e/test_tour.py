@@ -33,8 +33,10 @@ def test_tour_from_home_through_track(stack: Stack, browser: Browser) -> None:  
         with step(TEST, "Home: visitor intro"):
             page.goto("/")
             intro = page.get_by_role("region", name="About Tend")
-            expect(intro).to_contain_text("without giving up their name.")
-            expect(intro).to_contain_text("1st place, Capital One Best Use of Nessie.")
+            expect(intro).to_contain_text("without giving Tend their name.")
+            expect(intro).to_contain_text("Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).")
+            prize = intro.get_by_role("link", name="Winner of Capital One's Best Use of Nessie prize")
+            expect(prize).to_have_attribute("href", "https://devpost.com/software/tend-ua9rm8")
             expect(intro).to_contain_text("fictional")
             expect(intro.get_by_role("link", name="How it works")).to_have_attribute("href", "/how-it-works")
             expect(note(page)).to_have_count(0)

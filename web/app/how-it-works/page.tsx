@@ -1,12 +1,13 @@
-import { statSync } from "node:fs";
-import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Fragment } from "react";
-import { loadCorpus } from "@/components/public/data";
+import { names, republished } from "@/app/sources/counts";
+import { loadCorpus, loadLaw } from "@/components/public/data";
 import { sitePreview } from "@/components/public/og/siteCard";
 import { TOUR_START } from "@/components/tour/tour";
 import { LINKS } from "@/components/tour/links";
+import STATES from "@/lib/states.json";
+import { engineKb, lawKbRange } from "./engine";
 import styles from "./how.module.css";
 
 // For visitors checking the work: how Tend keeps a survivor safe, the pipeline, the numbers, what is real,
@@ -18,15 +19,15 @@ export const metadata: Metadata = {
   ...sitePreview("how"),
 };
 
-function engineKb(): number | null {
-  try {
-    return Math.floor(statSync(path.join(process.cwd(), "public/engine/tend.wasm")).size / 1000);
-  } catch {
-    return null;
-  }
-}
-
 const n = (x: number) => x.toLocaleString("en-US");
+
+// Programs with no blank application Tend could link, read from the verified corpus when the site is built.
+// Michigan's is the one Tend fills, so it is not counted either way.
+function formsToLink(): { linked: number; none: string[] } {
+  const others = STATES.filter((s) => s.st !== "MI");
+  const none = others.filter((s) => !loadLaw(s.st)?.law.program.application_pdf_url).map((s) => s.name);
+  return { linked: others.length - none.length, none };
+}
 
 // Each safety claim names the files that make it true, so a reader can check it on GitHub.
 // tests/how-it-works.test.tsx keeps the numbers in this copy matched to the code. A path can break
@@ -52,6 +53,9 @@ function See({ files }: { files: string[] }) {
 export default function HowItWorks() {
   const corpus = loadCorpus();
   const kb = engineKb();
+  const laws = lawKbRange();
+  const forms = formsToLink();
+  const copies = republished();
 
   const numbers: { figure: string; label: string; means: string }[] = [
     {
@@ -62,7 +66,7 @@ export default function HowItWorks() {
     {
       figure: n(corpus.sources),
       label: "saved sources",
-      means: "Statutes, regulations, and program pages, each saved with a sha256 fingerprint.",
+      means: `Statutes, regulations, and program pages, each saved with a sha256 fingerprint.${copies.sources ? ` ${n(copies.sources)} are copies of state statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint state law.` : ""}`,
     },
     {
       figure: n(corpus.rules),
@@ -73,14 +77,14 @@ export default function HowItWorks() {
       figure: "121,000",
       label: "test claims, 0 mismatches",
       means:
-        "The C++ engine and an independent Python engine must give byte-identical results on random claims and random laws.",
+        "A separate Python engine, written from the same spec, must match the C++ engine byte for byte on every valid random claim, on real and random laws, and refuse the same broken ones.",
     },
     ...(kb
       ? [
           {
             figure: `${kb} KB`,
-            label: "engine",
-            means: "The whole law engine, as WebAssembly. It downloads once and runs in the browser.",
+            label: "law VM",
+            means: `The loader, verifier, and VM that run a state's compiled law, as WebAssembly. It downloads once and runs in the browser.${laws ? ` Each state's law arrives already compiled, as its own ${laws.lo} to ${laws.hi} KB file.` : ""}`,
           },
         ]
       : []),
@@ -91,8 +95,8 @@ export default function HowItWorks() {
       <header className={styles.head}>
         <h1>How Tend works</h1>
         <p className={styles.lead}>
-          Tend helps sexual assault survivors claim the crime victim compensation their state already owes them, without
-          giving up their name.
+          Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving Tend
+          their name.
         </p>
         <p>
           Every state and DC has a program that can pay back costs like medical bills, counseling, and lost pay. In
@@ -169,7 +173,9 @@ export default function HowItWorks() {
               </p>
               <p>
                 Costs, files, and every answer except the state stay on the device until the person taps to send
-                something. Cloud AI runs only after a yes on a screen that names what would be sent.
+                something. Cloud AI runs only after a yes on a screen that names what would be sent. It goes through
+                Tend&apos;s server to Google&apos;s free Gemini service. Google&apos;s terms let Google keep it, use it
+                to improve its products, and have people read it.
               </p>
               <p>
                 Checking the law on Tend&apos;s server also waits for a yes, and is offered only when the law engine
@@ -215,6 +221,10 @@ export default function HowItWorks() {
                 A passcode can be as short as six characters, and Tend cannot reset a forgotten one. Anyone who opens
                 Check or another step in that browser later can see that saved progress exists, though not what it
                 holds.
+              </p>
+              <p>
+                A passkey is saved for this site under the name Tend. Many devices keep it in their password manager,
+                which can sync it to other devices. It stays there after saved progress is deleted.
               </p>
               <See
                 files={[
@@ -275,9 +285,17 @@ export default function HowItWorks() {
             Tend&apos;s lock.
           </p>
           <p>
-            The protections above are aimed at someone using the same browser later, a curious server operator, a breach
-            of Tend&apos;s database, and anyone watching the network. The full contract is in{" "}
-            <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
+            After someone uses Check or a later step, the browser keeps an offline copy of Tend&apos;s pages and every
+            state&apos;s law. That copy shows Tend was used.
+          </p>
+          <p>
+            Tend&apos;s server can read what it is asked to act on while it handles it. That means a payment, a check of
+            the law, a request to the demo bank, or what goes to cloud AI, which also reaches Google. A shared packet is
+            different: it arrives locked.
+          </p>
+          <p>
+            The protections above are aimed at someone using the same browser later, a breach of Tend&apos;s database,
+            and anyone watching the network. The full contract is in <a href={LINKS.privacy}>docs/PRIVACY.md</a>.
           </p>
         </div>
       </section>
@@ -293,7 +311,7 @@ export default function HowItWorks() {
             <h3>Read on the device</h3>
             <p>
               A bank statement (CSV, OFX, or PDF) and an itemized bill, read by parsers in the browser. Nothing is
-              uploaded.
+              uploaded unless you say yes to cloud AI.
             </p>
           </li>
           <li className={styles.box}>
@@ -302,7 +320,8 @@ export default function HowItWorks() {
             </span>
             <h3>Law engine</h3>
             <p>
-              C++ compiled to WebAssembly. It runs the state&apos;s law, compiled from {n(corpus.rules)} verified rules.
+              A C++ VM, built to WebAssembly, runs the state&apos;s law. The law was compiled ahead of time from that
+              state&apos;s verified rules ({n(corpus.rules)} across all {corpus.programs}).
             </p>
           </li>
           <li className={styles.box}>
@@ -317,7 +336,10 @@ export default function HowItWorks() {
               4
             </span>
             <h3>Packet</h3>
-            <p>The state&apos;s own form with safe fields only, a cited summary, and letters. The survivor sends it.</p>
+            <p>
+              Michigan&apos;s form with safe fields only (for other states, a link to the program&apos;s form when Tend
+              found one), a cited summary, and letters. The survivor sends it.
+            </p>
           </li>
         </ol>
         <div className={styles.build}>
@@ -385,24 +407,35 @@ export default function HowItWorks() {
           </div>
           <div>
             <dt>Engine</dt>
-            <dd>A law compiler and bytecode VM in C++20, built to WebAssembly. A Python reference engine checks it.</dd>
+            <dd>
+              A law compiler (tendc) and a bytecode VM, both in C++20. tendc compiles each state&apos;s law ahead of
+              time and is not part of the WebAssembly build. The VM, with the loader and verifier that check a law
+              before it runs, is built to WebAssembly for the browser. A Python reference engine, written from the same
+              spec, checks it.
+            </dd>
           </div>
           <div>
             <dt>Server</dt>
             <dd>
-              FastAPI on Vercel. Neon Postgres holds the public law, encrypted shares, and a hash-chained payment log.
+              FastAPI on Vercel. The C++ engine is not built there, so the Python reference engine runs the law on the
+              server: the bill check before a payment, and a claim the survivor agrees to send when the browser cannot
+              run the VM. Neon Postgres holds the public law, encrypted shares, short-lived payment requests, and a
+              hash-chained payment log.
             </dd>
           </div>
           <div>
             <dt>AI</dt>
             <dd>
               Gemini Nano on the device suggests labels for costs the rules miss. The engine decides. Cloud Gemini runs
-              only after a yes.
+              only after a yes, on Google&apos;s free tier.
             </dd>
           </div>
           <div>
-            <dt>Sponsors</dt>
-            <dd>Capital One Nessie (the bank), Neon, Google Gemini, Figma, and .tech.</dd>
+            <dt>Hackathon tools</dt>
+            <dd>
+              Tend used these at MHacks 2026, where each had a sponsor prize: Capital One&apos;s Nessie (the mock bank),
+              Neon, Google Gemini, Figma, and a .tech domain. The sponsors backed the hackathon, not Tend.
+            </dd>
           </div>
         </dl>
       </section>
@@ -411,9 +444,15 @@ export default function HowItWorks() {
         <h2 id="limits">Limits</h2>
         <ul className={styles.bullets}>
           <li>Tend is not legal advice. Every total says &quot;The program decides.&quot;</li>
-          <li>Only Michigan&apos;s application is pre-filled. Other states get the program&apos;s blank form.</li>
           <li>
-            The engines were written from one spec by one author, so a shared misreading would not show up as a
+            Only Michigan&apos;s application is pre-filled. For {forms.linked} other states, Tend links the
+            program&apos;s blank form.
+            {forms.none.length ? ` For ${names(forms.none)}, it found no form to link.` : ""}
+          </li>
+          {/* TODO(Sanat): "one author" came out after the audit (outsider-docs#3). If you want a line on how Tend
+              was built and who wrote the engines, write it here in your own words. */}
+          <li>
+            The engines were written from one spec, in one project, so a shared misreading would not show up as a
             mismatch.
           </li>
         </ul>
@@ -439,7 +478,10 @@ export default function HowItWorks() {
           </li>
         </ul>
         <p className={styles.small}>
-          Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+          Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).{" "}
+          <a href={LINKS.devpost}>Winner of Capital One&apos;s Best Use of Nessie prize</a>. The last commit before the
+          submission deadline is <a href={LINKS.atDeadline}>5d1f7bd</a>. Every commit after it is later work, including
+          this page and the guided tour.
         </p>
       </section>
     </div>

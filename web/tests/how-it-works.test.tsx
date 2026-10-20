@@ -9,6 +9,7 @@ import HowItWorks from "@/app/how-it-works/page";
 import { buildEngineInput } from "@/components/flow/claim";
 import { initialState, reducer, type FlowItem, type SourceRecord } from "@/components/flow/state";
 import { DOUBLE_PRESS_MS, EXIT_URL, leaveNow, navigation } from "@/components/QuickExit";
+import { SITE_CARDS } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
 import { fetchLaw } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
@@ -17,6 +18,7 @@ import { LEFT_KEY, TOUR_KEY } from "@/lib/keys";
 import { classifier, parseStatementText } from "@/lib/local";
 import { classifyRequest } from "@/lib/netlog";
 import { MAX_EXPIRES_HOURS } from "@/lib/share";
+import STATES from "@/lib/states.json";
 import { createVault, memoryStore, MIN_PASSPHRASE } from "@/lib/vault";
 import { PBKDF2_ITERATIONS } from "@/lib/vault/crypto";
 import { DEFAULT_IDLE_MS } from "@/lib/vault/idle";
@@ -285,6 +287,123 @@ describe("the sources", () => {
   it("are counted as saved, never as official", () => {
     expect(document.body.textContent).toContain("saved sources");
     expect(document.body.textContent).toContain("Source saved with sha256");
+    // Recounted in tests/sources-page.test.tsx from each saved source's address.
+    expect(document.body.textContent).toContain(
+      "120 are copies of state statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint state law.",
+    );
     expect(document.body.textContent).not.toMatch(/official/i);
+  });
+});
+
+// The lead says what Tend does in the home card's words: survivors apply, and Tend never asks for a name.
+describe("the lead", () => {
+  it("matches the home page's sentence and promises no money", () => {
+    expect(document.body.textContent!.replace(/\s+/g, " ")).toContain(SITE_CARDS.home.sentence);
+    expect(document.body.textContent).not.toMatch(/already owes/i);
+  });
+});
+
+// Built at MHacks, but this page and the tour came later. The prize and the last commit before the deadline are links.
+describe("who built it, and when", () => {
+  it("names the event, links the prize and the last commit before the deadline, and calls the rest later work", () => {
+    const small = screen.getByText(/^Built by Sanat Gupta at MHacks 2026 \(Oct 3 to 4\)\./);
+    expect(
+      within(small).getByRole("link", { name: "Winner of Capital One's Best Use of Nessie prize" }),
+    ).toHaveProperty("href", LINKS.devpost);
+    expect(within(small).getByRole("link", { name: "5d1f7bd" }).getAttribute("href")).toBe(
+      `${LINKS.repo}/tree/5d1f7bd`,
+    );
+    expect(small.textContent).toContain(
+      "Every commit after it is later work, including this page and the guided tour.",
+    );
+    expect(document.body.textContent).not.toMatch(/24 hours|1st place|solo/i);
+  });
+});
+
+// A Hackaday reader can check this against engine/scripts/build_wasm.sh: the compiler is not in the WebAssembly.
+describe("the engine", () => {
+  it("says only the runtime is WebAssembly, and how big the engine and each compiled law are", () => {
+    const build = readFileSync(path.join(repo, "engine/scripts/build_wasm.sh"), "utf8");
+    expect(build).toContain("src/vm.cpp");
+    expect(build).not.toContain("compiler.cpp");
+    const wasm = statSync(path.join(web, "public/engine/tend.wasm")).size;
+    const laws = readdirSync(path.join(web, "public/engine/laws"))
+      .filter((f) => f.endsWith(".tlaw"))
+      .map((f) => statSync(path.join(web, "public/engine/laws", f)).size);
+    expect(laws).toHaveLength(51);
+    const lo = Math.floor(Math.min(...laws) / 1000);
+    const hi = Math.ceil(Math.max(...laws) / 1000);
+    const numbers = screen.getByRole("region", { name: "The numbers" }).textContent!.replace(/\s+/g, " ");
+    expect(numbers).toContain(`${Math.floor(wasm / 1000)} KB law VM`);
+    expect(numbers).toContain(`Each state's law arrives already compiled, as its own ${lo} to ${hi} KB file.`);
+    const stack = screen.getByRole("region", { name: "The stack" }).textContent!.replace(/\s+/g, " ");
+    expect(stack).toContain("tendc compiles each state's law ahead of time and is not part of the WebAssembly build.");
+    expect(stack).toContain("so the Python reference engine runs the law on the server");
+    expect(document.body.textContent).not.toMatch(/whole law engine|independent/i);
+  });
+});
+
+describe("what the page says about forms, uploads, and the hackathon", () => {
+  it("names the states with no form to link, read from the corpus", () => {
+    const none = STATES.filter(({ st }) => {
+      const law = JSON.parse(readFileSync(path.join(web, `public/data/law/${st}.json`), "utf8"));
+      return st !== "MI" && !law.program.application_pdf_url;
+    }).map((s) => s.name);
+    expect(none).toEqual(["Maine", "North Dakota", "Tennessee"]);
+    const limits = screen.getByRole("region", { name: "Limits" }).textContent!.replace(/\s+/g, " ");
+    expect(limits).toContain(
+      "Only Michigan's application is pre-filled. For 47 other states, Tend links the program's blank form. For Maine, North Dakota, and Tennessee, it found no form to link.",
+    );
+    expect(limits).not.toMatch(/one author/);
+    const packet = screen.getByRole("heading", { level: 3, name: "Packet" }).closest("li")!;
+    expect(packet.textContent).toContain("a link to the program's form when Tend found one");
+  });
+
+  it("says a file leaves only after a yes to cloud AI, and that the sponsors backed the hackathon", () => {
+    const read = screen.getByRole("heading", { level: 3, name: "Read on the device" }).closest("li")!;
+    expect(read.textContent!.replace(/\s+/g, " ")).toContain("Nothing is uploaded unless you say yes to cloud AI.");
+    const stack = screen.getByRole("region", { name: "The stack" });
+    const terms = within(stack)
+      .getAllByRole("term")
+      .map((t) => t.textContent);
+    expect(terms).toContain("Hackathon tools");
+    expect(terms).not.toContain("Sponsors");
+    expect(stack.textContent).toContain("The sponsors backed the hackathon, not Tend.");
+  });
+});
+
+// The safety section also says what it leaves exposed: the passkey, the offline copy, and what the server reads.
+describe("what Design for safety admits", () => {
+  it("says what Google may do with cloud AI, in the consent screen's terms", () => {
+    expect(en.cloud.googleRows).toContain("Tend uses Google's free Gemini service.");
+    expect(en.cloud.googleRows).toContain("use it to improve its products");
+    const device = guard("On this device").textContent!.replace(/\s+/g, " ");
+    expect(device).toContain("It goes through Tend's server to Google's free Gemini service.");
+    expect(device).toContain(
+      "Google's terms let Google keep it, use it to improve its products, and have people read it.",
+    );
+  });
+
+  it("says a passkey named Tend stays in the password manager after saved progress is deleted", () => {
+    const passkey = readFileSync(path.join(web, "lib/vault/passkey.ts"), "utf8");
+    expect(passkey).toContain('rp: { name: "Tend" }');
+    // Nothing asks the password manager to drop the passkey when saved progress is deleted.
+    const vault = files(path.join(web, "lib/vault")).map((f) => readFileSync(f, "utf8"));
+    expect(vault.some((text) => /signalUnknownCredential|signalAllAcceptedCredentials/.test(text))).toBe(false);
+    const saved = guard("Saved progress").textContent!.replace(/\s+/g, " ");
+    expect(saved).toContain("A passkey is saved for this site under the name Tend.");
+    expect(saved).toContain("It stays there after saved progress is deleted.");
+  });
+
+  it("says the offline copy shows Tend was used, and what Tend's server can read", () => {
+    const worker = readFileSync(path.join(web, "public/sw.js"), "utf8");
+    expect(worker).toContain("`/engine/laws/${st}.tlaw`");
+    expect(readFileSync(path.join(web, "components/QuickExit.tsx"), "utf8")).not.toContain("caches");
+    const cannot = screen.getByRole("heading", { level: 3, name: "What Tend cannot stop" }).parentElement!;
+    const words = cannot.textContent!.replace(/\s+/g, " ");
+    expect(words).toContain("the browser keeps an offline copy of Tend's pages and every state's law");
+    expect(words).toContain("Tend's server can read what it is asked to act on while it handles it.");
+    expect(words).toContain("A shared packet is different: it arrives locked.");
+    expect(words).not.toMatch(/curious server operator/);
   });
 });

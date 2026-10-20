@@ -2,6 +2,15 @@ import type { Rule, Source } from "@/lib/types";
 import { hostOf } from "./format";
 import styles from "./public.module.css";
 
+// What kind of document a source is, for a line that cites the source itself (a program's phone number).
+const KIND: Record<string, string> = {
+  statute: "A statute",
+  regulation: "A regulation",
+  agency_page: "A web page",
+  agency_pdf: "A PDF",
+  application_form: "An application form",
+};
+
 interface LawRefsProps {
   st: string;
   ids: string[];
@@ -52,7 +61,7 @@ export default function LawRefs({ st, ids, rules, sources, shown: shownIds = [] 
                   {source.id}
                 </a>
               </p>
-              <p className={styles.refSummary}>The program&apos;s own page, saved by Tend.</p>
+              <p className={styles.refSummary}>{KIND[source.kind] ?? "A source"}, saved by Tend.</p>
               <p className={styles.refLink}>
                 <a href={source.url} target="_blank" rel="noopener noreferrer">
                   Open it on {hostOf(source.url)}

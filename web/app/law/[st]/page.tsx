@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { names, republisher } from "@/app/sources/counts";
 import AsmListing from "@/components/law/AsmListing";
 import Plant from "@/components/Plant";
 import { loadAsm, loadIr, loadLaw, stateFromParam } from "@/components/public/data";
@@ -65,6 +66,10 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
   const decision = (ir?.rules ?? []).filter((r) => r.kind !== "info").length;
   const info = (ir?.rules ?? []).filter((r) => r.kind === "info").length;
   const lower = ref.st.toLowerCase();
+  // Copies of statutes and regulations saved from Justia or Cornell LII, which reprint state law.
+  const reprints = [...new Set(law.sources.map((s) => republisher(s.url)))].flatMap((who) =>
+    who === "Justia" ? ["Justia"] : who === "Cornell" ? ["Cornell's Legal Information Institute"] : [],
+  );
 
   return (
     <div className={`page ${styles.law}`}>
@@ -80,9 +85,16 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           </p>
           {law.program.statute_citation ? <p className="meta">Statute: {law.program.statute_citation}</p> : null}
           <SourceNote st={ref.st} sources={law.sources} path={`/law/${ref.st}`} />
+          {reprints.length ? (
+            <p className="meta">
+              Some statute or regulation text on this page was saved from {names(reprints)}, which{" "}
+              {reprints.length === 1 ? "reprints" : "reprint"} state law. Check the state&apos;s own code before you
+              rely on it.
+            </p>
+          ) : null}
           <ul className={styles.links} aria-label="Related pages and data">
             <li>
-              <Link href={`/${lower}`}>What {law.name} promises, in plain words</Link>
+              <Link href={`/${lower}`}>What {ref.st === "DC" ? "DC" : law.name}&apos;s law says, in plain words</Link>
             </li>
             <li>
               <a href={`/data/law/${ref.st}.json`}>Verified rules (JSON)</a>
@@ -150,8 +162,9 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
             quote.
           </li>
           <li>
-            A normalizer turns the rules into the law IR. Rules about someone other than the survivor, or with nothing
-            to compute, are set aside with a reason.
+            A normalizer turns the rules into the law IR. It sets a rule aside, with a reason, when the rule is about
+            someone other than the survivor, holds only in cases the engine cannot check, has nothing to compute, or
+            sits beside a more generous limit for the same cost.
           </li>
           <li>
             The compiler turns the IR into bytecode. The listing below is that bytecode, with each block commented with
@@ -159,8 +172,8 @@ export default async function LawPage({ params }: { params: Promise<{ st: string
           </li>
           <li>
             When you check a claim, your browser runs this compiled law in WebAssembly. If your browser cannot run it
-            and you agree to send the check to the server behind this site, the Python reference engine answers it
-            from the same IR. In tests, the reference matched the C++ engine byte for byte on 119,600 claims, and the
+            and you agree to send the check to the server behind this site, the Python reference engine answers it from
+            the same IR. In tests, the reference matched the C++ engine byte for byte on 119,600 claims, and the
             WebAssembly build matched the native build on 106,000 of 106,000 (<a href={LINKS.eval}>docs/EVAL.md</a>).
           </li>
         </ol>

@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 // The visitor tour: notes appear only in tour mode, one per step, in English only, and Exit tour ends it.
-import { act, cleanup, fireEvent, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import TourSummary from "@/app/tour/page";
 import FlowFrame from "@/components/flow/FlowFrame";
 import { leaveNow, navigation } from "@/components/QuickExit";
 import TourNote from "@/components/tour/TourNote";
@@ -158,6 +159,10 @@ describe("tour mode", () => {
     expect(TOUR_NOTES.gather.what).toContain("190 transactions on this device; nothing is uploaded");
     expect(TOUR_NOTES.bills.what).toContain("Line 2 is a $325 forensic exam");
     expect(TOUR_NOTES.bills.what).toContain("$118");
+    // Every visitor pays the same demo bill, so the note says what happens when someone already paid it.
+    expect(TOUR_NOTES.bills.next).toContain(
+      "If someone already paid this demo bill, Tend says so and sends nothing, because it never pays the same lines twice.",
+    );
     expect(TOUR_NOTES.packet.what).toContain("Michigan's real application, filled with safe fields only");
     expect(TOUR_NOTES.packet.why).toContain("Wi-Fi off");
     expect(TOUR_NOTES.track.what).toContain("The $325 never grows.");
@@ -254,5 +259,21 @@ describe("tour copy", () => {
     for (const text of all) {
       for (const sentence of text.split(/(?<=\.)\s+/)) expect(sentence.split(/\s+/).length).toBeLessThanOrEqual(28);
     }
+  });
+});
+
+// The recap claims only what the tour did: a fictional survivor built a packet, nothing was filed, the program decides.
+describe("the recap page", () => {
+  it("says Rowan is fictional, that nothing was filed, and who decides", () => {
+    render(TourSummary());
+    const text = document.body.textContent!.replace(/\s+/g, " ");
+    expect(text).toContain(
+      "Rowan, a fictional survivor in Michigan, built a claim packet without giving Tend a name or saying what happened. Nothing was filed.",
+    );
+    expect(text).toContain("sends the claim to the program, and the program decides.");
+    expect(text).toContain(
+      "The other $118 could be paid only with a typed code, and Tend never pays the same lines twice.",
+    );
+    expect(text).not.toMatch(/claimed money|already owes|paid on purpose/);
   });
 });

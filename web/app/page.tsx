@@ -4,6 +4,7 @@ import { allStates, loadCorpus } from "@/components/public/data";
 import LawGarden from "@/components/public/LawGarden";
 import { sitePreview } from "@/components/public/og/siteCard";
 import StateFinder from "@/components/public/StateFinder";
+import { LINKS } from "@/components/tour/links";
 import { TOUR_START } from "@/components/tour/tour";
 import styles from "./page.module.css";
 
@@ -20,11 +21,14 @@ export default function Home() {
       <section className={styles.visitor} aria-label="About Tend">
         <div className={styles.visitorText}>
           <p className={styles.visitorWhat}>
-            Tend helps sexual assault survivors claim the crime victim compensation their state already owes them,
-            without giving up their name.
+            Tend helps sexual assault survivors apply for crime victim compensation from their state, without giving
+            Tend their name.
           </p>
+          {/* The prize links to the Devpost page, the public record a reader can check. It shows "Winner" but not
+              the place, so the line does not claim one. */}
           <p className={styles.visitorProof}>
-            Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie.
+            Built by Sanat Gupta at MHacks 2026 (Oct 3 to 4).{" "}
+            <a href={LINKS.devpost}>Winner of Capital One&apos;s Best Use of Nessie prize</a>.
           </p>
           <p className="meta">All people and money in the demo are fictional.</p>
         </div>
@@ -61,13 +65,20 @@ export default function Home() {
         <h2 id="for-you">If you are here for yourself</h2>
         <div className={styles.forYouBody}>
           <p>
-            Stay Jane Doe. Tend needs no account, no name, and no story. Your state&apos;s page shows what the law
-            covers, the deadline, and who to call, without asking you anything.
+            Stay Jane Doe. Tend needs no account, and it never asks your name. Your state&apos;s page shows what its law
+            covers and who to call, without asking you anything. It shows the filing deadline too, when Tend has
+            verified one.
           </p>
+          {/* Most states, not all: the engine holds an exam charge only where it applies a no-bill rule. */}
           <p>
-            When you are ready, Tend can look through your bank records for costs your program covers, hold a bill you
-            should never have been sent, and build a claim where every dollar points to the law. It never asks what
-            happened. Nothing is filed and no money moves unless you say yes.
+            When you are ready, Tend can look through your bank records for costs your program covers and build a claim
+            where every dollar points to the law. In most states it can also hold a forensic exam charge on a bill,
+            because the state&apos;s rules say you should not be billed for it. It never asks what happened.
+          </p>
+          <p>Tend files nothing: you send the claim to the program yourself. No money moves unless you say yes.</p>
+          <p className={styles.prototype}>
+            Tend is a prototype. Check what it tells you with your state&apos;s program before you rely on it. The
+            program&apos;s phone number is on your state&apos;s page.
           </p>
           <div className="btn-row">
             <Link href="/start" className="btn btn-primary">

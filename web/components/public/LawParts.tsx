@@ -11,7 +11,8 @@ import styles from "./law.module.css";
 
 const EXTRA_LABEL: Record<string, string> = {
   address_confidentiality: "Address confidentiality program",
-  record_confidentiality: "Claim records kept confidential",
+  // A topic, not a promise: several of these rules cover only some records.
+  record_confidentiality: "Keeping claim records private",
 };
 
 // Survivor-first order, the program's own review last. Unknown categories follow, so none is hidden.
@@ -158,6 +159,11 @@ export function SourceList({ sources, rules }: { sources: Source[]; rules: Rule[
               <div>
                 <dt>Kind</dt>
                 <dd>{s.kind.replace(/_/g, " ")}</dd>
+              </div>
+              {/* Shows when a statute was saved from a site that reprints state law, such as Justia. */}
+              <div>
+                <dt>Saved from</dt>
+                <dd>{hostOf(s.url)}</dd>
               </div>
               <div>
                 <dt>Saved</dt>

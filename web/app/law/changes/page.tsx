@@ -24,6 +24,9 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
   const view = await loadChanges({ st, from: one(params.from), to: one(params.to) });
   const name = st ? stateName(st) : null;
   const states = [...STATES].sort((a, b) => a.name.localeCompare(b.name));
+  // The live service says which version matches the law on Tend's server now; a saved copy, only which one did then.
+  const live = view.source === "live";
+  const inUse = live ? "In use now" : "In use when saved";
 
   return (
     <div className={`page ${styles.changes}`}>
@@ -40,10 +43,11 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
         </p>
         <h1>{name ? `What changed in ${name}'s rules` : "What changed in the rules Tend uses"}</h1>
         <p className="lead">
-          Tend keeps every version of the verified rules. A version is a saved copy of all {view.to.jurisdictions}{" "}
-          programs&apos; rules at one moment, kept as its own database branch, so it cannot change once it is published.
-          Compare two versions to see what changed, with the exact quotes. Tend explains what each state&apos;s rules
-          say. It is not legal advice, and the program decides every claim.
+          A version is a saved copy of all {view.to.jurisdictions} programs&apos; verified rules at one moment, kept as
+          its own database branch. Tend never writes to a version after publishing it, and its server checks the file
+          fingerprints a branch records against that version before reading it. Compare two versions to see what
+          changed, with the exact quotes. Tend explains what each state&apos;s rules say. It is not legal advice, and
+          the program decides every claim.
         </p>
       </header>
 
@@ -75,7 +79,7 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
             {view.versions.map((v) => (
               <option key={v.name} value={v.name}>
                 {v.name}
-                {v.name === view.current ? " (in use now)" : ""}
+                {v.name === view.current ? ` (${inUse.toLowerCase()})` : ""}
               </option>
             ))}
           </select>
@@ -108,18 +112,25 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
       <section className={styles.group} aria-labelledby="h-versions">
         <h2 id="h-versions">Every version</h2>
         <p className={lawStyles.groupNote}>
-          Newest first. {count(view.versions.length, "version", "versions")} so far. The one marked in use now is the
-          one Tend&apos;s server checks claims against.
+          Newest first. {count(view.versions.length, "version", "versions")} so far.{" "}
+          {live
+            ? view.current
+              ? "The one marked in use now matches the law loaded on Tend's server."
+              : "None is marked in use: the law on Tend's server has changed since the newest version, and that change is not published yet."
+            : view.current
+              ? "The one marked was in use when this copy was saved. Only the live service can say which one is in use now."
+              : "None was marked in use when this copy was saved."}
         </p>
-        <VersionList versions={view.versions} current={view.current} notes={view.notes} st={st} />
+        <VersionList versions={view.versions} current={view.current} inUse={inUse} notes={view.notes} st={st} />
       </section>
 
       <section className={lawStyles.steps} aria-labelledby="h-how">
         <h2 id="h-how">How versions work</h2>
         <ol>
           <li>
-            When the verified rules change, Tend publishes a new version as a branch of its database, named for the day
-            and the change, like <code>{view.to.name}</code>.
+            When the verified rules or the engine&apos;s reading of them change, Tend publishes a new version as its own
+            database branch, named for the day and the change, like <code>{view.to.name}</code>. Publishing is a
+            separate step, so a change can run on Tend&apos;s server before it is published.
           </li>
           <li>
             A new version starts as an exact copy of the one before it. Only the programs whose files changed are
@@ -130,8 +141,9 @@ export default async function LawChanges({ searchParams }: { searchParams: Promi
             from each side.
           </li>
           <li>
-            A claim packet names the version it was checked against, so anyone can come back here and see what has
-            changed since.
+            A claim packet names the SHA-256 of the law image it was checked against, not a version from this list. Each
+            state&apos;s How Tend decides page shows the image in use now, so if the two hashes differ, the image was
+            rebuilt after the packet was made.
           </li>
         </ol>
       </section>
