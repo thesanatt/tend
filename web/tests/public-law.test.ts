@@ -137,6 +137,7 @@ describe("plain words for what the engine does with a rule", () => {
       "it applies only to family members of the victim. The engine does not check that, so it leaves this rule out of the math.",
     );
     expect(skipReason("expense_cap without amount or expense")).toMatch(/nothing to compute/);
+    expect(skipReason("total_cap without amount")).toMatch(/nothing to compute/);
     expect(skipReason("something new")).toBe("something new");
   });
 

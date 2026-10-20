@@ -139,5 +139,8 @@ export function skipReason(reason: string): string {
   if (/^expense_cap without amount or expense$/.test(reason)) {
     return "it names a limit without an amount or without a kind of cost, so there is nothing to compute.";
   }
+  if (/^total_cap without amount$/.test(reason)) {
+    return "it names a total limit without an amount, so there is nothing to compute.";
+  }
   return reason;
 }

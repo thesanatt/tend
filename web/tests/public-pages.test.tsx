@@ -135,7 +135,8 @@ describe("law page /law/MI", () => {
         ).skipped.map((s) => s.reason.replace(/ .*$/, "")),
       ),
     );
-    expect([...reasons].sort()).toEqual(["applies_to", "expense_cap", "less"]);
+    // "expense_cap without amount" and "total_cap without amount" are both nothing to compute.
+    expect([...reasons].sort()).toEqual(["applies_to", "expense_cap", "less", "total_cap"]);
   });
 
   // Indiana's statutes were saved from Justia; Michigan's sources are all its own.
