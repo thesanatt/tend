@@ -24,9 +24,9 @@ Try it:
 <!-- TODO(Sanat): demo video. Add the unlisted YouTube link to the list above once it is recorded (brief P0.3). -->
 
 Built by Sanat Gupta in 24 hours at MHacks 2026. 1st place, Capital One Best Use of Nessie. The 24
-hours are the hackathon build, judged at commit [5d1f7bd](https://github.com/thesanatt/tend/tree/5d1f7bd).
-Work continued after the event: the document preview and the 2-minute tour on October 5, 2026, and
-fixes and additions in mid-October.
+hours cover the hackathon build, judged at commit [5d1f7bd](https://github.com/thesanatt/tend/tree/5d1f7bd).
+Work continued after the event: on October 5, 2026, the 2-minute tour, the How it works page, the
+home page's intro, and the document preview; in mid-October, fixes and additions.
 
 <!-- TODO(Sanat): how Tend was built, in your own words, before this goes public. -->
 
