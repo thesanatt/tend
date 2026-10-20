@@ -69,17 +69,19 @@ More: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Correctness, and how it was measured
 
-Each count comes from the command next to it, run on October 4, 2026 on Linux from `main` at
-`f720ae3` (tend 1.3.0), unless the row says otherwise. [docs/EVAL.md](docs/EVAL.md) has the machine,
-the other suites, and what these numbers do not show.
+Each count comes from the command next to it. Unless the row says otherwise, the counts were first
+measured on October 4, 2026 on Linux from `main` at `f720ae3` (tend 1.3.0), then again on October 19,
+2026 on macOS, on an Apple M4 Max laptop, at `12508ea`, with the same results; the law data and the
+engines did not change in between. [docs/EVAL.md](docs/EVAL.md) has the machines, the other suites,
+and what these numbers do not show.
 
 | What was checked | Result | Command |
 |---|---|---|
-| Each quote is word for word in its saved source, and each source's sha256 matches | 51 of 51 jurisdictions pass: 2,578 rules, 824 sources <!-- measured: 2026-10-04 --> | `python3 rules/tools/verify.py all` |
-| What the engine does with the rules | 1,327 decision rules, 1,189 information rules, 62 set aside with a reason <!-- measured: 2026-10-04 --> | `python3 -c "import json,glob; d=[json.load(open(f)) for f in glob.glob('rules/ir/*.json')]; r=[x['kind'] for j in d for x in j['rules']]; print(len(r)-r.count('info'), r.count('info'), sum(len(j['skipped']) for j in d))"` |
-| The C++ engine against hand-computed answers, a plain C++ oracle, and broken images | 70 test cases, 27,403 assertions, all pass; all 51 shipped law images byte-identical to a fresh build <!-- measured: 2026-10-04 --> | `make -C engine && make -C engine test` |
-| The C++ engine against the Python reference engine | 121,000 generated claims, 0 mismatches. The 119,600 valid ones come back byte for byte the same; both refuse the other 1,400, broken on purpose, with the same error code <!-- measured: 2026-10-04 --> | `make -C engine`, then `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` |
-| The WebAssembly build against the native build | 106,000 of 106,000 claims byte-identical <!-- measured: 2026-10-04 --> | `make -C engine wasm-parity` |
+| Each quote is word for word in its saved source, and each source's sha256 matches | 51 of 51 jurisdictions pass: 2,578 rules, 824 sources <!-- measured: 2026-10-19 --> | `python3 rules/tools/verify.py all` |
+| What the engine does with the rules | 1,327 decision rules, 1,189 information rules, 62 set aside with a reason <!-- measured: 2026-10-19 --> | `python3 -c "import json,glob; d=[json.load(open(f)) for f in glob.glob('rules/ir/*.json')]; r=[x['kind'] for j in d for x in j['rules']]; print(len(r)-r.count('info'), r.count('info'), sum(len(j['skipped']) for j in d))"` |
+| The C++ engine against hand-computed answers, a plain C++ oracle, and broken images | 70 test cases, 27,403 assertions, all pass; all 51 shipped law images byte-identical to a fresh build <!-- measured: 2026-10-19 --> | `make -C engine && make -C engine test` |
+| The C++ engine against the Python reference engine | 121,000 generated claims, 0 mismatches. The 119,600 valid ones come back byte for byte the same; both refuse the other 1,400, broken on purpose, with the same error code <!-- measured: 2026-10-19 --> | `make -C engine`, then `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` |
+| The WebAssembly build against the native build | 106,000 of 106,000 claims byte-identical <!-- measured: 2026-10-19 --> | `make -C engine wasm-parity` |
 | Fuzzing under AddressSanitizer and UBSan | 2,517,704 executions on tend 1.2 and 580,048 on 1.3, 0 crashes (recorded on an Apple M4 Max laptop) <!-- measured: 2026-10-03 --> | `make -C engine fuzz FUZZ_SECONDS=420` |
 
 Engines that agree read the spec the same way. That does not prove the spec reads the law
@@ -206,16 +208,17 @@ Build the engine first; without `engine/build`, the refengine and API tests that
 the C++ engine are skipped. Tests that need a real service are off unless asked for:
 `TEND_LIVE=1` in `seed/` (Nessie key) and `TEND_NEON_TEST=1` in `api/` (Neon URL).
 
-The suite counts and timings below are from the same October 4 run as the table above, unless the
-row says otherwise.
+The suite counts and timings below are from the October 19 run on the Mac, unless the row says
+otherwise.
 
 | Number | Command |
 |---|---|
-| 586 reference engine tests <!-- measured: 2026-10-04 --> | `cd refengine && uv run pytest` |
-| 424 API tests pass, 22 skipped without Neon <!-- measured: 2026-10-04 --> | `cd api && uv run pytest` |
-| 1,234 web unit and screen tests in 42 files <!-- measured: 2026-10-04 --> | `cd web && npx vitest run` |
-| 3 end-to-end tests in Chromium: the demo path, the same path offline, and no request carrying transaction text, a bill line, or the share key <!-- measured: 2026-10-04 --> | `web/e2e/run.sh` |
-| Offline: after a 2.2 s first visit, a reload with no network in 0.34 s and the packet built in 0.17 s <!-- measured: 2026-10-04 --> | `web/e2e/run.sh` (prints step timings) |
+| 586 reference engine tests <!-- measured: 2026-10-19 --> | `cd refengine && uv run pytest` |
+| 413 API tests pass, 23 skipped without Neon <!-- measured: 2026-10-19 --> | `cd api && uv run pytest` |
+| 163 seed tests pass, 4 skipped without a Nessie key <!-- measured: 2026-10-19 --> | `cd seed && uv run pytest` |
+| 1,568 web unit and screen tests in 56 files <!-- measured: 2026-10-19 --> | `cd web && npx vitest run` |
+| 31 end-to-end runs of 12 tests in Chromium, at several screen widths and text sizes and in both languages: the demo path, the same path offline, no request carrying transaction text, a bill line, or the share key, the guided tour, and phone layouts <!-- measured: 2026-10-19 --> | `web/e2e/run.sh` |
+| Offline: after a 0.50 s first visit, a reload with no network in 0.16 s and the packet built in 0.05 s (2.2 s, 0.34 s, and 0.17 s on the Linux VM on October 4) <!-- measured: 2026-10-19 --> | `web/e2e/run.sh` (prints step timings) |
 | 14.1M claim lines per second in the VM, single thread (recorded on an Apple M4 Max laptop, tend 1.2) <!-- measured: 2026-10-03 --> | `cd engine && ./build/tendc ../rules/ir/MI.json -o build/laws/MI.tlaw && ./build/tendvm bench --law build/laws/MI.tlaw --items 1000000 --runs 5` |
 
 ## Limits
