@@ -71,8 +71,8 @@ def money_in_quote(cents: int, quote_nums: set) -> bool:
 # Characters a word may run across (Unicode UAX #29, which browsers use through ICU): letters on both sides
 # of an apostrophe, a period or a colon stay one word ("victim's"), and so do digits on both sides of a
 # period, comma or semicolon ("1,000").
-_MID_LETTER = frozenset("'’‘.:·")
-_MID_NUMBER = frozenset("'’‘.,;")
+_MID_LETTER = frozenset("'\u2019\u2018.:\xb7")
+_MID_NUMBER = frozenset("'\u2019\u2018.,;")
 
 
 def _word_class(ch: str) -> str:
@@ -130,7 +130,7 @@ _VOID_TAGS = frozenset("area base br col embed hr img input link meta param sour
 _OWN_BOX = re.compile(r"position\s*:\s*(absolute|fixed)|display\s*:\s*(block|flex|grid|table|list-item|flow-root|inline-block)", re.I)
 _KEEP_SPACE = re.compile(r"white-space\s*:\s*(pre|pre-wrap|break-spaces)\s*(;|$|!)", re.I)
 _BLOCK, _BREAK = "\x00", "\x01"
-_QUOTE_FOLD = str.maketrans({"‘": "'", "’": "'", "“": '"', "”": '"'})
+_QUOTE_FOLD = str.maketrans({"\u2018": "'", "\u2019": "'", "\u201c": '"', "\u201d": '"'})
 
 
 def _style_classes(html: str) -> tuple[frozenset, frozenset]:
@@ -235,7 +235,7 @@ def page_model(raw: bytes) -> tuple[str, str, list[int]]:
     parser = _PageText(*_style_classes(html))
     parser.feed(html)
     parser.close()
-    text = re.sub(r"[^\S\x00\x01]+", _space, "".join(parser.parts).replace("­", ""))
+    text = re.sub(r"[^\S\x00\x01]+", _space, "".join(parser.parts).replace("\xad", ""))
     text = re.sub(r" *[\x00\x01][ \x00\x01]*", lambda m: _BLOCK if _BLOCK in m.group(0) else _BREAK, text)
     text = text.strip(" \x00\x01")
     folded, index = [], []
