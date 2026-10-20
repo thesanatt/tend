@@ -366,8 +366,43 @@ describe("the deadline Check leads with", () => {
   it("Maine, Virginia, and Michigan keep their date; only a rule's own start day gives a note", () => {
     expect(deadlineIn("ME")).toMatchObject({ date: "2029-06-13", longer: null, fromDiscovery: true });
     expect(deadlineIn("VA")).toMatchObject({ date: "2029-06-13", longer: null, fromReport: false });
-    // MI-FILE-2 counts from the report only for a victim under 18, so an adult is not told so.
-    expect(deadlineIn("MI")).toMatchObject({ date: "2031-06-14", longer: null, fromReport: false });
+    // MI-FILE-2 counts from the report only for someone under 18 when it happened, so the report note
+    // stays off. The engine's flag is kept for when the date has passed.
+    expect(deadlineIn("MI")).toMatchObject({
+      date: "2031-06-14",
+      longer: null,
+      fromReport: false,
+      laterElsewhere: true,
+    });
+  });
+
+  it("keeps a flag that comes from another rule, so a passed date is never plainly late (SPEC v1.3)", () => {
+    // MA-DEAD-3: found out more than three years later. MI-FILE-2, KS-DEAD-4, MN-DEADLINE-2, and
+    // NJ-FILE-3 turn on age at the time of the crime, which Tend never asks.
+    expect(deadlineIn("MA", "2023-06-01")).toMatchObject({
+      date: "2026-05-31",
+      late: true,
+      open: false,
+      fromDiscovery: false,
+      laterElsewhere: true,
+    });
+    expect(deadlineIn("MI", "2021-01-01")).toMatchObject({ date: "2026-01-01", late: true, laterElsewhere: true });
+    expect(deadlineIn("NJ", "2021-01-01")).toMatchObject({ date: "2026-01-01", late: true, laterElsewhere: true });
+    // Past Kansas's 10 years for a sexually violent crime (KS-DEAD-2) too.
+    expect(deadlineIn("KS", "2014-01-01")).toMatchObject({ late: true, open: false, laterElsewhere: true });
+    // Minnesota's general rule counts from discovery itself; its report rule is for child abuse.
+    expect(deadlineIn("MN", "2021-01-01")).toMatchObject({ late: true, fromDiscovery: true, laterElsewhere: true });
+    // Where the flag comes from the general rule's own provision, or no rule has one, there is no line.
+    for (const st of ["ME", "WA", "MD", "FL", "VA"]) {
+      expect(deadlineIn(st, "2015-01-01"), st).toMatchObject({ late: true, laterElsewhere: false });
+    }
+  });
+
+  it("without the IR, reads only the engine's own flags", () => {
+    const law = load("MA");
+    const out = output(law, engineCheck("MA", "2023-06-01", "2026-10-19"));
+    const fallback = buildCheckSummary(law, out, { ...answers, st: "MA", date: "2023-06-01" }, true).deadline;
+    expect(fallback).toMatchObject({ kind: "date", fromDiscovery: true, laterElsewhere: false });
   });
 
   it("never says File by a date that has passed, and says when some cases still have time", () => {

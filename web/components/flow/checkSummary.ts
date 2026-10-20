@@ -41,6 +41,8 @@ export type DeadlineFact =
       // The rule behind the shown date counts from the report or from discovery.
       fromReport: boolean;
       fromDiscovery: boolean;
+      // Another rule does (lib/deadline.ts), so a passed date may not be late.
+      laterElsewhere: boolean;
       ruleIds: string[];
     }
   | {
@@ -237,6 +239,7 @@ export function buildCheckSummary(
             longer: general.longer,
             fromReport: general.fromReport,
             fromDiscovery: general.fromDiscovery,
+            laterElsewhere: general.laterElsewhere,
             ruleIds: general.ruleIds,
           }
         : {
@@ -247,6 +250,7 @@ export function buildCheckSummary(
             longer: null,
             fromReport: flags.includes("deadline_from_report"),
             fromDiscovery: flags.includes("deadline_from_discovery"),
+            laterElsewhere: false,
             ruleIds: d.rule_ids,
           };
     } else {

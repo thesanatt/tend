@@ -145,12 +145,14 @@ export function deadlineFacts(
     };
   }
   const day = formatDay(general.date);
+  // A passed date is not plainly late when another rule counts from a later day (docs/SPEC.md v1.3).
+  const usual = `The usual deadline was ${day}.${general.laterElsewhere ? ` ${en.check.deadlineLaterElsewhere}` : ""}`;
   const text =
     general.date >= input.context.as_of_date
       ? `On time. File by ${day}.${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
       : d.status === "ok" && general.longer
-        ? `The usual deadline was ${day}. ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
-        : `The usual deadline was ${day}. ${LATE_ASK}`;
+        ? `${usual} ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
+        : `${usual} ${LATE_ASK}`;
   return {
     text,
     ruleIds: general.ruleIds,

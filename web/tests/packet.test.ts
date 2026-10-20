@@ -573,6 +573,8 @@ describe("the summary's filing deadline", () => {
     const p = await builderWithIr.build(st, input, output);
     return pdfText((await bytesOf(p.summaryPdf))!);
   }
+  const laterElsewhere =
+    "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.";
   const florida = ["FL-DEADLINE-1", "FL-DEADLINE-3"];
 
   it("leads with Florida's 3 years and says some cases have until the 5 good cause can give", async () => {
@@ -599,7 +601,7 @@ describe("the summary's filing deadline", () => {
     expect(text).not.toContain("File by");
   });
 
-  it("does not tell an adult in Michigan that the law counts from the report", async () => {
+  it("Rowan's Michigan claim: on time, with no report note, since MI-FILE-2 turns on age at the time of the crime", async () => {
     const text = await deadlineRow("MI", "2026-06-14", "2026-10-19", {
       status: "ok",
       deadline_date: "2031-06-14",
@@ -608,6 +610,25 @@ describe("the summary's filing deadline", () => {
     });
     expect(text).toContain("On time. File by June 14, 2031.");
     expect(text).not.toContain("The law counts from your report");
+    expect(text).not.toContain(laterElsewhere);
+  });
+
+  // The flag comes from another rule (MA-DEAD-3; MI-FILE-2 and NJ-FILE-3 turn on age at the time of
+  // the crime), so a passed date says so instead of reading as plainly late (docs/SPEC.md v1.3).
+  it.each([
+    ["MA", "2023-06-01", "2026-05-31", "May 31, 2026", ["MA-DEAD-1", "MA-DEAD-3"], "deadline_from_discovery"],
+    ["MI", "2021-01-01", "2026-01-01", "January 1, 2026", ["MI-FILE-1", "MI-FILE-2"], "deadline_from_report"],
+    ["NJ", "2021-01-01", "2026-01-01", "January 1, 2026", ["NJ-FILE-1", "NJ-FILE-3"], "deadline_from_discovery"],
+  ])("%s, %s: says another rule counts from a later day", async (st, incident, date, day, ids, flag) => {
+    const text = await deadlineRow(st, incident, "2026-10-19", {
+      status: "late",
+      deadline_date: date,
+      rule_ids: ids,
+      flags: [flag],
+    });
+    expect(text).toContain(`The usual deadline was ${day}. ${laterElsewhere}`);
+    expect(text).not.toContain("The law counts from your report");
+    expect(text).not.toContain("may count from when the crime was discovered");
   });
 });
 

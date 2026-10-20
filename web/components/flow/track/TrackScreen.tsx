@@ -163,8 +163,10 @@ export default function TrackScreen() {
   }
 
   // Plainly late only when no rule leaves more time: not when the engine's longer date is still ahead,
-  // and not when the shown date counts from a later day than the one given.
-  const late = (deadline?.late && !deadline.open && !deadline.fromReport && !deadline.fromDiscovery) || undefined;
+  // and not when the shown date, or another rule, counts from a later day than the one given.
+  const late =
+    (deadline?.late && !deadline.open && !deadline.fromReport && !deadline.fromDiscovery && !deadline.laterElsewhere) ||
+    undefined;
   const due = deadline
     ? deadline.late
       ? t.check.deadlineLate(f.date(deadline.date))
@@ -181,8 +183,8 @@ export default function TrackScreen() {
         <p className="lead">{t.track.lead}</p>
       </header>
 
-      {/* A passed date that some cases extend, or that counts from the report or from discovery, may not
-          be late (docs/SPEC.md v1.3): it is explained, never shown as plainly late. */}
+      {/* A passed date that some cases extend, or that this rule or another counts from the report or
+          from discovery, may not be late (docs/SPEC.md v1.3): it is explained, never shown as plainly late. */}
       <p ref={deadlineRef} className={styles.deadlineBar} data-late={late}>
         <strong>{due}</strong>
         {deadline && !deadline.late ? <span> {t.check.deadlineLeft(f.span(today, deadline.date) ?? "")}</span> : null}
@@ -194,9 +196,12 @@ export default function TrackScreen() {
         ) : null}
         {deadline?.fromReport ? <span className={styles.deadlineNote}>{t.check.deadlineFromReport}</span> : null}
         {deadline?.fromDiscovery ? <span className={styles.deadlineNote}>{t.check.deadlineFromDiscovery}</span> : null}
+        {deadline?.late && deadline.laterElsewhere ? (
+          <span className={styles.deadlineNote}>{t.check.deadlineLaterElsewhere}</span>
+        ) : null}
       </p>
-      {/* A copy for the eye only: the box above says it all to a screen reader. A late date that may
-          count from the report or from discovery keeps a short form of its note here too. */}
+      {/* A copy for the eye only: the box above says it all to a screen reader. A late date that may not
+          be late keeps a short form of its note here too. */}
       {pastDeadline && summary ? (
         <div className={`${styles.deadlineStuck} no-print`} data-late={late} aria-hidden="true">
           <div className={`page ${styles.deadlineStuckInner}`}>

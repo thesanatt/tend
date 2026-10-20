@@ -328,7 +328,7 @@ describe("the general deadline on Check and Track", () => {
     expect(bar.hasAttribute("data-late")).toBe(false);
   });
 
-  it("Michigan: an adult is not told the law counts from the report (MI-FILE-2 is for minors)", async () => {
+  it("Michigan, on time: no report note, since MI-FILE-2 turns on age at the time of the crime", async () => {
     const evaluate = engine("MI", {
       status: "ok",
       deadline_date: "2031-06-14",
@@ -338,5 +338,85 @@ describe("the general deadline on Check and Track", () => {
     renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) });
     expect(await screen.findByText(en.check.deadlineDate(fmt.date("2031-06-14")))).toBeTruthy();
     expect(screen.queryByText(en.check.deadlineFromReport)).toBeNull();
+    // Rowan's date has not passed, so nothing is said about the other rule.
+    expect(screen.queryByText(en.check.deadlineLaterElsewhere)).toBeNull();
+  });
+
+  // The engine flags these because another rule counts from a later day (docs/SPEC.md v1.3 point 1):
+  // MA-DEAD-3 is for anyone who found out more than three years later, and MI-FILE-2 and NJ-FILE-3
+  // turn on age at the time of the crime, which Tend never asks. The general rule counts from the day
+  // it happened, so its own notes stay off, but the passed date is never plainly late.
+  const laterElsewhere = [
+    {
+      st: "MA",
+      incident: "2023-06-01",
+      date: "2026-05-31",
+      ids: ["MA-DEAD-1", "MA-DEAD-3"],
+      flag: "deadline_from_discovery",
+    },
+    {
+      st: "MI",
+      incident: "2021-01-01",
+      date: "2026-01-01",
+      ids: ["MI-FILE-1", "MI-FILE-2"],
+      flag: "deadline_from_report",
+    },
+    {
+      st: "NJ",
+      incident: "2021-01-01",
+      date: "2026-01-01",
+      ids: ["NJ-FILE-1", "NJ-FILE-3"],
+      flag: "deadline_from_discovery",
+    },
+  ];
+  for (const c of laterElsewhere) {
+    const late = { status: "late" as const, deadline_date: c.date, rule_ids: c.ids, flags: [c.flag] };
+
+    it(`${c.st}, ${c.incident}: Track says another rule counts from a later day and is not plainly late`, async () => {
+      const evaluate = engine(c.st, late);
+      renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: claimIn(c.st, c.incident) });
+      const lead = await screen.findByText(en.check.deadlineLate(fmt.date(c.date)));
+      const bar = lead.closest("p")!;
+      expect(bar.hasAttribute("data-late")).toBe(false);
+      expect(bar.textContent).toContain(en.check.deadlineLaterElsewhere);
+      expect(bar.textContent).not.toContain(en.check.deadlineFromReport);
+      expect(bar.textContent).not.toContain(en.check.deadlineFromDiscovery);
+    });
+
+    it(`${c.st}, ${c.incident}: Check says the same`, async () => {
+      const evaluate = engine(c.st, late);
+      renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: claimIn(c.st, c.incident) });
+      expect(await screen.findByText(en.check.deadlineLate(fmt.date(c.date)))).toBeTruthy();
+      expect(screen.getByText(en.check.deadlineLaterElsewhere)).toBeTruthy();
+    });
+  }
+
+  it("a passed date with no flag from any rule is still plainly late, with no note", async () => {
+    const evaluate = engine("MI", {
+      status: "late",
+      deadline_date: "2026-01-01",
+      rule_ids: ["MI-FILE-1", "MI-FILE-2"],
+      flags: [],
+    });
+    renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: claimIn("MI", "2021-01-01") });
+    const lead = await screen.findByText(en.check.deadlineLate(fmt.date("2026-01-01")));
+    const bar = lead.closest("p")!;
+    expect(bar.hasAttribute("data-late")).toBe(true);
+    expect(bar.textContent).not.toContain(en.check.deadlineLaterElsewhere);
+  });
+
+  it("Spanish keeps the same line", async () => {
+    const evaluate = engine("MA", {
+      status: "late",
+      deadline_date: "2026-05-31",
+      rule_ids: ["MA-DEAD-1", "MA-DEAD-3"],
+      flags: ["deadline_from_discovery"],
+    });
+    const initial = stateFrom(
+      [{ type: "check", patch: { st: "MA", date: "2023-06-01", exam: "yes", police: "not_yet" } }],
+      "es",
+    );
+    renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial, lang: "es" });
+    expect(await screen.findByText(es.check.deadlineLaterElsewhere)).toBeTruthy();
   });
 });

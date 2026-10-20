@@ -79,6 +79,7 @@ export default function CheckSummaryView({
               ) : null}
               {d.fromReport ? <p className={styles.factNote}>{t.check.deadlineFromReport}</p> : null}
               {d.fromDiscovery ? <p className={styles.factNote}>{t.check.deadlineFromDiscovery}</p> : null}
+              {d.late && d.laterElsewhere ? <p className={styles.factNote}>{t.check.deadlineLaterElsewhere}</p> : null}
             </>
           ) : d.kind === "span" ? (
             <>

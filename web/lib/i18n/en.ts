@@ -293,6 +293,10 @@ export const en = {
       "This date counts from the day it happened. The law counts from your report, so you may have longer.",
     deadlineFromDiscovery:
       "This deadline may count from when the crime was discovered, which can be later than the date it happened. The program decides.",
+    // A passed date when another rule counts from the report or from discovery (lib/deadline.ts
+    // laterElsewhere). Whether it fits can turn on age at the time of the crime, which Tend never asks.
+    deadlineLaterElsewhere:
+      "Another rule in this state counts from a later day, such as the report or when it was discovered. Ask the program whether it fits you.",
     deadlineSpan: (span: string) => `You have ${span} from the date it happened to apply.`,
     deadlineSpanLonger: "Some cases have longer. The rule says when.",
     deadlineSpanNote: "Add the date above to see the exact day.",
@@ -861,7 +865,7 @@ export const en = {
     title: "Your garden",
     lead: "One plant for each cost the program can pay. It grows as your claim moves.",
     deadlineAsk: "Ask the program for the filing deadline.",
-    // The bar that repeats a late deadline counted from the report or from discovery (docs/SPEC.md v1.3).
+    // The bar that repeats a passed deadline that may not be late (docs/SPEC.md v1.3).
     deadlineMayBeLater: "You may have more time.",
     tally: (n: number, amount: string) => `${plural(n, "plant", "plants")} for ${amount}.`,
     paidSoFar: (amount: string) => `The program decides. In bloom, paid by the program: ${amount}.`,
