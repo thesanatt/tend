@@ -17,7 +17,7 @@
    "field_count": 175
   }
  },
- "source_sha256": "98e479fcf132ec6620029919493669726c9968a9e11a2704e19bb78e0b9c33d6",
+ "source_sha256": "40c091ce0d86437a80f7a7e7993461271092430a4e3d02a65cda5c1758c43cfe",
  "rules": [
   {
    "id": "VA-EXAM-1",
@@ -65,6 +65,11 @@
   },
   {
    "id": "VA-WAGE-1",
+   "kind": "covered",
+   "expense": "lost_wages"
+  },
+  {
+   "id": "VA-WAGE-2",
    "kind": "covered",
    "expense": "lost_wages"
   },
@@ -149,6 +154,11 @@
    "kind": "deadline",
    "days": 1095,
    "from": "crime"
+  },
+  {
+   "id": "VA-DEADLINE-6",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "VA-DEADLINE-1",

@@ -363,14 +363,27 @@
    "category": "covered_expense",
    "expense": "lost_wages",
    "params": {
-    "expense": "lost_wages",
-    "detail": true
+    "expense": "lost_wages"
    },
-   "summary": "Total loss of earnings from crime-caused incapacity is paid weekly at 66-2/3 percent of the victim's average weekly wages.",
+   "summary": "The weekly rate is 66-2/3 percent of the victim's average weekly wages.",
    "quote": "at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
    "source_id": "VA-S6",
    "pinpoint": "Va. Code § 19.2-368.11:1(A)",
    "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=at%20a%20weekly%20compensation%20rate,the%20victim%27s%20average%20weekly%20wages"
+  },
+  {
+   "id": "VA-WAGE-2",
+   "category": "covered_expense",
+   "expense": "lost_wages",
+   "params": {
+    "expense": "lost_wages",
+    "detail": true
+   },
+   "summary": "If the crime leaves the victim totally unable to work, lost pay is paid weekly while that lasts. The rate is 66-2/3 percent of the victim's average weekly wages.",
+   "quote": "An award made pursuant to this chapter for total loss of earnings that results directly from incapacity incurred by a crime victim shall be payable during total incapacity to the victim or to such other eligible person, at a weekly compensation rate equal to 66-2 /3 percent of the victim's average weekly wages",
+   "source_id": "VA-S6",
+   "pinpoint": "Va. Code § 19.2-368.11:1(A)",
+   "fragment_url": "https://law.lis.virginia.gov/vacode/title19.2/chapter21.1/section19.2-368.11:1/#:~:text=An%20award%20made%20pursuant%20to,the%20victim%27s%20average%20weekly%20wages"
   },
   {
    "id": "VA-MOVE-1",
@@ -561,13 +574,23 @@
    "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=Crimes%20committed%20on%20and%20after,three%20years%20from%20the%20crime."
   },
   {
+   "id": "VA-DEADLINE-6",
+   "category": "filing_deadline",
+   "params": {},
+   "summary": "The date of the crime decides how long you have to file, based on the law in effect at that time.",
+   "quote": "The date of the crime will determine how long the victim has to file a claim with VVF based on the law in effect at the time.",
+   "source_id": "VA-S12",
+   "pinpoint": "VVF Eligibility page, Requirement #5: Filing Timeline Stipulations",
+   "fragment_url": "https://vvf.virginia.gov/eligibility#:~:text=The%20date%20of%20the%20crime,in%20effect%20at%20the%20time."
+  },
+  {
    "id": "VA-DEADLINE-1",
    "category": "filing_deadline",
    "params": {
     "years": 3,
     "from": "crime"
    },
-   "summary": "Under Virginia law, a claim must be filed within three years after the crime.",
+   "summary": "The current statute says a claim must be filed within three years after the crime.",
    "quote": "A claim shall be filed by the claimant not later than three years after the occurrence of the crime upon which such claim is based",
    "source_id": "VA-S3",
    "pinpoint": "Va. Code § 19.2-368.5(B)",

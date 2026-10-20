@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "472e93984e677a503b38143d09a29ada378eeb1364791b8d7df3c2327839ee87",
+ "source_sha256": "acb4650435bb867f6715e12227978645d6487a9d280883b96769abff750afd28",
  "rules": [
   {
    "id": "SD-EXAM-1",
@@ -304,6 +304,11 @@
    "id": "SD-CAP-4",
    "category": "expense_cap",
    "reason": "applies_to \"homicide scene cleanup\""
+  },
+  {
+   "id": "SD-CAP-6",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
   }
  ]
 }
