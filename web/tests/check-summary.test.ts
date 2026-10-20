@@ -417,7 +417,7 @@ describe("the address program line", () => {
     expect(s.acp?.coversSexualAssault).toBe(false);
     for (const dict of [en, es]) {
       const line = dict.check.acpMaybe(s.acp!.programName ?? dict.check.acpGeneric);
-      expect(line).not.toMatch(/substitute address|dirección sustituta/);
+      expect(line).not.toMatch(/substitute address|direcci.n sustituta/);
     }
   });
 });
