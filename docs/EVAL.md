@@ -42,7 +42,7 @@ Neon detail is in [NEON.md](NEON.md).
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
 | Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Oct 20 |
 | Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Oct 20 |
-| Web unit and screen tests | `cd web && npx vitest run` | 57 files, 1,929 passed at `b2f8698` (1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Oct 20 |
+| Web unit and screen tests | `cd web && npx vitest run` | 57 files, 1,932 passed at `ef8e7ce` (1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Oct 20 |
 | Web lint | `cd web && npm run lint` | 0 errors and 19 warnings: 17 in the generated `public/engine/tend.js`, 2 unused parameters in a test | rerun Oct 20 |
 | Web production build | `cd web && npx next build` | builds, with 181 pages made ahead of time | rerun Oct 20 |
 | Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 31 passed (156 s with the build). They are 12 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts | rerun Oct 20; see the note below |
