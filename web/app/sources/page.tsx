@@ -50,12 +50,6 @@ const STILL_COUNTED: Record<string, ReactNode> = {
       them.
     </>
   ),
-  HI: (
-    <>
-      <Link href="/law/HI#HI-EXAM-1">Hawaii&apos;s Attorney General program page</Link> says police are to make sure
-      victims are offered free forensic exams.
-    </>
-  ),
 };
 
 // Why a jurisdiction is not counted. Shown only while it is not; others get a sentence built from the data.
@@ -86,34 +80,10 @@ const NOT_COUNTED: Record<string, ReactNode> = {
 function notCounted({ st, name, why, rules }: ExamCount["missing"][number]): ReactNode {
   if (NOT_COUNTED[st]) return NOT_COUNTED[st];
   if (why === "none") return <>For {name}, Tend&apos;s verified rules don&apos;t include an exam-billing rule.</>;
-  if (why === "narrow")
-    return (
-      <>
-        <Link href={`/law/${st}`}>{name}&apos;s rules</Link> do not say the survivor must not be billed.
-      </>
-    );
   return (
     <>
       <Link href={`/law/${st}#${rules[0]}`}>{name}&apos;s rule</Link> is set aside, so Tend does not apply it to every
       exam.
-    </>
-  );
-}
-
-// The end of the method sentence: the rules the count leaves out, so a reader who reruns the method gets the number.
-function leavingOut(rules: ExamCount["leftOut"]): ReactNode {
-  if (!rules.length) return null;
-  const states = [...new Set(rules.map((r) => r.name))];
-  return (
-    <>
-      , leaving out {states.length === 1 ? `${states[0]}'s ` : null}
-      {rules.map(({ st, id }, i) => (
-        <Fragment key={id}>
-          {i ? (i < rules.length - 1 ? ", " : rules.length > 2 ? ", and " : " and ") : null}
-          <Link href={`/law/${st}#${id}`}>{id}</Link>
-        </Fragment>
-      ))}
-      , which {rules.length === 1 ? "covers" : "cover"} only {names(rules.map((r) => r.covers))}
     </>
   );
 }
@@ -179,9 +149,9 @@ export default function Sources() {
           </h3>
           <p className={styles.where}>
             Counted from the verified rules (category exam_no_bill) that Tend&apos;s law engine applies, each a
-            word-for-word quote of its source{leavingOut(exam.leftOut)}. Some of the counted rules have limits, such as
-            an exam within 96 hours of the attack in Arkansas, or only the forensic part of the exam in Texas. See any
-            state&apos;s <Link href="/law/MI">How Tend decides</Link> page for its rules and their quotes.
+            word-for-word quote of its source. Some of the counted rules have limits, such as an exam within 96 hours of
+            the attack in Arkansas, or only the forensic part of the exam in Texas. See any state&apos;s{" "}
+            <Link href="/law/MI">How Tend decides</Link> page for its rules and their quotes.
           </p>
           {exam.missing.length ? (
             <p className={styles.where}>

@@ -40,7 +40,7 @@ const WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eig
 const Word = (x: number) => WORDS[x].charAt(0).toUpperCase() + WORDS[x].slice(1);
 
 // The numbers here are recounted from the corpus, so they follow the rules when the rules change. The comments
-// give today's values (corpus of Oct 3, 2026).
+// give today's values (rules of Oct 20, 2026).
 describe("the exam billing count", () => {
   // The rules filed as exam_no_bill that each jurisdiction's engine applies.
   const applied = new Map(
@@ -63,44 +63,31 @@ describe("the exam billing count", () => {
       .map((p) => p.textContent!.replace(/\s+/g, " "))
       .find((t) => t.startsWith("Counted from the verified rules (category exam_no_bill)"))!;
 
-  let leftOut: string[];
   let counted: string[];
   let missing: typeof STATES;
   let heading: string;
   beforeEach(() => {
-    // The rules the method sentence says the count leaves out, read off the page the way a reader reruns it.
-    leftOut = method().match(/\b[A-Z]{2}-[A-Z]+-\d+\b/g) ?? [];
-    // A jurisdiction counts when its engine applies an exam_no_bill rule the method does not leave out.
-    counted = STATES.filter(({ st }) => applied.get(st)!.some((id) => !leftOut.includes(id))).map((s) => s.st);
+    // A jurisdiction counts when its engine applies an exam_no_bill rule.
+    counted = STATES.filter(({ st }) => applied.get(st)!.length).map((s) => s.st);
     missing = STATES.filter((s) => !counted.includes(s.st));
     heading = `In ${counted.length} of ${STATES.length} jurisdictions`;
   });
 
-  it("prints the number its stated method gives, with Idaho left out", () => {
-    // 48 today: every jurisdiction but Idaho, Rhode Island, and Wyoming.
-    expect(counted.length).toBeLessThanOrEqual(48);
-    expect(missing.map((s) => s.st)).toEqual(expect.arrayContaining(["ID", "RI", "WY"]));
+  it("prints the number its stated method gives", () => {
+    // 47 today: every jurisdiction but Hawaii, Idaho, Rhode Island, and Wyoming.
+    expect(counted.length).toBeLessThanOrEqual(47);
+    expect(missing.map((s) => s.st)).toEqual(expect.arrayContaining(["HI", "ID", "RI", "WY"]));
     const block = claim(heading);
     expect(block).toContain(`${Word(missing.length)} are not counted.`);
     for (const { name } of missing) expect(block).toContain(name);
     expect(block).not.toMatch(/more likely|\byet\b/);
   });
 
-  it("names each rule it leaves out and what that rule covers", () => {
-    // Idaho's two rules today. Once the rules file them outside exam_no_bill, the sentence names none.
-    expect(leftOut).toEqual(applied.get("ID"));
-    expect(rule("ID", "ID-EXAM-3").quote).toContain(
-      "an adult victim's (18 years of age and older) private insurance should not be billed",
-    );
-    expect(rule("ID", "ID-EXAM-5").quote).toContain("a medical provider who has received payment from the commission");
-    if (leftOut.length) {
-      expect(method()).toContain(
-        "each a word-for-word quote of its source, leaving out Idaho's ID-EXAM-3 and ID-EXAM-5, which cover only an adult's private insurance and a provider the program has paid. Some of the counted rules have limits",
-      );
-      for (const id of leftOut) expect(document.querySelector(`a[href="/law/ID#${id}"]`), id).not.toBeNull();
-    } else {
-      expect(method()).toContain("each a word-for-word quote of its source. Some of the counted rules have limits");
-    }
+  it("leaves no rule out of its method, since Idaho's two rules are filed as exam payments", () => {
+    expect(rule("ID", "ID-EXAM-3").category).toBe("exam_payment");
+    expect(rule("ID", "ID-EXAM-5").category).toBe("exam_payment");
+    expect(method()).toContain("each a word-for-word quote of its source. Some of the counted rules have limits");
+    expect(method()).not.toMatch(/\b[A-Z]{2}-[A-Z]+-\d+\b/);
   });
 
   it("states Idaho's rules in their own terms", () => {
@@ -128,7 +115,7 @@ describe("the exam billing count", () => {
     expect(block).toContain(
       "found six states with no law or policy that explicitly says survivors must not be billed: Hawaii, Idaho, Oklahoma, Rhode Island, Virginia, and Wyoming (GAO-24-106036, page 12).",
     );
-    // Hawaii, Oklahoma, and Virginia today.
+    // Oklahoma and Virginia today.
     const still = ["HI", "ID", "OK", "RI", "VA", "WY"].filter((st) => counted.includes(st));
     expect(block).toContain(`Tend still counts ${WORDS[still.length]} of them.`);
     const why: Record<string, [string, string, string]> = {
@@ -142,19 +129,20 @@ describe("the exam billing count", () => {
         "evidence collection at no cost to you",
         "Virginia's notice to patients says evidence collection is at no cost",
       ],
-      HI: [
-        "HI-EXAM-1",
-        "victims are offered and provided free forensic examinations",
-        "Hawaii's Attorney General program page says police are to make sure",
-      ],
     };
     for (const st of still) {
       const [id, quote, says] = why[st];
       expect(rule(st, id).quote).toContain(quote);
       expect(block).toContain(says);
     }
-    if (!still.includes("HI"))
-      expect(block).toContain("Hawaii's rule is a sentence on the Attorney General's program page");
+    // HI-EXAM-1 is what police are to do, so the normalizer sets it aside.
+    expect(still).not.toContain("HI");
+    expect(ir("HI").skipped).toContainEqual({
+      id: "HI-EXAM-1",
+      category: "exam_no_bill",
+      reason: expect.stringContaining("what police are to do"),
+    });
+    expect(block).toContain("Hawaii's rule is a sentence on the Attorney General's program page");
   });
 
   it("gives its examples of limits from the quotes", () => {
@@ -217,8 +205,11 @@ describe("Tend's own numbers", () => {
     const justia = sources.filter((h) => h === "law.justia.com").length;
     const cornell = sources.filter((h) => h === "www.law.cornell.edu").length;
     const quoting = hosts.filter((h) => h === "law.justia.com" || h === "www.law.cornell.edu").length;
-    expect([justia, cornell, quoting]).toEqual([103, 17, 234]);
-    const block = claim("2,578 rules from 824 saved sources, for 51 jurisdictions.");
+    expect([justia, cornell, quoting]).toEqual([103, 17, 255]);
+    const n = (x: number) => x.toLocaleString("en-US");
+    const block = claim(
+      `${n(hosts.length)} rules from ${n(sources.length)} saved sources, for ${STATES.length} jurisdictions.`,
+    );
     expect(block).toContain(
       `${justia + cornell} of the sources are copies of state statutes and regulations saved from Justia (${justia}) or Cornell's Legal Information Institute (${cornell})`,
     );

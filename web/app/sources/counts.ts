@@ -19,40 +19,24 @@ function corpus(): StateLaw[] {
 
 const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
 
-// Filed as exam_no_bill, but the quote does not say the survivor must not be billed: it covers only what it maps to.
-// ID-EXAM-5's provider may collect the rest when the program can't pay in full (Idaho Code 72-1026(3)). /sources
-// names each one the engine applies, so the method it states gives the number it prints. Once the rules file both
-// elsewhere, it names neither and this list can go.
-export const NOT_A_BAR = new Map([
-  ["ID-EXAM-3", "an adult's private insurance"],
-  ["ID-EXAM-5", "a provider the program has paid"],
-]);
-
 export interface ExamCount {
   // Where the law engine applies at least one rule against billing the survivor for the exam.
   counted: string[];
-  // set_aside: every such rule is set aside. none: Tend has no such rule. narrow: only rules in NOT_A_BAR.
-  missing: { st: string; name: string; why: "set_aside" | "none" | "narrow"; rules: string[] }[];
-  // Rules in NOT_A_BAR the engine applies as exam_no_bill, which the count leaves out.
-  leftOut: { st: string; name: string; id: string; covers: string }[];
+  // set_aside: every such rule is set aside. none: Tend has no such rule.
+  missing: { st: string; name: string; why: "set_aside" | "none"; rules: string[] }[];
 }
 
 export function examNoBill(): ExamCount {
   const counted: string[] = [];
   const missing: ExamCount["missing"] = [];
-  const leftOut: ExamCount["leftOut"] = [];
   for (const { st, name, law } of corpus()) {
     const rules = law.rules.filter((r) => r.category === "exam_no_bill").map((r) => r.id);
     const applied = new Set((loadIr(st)?.rules ?? []).filter((r) => r.kind === "exam_no_bill").map((r) => r.id));
-    const bars = rules.filter((id) => applied.has(id) && !NOT_A_BAR.has(id));
-    for (const id of rules.filter((id) => applied.has(id) && NOT_A_BAR.has(id)))
-      leftOut.push({ st, name, id, covers: NOT_A_BAR.get(id)! });
-    if (bars.length) counted.push(st);
+    if (rules.some((id) => applied.has(id))) counted.push(st);
     else if (!rules.length) missing.push({ st, name, why: "none", rules });
-    else if (rules.some((id) => applied.has(id))) missing.push({ st, name, why: "narrow", rules });
     else missing.push({ st, name, why: "set_aside", rules });
   }
-  return { counted, missing: missing.sort(byName), leftOut };
+  return { counted, missing: missing.sort(byName) };
 }
 
 export interface AddressCount {
