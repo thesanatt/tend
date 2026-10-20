@@ -116,6 +116,10 @@ export const ASKS_FOR_REPORT = "the program asks for a police report";
 // The card's report clause where a criminal charge is generally needed and an exam cannot replace it
 // (West Virginia 14-2A-18). Like ASKS_FOR_REPORT, it always takes the card's second slot.
 export const NEEDS_CHARGE = "the program generally needs a criminal charge to be filed";
+// The card's report clause where every award needs a report but the program may waive it, in its
+// discretion, for a survivor who had a forensic exam (Iowa r. 61-9.29(4)(c), a waiver_records rule). It is
+// not a gate: like any other clause it is left out when the card has no room.
+export const EXAM_SOMETIMES = "a forensic exam can sometimes count instead of a police report";
 
 export function placeName(st: string, name: string): string {
   return st === "DC" ? "DC" : name;
@@ -702,6 +706,17 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       cites: [...new Set([...waivers, ...reqWithAlts, ...timedReq].map((r) => r.id))],
     };
     lead = askLead([...required, ...altRules]);
+    // Where none of those other records is one an anonymous adult can get on her own (Delaware 9010(a)(5):
+    // protective services, Family Court, a protection order, cooperation with police, the Agency's
+    // discretion), the rule is marked report_gate and the card says a report is asked for, as in the
+    // states where every award needs one.
+    const gated = required.filter((r) => params(r).report_gate === true);
+    if (gated.length)
+      clause = {
+        id: "report",
+        text: ASKS_FOR_REPORT,
+        cites: [...new Set([...gated, ...required].map((r) => r.id))],
+      };
   } else {
     // Every award needs a report: the card says so in place of an exam or deadline clause.
     const timed = required.map((r) => ({ r, w: reportWindow(r) })).find((x) => x.w);
@@ -711,16 +726,25 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       phrase(r, "exception"),
     );
     const exc = [...new Set(excRules.map((r) => phrase(r, "exception")!))].join(", ") || null;
-    // The timed rule and the exceptions first, then every other rule that sets the requirement (Hawaii:
-    // HRS 351-31(d) after the 72-hour definition in Haw. Admin. R. 23-605-2).
-    const cites = [...new Set([...(timed ? [timed.r] : []), ...excRules, ...required].map((r) => r.id))];
+    // The rule that sets the requirement leads, the first in the file, so the tile and the card show its
+    // pinpoint (Hawaii HRS 351-31(d), not the 72-hour definition in Haw. Admin. R. 23-605-2; Texas
+    // 56B.053(a), not its child exception). The timed rule and the exceptions follow, then the rest.
+    const cites = [
+      ...new Set([...required.slice(0, 1), ...(timed ? [timed.r] : []), ...excRules, ...required].map((r) => r.id)),
+    ];
     key = {
       id: "report",
       big: "Police report",
       small: `the program asks for one${timed ? ` within ${timed.w}` : ""}${exc ? `, ${exc}` : ""}`,
       cites,
     };
-    clause = { id: "report", text: ASKS_FOR_REPORT, cites };
+    // A rule whose own words let the program waive the report for a survivor who had a forensic exam
+    // (Iowa r. 61-9.29(4)(c), marked waiver_records) makes the card say the exam can sometimes count,
+    // citing that rule first; it does not take the card's second slot by force.
+    const waived = required.filter((r) => list(r, "waiver_records").includes("forensic_exam"));
+    clause = waived.length
+      ? { id: "report", text: EXAM_SOMETIMES, cites: [...new Set([...waived, ...required].map((r) => r.id))] }
+      : { id: "report", text: ASKS_FOR_REPORT, cites };
     // The lead follows the rules that set the requirement. Waivers that name other records (South
     // Carolina's anonymous route in program papers) show below in their own words, and a page note says
     // where they disagree with the law.
@@ -979,7 +1003,8 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
   const keyFacts = [total.key, deadline.key, report.key, exam.key].filter((k): k is KeyFact => k !== null);
 
   // "If you're Jane Doe in Michigan: <money>, and <one protection>." Where every award needs a
-  // police report, or a criminal charge, the protection clause says so. Otherwise the first protection
+  // police report (or the only other records are ones an anonymous adult cannot get, report_gate), or a
+  // criminal charge, the protection clause says so. Otherwise the first protection
   // clause that keeps the sentence within the word limit is used: an exam that counts for the report,
   // then the exam itself, then the deadline. A clause is never cut down to fit; it is left out instead.
   const first = total.clause ?? coveredClause(covered.rows);

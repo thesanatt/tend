@@ -9,6 +9,7 @@ import {
   citedIds,
   clauseText,
   duration,
+  EXAM_SOMETIMES,
   expenseName,
   joinWords,
   NEEDS_CHARGE,
@@ -73,12 +74,19 @@ function reportRules(law: Jurisdiction, ir: IrSummary) {
   const required = main.filter((r) => r.params?.required === true);
   const exam = required.filter((r) => alternatives(r).includes("forensic_exam"));
   const examConditions = new Set(exam.map((r) => r.params?.exam_condition).filter((v) => typeof v === "string"));
+  const noOther = required.length > 0 && required.every((r) => !alternatives(r).length);
+  // A rule whose own words let the program waive the report after a forensic exam (Iowa r. 61-9.29(4)(c)).
+  const examWaiver = required.some((r) =>
+    ([] as unknown[]).concat(r.params?.waiver_records ?? []).includes("forensic_exam"),
+  );
   return {
     exam,
     examConditions,
     charge: rules.some((r) => r.params?.charge_required === true),
-    // Every award needs a report: some required rule, and none names another record.
-    gate: required.length > 0 && required.every((r) => !alternatives(r).length),
+    // Every award needs a report: some required rule, and none names another record, or the other records
+    // are ones an anonymous adult cannot get on her own (report_gate, Delaware 9010(a)(5)).
+    gate: (noOther && !examWaiver) || (!noOther && required.some((r) => r.params?.report_gate === true)),
+    sometimes: noOther && examWaiver,
   };
 }
 
@@ -215,11 +223,18 @@ describe("state summaries for every jurisdiction", () => {
 
   it.each(states)("%s: the card's report clause follows the report rules", (st) => {
     const { law, ir, summary } = built.get(st)!;
-    const { exam, examConditions, charge, gate } = reportRules(law, ir);
+    const { exam, examConditions, charge, gate, sometimes } = reportRules(law, ir);
     const report = summary.share.clauses.find((c) => c.id === "report");
     if (gate) {
       // Every award needs a police report, so the card says that instead of naming a protection.
       expect(report?.text).toBe(ASKS_FOR_REPORT);
+    } else if (sometimes) {
+      // The program may waive the report after a forensic exam: the card says so when it has room.
+      if (report) expect(report.text).toBe(EXAM_SOMETIMES);
+      else
+        expect(
+          words(`If you're Jane Doe in ${summary.place}: ${summary.share.clauses[0].text}, and ${EXAM_SOMETIMES}.`),
+        ).toBeGreaterThan(SHARE_WORD_LIMIT);
     } else if (exam.length && charge) {
       // A criminal charge an exam cannot replace takes the second slot (WV-REP-2).
       expect(report?.text).toBe(NEEDS_CHARGE);
@@ -625,7 +640,7 @@ describe("limits in the rules reach the page and the card", () => {
       "Apply within 1 year of the date it happened, or later if the Commission finds good cause.",
     );
     expect(fact("DC", "deadline")?.text).toBe(
-      "Apply within 1 year of the date it happened. If you learned of the program later, you may have 1 year from then if the delay was reasonable.",
+      "Apply within 1 year of the date it happened. If you learned of the program later, you may have 1 year from then if the delay was reasonable. The rules below say more.",
     );
     expect(tile("AL", "deadline")?.small).toBe("to apply, from the date it happened, with exceptions");
     // No extension and no other deadline rule: no hedge.
@@ -688,8 +703,9 @@ describe("limits in the rules reach the page and the card", () => {
       text: "you can ask to be paid back for costs like medical care and travel",
     });
     expect(ia.share.clauses[0].cites[0]).toBe("IA-MED-1");
+    // The report clause cites the rule that lets the program waive the report after an exam.
     expect(cardSources(built.get("IA")!.law, ia.share.clauses)).toEqual({
-      pinpoints: ["Iowa Code 915.86(1)", "Iowa Code 915.84(3)"],
+      pinpoints: ["Iowa Code 915.86(1)", "Iowa Admin. Code r. 61-9.29(4)(c)"],
       label: "law",
     });
   });
@@ -795,8 +811,8 @@ describe("conditions the second review found missing", () => {
   it("report tiles cite the rule behind every limit they state", () => {
     // Massachusetts: "time limits apply" comes from c. 258C, s. 2(b).
     expect(tile("MA", "report")?.cites).toContain("MA-REPORT-1");
-    // Hawaii: the statute that sets the requirement follows the 72-hour definition.
-    expect(tile("HI", "report")?.cites).toEqual(["HI-REPORT-2", "HI-REPORT-1"]);
+    // Hawaii: the statute that sets the requirement leads, then the 72-hour definition.
+    expect(tile("HI", "report")?.cites).toEqual(["HI-REPORT-1", "HI-REPORT-2"]);
     // Delaware and Montana: the 72-hour windows in their quotes reach the tile.
     expect(tile("DE", "report")?.small).toBe("not the only record that counts, but time limits apply");
     expect(tile("MT", "report")?.small).toBe(
@@ -863,6 +879,110 @@ describe("conditions the second review found missing", () => {
       ["LA", "deadline"],
     ])
       expect(section(st, id)[0], `${st} ${id}`).toMatchObject({ key: `${id}-note`, kind: "note", cites: [] });
+  });
+});
+
+// The topic verifiers' third round: limits that sit in the cited sources and the cards they change.
+describe("conditions the third review found missing", () => {
+  const get = (st: string) => built.get(st)!.summary;
+  const section = (st: string, id: string) => get(st).sections.find((s) => s.id === id)!.facts;
+  const tile = (st: string, id: string) => get(st).keyFacts.find((k) => k.id === id);
+
+  it("an exam rule's place limit reaches the lead, the tile and the card (Delaware, Massachusetts, Maine, Virginia)", () => {
+    // 11 Del. C. 9021: the chapter with the free exam rule applies to crimes committed in Delaware.
+    expect(section("DE", "exam")[0]).toMatchObject({
+      text: "You should not have to pay for a sexual assault forensic exam if the crime was in Delaware.",
+      cites: ["DE-EXAM-4", "DE-EXAM-1", "DE-EXAM-2"],
+    });
+    expect(tile("MA", "exam")).toMatchObject({
+      big: "Forensic exam",
+      small: "you should not have to pay for it if the crime was in Massachusetts",
+    });
+    // One rule carries both of Maine's limits, so the headline stays.
+    expect(section("ME", "exam")[0].text).toBe(
+      "You should not have to pay for a sexual assault forensic exam if an evidence kit is used for a crime in Maine.",
+    );
+    // Virginia: evidence collection, within 120 hours, for a crime in Virginia.
+    expect(tile("VA", "exam")?.small).toBe(
+      "you should not have to pay for evidence collection if done within 120 hours of a crime in Virginia",
+    );
+    // The exam clause no longer fits these cards, so the deadline takes its place.
+    for (const st of ["MA", "VA"]) expect(get(st).share.clauses.map((c) => c.id), st).toEqual(["total", "deadline"]);
+  });
+
+  it("where no record an anonymous adult can get replaces the report, the card says a report is asked for (Delaware)", () => {
+    // 9010(a)(5): protective services, Family Court, a protection order, cooperation with police, or the
+    // Agency's discretion. The tile still says other records count.
+    expect(get("DE").share.text).toBe(
+      "If you're Jane Doe in Delaware: you can ask for up to $25,000, or more in some cases, and the program asks for a police report.",
+    );
+    expect(get("DE").share.clauses[1].cites).toEqual(["DE-REPORT-1", "DE-REPORT-2"]);
+    expect(tile("DE", "report")?.small).toBe("not the only record that counts, but time limits apply");
+  });
+
+  it("where the program may waive the report after an exam, the card says the exam can sometimes count (Iowa)", () => {
+    expect(get("IA").share.text).toBe(
+      "If you're Jane Doe in Iowa: you can ask to be paid back for costs like medical care and travel, and a forensic exam can sometimes count instead of a police report.",
+    );
+    expect(get("IA").share.clauses[1]).toMatchObject({ id: "report", text: EXAM_SOMETIMES });
+    expect(get("IA").share.clauses[1].cites[0]).toBe("IA-REPORT-2");
+    // The tile and the lead still follow the statute.
+    expect(tile("IA", "report")?.big).toBe("Police report");
+  });
+
+  it("a report tile leads with the rule that sets the requirement and carries its exceptions (Hawaii, Texas)", () => {
+    expect(tile("HI", "report")).toMatchObject({
+      small: "the program asks for one within 72 hours, or later only if you show good cause, unless an arrest was made",
+      cites: ["HI-REPORT-1", "HI-REPORT-2"],
+    });
+    // 56B.053(c): the report rule does not apply to a child; the card keeps 56B.053(a) first.
+    expect(tile("TX", "report")).toMatchObject({
+      small: "the program asks for one, unless the victim is a child",
+      cites: ["TX-REPORT-1", "TX-REPORT-3"],
+    });
+    expect(get("TX").share.clauses[1].cites[0]).toBe("TX-REPORT-1");
+  });
+
+  it("a total says 'or more' only when the survivor could get more (North Carolina, Nebraska)", () => {
+    // 15B-11(g): only funeral costs, paid after a death, sit on top of the $45,000.
+    expect(section("NC", "costs").slice(0, 2).map((f) => f.text)).toEqual([
+      "The most the program can pay in total is $45,000.",
+      "Payments for funeral costs do not count toward this limit.",
+    ]);
+    expect(tile("NC", "total")?.small).toBe("the most you can ask for in total");
+    expect(get("NC").share.text).toBe(
+      "If you're Jane Doe in North Carolina: you can ask for up to $45,000, the program asks for a police report, and you should not have to pay for a forensic exam.",
+    );
+    // 81-1823 opens "Except as provided in section 81-1813".
+    expect(section("NE", "costs")[0]).toMatchObject({
+      text: "The most the program can pay in total is $25,000, or more in some cases.",
+      cites: ["NE-CAP-1", "NE-CAP-6"],
+    });
+  });
+
+  it("a limit with no amount shows under its cost and never changes the row's name (Texas, Florida, North Dakota)", () => {
+    const row = (st: string, label: string) => section(st, "costs").find((f) => f.label === label);
+    expect(
+      row("TX", "Trips over 20 miles one way to medical or mental health care, court, or a victim's funeral")?.details?.map(
+        (d) => d.cite,
+      ),
+    ).toEqual(["TX-TRAVEL-2"]);
+    expect(row("FL", "Medical care")?.details?.map((d) => d.cite)).toEqual(["FL-CAP-2", "FL-CAP-9"]);
+    expect(row("ND", "Travel")?.details?.map((d) => d.cite)).toEqual(["ND-CAP-TRAVEL", "ND-CAP-TRAVEL-MIN"]);
+  });
+
+  it("cooperation rules show in the police section in their own words and change no tile or card", () => {
+    for (const [st, id] of [
+      ["CO", "CO-COOP-1"],
+      ["MO", "MO-REP-3"],
+      ["RI", "RI-REPORT-6"],
+      ["NE", "NE-REP-3"],
+      ["NH", "NH-REP-3"],
+    ]) {
+      expect(section(st, "police").find((f) => f.cites[0] === id)?.verbatimSummary, id).toBe(true);
+      expect(tile(st, "report")?.cites, id).not.toContain(id);
+      expect(get(st).share.clauses.flatMap((c) => c.cites), id).not.toContain(id);
+    }
   });
 });
 
@@ -951,6 +1071,53 @@ describe("summary rules on a made-up jurisdiction", () => {
       small: "the program asks for one within 5 days, counted from discovery, or later for good cause",
       cites: ["ZZ-R1", "ZZ-R2", "ZZ-R3"],
     });
+    // The rule that sets the requirement leads even when a later rule holds the window (Hawaii).
+    const later = zz([
+      rule("ZZ-R1", "reporting_requirement", { required: true, exception: "unless an arrest was made" }),
+      rule("ZZ-R2", "reporting_requirement", { required: true, within_hours: 72 }),
+    ]);
+    expect(later.keyFacts.find((k) => k.id === "report")).toMatchObject({
+      small: "the program asks for one within 72 hours, unless an arrest was made",
+      cites: ["ZZ-R1", "ZZ-R2"],
+    });
+    expect(later.share.clauses.find((c) => c.id === "report")?.cites[0]).toBe("ZZ-R1");
+  });
+
+  it("asks for a report on the card where the other records are not hers to get, and softens it where an exam may count", () => {
+    // report_gate: the rule names other records, but none an anonymous adult can get on her own.
+    const gated = zz([
+      rule("ZZ-T1", "total_cap", { amount_cents: 1500000 }),
+      rule("ZZ-R1", "reporting_requirement", {
+        required: true,
+        within_hours: 72,
+        alternatives: ["protective_order"],
+        report_gate: true,
+      }),
+      rule("ZZ-R2", "reporting_requirement", { required: true }),
+    ]);
+    expect(gated.keyFacts.find((k) => k.id === "report")?.small).toBe(
+      "not the only record that counts, but time limits apply",
+    );
+    expect(gated.share.clauses.find((c) => c.id === "report")).toEqual({
+      id: "report",
+      text: ASKS_FOR_REPORT,
+      cites: ["ZZ-R1", "ZZ-R2"],
+    });
+    // waiver_records: every award needs a report, but the program may waive it after a forensic exam.
+    const waived = zz([
+      rule("ZZ-T1", "total_cap", { amount_cents: 1500000 }),
+      rule("ZZ-R1", "reporting_requirement", { required: true, within_hours: 72 }),
+      rule("ZZ-R2", "reporting_requirement", { required: true, waiver_records: ["forensic_exam", "advocate"] }),
+    ]);
+    expect(waived.keyFacts.find((k) => k.id === "report")?.small).toBe("the program asks for one within 72 hours");
+    expect(waived.share.clauses.find((c) => c.id === "report")).toEqual({
+      id: "report",
+      text: EXAM_SOMETIMES,
+      cites: ["ZZ-R2", "ZZ-R1"],
+    });
+    expect(waived.share.text).toBe(
+      "If you're Jane Doe in Zedland: you can ask for up to $15,000, and a forensic exam can sometimes count instead of a police report.",
+    );
   });
 
   it("says an exam counts only with its own limit, and not at all when two rules set different ones", () => {
