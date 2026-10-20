@@ -367,7 +367,7 @@
    "quote": "35 sessions, 20 family sessions $80/hour for a therapist/counselor $125/hour for a psychologist/physician",
    "source_id": "MI-S11",
    "pinpoint": "MDHHS award limits table, Psychological Counseling",
-   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=35%20sessions%2C%2020%20family%20sessions,therapist%2Fcounselor%20%24125%2Fhour%20for%20a%20psychologist%2Fphysician"
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/what-costs-may-be-covered-for-crime-victims#:~:text=35%20sessions%2C%2020%20family%20sessions,%24125%2Fhour%20for%20a%20psychologist%2Fphysician"
   },
   {
    "id": "MI-CAP-5",
@@ -396,6 +396,21 @@
    "source_id": "MI-S6",
    "pinpoint": "MCL 18.361(2)(c)",
    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=An%20award%20for%20expenses%20under%20this%20subdivision%20may%20not%20exceed%20%243%2C800.00%20per%20claimant."
+  },
+  {
+   "id": "MI-CAP-12",
+   "category": "expense_cap",
+   "params": {
+    "expense": "temporary_housing",
+    "amount_cents": 380000,
+    "per": "claim",
+    "scope": "temporary lodging for not more than 30 days"
+   },
+   "summary": "Temporary lodging is one of the relocation costs. It counts toward the same $3,800 limit per claimant as the first month of rent, a security deposit, starting utilities, and moving costs.",
+   "quote": "An award for expenses under this subdivision may not exceed $3,800.00 per claimant. Eligible relocation expenses under this subdivision include, but are not limited to, all of the following expenses: (i) The first month of rent, a security deposit, and the costs to start utilities in the dwelling unit to which the claimant relocates. The commission may require the claimant to provide a signed rental agreement to verify these expenses. (ii) Moving expenses, including, but not limited to, costs to rent a truck, travel, and for moving services. (iii) Costs for temporary lodging for not more than 30 days.",
+   "source_id": "MI-S6",
+   "pinpoint": "MCL 18.361(2)(c)",
+   "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-361#:~:text=An%20award%20for%20expenses%20under%20this%20subdivision%20may%20not,not%20more%20than%2030%20days."
   },
   {
    "id": "MI-CAP-7",
@@ -519,7 +534,8 @@
    "id": "MI-COV-5",
    "category": "covered_expense",
    "params": {
-    "expense": "temporary_housing"
+    "expense": "temporary_housing",
+    "detail": true
    },
    "summary": "As part of relocation, temporary lodging is covered for up to 30 days.",
    "quote": "(iii) Costs for temporary lodging for not more than 30 days.",
@@ -720,6 +736,19 @@
    "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20crime%20must%20be%20reported,lieu%20of%20reporting%20to%20police."
   },
   {
+   "id": "MI-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "scope": "medical bills for injuries other than the forensic exam"
+   },
+   "summary": "The program's SAFE Response page covers medical bills for injuries other than the exam. To get that help, it says a victim would have to apply, report to police, and cooperate with the investigation. The victim would also have to use their medical insurance, including Medicaid or Medicare, or any other way to pay.",
+   "quote": "If a sexual assault victim sustains a personal physical injury that needs to be treated other than the forensic exam, he or she may be eligible for assistance with medical bills through the Crime Victim Services Commission compensation program. The victim would have to submit a compensation claim application, report the incident to the police, cooperate with the investigation and utilize their medical insurance, including Medicaid, Medicare, or any other resource available for payment.",
+   "source_id": "MI-S17",
+   "pinpoint": "MDHHS SAFE Response page, Other physical injuries",
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/resources-for-professionals/safe#:~:text=If%20a%20sexual%20assault%20victim,other%20resource%20available%20for%20payment."
+  },
+  {
    "id": "MI-MIN-1",
    "category": "minimum_loss",
    "params": {
@@ -780,7 +809,7 @@
    "id": "MI-CONDUCT-2",
    "category": "conduct_reduction",
    "params": {},
-   "summary": "The commission must reject a claim if it finds the victim or claimant willfully refused to cooperate with law enforcement or the prosecutor.",
+   "summary": "If the commission finds the victim or claimant chose not to cooperate with law enforcement or the prosecutor, it must turn down the claim.",
    "quote": "In the event of determination of willful noncooperation by the victim or other claimant, the commission shall reject the claim.",
    "source_id": "MI-S5",
    "pinpoint": "MCL 18.356(2)",
@@ -806,7 +835,7 @@
    "quote": "The following individuals may be considered a victim and qualify for crime victim compensation: A person who was physically, emotionally, psychologically, or mentally injured as the direct result of a crime. A sexual assault victim.",
    "source_id": "MI-S10",
    "pinpoint": "MDHHS Do I Qualify?, Who is considered a victim?",
-   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20following%20individuals%20may%20be,crime.%20A%20sexual%20assault%20victim."
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/do-i-qualify#:~:text=The%20following%20individuals%20may%20be,A%20sexual%20assault%20victim."
   },
   {
    "id": "MI-ELIG-2",
@@ -891,7 +920,7 @@
    "quote": "Applications can still be submitted via mail to: Michigan Department of Health and Human Services Division of Victim Services Crime Victim Services Commission Grand Tower, Suite 1113 235 South Grand Avenue, PO Box 30037 Lansing MI 48909",
    "source_id": "MI-S13",
    "pinpoint": "Applying for Compensation, How do I apply?",
-   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation#:~:text=Applications%20can%20still%20be%20submitted,Box%2030037%20Lansing%20MI%2048909"
+   "fragment_url": "https://www.michigan.gov/mdhhs/safety-injury-prev/publicsafety/crimevictims/crime-victim-compensation/applying-for-compensation#:~:text=Applications%20can%20still%20be%20submitted,Lansing%20MI%2048909"
   },
   {
    "id": "MI-DOC-1",
@@ -1300,6 +1329,9 @@
    "fragment_url": "https://legislature.mi.gov/Laws/MCL?objectName=mcl-18-363#:~:text=The%20record%20of%20a%20proceeding,the%20freedom%20of%20information%20act"
   }
  ],
+ "page_notes": {
+  "police": "Note: Michigan law says a sexual assault forensic exam meets the police report and cooperation rules. The program's SAFE Response page still says a survivor who wants help with bills for other injuries would have to report to police and cooperate. The program may ask you for a police report."
+ },
  "coverage": {
   "found": [
    "exam_no_bill",

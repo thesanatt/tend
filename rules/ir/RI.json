@@ -17,10 +17,14 @@
    "field_count": 0
   }
  },
- "source_sha256": "af3f4dad62bb4d45e53bcf44abfcaf5f20fd9209a191042da4f04b33aa5b20ca",
+ "source_sha256": "f2107cd3507d6c8d99ab20897b9b22d1da7977e5c4956ce113eb8a94af54e1cc",
  "rules": [
   {
    "id": "RI-EXAM-1",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "RI-EXAM-2",
    "kind": "exam_payment"
   },
   {
@@ -89,12 +93,22 @@
    "alternatives": []
   },
   {
+   "id": "RI-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "RI-REPORT-5",
    "kind": "reporting",
    "required": true,
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "RI-REPORT-6",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "RI-COLLATERAL-1",

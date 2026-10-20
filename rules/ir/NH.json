@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "8df2383d66c3f2474c80738952b2db328e27c69f46d732b85b2f0eaebb640e84",
+ "source_sha256": "701183ddf169386fc0f7d3466c5c8d63b18183d7a1d5ed96291b4f78bd7c8881",
  "rules": [
   {
    "id": "NH-EXAM-1",
@@ -203,6 +203,11 @@
    ]
   },
   {
+   "id": "NH-REP-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "NH-MIN-1",
    "kind": "minimum_loss",
    "waiver": "none",
@@ -334,6 +339,11 @@
   },
   {
    "id": "NH-ACP-1",
+   "kind": "info",
+   "category": "address_confidentiality"
+  },
+  {
+   "id": "NH-ACP-2",
    "kind": "info",
    "category": "address_confidentiality"
   },

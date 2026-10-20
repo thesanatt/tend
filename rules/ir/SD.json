@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "4a9d655da44f0fbbf687cbb9f79de9ad097cc7c0e483b0412ede7d3135f101ce",
+ "source_sha256": "434f1740a6cccdac335ef726a42b74dfe559d03c8b9128c52366abd4dca627b2",
  "rules": [
   {
    "id": "SD-EXAM-1",
@@ -104,6 +104,11 @@
    "id": "SD-SEC-1",
    "kind": "covered",
    "expense": "security"
+  },
+  {
+   "id": "SD-SEC-2",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "SD-CLOTH-1",

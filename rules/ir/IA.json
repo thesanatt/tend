@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "aec4eeaa156eb15a98291c5c1ebdaa6268711977956434848cacd10558c2eb88",
+ "source_sha256": "f1bed65ca1d8bede3d3f0068811e1bfeecf7cdea5983ed519bc96526492e46db",
  "rules": [
   {
    "id": "IA-EXAM-1",
@@ -208,6 +208,21 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "IA-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-REPORT-4",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "IA-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "IA-COLL-1",

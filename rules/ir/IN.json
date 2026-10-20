@@ -17,7 +17,7 @@
    "field_count": 89
   }
  },
- "source_sha256": "6ad595b00a1326580c4eed6b45b73b0ad4a0fe86775e9e1da055a7e4b4a5169a",
+ "source_sha256": "4ad88eec6ae1fea02c5150bc38f1a201855f7992a126fa876e52b2d9e8ad45fd",
  "rules": [
   {
    "id": "IN-EXAM-1",
@@ -129,6 +129,11 @@
   },
   {
    "id": "IN-EXCL-5",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
+   "id": "IN-COV-9",
    "kind": "info",
    "category": "excluded_expense"
   },

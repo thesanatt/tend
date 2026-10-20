@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "892c1730d90e4a97f4f75b113d290e19059afd2a67385f384198db4c55298f64",
+ "source_sha256": "6b88572db31351c97c87a48cd86be8b4a32fac71757ebe533c19c017542e5ea9",
  "rules": [
   {
    "id": "NJ-EXAM-1",
@@ -196,6 +196,11 @@
    "kind": "reporting",
    "required": true,
    "alternatives": []
+  },
+  {
+   "id": "NJ-COOP-1",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "NJ-MINLOSS-1",

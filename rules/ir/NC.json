@@ -17,7 +17,7 @@
    "field_count": 116
   }
  },
- "source_sha256": "9ef275f4223e0e218b98c55dee9a1e6fa9d533a4136c80e17c733c300cc54f34",
+ "source_sha256": "077936315afd129851c7d205103ae12861d37b237342cf6781a324b8a2e07257",
  "rules": [
   {
    "id": "NC-EXAM-1",
@@ -113,6 +113,11 @@
    "category": "excluded_expense"
   },
   {
+   "id": "NC-DEAD-2",
+   "kind": "info",
+   "category": "excluded_expense"
+  },
+  {
    "id": "NC-REPL-1",
    "kind": "expense_cap",
    "expense": "other",
@@ -126,6 +131,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "NC-DEAD-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "NC-REPORT-1",
@@ -237,5 +247,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "NC-FUN-2",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

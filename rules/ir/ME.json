@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "e30da7dcb7a572877ab5e5e945f89c34ade58846dfe55f0f293c21d1f2e82332",
+ "source_sha256": "718feda3bce9ac3c33452326914db891d1cba60ef21390f29cff765521812d5b",
  "rules": [
   {
    "id": "ME-EXAM-1",
@@ -36,6 +36,10 @@
   {
    "id": "ME-EXAM-4",
    "kind": "exam_no_bill"
+  },
+  {
+   "id": "ME-EXAM-6",
+   "kind": "exam_payment"
   },
   {
    "id": "ME-EXAM-5",
@@ -144,6 +148,12 @@
    "required": true,
    "alternatives": [],
    "within_days": 5
+  },
+  {
+   "id": "ME-REP-4",
+   "kind": "reporting",
+   "required": true,
+   "alternatives": []
   },
   {
    "id": "ME-REP-2",

@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "1cdf4d87db77b8aecd57e8bff0c8ae35b634e774180d4c11320021b19ce5cf48",
+ "source_sha256": "20b2f61af18c925868c6edaf2917ec970219087af220d8656c3b394f786c4599",
  "rules": [
   {
    "id": "WI-EXAM-1",
@@ -155,6 +155,16 @@
    "kind": "deadline",
    "days": 365,
    "from": "crime"
+  },
+  {
+   "id": "WI-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "WI-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WI-REPORT-1",

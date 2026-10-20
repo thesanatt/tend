@@ -17,7 +17,7 @@
    "field_count": 112
   }
  },
- "source_sha256": "7e3fa1efb683d27d842ff3eda32a8fac5eed9622b88a8d55fcacd79593e02e1a",
+ "source_sha256": "28d4fac09553a5e25acfbf702b49328770e0c04a7fcad3abd78b2757560e0e91",
  "rules": [
   {
    "id": "WA-EXAM-1",
@@ -318,5 +318,11 @@
    "category": "record_confidentiality"
   }
  ],
- "skipped": []
+ "skipped": [
+  {
+   "id": "WA-COV-TRANSPORT-4",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  }
+ ]
 }

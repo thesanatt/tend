@@ -17,7 +17,7 @@
    "field_count": 207
   }
  },
- "source_sha256": "1c194b5570899bc03492cff1faee013720bb244d4fdce347169abe57d9caf055",
+ "source_sha256": "f07ff04da3f88f85d607f484950558811ab317ed703bb5ad8f7918c9f7ca64d4",
  "rules": [
   {
    "id": "OH-EXAM-1",
@@ -36,7 +36,15 @@
    "kind": "exam_payment"
   },
   {
+   "id": "OH-EXAM-9",
+   "kind": "exam_payment"
+  },
+  {
    "id": "OH-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "OH-EXAM-8",
    "kind": "exam_payment"
   },
   {
@@ -125,6 +133,11 @@
   },
   {
    "id": "OH-DEADLINE-2",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
+   "id": "OH-DEADLINE-3",
    "kind": "info",
    "category": "filing_deadline"
   },

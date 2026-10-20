@@ -450,7 +450,7 @@
    "quote": "A victim of sexual assault may be granted compensation for maximum of two weeks of lost wages without a doctor's excuse.",
    "source_id": "AL-S25",
    "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(28)",
-   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20victim%20of%20sexual%20assault,wages%20without%20a%20doctor%27s%20excuse."
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=A%20victim%20of%20sexual%20assault,wages%20without%20a%20doctor%E2%80%99s%20excuse."
   },
   {
    "id": "AL-CAP-RELO",
@@ -523,6 +523,21 @@
    "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=When%20the%20claimant%20has%20already,expenses%20not%20to%20exceed%20%2415%2C000."
   },
   {
+   "id": "AL-CAP-MED-UNPAID",
+   "category": "expense_cap",
+   "params": {
+    "expense": "medical",
+    "amount_cents": 600000,
+    "per": "claim",
+    "scope": "unpaid bills only; bills already paid out of pocket can be paid back up to $15,000"
+   },
+   "summary": "Medical bills that are still unpaid (not psychiatric care, counseling, or dental) may be paid at a reduced rate of 30% of eligible charges, up to $6,000. Medical bills you already paid yourself may be paid back in full, up to $15,000.",
+   "quote": "Outstanding charges for medical treatment, excluding psychiatric care, counseling, and dental treatment, may be compensated at a reduced rate of thirty percent (30%) of eligible charges up to a maximum amount of six thousand dollars ($6,000). When the claimant has already paid out-of-pocket for medical treatment and services, the claimant may be fully reimbursed for all eligible expenses not to exceed $15,000.",
+   "source_id": "AL-S25",
+   "pinpoint": "Ala. Admin. Code r. 262-X-4-.04(3)",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-4-.04#:~:text=Outstanding%20charges%20for%20medical%20treatment%2C,expenses%20not%20to%20exceed%20%2415%2C000."
+  },
+  {
    "id": "AL-COV-HIV",
    "category": "covered_expense",
    "expense": "prescription",
@@ -535,6 +550,19 @@
    "source_id": "AL-S28",
    "pinpoint": "Ala. Admin. Code r. 262-X-11-.01(10)(a)1",
    "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-11-.01#:~:text=If%20it%20is%20determined%20that%20a%20victim,or%20victim%20of%20sexual%20violence."
+  },
+  {
+   "id": "AL-CAP-HIV-INS",
+   "category": "expense_cap",
+   "params": {
+    "expense": "prescription",
+    "per": "claim"
+   },
+   "summary": "If the survivor has health insurance, the pharmacy, hospital, or clinic filling the prescription must first seek payment from the insurance.",
+   "quote": "If a victim of sexual violence has health insurance, the pharmacy, hospital, or medical clinic filling the prescription for HIV prophylaxis must first seek payment of the expense from the health insurance provider.",
+   "source_id": "AL-S28",
+   "pinpoint": "Ala. Admin. Code r. 262-X-11-.01(10)(a)3",
+   "fragment_url": "https://admincode.legislature.state.al.us/administrative-code/262-X-11-.01#:~:text=If%20a%20victim%20of%20sexual,from%20the%20health%20insurance%20provider."
   },
   {
    "id": "AL-COV-SEC",
@@ -735,7 +763,7 @@
    "params": {
     "rule": "Crimes in Alabama that cause serious personal injury or death can qualify; the victim does not have to live in Alabama."
    },
-   "summary": "A crime committed or attempted in Alabama that causes serious personal injury or death can qualify, wherever the victim lives.",
+   "summary": "A crime in Alabama, or an attempt, that causes serious injury or death can qualify, wherever the victim lives.",
    "quote": "An act occurring or attempted within the geographical boundaries of this state which results in serious personal injury or death to a victim for which punishment by fine, imprisonment, or death may be imposed.",
    "source_id": "AL-S14",
    "pinpoint": "Ala. Code 15-23-3(2)a",
@@ -776,7 +804,7 @@
    "quote": "The completed application can be returned by: FAX: (334)290-4455 Email: info@acvcc.alabama.gov Mail: Alabama Crime Victims Compensation Commission P.O. Box 231267 Montgomery, Alabama 36123-1267",
    "source_id": "AL-S5",
    "pinpoint": "Compensation page, How Do I File A Claim?",
-   "fragment_url": "https://acvcc.alabama.gov/victims/compesation/#:~:text=The%20completed%20application%20can%20be,Box%20231267%20Montgomery%2C%20Alabama%2036123%2D1267"
+   "fragment_url": "https://acvcc.alabama.gov/victims/compesation/#:~:text=The%20completed%20application%20can%20be,Montgomery%2C%20Alabama%2036123%2D1267"
   },
   {
    "id": "AL-SUBMIT-2",

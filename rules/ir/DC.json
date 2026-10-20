@@ -17,7 +17,7 @@
    "field_count": 443
   }
  },
- "source_sha256": "b781dea3fa03bc0ffa2c28369e9b06935e98fb11d9a1962024fef20958b17202",
+ "source_sha256": "b9b4068d2f0b1eddf9d37aba737b8da6d2ca56a8e5279139505cfcc6ca098ed1",
  "rules": [
   {
    "id": "DC-EXAM-1",
@@ -162,6 +162,11 @@
    "kind": "deadline",
    "days": 365,
    "from": "crime"
+  },
+  {
+   "id": "DC-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "DC-REP-1",

@@ -17,7 +17,7 @@
    "field_count": 107
   }
  },
- "source_sha256": "0ab9f661bbc1ae9cc2c7880bc6af225c360568535c7bc4b8baa3c7f7171c92f6",
+ "source_sha256": "b50d1bee4586aa49bd204d3ad3b2ab30196ec238da41a89da881893bf689ecfc",
  "rules": [
   {
    "id": "MA-EXAM-1",
@@ -37,6 +37,10 @@
   },
   {
    "id": "MA-EXAM-5",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "MA-EXAM-10",
    "kind": "exam_payment"
   },
   {
@@ -160,6 +164,11 @@
    "category": "filing_deadline"
   },
   {
+   "id": "MA-DEAD-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "MA-DEAD-3",
    "kind": "deadline",
    "days": 1095,
@@ -208,6 +217,16 @@
    "alternatives": [
     "other"
    ]
+  },
+  {
+   "id": "MA-REPORT-7",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "MA-REPORT-8",
+   "kind": "info",
+   "category": "reporting_requirement"
   },
   {
    "id": "MA-COLL-1",

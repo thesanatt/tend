@@ -17,7 +17,7 @@
    "field_count": 138
   }
  },
- "source_sha256": "2bf578f88f86376d008f59d1db1ffc8d7578164f87257a29b38d8cd6d8c025d4",
+ "source_sha256": "386ffc29f2a4428570f1f8b3f712a8c0cc635cab6e7270d9a0b3c6c7966bd594",
  "rules": [
   {
    "id": "FL-EXAM-1",
@@ -117,6 +117,11 @@
    "expense": "relocation"
   },
   {
+   "id": "FL-COV-7",
+   "kind": "covered",
+   "expense": "relocation"
+  },
+  {
    "id": "FL-EXC-1",
    "kind": "excluded",
    "tags": [
@@ -141,6 +146,11 @@
    "category": "filing_deadline"
   },
   {
+   "id": "FL-DEADLINE-4",
+   "kind": "info",
+   "category": "filing_deadline"
+  },
+  {
    "id": "FL-REPORT-1",
    "kind": "reporting",
    "required": true,
@@ -154,8 +164,18 @@
    "alternatives": []
   },
   {
+   "id": "FL-REPORT-3",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
    "id": "FL-COLLATERAL-1",
    "kind": "collateral"
+  },
+  {
+   "id": "FL-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
   },
   {
    "id": "FL-CONDUCT-1",
@@ -279,6 +299,21 @@
   }
  ],
  "skipped": [
+  {
+   "id": "FL-CAP-9",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "FL-CAP-10",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
+  {
+   "id": "FL-CAP-11",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
   {
    "id": "FL-CAP-8",
    "category": "expense_cap",

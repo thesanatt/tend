@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "f3155cefe38b5e0eb98d593584f60cef8decafb8e50289dab17aa47492737b55",
+ "source_sha256": "8af91734f6e484369bc3d1071fe563643e6631e410dd4dee66cd9aeb6751dd5b",
  "rules": [
   {
    "id": "WV-EXAM-1",
@@ -101,6 +101,11 @@
    "kind": "deadline",
    "days": 730,
    "from": "crime"
+  },
+  {
+   "id": "WV-DEAD-2",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "WV-REP-1",

@@ -481,7 +481,8 @@
    "category": "covered_expense",
    "expense": "clothing_bedding",
    "params": {
-    "expense": "clothing_bedding"
+    "expense": "clothing_bedding",
+    "detail": true
    },
    "summary": "As part of crime scene clean-up, the Office may pay the reasonable replacement value of bedding and clothing.",
    "quote": "The Office may award compensation for the reasonable replacement value of bedding and clothing;",
@@ -591,6 +592,20 @@
    "pinpoint": "AG Standards for Providing Services to Victims of Sexual Assault (2018), Standard on the medical forensic exam"
   },
   {
+   "id": "NJ-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "The program will not pay if the victim did not cooperate with reasonable requests from law enforcement. A compelling health or safety reason for not cooperating is the exception.",
+   "quote": "No compensation shall be awarded if: a. Compensation to the victim proves to be substantial unjust enrichment to the offender or if the victim did not cooperate with the reasonable requests of law enforcement authorities unless the victim demonstrates a compelling health or safety reason for not cooperating",
+   "source_id": "NJ-S10",
+   "pinpoint": "N.J.S.A. 52:4B-18a.",
+   "fragment_url": "https://law.justia.com/codes/new-jersey/title-52/section-52-4b-18/#:~:text=No%20compensation%20shall%20be%20awarded,safety%20reason%20for%20not%20cooperating"
+  },
+  {
    "id": "NJ-MINLOSS-1",
    "category": "minimum_loss",
    "params": {},
@@ -691,7 +706,7 @@
    "quote": "For applications and submission of documents, you may: File online @ www.njvictims.org",
    "source_id": "NJ-S6",
    "pinpoint": "NJ VCCO Contact page, applications and submission of documents",
-   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=For%20applications%20and%20submission%20of,may%3A%20File%20online%20%40%20www.njvictims.org"
+   "fragment_url": "https://www.njoag.gov/vcco/vcco-contact-us/#:~:text=For%20applications%20and%20submission%20of,File%20online%20%40%20www.njvictims.org"
   },
   {
    "id": "NJ-SUB-2",

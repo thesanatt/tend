@@ -17,7 +17,7 @@
    "field_count": 152
   }
  },
- "source_sha256": "30271d7d913fafc1d87cf17458c5b2940ce48679206508180c47d2daf7f95225",
+ "source_sha256": "36c2a12effb688f16bdee75f629bfc4eac29089d27fa86dcc3af8398de9c52d6",
  "rules": [
   {
    "id": "CO-EXAM-1",
@@ -41,6 +41,10 @@
   },
   {
    "id": "CO-EXAM-6",
+   "kind": "exam_payment"
+  },
+  {
+   "id": "CO-EXAM-9",
    "kind": "exam_payment"
   },
   {
@@ -117,6 +121,11 @@
   },
   {
    "id": "CO-REPORT-2",
+   "kind": "info",
+   "category": "reporting_requirement"
+  },
+  {
+   "id": "CO-COOP-1",
    "kind": "info",
    "category": "reporting_requirement"
   },

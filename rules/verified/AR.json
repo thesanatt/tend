@@ -254,6 +254,19 @@
    "fragment_url": "https://law.justia.com/codes/arkansas/title-12/subtitle-2/chapter-12/subchapter-4/section-12-12-403/#:~:text=This%20subsection%20does%20not%20require,forensic%20medical%20exam%2C%20or%20both."
   },
   {
+   "id": "AR-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "expense": "forensic_exam"
+   },
+   "summary": "Not having to report for the exam does not stop a report of suspected child abuse or neglect that the state's child abuse law allows or requires.",
+   "quote": "Subdivision (b)(2)(A) of this section does not preclude a report of suspected abuse or neglect as permitted or required by the Child Maltreatment Act, § 12-18-101 et seq.",
+   "source_id": "AR-S12",
+   "pinpoint": "A.C.A. 12-12-403(b)(2)(B)",
+   "fragment_url": "https://law.justia.com/codes/arkansas/title-12/subtitle-2/chapter-12/subchapter-4/section-12-12-403/#:~:text=Subdivision%20%28b%29%282%29%28A%29%20of%20this%20section,Act%2C%20%C2%A7%2012%2D18%2D101%20et%20seq."
+  },
+  {
    "id": "AR-EXAM-5",
    "category": "collateral_source",
    "expense": "forensic_exam",
@@ -434,6 +447,33 @@
    "pinpoint": "16 CAR 60-203(c)(2)"
   },
   {
+   "id": "AR-REPORT-3",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "scope": "minors, per the DPS criteria page"
+   },
+   "summary": "The program's criteria page says minors are excluded from the 72-hour report rule. The board's rules count the victim's age as one kind of good cause for a late report.",
+   "quote": "reported to authorities within 72 hours (minors excluded)",
+   "source_id": "AR-S3",
+   "pinpoint": "DPS Criteria to Receive Compensation page",
+   "fragment_url": "https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/criteria-to-receive-compensation/#:~:text=reported%20to%20authorities%20within%2072%20hours%20%28minors%20excluded%29"
+  },
+  {
+   "id": "AR-COOP-1",
+   "category": "reporting_requirement",
+   "params": {
+    "required": false,
+    "alternatives": [],
+    "scope": "cooperation with law enforcement"
+   },
+   "summary": "If the board finds the claimant or victim did not fully cooperate with law enforcement, it may deny, withdraw, or reduce the award. This does not apply to a minor victim of a sex offense or a victim of human trafficking.",
+   "quote": "Except as provided in subdivision (c)(2) of this section, upon finding that the claimant or victim has not fully cooperated with appropriate law enforcement agencies, the board may deny, withdraw, or reduce an award of reparations. (2) This subsection does not apply if the claimant or victim is a victim of human trafficking or a minor victim of a sex offense, as defined in § 12-12-903.",
+   "source_id": "AR-S9",
+   "pinpoint": "A.C.A. 16-90-712(c)",
+   "fragment_url": "https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-712/#:~:text=Except%20as%20provided%20in%20subdivision,as%20defined%20in%20%C2%A7%2012%2D12%2D903."
+  },
+  {
    "id": "AR-COLL-1",
    "category": "collateral_source",
    "params": {},
@@ -496,7 +536,7 @@
    "quote": "“Allowable expense” means charges incurred for needed products, services, and accommodations, including, but not limited to: (i) Medical care;",
    "source_id": "AR-S11",
    "pinpoint": "A.C.A. 16-90-703(1)(A)(i)",
-   "fragment_url": "https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-703/#:~:text=%E2%80%9CAllowable%20expense%E2%80%9D%20means%20charges%20incurred,limited%20to%3A%20%28i%29%20Medical%20care%3B"
+   "fragment_url": "https://law.justia.com/codes/arkansas/title-16/subtitle-6/chapter-90/subchapter-7/section-16-90-703/#:~:text=%E2%80%9CAllowable%20expense%E2%80%9D%20means%20charges%20incurred,%28i%29%20Medical%20care%3B"
   },
   {
    "id": "AR-COV-2",
@@ -633,7 +673,7 @@
    "quote": "We offer an ONLINE APPLICATION process for Victim Compensation! Access the Online Application",
    "source_id": "AR-S1",
    "pinpoint": "CVRB home page, Crime Victim Compensation Application",
-   "fragment_url": "https://www.dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/#:~:text=We%20offer%20an%20ONLINE%20APPLICATION,Compensation%21%20Access%20the%20Online%20Application"
+   "fragment_url": "https://www.dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/#:~:text=We%20offer%20an%20ONLINE%20APPLICATION,Access%20the%20Online%20Application"
   },
   {
    "id": "AR-SUBMIT-2",
@@ -647,7 +687,7 @@
    "quote": "Victims may apply for compensation by submitting an application to the Arkansas Crime Victim's Reparations office. Applications are available from the Arkansas Crime Victim's Reparations office or from one of Arkansas's 28 elected prosecutors. These programs are funded by fees collected from criminal offenders and a federal grant through the Victims of Crime Act, administered by the U.S. Department of Justice. Contact CVRB 322 South Main Street, Suite 615 Little Rock, AR 72201",
    "source_id": "AR-S4",
    "pinpoint": "About CVRB page, applying and Contact CVRB",
-   "fragment_url": "https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/about-cvrb/#:~:text=Victims%20may%20apply%20for%20compensation,615%20Little%20Rock%2C%20AR%2072201"
+   "fragment_url": "https://dps.arkansas.gov/crime-info-support/crime-victims-reparations-board/about-cvrb/#:~:text=Victims%20may%20apply%20for%20compensation,Little%20Rock%2C%20AR%2072201"
   },
   {
    "id": "AR-DOC-1",

@@ -232,8 +232,20 @@
    "params": {
     "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
    },
-   "summary": "The program's provider guide says a medical forensic exam with no evidence kit collected (NKC) is also paid, so a victim who declines the rape kit is still covered.",
+   "summary": "The program's provider guide says an exam with no evidence kit collected (NKC) is also paid. It covers victims who decline the rape kit.",
    "quote": "This expense covers victims who decline the rape kit.",
+   "source_id": "SC-S12",
+   "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
+  },
+  {
+   "id": "SC-EXAM-7",
+   "category": "exam_payment",
+   "expense": "forensic_exam",
+   "params": {
+    "payer": "South Carolina Department of Crime Victim Compensation (DCVC), Sexual Assault Program"
+   },
+   "summary": "For a victim who declines the kit, the nurse offers the same exam without collecting evidence, within the program's set time of 72-120 hours after the assault.",
+   "quote": "The SANE will offer the medical forensic exam without evidence collection and will follow the same procedures including a thorough examination of the victim within the set time parameters which is 72 -120 hours post assault.",
    "source_id": "SC-S12",
    "pinpoint": "DCVC Sexual Assault Program provider instructions, Sexual Assault Program Eligibility Criteria (NKC)"
   },
@@ -565,6 +577,19 @@
    "fragment_url": "https://www.scstatehouse.gov/code/t16c003.php#:~:text=For%20the%20purposes%20of%20subsection,causes%20which%20justify%20the%20delay."
   },
   {
+   "id": "SC-REPORT-4",
+   "category": "reporting_requirement",
+   "params": {
+    "required": true,
+    "alternatives": []
+   },
+   "summary": "No award can be made unless the crime was promptly reported and recorded in police records. The crime must have directly caused the victim physical or mental harm. The claimant must also have fully cooperated with all law enforcement agencies and with the program.",
+   "quote": "No award may be made unless: (1) a crime was committed; (2) the crime directly resulted in physical or psychic trauma to the victim; (3) the crime was promptly reported to the proper authority and recorded in police records; and (4) the claimant or other award recipient has fully cooperated with all law enforcement agencies and with the Office of the Attorney General, South Carolina Crime Victim Services Division, Department of Crime Victim Compensation.",
+   "source_id": "SC-S1",
+   "pinpoint": "S.C. Code 16-3-1170(A)",
+   "fragment_url": "https://www.scstatehouse.gov/code/t16c003.php#:~:text=No%20award%20may%20be%20made,Department%20of%20Crime%20Victim%20Compensation."
+  },
+  {
    "id": "SC-REPORT-2",
    "category": "reporting_requirement",
    "params": {
@@ -705,7 +730,7 @@
    "quote": "Please complete the application in its entirety, print and mail the application to DCVC: Department of Crime Victim Compensation Edgar A. Brown Building, Room 401 1205 Pendleton Street Columbia, South Carolina 29201",
    "source_id": "SC-S8",
    "pinpoint": "How to Apply for Compensation page",
-   "fragment_url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/#:~:text=Please%20complete%20the%20application%20in,Street%20Columbia%2C%20South%20Carolina%2029201"
+   "fragment_url": "https://www.scag.gov/all-divisions/crime-victim-services-division/crime-victim-compensation/how-to-apply-for-compensation/#:~:text=Please%20complete%20the%20application%20in,Columbia%2C%20South%20Carolina%2029201"
   },
   {
    "id": "SC-DOC-1",

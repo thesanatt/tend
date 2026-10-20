@@ -17,7 +17,7 @@
    "field_count": 53
   }
  },
- "source_sha256": "86f0c768feea20fd1d55fcd500806a43dd671952be6d22e412df97fccdc20c46",
+ "source_sha256": "2fc747eb0668271ad37f8968d0c2042f4cc04fa6f4e3af5763b73bc9dc0c5c4b",
  "rules": [
   {
    "id": "MN-EXAM-1",
@@ -155,6 +155,11 @@
    "kind": "deadline",
    "days": 1095,
    "from": "discovery"
+  },
+  {
+   "id": "MN-DEADLINE-3",
+   "kind": "info",
+   "category": "filing_deadline"
   },
   {
    "id": "MN-DEADLINE-2",

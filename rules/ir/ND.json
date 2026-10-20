@@ -17,7 +17,7 @@
    "field_count": 0
   }
  },
- "source_sha256": "f8ddc44df05151cc4086df7e00553b0477aad90c6ea64519892bfa1817c8ccac",
+ "source_sha256": "796a2f71e5ca3c4020161e5e90ac6952ea5be4b259e66d2d61647fb2f0a22759",
  "rules": [
   {
    "id": "ND-EXAM-1",
@@ -147,6 +147,11 @@
    "id": "ND-EXCL-ATTY",
    "kind": "excluded",
    "expense": "legal"
+  },
+  {
+   "id": "ND-EXCL-TRAVEL",
+   "kind": "info",
+   "category": "excluded_expense"
   },
   {
    "id": "ND-DEADLINE-1",
@@ -322,6 +327,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "ND-CAP-TRAVEL-MIN",
+   "category": "expense_cap",
+   "reason": "expense_cap without amount or expense"
+  },
   {
    "id": "ND-CAP-COUNSEL-ADULT",
    "category": "expense_cap",
