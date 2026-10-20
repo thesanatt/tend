@@ -11,7 +11,7 @@ import { loadCorpus } from "@/components/public/data";
 import { LINKS } from "@/components/tour/links";
 
 // The day these facts were last checked against the docs and the data. Change it along with any fact.
-export const CHECKED = "2026-10-19";
+export const CHECKED = "2026-10-20";
 
 // TODO(Sanat): two or three sentences, in your own words, on why you built Tend. Until then /press shows a
 // marked placeholder and the fact sheet leaves it out.
@@ -58,7 +58,7 @@ export interface PressFacts {
 
 // The line from the press brief, word for word.
 export const BUILDER =
-  "Built by Sanat Gupta, a computer science senior at the University of Michigan, at MHacks 2026, where it took 1st place in Capital One's track.";
+  "Built by Sanat Gupta, a computer science senior at the University of Michigan, at MHacks 2026, where it won Capital One's Best Use of Nessie prize.";
 
 export const NOT_ADVICE =
   "Tend is not legal advice. It shows what each program's own rules say, with the quote. The program decides.";

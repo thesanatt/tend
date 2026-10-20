@@ -57,8 +57,10 @@ describe("/press", () => {
 
   it("says what Tend does in one paragraph, then gives the builder's line word for word", () => {
     expect(BUILDER).toBe(
-      "Built by Sanat Gupta, a computer science senior at the University of Michigan, at MHacks 2026, where it took 1st place in Capital One's track.",
+      "Built by Sanat Gupta, a computer science senior at the University of Michigan, at MHacks 2026, where it won Capital One's Best Use of Nessie prize.",
     );
+    // Devpost shows "Winner" with no place, the prize had three winners, and it is a sponsor prize, not a track.
+    expect(BUILDER).not.toMatch(/1st|first place|track/i);
     expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Press kit");
     const about = screen.getByText(kit.about);
     expect(about.tagName).toBe("P");
