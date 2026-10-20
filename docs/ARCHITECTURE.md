@@ -224,12 +224,15 @@ Money is integer cents end to end. Adding a jurisdiction is new data, never new 
   `deadline_from_report` when both apply. The engine's check uses the longest deadline rule. The
   flow and the packet lead with the general deadline rule instead (`web/lib/deadline.ts`: the rule
   each state page leads with, or where every rule counts from a later day, as in Washington, the
-  first one; a rule for one trip's travel request never leads; dated with the IR's days) and add "Some cases have until {date}"
-  when the engine's longest date is later. A report or discovery note follows the general rule's
+  first one; a rule for one trip's travel request never leads) and add "Some cases have until
+  {date}" when the longest of the engine's rules ends later. Both dates are counted on the
+  calendar from the rule's own years, months, and days, not from the IR's days, which count a
+  month as 30 days (docs/SPEC.md step 10). A report or discovery note follows the general rule's
   own provision, so a rule for minors counted from the report (MI-FILE-2, KS-DEAD-4) adds none. A
-  passed general date is never shown as "File by", and is not shown as plainly late while the
-  engine says ok. Without the IR they fall back to the engine's date and flags. The advocate view
-  (`web/components/claim/Checks.tsx`) and `api/tend_api/packet.py` still show the engine's date.
+  passed general date is never shown as "File by", and is not shown as plainly late while a longer
+  rule's window is open. Without the IR they fall back to the engine's date and flags. The advocate
+  view (`web/components/claim/Checks.tsx`) does the same when the law IR loads;
+  `api/tend_api/packet.py` still shows the engine's date.
 - `as_of_date` is today in the state's own time zone, the westernmost where a state spans several
   (`api/tend_api/clock.py` and `web/lib/stateTime.ts` share one table), so a late night never
   counts a deadline a day early.

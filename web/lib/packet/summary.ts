@@ -172,7 +172,7 @@ export function deadlineFacts(
   const text =
     general.date >= input.context.as_of_date
       ? `On time. File by ${day}.${general.longer ? ` ${en.check.deadlineLonger(formatDay(general.longer))}` : ""}`
-      : d.status === "ok" && general.longer
+      : general.longer && general.longer >= input.context.as_of_date
         ? `${usual} ${en.check.deadlineLongerAsk(formatDay(general.longer))}`
         : `${usual} ${LATE_ASK}`;
   return {

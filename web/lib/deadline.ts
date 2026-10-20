@@ -4,16 +4,17 @@
 // violent crime in Kansas (KS-DEAD-2). So the flow and the packet lead with the general rule, the
 // one the state page leads with (components/public/summary.ts deadlineSection): the first deadline
 // rule counted from the day it happened that the law IR keeps. Where every rule counts from a later
-// day (Washington, Maryland), the first timed rule is the general one. The date comes from the IR's
-// days, the way the engine dates it, and the engine's longer date is kept to say that some cases
-// have until then. The engine flags a deadline counted from the report or from discovery when any
-// rule is. The report and discovery notes follow only the general rule's own provision, so a rule
-// for people who were children when it happened (MI-FILE-2) does not tell every survivor "the law
-// counts from your report". A flag from another rule is kept as laterElsewhere, and a passed date is
+// day (Washington, Maryland), the first timed rule is the general one. The date is counted the way
+// the rule writes it, in calendar years, months, and days, not from the IR's days: normalize.py turns
+// a month into 30 days, so Nevada's "60 months" would land almost a month early. The longest of the
+// engine's rules, dated the same way, is kept to say that some cases have until then. The engine
+// flags a deadline counted from the report or from discovery when any rule is. The report and
+// discovery notes follow only the general rule's own provision, so a rule for people who were
+// children when it happened (MI-FILE-2) does not tell every survivor "the law counts from your report". A flag from another rule is kept as laterElsewhere, and a passed date is
 // then never shown as plainly late (docs/SPEC.md v1.3): whether that rule fits turns on what Tend
 // never asks, such as age at the time of the crime (MI-FILE-2, KS-DEAD-4, MN-DEADLINE-2, NJ-FILE-3)
 // or a crime found out more than three years later (MA-DEAD-3).
-import { addDays, isIsoDay } from "./dates";
+import { addDays, addMonths, addYears, isIsoDay } from "./dates";
 import type { EngineChecks, Jurisdiction, Rule } from "./types";
 
 // The parts of public/data/ir/ST.json this reads (rules/tools/normalize.py writes it).
@@ -65,6 +66,41 @@ const timed = (r: Rule) =>
 
 const num = (v: unknown): number | null => (typeof v === "number" && Number.isFinite(v) && v >= 0 ? v : null);
 
+const whole = (v: unknown): number => (typeof v === "number" && Number.isInteger(v) && v > 0 ? v : 0);
+
+type Compiled = LawIr["rules"][number];
+
+const compiledDeadline = (ir: LawIr, id: string): Compiled | undefined =>
+  ir.rules.find((r) => r.id === id && r.kind === "deadline");
+
+// The last day of a rule's window, counted from `from`: years, then months (clamped to the end of the
+// month), then days. The IR's days are used only when the rule's params give no whole number.
+export function ruleEnd(rule: Rule, from: string, irDays: number): string {
+  const years = whole(rule.params?.years);
+  const months = whole(rule.params?.months);
+  const days = whole(rule.params?.days);
+  if (!years && !months && !days) return addDays(from, irDays);
+  let end = from;
+  if (years) end = addYears(end, years);
+  if (months) end = addMonths(end, months);
+  if (days) end = addDays(end, days);
+  return end;
+}
+
+// The latest end among the engine's deadline rules the IR keeps, as calendar dates.
+function latestEnd(law: Jurisdiction, ir: LawIr, from: string, ruleIds: string[]): string | null {
+  const byId = new Map(law.rules.map((r) => [r.id, r]));
+  let last: string | null = null;
+  for (const id of ruleIds) {
+    const rule = byId.get(id);
+    const own = compiledDeadline(ir, id);
+    if (!rule || !own || typeof own.days !== "number" || own.days <= 0) continue;
+    const end = ruleEnd(rule, from, own.days);
+    if (!last || end > last) last = end;
+  }
+  return last;
+}
+
 export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule | null {
   const setAside = new Set((ir.skipped ?? []).filter((s) => !LOWER_LIMIT.test(s.reason)).map((s) => s.id));
   // A deadline counted from a trip is for one travel request, not the application (WA-COV-TRANSPORT-3),
@@ -74,7 +110,7 @@ export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule |
   );
   const rules = active.filter(timed);
   const rule = rules.find((r) => FROM_INCIDENT.has(String(r.params?.from ?? ""))) ?? rules[0];
-  const compiled = (id: string) => ir.rules.find((r) => r.id === id && r.kind === "deadline");
+  const compiled = (id: string) => compiledDeadline(ir, id);
   const own = rule ? compiled(rule.id) : undefined;
   if (!rule || !own || typeof own.days !== "number" || own.days <= 0) return null;
   // A provision the IR splits in two keeps its other start day: Maine's "within 3 years ..., or within
@@ -93,13 +129,16 @@ export function generalDeadlineRule(law: Jurisdiction, ir: LawIr): GeneralRule |
 export function generalDeadline(law: Jurisdiction, ir: LawIr, incident: string, check: Check | null): FileBy | null {
   const general = generalDeadlineRule(law, ir);
   if (!general || !isIsoDay(incident)) return null;
-  const date = addDays(incident, general.days);
+  const date = ruleEnd(general.rule, incident, general.days);
+  // The engine's own date counts a month as 30 days, so its longest rule is dated here as well. The
+  // engine's date stands only when none of its rules is in the IR.
   const engine = check?.deadline_date ?? null;
+  const last = latestEnd(law, ir, incident, check?.rule_ids ?? []) ?? (engine && isIsoDay(engine) ? engine : null);
   const flags = check?.flags ?? [];
   return {
     ...general,
     date,
-    longer: engine && isIsoDay(engine) && engine > date ? engine : null,
+    longer: last && last > date ? last : null,
     laterElsewhere:
       (flags.includes("deadline_from_report") && !general.fromReport) ||
       (flags.includes("deadline_from_discovery") && !general.fromDiscovery),
@@ -128,11 +167,13 @@ export function generalSpan(law: Jurisdiction, ir: LawIr | null, check: Omit<Che
   const engineRules = check.rule_ids.map((id) => byId.get(id)).filter((r): r is Rule => Boolean(r));
   const span = longestSpan(general ? [general.rule] : engineRules);
   if (!span) return null;
-  const days = (id: string) => ir?.rules.find((r) => r.id === id && r.kind === "deadline")?.days ?? 0;
   const flags = check.flags ?? [];
+  // Compared as calendar spans from one day, so 12 months is not shorter than 1 year.
+  const REF = "2001-01-01";
+  const generalEnd = general ? ruleEnd(general.rule, REF, general.days) : null;
   return {
     ...span,
-    longer: Boolean(general && check.rule_ids.some((id) => days(id) > general.days)),
+    longer: Boolean(general && ir && generalEnd && (latestEnd(law, ir, REF, check.rule_ids) ?? REF) > generalEnd),
     ruleIds: general ? [general.rule.id, ...check.rule_ids.filter((id) => id !== general.rule.id)] : check.rule_ids,
     fromReport: general ? general.fromReport : flags.includes("deadline_from_report"),
     fromDiscovery: general ? general.fromDiscovery : flags.includes("deadline_from_discovery"),

@@ -308,7 +308,7 @@ describe("the general deadline on Check and Track", () => {
       flags: ["deadline_from_report"],
     });
     renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: claimIn("WA", "2026-06-14") });
-    expect(await screen.findByText(en.check.deadlineDate(fmt.date("2029-06-13")))).toBeTruthy();
+    expect(await screen.findByText(en.check.deadlineDate(fmt.date("2029-06-14")))).toBeTruthy();
     expect(screen.getByText(en.check.deadlineLonger(fmt.date("2031-06-14")))).toBeTruthy();
     expect(screen.getByText(en.check.deadlineFromReport)).toBeTruthy();
   });
@@ -321,9 +321,10 @@ describe("the general deadline on Check and Track", () => {
       flags: [],
     });
     renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: claimIn("FL", "2023-06-01") });
-    const lead = await screen.findByText(en.check.deadlineLate(fmt.date("2026-05-31")));
+    // The engine's 1,825 days end May 31, 2028; the law's calendar years end June 1.
+    const lead = await screen.findByText(en.check.deadlineLate(fmt.date("2026-06-01")));
     const bar = lead.closest("p")!;
-    expect(bar.textContent).toContain(en.check.deadlineLongerAsk(fmt.date("2028-05-31")));
+    expect(bar.textContent).toContain(en.check.deadlineLongerAsk(fmt.date("2028-06-01")));
     expect(bar.textContent).not.toMatch(/File by/);
     expect(bar.hasAttribute("data-late")).toBe(false);
   });
@@ -351,6 +352,8 @@ describe("the general deadline on Check and Track", () => {
       st: "MA",
       incident: "2023-06-01",
       date: "2026-05-31",
+      // The engine's 1,095 days; the law's three calendar years end a day later.
+      shown: "2026-06-01",
       ids: ["MA-DEAD-1", "MA-DEAD-3"],
       flag: "deadline_from_discovery",
     },
@@ -369,13 +372,21 @@ describe("the general deadline on Check and Track", () => {
       flag: "deadline_from_discovery",
     },
   ];
-  for (const c of laterElsewhere) {
+  for (const c of laterElsewhere as {
+    st: string;
+    incident: string;
+    date: string;
+    shown?: string;
+    ids: string[];
+    flag: string;
+  }[]) {
+    const shown = c.shown ?? c.date;
     const late = { status: "late" as const, deadline_date: c.date, rule_ids: c.ids, flags: [c.flag] };
 
     it(`${c.st}, ${c.incident}: Track says another rule counts from a later day and is not plainly late`, async () => {
       const evaluate = engine(c.st, late);
       renderFlow(<TrackScreen />, { services: testServices({ evaluate }), initial: claimIn(c.st, c.incident) });
-      const lead = await screen.findByText(en.check.deadlineLate(fmt.date(c.date)));
+      const lead = await screen.findByText(en.check.deadlineLate(fmt.date(shown)));
       const bar = lead.closest("p")!;
       expect(bar.hasAttribute("data-late")).toBe(false);
       expect(bar.textContent).toContain(en.check.deadlineLaterElsewhere);
@@ -386,7 +397,7 @@ describe("the general deadline on Check and Track", () => {
     it(`${c.st}, ${c.incident}: Check says the same`, async () => {
       const evaluate = engine(c.st, late);
       renderFlow(<CheckScreen />, { services: testServices({ evaluate }), initial: claimIn(c.st, c.incident) });
-      expect(await screen.findByText(en.check.deadlineLate(fmt.date(c.date)))).toBeTruthy();
+      expect(await screen.findByText(en.check.deadlineLate(fmt.date(shown)))).toBeTruthy();
       expect(screen.getByText(en.check.deadlineLaterElsewhere)).toBeTruthy();
     });
   }

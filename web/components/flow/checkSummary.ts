@@ -30,14 +30,14 @@ export interface CoveredCost {
 }
 
 // The date shown is the general deadline (lib/deadline.ts), or the engine's own date when Tend has no
-// general rule or no law IR to date it. The engine's check stays the longest rule, so `open` can be
+// general rule or no law IR to date it. `open` says the longest of the engine's rules has not run out, so it can be
 // true when the shown date has passed: some cases have until `longer`.
 export type DeadlineFact =
   | {
       kind: "date";
       date: string;
       late: boolean; // the shown date has passed
-      open: boolean; // the engine's check is still ok
+      open: boolean; // the longest window has not passed
       longer: string | null;
       // The rule behind the shown date counts from the report or from discovery.
       fromReport: boolean;
@@ -236,7 +236,8 @@ export function buildCheckSummary(
             kind: "date",
             date: general.date,
             late: general.date < asOf!,
-            open: d.status === "ok",
+            // From the calendar dates, not the engine's status, which counts a month as 30 days.
+            open: (general.longer ?? general.date) >= asOf!,
             longer: general.longer,
             fromReport: general.fromReport,
             fromDiscovery: general.fromDiscovery,

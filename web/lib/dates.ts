@@ -41,6 +41,15 @@ export function addYears(iso: string, years: number): string {
   return toIso(target);
 }
 
+// Calendar months; a day past the end of the month lands on its last day (Jan 31 + 1 month is Feb 28).
+export function addMonths(iso: string, months: number): string {
+  const d = toDate(iso);
+  const target = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + months, 1));
+  const last = new Date(Date.UTC(target.getUTCFullYear(), target.getUTCMonth() + 1, 0)).getUTCDate();
+  target.setUTCDate(Math.min(d.getUTCDate(), last));
+  return toIso(target);
+}
+
 export function addDays(iso: string, days: number): string {
   const d = toDate(iso);
   d.setUTCDate(d.getUTCDate() + days);

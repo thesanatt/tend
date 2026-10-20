@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addDays, addYears, describeSpan, formatDay, isIsoDay, localDay, todayIso } from "@/lib/dates";
+import { addDays, addMonths, addYears, describeSpan, formatDay, isIsoDay, localDay, todayIso } from "@/lib/dates";
 import { assertCents, formatCents, formatCentsShort, parseDollars, sumCents } from "@/lib/money";
 
 describe("money", () => {
@@ -41,6 +41,13 @@ describe("dates", () => {
     expect(addYears("2026-06-14", 5)).toBe("2031-06-14");
     expect(addYears("2024-02-29", 1)).toBe("2025-02-28");
     expect(addYears("2024-02-29", 4)).toBe("2028-02-29");
+  });
+
+  it("adds calendar months and clamps to the end of the month", () => {
+    expect(addMonths("2025-03-01", 60)).toBe("2030-03-01");
+    expect(addMonths("2026-01-31", 1)).toBe("2026-02-28");
+    expect(addMonths("2024-01-31", 1)).toBe("2024-02-29");
+    expect(addMonths("2026-11-15", 18)).toBe("2028-05-15");
   });
 
   it("adds days across month and year ends", () => {

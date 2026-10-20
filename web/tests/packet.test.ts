@@ -599,7 +599,7 @@ describe("the summary's filing deadline", () => {
       rule_ids: florida,
       flags: [],
     });
-    expect(text).toContain("On time. File by June 13, 2029. Some cases have until June 14, 2031. The rule says when.");
+    expect(text).toContain("On time. File by June 14, 2029. Some cases have until June 14, 2031. The rule says when.");
     expect(text).not.toContain("File by June 14, 2031");
   });
 
@@ -610,8 +610,9 @@ describe("the summary's filing deadline", () => {
       rule_ids: florida,
       flags: [],
     });
+    // The engine counts 1,825 days; the law's five calendar years end June 1, 2028.
     expect(text).toContain(
-      "The usual deadline was May 31, 2026. Some cases have until May 31, 2028. Ask the program whether yours is one.",
+      "The usual deadline was June 1, 2026. Some cases have until June 1, 2028. Ask the program whether yours is one.",
     );
     expect(text).not.toContain("File by");
   });
@@ -631,7 +632,7 @@ describe("the summary's filing deadline", () => {
   // The flag comes from another rule (MA-DEAD-3; MI-FILE-2 and NJ-FILE-3 turn on age at the time of
   // the crime), so a passed date says so instead of reading as plainly late (docs/SPEC.md v1.3).
   it.each([
-    ["MA", "2023-06-01", "2026-05-31", "May 31, 2026", ["MA-DEAD-1", "MA-DEAD-3"], "deadline_from_discovery"],
+    ["MA", "2023-06-01", "2026-05-31", "June 1, 2026", ["MA-DEAD-1", "MA-DEAD-3"], "deadline_from_discovery"],
     ["MI", "2021-01-01", "2026-01-01", "January 1, 2026", ["MI-FILE-1", "MI-FILE-2"], "deadline_from_report"],
     ["NJ", "2021-01-01", "2026-01-01", "January 1, 2026", ["NJ-FILE-1", "NJ-FILE-3"], "deadline_from_discovery"],
   ])("%s, %s: says another rule counts from a later day", async (st, incident, date, day, ids, flag) => {

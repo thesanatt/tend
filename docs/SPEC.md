@@ -101,7 +101,13 @@ Status is decided by the first matching step:
    (then `waived`). With only days_lost, the check is `unknown`.
 10. Deadline: deadline_date = incident_date + years (calendar years) or days. `ok` if
     as_of_date <= deadline_date, else `late`. Multiple deadline rules: use the longest and list all.
-    If none: `unknown`.
+    If none: `unknown`. In practice the IR carries only days: normalize.py turns a year into 365
+    days plus one for every four years, and a month into 30 days. So the engine's date for a rule
+    written in months can land days to weeks before the law's (Nevada's 60 months from Mar 1, 2025
+    is 1,800 days, Feb 3, 2030, not Mar 1), and one in years can land a day early. Since October
+    2026 the web dates the deadlines it shows on the calendar from the rule's own years, months,
+    and days (`web/lib/deadline.ts`). Carrying months and years into the IR, so the engines date
+    the same way, is an open pipeline change.
 11. Reporting: if a `reporting_requirement` exists: `satisfied` when police_report == yes, or when
     forensic_exam is true and alternatives contain forensic_exam; `required` when police_report == no
     and no alternative applies; otherwise `unknown`.
@@ -300,11 +306,11 @@ and the engines to tend 1.3.0. engine/FORMAT.md sections 1, 2, and 4 give the de
    which can be later than the date it happened. The program decides." The readers are the web's
    Check and Track screens, the shared claim an advocate opens, and the PDF summary the web builds
    and the one the API builds. A `late` with no flag is still shown as past the deadline. Since
-   October 2026 the web's Check, Track, and packet lead with the general deadline rule, the one
-   each state page leads with, instead of the engine's longest date (`web/lib/deadline.ts`, and
-   docs/ARCHITECTURE.md says how). They never show that date as plainly late while the engine
-   says ok. The advocate view and the API's PDF still show the engine's date. The engines' check
-   does not change.
+   October 2026 the web's Check, Track, packet, and the advocate view lead with the general
+   deadline rule, the one each state page leads with, instead of the engine's longest date
+   (`web/lib/deadline.ts`, and docs/ARCHITECTURE.md says how). They never show that date as plainly
+   late while a longer rule's window is still open. The API's PDF still shows the engine's date.
+   The engines' check does not change.
 2. normalize.py carries the anchor. Rules already dated from discovery in their files keep it (AZ-DEAD-1,
    MA-DEAD-3, MD-DEADLINE-1, ME-DEAD-2, NJ-FILE-3, PA-DEADLINE-1). Rules dated from the crime whose
    own quote lets the period start at discovery ("after the occurrence or discovery of the crime",

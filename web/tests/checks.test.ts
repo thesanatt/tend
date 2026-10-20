@@ -135,7 +135,7 @@ describe("the advocate's deadline and report checks", () => {
   it("Florida: File by the general 3 years, with the 5 years good cause can give as a note", () => {
     const due = deadlineCheck(engine, "2026-10-04", ctx);
     expect(due.text).toMatch(
-      /^File by June 13, 2029\. That is .* from today\. Some cases have until June 14, 2031\. The rule says when\.$/,
+      /^File by June 14, 2029\. That is .* from today\. Some cases have until June 14, 2031\. The rule says when\.$/,
     );
     expect(due.ruleIds[0]).toBe("FL-DEADLINE-1");
     expect(due.copy).toEqual({ label: "On time", tone: "good" });
@@ -144,7 +144,7 @@ describe("the advocate's deadline and report checks", () => {
   it("Florida, past the 3 years: never plainly late, and sends them to ask", () => {
     const due = deadlineCheck(engine, "2030-01-02", ctx);
     expect(due.text).toBe(
-      "The usual deadline was June 13, 2029. Some cases have until June 14, 2031. Ask the program whether theirs is one.",
+      "The usual deadline was June 14, 2029. Some cases have until June 14, 2031. Ask the program whether theirs is one.",
     );
     expect(due.copy).toEqual({ label: "May have more time", tone: "neutral" });
   });

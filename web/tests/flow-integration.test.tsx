@@ -779,7 +779,7 @@ describe("Track", () => {
     });
     renderFlow(<TrackScreen />, { services, initial: state });
     expect(await screen.findByText(en.check.deadlineFromReport)).toBeTruthy();
-    expect(screen.getByText(en.check.deadlineDate("June 13, 2029"))).toBeTruthy();
+    expect(screen.getByText(en.check.deadlineDate("June 14, 2029"))).toBeTruthy();
   });
 
   it("says nothing extra when the deadline counts from the day it happened", async () => {

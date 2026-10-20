@@ -174,7 +174,9 @@ describe("caps that only cover one kind of provider", () => {
 
   it("does not show a limit with a scope as the cost's limit, as the law IR does not apply it", () => {
     const capOf = (st: string, expense: string) =>
-      buildCheckSummary(load(st), output(load(st)), { ...answers, st }, true).covered.find((c) => c.expense === expense)!;
+      buildCheckSummary(load(st), output(load(st)), { ...answers, st }, true).covered.find(
+        (c) => c.expense === expense,
+      )!;
     // Arkansas: AR-CAP-6's $25,000 is only for a catastrophic injury; the general medical limit is $10,000.
     const ar = capOf("AR", "medical");
     expect(ar.ruleIds).toContain("AR-CAP-6");
@@ -359,7 +361,7 @@ describe("the deadline Check leads with", () => {
   it("Florida: the 3-year rule, with the 5 years good cause can give as a note", () => {
     expect(deadlineIn("FL")).toMatchObject({
       kind: "date",
-      date: "2029-06-13",
+      date: "2029-06-14",
       late: false,
       open: true,
       longer: "2031-06-14",
@@ -370,17 +372,17 @@ describe("the deadline Check leads with", () => {
   });
 
   it("Kansas: the 5-year rule, with the 10 years for a sexually violent crime as a note", () => {
-    expect(deadlineIn("KS")).toMatchObject({ date: "2031-06-14", longer: "2036-06-13", fromReport: false });
+    expect(deadlineIn("KS")).toMatchObject({ date: "2031-06-14", longer: "2036-06-14", fromReport: false });
   });
 
   it("Washington: 3 years counted from the report, with the 5 years good cause can give", () => {
-    expect(deadlineIn("WA")).toMatchObject({ date: "2029-06-13", longer: "2031-06-14", fromReport: true });
+    expect(deadlineIn("WA")).toMatchObject({ date: "2029-06-14", longer: "2031-06-14", fromReport: true });
     expect((deadlineIn("WA") as { ruleIds: string[] }).ruleIds[0]).toBe("WA-DEADLINE-1");
   });
 
   it("Maine, Virginia, and Michigan keep their date; only a rule's own start day gives a note", () => {
-    expect(deadlineIn("ME")).toMatchObject({ date: "2029-06-13", longer: null, fromDiscovery: true });
-    expect(deadlineIn("VA")).toMatchObject({ date: "2029-06-13", longer: null, fromReport: false });
+    expect(deadlineIn("ME")).toMatchObject({ date: "2029-06-14", longer: null, fromDiscovery: true });
+    expect(deadlineIn("VA")).toMatchObject({ date: "2029-06-14", longer: null, fromReport: false });
     // MI-FILE-2 counts from the report only for someone under 18 when it happened, so the report note
     // stays off. The engine's flag is kept for when the date has passed.
     expect(deadlineIn("MI")).toMatchObject({
@@ -395,7 +397,7 @@ describe("the deadline Check leads with", () => {
     // MA-DEAD-3: found out more than three years later. MI-FILE-2, KS-DEAD-4, MN-DEADLINE-2, and
     // NJ-FILE-3 turn on age at the time of the crime, which Tend never asks.
     expect(deadlineIn("MA", "2023-06-01")).toMatchObject({
-      date: "2026-05-31",
+      date: "2026-06-01",
       late: true,
       open: false,
       fromDiscovery: false,
@@ -421,17 +423,28 @@ describe("the deadline Check leads with", () => {
   });
 
   it("never says File by a date that has passed, and says when some cases still have time", () => {
-    // Florida, Nov 1, 2023: the 3 years end Oct 31, 2026, so that is the date to file by.
-    expect(deadlineIn("FL", "2023-11-01", "2026-10-19")).toMatchObject({ date: "2026-10-31", late: false });
-    // June 1, 2023: the 3 years ended May 31, 2026; good cause can reach to May 31, 2028.
+    // Florida, Nov 1, 2023: the 3 years end Nov 1, 2026, so that is the date to file by.
+    expect(deadlineIn("FL", "2023-11-01", "2026-10-19")).toMatchObject({ date: "2026-11-01", late: false });
+    // June 1, 2023: the 3 years ended June 1, 2026; good cause can reach to June 1, 2028.
     expect(deadlineIn("FL", "2023-06-01", "2026-10-19")).toMatchObject({
-      date: "2026-05-31",
+      date: "2026-06-01",
       late: true,
       open: true,
-      longer: "2028-05-31",
+      longer: "2028-06-01",
     });
     // Past every rule: plainly late.
     expect(deadlineIn("FL", "2020-01-01", "2026-10-19")).toMatchObject({ late: true, open: false });
+  });
+
+  // normalize.py counts a month as 30 days, so the IR's 1,800 days for Nevada's 60 months end in
+  // February. The law's own date is five calendar years on.
+  it("counts months and years on the calendar, not as 30 and 365 days", () => {
+    expect(deadlineIn("NV", "2025-03-01", "2030-02-10")).toMatchObject({ date: "2030-03-01", late: false });
+    expect(deadlineIn("MS", "2025-03-01", "2026-10-19")).toMatchObject({ date: "2028-03-01", late: false });
+    expect(deadlineIn("OK", "2025-03-01", "2026-10-19")).toMatchObject({ date: "2027-09-01" });
+    expect(deadlineIn("HI", "2025-03-01", "2026-10-19")).toMatchObject({ date: "2026-09-01" });
+    // Two leap days in five years: Jan 1, 2024 to Jan 1, 2029.
+    expect(deadlineIn("IL", "2024-01-01", "2026-10-19")).toMatchObject({ date: "2029-01-01" });
   });
 
   it("matches the state page's lead rule in every jurisdiction that has one", () => {
