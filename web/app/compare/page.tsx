@@ -4,6 +4,7 @@ import { buildCompareRow, COLUMNS, type ColumnId, type CompareLine } from "@/com
 import { savedDays } from "@/components/public/corrections";
 import { allStates, loadIr, loadLaw } from "@/components/public/data";
 import Linkified from "@/components/public/Linkified";
+import { sitePreview } from "@/components/public/og/siteCard";
 import { Saved } from "@/components/public/SourceNote";
 import styles from "./compare.module.css";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   title: "Compare the states",
   description:
     "The deadline to apply, the police report rule, the total cap, counseling limits, and the forensic exam bill for every state and DC, each linked to its rules.",
+  ...sitePreview("compare"),
 };
 
 const COL_CLASS: Record<ColumnId, string> = {

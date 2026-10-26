@@ -1,4 +1,4 @@
-// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour, /data, /law/changes), in the state cards'
+// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour, /data, /law/changes, /compare), in the state cards'
 // look (card.tsx): paper and ink, the mark, and a row of plants from sprout to bloom on one ground
 // line. Satori: flexbox and inline styles only.
 import type { Metadata } from "next";
@@ -44,6 +44,11 @@ export const SITE_CARDS = {
     path: "/law/changes",
     heading: "Law changes",
     sentence: "What changed in the rules Tend uses, version by version, with the exact quotes.",
+  },
+  compare: {
+    path: "/compare",
+    heading: "Compare the states",
+    sentence: "Each state's deadline, police report rule, total cap, counseling limits, and exam bill, side by side.",
   },
 } satisfies Record<string, SiteCardText>;
 

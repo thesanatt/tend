@@ -6,6 +6,8 @@ import type { Metadata } from "next";
 import { describe, expect, it, vi } from "vitest";
 import { dynamicParams, generateStaticParams, GET } from "@/app/[st]/card.png/route";
 import * as homeCard from "@/app/card.png/route";
+import * as compareCard from "@/app/compare/card.png/route";
+import { metadata as compareMeta } from "@/app/compare/page";
 import * as dataCard from "@/app/data/card.png/route";
 import { metadata as dataMeta } from "@/app/data/page";
 import * as howCard from "@/app/how-it-works/card.png/route";
@@ -164,6 +166,16 @@ const PAGES: {
     tab: "Law changes",
     title: "Law changes",
     description: "What changed in the rules Tend uses, version by version, with the exact quotes.",
+  },
+  {
+    path: "/compare",
+    meta: compareMeta,
+    card: compareCard,
+    image: "/compare/card.png",
+    tab: "Compare the states",
+    title: "Compare the states",
+    description:
+      "Each state's deadline, police report rule, total cap, counseling limits, and exam bill, side by side.",
   },
 ];
 

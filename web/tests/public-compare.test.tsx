@@ -20,6 +20,7 @@ import {
 } from "@/components/public/compare";
 import { savedDays } from "@/components/public/corrections";
 import { longDate } from "@/components/public/format";
+import { SITE_CARDS, siteCardAlt } from "@/components/public/og/siteCard";
 import { buildStateSummary, type Fact, type KeyFact, type StateSummary } from "@/components/public/summary";
 import type { IrSummary } from "@/components/public/types";
 import type { Jurisdiction } from "@/lib/types";
@@ -355,6 +356,7 @@ describe("the /compare page", () => {
     for (const file of [
       "app/compare/page.tsx",
       "app/compare/compare.module.css",
+      "app/compare/card.png/route.tsx",
       "components/public/compare.ts",
       "scripts/compare-rows.ts",
     ]) {
@@ -369,9 +371,20 @@ describe("the /compare page", () => {
     for (const a of doc.querySelectorAll("a[href]")) expect(a.getAttribute("href")).toMatch(/^[/#]/);
   });
 
-  it("has a title and a description", () => {
+  it("has a title, a description, and its own link card", () => {
     expect(metadata.title).toBe("Compare the states");
     expect(metadata.description).toMatch(/^[\x20-\x7e]+$/);
+    const card = SITE_CARDS.compare;
+    expect(card).toMatchObject({ path: "/compare", heading: "Compare the states" });
+    // No number that could go stale as rules change.
+    expect(card.sentence).not.toMatch(/\d/);
+    expect(metadata.openGraph).toMatchObject({
+      title: "Compare the states",
+      description: card.sentence,
+      url: "/compare",
+      images: [{ url: "/compare/card.png", alt: siteCardAlt("compare") }],
+    });
+    expect(metadata.twitter).toMatchObject({ card: "summary_large_image", description: card.sentence });
   });
 });
 
