@@ -151,7 +151,9 @@ export default function Sources() {
             Counted from the verified rules (category exam_no_bill) that Tend&apos;s law engine applies, each a
             word-for-word quote of its source. Some of the counted rules have limits, such as an exam within 96 hours of
             the attack in Arkansas, or only the forensic part of the exam in Texas. See any state&apos;s{" "}
-            <Link href="/law/MI">How Tend decides</Link> page for its rules and their quotes.
+            <Link href="/law/MI">How Tend decides</Link> page for its rules and their quotes.{" "}
+            <Link href="/compare">Compare the states</Link> shows what every state&apos;s page says about the exam bill,
+            side by side.
           </p>
           {exam.missing.length ? (
             <p className={styles.where}>

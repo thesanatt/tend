@@ -83,6 +83,15 @@ describe("the exam billing count", () => {
     expect(block).not.toMatch(/more likely|\byet\b/);
   });
 
+  it("points to the state comparison beside the count", () => {
+    const link = screen.getByRole("link", { name: "Compare the states" });
+    expect(link.getAttribute("href")).toBe("/compare");
+    expect(method()).toContain(
+      "Compare the states shows what every state's page says about the exam bill, side by side.",
+    );
+    expect(claim(heading)).toContain(method());
+  });
+
   it("leaves no rule out of its method, since Idaho's two rules are filed as exam payments", () => {
     expect(rule("ID", "ID-EXAM-3").category).toBe("exam_payment");
     expect(rule("ID", "ID-EXAM-5").category).toBe("exam_payment");
