@@ -13,7 +13,7 @@ const web = path.resolve(import.meta.dirname, "..");
 const synced = STATES.map((s) => s.st).filter((st) => existsSync(path.join(web, "public/data/law", `${st}.json`)));
 const urls = () => sitemap().map((e) => e.url);
 // The site's own pages, listed before the programs' pages.
-const SITE = ["/", "/how-it-works", "/sources", "/tour"];
+const SITE = ["/", "/how-it-works", "/sources", "/tour", "/compare"];
 
 afterEach(() => {
   vi.unstubAllEnvs();
@@ -59,7 +59,10 @@ describe("sitemap.xml", () => {
     expect(flow).toEqual(expect.arrayContaining(["/check", "/gather", "/packet", "/track", "/start", "/bill"]));
     const paths = urls().map((u) => new URL(u).pathname);
     for (const p of paths) {
-      expect(flow.some((f) => p === f || p.startsWith(`${f}/`)), p).toBe(false);
+      expect(
+        flow.some((f) => p === f || p.startsWith(`${f}/`)),
+        p,
+      ).toBe(false);
       expect(p.startsWith("/share"), p).toBe(false);
       expect(p, p).not.toBe("/law/changes");
     }
