@@ -1084,6 +1084,86 @@
   border-bottom: 0 !important;
 }
 
+/* Large text on a narrow screen (globals.css): each line of the bill stacks, its amount under its words,
+   so the table never widens the page. BillsScreen's roles keep it a table for screen readers. */
+@media (max-width: 20em) {
+  .billTable,
+  .billTable tbody,
+  .billTable tfoot,
+  .billTable tr,
+  .billTable th,
+  .billTable td {
+    display: block;
+  }
+
+  .billTable thead,
+  .billTable .lineNo {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .billTable tr {
+    padding: var(--space-3) var(--space-2);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .billTable th,
+  .billTable td {
+    padding: 0;
+    border: 0;
+  }
+
+  .billTable .num {
+    margin-top: var(--space-1);
+    text-align: left !important;
+  }
+
+  .billTable tfoot tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 var(--space-3);
+  }
+
+  .billTable tfoot th {
+    text-align: left;
+  }
+
+  .billTable tfoot .num {
+    margin-top: 0;
+  }
+
+  .billTable tfoot tr:first-child th,
+  .billTable tfoot tr:first-child td {
+    border-top: 0;
+  }
+
+  .billTable tfoot tr:first-child {
+    border-top: 1.5px solid var(--ink);
+  }
+
+  .billTable .restRow {
+    border-bottom: 0;
+  }
+
+  .heldRow {
+    background: var(--clay-tint);
+    box-shadow: inset 3px 0 0 var(--clay);
+  }
+
+  .heldRow td {
+    background: none;
+  }
+
+  .heldRow td:first-child {
+    box-shadow: none;
+  }
+}
+
 .billSide {
   display: grid;
   gap: var(--space-6);
@@ -1619,6 +1699,7 @@
 
 .plotTitle {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: var(--space-3);
   font-family: var(--font-sans);
@@ -1866,5 +1947,17 @@
   .steps a {
     gap: 6px;
     font-size: 0.9375rem;
+  }
+}
+
+/* Large text on a narrow screen (globals.css), after the phone rules above so it wins: one stage of the
+   legend and one plant per row, so their words and the attach button fit. */
+@media (max-width: 20em) {
+  .legend {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .plant {
+    width: 100%;
   }
 }

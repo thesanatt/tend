@@ -76,7 +76,10 @@ function hiddenWordsStayInTheirBox(section: Element): number {
       for (const name of moduleClasses(el)) {
         const rules = forClass(garden, name);
         if (rules.some((r) => /^(relative|absolute|sticky|fixed)$/.test(r.decls.position ?? ""))) positioned = true;
-        expect(rules.some((r) => r.decls.position === "static"), `.${name} turns static somewhere`).toBe(false);
+        expect(
+          rules.some((r) => r.decls.position === "static"),
+          `.${name} turns static somewhere`,
+        ).toBe(false);
       }
       if (moduleClasses(el).some(scrolls)) {
         expect(positioned, `"${span.textContent}" in .${moduleClasses(el).join(".")}`).toBe(true);
@@ -201,6 +204,19 @@ describe("the top bar", () => {
     const space = parseFloat(globals.find((r) => r.selector === ":root" && !r.media)!.decls[`--${room[1]}`]);
     expect(grow).toBe(5);
     expect(space).toBeGreaterThanOrEqual(grow);
+  });
+
+  it("keeps Exit this page whole on a phone with text set very large", () => {
+    // Android's text scaling at 200 percent on a 360px phone: 20em is 640px there and 320px at the
+    // default 16px, so only large text lands in this @media. e2e/test_layout.py measures it.
+    const narrow = (name: string) => forClass(shell, name).find((r) => r.media === "@media (max-width: 20em)")!.decls;
+    expect(narrow("exit")["white-space"]).toBe("normal");
+    expect(narrow("exit")["max-width"]).toBe("calc(100vw - var(--gutter) - var(--space-3) - 44px - var(--space-2))");
+    expect(narrow("exitWrap").transform).toBe("translateY(-50%)");
+    // Spanish wraps the label to two lines, so the bar holds two.
+    const root = parseCss(read("app/globals.css")).find((r) => r.selector === ":root:lang(es)")!;
+    expect(root.media).toBe("@media (max-width: 20em)");
+    expect(root.decls["--bar"]).toBe("calc(2.2 * var(--text-sm) + 28px)");
   });
 
   it("keeps links to a heading, and focus, from landing under the bar", () => {

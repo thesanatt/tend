@@ -200,25 +200,32 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
             {t.bills.itemized}
           </h2>
         </header>
-        <table className={styles.billTable}>
+        {/* The roles keep this a table for screen readers when large text stacks its rows (flow.module.css). */}
+        <table className={styles.billTable} role="table">
           <caption className="visually-hidden">{t.bills.caption}</caption>
-          <thead>
-            <tr>
-              <th scope="col">{t.bills.lineCol}</th>
-              <th scope="col">{t.bills.serviceCol}</th>
-              <th scope="col" className={styles.num}>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th scope="col" role="columnheader">
+                {t.bills.lineCol}
+              </th>
+              <th scope="col" role="columnheader">
+                {t.bills.serviceCol}
+              </th>
+              <th scope="col" role="columnheader" className={styles.num}>
                 {t.bills.amountCol}
               </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody role="rowgroup">
             {items.map((it) => {
               const status = lines.get(it.item_id)?.status ?? "checking";
               const held = status === "held";
               return (
-                <tr key={it.item_id} className={held ? styles.heldRow : undefined}>
-                  <td className={styles.lineNo}>{it.line_no}</td>
-                  <td>
+                <tr key={it.item_id} role="row" className={held ? styles.heldRow : undefined}>
+                  <td role="cell" className={styles.lineNo}>
+                    {it.line_no}
+                  </td>
+                  <td role="cell">
                     <span className={styles.service}>{it.description}</span>
                     <span className={styles.lineStatus}>
                       <StatusMark status={status} />
@@ -227,38 +234,38 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
                       ) : null}
                     </span>
                   </td>
-                  <td className={styles.num}>
+                  <td role="cell" className={styles.num}>
                     <Money cents={it.amount_cents} struck={held} className={held ? styles.heldAmount : undefined} />
                   </td>
                 </tr>
               );
             })}
           </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row" colSpan={2}>
+          <tfoot role="rowgroup">
+            <tr role="row">
+              <th scope="row" role="rowheader" colSpan={2}>
                 {t.bills.total}
               </th>
-              <td className={styles.num}>
+              <td role="cell" className={styles.num}>
                 <Money cents={bill.reading.total_cents ?? 0} />
               </td>
             </tr>
             {plan.heldCents > 0 ? (
-              <tr className={styles.heldTotal}>
-                <th scope="row" colSpan={2}>
+              <tr role="row" className={styles.heldTotal}>
+                <th scope="row" role="rowheader" colSpan={2}>
                   {hold.plain ? t.bills.heldTotal : t.bills.heldTotalIf}
                 </th>
-                <td className={styles.num}>
+                <td role="cell" className={styles.num}>
                   <Money cents={-plan.heldCents} />
                 </td>
               </tr>
             ) : null}
             {plan.decided ? (
-              <tr className={styles.restRow}>
-                <th scope="row" colSpan={2}>
+              <tr role="row" className={styles.restRow}>
+                <th scope="row" role="rowheader" colSpan={2}>
                   {t.bills.rest}
                 </th>
-                <td className={styles.num}>
+                <td role="cell" className={styles.num}>
                   <Money cents={plan.restCents} />
                 </td>
               </tr>

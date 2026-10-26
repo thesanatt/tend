@@ -3,12 +3,14 @@ no page scrolls sideways (the List view's hidden words once widened the home pag
 garden's targets are 44 px and each keeps its whole outline inside the box it scrolls in as Tab moves
 through them, and Exit this page never sits on top of a heading or a button while the page scrolls under
 the top bar. With a mouse and the browser's text set from Very small to Very large, Exit and its Esc hint
-stay clear of every link and button in the header. tests/public-layout.test.tsx checks the CSS behind
-each rule.
+stay clear of every link and button in the header. With text at 200 percent on a 360 px phone, nothing
+scrolls sideways and Exit stays whole on screen, in English and Spanish. tests/public-layout.test.tsx
+checks the CSS behind each rule.
 """
 from __future__ import annotations
 
 import json
+import re
 
 import pytest
 from conftest import BASE_URL, WEB, Stack
@@ -225,6 +227,63 @@ def test_exit_clears_the_header_at_each_text_size(
                 seen = page.evaluate(HEADER_CLEAR)
                 assert seen["covered"] == [], (path, width, seen)
                 assert seen["lowest"] <= seen["bar"], (path, width, seen)
+    finally:
+        context.close()
+
+
+# Exit this page wholly on screen and inside the bar, clear of the brand (negative numbers are room to spare).
+EXIT_ON_SCREEN = r"""
+() => {
+  const bar = parseFloat(getComputedStyle(document.querySelector('header'), '::before').height);
+  const wrap = [...document.querySelectorAll('body > div')].find(
+    (d) => getComputedStyle(d).position === 'fixed' && d.querySelector(':scope > button'));
+  const exit = wrap.querySelector(':scope > button').getBoundingClientRect();
+  const brand = document.querySelector('header a[href="/"]').getBoundingClientRect();
+  return { left: -exit.left, right: exit.right - innerWidth, below: exit.bottom - bar,
+           onBrand: Math.min(exit.right, brand.right) - Math.max(exit.left, brand.left) };
+}
+"""
+
+
+def exit_on_screen(page: Page, where: str) -> None:
+    seen = page.evaluate(EXIT_ON_SCREEN)
+    assert max(seen.values()) <= 0, (where, seen)
+
+
+@pytest.mark.parametrize("locale", ["en-US", "es-ES"])
+def test_large_text_on_a_phone(stack: Stack, browser: Browser, locale: str) -> None:  # noqa: ARG001
+    # Android's text scaling at 200 percent on a 360 px phone: the default text is 32 px. Before the
+    # 20em rules, Check scrolled sideways by 154 px and the page's width pushed Exit half off screen.
+    context = browser.new_context(base_url=BASE_URL, viewport={"width": 360, "height": 780}, is_mobile=True,
+                                  has_touch=True, device_scale_factor=2, locale=locale)
+    page = context.new_page()
+    page.set_default_timeout(30_000)
+    context.new_cdp_session(page).send("Emulation.setEmulatedMedia", {"features": PHONE_MEDIA})
+    context.new_cdp_session(page).send("Page.setFontSizes", {"fontSizes": {"standard": 32, "fixed": 26}})
+    try:
+        for path in [*PAGES, "/press", "/data", "/law/changes"]:
+            fits(page, path, 360)
+            exit_on_screen(page, path)
+        if locale != "en-US":
+            return
+        # Rowan's statement and bill read on the device, then each later step of the flow.
+        load(page, "/check?demo=rowan")
+        page.get_by_role("link", name="Find my costs").click()
+        page.get_by_role("button", name="Use a sample statement").click()
+        more = page.locator("details > summary", has_text="Add another record").first
+        if not more.evaluate("s => s.parentElement.open"):
+            more.click()
+        page.get_by_role("button", name="Use a sample bill").click()
+        page.get_by_role("list", name="Records read").get_by_text("Riverbend General Hospital", exact=False).wait_for()
+        steps = [("Gather", None), ("Bills", re.compile(r"^Next: your bill")), ("Packet", "Build my packet"),
+                 ("Track", "See your garden")]
+        for name, link in steps:
+            if link is not None:
+                page.get_by_role("link", name=link).click()
+                page.get_by_role("heading", level=1).first.wait_for()
+                page.wait_for_load_state("networkidle")
+            assert page.evaluate(WIDE) == 0, name
+            exit_on_screen(page, name)
     finally:
         context.close()
 

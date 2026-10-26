@@ -60,6 +60,16 @@
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+/* Large text on a narrow screen: Android's text scaling at 200 percent on a 360px phone, say. 20em is
+   320px at the default 16px, so no phone lands here at the default text size. Below it, long labels wrap
+   instead of widening the page, and Exit this page may take two lines (shell.module.css). Spanish needs
+   them ("Salir de esta página"), so the bar grows to hold two lines of the button. */
+@media (max-width: 20em) {
+  :root:lang(es) {
+    --bar: calc(2.2 * var(--text-sm) + 28px);
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
@@ -344,6 +354,9 @@ select {
   color: inherit;
   min-height: var(--tap);
   width: 100%;
+  /* The longest option ("District of Columbia") must not widen the page when text is set very large. */
+  min-width: 0;
+  max-width: 100%;
   padding: 0 var(--space-3);
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-1);

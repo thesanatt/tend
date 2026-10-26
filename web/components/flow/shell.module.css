@@ -282,6 +282,37 @@
   }
 }
 
+/* Large text on a narrow screen (globals.css): Exit this page keeps its whole label on screen. The
+   brand shows only its mark (the word stays its name), and Exit may wrap to two lines, centered in a
+   bar that globals.css makes tall enough for them. */
+@media (max-width: 20em) {
+  .brand {
+    min-width: 44px;
+    justify-content: center;
+  }
+
+  .brand > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .exitWrap {
+    top: calc(var(--bar) / 2);
+    transform: translateY(-50%);
+  }
+
+  .exit {
+    max-width: calc(100vw - var(--gutter) - var(--space-3) - 44px - var(--space-2));
+    padding-block: 6px;
+    line-height: 1.1;
+    white-space: normal;
+  }
+}
+
 /* While a sheet is open the page behind it is inert; the sheet shows its own exit button. */
 :global(html:has(dialog[open])) .exitWrap {
   visibility: hidden;

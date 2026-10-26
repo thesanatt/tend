@@ -29,6 +29,21 @@
   white-space: nowrap;
 }
 
+/* Large text on a narrow screen (globals.css): the whole label shows, wrapped, instead of an ellipsis
+   that still widens the page. */
+@media (max-width: 20em) {
+  .cite {
+    text-align: start;
+  }
+
+  .label {
+    max-width: none;
+    overflow: visible;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+}
+
 .more {
   font-weight: 400;
   color: var(--ink-3);

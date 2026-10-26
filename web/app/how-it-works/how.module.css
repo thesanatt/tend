@@ -95,6 +95,13 @@
   background: var(--paper-raised);
 }
 
+/* Large text on a narrow screen (globals.css): less padding, so the longest word still fits the box. */
+@media (max-width: 20em) {
+  .cannot {
+    padding-inline: var(--space-3);
+  }
+}
+
 .cannot h3 {
   font-size: var(--text-lg);
   line-height: 1.25;
