@@ -1,6 +1,6 @@
-// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour, /data, /law/changes, /compare), in the state cards'
-// look (card.tsx): paper and ink, the mark, and a row of plants from sprout to bloom on one ground
-// line. Satori: flexbox and inline styles only.
+// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour, /data, /law/changes, /compare), in
+// the state cards' look (card.tsx): paper and ink, the mark, and a row of plants from sprout to bloom on one
+// ground line. Satori: flexbox and inline styles only.
 import type { Metadata } from "next";
 import { plantShape, VIEW, type Stage } from "@/lib/garden";
 import { siteUrl } from "../site";
