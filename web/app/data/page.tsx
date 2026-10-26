@@ -4,6 +4,7 @@ import path from "node:path";
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import { shortDate } from "@/components/public/format";
+import { sitePreview } from "@/components/public/og/siteCard";
 import { LINKS } from "@/components/tour/links";
 import styles from "./data.module.css";
 
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
   title: "Rules data",
   description:
     "Tend's verified rules as JSON and CSV. Each rule quotes its source word for word, with the source's address and SHA-256.",
+  ...sitePreview("data"),
 };
 
 const VERSION = "1.0";

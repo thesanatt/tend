@@ -6,8 +6,12 @@ import type { Metadata } from "next";
 import { describe, expect, it, vi } from "vitest";
 import { dynamicParams, generateStaticParams, GET } from "@/app/[st]/card.png/route";
 import * as homeCard from "@/app/card.png/route";
+import * as dataCard from "@/app/data/card.png/route";
+import { metadata as dataMeta } from "@/app/data/page";
 import * as howCard from "@/app/how-it-works/card.png/route";
 import { metadata as howMeta } from "@/app/how-it-works/page";
+import * as changesCard from "@/app/law/changes/card.png/route";
+import { metadata as changesMeta } from "@/app/law/changes/page";
 import { metadata as homeMeta } from "@/app/page";
 import * as sourcesCard from "@/app/sources/card.png/route";
 import { metadata as sourcesMeta } from "@/app/sources/page";
@@ -142,6 +146,24 @@ const PAGES: {
     tab: "What you just saw",
     title: "What you just saw",
     description: "A 2-minute tour of Tend with Rowan, a fictional survivor in Michigan.",
+  },
+  {
+    path: "/data",
+    meta: dataMeta,
+    card: dataCard,
+    image: "/data/card.png",
+    tab: "Rules data",
+    title: "Rules data",
+    description: "All of Tend's verified rules, as JSON and CSV. Each rule quotes its source word for word.",
+  },
+  {
+    path: "/law/changes",
+    meta: changesMeta,
+    card: changesCard,
+    image: "/law/changes/card.png",
+    tab: "Law changes",
+    title: "Law changes",
+    description: "What changed in the rules Tend uses, version by version, with the exact quotes.",
   },
 ];
 

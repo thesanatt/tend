@@ -1,4 +1,4 @@
-// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour), in the state cards'
+// Link preview cards for Tend's own pages (/, /how-it-works, /sources, /tour, /data, /law/changes), in the state cards'
 // look (card.tsx): paper and ink, the mark, and a row of plants from sprout to bloom on one ground
 // line. Satori: flexbox and inline styles only.
 import type { Metadata } from "next";
@@ -34,6 +34,16 @@ export const SITE_CARDS = {
     path: "/tour",
     heading: "What you just saw",
     sentence: "A 2-minute tour of Tend with Rowan, a fictional survivor in Michigan.",
+  },
+  data: {
+    path: "/data",
+    heading: "Rules data",
+    sentence: "All of Tend's verified rules, as JSON and CSV. Each rule quotes its source word for word.",
+  },
+  changes: {
+    path: "/law/changes",
+    heading: "Law changes",
+    sentence: "What changed in the rules Tend uses, version by version, with the exact quotes.",
   },
 } satisfies Record<string, SiteCardText>;
 

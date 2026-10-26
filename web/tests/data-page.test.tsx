@@ -222,8 +222,9 @@ describe("/data", () => {
     expect(doc.querySelectorAll("script[src], img, iframe, link[href]")).toHaveLength(0);
   });
 
-  it("has a title and a description, and nothing else for link previews yet", () => {
-    expect(Object.keys(metadata).sort()).toEqual(["description", "title"]);
+  // The card itself is checked with the other public pages' cards (tests/public-og.test.tsx).
+  it("has a title, a description, and a link card", () => {
+    expect(Object.keys(metadata).sort()).toEqual(["description", "openGraph", "title", "twitter"]);
     expect(metadata.title).toBe("Rules data");
   });
 });

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import lawStyles from "@/components/public/law.module.css";
+import { sitePreview } from "@/components/public/og/siteCard";
 import STATES from "@/lib/states.json";
 import { loadChanges } from "./data";
 import { AllStates, StateChanges, VersionList, count, stateName, when } from "./parts";
@@ -11,6 +12,7 @@ import styles from "./changes.module.css";
 export const metadata: Metadata = {
   title: "Law changes",
   description: "What changed in each program's verified rules between two versions, with the exact quotes and sources.",
+  ...sitePreview("changes"),
 };
 
 type Params = Record<string, string | string[] | undefined>;
