@@ -24,8 +24,8 @@ export default function SourceNote({
     <div className={styles.note}>
       {days ? (
         <p>
-          Tend saved copies of this page&apos;s sources <Saved {...days} /> and checked every quote against those
-          copies word for word. Laws change, so ask the program before you rely on a date or amount.
+          Tend saved copies of this page&apos;s sources <Saved {...days} /> and checked every quote against those copies
+          word for word. Laws change, so ask the program before you rely on a date or amount.
         </p>
       ) : null}
       <p>
@@ -47,7 +47,8 @@ export default function SourceNote({
   );
 }
 
-function Saved({ first, last }: { first: string; last: string }) {
+// "on October 3, 2026" or "between October 3 and October 20, 2026"; /compare says it of every program's sources.
+export function Saved({ first, last }: { first: string; last: string }) {
   if (first === last) {
     return (
       <>
