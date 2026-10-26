@@ -19,6 +19,7 @@ Try it:
 - The live site: https://youreowed.tech
 - The fictional demo, Rowan Hale in Michigan: https://youreowed.tech/check?demo=rowan
 - A state's page, such as Michigan's: https://youreowed.tech/mi
+- Five facts for all 50 states and DC side by side: https://youreowed.tech/compare
 - The 2-minute tour, the same demo with a note at each step: https://youreowed.tech/check?demo=rowan&tour=1
 
 <!-- TODO(Sanat): demo video. Add the unlisted YouTube link to the list above once it is recorded (brief P0.3). -->
@@ -218,7 +219,7 @@ otherwise.
 | 586 reference engine tests <!-- measured: 2026-10-20 --> | `cd refengine && uv run pytest` |
 | 413 API tests pass, 23 skipped without Neon <!-- measured: 2026-10-20 --> | `cd api && uv run pytest` |
 | 163 seed tests pass, 4 skipped without a Nessie key <!-- measured: 2026-10-20 --> | `cd seed && uv run pytest` |
-| 1,937 web unit and screen tests in 57 files <!-- measured: 2026-10-26 --> | `cd web && npx vitest run` |
+| 2,259 web unit and screen tests in 58 files <!-- measured: 2026-10-26 --> | `cd web && npx vitest run` |
 | 33 end-to-end runs of 13 tests in Chromium, at several screen widths and text sizes and in both languages: the demo path, the same path offline, no request carrying transaction text, a bill line, or the share key, the guided tour, and phone layouts, including text at 200 percent on a 360 px phone <!-- measured: 2026-10-26 --> | `web/e2e/run.sh` |
 | Offline: after a 0.48 s first visit, a reload with no network in 0.17 s and the packet built in 0.05 s (2.2 s, 0.34 s, and 0.17 s on the Linux VM on October 4) <!-- measured: 2026-10-20 --> | `web/e2e/run.sh` (prints step timings) |
 | 14.1M claim lines per second in the VM, single thread (recorded on an Apple M4 Max laptop, tend 1.2) <!-- measured: 2026-10-03 --> | `cd engine && mkdir -p build/laws && ./build/tendc ../rules/ir/MI.json -o build/laws/MI.tlaw && ./build/tendvm bench --law build/laws/MI.tlaw --items 1000000 --runs 5` |

@@ -17,7 +17,8 @@ from conftest import BASE_URL, WEB, Stack
 from playwright.sync_api import Browser, Page
 
 WIDTHS = [360, 390, 430]
-PAGES = ["/", "/mi", "/law/MI", "/how-it-works", "/sources", "/tour", "/check?demo=rowan", "/check?demo=rowan&tour=1"]
+PAGES = ["/", "/mi", "/law/MI", "/how-it-works", "/sources", "/tour", "/check?demo=rowan", "/check?demo=rowan&tour=1",
+         "/press", "/data", "/law/changes", "/compare"]
 STATES = [s["st"] for s in json.loads((WEB / "lib" / "states.json").read_text())]
 
 # A phone has no hover and a coarse pointer; set them outright so a tap never turns them back.
@@ -261,7 +262,7 @@ def test_large_text_on_a_phone(stack: Stack, browser: Browser, locale: str) -> N
     context.new_cdp_session(page).send("Emulation.setEmulatedMedia", {"features": PHONE_MEDIA})
     context.new_cdp_session(page).send("Page.setFontSizes", {"fontSizes": {"standard": 32, "fixed": 26}})
     try:
-        for path in [*PAGES, "/press", "/data", "/law/changes"]:
+        for path in PAGES:
             fits(page, path, 360)
             exit_on_screen(page, path)
         if locale != "en-US":
