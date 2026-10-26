@@ -37,7 +37,8 @@ law-2026-10-03-52abf94           br-square-leaf-b4kaa61u       schema-only root:
 `- law-2026-10-03-c8304df        br-weathered-mouse-b4jae2vp   +663 rules: documents to send, how to file, processing times
    `- law-2026-10-03-d83289a     br-lucky-mountain-b4nuurep    +97 rules: address confidentiality, record confidentiality
       `- law-2026-10-03-1e96ad5  br-young-frost-b43l8bnn       the law engine reads 66 rules differently (rule format v2)
-         `- law-2026-10-03-c959cb6  br-billowing-violet-b4h7wdk1  13 source pages saved again (AZ, ID, WY); newest published
+         `- law-2026-10-03-c959cb6  br-billowing-violet-b4h7wdk1  13 source pages saved again (AZ, ID, WY)
+            `- law-2026-10-20-e01843a  br-cool-feather-b4uvxr1y  +150 rules after every rule was checked again against its quote; newest published
 ```
 
 How `scripts/neon/law_versions.py publish` builds one:
@@ -62,8 +63,8 @@ newest corpus commit as a new child branch.
   production has loaded. On Oct 19, 2026 none did: commit 4737814 changed the IR for 11 states (AK,
   CA, IA, MN, MO, MT, NV, NY, SC, TX, WY) after the last published version, so `current` was null,
   claims for those 11 states named no version, and claims for the other 40 still named
-  law-2026-10-03-c959cb6. Publishing the newer corpus (`law_versions.py publish`) is a write to
-  production Neon and waits for Sanat.
+  law-2026-10-03-c959cb6. That corpus and the rule checks after it were published on Oct 25, 2026 as
+  law-2026-10-20-e01843a, which has been `current` since.
 - `GET /api/law/diff?from=&to=&st=` compares two versions. When a state's file hashes are the same in
   both, the index answers "unchanged" without opening a branch. Otherwise the API connects to both
   branches by host, **as `tend_reader`** when `DATABASE_URL_READER` is set (production does not set
@@ -182,6 +183,10 @@ The four enrichment commits touched every state's file, so those versions rewrot
 last one touched three, so it wrote 161 of 2,578 rules and kept the rest from its parent. Logical
 size is Neon's figure for each branch's whole database, so it does not show what branches share;
 this plan's API does not break storage down further.
+
+On Oct 25, 2026 law-2026-10-20-e01843a was made in 1.6 s and loaded in 7.3 s (51 of 51 states, 2,728
+rules, 824 sources, logical size 55.4 MB). Production then held 2,728 rules and 153 law images, and 7 of
+the free plan's 10 branches were in use (production and 6 law versions).
 
 **Queries on the server (as `tend_reader`).**
 

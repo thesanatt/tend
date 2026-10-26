@@ -68,10 +68,9 @@ downloaded from the packet are ordinary files, outside the vault.
 **The server holds three things** (`api/README.md`, `docs/NEON.md`):
 
 1. The public law corpus: 51 jurisdictions, 824 sources (metadata and sha256, no page text),
-   the rules (2,578 in production on Oct 19, 2026; rules/verified now holds 2,728, which reach the
-   server with the next law load), the sha256 of each compiled law image (102 in production on
-   Oct 19, 2026: a tend 1.3.0 and a tend 1.2.0 image for each jurisdiction), and the index of law
-   versions.
+   the rules (2,728 in production since the law load of Oct 25, 2026; 2,578 before), the sha256 of
+   each compiled law image (153 on Oct 25, 2026: three for each jurisdiction, the current law's
+   tend 1.3.0 image and two earlier ones, which stay listed), and the index of law versions.
 2. Ciphertext of shared packets with an expiry (`sealed_shares`). The key is in the link's
    fragment (`/share#<id>.<key>`), which browsers do not send to servers.
 3. An append-only, hash-chained audit log of confirmed payments (`audit_log`). Each row's hash
@@ -317,9 +316,8 @@ offline (`api/tend_api/db`). The test suite runs entirely on SQLite with no keys
 share or audit row is ever copied into a law branch; each later one is a child of the one
 before, and only the states whose files changed are written. `POST /api/claim` names the version
 it was checked against (`law_version`) when that state's files match a published version, and
-`null` otherwise; `GET /api/law/diff` compares two versions rule by rule. On Oct 19, 2026 the live
-`/api/law/versions` reported no current version: commit 4737814 changed the IR for 11 states after
-the newest published one, law-2026-10-03-c959cb6, and that change is not published yet.
+`null` otherwise; `GET /api/law/diff` compares two versions rule by rule. Since Oct 25, 2026 the live
+`/api/law/versions` names law-2026-10-20-e01843a (2,728 rules) as the current version.
 Two least-privilege roles (`scripts/neon/roles.py`): `tend_reader` can only read the corpus, and
 `tend_app` can write shares and pending payments and append to the audit log, never rewrite it.
 They exist and pass their checks, but production does not use them yet: it is set up with the
