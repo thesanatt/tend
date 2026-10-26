@@ -64,6 +64,12 @@ export interface StateSummary {
 // "page_notes"). They are shown first in their section, styled as notes, with no citation.
 type PageNotes = Partial<Record<string, string>>;
 
+// A section's page note as a line, or null where the jurisdiction has none for it.
+export function sectionNote(law: Jurisdiction, id: string): Fact | null {
+  const text = ((law as unknown as { page_notes?: PageNotes }).page_notes ?? {})[id];
+  return text ? { key: `${id}-note`, text, cites: [], kind: "note" } : null;
+}
+
 // Literal names for each kind of cost. The ledger's labels ("Rides to care") say more than some
 // rules do, for example a rule that covers travel to court.
 const EXPENSE_LABEL: Record<string, string> = {
@@ -355,7 +361,7 @@ function totalSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: 
   };
 }
 
-interface CoveredRow {
+export interface CoveredRow {
   expense: string;
   label: string;
   covered: Rule[];
@@ -462,7 +468,8 @@ function coveredRows(c: Corpus): CoveredRow[] {
     .concat(others);
 }
 
-function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
+// rowFacts holds each row's line, in the order of rows.
+function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[]; rowFacts: Fact[] } {
   const rows = coveredRows(c);
   const facts: Fact[] = rows.map((row) => {
     // Covered rules marked detail: true show their own summary under the row (IN-COV-1: paid at 75%).
@@ -482,7 +489,7 @@ function coveredSection(c: Corpus): { facts: Fact[]; rows: CoveredRow[] } {
   // A covered cost the normalizer set aside as someone else's (a parent's counseling, a caregiver's
   // travel) shows in its own words after the rows, so the page still says what it covers (ME-TRANS-1).
   const setAside = c.of("covered_expense").filter((r) => c.setAside(r) && expenseOf(r) !== "forensic_exam");
-  return { facts: [...facts, ...summaryFacts(setAside, "covered-aside")], rows };
+  return { facts: [...facts, ...summaryFacts(setAside, "covered-aside")], rows, rowFacts: facts };
 }
 
 function coveredClause(rows: CoveredRow[]): ShareClause | null {
@@ -514,7 +521,13 @@ const INSURANCE_LINE: [string, string][] = [
   ["allowed", "the provider may bill your insurance for it, but not you"],
 ];
 
-function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
+// insurance is the line on billing insurance that follows the headline, also in facts.
+function examSection(c: Corpus): {
+  facts: Fact[];
+  key: KeyFact | null;
+  clause: ShareClause | null;
+  insurance: Fact | null;
+} {
   const noBill = c.of("exam_no_bill").filter((r) => !c.setAside(r));
   // A no-bill rule the normalizer set aside holds only for some survivors (Wyoming's covers exams reported to
   // police), so it is shown in its own words and never as the headline.
@@ -525,6 +538,7 @@ function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: S
   const facts: Fact[] = [];
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
+  let insurance: Fact | null = null;
 
   // The headline says no more than every no-bill rule. A scope narrows what the exam covers (Texas:
   // the forensic part and the kit); a condition narrows who or when (Alaska: 16 or older). A
@@ -568,12 +582,13 @@ function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: S
       // A bar or consent rule that holds only under its own condition starts the line with it
       // (Wisconsin 949.26(2)(b) binds a provider that asks the SAFE Fund to pay).
       const lc = value === "prohibited" || value === "consent_required" ? shared(rules, "condition") : null;
-      facts.push({
+      insurance = {
         key: `exam-insurance-${value}`,
         text: sentence(lc?.value ? `${capitalize(lc.value)}, ${text}` : capitalize(text)),
         cites: [...new Set([...(lc?.rules ?? []), ...rules].map((r) => r.id))],
         kind: "law",
-      });
+      };
+      facts.push(insurance);
       break;
     }
   } else {
@@ -585,7 +600,7 @@ function examSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: S
     ...summaryFacts(coveredExam, "exam-covered"),
     ...summaryFacts(examCaps, "exam-cap"),
   );
-  return { facts, key, clause };
+  return { facts, key, clause, insurance };
 }
 
 // Conduct rules about cooperating with police or the program belong next to the report rules.
@@ -593,10 +608,18 @@ function cooperationRules(c: Corpus): Rule[] {
   return c.of("conduct_reduction").filter((r) => !c.setAside(r) && /cooperat/i.test(`${r.quote} ${r.summary}`));
 }
 
-function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
+// lead is the section's first line, also in facts. leadNamesRecords is true where the key fact says only that
+// other records count and the lead names some of them ("like a forensic exam or a protective order").
+function reportSection(c: Corpus): {
+  facts: Fact[];
+  key: KeyFact | null;
+  clause: ShareClause | null;
+  lead: Fact | null;
+  leadNamesRecords: boolean;
+} {
   const rules = c.of("reporting_requirement").filter((r) => !c.setAside(r));
   const coop = cooperationRules(c);
-  if (!rules.length && !coop.length) return { facts: [], key: null, clause: null };
+  if (!rules.length && !coop.length) return { facts: [], key: null, clause: null, lead: null, leadNamesRecords: false };
   // The rules that answer "does the compensation program need a police report": not a rule about
   // something narrower (scope: cooperation, another program, a source that disagrees with the
   // statute) and not a waiver for the forensic exam alone (expense forensic_exam).
@@ -623,6 +646,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
   let key: KeyFact | null = null;
   let clause: ShareClause | null = null;
   let lead: Fact | null = null;
+  let leadNamesRecords = false;
   // Where a required rule names other records, the lead asks only that the crime be reported: Georgia
   // counts a report to an investigating agency or medical authorities, and Missouri a forensic exam, as
   // the report itself (GA-1, MO-3).
@@ -658,6 +682,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       cites: main.map((r) => r.id),
       kind: "law",
     };
+    leadNamesRecords = alts.length > 0;
   } else if (examInRequired.length && charge.length) {
     const r0 = examInRequired[0];
     const win = reportWindow(r0);
@@ -710,6 +735,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       cites: [...new Set([...waivers, ...reqWithAlts, ...timedReq].map((r) => r.id))],
     };
     lead = askLead([...required, ...altRules]);
+    leadNamesRecords = true;
     // Where none of those other records is one an anonymous adult can get on her own (Delaware 9010(a)(5):
     // protective services, Family Court, a protection order, cooperation with police, the Agency's
     // discretion), the rule is marked report_gate and the card says a report is asked for, as in the
@@ -759,7 +785,7 @@ function reportSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause:
       kind: "law",
     };
   }
-  return { facts: lead ? [lead, ...facts] : facts, key, clause };
+  return { facts: lead ? [lead, ...facts] : facts, key, clause, lead, leadNamesRecords };
 }
 
 function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; clause: ShareClause | null } {
@@ -819,9 +845,7 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
     // The card's hedge can only say "more". Where another window counted from the day it happened is
     // shorter (Virginia's 1 year for crimes from July 2001 through June 2025, VA-DEADLINE-3), the card says
     // nothing about the deadline; the tile and the line above name the headline's own condition.
-    const shorter = timed.some(
-      (x) => x.r !== primary.r && FROM_INCIDENT.has(x.from) && x.d!.days < primary.d!.days,
-    );
+    const shorter = timed.some((x) => x.r !== primary.r && FROM_INCIDENT.has(x.from) && x.d!.days < primary.d!.days);
     clause = shorter
       ? null
       : {
@@ -833,6 +857,14 @@ function deadlineSection(c: Corpus): { facts: Fact[]; key: KeyFact | null; claus
   } else {
     facts.push(...summaryFacts([...rules, ...narrow, ...trips], "deadline"));
   }
+  // With no deadline rule at all, the section says so in Tend's own words.
+  if (!facts.length)
+    facts.push({
+      key: "deadline-none",
+      text: `Tend has not verified a filing deadline for ${c.law.name}. Ask the program before you wait.`,
+      cites: [],
+      kind: "note",
+    });
   return { facts, key, clause };
 }
 
@@ -905,17 +937,31 @@ function privacyTitle(acp: boolean, records: boolean): string {
   return "Keeping your name and address private";
 }
 
+function partsOf(c: Corpus) {
+  return {
+    total: totalSection(c),
+    covered: coveredSection(c),
+    exam: examSection(c),
+    report: reportSection(c),
+    deadline: deadlineSection(c),
+  };
+}
+
+// What a state page's key facts and its costs, exam, police, and deadline sections are built from, before
+// the page adds its notes and puts them in order. /compare (components/public/compare.ts) shows the same parts
+// for every program side by side, so the two pages never say different things.
+export type StateParts = ReturnType<typeof partsOf>;
+
+export function stateParts(law: Jurisdiction, ir: IrSummary | null): StateParts {
+  return partsOf(new Corpus(law, ir));
+}
+
 export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): StateSummary {
   const c = new Corpus(law, ir);
   const st = law.jurisdiction;
   const place = placeName(st, law.name);
-  const pageNotes = ((law as unknown as { page_notes?: PageNotes }).page_notes ?? {}) as PageNotes;
 
-  const total = totalSection(c);
-  const covered = coveredSection(c);
-  const exam = examSection(c);
-  const report = reportSection(c);
-  const deadline = deadlineSection(c);
+  const { total, covered, exam, report, deadline } = partsOf(c);
   const contact = contactFacts(law, c);
   const excluded = c.of("excluded_expense").filter((r) => !c.setAside(r));
   const acp = c.of("address_confidentiality");
@@ -931,8 +977,10 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
 
   // Tend's own notes say what it could not verify. They carry no citation and are styled apart.
   const note = (key: string, text: string): Fact[] => [{ key, text, cites: [], kind: "note" }];
-  const withNote = (id: string, facts: Fact[]): Fact[] =>
-    pageNotes[id] ? [...note(`${id}-note`, pageNotes[id]!), ...facts] : facts;
+  const withNote = (id: string, facts: Fact[]): Fact[] => {
+    const first = sectionNote(law, id);
+    return first ? [first, ...facts] : facts;
+  };
   const privacyNotes: Fact[] = [];
   if (acp.length && !records.length)
     privacyNotes.push(
@@ -971,20 +1019,7 @@ export function buildStateSummary(law: Jurisdiction, ir: IrSummary | null): Stat
     },
     { id: "exam", title: "The forensic exam", nav: "Exam", facts: withNote("exam", exam.facts) },
     { id: "police", title: "Police report", nav: "Police report", facts: withNote("police", report.facts) },
-    {
-      id: "deadline",
-      title: "Deadline to apply",
-      nav: "Deadline",
-      facts: withNote(
-        "deadline",
-        deadline.facts.length
-          ? deadline.facts
-          : note(
-              "deadline-none",
-              `Tend has not verified a filing deadline for ${law.name}. Ask the program before you wait.`,
-            ),
-      ),
-    },
+    { id: "deadline", title: "Deadline to apply", nav: "Deadline", facts: withNote("deadline", deadline.facts) },
     {
       id: "privacy",
       title: privacyTitle(acp.length > 0, records.length > 0),
