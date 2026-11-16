@@ -18,7 +18,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
-import type { StatementTxn } from "@/lib/contracts";
+import type { BillReading, StatementTxn } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
 import { installNetLog, onNetSend, onStateRequest, stateNamedIn } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
@@ -142,6 +142,32 @@ export function rawFinder(txns: StatementTxn[]): (itemId: string) => StatementTx
 // packet. A reader that only numbers its lines gets this file's hash in front.
 export function billLineId(sha: string, lineId: string): string {
   return lineId.startsWith("bill:") ? lineId : `bill:${sha}:${lineId}`;
+}
+
+// A read bill's lines as costs. The provider's own itemized statement, so each line starts confirmed.
+// One counseling line is one session, as the server reads a bill (api/tend_api/scan.py), so a
+// per-session limit applies to it the way it does to the same visit on a statement.
+export function billItems(reading: BillReading, sha: string, date: string): FlowItem[] {
+  return reading.lines.map((line, i) => ({
+    item_id: billLineId(sha, line.line_id),
+    date,
+    amount_cents: line.amount_cents,
+    expense: line.expense,
+    confirmed: true,
+    insurance_paid_cents: 0,
+    is_bill: true,
+    units: line.expense === "counseling" ? 1 : 0,
+    unit: line.expense === "counseling" ? "session" : null,
+    tags: [],
+    description: line.description,
+    source: reading.source,
+    reason: "",
+    confidence: 1,
+    origin: "bill",
+    merchant: reading.provider ?? undefined,
+    bill_id: `bill-${sha}`,
+    line_no: i + 1,
+  }));
 }
 
 async function fileSha(file: Blob): Promise<string> {
@@ -477,28 +503,7 @@ export function FlowProvider({
       const ok = reading.status === "ok" && reading.sums_match && reading.lines.length > 0;
       // A date the Check step would not count (a typo in the future) does not date the bill either.
       const date = knowsDate(s, today) ? s.check.date : today;
-      const items: FlowItem[] = ok
-        ? reading.lines.map((line, i) => ({
-            item_id: billLineId(sha, line.line_id),
-            date,
-            amount_cents: line.amount_cents,
-            expense: line.expense,
-            confirmed: true,
-            insurance_paid_cents: 0,
-            is_bill: true,
-            units: 0,
-            unit: null,
-            tags: [],
-            description: line.description,
-            source: reading.source,
-            reason: "",
-            confidence: 1,
-            origin: "bill",
-            merchant: reading.provider ?? undefined,
-            bill_id: id,
-            line_no: i + 1,
-          }))
-        : [];
+      const items = ok ? billItems(reading, sha, date) : [];
       const bill: BillRecord = {
         id,
         label: file.name,

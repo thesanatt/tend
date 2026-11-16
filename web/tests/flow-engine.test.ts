@@ -7,7 +7,7 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { describe, expect, it } from "vitest";
 import { buildEngineInput } from "@/components/flow/claim";
-import { rawFinder } from "@/components/flow/FlowProvider";
+import { billItems, rawFinder } from "@/components/flow/FlowProvider";
 import { demoBankTxns, sampleBillFile, sampleStatementFile } from "@/components/flow/samples";
 import { SAMPLE_BILL_SHA256 } from "@/components/flow/samples/rowan";
 import { initialState, reducer, type FlowItem } from "@/components/flow/state";
@@ -15,6 +15,7 @@ import { serverClaimBody } from "@/lib/api";
 import { toEngineInput } from "@/lib/engine";
 import { examHold } from "@/lib/hedge";
 import { mockBillReader, mockClassifier, mockStatementParser } from "@/lib/mocks";
+import type { BillReading } from "@/lib/contracts";
 import type { EngineInput, EngineOutput, Jurisdiction } from "@/lib/types";
 
 const web = path.resolve(import.meta.dirname, "..");
@@ -77,25 +78,7 @@ async function flowInput(): Promise<EngineInput> {
   s = reducer(s, {
     type: "addBill",
     bill: { id: "bill-x", label: "b.pdf", reading: bill, replaces: null, choice: null, sample: true },
-    items: bill.lines.map((l, i) => ({
-      item_id: `bill:x:${l.line_id}`,
-      date: "2026-06-14",
-      amount_cents: l.amount_cents,
-      expense: l.expense,
-      confirmed: true,
-      insurance_paid_cents: 0,
-      is_bill: true,
-      units: 0,
-      unit: null,
-      tags: [],
-      description: l.description,
-      source: "rule",
-      reason: "",
-      confidence: 1,
-      origin: "bill",
-      bill_id: "bill-x",
-      line_no: i + 1,
-    })),
+    items: billItems(bill, "x", "2026-06-14"),
   });
   return toEngineInput(buildEngineInput(s, "2026-10-03")!);
 }
@@ -110,6 +93,42 @@ describe.skipIf(!haveEngine)("the flow on the real law engine (WebAssembly, Mich
     expect(out.error).toBeUndefined();
     return out;
   }
+
+  it("limits a counseling line on an uploaded bill to the session rate, like the same visit on a statement", async () => {
+    // MI-CAP-3 is $125 a session. The server counts one bill line as one session (api/tend_api/scan.py);
+    // the flow left the count at zero, so the limit was skipped and the line only flagged.
+    const reading: BillReading = {
+      status: "ok",
+      provider: "Lakeside Counseling (fictional)",
+      total_cents: 19300,
+      lines: [
+        { line_id: "1", description: "Psychotherapy, 50 minutes", amount_cents: 15000, expense: "counseling" },
+        { line_id: "2", description: "Laboratory panel", amount_cents: 4300, expense: "medical" },
+      ],
+      sums_match: true,
+      source: "rule",
+    };
+    const items = billItems(reading, "y", "2026-06-20");
+    expect(items.map((i) => [i.unit, i.units])).toEqual([
+      ["session", 1],
+      [null, 0],
+    ]);
+    let s = reducer(initialState(), {
+      type: "check",
+      patch: { st: "MI", date: "2026-06-14", exam: "yes", police: "not_yet" },
+    });
+    s = reducer(s, {
+      type: "addBill",
+      bill: { id: "bill-y", label: "c.pdf", reading, replaces: null, choice: null, sample: false },
+      items,
+    });
+    const out = await evaluate(toEngineInput(buildEngineInput(s, "2026-10-03")!));
+    const [session, lab] = ["bill:y:1", "bill:y:2"].map((id) => out.lines.find((l) => l.item_id === id)!);
+    expect(session).toMatchObject({ status: "eligible", requested_cents: 15000, allowed_cents: 12500 });
+    expect(session.rule_ids).toContain("MI-CAP-3");
+    expect(session.flags ?? []).toEqual([]);
+    expect(lab).toMatchObject({ status: "eligible", allowed_cents: 4300 });
+  });
 
   it("holds the exam line, caps counseling at the session rate, and dates the deadline", async () => {
     const input = await flowInput();

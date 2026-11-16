@@ -197,6 +197,8 @@ const TAG_WORDS: [string[], string][] = [
   [["pain and suffering"], "pain_suffering"],
 ];
 const NIGHTS = /\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b/i;
+// One charge is one session; a whole bill may hold many (classify.py's SESSION_KINDS).
+const SESSION_KINDS = new Set(["purchase", "withdrawal", "bill_line"]);
 
 export function tagsFor(text: string): string[] {
   const padded = ` ${norm(text)} `;
@@ -213,8 +215,7 @@ export function itemShape(
   kind: string,
   text: string,
 ): { unit: Unit | null; units: number; tags: string[] } {
-  if (expense === "counseling")
-    return { unit: "session", units: kind === "purchase" || kind === "withdrawal" ? 1 : 0, tags: [] };
+  if (expense === "counseling") return { unit: "session", units: SESSION_KINDS.has(kind) ? 1 : 0, tags: [] };
   if (expense === "temporary_housing") {
     const nights = NIGHTS.exec(text);
     return { unit: "day", units: nights ? Number(nights[1]) : 0, tags: [] };
