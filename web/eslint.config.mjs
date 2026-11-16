@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Emscripten writes this file (make -C engine wasm); nobody edits it by hand.
+    "public/engine/tend.js",
   ]),
 ]);
 
