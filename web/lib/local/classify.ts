@@ -9,6 +9,7 @@ import type { ItemExpense } from "../types";
 import { CLOUD_LIMITS, cloudClassify, personPayment, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPay } from "./paydip";
+import { pyRegex } from "./pytext";
 import {
   classifyDeterministic,
   norm,
@@ -196,7 +197,7 @@ const TAG_WORDS: [string[], string][] = [
   [["vehicle", "car "], "vehicle"],
   [["pain and suffering"], "pain_suffering"],
 ];
-const NIGHTS = /\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b/i;
+const NIGHTS = pyRegex(String.raw`\b([0-9]{1,2})\s*-?\s*(?:nights?|days?)\b`, "i");
 // One charge is one session; a whole bill may hold many (classify.py's SESSION_KINDS).
 const SESSION_KINDS = new Set(["purchase", "withdrawal", "bill_line"]);
 

@@ -15,10 +15,17 @@ const SPACE_RUN = new RegExp(`[${SPACE_CHARS}]+`, "gu");
 const LEADING_SPACE = new RegExp(`^[${SPACE_CHARS}]+`, "u");
 const TRAILING_SPACE = new RegExp(`[${SPACE_CHARS}]+$`, "u");
 
-// Compiles a Python regex source with Python's Unicode meaning of \b, \w, \W, \s and \S.
+// With re.IGNORECASE Python's "i" also matches U+0130 and U+0131 (dotted capital I, dotless small i),
+// whose case mappings meet it. JavaScript's folding keeps them apart, so they are spelled out.
+const TURKIC_I = "\\u0130\\u0131";
+
+// Compiles a Python regex source with Python's Unicode meaning of \b, \w, \W, \s and \S, and of the
+// "i" flag. Group names are written the JavaScript way, (?<name>...).
 export function pyRegex(source: string, flags = "i"): RegExp {
+  const fold = flags.includes("i");
   let out = "";
   let inClass = false;
+  let classBody = 0; // where the open class's members start in out
   for (let i = 0; i < source.length; i++) {
     const c = source[i];
     if (c === "\\" && i + 1 < source.length) {
@@ -32,9 +39,28 @@ export function pyRegex(source: string, flags = "i"): RegExp {
       else out += c + n;
       continue;
     }
-    if (c === "[" && !inClass) inClass = true;
-    else if (c === "]" && inClass) inClass = false;
-    out += c;
+    if (inClass) {
+      if (c === "]") {
+        inClass = false;
+        if (fold && new RegExp(`[${out.slice(classBody)}]`, "iu").test("i")) out += TURKIC_I;
+      }
+      out += c;
+      continue;
+    }
+    if (c === "[") {
+      inClass = true;
+      out += c;
+      if (source[i + 1] === "^") out += source[++i];
+      classBody = out.length;
+      continue;
+    }
+    if (c === "(" && /^\(\?<[^=!]/.test(source.slice(i, i + 4))) {
+      const end = source.indexOf(">", i);
+      out += source.slice(i, end + 1); // a group's name is not pattern text
+      i = end;
+      continue;
+    }
+    out += fold && (c === "i" || c === "I") ? `[i${TURKIC_I}]` : c;
   }
   return new RegExp(out, flags.includes("u") ? flags : flags + "u");
 }

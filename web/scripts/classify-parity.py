@@ -202,6 +202,15 @@ FACT_CASES = [
     F("purchase", "Shop", "", "[payee:x]atm"),
     F("purchase", "Shop", "", "bus\tfare"),
     F("purchase", "İstanbul Kebab", "", "takeout"),
+    # With re.IGNORECASE Python's "i" also takes the dotless i (U+0131). A dotted capital I lowercases to
+    # i plus a combining dot before any rule sees it, so that one matches nothing on either side.
+    F("purchase", "Shop", "", "physıcıan visit"),
+    F("purchase", "Shop", "", "urgent care clınıc"),
+    F("purchase", "Rıverbend General Hospıtal", "", "x"),
+    F("purchase", "Shop", "", "PHYSİCİAN"),
+    F("purchase", "Shop", "", "ſane exam"),
+    F("purchase", "Shop", "", "locKsmith"),
+    F("purchase", "Shop", "", "grocıerıes"),
 ]
 
 REASON_CASES = [
@@ -223,6 +232,44 @@ REASON_CASES = [
     ("rideshare to clinic", "transportation"),
     ("café purchase", "unknown"),
     ("x", "other"),
+    ("elıgible for help", "counseling"),
+    ("ELİGİBLE", "counseling"),
+    ("Thıs ıs fıne", "security"),
+    ("qualıfıes under the law", "medical"),
+]
+
+# (expense, kind, text) for item_shape: sessions by kind, the nights a lodging row names, and tags.
+SHAPE_CASES = [
+    ("counseling", "purchase", "Counseling session"),
+    ("counseling", "withdrawal", ""),
+    ("counseling", "bill_line", "Counseling session"),
+    ("counseling", "bill", "Clearwater Counseling Group"),
+    ("counseling", "deposit", ""),
+    ("temporary_housing", "purchase", "Harbor Inn 3 nights"),
+    ("temporary_housing", "purchase", "3-night stay"),
+    ("temporary_housing", "purchase", "12 days"),
+    ("temporary_housing", "purchase", "10 - NIGHTS"),
+    ("temporary_housing", "purchase", "100 nights"),
+    ("temporary_housing", "purchase", "room 7nights"),
+    ("temporary_housing", "purchase", "night 2"),
+    ("temporary_housing", "purchase", ""),
+    # A letter beside the number or the word leaves no word boundary, whatever its script.
+    ("temporary_housing", "purchase", "é12 days"),
+    ("temporary_housing", "purchase", "99 nightsı"),
+    ("temporary_housing", "purchase", "ſ2 nights"),
+    # Only the digits 0 to 9 count; the letter i takes its dotted and dotless forms.
+    ("temporary_housing", "purchase", "٣ nights"),
+    ("temporary_housing", "purchase", "３ nights"),
+    ("temporary_housing", "purchase", "2 NİGHTS"),
+    ("temporary_housing", "purchase", "2 nıghts"),
+    ("lost_wages", "deposit", "payroll"),
+    ("property_replacement", "purchase", "new cell phone and wallet"),
+    ("property_replacement", "purchase", "car seat"),
+    ("property_replacement", "purchase", "cart"),
+    ("property_replacement", "purchase", "[payee:phone] cash"),
+    ("property_replacement", "purchase", "JEWELLERY box"),
+    ("medical", "purchase", "phone, 3 nights"),
+    ("transportation", "purchase", "cab"),
 ]
 
 
@@ -272,9 +319,21 @@ BILL_TEXT_CASES = [
     "Clinic\n06/14/2026  SANE exam  0.00\n06/14/2026  Lab  43.00\nTotal  43.00\n",
     "Clinic\n06/14/2026  Lab  43.00\n٦/14/2026  Lab  ٣.٥٠\n06/14/2026  Lab  ４３.００\nTotal  43.00\n",
     "Clinic\n06/14/2026  Lab  43.00\nTotal  ٤٣.٠٠\n",
+    # Bill text is matched as printed, so "i" in a pattern also takes the dotted capital I and the dotless i.
+    "Clınıc\n06/14/2026  PHYSİCİAN VİSİT  43.00\n06/14/2026  Forensıc exam  0.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\nİnsurance payment  -$5.00\nPatıent responsıbılıty  38.00\n",
+    "FİCTİONAL DEMO\nClinic\n06/14/2026  Lab  43.00\nTotal  43.00\n",
+    # A header key that only matches by case folding names no field.
+    ("Facılıty : Northside\nſtatement date: 06/20/2026\nBİLL İD # 9\nAccount: 7\n"
+     "06/14/2026  Lab  43.00\nAmount due  43.00\n"),
     "",
     "\n\n  \n",
 ]
+
+
+def shape(expense: str, kind: str, text: str) -> tuple[str | None, int, list[str]]:
+    unit, units, tags = C.item_shape(expense, kind, text)
+    return unit, units, list(tags)
 
 
 def bill_text_reference(text: str) -> dict:
@@ -358,13 +417,16 @@ def main() -> None:
         "personas": personas,
         "facts": facts,
         "reasons": [{"text": t, "label": label, "out": C.clean_reason(t, label)} for t, label in REASON_CASES],
+        "shapes": [dict(zip(("expense", "kind", "text", "unit", "units", "tags"),
+                            (e, k, t, *shape(e, k, t)), strict=True)) for e, k, t in SHAPE_CASES],
         "bills": [bill_reference(p) for p in BILL_PDFS],
         "bill_texts": [bill_text_reference(t) for t in BILL_TEXT_CASES],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(body, separators=(",", ":"), ensure_ascii=True) + "\n")
     print(f"wrote {rel(OUT)}: {len(personas)} personas, {len(facts)} fact cases, "
-          f"{len(REASON_CASES)} reason cases, {len(body['bills'])} bills, {len(BILL_TEXT_CASES)} bill texts")
+          f"{len(REASON_CASES)} reason cases, {len(SHAPE_CASES)} shape cases, {len(body['bills'])} bills, "
+          f"{len(BILL_TEXT_CASES)} bill texts")
 
 
 if __name__ == "__main__":

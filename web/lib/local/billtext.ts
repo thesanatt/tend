@@ -122,7 +122,8 @@ export function parseTextBill(text: string): TextBill {
         if (key === "provider" || key === "facility") bill.provider = value;
         else if (key === "statement date") bill.statement_date = value;
         else if (key === "bill id") bill.bill_id = value;
-        else bill.account_ref = value;
+        else if (key === "account" || key === "account number") bill.account_ref = value;
+        // A key matched only by case folding (a long s, a dotless i) is no field, as on the server.
       } else if (title === null && !BANNER.test(line)) {
         title = line.split(TWO_SPACES)[0];
       }

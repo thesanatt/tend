@@ -5,7 +5,7 @@ import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { classifyDetailed } from "@/lib/local/classify";
+import { classifyDetailed, itemShape } from "@/lib/local/classify";
 import { fromNessieRelay } from "@/lib/local/nessie";
 import { classifyDeterministic, cleanReason, type Classification, type FactKind } from "@/lib/local/rules";
 import parity from "./fixtures/classify-parity.json";
@@ -73,6 +73,10 @@ describe("deterministic rules match the Python module", () => {
 
   it.each(parity.reasons.map((r, i) => [i, r] as const))("reason %i", (_, r) => {
     expect(cleanReason(r.text, r.label)).toBe(r.out);
+  });
+
+  it.each(parity.shapes.map((s, i) => [i, s] as const))("item shape %i", (_, s) => {
+    expect(itemShape(s.expense, s.kind, s.text)).toEqual({ unit: s.unit, units: s.units, tags: s.tags });
   });
 });
 
