@@ -17,6 +17,7 @@ describe("odd input never throws", () => {
     const r = rng(1);
     const parts = ['"', ",", ";", "\t", "\n", "\r", "-", "(", ")", "$", "1", "2", "0", ".", "/", "a", "Date", "Amount"];
     parts.push("Description", "<OFX>", "<STMTTRN>", "<TRNAMT>", "<DTPOSTED>", "CR", "DR", " ", "é", "﻿");
+    parts.push("</STMTTRN>", "<NAME>", "<FITID>", "&#99999999;", "&#x110000;", "&amp;", "20260614");
     for (let k = 0; k < 2000; k++) {
       let s = k % 3 === 0 ? "Date,Description,Amount\n" : "";
       for (let i = Math.floor(r() * 200); i > 0; i--) s += parts[Math.floor(r() * parts.length)];
