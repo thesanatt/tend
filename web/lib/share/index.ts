@@ -6,6 +6,7 @@
 // ciphertext by id and decrypts it here. The server cannot read a share, and neither can anyone
 // holding only the id.
 import type { Share, SharedPacket } from "../contracts";
+import { isIsoDay } from "../dates";
 import { fromB64url, fromUtf8, isB64url, toB64url, utf8, type Bytes } from "../vault/bytes";
 
 export const SHARE_ENDPOINT = "/api/shares";
@@ -105,9 +106,16 @@ const MAX_NOTES = 4000;
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
 const isCents = (v: unknown) => Number.isSafeInteger(v) && (v as number) >= 0;
-const isDay = (v: unknown) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}$/.test(v);
+// A day on the calendar: the viewer formats every date, and "2026-02-31" has no format.
+const isDay = (v: unknown) => typeof v === "string" && isIsoDay(v);
 const isStrings = (v: unknown) => Array.isArray(v) && v.every((x) => typeof x === "string");
 const isCheck = (v: unknown) => isObj(v) && typeof v.status === "string" && isStrings(v.rule_ids);
+// The deadline check also carries the last day to file, or null when the law names none.
+const isDeadline = (v: unknown) =>
+  isCheck(v) &&
+  isObj(v) &&
+  (v.deadline_date === null || v.deadline_date === undefined || isDay(v.deadline_date)) &&
+  (v.flags === undefined || isStrings(v.flags));
 
 // Anyone can make a link, so what opens is checked as closely as what is sealed: the viewer and
 // the PDF builder read every one of these fields, and money must stay whole cents.
@@ -173,14 +181,16 @@ function isPacket(v: unknown): v is SharedPacket {
     !isObj(totals) ||
     !isCents(totals.allowed_cents) ||
     !isCents(totals.held_cents) ||
-    !isCents(totals.requested_cents)
+    !isCents(totals.requested_cents) ||
+    !isObj(totals.by_expense) ||
+    !Object.values(totals.by_expense).every(isCents)
   ) {
     return false;
   }
   const checks = output.checks;
   return (
     isObj(checks) &&
-    isCheck(checks.deadline) &&
+    isDeadline(checks.deadline) &&
     isCheck(checks.minimum_loss) &&
     isCheck(checks.reporting) &&
     isStrings(output.info_rule_ids ?? [])
