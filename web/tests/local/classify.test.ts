@@ -404,6 +404,10 @@ describe("what leaves the device for cloud sorting", () => {
     ["MARKET 12 ODD SHOP", "MARKET 12 ODD SHOP"],
     ["MAYO CLINIC 3", "MAYO CLINIC 3"],
     ["JUNIPER 5 CAFE", "JUNIPER 5 CAFE"],
+    // Full-width forms, as some PDF fonts give them, read as the plain characters they stand for
+    ["ODD SHOP \uff10\uff16\uff0f\uff11\uff14 \uff23\uff21\uff32\uff24 \uff14\uff14\uff11\uff17", "ODD SHOP"],
+    // A long run of digits goes whatever script it is written in
+    ["ODD SHOP \u0664\u0664\u0661\u0667\u0669\u0669\u0660\u0661", "ODD SHOP"],
   ])("%s", (input, out) => {
     expect(scrubForCloud(input)).toBe(out);
   });

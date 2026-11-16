@@ -76,6 +76,8 @@ const SCRUB: [RegExp, string][] = [
   [/(?:\b[x*#]+|\b(?:card|acct|account|ref|conf|id|no)\s*[:#.]?\s*)[x*]*\d{2,}\w*/gi, " "],
   [/(?<![a-z])[x*#]+\d{2,}\w*/gi, " "],
   [/\b[\w-]*\d{4,}[\w-]*/g, " "],
+  // The same run in another script's digits, which \d does not read
+  [/[\p{L}\p{N}_-]*\p{Nd}{4,}[\p{L}\p{N}_-]*/gu, " "],
 ];
 
 // The API's limits for each field (AiTxn in api/tend_api/models.py). Python counts characters,
@@ -83,7 +85,9 @@ const SCRUB: [RegExp, string][] = [
 export const CLOUD_LIMITS = { merchant: 120, category: 80, description: 200 } as const;
 
 export function scrubForCloud(text: string, max: number = CLOUD_LIMITS.description): string {
-  let t = text ?? "";
+  // NFKC first: full-width digits and letters, as some PDF fonts give them, become the plain ones
+  // the patterns below are written for.
+  let t = (text ?? "").normalize("NFKC");
   for (const [pattern, to] of SCRUB) t = t.replace(pattern, to);
   return Array.from(t.replace(/\s+/g, " ").trim()).slice(0, max).join("").trim();
 }
