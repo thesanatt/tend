@@ -130,6 +130,37 @@ describe.skipIf(!haveEngine)("the flow on the real law engine (WebAssembly, Mich
     expect(lab).toMatchObject({ status: "eligible", allowed_cents: 4300 });
   });
 
+  it("still counts a claim whose longest description has an emoji where the 200-character cut falls", async () => {
+    // The cut took half of the emoji, and the engine refuses a whole claim over half a character
+    // ("unpaired surrogate"), so one long line on one bill stopped every figure.
+    const long = `${"Emergency department visit ".repeat(8).slice(0, 199)}\u{1F600} follow-up`;
+    expect(long.charCodeAt(199)).toBeGreaterThanOrEqual(0xd800);
+    const reading: BillReading = {
+      status: "ok",
+      provider: "Riverbend General (fictional)",
+      total_cents: 4300,
+      lines: [{ line_id: "1", description: long, amount_cents: 4300, expense: "medical" }],
+      sums_match: true,
+      source: "rule",
+    };
+    let s = reducer(initialState(), {
+      type: "check",
+      patch: { st: "MI", date: "2026-06-14", exam: "yes", police: "not_yet" },
+    });
+    s = reducer(s, {
+      type: "addBill",
+      bill: { id: "bill-z", label: "d.pdf", reading, replaces: null, choice: null, sample: false },
+      items: billItems(reading, "z", "2026-06-20"),
+    });
+    const input = toEngineInput(buildEngineInput(s, "2026-10-03")!);
+    const sent = input.items[0].description;
+    // 200 characters as a person counts them, the emoji whole.
+    expect(Array.from(sent)).toHaveLength(200);
+    expect(sent.endsWith("\u{1F600}")).toBe(true);
+    const out = await evaluate(input);
+    expect(out.lines[0]).toMatchObject({ item_id: "bill:z:1", status: "eligible", allowed_cents: 4300 });
+  });
+
   it("holds the exam line, caps counseling at the session rate, and dates the deadline", async () => {
     const input = await flowInput();
     const out = await evaluate(input);

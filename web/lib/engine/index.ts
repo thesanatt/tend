@@ -43,6 +43,18 @@ export function wasmEngine(): Promise<WasmEngine | null> {
   return wasmPromise;
 }
 
+// The engine reads a claim as JSON and refuses all of it over half of a character pair, such as an
+// emoji cut in two. A description is words for the survivor and decides nothing, so a stray half
+// becomes U+FFFD and the claim is still counted.
+const HALF_PAIR = /[\ud800-\udfff]/;
+export function wholeText(text: string): string {
+  if (!HALF_PAIR.test(text)) return text;
+  // Iterating a string keeps a whole pair together, so anything one unit long in that range is a half.
+  let out = "";
+  for (const ch of text) out += ch.length === 1 && HALF_PAIR.test(ch) ? "\ufffd" : ch;
+  return out;
+}
+
 // Engines expect only the SPEC input fields; extras (merchant, confidence, reason) stay behind.
 // unit and tags are SPEC v1.2 fields and pass through when the caller has them.
 export function toEngineInput(input: EngineInput): EngineInput {
@@ -65,7 +77,7 @@ export function toEngineInput(input: EngineInput): EngineInput {
         insurance_paid_cents: it.insurance_paid_cents ?? 0,
         is_bill: it.is_bill,
         units: it.units ?? 0,
-        description: it.description,
+        description: wholeText(it.description),
         ...(extra.unit !== undefined ? { unit: extra.unit } : {}),
         ...(Array.isArray(extra.tags) ? { tags: extra.tags } : {}),
       };

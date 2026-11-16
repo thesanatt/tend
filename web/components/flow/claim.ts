@@ -1,6 +1,7 @@
 // Pure joins between the flow state and the law engine. Money totals always come from the engine
 // output; this file only decides what goes in and how lines are grouped and labeled.
 import { isIsoDay } from "@/lib/dates";
+import { pyHead } from "@/lib/local/pytext";
 import { sumCents } from "@/lib/money";
 import type { EngineInput, EngineLine, EngineOutput, ItemExpense, LineStatus, PoliceReport } from "@/lib/types";
 import type { BillRecord, FlowItem, FlowState, PoliceAnswer, YesNoUnsure } from "./state";
@@ -81,7 +82,8 @@ export function buildEngineInput(state: FlowState, asOf: string): EngineInput | 
       units: it.units ?? 0,
       unit: it.unit ?? null,
       tags: it.tags ?? [],
-      description: it.description.slice(0, 200),
+      // 200 whole characters: a cut through an emoji leaves half of one, which is not text.
+      description: pyHead(it.description, 200),
     }));
   return {
     jurisdiction: state.check.st,
