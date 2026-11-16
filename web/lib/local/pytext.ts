@@ -91,6 +91,11 @@ export function collapseSpaces(text: string): string {
   return text.replace(SPACE_RUN, " ");
 }
 
+// s[:n], by code point, so a cut never leaves half of a surrogate pair.
+export function pyHead(text: string, n: number): string {
+  return text.length <= n ? text : Array.from(text).slice(0, n).join("");
+}
+
 // s[0].upper() + s[1:], by code point.
 export function capitalizeFirst(text: string): string {
   const cps = Array.from(text);

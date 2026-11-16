@@ -173,4 +173,13 @@ describe("lost pay from paychecks", () => {
     }));
     expect(inferPayDips(moves, "2026-05-01")).toEqual([]);
   });
+
+  it("a long description is cut at 200 characters, never through the middle of one", () => {
+    // 199 letters, then a character that takes two UTF-16 units: a cut by units would keep half of it.
+    const head = "PAYROLL " + "A".repeat(191);
+    const txns = checks(`${head}\u{1F33F} TAIL`, "2026-03-20", 14, [40000, 40000, 40000, 10000, null]);
+    const { dips, missed } = inferPay([...txns, spend("2026-05-20")], "2026-05-01");
+    expect([...dips.values()].map((d) => d.description)).toEqual([`${head}\u{1F33F}`]);
+    expect(missed.map((m) => m.description)).toEqual([`${head}\u{1F33F}`]);
+  });
 });

@@ -9,7 +9,7 @@ import type { ItemExpense } from "../types";
 import { CLOUD_LIMITS, cloudClassify, personPayment, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPay } from "./paydip";
-import { pyRegex } from "./pytext";
+import { pyHead, pyRegex } from "./pytext";
 import {
   classifyDeterministic,
   norm,
@@ -226,8 +226,6 @@ export function itemShape(
   return { unit: null, units: 0, tags: [] };
 }
 
-const slice200 = (s: string) => Array.from(s).slice(0, 200).join("");
-
 // A model's label is the model's; anything a rule decided last, including a ride linked to care,
 // is the rules'.
 function sourceOf(c: Classification, modelSource: Map<string, Source>): Source {
@@ -248,7 +246,7 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
     insurance_paid_cents: 0,
     is_bill: isBill,
     ...shape,
-    description: slice200(text),
+    description: pyHead(text, 200),
     source,
     reason: c.reason,
     confidence: c.confidence,
