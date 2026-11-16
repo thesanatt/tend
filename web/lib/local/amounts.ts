@@ -4,10 +4,10 @@ import { pyRegex } from "./pytext";
 
 // api/tend_api/money.py: "$1,171.75", "325.00", "(12.50)", "-12.50", "$443". Cents are exactly two digits.
 const PY_MONEY = pyRegex(
-  String.raw`^(?<open>\()?\s*(?<neg>-)?\s*\$?\s*(?<whole>\d{1,3}(?:,\d{3})+|\d+)(?:\.(?<frac>\d{2}))?\s*(?<close>\))?$`,
+  String.raw`^(?<open>\()?\s*(?<neg>-)?\s*\$?\s*(?<whole>[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.(?<frac>[0-9]{2}))?\s*(?<close>\))?$`,
   "",
 );
-export const MONEY_TOKEN_SOURCE = String.raw`\(?-?\$?\s?(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}\)?|\(?-?\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)\)?`;
+export const MONEY_TOKEN_SOURCE = String.raw`\(?-?\$?\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\.[0-9]{2}\)?|\(?-?\$\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\)?`;
 
 function cents(whole: string, frac: string): number | null {
   const value = Number(whole.replace(/,/g, "")) * 100 + Number(frac.padEnd(2, "0") || "0");

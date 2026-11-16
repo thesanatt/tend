@@ -1,6 +1,7 @@
 // Text helpers that behave like Python's, so rules ported from api/tend_api match the same text.
 // Python's re treats \b, \w and \s as Unicode-aware for str patterns; JavaScript's do not, so
-// pyRegex rewrites those escapes before compiling.
+// pyRegex rewrites those escapes before compiling. It leaves \d alone: Python's also takes the digits
+// of other scripts, so a pattern both sides must read the same spells its digits [0-9].
 
 // Characters str.isspace() accepts (and Python's \s matches). JavaScript's \s differs: it has
 // U+FEFF and lacks U+001C to U+001F and U+0085.

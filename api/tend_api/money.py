@@ -7,8 +7,11 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 
 # "$1,171.75", "325.00", "(12.50)", "-12.50", "$443". Cents must be exactly two digits when present.
-_MONEY = re.compile(r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>\d{1,3}(?:,\d{3})+|\d+)(?:\.(?P<frac>\d{2}))?\s*(?P<close>\))?$")
-MONEY_TOKEN = re.compile(r"\(?-?\$?\s?(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}\)?|\(?-?\$\s?(?:\d{1,3}(?:,\d{3})+|\d+)\)?")
+_MONEY = re.compile(r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.(?P<frac>[0-9]{2}))?\s*(?P<close>\))?$")
+MONEY_TOKEN = re.compile(r"\(?-?\$?\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\.[0-9]{2}\)?|\(?-?\$\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\)?")
+# Amounts reach the browser as JSON numbers, which are exact only up to 2**53 - 1. The device's reader
+# (web/lib/local/amounts.ts) refuses anything larger, so this one does too.
+MAX_EXACT_CENTS = 2**53 - 1
 
 
 def parse_cents(text: str) -> int:
@@ -16,6 +19,8 @@ def parse_cents(text: str) -> int:
     if not m or bool(m.group("open")) != bool(m.group("close")):
         raise ValueError(f"not a money amount: {text!r}")
     cents = int(m.group("whole").replace(",", "")) * 100 + int(m.group("frac") or 0)
+    if cents > MAX_EXACT_CENTS:
+        raise ValueError(f"amount too large: {text!r}")
     return -cents if (m.group("neg") or m.group("open")) else cents
 
 

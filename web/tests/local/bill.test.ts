@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { billFromAnswer, MAX_BILL_BYTES, readBill } from "@/lib/local/bill";
+import { balanceChecks, BillReadError, matchExpense, parseTextBill, type TextBill } from "@/lib/local/billtext";
 import { CLOUD_BILL_MAX_BYTES, cloudBillMime } from "@/lib/local/cloud";
 import parity from "./fixtures/classify-parity.json";
 import { FakeLanguageModel, install, uninstall } from "./fake-lm";
@@ -57,6 +58,37 @@ describe("PDF bills read the same as api/tend_api/bill.py", () => {
     expect(got.adjustments).toEqual(ref.adjustments);
     expect(got.source).toBe("rule");
     expect(got.format).toBe("pdf");
+  });
+});
+
+describe("bill text reads the same as api/tend_api/bill.py", () => {
+  interface TextReference {
+    text: string;
+    refused: boolean;
+    lines?: (TextBill["lines"][number] & { expense: string })[];
+    balanced?: boolean;
+  }
+  const label = (b: TextReference) => JSON.stringify(b.text).slice(0, 70);
+
+  it.each((parity.bill_texts as TextReference[]).map((b, i) => [i, label(b), b] as const))("text %i %s", (_, __, b) => {
+    if (b.refused) {
+      expect(() => parseTextBill(b.text)).toThrow(BillReadError);
+      return;
+    }
+    const { lines, ...meta } = parseTextBill(b.text);
+    expect({
+      text: b.text,
+      refused: false,
+      lines: lines.map((l) => ({ ...l, expense: matchExpense(l.description).expense })),
+      ...meta,
+      balanced: balanceChecks({ lines, ...meta }).every((c) => c.ok),
+    }).toEqual(b);
+  });
+
+  it("has cases the server refuses and cases it reads", () => {
+    const refused = parity.bill_texts.filter((b) => b.refused).length;
+    expect(refused).toBeGreaterThan(5);
+    expect(parity.bill_texts.length - refused).toBeGreaterThan(20);
   });
 });
 

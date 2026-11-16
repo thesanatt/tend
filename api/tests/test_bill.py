@@ -220,6 +220,23 @@ def test_unbalanced_amount_is_refused_not_a_crash(row):
     assert "could not read the amount" in caught.value.detail["message"]
 
 
+@pytest.mark.parametrize("date", ["6/14/202", "06/14/0202", "0001-06-14", "06/14/2201", "1899-12-31"])
+def test_a_year_no_bill_could_carry_is_refused(date):
+    # dt.date takes any year from 1 to 9999; the device's reader takes 1900 to 2200, and so does this one.
+    with pytest.raises(BillRefused) as caught:
+        extract_bill(f"Clinic\n{date}  Laboratory panel  43.00\nTotal 43.00".encode(), "text")
+    assert "bad date" in caught.value.detail["message"]
+
+
+def test_an_amount_too_large_to_send_exactly_is_refused():
+    # 2**53 cents is the first amount a browser cannot hold exactly.
+    row = "06/14/2026  Laboratory panel  90071992547409.9{}\nTotal 43.00"
+    assert extract_bill(f"Clinic\n{row.format(1)}".encode(), "text").lines[0].amount_cents == 2**53 - 1
+    with pytest.raises(BillRefused) as caught:
+        extract_bill(f"Clinic\n{row.format(2)}".encode(), "text")
+    assert "could not read the amount" in caught.value.detail["message"]
+
+
 def test_unbalanced_total_is_refused_not_a_crash():
     with pytest.raises(BillRefused):
         balance_checks(extract_bill(b"Clinic\n06/14/2026  Laboratory panel  43.00\nTotal (43.00", "text"))
