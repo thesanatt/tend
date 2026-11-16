@@ -33,13 +33,13 @@ def norm(s: str) -> str:
 
 
 def numbers_in(text: str) -> set:
+    """Every number the text says, in digits or in words. A decimal is itself and nothing else:
+    "$12.50" is 12.5, not also 12, and "section 18.68" does not say 18."""
     found = set()
     for m in re.finditer(r"\d[\d,]*(?:\.\d+)?", text):
         tok = m.group().replace(",", "")
         try:
-            v = float(tok)
-            found.add(v)
-            found.add(int(v))
+            found.add(float(tok))
         except ValueError:
             pass
     toks = re.findall(r"[a-z]+", text.lower().replace("-", " "))
@@ -64,8 +64,8 @@ def numbers_in(text: str) -> set:
 
 
 def money_in_quote(cents: int, quote_nums: set) -> bool:
-    dollars = cents / 100
-    return dollars in quote_nums or int(dollars) in quote_nums
+    """The amount, as dollars, is a number the quote says. An amount with cents needs its cents there too."""
+    return cents / 100 in quote_nums
 
 
 # Characters a word may run across (Unicode UAX #29, which browsers use through ICU): letters on both sides
@@ -440,7 +440,7 @@ def check(st: str):
                 errors.append(f"{rid}: params.{k}={v} does not appear in the quote")
         for n in numbers_in(r.get("summary", "")):
             if n not in qn and n not in (0, 1):
-                errors.append(f"{rid}: summary number {n} is not in the quote")
+                errors.append(f"{rid}: summary number {int(n) if n == int(n) else n} is not in the quote")
         if kinds[sid] == "html" and urls[sid]:
             if sid not in pages:
                 pages[sid] = page_model(raws[sid].read_bytes())
