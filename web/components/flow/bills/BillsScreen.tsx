@@ -278,7 +278,10 @@ function Triage({ bill, law }: { bill: BillRecord; law: LawIndex }) {
       {!ready ? (
         <div className={styles.billSide}>
           <EngineNotice />
-          <p role="status">{t.bills.checking}</p>
+          {/* The notice above already says the check stopped, or asks before using the server. */}
+          {claim.status === "error" || claim.status === "needs_consent" ? null : (
+            <p role="status">{t.bills.checking}</p>
+          )}
         </div>
       ) : (
         <div className={styles.billSide}>

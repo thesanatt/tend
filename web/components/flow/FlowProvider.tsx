@@ -56,6 +56,8 @@ export interface ClaimView {
   error: string | null;
 }
 
+const NO_CLAIM: ClaimView = { status: "idle", evaluation: null, error: null };
+
 export type VaultStatus = "checking" | "none" | "locked" | "open";
 export type VaultMethods = { passphrase: boolean; passkey: boolean };
 
@@ -191,7 +193,8 @@ export function FlowProvider({
 }) {
   const { lang, setLang } = useI18n();
   const [state, dispatch] = useReducer(reducer, initial ?? initialState(lang));
-  const [claim, setClaim] = useState<ClaimView>({ status: "idle", evaluation: null, error: null });
+  // The engine's last answer, with the claim it was counted for (that claim's inputKey).
+  const [counted, setCounted] = useState<ClaimView & { key: string }>({ ...NO_CLAIM, key: "" });
   const [vaultStatus, setVaultState] = useState<VaultStatus>("checking");
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
@@ -284,18 +287,21 @@ export function FlowProvider({
   }, [logSent]);
 
   useEffect(() => {
+    // An answer still on its way was counted for a claim that is no longer the one on screen, and
+    // that includes the claim Start over cleared.
+    const id = ++run.current;
     if (!input) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setClaim({ status: "idle", evaluation: null, error: null });
+      setCounted({ ...NO_CLAIM, key: "" });
       return;
     }
-    const id = ++run.current;
-    setClaim((c) => ({ ...c, status: "computing" }));
+    // The last answer stays up for the moment the engine takes, so the figures do not blink.
+    setCounted((c) => ({ ...c, status: "computing" }));
     services
       .evaluate(input, { allowApi: state.serverConsent })
       .then((evaluation) => {
         if (id !== run.current) return;
-        setClaim({ status: "ready", evaluation, error: null });
+        setCounted({ status: "ready", evaluation, error: null, key: inputKey });
         if (evaluation.backend === "api" && !stateRef.current.sent.some((e) => e.kind === "server_engine")) {
           logSent({ kind: "server_engine", ref: "server_engine" });
         }
@@ -303,15 +309,25 @@ export function FlowProvider({
       .catch((err: Error) => {
         if (id !== run.current) return;
         const consent = err instanceof EngineUnavailableError && err.serverAvailable && !stateRef.current.serverConsent;
-        setClaim((c) => ({
+        // A claim the engine could not count has no figures. The last answer was for another claim.
+        setCounted({
           status: consent ? "needs_consent" : "error",
-          evaluation: c.evaluation,
+          evaluation: null,
           error: err.message,
-        }));
+          key: inputKey,
+        });
       });
     // inputKey carries the content of input
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputKey, state.serverConsent, services, logSent]);
+
+  // In the render where an answer has just changed the claim, the effect above has not run yet and
+  // the last answer still says ready. It was counted for another claim, so here it is one being
+  // counted again: the packet and a share link wait for figures that belong to this claim.
+  const claim = useMemo<ClaimView>(() => {
+    if (!inputKey) return NO_CLAIM;
+    return counted.status === "ready" && counted.key !== inputKey ? { ...counted, status: "computing" } : counted;
+  }, [counted, inputKey]);
 
   // Vault: find out whether there is saved progress, keep it current, and lock it when the page goes.
   useEffect(() => {

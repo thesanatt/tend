@@ -4,7 +4,7 @@ import { act, cleanup, fireEvent, screen, waitFor, within } from "@testing-libra
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CheckScreen from "@/components/flow/check/CheckScreen";
 import FlowFrame from "@/components/flow/FlowFrame";
-import { IDLE_LOCK_MS } from "@/components/flow/FlowProvider";
+import { IDLE_LOCK_MS, useFlow } from "@/components/flow/FlowProvider";
 import PacketScreen from "@/components/flow/packet/PacketScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, FlowItem } from "@/components/flow/state";
@@ -128,6 +128,49 @@ describe("Packet", () => {
     fireEvent.click(screen.getByRole("button", { name: "Stop this link" }));
     expect(await screen.findByText("A link you stopped no longer works.")).toBeTruthy();
     expect(services.share.sealed.size).toBe(0);
+  });
+
+  // A link holds the claim and the figures counted for it. While a changed claim is being counted
+  // again, the figures on screen are still the last claim's, so no link is made from the two.
+  it("makes no share link while a changed claim is still being counted", async () => {
+    let finish: (() => void) | null = null;
+    const evaluate = vi.fn((input: EngineInput) => {
+      const answer = { output: michiganOutput(input), backend: "wasm" as const, detail: "test" };
+      if (input.context.police_report !== "yes") return Promise.resolve(answer);
+      return new Promise<typeof answer>((resolve) => {
+        finish = () => resolve(answer);
+      });
+    });
+    function Reported() {
+      const { dispatch } = useFlow();
+      return (
+        <button type="button" onClick={() => dispatch({ type: "check", patch: { police: "yes" } })}>
+          reported
+        </button>
+      );
+    }
+    const { services } = renderFlow(
+      <>
+        <Reported />
+        <PacketScreen />
+      </>,
+      { services: testServices({ evaluate }), initial: stateFrom(gathered) },
+    );
+    await screen.findByText("$80.00");
+    fireEvent.click(screen.getByRole("button", { name: "reported" }));
+    await waitFor(() => expect(finish).not.toBeNull());
+    const make = screen.getByRole("button", { name: "Make a share link" }) as HTMLButtonElement;
+    expect(make.disabled).toBe(true);
+    fireEvent.click(make);
+    expect(services.share.sealed.size).toBe(0);
+
+    await act(async () => finish!());
+    await waitFor(() => expect(make.disabled).toBe(false));
+    fireEvent.click(make);
+    await screen.findByLabelText("Share this link with your advocate:");
+    const sealed = [...services.share.sealed.values()][0];
+    expect(sealed.input.context.police_report).toBe("yes");
+    expect(sealed.output).toEqual(michiganOutput(sealed.input));
   });
 
   it("says when the claim is under the program's minimum, and that the program can waive it", async () => {

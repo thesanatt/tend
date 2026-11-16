@@ -19,7 +19,7 @@ export function expired(expiresAt: string, now = Date.now()): boolean {
 // Share with an advocate: the packet is sealed in this browser, and only the link opens it.
 export default function ShareBox({ input, output }: { input: EngineInput; output: EngineOutput }) {
   const { t, f } = useI18n();
-  const { services, state, dispatch, logSent, today } = useFlow();
+  const { services, state, dispatch, logSent, today, claim } = useFlow();
   const [hours, setHours] = useState<(typeof HOURS)[number]>(72);
   const [once, setOnce] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -118,7 +118,13 @@ export default function ShareBox({ input, output }: { input: EngineInput; output
             {t.share.once}
           </label>
           <div className="btn-row">
-            <button type="button" className="btn btn-secondary" disabled={busy} onClick={make}>
+            {/* Not while a changed claim is being counted: output would still be the last claim's figures. */}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              disabled={busy || claim.status !== "ready"}
+              onClick={make}
+            >
               {busy ? t.share.making : t.share.make}
             </button>
           </div>
