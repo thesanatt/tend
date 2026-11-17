@@ -88,9 +88,13 @@ rejects. A rule exists only if its `quote` is a verbatim substring of a saved of
 ## Words the page prints from params
 
 Some params are plain text that the state page puts into its own sentences. Each one must
-say no more than the rule's own quote, and every number in it must appear in that quote
-(verify.py checks this). Write them in plain words, short enough that the sentence they
-join stays at grade 9 or below. Never use "never".
+say no more than the rule's own quote, and every number in it must appear in that quote.
+`verify.py` does not read these fields; the number check is a test in
+`rules/tools/test_export_dataset.py`, over every field listed below. It allows one rule,
+CO-EXC-1, whose `item` names its section by number where the quote says "this section".
+Whether a field says more than its quote in words is not checked by any tool. Write them in
+plain words, short enough that the sentence they join stays at grade 9 or below. Never use
+"never".
 
 - `condition`: when or for whom the rule holds. On exam_no_bill and exam_payment it is an
   "if" clause that reads after "You should not have to pay for a forensic exam":

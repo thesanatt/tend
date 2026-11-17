@@ -158,6 +158,30 @@ def test_every_number_in_params_appears_in_the_quote(files, doc):
     assert f"does not check ({X.series(f'`{k}`' for k in unchecked)})." in files["README.md"].decode("ascii")
 
 
+def test_every_number_in_a_text_param_the_page_prints_appears_in_the_quote(doc):
+    # verify.py does not read text params. rules/SCHEMA.md names the ones the state page prints and says a
+    # number in one must be in the rule's quote; this is where that is checked.
+    schema = (ROOT / "rules" / "SCHEMA.md").read_text(encoding="utf-8")
+    section = schema.split("## Words the page prints from params")[1].split("\n## ")[0]
+    printed = set(re.findall(r"^- `(\w+)`", section, re.M))
+    assert {"condition", "scope", "exception", "extension", "exam_condition", "item", "only_benefit_if", "total_condition"} <= printed
+    # CO-EXC-1 names its section by number (24-4.1-109, as its pinpoint does) where the quote says "this section".
+    known = {("CO-EXC-1", "item"): {24, 4.1, 109}}
+    bad, with_a_number = [], 0
+    for r in doc["rules"]:
+        found = V.numbers_in(V.norm(r["quote"]))
+        for k, v in r["params"].items():
+            if k not in printed or not isinstance(v, str):
+                continue
+            numbers = V.numbers_in(V.norm(v))
+            with_a_number += bool(numbers)
+            missing = numbers - found
+            if missing != known.get((r["rule_id"], k), set()):
+                bad.append((r["rule_id"], k, sorted(missing)))
+    assert bad == []
+    assert with_a_number > 0
+
+
 def test_every_sha256_matches_the_saved_files(doc):
     raw = [s["source_id"] for s in doc["sources"] if sha256((ROOT / s["raw_path"]).read_bytes()) != s["sha256"]]
     text = [s["source_id"] for s in doc["sources"] if sha256((ROOT / s["text_path"]).read_bytes()) != s["text_sha256"]]

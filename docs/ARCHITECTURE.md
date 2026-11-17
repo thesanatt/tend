@@ -154,8 +154,11 @@ checked them against the sources, is yours to state. -->
    `within_days`, `count_limit`, `days_lost`) and in its summary (other than 0 and 1) appear in the
    quote, and the source file's sha256 still matches. It does not check other number fields, such
    as `within_hours`, `min_days`, and `min_months`; the dataset's tests
-   (`rules/tools/test_export_dataset.py`) check every whole-number param against its quote. Passing
-   files go to `rules/verified/`. On Oct 4, 2026 all 51 printed PASS.
+   (`rules/tools/test_export_dataset.py`) check every whole-number param against its quote, and
+   every number in the text params the state page prints. The checker has tests of its own
+   (`rules/tools/test_verify.py`): a changed word, a stitched quote, a wrong number, and a changed
+   source file are each refused. Passing files go to `rules/verified/`. All 51 printed PASS on
+   Oct 4, Oct 20 and Nov 16, 2026.
 4. **Normalize.** `rules/tools/normalize.py` turns 51 different legal styles into one IR: caps per
    claim or per unit, deadlines in days with their anchor, reporting rules with alternatives,
    excluded items mapped to tags. Rules for someone other than the survivor, or with a unit it

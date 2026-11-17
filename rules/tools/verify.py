@@ -3,9 +3,11 @@
 usage: python3 rules/tools/verify.py ST [ST ...]   (or: all)
 
 A rule passes only if its quote is a verbatim substring of its source text (after Unicode and
-whitespace normalization), every number in its params and summary appears in the quote, and the
-source file's sha256 still matches. Passing files are written to rules/verified/ST.json with a
-text-fragment link for HTML sources.
+whitespace normalization), the numbers in its NUMERIC_PARAMS fields and in its summary (other than
+0 and 1) appear in the quote, and the source file's sha256 still matches. Other params are not
+read here; rules/tools/test_export_dataset.py checks every whole-number param, and the numbers in
+the text params the state page prints, over the whole corpus.
+Passing files are written to rules/verified/ST.json with a text-fragment link for HTML sources.
 """
 import hashlib
 import json
