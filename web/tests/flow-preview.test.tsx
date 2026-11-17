@@ -128,7 +128,9 @@ describe("PDF preview", () => {
     const { drawn, destroy, cleanups } = fakePdf(5);
     gather();
     fireEvent.click(screen.getByRole("button", { name: "Use a sample statement" }));
-    expect(await screen.findByText(/sample-statement-fictional\.pdf: 190 transactions read/, {}, PDF_READ)).toBeTruthy();
+    expect(
+      await screen.findByText(/sample-statement-fictional\.pdf: 190 transactions read/, {}, PDF_READ),
+    ).toBeTruthy();
     openAddMore();
     const fetchesBefore = fetchMock.mock.calls.length;
 

@@ -15,7 +15,12 @@ const output = JSON.parse(readFileSync(path.join(web, "fixtures/rowan-mi.output.
 const LOCK = scan.items.find((i) => i.description.startsWith("Keyline Lock"))!.item_id;
 
 // A cost from before the date, with the line the engine gives such a cost.
-const early: ScanItem = { ...scan.items[0], item_id: "nessie:early-1", date: "2026-05-02", description: "Clinic visit" };
+const early: ScanItem = {
+  ...scan.items[0],
+  item_id: "nessie:early-1",
+  date: "2026-05-02",
+  description: "Clinic visit",
+};
 const earlyOutput: EngineOutput = {
   ...output,
   lines: [

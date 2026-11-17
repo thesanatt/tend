@@ -30,7 +30,12 @@ void (async () => {
 
   const input: EngineInput = toEngineInput({
     jurisdiction: "MI",
-    context: { incident_date: scan.incident_date, as_of_date: scan.as_of_date, police_report: "no", forensic_exam: true },
+    context: {
+      incident_date: scan.incident_date,
+      as_of_date: scan.as_of_date,
+      police_report: "no",
+      forensic_exam: true,
+    },
     items: scan.items,
   });
   write("fixtures/rowan-mi.input.json", input);
@@ -70,7 +75,9 @@ void (async () => {
     `; verified json sha256 ${sha}`,
     "",
     ".rules",
-    ...law.rules.map((r, i) => `  r${String(i).padStart(2, "0")}  ${pad(r.id, 13)}${pad(r.category, 22)}${r.source_id}`),
+    ...law.rules.map(
+      (r, i) => `  r${String(i).padStart(2, "0")}  ${pad(r.id, 13)}${pad(r.category, 22)}${r.source_id}`,
+    ),
     "",
     ".program item",
     "  window:",

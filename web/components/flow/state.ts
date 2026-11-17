@@ -83,14 +83,7 @@ export interface ShareRecord {
 // "payment_setup": asking the bank service for a confirm code sends the amount, account, and payee,
 // even if the survivor then stops.
 export type SentKind =
-  | "payment"
-  | "payment_setup"
-  | "share"
-  | "bank"
-  | "server_engine"
-  | "cloud_rows"
-  | "cloud_bill"
-  | "other";
+  "payment" | "payment_setup" | "share" | "bank" | "server_engine" | "cloud_rows" | "cloud_bill" | "other";
 export interface SentEvent {
   kind: SentKind;
   at: string;

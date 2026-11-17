@@ -214,7 +214,8 @@ export default async function StatePage({ params }: { params: Promise<{ st: stri
         <h2 id="h-next">When you are ready</h2>
         <p>
           Tend can check your own costs against this law on your device. It never asks what happened. Your costs and
-          answers stay on your device unless you send them; the state you pick goes to Tend&apos;s server to get its law.
+          answers stay on your device unless you send them; the state you pick goes to Tend&apos;s server to get its
+          law.
         </p>
         <div className="btn-row">
           <Link href={`/start?st=${ref.st}`} className="btn btn-primary">

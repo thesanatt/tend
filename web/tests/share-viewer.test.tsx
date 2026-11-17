@@ -189,7 +189,9 @@ describe("the advocate viewer", () => {
     // The earliest cost stands in for the date it happened; the engine dated its deadline from it.
     const undated = { ...packet(), date_known: false };
     const { client: c } = client(async () => ({ packet: undated, meta }));
-    const build = vi.fn(async () => ({ summaryPdf: new Blob(["%PDF-1.7"]), formPdf: null, notes: [] }) as unknown as BuiltPacket);
+    const build = vi.fn(
+      async () => ({ summaryPdf: new Blob(["%PDF-1.7"]), formPdf: null, notes: [] }) as unknown as BuiltPacket,
+    );
     const builder = { build, letterPdf: vi.fn() } as unknown as TendPacketBuilder;
     URL.createObjectURL = vi.fn(() => "blob:summary");
     URL.revokeObjectURL = vi.fn();
