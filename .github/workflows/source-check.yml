@@ -1,0 +1,64 @@
+# Once a week, fetches every saved legal source again and reports the rules whose quote is no longer on
+# the page (rules/tools/check_sources.py). Report only: the job reads the repository and uploads a report.
+# It does not open an issue, comment, commit or push, and it has no permission to. Whether it should do
+# any of those when a quote goes missing is Sanat's decision, and it has not been made.
+#
+# The run fails when a quote is missing, and only then. A source that could not be fetched, or whose
+# bytes changed while every quote is still there, is in the report and does not fail the run.
+# Nothing here changes a rule: that takes fetch_source.py, a person reading the page, and verify.py.
+# GitHub runs a schedule only from the default branch.
+name: Source check
+
+on:
+  schedule:
+    - cron: "17 9 * * 1" # Mondays, 09:17 UTC
+  workflow_dispatch:
+    inputs:
+      jurisdictions:
+        description: State codes separated by spaces (MI OH CA), or all
+        default: all
+
+permissions:
+  contents: read
+
+concurrency:
+  group: source-check
+  cancel-in-progress: false
+
+# The Python ci.yml names, so a page's text is read here with the HTML parser the saved texts pass under.
+env:
+  UV_PYTHON: "3.12.13"
+
+jobs:
+  source-check:
+    name: Saved sources against the pages now
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.12"
+      - name: Install pdftotext for the PDF sources
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends poppler-utils
+      - name: Fetch each source again and look for each rule's quote
+        env:
+          JURISDICTIONS: ${{ inputs.jurisdictions || 'all' }}
+        run: |
+          case "$JURISDICTIONS" in
+            *[!A-Za-z\ ]*) echo "jurisdictions takes state codes and spaces only" >&2; exit 2 ;;
+          esac
+          # Unquoted on purpose: one argument for each state code.
+          uv run --no-project --with beautifulsoup4 --with certifi python rules/tools/check_sources.py $JURISDICTIONS --out source-check-report
+      - name: Show the summary on the run's page
+        if: ${{ !cancelled() }}
+        run: test ! -f source-check-report/summary.md || cat source-check-report/summary.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: source-check-report
+          path: source-check-report/
+          if-no-files-found: warn
