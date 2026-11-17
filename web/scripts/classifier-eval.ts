@@ -8,10 +8,12 @@
 //                                                       /dev/classifier-eval saves in Chrome)
 //   npx tsx scripts/classifier-eval.ts --ceiling        scores a model that never errs: each row no rule
 //                                                       matched, answered with its label. Not a model's result.
-//   add --write to also rewrite the review CSV and the committed result file for that run
+//   add --write to also rewrite the review CSV, the committed result file for that run, and the
+//   block of numbers in docs/EVAL.md, which is written from the result files
 // If tests/local/fixtures/classifier-heldout.reviewed.csv exists, its labels replace the proposed ones.
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { basename, join } from "node:path";
+import { docFromResults, modelResults, withDocBlock } from "../lib/local/heldout-doc";
 import {
   ceilingAnswers,
   HELDOUT_FILES,
@@ -29,6 +31,7 @@ import {
 import { rateText, reportText, score } from "../lib/local/score";
 
 const DIR = join(__dirname, "..", "tests", "local", "fixtures");
+const DOC = join(__dirname, "..", "..", "docs", "EVAL.md");
 const args = process.argv.slice(2);
 const write = args.includes("--write");
 const ceilingOnly = args.includes("--ceiling");
@@ -52,6 +55,20 @@ function save(path: string, next: { results: HeldOutResult[] } & Record<string, 
   }
   writeFileSync(path, json(next));
   console.log(`wrote: ${path}`);
+}
+
+// Rewrites the numbers in docs/EVAL.md from the result files in the fixtures folder.
+function writeDoc() {
+  const read = (f: string) => JSON.parse(readFileSync(join(DIR, f), "utf8")) as Record<string, unknown>;
+  const models = readdirSync(DIR)
+    .filter((f) => /^classifier-heldout\..+\.result\.json$/.test(f) && f !== HELDOUT_FILES.rules)
+    .sort()
+    .map((f) => modelResults(f, read(f)));
+  const doc = readFileSync(DOC, "utf8");
+  const next = withDocBlock(doc, docFromResults(read(HELDOUT_FILES.rules), models));
+  if (next === doc) return console.log(`unchanged: ${DOC}`);
+  writeFileSync(DOC, next);
+  console.log(`wrote: ${DOC} (the block of held-out numbers; the text around it is yours to bring in line)`);
 }
 
 // tsx runs this file as CommonJS, where await needs a function around it.
@@ -93,6 +110,7 @@ void (async () => {
           resultRecord(set, top, { run: CEILING, measured: today(), review }),
         ],
       });
+      writeDoc();
     }
     return;
   }
@@ -123,6 +141,7 @@ void (async () => {
       ...about,
       results,
     });
+    writeDoc();
   }
 })().catch((err: Error) => {
   console.error(err.message);
