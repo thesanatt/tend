@@ -350,6 +350,7 @@ export const HELDOUT_FILES = {
   review: "classifier-heldout.review.csv", // written from the set; a person copies it
   reviewed: "classifier-heldout.reviewed.csv", // the person's copy, read when it exists
   rules: "classifier-heldout.rules.result.json",
+  nano: "classifier-heldout.nano.answers.json", // saved by the page /dev/classifier-eval in Chrome
 } as const;
 
 export interface HeldOutResult {

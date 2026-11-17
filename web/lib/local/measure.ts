@@ -1,9 +1,9 @@
 // Measures the on-device classifier in a real browser: accuracy against labeled rows and time
 // per run. Used with tests/local/fixtures/device-eval*.json from a dev page or the console; the
 // rows are fictional and nothing leaves the device.
-import { classifyDetailed, toFacts } from "./classify";
-import { heldOutTxns, type HeldOutSet } from "./heldout";
-import { classifyDeterministic } from "./rules";
+import { classifyDetailed, DEVICE_MODEL, DEVICE_TIMEOUT_MS, toFacts } from "./classify";
+import { HELDOUT_FILES, heldOutTxns, setHash, type HeldOutSet } from "./heldout";
+import { classifyDeterministic, PROMPT_VERSION } from "./rules";
 import type { LocalTxn } from "./types";
 
 export interface EvalRow {
@@ -111,4 +111,47 @@ export async function captureDeviceAnswers(
     });
   }
   return runs;
+}
+
+export interface CaptureFile {
+  set: string;
+  rows: number;
+  set_hash: string;
+  model: string;
+  prompt: string;
+  examples: boolean;
+  timeout_ms: number;
+  made: string;
+  browser: string;
+  note: string;
+  runs: CaptureRun[];
+}
+
+// The Chrome version and nothing else from the user agent string.
+export function browserToken(userAgent: string): string {
+  return /\b(?:Edg|Chrome|Chromium)\/[\d.]+/.exec(userAgent)?.[0] ?? "unknown";
+}
+
+// What the page /dev/classifier-eval saves: the runs, and enough about how they were made to tell
+// later whether the rows, the prompt, the time limit or the browser have changed since.
+export function captureFile(
+  set: HeldOutSet,
+  runs: CaptureRun[],
+  about: { made: string; browser: string; examples?: boolean; timeoutMs?: number },
+): CaptureFile {
+  return {
+    set: HELDOUT_FILES.set,
+    rows: set.rows.length,
+    set_hash: setHash(set),
+    model: DEVICE_MODEL,
+    prompt: PROMPT_VERSION,
+    examples: about.examples !== false,
+    timeout_ms: about.timeoutMs ?? DEVICE_TIMEOUT_MS,
+    made: about.made,
+    browser: about.browser,
+    note:
+      "Each answer is the label the app took from the model: code turns forensic_exam into medical and " +
+      "lost_wages into no label. A row with no entry got no usable answer and is scored as unsorted.",
+    runs,
+  };
 }
