@@ -700,7 +700,7 @@ def main(argv: list[str] | None = None) -> int:
     claims = sum(r.claims for r in results)
     malformed = sum(r.malformed for r in results)
     identical = sum(r.byte_identical for r in results)
-    print(f"claims refused by both engines: " + (", ".join(f"{k} {v}" for k, v in sorted(refused.items())) or "none")
+    print("claims refused by both engines: " + (", ".join(f"{k} {v}" for k, v in sorted(refused.items())) or "none")
           + f" (of these, {malformed} were not JSON and are compared by error code only)")
     if spec:
         print(f"byte-identical results: {identical} of {claims - malformed} well-formed claims")

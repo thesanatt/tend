@@ -12,7 +12,7 @@ import json
 import re
 import sys
 import unicodedata
-from functools import lru_cache
+from functools import cache
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
@@ -246,7 +246,7 @@ def page_model(raw: bytes) -> tuple[str, str, list[int]]:
     return text, "".join(folded), index
 
 
-@lru_cache(maxsize=None)
+@cache
 def _fold_char(ch: str) -> str:
     if ch in (_BLOCK, _BREAK):
         return ch
@@ -274,7 +274,7 @@ def _block_fragment(url: str, quote_text: str, page: tuple[str, str, list[int]])
     n = len(toks)
     # Which block or line each word sits in: any break between two words starts a new one.
     seg = [0]
-    for (_, e0), (s1, _) in zip(toks, toks[1:]):
+    for (_, e0), (s1, _) in zip(toks, toks[1:], strict=False):
         seg.append(seg[-1] + (1 if re.search(r"[\x00\x01]", text[e0:s1]) else 0))
     search = _browser_fold(text.replace(_BREAK, " "))
 
@@ -292,8 +292,11 @@ def _block_fragment(url: str, quote_text: str, page: tuple[str, str, list[int]])
             p += 1
         return p
 
-    span = lambda i, j: text[left(i) : right(j)]
-    enc = lambda s: quote(s, safe="").replace("-", "%2D")
+    def span(i: int, j: int) -> str:
+        return text[left(i) : right(j)]
+
+    def enc(s: str) -> str:
+        return quote(s, safe="").replace("-", "%2D")
 
     def unique(term: str, at: int, end_bound: bool) -> bool:
         return _first_word_match(search, _browser_fold(term), 0, end_bound) == at
@@ -343,7 +346,10 @@ def fragment(url: str, quote_text: str, page_text: str = "", page: tuple[str, st
         if link:
             return link
     words = quote_text.split()
-    enc = lambda s: quote(s, safe="").replace("-", "%2D")
+
+    def enc(s: str) -> str:
+        return quote(s, safe="").replace("-", "%2D")
+
     whole = f"{url}#:~:text={enc(quote_text)}"
     if len(words) <= 10:
         return whole

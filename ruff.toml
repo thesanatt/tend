@@ -1,0 +1,14 @@
+# Lint rules for the Python outside api/: the rules api/pyproject.toml sets for the API, without the
+# import-order rule. These folders group their imports by hand and are left that way.
+# Run from the repo root: uv run --project api ruff check .
+line-length = 140
+target-version = "py312"
+extend-exclude = ["web/node_modules", "web/.next"]
+
+[lint]
+select = ["E", "F", "W", "B", "UP"]
+ignore = ["E501"]
+
+[lint.per-file-ignores]
+# The docs run the rules tools with plain python3, and datetime.UTC needs Python 3.11.
+"rules/tools/*" = ["UP017"]

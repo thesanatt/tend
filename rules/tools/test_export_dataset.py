@@ -219,7 +219,7 @@ def test_rules_carry_the_verified_fields_unchanged(doc):
             assert r["fragment_url"] == v.get("fragment_url")
             assert r["expense"] == (v.get("expense") or v["params"].get("expense"))
             assert (r["jurisdiction"], r["jurisdiction_name"]) == (d["jurisdiction"], d["name"])
-    for j, d in zip(doc["jurisdictions"], VERIFIED):
+    for j, d in zip(doc["jurisdictions"], VERIFIED, strict=True):
         assert (j["program"], j["coverage"], j["confidence"], j["researcher_notes"]) == (d["program"], d["coverage"], d["confidence"], d["researcher_notes"])
 
 
@@ -281,12 +281,12 @@ def test_csv_and_json_agree(files, doc):
         table = read_csv(files[name])
         assert table[0] == columns, name
         assert len(table) == len(rows) + 1, name
-        for row, line in zip(rows, table[1:]):
+        for row, line in zip(rows, table[1:], strict=True):
             assert len(line) == len(columns)
-            for c, value in zip(columns, line):
+            for c, value in zip(columns, line, strict=True):
                 assert same(row[c], value), (name, c, value[:80])
     # The flat jurisdiction columns read the program and coverage objects as written.
-    for j, row in zip(doc["jurisdictions"], flat):
+    for j, row in zip(doc["jurisdictions"], flat, strict=True):
         assert row["program_name"] == j["program"]["program_name"]
         assert row["application_form_field_count"] == j["program"]["application_form"]["field_count"]
         assert (row["coverage_found"], row["coverage_not_found"], row["coverage_notes"]) == (j["coverage"]["found"], j["coverage"]["not_found"], j["coverage"]["notes"])

@@ -62,7 +62,7 @@ def word_path(text: str, size: float) -> tuple[str, float]:
     scale = size / upem
     pen = SVGPathPen(glyphs)
     x = 0.0
-    for info, pos in zip(buf.glyph_infos, buf.glyph_positions):
+    for info, pos in zip(buf.glyph_infos, buf.glyph_positions, strict=True):
         name = order[info.codepoint]
         # Font units are y-up; flip to the SVG's y-down box at the pen position.
         glyphs[name].draw(TransformPen(pen, (scale, 0, 0, -scale, x + pos.x_offset * scale, -pos.y_offset * scale)))

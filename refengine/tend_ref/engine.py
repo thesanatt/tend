@@ -16,7 +16,7 @@ from dataclasses import dataclass, field
 from datetime import date
 
 from .claim import Claim, EngineInputError, Item, check_document, loads, read_claim
-from .law import RULE_EXPENSES, Law, Rule
+from .law import Law, Rule
 
 INT64_MAX = 2**63 - 1
 INT64_MIN = -(2**63)
@@ -149,7 +149,7 @@ class _Run:
             used = sadd(used, line.allowed)
 
     def finish(self) -> dict:
-        law, ctx = self.law, self.ctx
+        law = self.law
         eligible = [line for line in self.lines if line.status == "eligible"]
 
         # 7a. Per-unit caps, rule by rule: they apply only to lines that count the cap's unit.

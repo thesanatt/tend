@@ -7,7 +7,9 @@ from decimal import Decimal, InvalidOperation
 from typing import Any
 
 # "$1,171.75", "325.00", "(12.50)", "-12.50", "$443". Cents must be exactly two digits when present.
-_MONEY = re.compile(r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.(?P<frac>[0-9]{2}))?\s*(?P<close>\))?$")
+_MONEY = re.compile(
+    r"^(?P<open>\()?\s*(?P<neg>-)?\s*\$?\s*(?P<whole>[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)(?:\.(?P<frac>[0-9]{2}))?\s*(?P<close>\))?$"
+)
 MONEY_TOKEN = re.compile(r"\(?-?\$?\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\.[0-9]{2}\)?|\(?-?\$\s?(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]+)\)?")
 # Amounts reach the browser as JSON numbers, which are exact only up to 2**53 - 1. The device's reader
 # (web/lib/local/amounts.ts) refuses anything larger, so this one does too.
