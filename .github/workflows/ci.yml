@@ -1,0 +1,164 @@
+# The checks in docs/EVAL.md that need no keys and no network service, on every pull request and on main.
+# Left out on purpose: the browser tests (web/e2e/run.sh, timing-sensitive on a small shared machine),
+# the Neon and Nessie tests (they need keys and skip without them), and the Emscripten build of the
+# engine (the WASM files in web/public/engine are tracked, and wasm-parity checks them against native).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# The Python these checks last passed on here. The patch release is named because the law checker
+# builds its links to the quoted passage with the standard HTML parser, and the files it writes
+# are compared with git below.
+env:
+  UV_PYTHON: "3.12.13"
+
+jobs:
+  rules:
+    name: Law corpus
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.12"
+      - name: Check each rule's quote and numbers against its saved source
+        run: uv run --no-project python rules/tools/verify.py all
+      - name: Compile the checked rules to the IR
+        run: uv run --no-project python rules/tools/normalize.py
+      - name: The checked files and the IR in git are what the tools just wrote
+        run: |
+          git diff --exit-code -- rules/verified rules/ir
+          test -z "$(git status --porcelain -- rules/verified rules/ir)"
+      - name: The published dataset matches the corpus
+        run: uv run --no-project python rules/tools/export_dataset.py --check
+      - name: Tests of the checker and the dataset export
+        run: uv run --no-project --with pytest pytest rules/tools/test_export_dataset.py rules/tools/test_verify.py
+
+  engine:
+    name: Engine (C++, reference, WASM)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.12"
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - name: Build
+        run: make -C engine
+      - name: C++ tests
+        run: make -C engine test
+      # After the build: without engine/build these tests skip their checks against the C++ engine.
+      - name: Reference engine tests
+        working-directory: refengine
+        run: uv run --locked pytest -rs
+      - name: Reference engine against C++, byte for byte
+        run: uv run --locked --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000
+      - name: Shipped WASM against native, byte for byte
+        run: make -C engine wasm-parity
+
+  sanitizers:
+    name: Engine under ASan and UBSan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    # On Linux ASan also checks for a stack frame used after its function returned, and with that
+    # check on the tests take over 20 minutes where they otherwise take 14 seconds (GCC 13.3,
+    # Nov 16). It is off here, as it is by default on macOS, where docs/EVAL.md's runs were made.
+    # Everything else stays on, and that includes the leak check, which macOS does not have.
+    env:
+      ASAN_OPTIONS: detect_stack_use_after_return=0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - run: make -C engine test-san
+
+  api:
+    name: API
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.12"
+      # ruff comes from the API's lockfile. From the root it reads api/pyproject.toml for the API
+      # and ruff.toml for every other Python file in the repo.
+      - name: Lint all the Python
+        run: uv run --locked --project api ruff check .
+      # The integration tests run the native engine and skip without it.
+      - name: Build the engine
+        run: make -C engine
+      - name: Tests
+        working-directory: api
+        run: uv run --locked pytest -rs
+
+  seed:
+    name: Demo data
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: "0.11.12"
+      - name: Tests
+        working-directory: seed
+        run: uv run --locked pytest -rs
+
+  web:
+    name: Web
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - name: Format
+        run: npx prettier --check .
+      - name: Lint
+        run: npm run lint
+      - name: Types
+        run: npx tsc --noEmit
+      - name: Unit tests
+        run: npx vitest run
+      - name: The law data the site serves is the checked corpus
+        run: |
+          node scripts/sync-rules.mjs
+          git diff --exit-code -- public/data
+          test -z "$(git status --porcelain -- public/data)"
+      - name: Build
+        run: npm run build
