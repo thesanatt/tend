@@ -10,6 +10,7 @@ import copy
 import hashlib
 import io
 import json
+import subprocess
 import sys
 
 import pytest
@@ -428,7 +429,19 @@ def test_the_quiet_log_covers_quote_search():
 
 # the publishing script's view of git history (needs the repo's history, not just a checkout)
 
-needs_history = pytest.mark.skipif(not (REPO / ".git").exists(), reason="no git history here")
+
+def has_history() -> bool:
+    # a shallow clone has .git but not the commits the test names
+    if not (REPO / ".git").exists():
+        return False
+    try:
+        shallow = subprocess.run(["git", "-C", str(REPO), "rev-parse", "--is-shallow-repository"], capture_output=True, text=True)
+    except OSError:
+        return False
+    return shallow.returncode == 0 and shallow.stdout.strip() == "false"
+
+
+needs_history = pytest.mark.skipif(not has_history(), reason="no git history here (a shallow clone or no repo)")
 
 
 @needs_history
