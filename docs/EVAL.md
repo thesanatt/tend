@@ -49,9 +49,9 @@ Neon detail is in [NEON.md](NEON.md).
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
 | Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Nov 16, the same as Oct 20 |
 | Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Nov 16 |
-| Web unit and screen tests | `cd web && npx vitest run` | 58 files, 2,356 passed on Nov 16 (2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 16 |
+| Web unit and screen tests | `cd web && npx vitest run` | 64 files, 2,451 passed on Nov 18 with the checks for the second model pass over the held-out labels (2,431 in 63 files on Nov 16 with the checks for the held-out classifier rows; 2,356 in 58 files earlier that day; 2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 18 on the branch `classifier-second-pass`; only this row ran that day |
 | Web lint | `cd web && npm run lint` | no errors and no warnings. On Oct 20 it gave 19 warnings: 17 in the generated `public/engine/tend.js`, which lint now skips, and 2 unused parameters in a test, now gone | rerun Nov 16 |
-| Web production build | `cd web && npm run build` | builds, with 185 pages made ahead of time (/compare and its card) | rerun Nov 16 |
+| Web production build | `cd web && npm run build` | builds, with 186 pages made ahead of time (185 with /compare and its card; one more is `/dev/classifier-eval`, which the built site answers with its not-found page) | rerun Nov 16 |
 | Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 33 passed (182 s with the build) on Nov 16, the same 33 as on Oct 26, when the phone checks first covered /press, /data, /law/changes and /compare; 31 on Oct 20. They are 13 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts, including text at 200 percent on a 360 px phone in both languages | rerun Nov 16; see the note below |
 | Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,728 rules, 824 sources; 2,578 before the rule checks); no file changed | rerun Nov 16, the same as Oct 20 |
 | Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Nov 16, the same as Oct 4 |
@@ -85,6 +85,22 @@ build with the setting from the note above, the API and seed tests, and the web 
 build. It leaves out the browser tests, the Neon and Nessie tests, fuzzing, and the Emscripten
 build. Each command in it passed on Nov 16 from a clean clone on macOS; on Linux only the engine
 commands were tried that day.
+
+**The source check.** `rules/tools/check_sources.py`, added Nov 16, fetches each saved source's URL
+again into a temporary folder, reads the page's text the way `fetch_source.py` does, and looks for
+each rule's quote with the test `verify.py` uses. It reports the sources it could not fetch, the
+sources whose bytes changed while every quote is still there, and the rules whose quote is gone.
+Only the last makes it fail, and it changes no file in the repository. It cannot tell whether a page
+that still holds the quote still means the same thing. It makes plain requests and does not open a
+browser, so a site that refuses those is "not fetched". And 120 of the 824 sources are Justia or
+Cornell copies, so a quote found there matches the copy, not the state's own text. Its 19 tests use
+fixture pages and no network. One sample has run: `MI OH CA` on the evening of Nov 16 (01:25 UTC on
+Nov 17), 58 sources cited by 175 rules, in 45 seconds. No quote was missing. 41 sources had new
+bytes with all 107 quotes still there, and 29 of the 41 read the same as the saved text word for
+word. 10 sources had the same bytes (54 rules, not read again). 7 answered HTTP 403, 6 on Justia and
+1 on ohiosos.gov, which left 14 rules unchecked; a run a few minutes earlier had 5 refused, 4 of them
+on Justia. The other 48 jurisdictions have not been run, and the weekly workflow
+(`.github/workflows/source-check.yml`, report only) has not run on GitHub.
 
 ## Engines in one paragraph
 
@@ -133,6 +149,9 @@ labeled a phone bill payment as lost wages (commit `e202549`), which is why.
 | Server classifier vs the plan's own labels, 4 personas | `cd seed && uv run python seeder.py classify all --no-model` | 190 of 190 for each persona. The method counts cover the 191 records it reads (the 190 plus the Riverbend bill): 87 keyword, 64 registry, 14 ride links, 11 income, 8 transfers, 3 pay dips, 4 from the committed model cache | rerun Oct 19, the same as Oct 4 |
 | TypeScript port vs the Python classifier, including the lost-pay workday estimate | `npx vitest run tests/local/classify-parity.test.ts` | passes on all 4 snapshots | rerun Oct 20, the same as Oct 4 |
 | Gemini Nano on held-out rows | `measureDeviceClassifier` (`web/lib/local/measure.ts`) in Chrome, with `web/tests/local/fixtures/device-eval.json` and `device-eval-b.json` (32 fictional rows each, no rule matches them) | no result is committed | not reproduced: needs Chrome with the built-in model |
+| Rules only, no model, on 460 held-out rows | `cd web && npx tsx scripts/classifier-eval.ts` | 257 of 460 rows right: 55.9% (95% interval 51.3% to 60.3%). The rows are fictional and their labels are proposed, not yet reviewed by a person. See "The held-out rows" below | first run Nov 16, 2026, at `a6bf3f0` |
+| The 460 rows labeled a second time, by a second AI model | `cd web && npx tsx scripts/classifier-second-pass.ts` | the same label as the proposed one on 455 of 460 rows. This is a second model pass, not a person's review, and it changes no figure here. See "A second model pass over the labels" below | labeled and compared Nov 18, 2026 |
+| Gemini Nano on the same 460 rows | the page `/dev/classifier-eval` under `npm run dev`, in Chrome, then `npx tsx scripts/classifier-eval.ts --model FILE` | no result is committed | not run: needs Chrome with the built-in model |
 | Gemini Nano reading a bill photo | in Chrome 154 | the seed bill photo read correctly 3 of 3 times; a bill whose lines do not add up stays "couldn't read reliably" | recorded Oct 3, commit `aaef95c` message only |
 
 The 190 of 190 is not an accuracy figure. The history and its labels come from the same plan
@@ -140,6 +159,218 @@ The 190 of 190 is not an accuracy figure. The history and its labels come from t
 and pay-dip inference do what the plan says, on fictional data. Real statements will have
 merchants no rule knows, which is where the model and the survivor's yes or no come in. Nothing a
 model picks starts confirmed.
+
+### The held-out rows
+
+`web/tests/local/fixtures/classifier-heldout.json` holds 460 fictional bank rows for measuring the
+classifier on merchants the rules were not written for. It was written on Nov 16, 2026 and
+committed (`3620818`) before the classifier first ran on it. No row, label or rule was changed
+after a result was seen. Each row was written from how banks print a line: a merchant name cut
+short, a store number, a city and state, a processor prefix such as SQ or TST, an ACH or transfer
+line. Its `source` field says which. Half the rows should get a cost label, with every label on the
+list (`EXPENSES` in `web/lib/types.ts`) covered. The other half should get none, and those include
+the near misses: a phone bill payment, a person-to-person cash line, a pharmacy chain selling
+groceries, a rideshare on a day with no care visit, a gym, a pet clinic.
+
+Read the numbers with these limits in mind:
+
+- The first column is the rules alone: the merchant registry, the keyword rules, ride links and
+  pay dips, with no model. That is what the app does in a browser with no built-in model and no
+  yes to cloud AI.
+- The labels are proposed, and no person has checked them. One AI assistant wrote the rows and the
+  labels, after it had read the rules. So the rows are held out from the rules in time, not written
+  blind, and until a person reviews the labels every figure is agreement with proposed labels, not
+  accuracy. A second model labeled the rows again on Nov 18 without the proposed labels in front of
+  it (see "A second model pass over the labels" below). That is not a person's review either.
+- The rows are fictional, and the mix is chosen by label: half cost rows, half not. A real
+  statement is mostly ordinary spending. The "all rows" figure therefore does not carry over to a
+  real statement. The per-label figures and the two error lines are the ones to compare from one
+  version of the rules or the model to the next.
+- A row counts as right when what the app offers matches the label: the same cost label, or none.
+  An offered cost label still waits for a yes or no unless it starts checked, so a cost label where
+  none belongs is split by what happens next. It is the worse mistake, because it can raise a claim.
+- The merchant registry holds only the four demo merchants, so it matches none of these rows. Each
+  label has 5 to 26 rows, so the per-label ranges are wide.
+- The ceiling column is arithmetic on the labels: every row a model would be asked about, answered
+  with its own label, then scored through the same code. It is the most a model could add, not what
+  any model does.
+
+<!-- classifier-heldout:start -->
+<!-- Written by `cd web && npx tsx scripts/classifier-eval.ts --write` from the result files in
+     web/tests/local/fixtures. Change a number by running that, not by editing between these marks. -->
+
+The rows: 460 fictional rows from `classifier-heldout.json` (set hash `3c2492917dfdaac8`). 230 should get a cost label and 230 should get none. The labels are proposed by the rows' writer, not reviewed by a person. The rows' writer flagged 53 of them as unsure; 30 of the 203 rows the rules got wrong are flagged.
+
+|  | Rules only, no model | A model that never errs. This is a ceiling worked out from the labels, not a model's result |
+|---|---|---|
+| Measured | Nov 16, 2026 | Nov 16, 2026 |
+| All rows right | 55.9% (257 of 460, 95% interval 51.3% to 60.3%) | 91.7% (422 of 460, 95% interval 88.9% to 93.9%) |
+| Rows that should get a cost label, right | 14.3% (33 of 230, 95% interval 10.4% to 19.5%) | 86.1% (198 of 230, 95% interval 81.0% to 90.0%) |
+| Rows that should get none, right | 97.4% (224 of 230, 95% interval 94.4% to 98.8%) | 97.4% (224 of 230, 95% interval 94.4% to 98.8%) |
+| Rows a rule decided, right | 82.0% (82 of 100, 95% interval 73.3% to 88.3%) | 82.0% (82 of 100, 95% interval 73.3% to 88.3%) |
+| Would raise a claim: a cost label where none belongs | 2.6% (6 of 230, 95% interval 1.2% to 5.6%) | 2.6% (6 of 230, 95% interval 1.2% to 5.6%) |
+| ... on or after the incident date, and starts checked | 4 (h237, h311, h337, h446) | 4 (h237, h311, h337, h446) |
+| ... on or after it, and waits for an answer | 1 (h319) | 1 (h319) |
+| ... dated before it, which the law engine leaves out | 1 (h072) | 1 (h072) |
+| Missed: no cost label where one belongs | 84.3% (194 of 230, 95% interval 79.1% to 88.5%) | 11.7% (27 of 230, 95% interval 8.2% to 16.5%) |
+| ... no rule matched the row | 185 | 18 |
+| ... a rule called it ordinary spending, or a ride had no care that day | 9 (h112, h159, h195, h255, h277, h289, h293, h344, h405) | 9 (h112, h159, h195, h255, h277, h289, h293, h344, h405) |
+| One cost label where another belongs | 3 (h243 childcare as tuition, h367 medical as counseling, h395 other as medical) | 5 (h106 forensic_exam as medical, h225 forensic_exam as medical, h243 childcare as tuition, h367 medical as counseling, h395 other as medical) |
+| Rows no rule matched, which are all a model is asked about | 360 (326 distinct) | 360 (326 distinct) |
+| ... of those, should get a cost label | 185 | 185 |
+| ... of those, should get none | 175 | 175 |
+| Rows still unsorted after the run | 360 | 0 |
+
+Even with a model that never errs, these labels stay short: `transportation` 4 of 24, `forensic_exam` 3 of 5, `lost_wages` 3 of 5, `other` 6 of 8, `clothing_bedding` 9 of 10, `dental` 11 of 12, `medical` 24 of 26, `childcare` 13 of 14, `prescription` 13 of 14.
+
+Gemini Nano on these rows: no result is committed.
+
+Per label, rules only. Precision is the share of rows given the label that carry it. Recall is the share of rows carrying the label that were given it. Each range is the 95% interval.
+
+| Label | Rows | Given | Right | Precision | Recall |
+|---|---|---|---|---|---|
+| `medical` | 26 | 5 | 1 | 20.0% (3.6% to 62.4%) | 3.8% (0.7% to 18.9%) |
+| `forensic_exam` | 5 | 3 | 3 | 100.0% (43.9% to 100.0%) | 60.0% (23.1% to 88.2%) |
+| `counseling` | 24 | 4 | 3 | 75.0% (30.1% to 95.4%) | 12.5% (4.3% to 31.0%) |
+| `lost_wages` | 5 | 3 | 3 | 100.0% (43.9% to 100.0%) | 60.0% (23.1% to 88.2%) |
+| `transportation` | 24 | 1 | 1 | 100.0% (20.7% to 100.0%) | 4.2% (0.7% to 20.2%) |
+| `relocation` | 16 | 1 | 1 | 100.0% (20.7% to 100.0%) | 6.3% (1.1% to 28.3%) |
+| `temporary_housing` | 15 | 5 | 4 | 80.0% (37.6% to 96.4%) | 26.7% (10.9% to 52.0%) |
+| `security` | 14 | 4 | 4 | 100.0% (51.0% to 100.0%) | 28.6% (11.7% to 54.6%) |
+| `crime_scene_cleanup` | 5 | 0 | 0 | never given | 0.0% (0.0% to 43.4%) |
+| `childcare` | 14 | 2 | 2 | 100.0% (34.2% to 100.0%) | 14.3% (4.0% to 39.9%) |
+| `property_replacement` | 8 | 0 | 0 | never given | 0.0% (0.0% to 32.4%) |
+| `clothing_bedding` | 10 | 0 | 0 | never given | 0.0% (0.0% to 27.8%) |
+| `prescription` | 14 | 2 | 2 | 100.0% (34.2% to 100.0%) | 14.3% (4.0% to 39.9%) |
+| `dental` | 12 | 7 | 5 | 71.4% (35.9% to 91.8%) | 41.7% (19.3% to 68.0%) |
+| `funeral` | 8 | 2 | 2 | 100.0% (34.2% to 100.0%) | 25.0% (7.1% to 59.1%) |
+| `legal` | 12 | 0 | 0 | never given | 0.0% (0.0% to 24.2%) |
+| `tuition` | 10 | 3 | 2 | 66.7% (20.8% to 93.9%) | 20.0% (5.7% to 51.0%) |
+| `other` | 8 | 0 | 0 | never given | 0.0% (0.0% to 32.4%) |
+| no cost label | 230 | 418 | 224 | 53.6% (48.8% to 58.3%) | 97.4% (94.4% to 98.8%) |
+
+By how the row was written, rules only:
+
+| How the row was written | Right |
+|---|---|
+| ACH debit line: a company name, an entry description and an ID | 62.5% (15 of 24, 95% interval 42.7% to 78.8%) |
+| a line the bank writes itself: card payment, transfer, ATM or fee | 100.0% (12 of 12, 95% interval 75.8% to 100.0%) |
+| aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives | 42.1% (16 of 38, 95% interval 27.9% to 57.8%) |
+| bank export row: the descriptor in the description and the bank's own category in the category column | 52.6% (10 of 19, 95% interval 31.7% to 72.7%) |
+| card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard) | 14.3% (1 of 7, 95% interval 2.6% to 51.3%) |
+| card line with a payment processor prefix (SQ \*, TST\*, PAYPAL \* and others) before a cut merchant name | 55.3% (42 of 76, 95% interval 44.1% to 65.9%) |
+| card line with a store number, then city and state | 71.3% (57 of 80, 95% interval 60.5% to 80.0%) |
+| card line: the merchant name as a card network cuts it, then city and state | 38.7% (55 of 142, 95% interval 31.1% to 46.9%) |
+| money in: pay, a refund, a transfer in or interest | 94.1% (32 of 34, 95% interval 80.9% to 98.4%) |
+| online bill pay line | 22.2% (2 of 9, 95% interval 6.3% to 54.7%) |
+| person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo | 78.9% (15 of 19, 95% interval 56.7% to 91.5%) |
+<!-- classifier-heldout:end -->
+
+Where the rules are weakest, in the run above: they sort 33 of the 230 cost rows, and no label has
+more than 5 rows right. No row labeled `crime_scene_cleanup`, `property_replacement`,
+`clothing_bedding`, `legal` or `other` is found, and `medical`, `counseling`, `transportation` and
+`relocation` are each found once to three times in 16 to 26 rows. The six cost labels given where
+none belongs are three pet clinics marked `medical`, two dental insurance premiums marked `dental`
+(one dated before the incident date), and a hotel stay that was refunded. Nine cost rows are missed
+by a rule and not for want of one: seven rides on a day when no rule sorted the care charge, and
+two short paychecks sent by Zelle, which the rules read as ordinary money in.
+
+What a model can and cannot add: no rule matches 360 of the 460 rows (326 distinct, so 55 prompts
+of six), and a model is asked about those and no others. Of them, 185 should get a cost label and
+175 should get none, where a model can only add mistakes. Even a model that never errs leaves 20 of
+the 24 rides unoffered, because a ride is offered only on a day with a care charge that a rule or a
+bill sorted, and a model's answer does not count for that. It also cannot give `forensic_exam` to
+the two exam rows no rule matched.
+
+To review the labels, which only a person can do: copy
+`web/tests/local/fixtures/classifier-heldout.review.csv` to `classifier-heldout.reviewed.csv` in
+the same folder and fill the `reviewed` column. Write `ok` to keep the proposed label, a label from
+the list to replace it, `none` for no cost label, or `skip` to leave the row out. An empty cell
+means not looked at yet. The 5 rows the second pass labels differently (h141, h277, h293, h429,
+h430, listed in the last part of this section) are the first to check, then the rows flagged
+unsure. Then run
+`cd web && npx tsx scripts/classifier-eval.ts --write`, which reads that file, rewrites the result
+file and the block of numbers above, and says how many labels were reviewed and corrected. Bring
+the text around the block in line, and commit the reviewed file with the result.
+
+To record Gemini Nano's answers (Chrome on a desktop with the built-in model):
+
+1. `cd web && npm run dev`, then open `http://localhost:3000/dev/classifier-eval` in that Chrome.
+   The page says whether the model is ready and offers the download if it is not. If it says the
+   model is not available, check `chrome://on-device-internals`.
+2. Choose `web/tests/local/fixtures/classifier-heldout.json`, press Run, and wait for the table.
+   With the app's 5 second limit a slow prompt leaves its rows unanswered, and they score as
+   unsorted; the table says how many prompts failed.
+3. Press Save, and move the file to
+   `web/tests/local/fixtures/classifier-heldout.nano.answers.json`.
+4. `cd web && npx tsx scripts/classifier-eval.ts --model tests/local/fixtures/classifier-heldout.nano.answers.json --write`
+   scores the answers without calling a model, saves `classifier-heldout.nano.result.json`, and adds
+   the run to the block above. Fill the Gemini Nano row in the table, and commit both files.
+
+The page exists only under `npm run dev`; the built site answers that address with its not-found
+page. Nothing leaves the browser: the rows go to the built-in model and the answers to a file.
+
+#### A second model pass over the labels
+
+This is not a person's review. On Nov 18, 2026 a second AI model labeled all 460 rows again. It
+worked from each row's date, amount and bank text, the label policy in the set and the list of
+labels, with the proposed labels and the writer's notes left out. Its labels were fixed before they
+were compared with the proposed ones, and none was changed afterwards. They are in
+`web/tests/local/fixtures/classifier-heldout.second-pass.json`, with a notice that says what the
+labeler had seen. `classifier-eval.ts` does not read that file, so it changes no figure above.
+
+<!-- classifier-second-pass:start -->
+<!-- Written by `cd web && npx tsx scripts/classifier-second-pass.ts --write` from the second pass file in
+     web/tests/local/fixtures. Change a number by running that, not by editing between these marks. -->
+
+The second pass: Claude Mythos 5.2, in a Claude Code session, on Nov 18, 2026 (`classifier-heldout.second-pass.json`, compared on Nov 18, 2026). Both sets of labels were made by AI models. No person has reviewed either, so nothing here is accuracy.
+
+|  | Proposed labels against the second pass |
+|---|---|
+| Rows given the same label | 98.9% (455 of 460, 95% interval 97.5% to 99.5%) |
+| ... leaving out the 5 rows whose proposed labels the second labeler had seen | 98.9% (450 of 455, 95% interval 97.5% to 99.5%) |
+| Cohen's kappa, which takes out the agreement two labelers reach by chance | 0.9851 |
+| Rows given a cost label | 230 proposed, 229 in the second pass |
+| Rows flagged unsure | 53 by the writer, 56 in the second pass, 25 by both |
+| Rows labeled differently | 5: h141, h277, h293, h429, h430 |
+
+The rows the two passes label differently, which are the first ones for a person to settle:
+
+| Row | Date | Amount | Bank text | Proposed | Second pass | Writer's note | Second labeler's note |
+|---|---|---|---|---|---|---|---|
+| h141 | 2026-03-20 | $640.00 | SERVPRO OF ANN ARBOR ANN ARBOR MI | no cost label | `crime_scene_cleanup` | unsure: a restoration company that also does biohazard cleanup; the row cannot tell which | unsure: a restoration company; most of its work is water and fire damage |
+| h277 | 2026-04-20 | $4.00 | REPUBLIC PARKING SYS 412 ANN ARBOR MI | `transportation` | no cost label | parking garage, same day as the radiology visit | unsure: parking in Ann Arbor; the only care charge that day is a radiology group in Livonia |
+| h293 | 2026-04-25 | $5.00 | LAKEVIEW HLTH PARKING RAMP ANN ARBOR MI | `transportation` | no cost label | unsure: hospital parking ramp on a day with no care charge on the statement; hospitals often bill later | unsure: a hospital parking ramp, with no care charge on the statement that day |
+| h429 | 2026-06-12 | $2.40 | PASSPORTPARKING ANN ARBOR ANN ARBOR MI | `transportation` | no cost label | same day as a therapy visit | unsure: parking in Ann Arbor; the only care visit that day is in Troy |
+| h430 | 2026-06-12 | $18.75 | KLARNA\* SHEIN 844-555-0173 OH | no cost label | `clothing_bedding` | unsure: a pay-later installment for a clothing order | unsure: a clothing site paid through an installment service |
+
+The rules-only run counted against each set of labels. What the rules give a row does not depend on its label, so this is one run counted three ways:
+
+| Labels | All rows right | Rows that should get a cost label, right | Rows that should get none, right |
+|---|---|---|---|
+| Proposed | 55.9% (257 of 460, 95% interval 51.3% to 60.3%) | 14.3% (33 of 230, 95% interval 10.4% to 19.5%) | 97.4% (224 of 230, 95% interval 94.4% to 98.8%) |
+| Second pass | 56.1% (258 of 460, 95% interval 51.5% to 60.6%) | 14.4% (33 of 229, 95% interval 10.4% to 19.5%) | 97.4% (225 of 231, 95% interval 94.5% to 98.8%) |
+| Only the 455 rows both passes label the same | 56.0% (255 of 455, 95% interval 51.5% to 60.5%) | 14.5% (33 of 227, 95% interval 10.5% to 19.7%) | 97.4% (222 of 228, 95% interval 94.4% to 98.8%) |
+<!-- classifier-second-pass:end -->
+
+What it shows: the two passes give the same label to 455 of the 460 rows, so the label policy can
+be applied the same way twice. The 203 rows the rules got wrong are not explained by disputed
+labels either: the rules-only figure is 257 of 460 against the proposed labels and 258 of 460
+against the second pass.
+
+What it does not show is that the labels are right:
+
+- Both passes were made by AI models from the same family, working from the same written policy,
+  and both had read the classifier's rules. A mistake the two share does not show up as a
+  difference.
+- The second labeler was not fully blind. Before it labeled, it had seen how many rows carry each
+  proposed label, that 53 rows were flagged unsure, and the proposed labels of 5 rows.
+- The rows were written to carry a label, so they may be easier to agree on than rows from a real
+  statement.
+- The two passes do not agree on which rows are hard. The writer flagged 53 rows as unsure and the
+  second pass flagged 56, and only 25 rows are flagged by both.
+
+So every figure in this section is still agreement with labels that no person has checked.
 
 ## End to end
 
@@ -166,8 +397,9 @@ in the offline and tour runs and 567 to 591 ms in the three others; on Oct 20 th
   who wrote them is yours to state. -->
 - The difftest claims are synthetic, aimed at each law's numbers. Real bank histories look
   different.
-- The classifier numbers come from fictional data built for the demo. There is no accuracy number
-  for Gemini Nano in the repository yet. The demo total depends on it: with the rules alone the web
+- The classifier numbers come from fictional data: the demo history, and 460 held-out rows whose
+  labels are proposed and not yet reviewed by a person. The held-out figure is for the rules alone.
+  There is no accuracy number for Gemini Nano in the repository yet. The demo total depends on it: with the rules alone the web
   flow counts $3,848.00. The server classifier also sorts the sheets ($96) and the door chain and
   light ($64), from cached `gemini-3.5-flash-lite` answers (`seed/cache/classify_cache.json`), and
   with them the total is $4,008.00. In the browser, the same two lines can be sent to cloud AI only

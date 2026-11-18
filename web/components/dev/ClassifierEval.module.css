@@ -1,0 +1,81 @@
+.tool {
+  max-width: 46rem;
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.lead {
+  color: var(--ink-2);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  margin-top: var(--space-4);
+}
+
+.step {
+  margin-top: var(--space-7);
+}
+
+.step h2 {
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: end;
+  margin-bottom: var(--space-4);
+}
+
+.fields label {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.fields input[type="number"] {
+  width: 9rem;
+}
+
+.note {
+  color: var(--ink-2);
+  font-size: var(--text-sm);
+  margin-top: var(--space-3);
+}
+
+.problem {
+  color: var(--clay);
+  margin-top: var(--space-3);
+}
+
+/* Wide on a phone, so it scrolls inside its own box and the page does not. */
+.runsWrap {
+  overflow-x: auto;
+  margin-bottom: var(--space-4);
+}
+
+.runs {
+  border-collapse: collapse;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.runs th,
+.runs td {
+  text-align: left;
+  padding: var(--space-2) var(--space-4) var(--space-2) 0;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.command {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-3);
+  background: var(--paper-sunk);
+  border-radius: var(--radius-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  overflow-x: auto;
+  white-space: pre;
+}

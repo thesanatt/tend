@@ -1,0 +1,128 @@
+{
+  "set_hash": "3c2492917dfdaac8",
+  "labeler": "Claude Mythos 5.2, in a Claude Code session",
+  "labeled": "2026-11-18",
+  "measured": "2026-11-18",
+  "not_a_review": "Both sets of labels were made by AI models. No person has reviewed either, so nothing here is accuracy.",
+  "seen": [
+    "h001",
+    "h002",
+    "h007",
+    "h008",
+    "h036"
+  ],
+  "same": {
+    "k": 455,
+    "n": 460
+  },
+  "same_unseen": {
+    "k": 450,
+    "n": 455
+  },
+  "kappa": 0.9851,
+  "cost_rows": {
+    "proposed": 230,
+    "second": 229
+  },
+  "unsure": {
+    "writer": 53,
+    "second": 56,
+    "both": 25
+  },
+  "differ": [
+    {
+      "id": "h141",
+      "date": "2026-03-20",
+      "amount_cents": 64000,
+      "description": "SERVPRO OF ANN ARBOR ANN ARBOR MI",
+      "proposed": "unknown",
+      "second": "crime_scene_cleanup",
+      "writer_note": "unsure: a restoration company that also does biohazard cleanup; the row cannot tell which",
+      "second_note": "unsure: a restoration company; most of its work is water and fire damage"
+    },
+    {
+      "id": "h277",
+      "date": "2026-04-20",
+      "amount_cents": 400,
+      "description": "REPUBLIC PARKING SYS 412 ANN ARBOR MI",
+      "proposed": "transportation",
+      "second": "unknown",
+      "writer_note": "parking garage, same day as the radiology visit",
+      "second_note": "unsure: parking in Ann Arbor; the only care charge that day is a radiology group in Livonia"
+    },
+    {
+      "id": "h293",
+      "date": "2026-04-25",
+      "amount_cents": 500,
+      "description": "LAKEVIEW HLTH PARKING RAMP ANN ARBOR MI",
+      "proposed": "transportation",
+      "second": "unknown",
+      "writer_note": "unsure: hospital parking ramp on a day with no care charge on the statement; hospitals often bill later",
+      "second_note": "unsure: a hospital parking ramp, with no care charge on the statement that day"
+    },
+    {
+      "id": "h429",
+      "date": "2026-06-12",
+      "amount_cents": 240,
+      "description": "PASSPORTPARKING ANN ARBOR ANN ARBOR MI",
+      "proposed": "transportation",
+      "second": "unknown",
+      "writer_note": "same day as a therapy visit",
+      "second_note": "unsure: parking in Ann Arbor; the only care visit that day is in Troy"
+    },
+    {
+      "id": "h430",
+      "date": "2026-06-12",
+      "amount_cents": 1875,
+      "description": "KLARNA* SHEIN 844-555-0173 OH",
+      "proposed": "unknown",
+      "second": "clothing_bedding",
+      "writer_note": "unsure: a pay-later installment for a clothing order",
+      "second_note": "unsure: a clothing site paid through an installment service"
+    }
+  ],
+  "rules": {
+    "proposed": {
+      "all": {
+        "k": 257,
+        "n": 460
+      },
+      "cost": {
+        "k": 33,
+        "n": 230
+      },
+      "none": {
+        "k": 224,
+        "n": 230
+      }
+    },
+    "second": {
+      "all": {
+        "k": 258,
+        "n": 460
+      },
+      "cost": {
+        "k": 33,
+        "n": 229
+      },
+      "none": {
+        "k": 225,
+        "n": 231
+      }
+    },
+    "agreed": {
+      "all": {
+        "k": 255,
+        "n": 455
+      },
+      "cost": {
+        "k": 33,
+        "n": 227
+      },
+      "none": {
+        "k": 222,
+        "n": 228
+      }
+    }
+  }
+}

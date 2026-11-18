@@ -65,6 +65,15 @@ def numbers_in(text: str) -> set:
     return found
 
 
+def quote_found(q: str, text: str) -> str:
+    """How a quote sits in a source text, both already through norm(): "exact", "case" when it is
+    there only with case ignored (a warning below, not a failure), or "" when it is not there.
+    rules/tools/check_sources.py asks the same question of a page fetched again."""
+    if q in text:
+        return "exact"
+    return "case" if q.lower() in text.lower() else ""
+
+
 def money_in_quote(cents: int, quote_nums: set) -> bool:
     """The amount, as dollars, is a number the quote says. An amount with cents needs its cents there too."""
     return cents / 100 in quote_nums
@@ -433,12 +442,12 @@ def check(st: str):
         if sid not in texts:
             errors.append(f"{rid}: source {sid} not found or not saved")
             continue
-        if q not in texts[sid]:
-            if q.lower() in texts[sid].lower():
-                warnings.append(f"{rid}: quote matches only case-insensitively")
-            else:
-                errors.append(f"{rid}: quote is not a verbatim substring of {sid}: {q[:90]!r}")
-                continue
+        found = quote_found(q, texts[sid])
+        if found == "case":
+            warnings.append(f"{rid}: quote matches only case-insensitively")
+        elif not found:
+            errors.append(f"{rid}: quote is not a verbatim substring of {sid}: {q[:90]!r}")
+            continue
         qn = numbers_in(q)
         for k, v in (r.get("params") or {}).items():
             if k not in NUMERIC_PARAMS or v is None:

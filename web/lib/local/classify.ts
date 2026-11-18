@@ -303,7 +303,7 @@ export function refundedPurchases(txns: LocalTxn[]): Set<string> {
 // fill Gemini Nano's context (which would end device sorting for every batch after it).
 const cut = (text: string, max: number) => Array.from(text).slice(0, max).join("");
 
-function modelRow(ref: string, f: TxnFacts): ModelRow {
+export function modelRow(ref: string, f: TxnFacts): ModelRow {
   return {
     ref,
     kind: f.kind,

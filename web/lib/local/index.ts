@@ -20,7 +20,7 @@ export { billReader, readBill } from "./bill";
 export { deviceAiStatus, startModelDownload, downloadProgress, forgetSessions as releaseDeviceAi } from "./deviceai";
 export { fetchNessie, fromNessieRelay } from "./nessie";
 export { inferPayDips } from "./paydip";
-export { measureDeviceClassifier } from "./measure";
+export { captureDeviceAnswers, measureDeviceClassifier } from "./measure";
 export type {
   ClassifyContext,
   ClassifyOptions,
