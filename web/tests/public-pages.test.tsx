@@ -204,7 +204,7 @@ describe("home page", () => {
     }[];
     const rules = list.reduce((n, j) => n + j.rules, 0).toLocaleString("en-US");
     const sources = list.reduce((n, j) => n + j.sources, 0).toLocaleString("en-US");
-    expect(rules).toBe("2,728");
+    expect(rules).toBe("2,730");
     expect(sources).toBe("824");
     expect(document.body.textContent).toContain(`${rules} verified rules from ${sources} saved sources`);
     // Some saved copies are Justia or Cornell LII reproductions, so neither the count nor the garden says official.

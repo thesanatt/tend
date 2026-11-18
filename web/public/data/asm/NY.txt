@@ -1,8 +1,8 @@
 ; tend law image NY, New York
 ; format 1.3, compiled by tendc 1.3.0
-; source sha256 3ea9c5d4fca78d79ed5bf9f415a1070ceaf58541ec227a4828a2826654cc42e2
-; image sha256  80de0f673f61a540e0ebf29ee172d737cfc19b421621f662642e283091116a54
-; 60 rules, 18 sources, 28 proofs, 7 ints, 355 strings
+; source sha256 84853a11cd7a51cda2045f5919c1b780daef4a6020c2a36e39903c1db7f88a8a
+; image sha256  c618f7f9629a38b9d2f5925eb9ea0c086686d717c3998b36a522191516371f64
+; 62 rules, 18 sources, 28 proofs, 7 ints, 367 strings
 ; item program: 176 instructions, 576 bytes, max stack 2
 ; aggregate program: 259 instructions, 799 bytes, max stack 3, 9 loops
 
@@ -44,29 +44,31 @@
     R34   NY-REPORT-5           reporting     -                                             N.Y. Exec. Law 631(1)(c)(iii)
     R35   NY-COLLAT-1           collateral    -                                             N.Y. Exec. Law 631(4)
     R36   NY-COLLAT-2           collateral    -                                             OVS Claim Application, Reminder
-    R37   NY-CONDUCT-1          info          -                     conduct_reduction       N.Y. Exec. Law 631(5)(a)
-    R38   NY-CONDUCT-2          info          -                     conduct_reduction       9 NYCRR 525.12(m)(3)
-    R39   NY-EMERG-1            info          -                     emergency_award         N.Y. Exec. Law 630(1)
-    R40   NY-CRIME-1            info          -                     eligible_crime          N.Y. Exec. Law 626(1)
-    R41   NY-RES-1              info          -                     residency               N.Y. Exec. Law 621(3)(a)
-    R42   NY-RES-2              info          -                     residency               N.Y. Exec. Law 621(3)(b)
-    R43   NY-SUB-1              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
-    R44   NY-SUB-2              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
-    R45   NY-SUB-3              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 1, FAQ: Is there another way to apply?
-    R46   NY-DOC-1              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R47   NY-DOC-2              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R48   NY-DOC-3              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R49   NY-DOC-4              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
-    R50   NY-DOC-5              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
-    R51   NY-DOC-6              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
-    R52   NY-DOC-7              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 10, Medical Care
-    R53   NY-DOC-8              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability
-    R54   NY-ACP-1              info          -                     address_confidentiality N.Y. Exec. Law 108 (preamble)
-    R55   NY-REC-1              info          -                     record_confidentiality  N.Y. Exec. Law 633(1)
-    R56   NY-CAP-6              skipped       -                     expense_cap             N.Y. Exec. Law 631(9)(a)  ; less generous duplicate of NY-CAP-14
-    R57   NY-CAP-7              skipped       -                     expense_cap             9 NYCRR 525.12(n)(3)  ; less generous duplicate of NY-CAP-13
-    R58   NY-CAP-9              skipped       -                     expense_cap             9 NYCRR 525.12(n)(1)(ii)  ; less generous duplicate of NY-CAP-8
-    R59   NY-CAP-11             skipped       -                     expense_cap             9 NYCRR 525.12(n)(2)(ii)  ; less generous duplicate of NY-CAP-10
+    R37   NY-NEED-1             info          -                     minimum_loss            N.Y. Exec. Law 631(6)(a)
+    R38   NY-CONDUCT-1          info          -                     conduct_reduction       N.Y. Exec. Law 631(5)(a)
+    R39   NY-CONDUCT-2          info          -                     conduct_reduction       9 NYCRR 525.12(m)(3)
+    R40   NY-EMERG-1            info          -                     emergency_award         N.Y. Exec. Law 630(1)
+    R41   NY-CRIME-1            info          -                     eligible_crime          N.Y. Exec. Law 626(1)
+    R42   NY-RES-1              info          -                     residency               N.Y. Exec. Law 621(3)(a)
+    R43   NY-RES-2              info          -                     residency               N.Y. Exec. Law 621(3)(b)
+    R44   NY-SUB-1              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
+    R45   NY-SUB-2              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 2, OVS Contact Information
+    R46   NY-SUB-3              info          -                     submission              OVS Victim Compensation Claim Application (Feb. 2026), page 1, FAQ: Is there another way to apply?
+    R47   NY-DOC-1              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R48   NY-DOC-2              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R49   NY-DOC-3              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R50   NY-DOC-4              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 2, Processing Your Claim
+    R51   NY-DOC-5              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
+    R52   NY-DOC-6              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 9, Supporting Documentation for Crime Verification
+    R53   NY-DOC-7              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 10, Medical Care
+    R54   NY-DOC-8              info          -                     required_document       OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability
+    R55   NY-ACP-1              info          -                     address_confidentiality N.Y. Exec. Law 108 (preamble)
+    R56   NY-REC-1              info          -                     record_confidentiality  N.Y. Exec. Law 633(1)
+    R57   NY-CRIME-2            skipped       -                     eligible_crime          N.Y. Exec. Law 631(12)  ; applies_to "unlawful dissemination or publication of an intimate image, dissemination of an unlawful surveillance image, or a hate crime, with no physical injury"
+    R58   NY-CAP-6              skipped       -                     expense_cap             N.Y. Exec. Law 631(9)(a)  ; less generous duplicate of NY-CAP-14
+    R59   NY-CAP-7              skipped       -                     expense_cap             9 NYCRR 525.12(n)(3)  ; less generous duplicate of NY-CAP-13
+    R60   NY-CAP-9              skipped       -                     expense_cap             9 NYCRR 525.12(n)(1)(ii)  ; less generous duplicate of NY-CAP-8
+    R61   NY-CAP-11             skipped       -                     expense_cap             9 NYCRR 525.12(n)(2)(ii)  ; less generous duplicate of NY-CAP-10
 
 .tags   vehicle=bit0
 
@@ -118,7 +120,7 @@
     P24   (NY-CAP-12, NY-COLLAT-1, NY-COLLAT-2)
     P25   (NY-DEADLINE-1, NY-DEADLINE-2)
     P26   (NY-REPORT-1, NY-REPORT-2, NY-REPORT-3, NY-REPORT-4, NY-REPORT-5)
-    P27   (NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1)
+    P27   (NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-NEED-1, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1)
 
 .ints
     K0    60000         ; $600.00
@@ -651,6 +653,7 @@
               ; NY-EXCL-2  9 NYCRR 525.3(d)(2)  "Meals shall not be considered a related transportation expense."
               ; NY-COLLAT-1  N.Y. Exec. Law 631(4)  "Any award made pursuant to this article shall be reduced by the..."
               ; NY-COLLAT-2  OVS Claim Application, Reminder  "OVS is the payer of last resort and can only consider your..."
+              ; NY-NEED-1  N.Y. Exec. Law 631(6)(a)  "Claims may be approved only if the office finds that unless the..."
               ; NY-CONDUCT-1  N.Y. Exec. Law 631(5)(a)  "the office shall determine whether, because of such victim's..."
               ; NY-CONDUCT-2  9 NYCRR 525.12(m)(3)  "However, when considering conduct contributing the office shall..."
               ; NY-EMERG-1  N.Y. Exec. Law 630(1)  "the office may make one or more emergency awards to the claimant..."
@@ -670,6 +673,6 @@
               ; NY-DOC-8  OVS Victim Compensation Claim Application (Feb. 2026), page 16, Workers Compensation/Disability  "If the victim has coverage through either Worker's Compensation..."
               ; NY-ACP-1  N.Y. Exec. Law 108 (preamble)  "There is created in the office of the secretary of state a..."
               ; NY-REC-1  N.Y. Exec. Law 633(1)  "Records maintained by the office and proceedings by the office..."
-  031b        info     P27                          ; NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
+  031b        info     P27                          ; NY-CAP-4, NY-EXCL-1, NY-EXCL-2, NY-COLLAT-1, NY-COLLAT-2, NY-NEED-1, NY-CONDUCT-1, NY-CONDUCT-2, NY-EMERG-1, NY-CRIME-1, NY-RES-1, NY-RES-2, NY-SUB-1, NY-SUB-2, NY-SUB-3, NY-DOC-1, NY-DOC-2, NY-DOC-3, NY-DOC-4, NY-DOC-5, NY-DOC-6, NY-DOC-7, NY-DOC-8, NY-ACP-1, NY-REC-1
   031e        ret
 
