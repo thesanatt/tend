@@ -17,7 +17,7 @@
    "field_count": 552
   }
  },
- "source_sha256": "3ea9c5d4fca78d79ed5bf9f415a1070ceaf58541ec227a4828a2826654cc42e2",
+ "source_sha256": "c18e3a87e8a4dbfa48aafff958f09abebb7506ca353de7ce2e00a96f26e7ca2a",
  "rules": [
   {
    "id": "NY-EXAM-1",
@@ -269,6 +269,11 @@
   },
   {
    "id": "NY-CRIME-1",
+   "kind": "info",
+   "category": "eligible_crime"
+  },
+  {
+   "id": "NY-CRIME-2",
    "kind": "info",
    "category": "eligible_crime"
   },
