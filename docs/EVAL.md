@@ -49,7 +49,7 @@ Neon detail is in [NEON.md](NEON.md).
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
 | Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Nov 16, the same as Oct 20 |
 | Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Nov 16 |
-| Web unit and screen tests | `cd web && npx vitest run` | 63 files, 2,431 passed on Nov 16 with the checks for the held-out classifier rows (2,356 in 58 files earlier that day; 2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 16 |
+| Web unit and screen tests | `cd web && npx vitest run` | 64 files, 2,451 passed on Nov 18 with the checks for the second model pass over the held-out labels (2,431 in 63 files on Nov 16 with the checks for the held-out classifier rows; 2,356 in 58 files earlier that day; 2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 18 on the branch `classifier-second-pass`; only this row ran that day |
 | Web lint | `cd web && npm run lint` | no errors and no warnings. On Oct 20 it gave 19 warnings: 17 in the generated `public/engine/tend.js`, which lint now skips, and 2 unused parameters in a test, now gone | rerun Nov 16 |
 | Web production build | `cd web && npm run build` | builds, with 186 pages made ahead of time (185 with /compare and its card; one more is `/dev/classifier-eval`, which the built site answers with its not-found page) | rerun Nov 16 |
 | Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 33 passed (182 s with the build) on Nov 16, the same 33 as on Oct 26, when the phone checks first covered /press, /data, /law/changes and /compare; 31 on Oct 20. They are 13 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts, including text at 200 percent on a 360 px phone in both languages | rerun Nov 16; see the note below |
@@ -150,6 +150,7 @@ labeled a phone bill payment as lost wages (commit `e202549`), which is why.
 | TypeScript port vs the Python classifier, including the lost-pay workday estimate | `npx vitest run tests/local/classify-parity.test.ts` | passes on all 4 snapshots | rerun Oct 20, the same as Oct 4 |
 | Gemini Nano on held-out rows | `measureDeviceClassifier` (`web/lib/local/measure.ts`) in Chrome, with `web/tests/local/fixtures/device-eval.json` and `device-eval-b.json` (32 fictional rows each, no rule matches them) | no result is committed | not reproduced: needs Chrome with the built-in model |
 | Rules only, no model, on 460 held-out rows | `cd web && npx tsx scripts/classifier-eval.ts` | 257 of 460 rows right: 55.9% (95% interval 51.3% to 60.3%). The rows are fictional and their labels are proposed, not yet reviewed by a person. See "The held-out rows" below | first run Nov 16, 2026, at `a6bf3f0` |
+| The 460 rows labeled a second time, by a second AI model | `cd web && npx tsx scripts/classifier-second-pass.ts` | the same label as the proposed one on 455 of 460 rows. This is a second model pass, not a person's review, and it changes no figure here. See "A second model pass over the labels" below | labeled and compared Nov 18, 2026 |
 | Gemini Nano on the same 460 rows | the page `/dev/classifier-eval` under `npm run dev`, in Chrome, then `npx tsx scripts/classifier-eval.ts --model FILE` | no result is committed | not run: needs Chrome with the built-in model |
 | Gemini Nano reading a bill photo | in Chrome 154 | the seed bill photo read correctly 3 of 3 times; a bill whose lines do not add up stays "couldn't read reliably" | recorded Oct 3, commit `aaef95c` message only |
 
@@ -179,7 +180,8 @@ Read the numbers with these limits in mind:
 - The labels are proposed, and no person has checked them. One AI assistant wrote the rows and the
   labels, after it had read the rules. So the rows are held out from the rules in time, not written
   blind, and until a person reviews the labels every figure is agreement with proposed labels, not
-  accuracy.
+  accuracy. A second model labeled the rows again on Nov 18 without the proposed labels in front of
+  it (see "A second model pass over the labels" below). That is not a person's review either.
 - The rows are fictional, and the mix is chosen by label: half cost rows, half not. A real
   statement is mostly ordinary spending. The "all rows" figure therefore does not carry over to a
   real statement. The per-label figures and the two error lines are the ones to compare from one
@@ -284,7 +286,9 @@ To review the labels, which only a person can do: copy
 `web/tests/local/fixtures/classifier-heldout.review.csv` to `classifier-heldout.reviewed.csv` in
 the same folder and fill the `reviewed` column. Write `ok` to keep the proposed label, a label from
 the list to replace it, `none` for no cost label, or `skip` to leave the row out. An empty cell
-means not looked at yet. The rows flagged unsure are the first to check. Then run
+means not looked at yet. The 5 rows the second pass labels differently (h141, h277, h293, h429,
+h430, listed in the last part of this section) are the first to check, then the rows flagged
+unsure. Then run
 `cd web && npx tsx scripts/classifier-eval.ts --write`, which reads that file, rewrites the result
 file and the block of numbers above, and says how many labels were reviewed and corrected. Bring
 the text around the block in line, and commit the reviewed file with the result.
@@ -305,6 +309,68 @@ To record Gemini Nano's answers (Chrome on a desktop with the built-in model):
 
 The page exists only under `npm run dev`; the built site answers that address with its not-found
 page. Nothing leaves the browser: the rows go to the built-in model and the answers to a file.
+
+#### A second model pass over the labels
+
+This is not a person's review. On Nov 18, 2026 a second AI model labeled all 460 rows again. It
+worked from each row's date, amount and bank text, the label policy in the set and the list of
+labels, with the proposed labels and the writer's notes left out. Its labels were fixed before they
+were compared with the proposed ones, and none was changed afterwards. They are in
+`web/tests/local/fixtures/classifier-heldout.second-pass.json`, with a notice that says what the
+labeler had seen. `classifier-eval.ts` does not read that file, so it changes no figure above.
+
+<!-- classifier-second-pass:start -->
+<!-- Written by `cd web && npx tsx scripts/classifier-second-pass.ts --write` from the second pass file in
+     web/tests/local/fixtures. Change a number by running that, not by editing between these marks. -->
+
+The second pass: Claude Mythos 5.2, in a Claude Code session, on Nov 18, 2026 (`classifier-heldout.second-pass.json`, compared on Nov 18, 2026). Both sets of labels were made by AI models. No person has reviewed either, so nothing here is accuracy.
+
+|  | Proposed labels against the second pass |
+|---|---|
+| Rows given the same label | 98.9% (455 of 460, 95% interval 97.5% to 99.5%) |
+| ... leaving out the 5 rows whose proposed labels the second labeler had seen | 98.9% (450 of 455, 95% interval 97.5% to 99.5%) |
+| Cohen's kappa, which takes out the agreement two labelers reach by chance | 0.9851 |
+| Rows given a cost label | 230 proposed, 229 in the second pass |
+| Rows flagged unsure | 53 by the writer, 56 in the second pass, 25 by both |
+| Rows labeled differently | 5: h141, h277, h293, h429, h430 |
+
+The rows the two passes label differently, which are the first ones for a person to settle:
+
+| Row | Date | Amount | Bank text | Proposed | Second pass | Writer's note | Second labeler's note |
+|---|---|---|---|---|---|---|---|
+| h141 | 2026-03-20 | $640.00 | SERVPRO OF ANN ARBOR ANN ARBOR MI | no cost label | `crime_scene_cleanup` | unsure: a restoration company that also does biohazard cleanup; the row cannot tell which | unsure: a restoration company; most of its work is water and fire damage |
+| h277 | 2026-04-20 | $4.00 | REPUBLIC PARKING SYS 412 ANN ARBOR MI | `transportation` | no cost label | parking garage, same day as the radiology visit | unsure: parking in Ann Arbor; the only care charge that day is a radiology group in Livonia |
+| h293 | 2026-04-25 | $5.00 | LAKEVIEW HLTH PARKING RAMP ANN ARBOR MI | `transportation` | no cost label | unsure: hospital parking ramp on a day with no care charge on the statement; hospitals often bill later | unsure: a hospital parking ramp, with no care charge on the statement that day |
+| h429 | 2026-06-12 | $2.40 | PASSPORTPARKING ANN ARBOR ANN ARBOR MI | `transportation` | no cost label | same day as a therapy visit | unsure: parking in Ann Arbor; the only care visit that day is in Troy |
+| h430 | 2026-06-12 | $18.75 | KLARNA\* SHEIN 844-555-0173 OH | no cost label | `clothing_bedding` | unsure: a pay-later installment for a clothing order | unsure: a clothing site paid through an installment service |
+
+The rules-only run counted against each set of labels. What the rules give a row does not depend on its label, so this is one run counted three ways:
+
+| Labels | All rows right | Rows that should get a cost label, right | Rows that should get none, right |
+|---|---|---|---|
+| Proposed | 55.9% (257 of 460, 95% interval 51.3% to 60.3%) | 14.3% (33 of 230, 95% interval 10.4% to 19.5%) | 97.4% (224 of 230, 95% interval 94.4% to 98.8%) |
+| Second pass | 56.1% (258 of 460, 95% interval 51.5% to 60.6%) | 14.4% (33 of 229, 95% interval 10.4% to 19.5%) | 97.4% (225 of 231, 95% interval 94.5% to 98.8%) |
+| Only the 455 rows both passes label the same | 56.0% (255 of 455, 95% interval 51.5% to 60.5%) | 14.5% (33 of 227, 95% interval 10.5% to 19.7%) | 97.4% (222 of 228, 95% interval 94.4% to 98.8%) |
+<!-- classifier-second-pass:end -->
+
+What it shows: the two passes give the same label to 455 of the 460 rows, so the label policy can
+be applied the same way twice. The 203 rows the rules got wrong are not explained by disputed
+labels either: the rules-only figure is 257 of 460 against the proposed labels and 258 of 460
+against the second pass.
+
+What it does not show is that the labels are right:
+
+- Both passes were made by AI models from the same family, working from the same written policy,
+  and both had read the classifier's rules. A mistake the two share does not show up as a
+  difference.
+- The second labeler was not fully blind. Before it labeled, it had seen how many rows carry each
+  proposed label, that 53 rows were flagged unsure, and the proposed labels of 5 rows.
+- The rows were written to carry a label, so they may be easier to agree on than rows from a real
+  statement.
+- The two passes do not agree on which rows are hard. The writer flagged 53 rows as unsure and the
+  second pass flagged 56, and only 25 rows are flagged by both.
+
+So every figure in this section is still agreement with labels that no person has checked.
 
 ## End to end
 

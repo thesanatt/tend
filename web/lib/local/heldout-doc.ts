@@ -43,8 +43,8 @@ const range = (r: Rate, none: string) => {
   return x.n === 0 ? none : `${percent(x.p)} (${percent(x.lo)} to ${percent(x.hi)})`;
 };
 // A star or a bar in a cell would be read as markdown.
-const plain = (text: string) => text.replace(/([*|])/g, "\\$1");
-const table = (head: string[], rows: string[][]) => [
+export const plain = (text: string) => text.replace(/([*|])/g, "\\$1");
+export const table = (head: string[], rows: string[][]) => [
   `| ${head.join(" | ")} |`,
   `|${head.map(() => "---").join("|")}|`,
   ...rows.map((r) => `| ${r.join(" | ")} |`),
