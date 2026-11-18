@@ -46,6 +46,8 @@ jobs:
         run: uv run --no-project python rules/tools/export_dataset.py --check
       - name: Tests of the checker and the dataset export
         run: uv run --no-project --with pytest pytest rules/tools/test_export_dataset.py rules/tools/test_verify.py
+      - name: Tests of the source check, on fixture pages with no network
+        run: uv run --no-project --with pytest --with beautifulsoup4 pytest rules/tools/test_check_sources.py
 
   engine:
     name: Engine (C++, reference, WASM)

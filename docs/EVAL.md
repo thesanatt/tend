@@ -86,6 +86,22 @@ build. It leaves out the browser tests, the Neon and Nessie tests, fuzzing, and 
 build. Each command in it passed on Nov 16 from a clean clone on macOS; on Linux only the engine
 commands were tried that day.
 
+**The source check.** `rules/tools/check_sources.py`, added Nov 16, fetches each saved source's URL
+again into a temporary folder, reads the page's text the way `fetch_source.py` does, and looks for
+each rule's quote with the test `verify.py` uses. It reports the sources it could not fetch, the
+sources whose bytes changed while every quote is still there, and the rules whose quote is gone.
+Only the last makes it fail, and it changes no file in the repository. It cannot tell whether a page
+that still holds the quote still means the same thing. It makes plain requests and does not open a
+browser, so a site that refuses those is "not fetched". And 120 of the 824 sources are Justia or
+Cornell copies, so a quote found there matches the copy, not the state's own text. Its 19 tests use
+fixture pages and no network. One sample has run: `MI OH CA` on the evening of Nov 16 (01:25 UTC on
+Nov 17), 58 sources cited by 175 rules, in 45 seconds. No quote was missing. 41 sources had new
+bytes with all 107 quotes still there, and 29 of the 41 read the same as the saved text word for
+word. 10 sources had the same bytes (54 rules, not read again). 7 answered HTTP 403, 6 on Justia and
+1 on ohiosos.gov, which left 14 rules unchecked; a run a few minutes earlier had 5 refused, 4 of them
+on Justia. The other 48 jurisdictions have not been run, and the weekly workflow
+(`.github/workflows/source-check.yml`, report only) has not run on GitHub.
+
 ## Engines in one paragraph
 
 Three implementations of SPEC v1.3 must agree byte for byte: the C++ compiler and VM (native and

@@ -19,13 +19,20 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[2]
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0 Safari/537.36"
 BLOCK_MARKERS = ("access denied", "request blocked", "captcha", "are you a robot", "enable javascript and cookies", "attention required", "bots use duckduckgo")
+# The elements html_to_text leaves out of a page's text.
+DROP_TAGS = ("script", "style", "noscript", "svg", "nav", "header", "footer", "form")
+
+
+def text_looks_blocked(text: str) -> bool:
+    """A page's extracted text is too short to be the page, or is short and reads like a challenge."""
+    text = text.lower()
+    return len(text) < 600 or (len(text) < 6000 and any(m in text for m in BLOCK_MARKERS))
 
 
 def looks_blocked(raw: bytes, ctype: str) -> bool:
     if "pdf" in ctype or raw.startswith(b"%PDF"):
         return not raw.startswith(b"%PDF")
-    text = html_to_text(raw).lower()
-    return len(text) < 600 or (len(text) < 6000 and any(m in text for m in BLOCK_MARKERS))
+    return text_looks_blocked(html_to_text(raw))
 
 
 def plain_fetch(url: str):
@@ -67,11 +74,11 @@ def chrome_fetch(url: str):
             page.close()
 
 
-def html_to_text(raw: bytes) -> str:
+def html_to_text(raw: bytes, drop: tuple = DROP_TAGS) -> str:
     from bs4 import BeautifulSoup
 
     soup = BeautifulSoup(raw, "html.parser")
-    for tag in soup(["script", "style", "noscript", "svg", "nav", "header", "footer", "form"]):
+    for tag in soup(list(drop)):
         tag.decompose()
     return soup.get_text(" ", strip=True)
 
