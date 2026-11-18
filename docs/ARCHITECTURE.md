@@ -68,9 +68,10 @@ downloaded from the packet are ordinary files, outside the vault.
 **The server holds three things** (`api/README.md`, `docs/NEON.md`):
 
 1. The public law corpus: 51 jurisdictions, 824 sources (metadata and sha256, no page text),
-   the rules (2,728 in production since the law load of Oct 25, 2026; 2,578 before), the sha256 of
+   the rules (2,730 in production since the law load of Nov 18, 2026; 2,728 before), the sha256 of
    each compiled law image (153 on Oct 25, 2026: three for each jurisdiction, the current law's
-   tend 1.3.0 image and two earlier ones, which stay listed), and the index of law versions.
+   tend 1.3.0 image and two earlier ones, which stay listed; 154 since Nov 18, 2026, when New
+   York's image was rebuilt for its two new rules), and the index of law versions.
 2. Ciphertext of shared packets with an expiry (`sealed_shares`). The key is in the link's
    fragment (`/share#<id>.<key>`), which browsers do not send to servers.
 3. An append-only, hash-chained audit log of confirmed payments (`audit_log`). Each row's hash
@@ -319,8 +320,8 @@ offline (`api/tend_api/db`). The test suite runs entirely on SQLite with no keys
 share or audit row is ever copied into a law branch; each later one is a child of the one
 before, and only the states whose files changed are written. `POST /api/claim` names the version
 it was checked against (`law_version`) when that state's files match a published version, and
-`null` otherwise; `GET /api/law/diff` compares two versions rule by rule. Since Oct 25, 2026 the live
-`/api/law/versions` names law-2026-10-20-e01843a (2,728 rules) as the current version.
+`null` otherwise; `GET /api/law/diff` compares two versions rule by rule. Since Nov 18, 2026 the live
+`/api/law/versions` names law-2026-11-18-25529c3 (2,730 rules) as the current version.
 Two least-privilege roles (`scripts/neon/roles.py`): `tend_reader` can only read the corpus, and
 `tend_app` can write shares and pending payments and append to the audit log, never rewrite it.
 They exist and pass their checks, but production does not use them yet: it is set up with the

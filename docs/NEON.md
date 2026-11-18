@@ -38,7 +38,8 @@ law-2026-10-03-52abf94           br-square-leaf-b4kaa61u       schema-only root:
    `- law-2026-10-03-d83289a     br-lucky-mountain-b4nuurep    +97 rules: address confidentiality, record confidentiality
       `- law-2026-10-03-1e96ad5  br-young-frost-b43l8bnn       the law engine reads 66 rules differently (rule format v2)
          `- law-2026-10-03-c959cb6  br-billowing-violet-b4h7wdk1  13 source pages saved again (AZ, ID, WY)
-            `- law-2026-10-20-e01843a  br-cool-feather-b4uvxr1y  +150 rules after every rule was checked again against its quote; newest published
+            `- law-2026-10-20-e01843a  br-cool-feather-b4uvxr1y  +150 rules after every rule was checked again against its quote
+               `- law-2026-11-18-25529c3  br-purple-dust-b46tn4f0  +2 New York rules quoted from Exec. Law 631 (drafts); newest published
 ```
 
 How `scripts/neon/law_versions.py publish` builds one:
@@ -64,7 +65,8 @@ newest corpus commit as a new child branch.
   CA, IA, MN, MO, MT, NV, NY, SC, TX, WY) after the last published version, so `current` was null,
   claims for those 11 states named no version, and claims for the other 40 still named
   law-2026-10-03-c959cb6. That corpus and the rule checks after it were published on Oct 25, 2026 as
-  law-2026-10-20-e01843a, which has been `current` since.
+  law-2026-10-20-e01843a, which was `current` until Nov 18, 2026. That day the two New York rules were
+  loaded and published as law-2026-11-18-25529c3, which has been `current` since.
 - `GET /api/law/diff?from=&to=&st=` compares two versions. When a state's file hashes are the same in
   both, the index answers "unchanged" without opening a branch. Otherwise the API connects to both
   branches by host, **as `tend_reader`** when `DATABASE_URL_READER` is set (production does not set
@@ -187,6 +189,12 @@ this plan's API does not break storage down further.
 On Oct 25, 2026 law-2026-10-20-e01843a was made in 1.6 s and loaded in 7.3 s (51 of 51 states, 2,728
 rules, 824 sources, logical size 55.4 MB). Production then held 2,728 rules and 153 law images, and 7 of
 the free plan's 10 branches were in use (production and 6 law versions).
+
+On Nov 18, 2026 law-2026-11-18-25529c3 was made in 4.0 s and loaded in 0.6 s. Only New York's files had
+changed, so it wrote that one state again (62 rules) and kept the other 50 from its parent: 2,730 rules,
+824 sources. Production's own load took 5.8 s and wrote the same one state. Production then held 2,730
+rules and 154 law images, and by the same count 8 of the free plan's 10 branches were in use (production
+and 7 law versions). Neon had not yet reported the new branch's logical size when the versions were listed.
 
 **Queries on the server (as `tend_reader`).**
 
