@@ -272,10 +272,19 @@ describe("rules the law IR sets aside", () => {
     expect(md.covered.flatMap((c) => c.ruleIds)).not.toContain("MD-COV-11");
   });
 
-  it.each(STATES)("%s: no cost or total limit cites a set-aside rule", (st) => {
+  it("New York: the rule for image crimes with no injury is not cited as why she can apply", () => {
+    expect(aside("NY").has("NY-CRIME-2")).toBe(true);
+    expect(summary("NY").apply).toEqual(["NY-CRIME-1"]);
+    // Without the IR (it failed to load), the rule's own applies_to still keeps it out.
+    expect(buildCheckSummary(load("NY"), output(load("NY")), { ...answers, st: "NY" }, true).apply).toEqual([
+      "NY-CRIME-1",
+    ]);
+  });
+
+  it.each(STATES)("%s: no cost, total limit or apply citation cites a set-aside rule", (st) => {
     const s = summary(st);
     const ids = aside(st);
-    const shown = [...s.covered.flatMap((c) => c.ruleIds), ...(s.totalCap?.ruleIds ?? [])];
+    const shown = [...s.covered.flatMap((c) => c.ruleIds), ...(s.totalCap?.ruleIds ?? []), ...s.apply];
     expect(shown.filter((id) => ids.has(id))).toEqual([]);
   });
 });

@@ -17,7 +17,7 @@
    "field_count": 552
   }
  },
- "source_sha256": "cd5882b7beff374638d420d90caaa7d667013aa1de50b548608deb6036b81056",
+ "source_sha256": "84853a11cd7a51cda2045f5919c1b780daef4a6020c2a36e39903c1db7f88a8a",
  "rules": [
   {
    "id": "NY-EXAM-1",
@@ -278,11 +278,6 @@
    "category": "eligible_crime"
   },
   {
-   "id": "NY-CRIME-2",
-   "kind": "info",
-   "category": "eligible_crime"
-  },
-  {
    "id": "NY-RES-1",
    "kind": "info",
    "category": "residency"
@@ -359,6 +354,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "NY-CRIME-2",
+   "category": "eligible_crime",
+   "reason": "applies_to \"unlawful dissemination or publication of an intimate image, dissemination of an unlawful surveillance image, or a hate crime, with no physical injury\""
+  },
   {
    "id": "NY-CAP-6",
    "category": "expense_cap",
