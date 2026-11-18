@@ -3,7 +3,7 @@
 // component turns this into sentences in the survivor's language.
 import { clothingCondition, type ClothingCondition } from "@/lib/cite";
 import { generalDeadline, generalSpan, type LawIr } from "@/lib/deadline";
-import { examCountsIf, examHold, reportAltRules, totalHedgeRules } from "@/lib/hedge";
+import { activeRule, examCountsIf, examHold, reportAltRules, totalHedgeRules } from "@/lib/hedge";
 import type { Dict, Formatters } from "@/lib/i18n";
 import type { EngineOutput, ItemExpense, Jurisdiction, Rule } from "@/lib/types";
 import type { CheckAnswers } from "./state";
@@ -323,7 +323,10 @@ export function buildCheckSummary(
   return {
     st: law.jurisdiction,
     name: law.name,
-    apply: byCat("eligible_crime").map((x) => x.id),
+    // A set-aside rule is about a different kind of claim, so it is not cited as why she can apply.
+    apply: byCat("eligible_crime")
+      .filter((x) => activeRule(x, setAside))
+      .map((x) => x.id),
     deadline,
     reporting,
     examNoBill: exam.noBill.length ? exam.ruleIds : [],

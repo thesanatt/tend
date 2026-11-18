@@ -2,7 +2,7 @@
 // two data scripts (sync-rules.mjs, build-asm.mjs) run against temporary directories.
 import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
-import { chmodSync, cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, cpSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createServer, type Server } from "node:http";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -325,5 +325,30 @@ describe("scripts/build-asm.mjs", () => {
     expect(out).toMatch(/0 from the API, 1 kept/);
     expect(readFileSync(path.join(data, "asm", "MI.txt"), "utf8")).toContain("tendc 9.9.9");
     expect(index().MI.via).toBe("api");
+  });
+});
+
+describe("the listings the site ships", () => {
+  // A state's rules can change and its image be rebuilt while its listing stays as it was. The build
+  // writes the listings again, but nothing compares them with git afterwards, so this does.
+  it("were each made from the law image shipped beside them", () => {
+    const sha = (file: string) =>
+      createHash("sha256")
+        .update(readFileSync(path.join(web, file)))
+        .digest("hex");
+    const states = JSON.parse(readFileSync(path.join(web, "public/data/asm/index.json"), "utf8")).states as Record<
+      string,
+      AsmEntry
+    >;
+    const images = readdirSync(path.join(web, "public/engine/laws"))
+      .filter((f) => f.endsWith(".tlaw"))
+      .map((f) => f.slice(0, -".tlaw".length));
+    expect(Object.keys(states).sort()).toEqual(images.sort());
+    const stale = images.filter(
+      (st) =>
+        states[st].image_sha256 !== sha(`public/engine/laws/${st}.tlaw`) ||
+        states[st].sha256 !== sha(`public/data/asm/${st}.txt`),
+    );
+    expect(stale).toEqual([]);
   });
 });

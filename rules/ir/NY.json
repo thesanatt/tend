@@ -17,7 +17,7 @@
    "field_count": 552
   }
  },
- "source_sha256": "3ea9c5d4fca78d79ed5bf9f415a1070ceaf58541ec227a4828a2826654cc42e2",
+ "source_sha256": "84853a11cd7a51cda2045f5919c1b780daef4a6020c2a36e39903c1db7f88a8a",
  "rules": [
   {
    "id": "NY-EXAM-1",
@@ -253,6 +253,11 @@
    "kind": "collateral"
   },
   {
+   "id": "NY-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
+  },
+  {
    "id": "NY-CONDUCT-1",
    "kind": "info",
    "category": "conduct_reduction"
@@ -349,6 +354,11 @@
   }
  ],
  "skipped": [
+  {
+   "id": "NY-CRIME-2",
+   "category": "eligible_crime",
+   "reason": "applies_to \"unlawful dissemination or publication of an intimate image, dissemination of an unlawful surveillance image, or a hate crime, with no physical injury\""
+  },
   {
    "id": "NY-CAP-6",
    "category": "expense_cap",

@@ -49,7 +49,7 @@ Where each number comes from. The same list is live at https://youreowed.tech/so
 
 ## Tend's own numbers
 
-- **2,728 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
+- **2,730 rules from 824 saved sources, for 51 jurisdictions.** `rules/verified/`, checked by
   `rules/tools/verify.py` (every quote word for word in its saved source; the numbers in eight detail fields, and
   every number in its summary other than 0 and 1, appear in its quote). 120 of the sources are copies of state
   statutes and regulations from Justia or Cornell's Legal Information Institute, which reprint the law but are not

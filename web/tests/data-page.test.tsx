@@ -17,10 +17,10 @@ const downloads = path.join(web, "public", "downloads");
 const FILES = [
   "README.md",
   "SHA256SUMS",
-  "tend-jurisdictions-v1.0.csv",
-  "tend-rules-v1.0.csv",
-  "tend-rules-v1.0.json",
-  "tend-sources-v1.0.csv",
+  "tend-jurisdictions-v1.1.csv",
+  "tend-rules-v1.1.csv",
+  "tend-rules-v1.1.json",
+  "tend-sources-v1.1.csv",
 ];
 const sha256 = (bytes: Buffer) => createHash("sha256").update(bytes).digest("hex");
 const n = (x: number) => x.toLocaleString("en-US");
@@ -73,7 +73,7 @@ describe("/data", () => {
     );
   const limit = (words: string) =>
     [...doc.querySelectorAll("#limits ~ ul > li")].map((li) => li.textContent!).find((text) => text.includes(words));
-  const released = JSON.parse(readFileSync(path.join(downloads, "tend-rules-v1.0.json"), "utf8")) as {
+  const released = JSON.parse(readFileSync(path.join(downloads, "tend-rules-v1.1.json"), "utf8")) as {
     sources: { source_id: string; url: string; kind: string; text_path: string; note: string | null }[];
     rules: { source_id: string }[];
   };

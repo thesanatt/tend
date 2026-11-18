@@ -12,7 +12,7 @@ import { LINKS } from "@/components/tour/links";
 import { CONTACT, VIDEO, WHY } from "./fromSanat";
 
 // The day these facts were last checked against the docs and the data. Change it along with any fact.
-export const CHECKED = "2026-10-20";
+export const CHECKED = "2026-11-18";
 
 // WHY, CONTACT and VIDEO are Sanat's to write (fromSanat.ts, with their TODOs).
 export { CONTACT, VIDEO, WHY };
