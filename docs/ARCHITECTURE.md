@@ -166,7 +166,7 @@ checked them against the sources, is yours to state. -->
    (AZ, CA, IA, MA, MD, ME, MN, MO, NJ, NY, PA, SC) have one that can count from discovery. A cap
    whose own quote describes an expedited approval, an emergency payment, or an initial award
    becomes information, because it is not the program's limit on the survivor's cost. The corpus
-   today: 1,360 decision rules, 1,284 information rules, 84 set aside. The IR records the sha256 of
+   today: 1,360 decision rules, 1,285 information rules, 85 set aside. The IR records the sha256 of
    the verified file it came from.
 
 Where the pipeline cannot decide, it says so instead of guessing. A rule whose exact effect the

@@ -2,8 +2,16 @@
 
 Every number Tend claims, the command that produces it, and what it does not show.
 
-Five kinds of numbers appear here, and each row says which:
+Six kinds of numbers appear here, and each row says which:
 
+- **Rerun Nov 18, 2026** on the branch `ny-image-abuse-rules` at `e418212`, on the same laptop
+  (macOS only), after two New York rules were added (`NY-CRIME-2` and `NY-NEED-1`): 2,728 rules
+  became 2,730. That changed New York's rules, IR, law image and compiled listing, the published
+  dataset (now v1.1) and the tool that exports it, and one line of the web app: the Check no
+  longer cites a set-aside rule as why someone can apply (`web/components/flow/checkSummary.ts`).
+  The engines and the other 50 jurisdictions' rules and law images are the same files as on
+  Nov 16. Not rerun that day: the end-to-end tests, anything on Linux, fuzzing, the Neon tests,
+  and the engine benchmark.
 - **Rerun Nov 16, 2026** on the branch `deep-pass-2026-11-16`, from a clean clone at `0f14cf8`, on
   the same laptop: Apple clang 21.0, Node 24.14.1, Python 3.12.13, uv 0.11.12. The engines, the law
   data, and the shipped law images are the same files as on Oct 20; the web app, the API,
@@ -36,29 +44,29 @@ Neon detail is in [NEON.md](NEON.md).
 
 | Suite | Command | Result | When |
 |---|---|---|---|
-| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Nov 16 on macOS and, with GCC 13.3, on Linux; the same as Oct 4 |
-| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Nov 16 on macOS and Linux, the same as Oct 4 |
-| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build: on macOS on Oct 20 and on macOS and Linux (GCC 13.3, arm64) on Nov 16, the images the rule checks rebuilt; on Linux on Oct 4 and on macOS on Oct 19, the images before them | rerun Nov 16 |
-| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass, 27,403 assertions, no sanitizer report. On macOS, 54.6 s with the build. On Linux with GCC 13.3, 14 s for the tests, with the leak check on (macOS has none) and ASan's stack-use-after-return check off; see the note below | rerun Nov 16 on tend 1.3.0, macOS and Linux |
-| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Nov 16, the same as Oct 4 |
-| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,599 well-formed claims byte-identical (119,600 before the rule checks: the generator aims claims at each law's own numbers, so new rules change the claims it makes); 3,000 random or broken laws, 0 disagreements (14.9 s on Nov 16; 12.7 s on Oct 20; 53.8 s on Oct 4) | rerun Nov 16, the same as Oct 20 |
-| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (15.0 s in Node on Nov 16; 14.8 s on Oct 20; 29.0 s on Oct 4) | rerun Nov 16, the same as Oct 4 |
+| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Nov 18 on macOS; Nov 16 on Linux with GCC 13.3; the same as Oct 4 |
+| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Nov 18 on macOS and Nov 16 on Linux, the same as Oct 4 |
+| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build: on macOS on Nov 18, with New York's image rebuilt for its two new rules (that image has not been built on Linux); on macOS on Oct 20 and on macOS and Linux (GCC 13.3, arm64) on Nov 16, the images the rule checks rebuilt; on Linux on Oct 4 and on macOS on Oct 19, the images before them | rerun Nov 18 on macOS |
+| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass, 27,403 assertions, no sanitizer report. On macOS, 54.6 s with the build. On Linux with GCC 13.3, 14 s for the tests, with the leak check on (macOS has none) and ASan's stack-use-after-return check off; see the note below | rerun Nov 18 on macOS and Nov 16 on Linux, on tend 1.3.0 |
+| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Nov 18, the same as Oct 4 |
+| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,599 well-formed claims byte-identical (119,600 before the rule checks: the generator aims claims at each law's own numbers, so new rules change the claims it makes); 3,000 random or broken laws, 0 disagreements (14.0 s on Nov 18; 14.9 s on Nov 16; 12.7 s on Oct 20; 53.8 s on Oct 4) | rerun Nov 18, the same as Oct 20 |
+| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (14.9 s in Node on Nov 18; 15.0 s on Nov 16; 14.8 s on Oct 20; 29.0 s on Oct 4) | rerun Nov 18, the same as Oct 4 |
 | Fuzzing under ASan and UBSan | `make -C engine fuzz FUZZ_SECONDS=420` | 1,276,000 then 2,517,704 executions on 1.2; 580,048 in 180 s on 1.3; no crashes | recorded ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container's clang had no sanitizer runtime, and it was not rerun on Oct 19 |
-| API | `cd api && uv run pytest` | 444 tests: 421 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 20 had 436, and Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Nov 16 |
+| API | `cd api && uv run pytest` | 444 tests: 421 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 20 had 436, and Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Nov 18, the same as Nov 16 |
 | API on Neon | `TEND_NEON_TEST=1 uv run pytest -k "neon or live"` | 32 tests, about 70 s | recorded Oct 3 ([NEON.md](NEON.md)); needs a Neon URL |
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
-| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Nov 16, the same as Oct 20 |
-| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Nov 16 |
-| Web unit and screen tests | `cd web && npx vitest run` | 64 files, 2,451 passed on Nov 18 with the checks for the second model pass over the held-out labels (2,431 in 63 files on Nov 16 with the checks for the held-out classifier rows; 2,356 in 58 files earlier that day; 2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 18 on the branch `classifier-second-pass`; only this row ran that day |
-| Web lint | `cd web && npm run lint` | no errors and no warnings. On Oct 20 it gave 19 warnings: 17 in the generated `public/engine/tend.js`, which lint now skips, and 2 unused parameters in a test, now gone | rerun Nov 16 |
-| Web production build | `cd web && npm run build` | builds, with 186 pages made ahead of time (185 with /compare and its card; one more is `/dev/classifier-eval`, which the built site answers with its not-found page) | rerun Nov 16 |
+| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Nov 18, the same as Oct 20 |
+| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Nov 18 |
+| Web unit and screen tests | `cd web && npx vitest run` | 64 files, 2,453 passed on Nov 18 with a check that the Check does not cite New York's set-aside rule and one that each shipped law listing was made from the law image beside it (2,451 earlier that day with the checks for the second model pass over the held-out labels; 2,431 in 63 files on Nov 16 with the checks for the held-out classifier rows; 2,356 in 58 files earlier that day; 2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 18 |
+| Web lint | `cd web && npm run lint` | no errors and no warnings. On Oct 20 it gave 19 warnings: 17 in the generated `public/engine/tend.js`, which lint now skips, and 2 unused parameters in a test, now gone | rerun Nov 18 |
+| Web production build | `cd web && npm run build` | builds, with 186 pages made ahead of time (185 with /compare and its card; one more is `/dev/classifier-eval`, which the built site answers with its not-found page) | rerun Nov 18 |
 | Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 33 passed (182 s with the build) on Nov 16, the same 33 as on Oct 26, when the phone checks first covered /press, /data, /law/changes and /compare; 31 on Oct 20. They are 13 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts, including text at 200 percent on a 360 px phone in both languages | rerun Nov 16; see the note below |
-| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,728 rules, 824 sources; 2,578 before the rule checks); no file changed | rerun Nov 16, the same as Oct 20 |
-| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Nov 16, the same as Oct 4 |
-| Rules: tests of the checker and of the dataset export | `uv run --no-project --with pytest pytest rules/tools/test_verify.py rules/tools/test_export_dataset.py` | 39 passed, 2 skipped. The 2 extract every saved source again with BeautifulSoup and pdftotext and are opt-in; with `--with beautifulsoup4` and pdftotext installed, 41 passed. One test checks the numbers in the text params the state page prints against each rule's quote, which `verify.py` does not read | first run Nov 16 (`test_verify.py` and that test are new) |
-| Published dataset matches the corpus | `python3 rules/tools/export_dataset.py --check` | dataset v1.0 is current, 6 files in 2 folders | rerun Nov 16 |
-| Web formatting | `cd web && npx prettier --check .` | every file it reads passes. `web/.prettierignore` lists what it skips: the law data, the dataset, the built engine, the service worker, and fixtures | first run Nov 16 |
-| Python lint | `uv run --project api ruff check .` from the repo root | no findings | first run Nov 16 |
+| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,730 rules, 824 sources; 2,728 before the two New York rules of Nov 18; 2,578 before the rule checks); no file changed | rerun Nov 18 |
+| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Nov 18, the same as Oct 4 |
+| Rules: tests of the checker and of the dataset export | `uv run --no-project --with pytest pytest rules/tools/test_verify.py rules/tools/test_export_dataset.py` | 40 passed, 2 skipped. The 2 extract every saved source again with BeautifulSoup and pdftotext and are opt-in; with `--with beautifulsoup4` and pdftotext installed, 42 passed. One test checks the numbers in the text params the state page prints against each rule's quote, which `verify.py` does not read. One, new on Nov 18, compares the dataset with version 1.0 as read from the repository's history, and skips on a shallow clone | rerun Nov 18 (39 passed, and 41 with the opt-in two, on Nov 16, when `test_verify.py` was new) |
+| Published dataset matches the corpus | `python3 rules/tools/export_dataset.py --check` | dataset v1.1 is current, 6 files in 2 folders | rerun Nov 18 (v1.0 on Nov 16) |
+| Web formatting | `cd web && npx prettier --check .` | every file it reads passes. `web/.prettierignore` lists what it skips: the law data, the dataset, the built engine, the service worker, and fixtures | rerun Nov 18 (first run Nov 16) |
+| Python lint | `uv run --project api ruff check .` from the repo root | no findings | rerun Nov 18 (first run Nov 16) |
 
 **The e2e note.** On Oct 19 and again on Oct 20 `run.sh` ran with its default Playwright 1.47 and that version's
 Chromium, with no other suite running, and passed 31 of 31 on the first run each time. On Oct 4 the Linux
@@ -84,7 +92,9 @@ pull request and on main: the rules rows, the engine rows through WASM vs native
 build with the setting from the note above, the API and seed tests, and the web rows through the
 build. It leaves out the browser tests, the Neon and Nessie tests, fuzzing, and the Emscripten
 build. Each command in it passed on Nov 16 from a clean clone on macOS; on Linux only the engine
-commands were tried that day.
+commands were tried that day. Two jobs fetch the whole git history, because a test in each reads
+an older commit: the API job (the commits the published law versions are named after) and, since
+Nov 18, the law corpus job (the dataset release before this one).
 
 **The source check.** `rules/tools/check_sources.py`, added Nov 16, fetches each saved source's URL
 again into a temporary folder, reads the page's text the way `fetch_source.py` does, and looks for
