@@ -1,4 +1,4 @@
-# Tend verified rules, version 1.0
+# Tend verified rules, version 1.1
 
 Tend's law library as data: the rules of the crime victim compensation programs in the 50 states and
 DC that Tend (https://youreowed.tech) found and verified. Each rule pairs a plain-language summary with a verbatim
@@ -12,12 +12,12 @@ victim compensation. This dataset is made from `rules/verified` and `rules/ir` i
 Tend is not legal advice. It shows what each program's own rules say, with the quote. The program
 decides.
 
-## What is in version 1.0
+## What is in version 1.1
 
-- 2,728 rules for 51 jurisdictions (the 50 states and DC), quoted from 621 of the 824 sources Tend saved. The other 203 were saved and fingerprinted too, but no rule quotes them.
+- 2,730 rules for 51 jurisdictions (the 50 states and DC), quoted from 621 of the 824 sources Tend saved. The other 203 were saved and fingerprinted too, but no rule quotes them.
 - Current as of the dates the sources were saved: Oct 3, 2026, between 18:47 and 20:02 UTC. 120 of them are copies from sites that republish state law, which may lag behind it (see Limitations).
-- 1,360 decision rules, 1,284 information rules, and 84 set aside (see engine_use below).
-- 1,651 rules quote an HTML source and have a link that opens the page at the quote.
+- 1,360 decision rules, 1,285 information rules, and 85 set aside (see engine_use below).
+- 1,653 rules quote an HTML source and have a link that opens the page at the quote.
 - Rules per jurisdiction: from 34 (West Virginia) to 85 (Michigan). The number shows how much Tend found and quoted, not how generous a state's law is.
 - Confidence, as recorded for each jurisdiction: 38 high, 13 medium, 0 low.
 
@@ -27,16 +27,28 @@ decides.
 | agency_pdf | 92 | 307 |
 | application_form | 57 | 345 |
 | regulation | 70 | 488 |
-| statute | 364 | 1,136 |
+| statute | 364 | 1,138 |
+
+## Changes since version 1.0
+
+- Added: 2 rules, NY-CRIME-2 and NY-NEED-1 (New York). They quote NY-S9.
+- Changed: none.
+- Removed: none.
+- All 2,728 rules of version 1.0 are here unchanged.
+- Sources: the same 824 saved copies. None was added, removed, or saved again, so the dates above are the same.
+
+Version 1.0 is kept in the repository's history, at https://github.com/thesanatt/tend/tree/7890766f8e7e6474239fd6e6e80061b3ae829f28/dataset .
+The sha256 of its `tend-rules-v1.0.json` is 03a0d8f5ed51f0f226c67d592aaaac009d8018763650d596ec7a9755a81a1cdc. The site's download
+links are for the current version only.
 
 ## Files
 
 | File | What it holds | Bytes |
 |---|---|---|
-| `tend-rules-v1.0.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 4,166,657 |
-| `tend-rules-v1.0.csv` | One row per rule (2,728 rows) | 2,284,915 |
-| `tend-sources-v1.0.csv` | One row per saved source (824 rows) | 307,194 |
-| `tend-jurisdictions-v1.0.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 332,381 |
+| `tend-rules-v1.1.json` | Everything in one file: `metadata`, `jurisdictions`, `sources`, and `rules` | 4,171,788 |
+| `tend-rules-v1.1.csv` | One row per rule (2,730 rows) | 2,288,356 |
+| `tend-sources-v1.1.csv` | One row per saved source (824 rows) | 307,194 |
+| `tend-jurisdictions-v1.1.csv` | One row per jurisdiction (51 rows): the program, coverage notes, and counts | 333,339 |
 | `README.md` | This file |  |
 | `SHA256SUMS` | The sha256 of every other file |  |
 
@@ -57,7 +69,7 @@ value as written.
 
 ## Data dictionary
 
-### Rules (`tend-rules-v1.0.csv`, and `rules` in the JSON)
+### Rules (`tend-rules-v1.1.csv`, and `rules` in the JSON)
 
 In the JSON, `params` is an object and an empty cell is `null`; otherwise the columns are the same.
 
@@ -96,11 +108,11 @@ Meanings and params as `rules/SCHEMA.md` defines them.
 | `excluded_expense` | an expense type is not reimbursable | `expense` or `item` (text) | 181 | 50 |
 | `filing_deadline` | time limit to apply | `years`, `months` or `days`, `from` (crime, incident, injury, offense, occurrence, discovery, report, age_18, age_21, charge, diagnosis, trip), optional `extension`, `condition` | 136 | 49 |
 | `reporting_requirement` | police report rules | `required` (bool), optional `within_days`, `within_hours` or `within_months`, `alternatives` (list: forensic_exam, protective_order, advocate, medical_provider, other), `exception`, `exam_condition`, `scope`, `charge_required` (bool), `expense` (forensic_exam only, for a waiver that covers only the exam), `report_gate` (bool), `waiver_records` (list, as `alternatives`). The last two are read by the state page only. `report_gate` on a required rule whose other records are none an anonymous adult can get on her own (Delaware 9010(a)(5)) makes the share card say the program asks for a police report. `waiver_records` on a required rule names records that let the program waive the report in its discretion (Iowa r. 61-9.29(4)(c)); with forensic_exam, the card says a forensic exam can sometimes count. Where the exam is also among the rule's `alternatives` (Rhode Island 12-25-22(a), which gives the office only "the authority to allow" the claim), the tile and the card say the exam counts in some cases. The engines still read only `required` and `alternatives`. A rule about cooperating with police gets a `scope` and shows in its own words. | 174 | 50 |
-| `minimum_loss` | minimum out-of-pocket loss to qualify | `amount_cents` and/or `days_lost`, optional `waived_for`. With neither, it states a need test in its own words (Kansas financial stress, Florida serious financial hardship) and is information only. | 16 | 15 |
+| `minimum_loss` | minimum out-of-pocket loss to qualify | `amount_cents` and/or `days_lost`, optional `waived_for`. With neither, it states a need test in its own words (Kansas financial stress, Florida serious financial hardship) and is information only. | 17 | 16 |
 | `collateral_source` | program pays after insurance and other sources | none | 93 | 51 |
 | `conduct_reduction` | award may be reduced for the victim's conduct (shown as information only; Tend never screens on it). A rule about cooperating with police or the program is shown in the police section. | none | 92 | 50 |
 | `emergency_award` | emergency or advance award exists | optional `amount_cents` | 45 | 40 |
-| `eligible_crime` | sexual assault (or similar) is a covered crime | none | 90 | 51 |
+| `eligible_crime` | sexual assault (or similar) is a covered crime | none | 91 | 51 |
 | `residency` | who can apply (residents, crimes in state, out-of-state victims, and other who-can-apply rules the program states) | `rule` (text) | 86 | 51 |
 | `submission` | how to file: one rule per method | `method` (mail, online, email, fax, in_person), `target` (the address, URL, email, or fax number exactly as written), optional `condition` (who may use this way to file) | 154 | 51 |
 | `required_document` | a document the program asks applicants to include or provide | `document` (photo_id, itemized_bill, receipts, police_report, exam_record, wage_verification, medical_records, insurance_statement, counseling_statement, proof_of_residency, other), optional `note` | 468 | 51 |
@@ -134,7 +146,7 @@ In HI and WY for `exam_no_bill`, CT and IL for `total_cap`, and SC for `expense_
 | `tuition` | 5 |
 | `other` | 42 |
 
-1,509 rules name no expense type.
+1,511 rules name no expense type.
 
 #### Params
 
@@ -172,7 +184,7 @@ Numbers written inside text values, such as section numbers in a `note` or `exte
 | `enroll` | 49 | text | yes |
 | `exception` | 47 | text | yes |
 | `detail` | 44 | boolean | yes |
-| `applies_to` | 34 | text | no |
+| `applies_to` | 35 | text | no |
 | `condition` | 31 | text | yes |
 | `days` | 31 | integer | yes |
 | `count_limit` | 26 | integer | yes |
@@ -219,8 +231,8 @@ The IR either carries a rule, as a decision or as information, or lists it under
 | Value | Rules | Meaning |
 |---|---|---|
 | `decision` | 1,360 | Compiled into the law the engine runs: exam billing and who pays for the exam, total caps, caps on one expense, covered and excluded expenses, filing deadlines, police reporting, minimum loss, and paying after insurance (`collateral_source`). Such a rule can decide a line's status or amount or a check's result, or be cited as proof for one. Where several rules of one kind apply, `docs/SPEC.md` says how they combine; for example, the smallest total cap and the longest deadline are used. |
-| `information` | 1,284 | Shown with its quote. It changes no amount and no status. |
-| `set_aside` | 84 | Not used. `set_aside_reason` says why. |
+| `information` | 1,285 | Shown with its quote. It changes no amount and no status. |
+| `set_aside` | 85 | Not used. `set_aside_reason` says why. |
 
 How `normalize.py` decides:
 
@@ -258,11 +270,11 @@ So the engine lists their 12 `exam_payment` rules (ID-EXAM-1, ID-EXAM-2, ID-EXAM
 | Reasons for set_aside | Rules |
 |---|---|
 | A duplicate of another cap, no more generous | 29 |
-| `params.applies_to` does not name the survivor | 27 |
+| `params.applies_to` does not name the survivor | 28 |
 | `expense_cap without amount or expense` | 21 |
 | `total_cap without amount` | 7 |
 
-### Sources (`tend-sources-v1.0.csv`, and `sources` in the JSON)
+### Sources (`tend-sources-v1.1.csv`, and `sources` in the JSON)
 
 | Column | Type | Meaning |
 |---|---|---|
@@ -280,7 +292,7 @@ So the engine lists their 12 `exam_payment` rules (ID-EXAM-1, ID-EXAM-2, ID-EXAM
 | `note` | text or empty | A note about the saved copy. |
 | `rules` | integer | How many rules quote this source. It is 0 for 203 sources, which were saved but are quoted by no rule; 11 of those are where a program's phone number or application form comes from. |
 
-### Jurisdictions (`tend-jurisdictions-v1.0.csv`, and `jurisdictions` in the JSON)
+### Jurisdictions (`tend-jurisdictions-v1.1.csv`, and `jurisdictions` in the JSON)
 
 In the JSON, the `program_name` to `statute_citation` columns and the `application_form_` columns are
 the `program` object (with `application_form` inside it), and the `coverage_` columns are the
@@ -314,7 +326,7 @@ the `program` object (with `application_form` inside it), and the `coverage_` co
 | `verified_sha256` | hex | The sha256 of `rules/verified/ST.json` in the repository. A law image compiled from that file names the same sha256 in its header. |
 | `ir_sha256` | hex | The sha256 of `rules/ir/ST.json`, where `engine_use` comes from. |
 
-### `tend-rules-v1.0.json`
+### `tend-rules-v1.1.json`
 
 One object with four keys. `metadata` has `name`, `version`, `description`, `homepage`, `repository`,
 `generated_by`, `current_as_of` (the first and last `retrieved_at` of the sources, and in
@@ -374,7 +386,7 @@ from each raw file and look for every quote in it:
 uv run --with pytest --with beautifulsoup4 pytest rules/tools/test_export_dataset.py
 ```
 
-In version 1.0, every quote is found that way too: in all the text BeautifulSoup reads from an
+In version 1.1, every quote is found that way too: in all the text BeautifulSoup reads from an
 HTML page, and in what pdftotext 26.04 reads from a PDF.
 
 A second opt-in test runs `fetch_source.py`'s own extraction on each saved HTML page and compares it

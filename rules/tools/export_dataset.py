@@ -18,7 +18,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
-VERSION = "1.0"
+VERSION = "1.1"
 NAME = "Tend verified rules"
 SITE = "https://youreowed.tech"
 REPO = "https://github.com/thesanatt/tend"
@@ -27,6 +27,20 @@ JSON_FILE = f"tend-rules-v{VERSION}.json"
 RULES_CSV = f"tend-rules-v{VERSION}.csv"
 SOURCES_CSV = f"tend-sources-v{VERSION}.csv"
 JURISDICTIONS_CSV = f"tend-jurisdictions-v{VERSION}.csv"
+# The release before this one: the commit that holds its files in this repository's history, and the
+# sha256 of its JSON file, so a copy saved earlier can be told from this one.
+PREVIOUS = {
+    "version": "1.0",
+    "commit": "7890766f8e7e6474239fd6e6e80061b3ae829f28",
+    "json_sha256": "03a0d8f5ed51f0f226c67d592aaaac009d8018763650d596ec7a9755a81a1cdc",
+    "rules": 2728,
+    "sources": 824,
+}
+# What this version changes in that one, by rule id. The README prints it, and test_export_dataset.py
+# compares the two releases wherever the history is there to read. A new version starts these again.
+ADDED = ("NY-CRIME-2", "NY-NEED-1")
+CHANGED = ()
+REMOVED = ()
 
 RULE_COLUMNS = ["rule_id", "jurisdiction", "jurisdiction_name", "category", "expense", "params", "summary", "quote", "pinpoint", "source_id", "source_title", "source_kind", "source_url", "fragment_url", "retrieved_at", "source_sha256", "engine_use", "set_aside_reason"]
 SOURCE_COLUMNS = ["source_id", "jurisdiction", "title", "kind", "format", "url", "retrieved_at", "sha256", "text_sha256", "raw_path", "text_path", "note", "rules"]
@@ -324,6 +338,37 @@ def republished(sources: list, rules: list, years: list) -> list:
     ]
 
 
+def changes(jurisdictions: list, sources: list, rules: list) -> list:
+    """The README's lines on what this version changes in the release before it."""
+    p = PREVIOUS
+    if len(rules) != p["rules"] + len(ADDED) - len(REMOVED) or len(sources) != p["sources"] or not set(ADDED) <= {r["rule_id"] for r in rules}:
+        sys.exit(f"the change note no longer fits the data: give the dataset a new version, and bring PREVIOUS, ADDED, CHANGED and REMOVED up to date ({len(rules)} rules, {len(sources)} sources)")
+    names = {j["code"]: j["name"] for j in jurisdictions}
+
+    def listed(ids: tuple) -> str:
+        if not ids:
+            return "none."
+        states = sorted({names[i.split("-")[0]] for i in ids})
+        return f"{n(len(ids))} {'rule' if len(ids) == 1 else 'rules'}, {series(ids)} ({series(states)})."
+
+    quoted = sorted({r["source_id"] for r in rules if r["rule_id"] in ADDED})
+    kept = p["rules"] - len(CHANGED) - len(REMOVED)
+    return [
+        f"## Changes since version {p['version']}",
+        "",
+        f"- Added: {listed(ADDED)}" + (f" {'It quotes' if len(ADDED) == 1 else 'They quote'} {series(quoted)}." if quoted else ""),
+        f"- Changed: {listed(CHANGED)}",
+        f"- Removed: {listed(REMOVED)}",
+        f"- {'All ' + n(kept) if kept == p['rules'] else n(kept) + ' of the ' + n(p['rules'])} rules of version {p['version']} are here unchanged.",
+        f"- Sources: the same {n(p['sources'])} saved copies. None was added, removed, or saved again, so the dates above are the same.",
+        "",
+        f"Version {p['version']} is kept in the repository's history, at {REPO}/tree/{p['commit']}/dataset .",
+        f"The sha256 of its `tend-rules-v{p['version']}.json` is {p['json_sha256']}. The site's download",
+        "links are for the current version only.",
+        "",
+    ]
+
+
 def not_held(rule: dict) -> str:
     """Why an exam_no_bill rule holds no exam line, as the README says it."""
     who = rule["params"].get("applies_to")
@@ -458,6 +503,7 @@ def readme(meta: dict, jurisdictions: list, sources: list, rules: list, sizes: d
         "",
         *table(["Source kind", "Sources", "Rules quoting them"], [(k, n(v), n(by_kind[k])) for k, v in c["sources_by_kind"].items()]),
         "",
+        *changes(jurisdictions, sources, rules),
         "## Files",
         "",
         *table(

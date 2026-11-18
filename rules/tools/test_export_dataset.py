@@ -408,6 +408,47 @@ def test_readme_is_ascii_and_says_plainly_what_is_not_set_up(files):
     assert "researcher" not in readme.replace("researcher_notes", "").lower()
 
 
+def release_before():
+    """The JSON file of the release before this one, from the repository's history. None where there is none to read."""
+    p = X.PREVIOUS
+    try:
+        done = subprocess.run(["git", "-C", str(ROOT), "show", f"{p['commit']}:dataset/tend-rules-v{p['version']}.json"], capture_output=True, check=False)
+    except OSError:
+        return None
+    return done.stdout if done.returncode == 0 else None
+
+
+def test_the_change_note_is_what_differs_from_the_release_before(files, doc):
+    p = X.PREVIOUS
+    assert p["version"] != X.VERSION
+    note = files["README.md"].decode("ascii").split(f"## Changes since version {p['version']}\n", 1)[1].split("\n## ", 1)[0]
+    assert p["commit"] in note and p["json_sha256"] in note
+    assert all(rule_id in note for rule_id in (*X.ADDED, *X.CHANGED, *X.REMOVED))
+    assert len(doc["rules"]) == p["rules"] + len(X.ADDED) - len(X.REMOVED) and len(doc["sources"]) == p["sources"]
+    # The tool refuses to write a note that the counts contradict, so a rule added later needs a new version.
+    extra = [*doc["rules"], {**doc["rules"][0], "rule_id": "XX-NEW-1"}]
+    with pytest.raises(SystemExit, match="change note"):
+        X.changes(doc["jurisdictions"], doc["sources"], extra)
+
+    old = release_before()
+    if old is None:
+        pytest.skip("no git history here (a shallow clone or no repo)")
+    assert sha256(old) == p["json_sha256"]
+    was = json.loads(old)
+    assert (len(was["rules"]), len(was["sources"])) == (p["rules"], p["sources"])
+    before = {r["rule_id"]: r for r in was["rules"]}
+    now = {r["rule_id"]: r for r in doc["rules"]}
+    assert sorted(set(now) - set(before)) == sorted(X.ADDED)
+    assert sorted(set(before) - set(now)) == sorted(X.REMOVED)
+    assert sorted(i for i in set(now) & set(before) if now[i] != before[i]) == sorted(X.CHANGED)
+
+    # "None was added, removed, or saved again": every source is the same but for how many rules quote it.
+    def saved(sources: list) -> dict:
+        return {s["source_id"]: {k: v for k, v in s.items() if k != "rules"} for s in sources}
+
+    assert saved(doc["sources"]) == saved(was["sources"])
+
+
 def test_the_checksum_command_passes_on_a_partial_download(files, tmp_path):
     # A reader may save one or two files. The command the README gives must pass for those and fail on a changed one.
     readme = " ".join(files["README.md"].decode("ascii").split())

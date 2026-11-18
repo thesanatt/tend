@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   ...sitePreview("data"),
 };
 
-const VERSION = "1.0";
+const VERSION = "1.1";
 const DOWNLOADS = path.join(process.cwd(), "public", "downloads");
 // The rule shown column by column: Michigan's exam billing rule, the one the demo holds a bill with.
 const EXAMPLE = "MI-EXAM-1";
