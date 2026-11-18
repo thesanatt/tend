@@ -3,16 +3,18 @@
 usage: python3 rules/tools/verify.py ST [ST ...]   (or: all)
 
 A rule passes only if its quote is a verbatim substring of its source text (after Unicode and
-whitespace normalization), every number in its params and summary appears in the quote, and the
-source file's sha256 still matches. Passing files are written to rules/verified/ST.json with a
-text-fragment link for HTML sources.
+whitespace normalization), the numbers in its NUMERIC_PARAMS fields and in its summary (other than
+0 and 1) appear in the quote, and the source file's sha256 still matches. Other params are not
+read here; rules/tools/test_export_dataset.py checks every whole-number param, and the numbers in
+the text params the state page prints, over the whole corpus.
+Passing files are written to rules/verified/ST.json with a text-fragment link for HTML sources.
 """
 import hashlib
 import json
 import re
 import sys
 import unicodedata
-from functools import lru_cache
+from functools import cache
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import quote
@@ -33,13 +35,13 @@ def norm(s: str) -> str:
 
 
 def numbers_in(text: str) -> set:
+    """Every number the text says, in digits or in words. A decimal is itself and nothing else:
+    "$12.50" is 12.5, not also 12, and "section 18.68" does not say 18."""
     found = set()
     for m in re.finditer(r"\d[\d,]*(?:\.\d+)?", text):
         tok = m.group().replace(",", "")
         try:
-            v = float(tok)
-            found.add(v)
-            found.add(int(v))
+            found.add(float(tok))
         except ValueError:
             pass
     toks = re.findall(r"[a-z]+", text.lower().replace("-", " "))
@@ -64,8 +66,8 @@ def numbers_in(text: str) -> set:
 
 
 def money_in_quote(cents: int, quote_nums: set) -> bool:
-    dollars = cents / 100
-    return dollars in quote_nums or int(dollars) in quote_nums
+    """The amount, as dollars, is a number the quote says. An amount with cents needs its cents there too."""
+    return cents / 100 in quote_nums
 
 
 # Characters a word may run across (Unicode UAX #29, which browsers use through ICU): letters on both sides
@@ -246,7 +248,7 @@ def page_model(raw: bytes) -> tuple[str, str, list[int]]:
     return text, "".join(folded), index
 
 
-@lru_cache(maxsize=None)
+@cache
 def _fold_char(ch: str) -> str:
     if ch in (_BLOCK, _BREAK):
         return ch
@@ -274,7 +276,7 @@ def _block_fragment(url: str, quote_text: str, page: tuple[str, str, list[int]])
     n = len(toks)
     # Which block or line each word sits in: any break between two words starts a new one.
     seg = [0]
-    for (_, e0), (s1, _) in zip(toks, toks[1:]):
+    for (_, e0), (s1, _) in zip(toks, toks[1:], strict=False):
         seg.append(seg[-1] + (1 if re.search(r"[\x00\x01]", text[e0:s1]) else 0))
     search = _browser_fold(text.replace(_BREAK, " "))
 
@@ -292,8 +294,11 @@ def _block_fragment(url: str, quote_text: str, page: tuple[str, str, list[int]])
             p += 1
         return p
 
-    span = lambda i, j: text[left(i) : right(j)]
-    enc = lambda s: quote(s, safe="").replace("-", "%2D")
+    def span(i: int, j: int) -> str:
+        return text[left(i) : right(j)]
+
+    def enc(s: str) -> str:
+        return quote(s, safe="").replace("-", "%2D")
 
     def unique(term: str, at: int, end_bound: bool) -> bool:
         return _first_word_match(search, _browser_fold(term), 0, end_bound) == at
@@ -343,7 +348,10 @@ def fragment(url: str, quote_text: str, page_text: str = "", page: tuple[str, st
         if link:
             return link
     words = quote_text.split()
-    enc = lambda s: quote(s, safe="").replace("-", "%2D")
+
+    def enc(s: str) -> str:
+        return quote(s, safe="").replace("-", "%2D")
+
     whole = f"{url}#:~:text={enc(quote_text)}"
     if len(words) <= 10:
         return whole
@@ -440,7 +448,7 @@ def check(st: str):
                 errors.append(f"{rid}: params.{k}={v} does not appear in the quote")
         for n in numbers_in(r.get("summary", "")):
             if n not in qn and n not in (0, 1):
-                errors.append(f"{rid}: summary number {n} is not in the quote")
+                errors.append(f"{rid}: summary number {int(n) if n == int(n) else n} is not in the quote")
         if kinds[sid] == "html" and urls[sid]:
             if sid not in pages:
                 pages[sid] = page_model(raws[sid].read_bytes())

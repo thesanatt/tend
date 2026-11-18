@@ -154,7 +154,9 @@ describe("/law/changes with the live service", () => {
   it("sends the Vercel protection bypass header the API project needs, only when it is set", async () => {
     vi.stubEnv("TEND_API_URL", "http://api.test");
     vi.stubEnv("TEND_API_BYPASS", "bypass-secret");
-    const fetchMock = vi.fn(async (_url: string, _init?: RequestInit) => new Response("down", { status: 401 }));
+    const fetchMock = vi.fn<(url: string, init?: RequestInit) => Promise<Response>>(
+      async () => new Response("down", { status: 401 }),
+    );
     vi.stubGlobal("fetch", fetchMock);
     await loadChanges({});
     const headers = fetchMock.mock.calls[0][1]?.headers as Record<string, string>;

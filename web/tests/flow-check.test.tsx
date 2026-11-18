@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 // Check (docs/UX.md step 1) and the always-on pieces: the privacy line, language, Exit this page.
-import { act, cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen, waitFor, within } from "@testing-library/react";
+import { useEffect } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import AppHeader from "@/components/flow/AppHeader";
 import CheckScreen from "@/components/flow/check/CheckScreen";
@@ -12,7 +13,9 @@ import { EXIT_URL, navigation } from "@/components/QuickExit";
 import { EngineUnavailableError } from "@/lib/engine";
 import { I18nProvider } from "@/lib/i18n";
 import { en } from "@/lib/i18n/en";
+import type { EngineInput } from "@/lib/types";
 import {
+  captureFlow,
   MI_CHECK,
   MI_LAW,
   michiganOutput,
@@ -251,6 +254,69 @@ describe("the law engine", () => {
     fireEvent.click(screen.getByRole("button", { name: "Check on the server" }));
     await screen.findByText(/your claim, to check the law on Tend's server/);
     expect(evaluate).toHaveBeenLastCalledWith(expect.anything(), { allowApi: true });
+  });
+
+  // The packet and a share link are built from the claim and its answer together. In the one render
+  // where an answer changes the claim, the last answer was still marked ready, so a screen could pair
+  // the new claim with figures counted for the old one.
+  it("never calls an answer ready for a claim it was not counted for", async () => {
+    const evaluate = vi.fn(async (input: EngineInput) => ({
+      output: michiganOutput(input),
+      backend: "wasm" as const,
+      detail: JSON.stringify(input), // each answer names the claim it was counted for
+    }));
+    const wrong: string[] = [];
+    function Probe() {
+      const { input, claim, dispatch } = useFlow();
+      const key = JSON.stringify(input);
+      // After every render, as a screen's own effect would see it.
+      useEffect(() => {
+        if (claim.status === "ready" && claim.evaluation?.detail !== key) wrong.push(key);
+      });
+      return (
+        <>
+          <output data-testid="claim">{`${claim.status} ${input?.context.police_report}`}</output>
+          <button type="button" onClick={() => dispatch({ type: "check", patch: { police: "yes" } })}>
+            reported
+          </button>
+        </>
+      );
+    }
+    renderFlow(<Probe />, { services: testServices({ evaluate }), initial: stateFrom([MI_CHECK]) });
+    await waitFor(() => expect(screen.getByTestId("claim").textContent).toBe("ready no"));
+    fireEvent.click(screen.getByRole("button", { name: "reported" }));
+    await waitFor(() => expect(screen.getByTestId("claim").textContent).toBe("ready yes"));
+    expect(evaluate).toHaveBeenCalledTimes(2);
+    expect(wrong).toEqual([]);
+  });
+
+  it("shows no figures for a claim the engine could not count, rather than the last claim's", async () => {
+    const evaluate = vi.fn(async (input: EngineInput) => {
+      if (input.context.police_report === "yes") throw new Error("engine stopped");
+      return { output: michiganOutput(input), backend: "wasm" as const, detail: "test" };
+    });
+    const box = captureFlow(testServices({ evaluate }), stateFrom([MI_CHECK]));
+    await waitFor(() => expect(box.flow!.claim.status).toBe("ready"));
+    act(() => box.flow!.dispatch({ type: "check", patch: { police: "yes" } }));
+    await waitFor(() => expect(box.flow!.claim.status).toBe("error"));
+    expect(box.flow!.claim.evaluation).toBeNull();
+    expect(box.flow!.claim.error).toBe("engine stopped");
+  });
+
+  it("drops an answer that comes back after Start over", async () => {
+    let finish = () => {};
+    const evaluate = vi.fn(
+      (input: EngineInput) =>
+        new Promise<{ output: ReturnType<typeof michiganOutput>; backend: "wasm"; detail: string }>((resolve) => {
+          finish = () => resolve({ output: michiganOutput(input), backend: "wasm", detail: "late" });
+        }),
+    );
+    const box = captureFlow(testServices({ evaluate }), stateFrom([MI_CHECK]));
+    await waitFor(() => expect(evaluate).toHaveBeenCalledTimes(1));
+    act(() => box.flow!.dispatch({ type: "reset", lang: "en" }));
+    expect(box.flow!.claim).toMatchObject({ status: "idle", evaluation: null });
+    await act(async () => finish());
+    expect(box.flow!.claim).toMatchObject({ status: "idle", evaluation: null });
   });
 });
 

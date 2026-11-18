@@ -4,3 +4,10 @@ fixtures/
 node_modules/
 package-lock.json
 app/law/changes/snapshot.json
+# The published dataset: its files are listed in SHA256SUMS and must stay byte for byte.
+public/downloads/
+# Built by `make -C ../engine wasm`.
+public/engine/
+# A change to this file calls for a new VERSION, which makes every phone fetch the offline cache
+# again, so it is not reformatted.
+public/sw.js

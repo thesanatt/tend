@@ -9,6 +9,7 @@ import GatherScreen from "@/components/flow/gather/GatherScreen";
 import PrivacyLine from "@/components/flow/PrivacyLine";
 import type { Action, BillRecord, FlowItem } from "@/components/flow/state";
 import { fetchLaw, resetLawCacheForTests } from "@/lib/api";
+import { EngineUnavailableError } from "@/lib/engine";
 import type { BillReading } from "@/lib/contracts";
 import { SAMPLE_BILL_READING } from "@/lib/mocks";
 import { mockEngineOutput } from "@/lib/mocks/engine";
@@ -567,6 +568,25 @@ describe("bill triage while the law loads", () => {
     ).toBeTruthy();
     const payer = MI_LAW.rules.find((r) => r.category === "exam_payment" && typeof r.params?.payer === "string");
     expect(screen.getByText(String(payer!.params!.payer))).toBeTruthy();
+  });
+
+  it("does not say it is checking when the engine has stopped or is waiting to be allowed", async () => {
+    serve(Promise.resolve(new Response(MI_BYTES, { status: 200 })));
+    const stopped = testServices({ evaluate: vi.fn(async () => Promise.reject(new Error("engine stopped"))) });
+    renderFlow(<BillsScreen />, { services: stopped, initial: stateFrom(withBill) });
+    expect((await screen.findByRole("alert")).textContent).toBe(
+      "Tend could not check the law right now. engine stopped",
+    );
+    expect(screen.queryByText(/^Checking each line against the law\./)).toBeNull();
+    expect(screen.queryByText("The rest")).toBeNull();
+    cleanup();
+
+    const asks = testServices({
+      evaluate: vi.fn(async () => Promise.reject(new EngineUnavailableError("no WebAssembly", true))),
+    });
+    renderFlow(<BillsScreen />, { services: asks, initial: stateFrom(withBill) });
+    expect(await screen.findByRole("group", { name: "Check on Tend's server instead?" })).toBeTruthy();
+    expect(screen.queryByText(/^Checking each line against the law\./)).toBeNull();
   });
 
   // Without the law Tend cannot tell whether the rule has a condition, so it never says "don't pay".

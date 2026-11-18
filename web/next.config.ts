@@ -41,6 +41,9 @@ const revalidate = "public, max-age=3600, stale-while-revalidate=86400";
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // No page uses next/image, so the resizing endpoint (/_next/image) stays off: unoptimized makes it
+  // answer 404, and the empty localPatterns refuses every local path if that flag is ever dropped.
+  images: { unoptimized: true, localPatterns: [] },
   env: {
     NEXT_PUBLIC_TEND_API: api ? "1" : "0",
     NEXT_PUBLIC_TEND_WASM: wasm ? "1" : "0",
@@ -87,7 +90,10 @@ const nextConfig: NextConfig = {
         // Fictional sample documents opened in the browser's own PDF viewer, which needs to embed the file.
         source: "/samples/:file*",
         headers: [
-          { key: "Content-Security-Policy", value: "default-src 'self'; object-src 'self'; script-src 'none'; frame-ancestors 'none'" },
+          {
+            key: "Content-Security-Policy",
+            value: "default-src 'self'; object-src 'self'; script-src 'none'; frame-ancestors 'none'",
+          },
           { key: "Cache-Control", value: revalidate },
         ],
       },

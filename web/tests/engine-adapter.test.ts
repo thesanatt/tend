@@ -59,6 +59,22 @@ describe("engine adapter", () => {
     expect(JSON.stringify(clean)).not.toMatch(/"(merchant|reason|source|confidence|bill_id)"/);
   });
 
+  it("hands the engine whole characters: a stray half of a pair becomes U+FFFD, and a whole emoji stays", () => {
+    // The engine refuses a whole claim over one unpaired surrogate (bad_input), wherever it came from.
+    const words = ["Clinic \ud83d visit", "\ude00 Clinic", "Clinic \u{1F600} visit", "Clinic visit"];
+    const clean = toEngineInput({
+      ...input,
+      items: words.map((description, i) => ({ ...input.items[0], item_id: `w${i}`, description })),
+    });
+    expect(clean.items.map((it) => it.description)).toEqual([
+      "Clinic \ufffd visit",
+      "\ufffd Clinic",
+      "Clinic \u{1F600} visit",
+      "Clinic visit",
+    ]);
+    expect(clean.items.every((it) => it.description.isWellFormed())).toBe(true);
+  });
+
   it("passes the v1.2 unit and tags through when the caller has them", () => {
     const withUnits = {
       ...input,

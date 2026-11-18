@@ -311,6 +311,17 @@ describe("OFX and QFX", () => {
     expect(r.warnings).toEqual([`Line ${head.length + 7 * 9_999 + 1} skipped: no date Tend could read.`]);
   });
 
+  it("a character reference that names no character stays as written and the row is still read", () => {
+    const row = (name: string, id: string) =>
+      `<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20260616<TRNAMT>-18.50<FITID>${id}<NAME>${name}</STMTTRN>`;
+    const names = ["LOCK &#99999999; SHOP", "LOCK &#x110000; SHOP", "LOCK &#xD800; SHOP", "LOCK &#0; SHOP"];
+    const r = parseOfx(
+      ["<OFX>", ...names.map((n, i) => row(n, `F${i}`)), row("CAF&#233; &#x26; BAR", "F9"), "</OFX>"].join("\n"),
+    );
+    expect(r.warnings).toEqual([]);
+    expect(r.txns.map((t) => t.description)).toEqual([...names, "CAFé & BAR"]);
+  });
+
   it("SGML OFX 1.x: unclosed tags, entities, DTUSER first, duplicates and bad dates warned", async () => {
     const r = await parse("ofx/checking.ofx");
     expect(r.format).toBe("ofx");

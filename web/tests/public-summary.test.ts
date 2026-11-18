@@ -84,9 +84,7 @@ function reportRules(law: Jurisdiction, ir: IrSummary) {
     exam,
     examConditions,
     // An exam that counts only in the program's discretion (Rhode Island 12-25-22(a)): "can sometimes count".
-    examSometimes: exam.some((r) =>
-      ([] as unknown[]).concat(r.params?.waiver_records ?? []).includes("forensic_exam"),
-    ),
+    examSometimes: exam.some((r) => ([] as unknown[]).concat(r.params?.waiver_records ?? []).includes("forensic_exam")),
     charge: rules.some((r) => r.params?.charge_required === true),
     // Every award needs a report: some required rule, and none names another record, or the other records
     // are ones an anonymous adult cannot get on her own (report_gate, Delaware 9010(a)(5)).
@@ -957,7 +955,8 @@ describe("conditions the third review found missing", () => {
 
   it("a report tile leads with the rule that sets the requirement and carries its exceptions (Hawaii, Texas)", () => {
     expect(tile("HI", "report")).toMatchObject({
-      small: "the program asks for one within 72 hours, or later only if you show good cause, unless an arrest was made",
+      small:
+        "the program asks for one within 72 hours, or later only if you show good cause, unless an arrest was made",
       cites: ["HI-REPORT-1", "HI-REPORT-2"],
     });
     // 56B.053(c): the report rule does not apply to a child; the card keeps 56B.053(a) first.
@@ -970,7 +969,11 @@ describe("conditions the third review found missing", () => {
 
   it("a total says 'or more' only when the survivor could get more (North Carolina, Nebraska)", () => {
     // 15B-11(g): only funeral costs, paid after a death, sit on top of the $45,000.
-    expect(section("NC", "costs").slice(0, 2).map((f) => f.text)).toEqual([
+    expect(
+      section("NC", "costs")
+        .slice(0, 2)
+        .map((f) => f.text),
+    ).toEqual([
       "The most the program can pay in total is $45,000.",
       "Payments for funeral costs do not count toward this limit.",
     ]);
@@ -988,9 +991,10 @@ describe("conditions the third review found missing", () => {
   it("a limit with no amount shows under its cost and never changes the row's name (Texas, Florida, North Dakota)", () => {
     const row = (st: string, label: string) => section(st, "costs").find((f) => f.label === label);
     expect(
-      row("TX", "Trips over 20 miles one way to medical or mental health care, court, or a victim's funeral")?.details?.map(
-        (d) => d.cite,
-      ),
+      row(
+        "TX",
+        "Trips over 20 miles one way to medical or mental health care, court, or a victim's funeral",
+      )?.details?.map((d) => d.cite),
     ).toEqual(["TX-TRAVEL-2"]);
     expect(row("FL", "Medical care")?.details?.map((d) => d.cite)).toEqual(["FL-COV-5", "FL-CAP-2", "FL-CAP-9"]);
     expect(row("ND", "Travel")?.details?.map((d) => d.cite)).toEqual(["ND-CAP-TRAVEL", "ND-CAP-TRAVEL-MIN"]);
@@ -1006,7 +1010,10 @@ describe("conditions the third review found missing", () => {
     ]) {
       expect(section(st, "police").find((f) => f.cites[0] === id)?.verbatimSummary, id).toBe(true);
       expect(tile(st, "report")?.cites, id).not.toContain(id);
-      expect(get(st).share.clauses.flatMap((c) => c.cites), id).not.toContain(id);
+      expect(
+        get(st).share.clauses.flatMap((c) => c.cites),
+        id,
+      ).not.toContain(id);
     }
   });
 });
@@ -1039,7 +1046,10 @@ describe("conditions the fourth review found missing", () => {
           duration(r) !== null &&
           duration(r)!.days < duration(head)!.days,
       );
-      expect(shorter.map((r) => r.id), st).toEqual([]);
+      expect(
+        shorter.map((r) => r.id),
+        st,
+      ).toEqual([]);
     }
   });
 

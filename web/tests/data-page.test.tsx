@@ -153,12 +153,16 @@ describe("/data", () => {
 
   it("counts the pinpoint citation as Tend's reading, which verify.py does not check", () => {
     const verify = readFileSync(path.join(web, "..", "rules/tools/verify.py"), "utf8");
-    expect(verify.split("\n").filter((line) => line.includes("pinpoint")).map((line) => line.trim())).toEqual([
-      'if not r.get("pinpoint"):',
-      'errors.append(f"{rid}: missing pinpoint citation")',
-    ]);
+    expect(
+      verify
+        .split("\n")
+        .filter((line) => line.includes("pinpoint"))
+        .map((line) => line.trim()),
+    ).toEqual(['if not r.get("pinpoint"):', 'errors.append(f"{rid}: missing pinpoint citation")']);
     const first = limit("misread")!.split(/\s+/).join(" ");
-    expect(first).toContain("the summary, the pinpoint citation, and what the engine does with a rule are Tend's reading");
+    expect(first).toContain(
+      "the summary, the pinpoint citation, and what the engine does with a rule are Tend's reading",
+    );
     expect(first).toContain("verify.py checks only that a rule has a pinpoint citation");
   });
 

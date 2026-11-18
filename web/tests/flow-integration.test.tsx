@@ -327,7 +327,10 @@ describe("a bill paid through Tend", () => {
     process.env.TZ = "America/Detroit";
     try {
       // 9:20 PM on October 3 in Michigan, already October 4 in UTC.
-      const late = { ...paid, record: { ...(paid as Extract<Action, { type: "payment" }>).record, at: "2026-10-04T01:20:00Z" } };
+      const late = {
+        ...paid,
+        record: { ...(paid as Extract<Action, { type: "payment" }>).record, at: "2026-10-04T01:20:00Z" },
+      };
       const s = stateFrom([MI_CHECK, { type: "addBill", bill, items: billLines }, bank, late as Action]);
       renderFlow(<TrackScreen />, { initial: s });
       expect(await screen.findAllByText(en.track.youPaid("Oct 3"))).toHaveLength(2);
@@ -501,7 +504,10 @@ describe("the net log behind the privacy line", () => {
   });
 
   it("reports a state's request apart from the sends, and not a link Next fetches ahead", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => new Response("{}", { status: 200 })));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response("{}", { status: 200 })),
+    );
     installNetLog(window);
     let named = 0;
     onStateRequest(() => named++);
@@ -514,7 +520,10 @@ describe("the net log behind the privacy line", () => {
   });
 
   it("says the state went to the server after a state's page loads, with no state in Check", async () => {
-    vi.stubGlobal("fetch", vi.fn(async () => new Response("{}", { status: 200 })));
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response("{}", { status: 200 })),
+    );
     renderFlow(<PrivacyLine />, { initial: stateFrom([]) });
     expect(await screen.findByText(en.privacy.quiet)).toBeTruthy();
     // "Find your state" on the home page opens /mi, which Next asks the server for by name.

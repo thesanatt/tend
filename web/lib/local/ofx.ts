@@ -11,6 +11,14 @@ export function looksLikeOfx(text: string): boolean {
   return /OFXHEADER\s*:/i.test(head) || /<OFX>/i.test(head) || /<\?OFX\s/i.test(head);
 }
 
+// A numeric character reference as its character. One that names no character (zero, half of a
+// surrogate pair, or past U+10FFFF, where String.fromCodePoint throws) stays as written, so one odd
+// memo cannot fail the whole file.
+function charRef(ref: string, n: number): string {
+  const real = Number.isInteger(n) && n > 0 && n <= 0x10ffff && (n < 0xd800 || n > 0xdfff);
+  return real ? String.fromCodePoint(n) : ref;
+}
+
 function decode(value: string): string {
   return value
     .replace(/&lt;/gi, "<")
@@ -18,8 +26,8 @@ function decode(value: string): string {
     .replace(/&quot;/gi, '"')
     .replace(/&apos;/gi, "'")
     .replace(/&nbsp;/gi, " ")
-    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
-    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)))
+    .replace(/&#(\d+);/g, (ref, n) => charRef(ref, Number(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (ref, n) => charRef(ref, parseInt(n, 16)))
     .replace(/&amp;/gi, "&");
 }
 

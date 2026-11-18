@@ -233,7 +233,9 @@ describe("the same account read twice", () => {
   });
 
   it("one transaction written two ways (a CSV and an OFX) counts once, even when the formats sorted it differently", () => {
-    const gathered = [ride("stmt:abc:csv:7", { description: "Hearthstone Pharmacy - Rx copay", expense: "prescription" })];
+    const gathered = [
+      ride("stmt:abc:csv:7", { description: "Hearthstone Pharmacy - Rx copay", expense: "prescription" }),
+    ];
     const fromOfx = [ride("stmt:def:ofx:1", { description: "HEARTHSTONE PHARMACY RX COPAY 4821", expense: "unknown" })];
     expect(newCosts(gathered, fromOfx)).toEqual({ fresh: [], repeats: fromOfx });
   });

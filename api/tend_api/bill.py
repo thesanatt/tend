@@ -15,7 +15,9 @@ BILL_DIRS = ("bills", "fixtures", "documents", "")
 BILL_EXTS = (".json", ".pdf", ".txt")
 
 # A bill row: optional line number, a date, a description, then one or more money columns ending the line.
-_ROW_START = re.compile(r"^\s*(?:\d{1,3}\s+)?(?:(?P<y>\d{4})-(?P<m>\d{2})-(?P<d>\d{2})|(?P<m2>\d{1,2})/(?P<d2>\d{1,2})/(?P<y2>\d{2,4}))\b")
+_ROW_START = re.compile(
+    r"^\s*(?:[0-9]{1,3}\s+)?(?:(?P<y>[0-9]{4})-(?P<m>[0-9]{2})-(?P<d>[0-9]{2})|(?P<m2>[0-9]{1,2})/(?P<d2>[0-9]{1,2})/(?P<y2>[0-9]{2,4}))\b"
+)
 _TRAILING_AMOUNT = re.compile(rf"(?:{MONEY_TOKEN.pattern})\s*$")
 _META = re.compile(
     r"(?:^|\s{2,})(?P<key>provider|facility|statement date|bill id|account number|account)\s*[:#]\s*(?P<value>\S.*?)\s*$", re.I
@@ -104,10 +106,15 @@ def match_expense(description: str) -> tuple[str, str | None]:
 
 def _parse_date(m: re.Match[str]) -> dt.date:
     if m.group("y"):
-        return dt.date(int(m.group("y")), int(m.group("m")), int(m.group("d")))
-    year = int(m.group("y2"))
-    year = year + 2000 if year < 100 else year
-    return dt.date(year, int(m.group("m2")), int(m.group("d2")))
+        year, month, day = int(m.group("y")), int(m.group("m")), int(m.group("d"))
+    else:
+        year, month, day = int(m.group("y2")), int(m.group("m2")), int(m.group("d2"))
+        year = year + 2000 if year < 100 else year
+    # The window the device uses (isoDay in web/lib/local/amounts.ts). A year outside it, like the 202
+    # left when a digit of 2026 is lost, is a misread and not a service date.
+    if not 1900 <= year <= 2200:
+        raise ValueError(f"year out of range: {year}")
+    return dt.date(year, month, day)
 
 
 def _cents(token: str, line: str) -> int:

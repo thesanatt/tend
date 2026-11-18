@@ -18,7 +18,7 @@ import {
 } from "react";
 import { usePathname } from "next/navigation";
 import { EngineUnavailableError, type Evaluation } from "@/lib/engine";
-import type { StatementTxn } from "@/lib/contracts";
+import type { BillReading, StatementTxn } from "@/lib/contracts";
 import { useI18n } from "@/lib/i18n";
 import { installNetLog, onNetSend, onStateRequest, stateNamedIn } from "@/lib/netlog";
 import { stateToday } from "@/lib/stateTime";
@@ -55,6 +55,8 @@ export interface ClaimView {
   evaluation: Evaluation | null;
   error: string | null;
 }
+
+const NO_CLAIM: ClaimView = { status: "idle", evaluation: null, error: null };
 
 export type VaultStatus = "checking" | "none" | "locked" | "open";
 export type VaultMethods = { passphrase: boolean; passkey: boolean };
@@ -144,6 +146,32 @@ export function billLineId(sha: string, lineId: string): string {
   return lineId.startsWith("bill:") ? lineId : `bill:${sha}:${lineId}`;
 }
 
+// A read bill's lines as costs. The provider's own itemized statement, so each line starts confirmed.
+// One counseling line is one session, as the server reads a bill (api/tend_api/scan.py), so a
+// per-session limit applies to it the way it does to the same visit on a statement.
+export function billItems(reading: BillReading, sha: string, date: string): FlowItem[] {
+  return reading.lines.map((line, i) => ({
+    item_id: billLineId(sha, line.line_id),
+    date,
+    amount_cents: line.amount_cents,
+    expense: line.expense,
+    confirmed: true,
+    insurance_paid_cents: 0,
+    is_bill: true,
+    units: line.expense === "counseling" ? 1 : 0,
+    unit: line.expense === "counseling" ? "session" : null,
+    tags: [],
+    description: line.description,
+    source: reading.source,
+    reason: "",
+    confidence: 1,
+    origin: "bill",
+    merchant: reading.provider ?? undefined,
+    bill_id: `bill-${sha}`,
+    line_no: i + 1,
+  }));
+}
+
 async function fileSha(file: Blob): Promise<string> {
   const bytes = new Uint8Array(
     typeof file.arrayBuffer === "function" ? await file.arrayBuffer() : await new Response(file).arrayBuffer(),
@@ -165,7 +193,8 @@ export function FlowProvider({
 }) {
   const { lang, setLang } = useI18n();
   const [state, dispatch] = useReducer(reducer, initial ?? initialState(lang));
-  const [claim, setClaim] = useState<ClaimView>({ status: "idle", evaluation: null, error: null });
+  // The engine's last answer, with the claim it was counted for (that claim's inputKey).
+  const [counted, setCounted] = useState<ClaimView & { key: string }>({ ...NO_CLAIM, key: "" });
   const [vaultStatus, setVaultState] = useState<VaultStatus>("checking");
   const [idleLocked, setIdleLocked] = useState(false);
   const [methods, setMethods] = useState<VaultMethods | null>(null);
@@ -258,18 +287,21 @@ export function FlowProvider({
   }, [logSent]);
 
   useEffect(() => {
+    // An answer still on its way was counted for a claim that is no longer the one on screen, and
+    // that includes the claim Start over cleared.
+    const id = ++run.current;
     if (!input) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setClaim({ status: "idle", evaluation: null, error: null });
+      setCounted({ ...NO_CLAIM, key: "" });
       return;
     }
-    const id = ++run.current;
-    setClaim((c) => ({ ...c, status: "computing" }));
+    // The last answer stays up for the moment the engine takes, so the figures do not blink.
+    setCounted((c) => ({ ...c, status: "computing" }));
     services
       .evaluate(input, { allowApi: state.serverConsent })
       .then((evaluation) => {
         if (id !== run.current) return;
-        setClaim({ status: "ready", evaluation, error: null });
+        setCounted({ status: "ready", evaluation, error: null, key: inputKey });
         if (evaluation.backend === "api" && !stateRef.current.sent.some((e) => e.kind === "server_engine")) {
           logSent({ kind: "server_engine", ref: "server_engine" });
         }
@@ -277,15 +309,25 @@ export function FlowProvider({
       .catch((err: Error) => {
         if (id !== run.current) return;
         const consent = err instanceof EngineUnavailableError && err.serverAvailable && !stateRef.current.serverConsent;
-        setClaim((c) => ({
+        // A claim the engine could not count has no figures. The last answer was for another claim.
+        setCounted({
           status: consent ? "needs_consent" : "error",
-          evaluation: c.evaluation,
+          evaluation: null,
           error: err.message,
-        }));
+          key: inputKey,
+        });
       });
     // inputKey carries the content of input
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputKey, state.serverConsent, services, logSent]);
+
+  // In the render where an answer has just changed the claim, the effect above has not run yet and
+  // the last answer still says ready. It was counted for another claim, so here it is one being
+  // counted again: the packet and a share link wait for figures that belong to this claim.
+  const claim = useMemo<ClaimView>(() => {
+    if (!inputKey) return NO_CLAIM;
+    return counted.status === "ready" && counted.key !== inputKey ? { ...counted, status: "computing" } : counted;
+  }, [counted, inputKey]);
 
   // Vault: find out whether there is saved progress, keep it current, and lock it when the page goes.
   useEffect(() => {
@@ -477,28 +519,7 @@ export function FlowProvider({
       const ok = reading.status === "ok" && reading.sums_match && reading.lines.length > 0;
       // A date the Check step would not count (a typo in the future) does not date the bill either.
       const date = knowsDate(s, today) ? s.check.date : today;
-      const items: FlowItem[] = ok
-        ? reading.lines.map((line, i) => ({
-            item_id: billLineId(sha, line.line_id),
-            date,
-            amount_cents: line.amount_cents,
-            expense: line.expense,
-            confirmed: true,
-            insurance_paid_cents: 0,
-            is_bill: true,
-            units: 0,
-            unit: null,
-            tags: [],
-            description: line.description,
-            source: reading.source,
-            reason: "",
-            confidence: 1,
-            origin: "bill",
-            merchant: reading.provider ?? undefined,
-            bill_id: id,
-            line_no: i + 1,
-          }))
-        : [];
+      const items = ok ? billItems(reading, sha, date) : [];
       const bill: BillRecord = {
         id,
         label: file.name,

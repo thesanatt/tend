@@ -151,7 +151,7 @@ TAG_WORDS: tuple[tuple[tuple[str, ...], str], ...] = (
     (("pain and suffering",), "pain_suffering"),
 )
 SESSION_KINDS = frozenset({"purchase", "withdrawal", "bill_line"})  # one charge, one session; a whole bill may hold many
-_NIGHTS = re.compile(r"\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b", re.IGNORECASE)
+_NIGHTS = re.compile(r"\b([0-9]{1,2})\s*-?\s*(?:nights?|days?)\b", re.IGNORECASE)  # [0-9]: the browser reads the same digits
 
 
 def tags_for(text: str) -> tuple[str, ...]:

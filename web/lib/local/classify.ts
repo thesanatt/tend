@@ -9,6 +9,7 @@ import type { ItemExpense } from "../types";
 import { CLOUD_LIMITS, cloudClassify, personPayment, type ModelAnswer, type ModelRow } from "./cloud";
 import { baseSession, deviceAiStatus, DeviceAiTimeout, forgetSessions, promptJson, type Turn } from "./deviceai";
 import { inferPay } from "./paydip";
+import { pyHead, pyRegex } from "./pytext";
 import {
   classifyDeterministic,
   norm,
@@ -196,7 +197,9 @@ const TAG_WORDS: [string[], string][] = [
   [["vehicle", "car "], "vehicle"],
   [["pain and suffering"], "pain_suffering"],
 ];
-const NIGHTS = /\b(\d{1,2})\s*-?\s*(?:nights?|days?)\b/i;
+const NIGHTS = pyRegex(String.raw`\b([0-9]{1,2})\s*-?\s*(?:nights?|days?)\b`, "i");
+// One charge is one session; a whole bill may hold many (classify.py's SESSION_KINDS).
+const SESSION_KINDS = new Set(["purchase", "withdrawal", "bill_line"]);
 
 export function tagsFor(text: string): string[] {
   const padded = ` ${norm(text)} `;
@@ -213,8 +216,7 @@ export function itemShape(
   kind: string,
   text: string,
 ): { unit: Unit | null; units: number; tags: string[] } {
-  if (expense === "counseling")
-    return { unit: "session", units: kind === "purchase" || kind === "withdrawal" ? 1 : 0, tags: [] };
+  if (expense === "counseling") return { unit: "session", units: SESSION_KINDS.has(kind) ? 1 : 0, tags: [] };
   if (expense === "temporary_housing") {
     const nights = NIGHTS.exec(text);
     return { unit: "day", units: nights ? Number(nights[1]) : 0, tags: [] };
@@ -223,8 +225,6 @@ export function itemShape(
   if (expense === "property_replacement") return { unit: null, units: 0, tags: tagsFor(text) };
   return { unit: null, units: 0, tags: [] };
 }
-
-const slice200 = (s: string) => Array.from(s).slice(0, 200).join("");
 
 // A model's label is the model's; anything a rule decided last, including a ride linked to care,
 // is the rules'.
@@ -246,7 +246,7 @@ export function toItem(t: LocalTxn, c: Classification, source: Source): LocalCla
     insurance_paid_cents: 0,
     is_bill: isBill,
     ...shape,
-    description: slice200(text),
+    description: pyHead(text, 200),
     source,
     reason: c.reason,
     confidence: c.confidence,

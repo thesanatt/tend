@@ -2,8 +2,15 @@
 
 Every number Tend claims, the command that produces it, and what it does not show.
 
-Four kinds of numbers appear here, and each row says which:
+Five kinds of numbers appear here, and each row says which:
 
+- **Rerun Nov 16, 2026** on the branch `deep-pass-2026-11-16`, from a clean clone at `0f14cf8`, on
+  the same laptop: Apple clang 21.0, Node 24.14.1, Python 3.12.13, uv 0.11.12. The engines, the law
+  data, and the shipped law images are the same files as on Oct 20; the web app, the API,
+  `verify.py`, and the tests changed after it. The Python suites ran again at `31cf9ea`, after
+  lint fixes, with the same counts. The same day the C++ engine was built and tested with GCC 13.3
+  in an Ubuntu 24.04 container on that laptop (arm64, 14 CPUs), its first Linux run since Oct 4.
+  Only the rows that name Linux ran there.
 - **Rerun Oct 20, 2026** on `press-ready-int` at `9dce7e1`, on the same laptop as Oct 19, after
   merging the rule checks (`press-ready-claims`). That merge changed the law data (rules, IR, and
   all 51 shipped law images) and `verify.py`, not the engines: 2,578 rules became 2,728. Every
@@ -29,25 +36,29 @@ Neon detail is in [NEON.md](NEON.md).
 
 | Suite | Command | Result | When |
 |---|---|---|---|
-| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Oct 20, the same as Oct 4 |
-| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Oct 20, the same as Oct 4 |
-| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build: on macOS on Oct 20, the images the rule checks rebuilt; on Linux on Oct 4 and on macOS on Oct 19, the images before them | rerun Oct 20 |
-| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass | recorded on tend 1.3.0, Oct 3 ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container run was on 1.2.0 |
-| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Oct 20, the same as Oct 4 |
-| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,599 well-formed claims byte-identical (119,600 before the rule checks: the generator aims claims at each law's own numbers, so new rules change the claims it makes); 3,000 random or broken laws, 0 disagreements (12.7 s on Oct 20; 53.8 s on Oct 4) | rerun Oct 20 |
-| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (14.8 s in Node on Oct 20; 29.0 s on Oct 4) | rerun Oct 20, the same as Oct 4 |
+| C++ engine | `make -C engine && make -C engine test` | 70 test cases, 27,403 assertions, all pass (1 min 37 s with a clean build on Oct 4) | rerun Nov 16 on macOS and, with GCC 13.3, on Linux; the same as Oct 4 |
+| VM vs the C++ oracle (shares no code with the VM) <!-- TODO(Sanat): this cell used to say "independent"; who wrote it is yours to state. --> | inside `make test` | 6,000 random evaluations and 51 jurisdictions x 12 scenarios, 0 differences | rerun Nov 16 on macOS and Linux, the same as Oct 4 |
+| Shipped law images | inside `make test` | all 51 in `web/public/engine/laws` byte-identical to a fresh `tendc` build: on macOS on Oct 20 and on macOS and Linux (GCC 13.3, arm64) on Nov 16, the images the rule checks rebuilt; on Linux on Oct 4 and on macOS on Oct 19, the images before them | rerun Nov 16 |
+| C++ engine under ASan and UBSan | `make -C engine test-san` | 70 of 70 pass, 27,403 assertions, no sanitizer report. On macOS, 54.6 s with the build. On Linux with GCC 13.3, 14 s for the tests, with the leak check on (macOS has none) and ASan's stack-use-after-return check off; see the note below | rerun Nov 16 on tend 1.3.0, macOS and Linux |
+| Python reference engine | `cd refengine && uv run pytest` | 586 passed (114 check the IR that normalize.py makes) | rerun Nov 16, the same as Oct 4 |
+| Difftest, reference vs C++ | `uv run --project refengine python refengine/difftest.py --n 2000 --random-laws 300 --ir-fuzz 3000` | 121,000 claims, 0 mismatches; 119,599 well-formed claims byte-identical (119,600 before the rule checks: the generator aims claims at each law's own numbers, so new rules change the claims it makes); 3,000 random or broken laws, 0 disagreements (14.9 s on Nov 16; 12.7 s on Oct 20; 53.8 s on Oct 4) | rerun Nov 16, the same as Oct 20 |
+| WASM vs native | `make -C engine wasm-parity` | 106,000 of 106,000 claims byte-identical across 53 laws, all 51 shipped images checked, tend 1.3.0 (15.0 s in Node on Nov 16; 14.8 s on Oct 20; 29.0 s on Oct 4) | rerun Nov 16, the same as Oct 4 |
 | Fuzzing under ASan and UBSan | `make -C engine fuzz FUZZ_SECONDS=420` | 1,276,000 then 2,517,704 executions on 1.2; 580,048 in 180 s on 1.3; no crashes | recorded ([engine/EVAL.md](../engine/EVAL.md)); the Oct 4 container's clang had no sanitizer runtime, and it was not rerun on Oct 19 |
-| API | `cd api && uv run pytest` | 436 tests: 413 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Oct 20 |
+| API | `cd api && uv run pytest` | 444 tests: 421 passed, 23 skipped (the Neon tests, which need `TEND_NEON_TEST=1` and a database URL). Oct 20 had 436, and Oct 4 had 446: the retired agents' endpoints took their tests with them, and the demo account's reset added some | rerun Nov 16 |
 | API on Neon | `TEND_NEON_TEST=1 uv run pytest -k "neon or live"` | 32 tests, about 70 s | recorded Oct 3 ([NEON.md](NEON.md)); needs a Neon URL |
 | Neon role limits | `uv run python ../scripts/neon/roles.py` | 28 of 28 checks as expected | recorded Oct 3 ([NEON.md](NEON.md)); needs Neon |
-| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Oct 20 |
-| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Oct 20 |
-| Web unit and screen tests | `cd web && npx vitest run` | 58 files, 2,259 passed on Oct 26 with /compare (1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Oct 26 |
-| Web lint | `cd web && npm run lint` | 0 errors and 19 warnings: 17 in the generated `public/engine/tend.js`, 2 unused parameters in a test | rerun Oct 20 |
-| Web production build | `cd web && npx next build` | builds, with 185 pages made ahead of time (/compare and its card) | rerun Oct 26 |
-| Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 33 passed (181 s with the build) on Oct 26, the phone checks now covering /press, /data, /law/changes and /compare too; 31 on Oct 20. They are 13 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts, including text at 200 percent on a 360 px phone in both languages | rerun Oct 26; see the note below |
-| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,728 rules, 824 sources; 2,578 before the rule checks); no file changed | rerun Oct 20 |
-| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Oct 20, the same as Oct 4 |
+| Seed (fictional bank) | `cd seed && uv run pytest` | 167 tests: 163 passed, 4 skipped (live Nessie, needs `TEND_LIVE=1` and a key) | rerun Nov 16, the same as Oct 20 |
+| Web types | `cd web && npm ci && npx tsc --noEmit` | no errors | rerun Nov 16 |
+| Web unit and screen tests | `cd web && npx vitest run` | 58 files, 2,356 passed on Nov 16 (2,259 on Oct 26 with /compare; 1,937 earlier that day with the large-text check; 1,936 on Oct 25 with the /data and /law/changes link cards; 1,932 at `ef8e7ce`; 1,929 at `b2f8698`; 1,840 in 56 files at `9dce7e1`, before the review's fixes and their tests; 1,568 on Oct 19, before the rule checks; 42 files and 1,234 tests on Oct 4) | rerun Nov 16 |
+| Web lint | `cd web && npm run lint` | no errors and no warnings. On Oct 20 it gave 19 warnings: 17 in the generated `public/engine/tend.js`, which lint now skips, and 2 unused parameters in a test, now gone | rerun Nov 16 |
+| Web production build | `cd web && npm run build` | builds, with 185 pages made ahead of time (/compare and its card) | rerun Nov 16 |
+| Web end to end (Playwright, Chromium) | `web/e2e/run.sh` | 33 passed (182 s with the build) on Nov 16, the same 33 as on Oct 26, when the phone checks first covered /press, /data, /law/changes and /compare; 31 on Oct 20. They are 13 tests, some run at several widths, text sizes, or languages: the demo path, the offline survivor path, the check that no request carried transaction text, a bill line, or the share key, the guided tour and the Spanish UI without its notes, and phone layouts, including text at 200 percent on a 360 px phone in both languages | rerun Nov 16; see the note below |
+| Rules: every quote verbatim | `python3 rules/tools/verify.py all` | 51 of 51 jurisdictions PASS (2,728 rules, 824 sources; 2,578 before the rule checks); no file changed | rerun Nov 16, the same as Oct 20 |
+| Rules: IR is reproducible | `uv run --python 3.12 rules/tools/normalize.py` | all 51 IR files regenerated with no diff | rerun Nov 16, the same as Oct 4 |
+| Rules: tests of the checker and of the dataset export | `uv run --no-project --with pytest pytest rules/tools/test_verify.py rules/tools/test_export_dataset.py` | 39 passed, 2 skipped. The 2 extract every saved source again with BeautifulSoup and pdftotext and are opt-in; with `--with beautifulsoup4` and pdftotext installed, 41 passed. One test checks the numbers in the text params the state page prints against each rule's quote, which `verify.py` does not read | first run Nov 16 (`test_verify.py` and that test are new) |
+| Published dataset matches the corpus | `python3 rules/tools/export_dataset.py --check` | dataset v1.0 is current, 6 files in 2 folders | rerun Nov 16 |
+| Web formatting | `cd web && npx prettier --check .` | every file it reads passes. `web/.prettierignore` lists what it skips: the law data, the dataset, the built engine, the service worker, and fixtures | first run Nov 16 |
+| Python lint | `uv run --project api ruff check .` from the repo root | no findings | first run Nov 16 |
 
 **The e2e note.** On Oct 19 and again on Oct 20 `run.sh` ran with its default Playwright 1.47 and that version's
 Chromium, with no other suite running, and passed 31 of 31 on the first run each time. On Oct 4 the Linux
@@ -55,6 +66,25 @@ container did not have that Chromium build, so it ran with `E2E_PLAYWRIGHT_VERSI
 the preinstalled Chromium 141. Its first full run (with the build) failed one test: the first page
 load took longer than its 5-second wait while the other suites were running on the same 4 CPUs.
 The rerun with the machine quiet passed 3 of 3, all the e2e tests there were then.
+
+**The sanitizer note.** On Linux, ASan also checks for a stack frame used after its function
+returned; on macOS that check is off unless asked for. With GCC 13.3's Linux default the test
+binary was still running after 24 minutes on Nov 16, with no report up to then, and was
+stopped. With `ASAN_OPTIONS=detect_stack_use_after_return=0` the same binary passed in 14 s. So
+the Linux result above covers what the macOS one does plus leaks, and nothing here has run the
+stack-use-after-return check to the end.
+
+**GCC's warnings.** GCC 13.3 prints 8 warnings that Apple clang does not: 5 from `-Wextra` where
+a conditional picks between a number and an enum constant (`src/eval.cpp`, `src/format.cpp`,
+`src/vm.cpp`, `tools/tendvm.cpp`), and 3 from `-Wpedantic` on `__int128` in the test oracle. The
+engine source is as it was on Oct 20.
+
+**CI.** `.github/workflows/ci.yml`, added Nov 16, runs the rows above that need no keys on every
+pull request and on main: the rules rows, the engine rows through WASM vs native, the sanitizer
+build with the setting from the note above, the API and seed tests, and the web rows through the
+build. It leaves out the browser tests, the Neon and Nessie tests, fuzzing, and the Emscripten
+build. Each command in it passed on Nov 16 from a clean clone on macOS; on Linux only the engine
+commands were tried that day.
 
 ## Engines in one paragraph
 
@@ -116,11 +146,17 @@ model picks starts confirmed.
 | What | Command | Result | When |
 |---|---|---|---|
 | The web flow in a browser, every question answered yes: Check, demo bank, sample bill, the $118.00 payment with its code, packet, share link opened in a second tab, garden | `next dev` with `TEND_API_URL` pointing at a local API, driven by Playwright in headless Chromium (no Gemini Nano) | $325.00 held under MCL 18.355a(2); $118.00 paid (dry run, read back); "Amount you can ask for: $3,848.00" from 38 costs; the advocate's tab opened the same claim; the privacy line named the payment, then the share | reproduced Oct 4 |
-| The e2e demo path, online, step by step | `web/e2e/run.sh` (prints the timings) | Check 0.28 s; sample statement read on the device 0.27 s (0.56 s in the second-device run); bill PDF 0.08 s; $118.00 code 0.53 s and confirm 0.15 s; packet built on the device 0.91 s; sealed link 0.15 s; advocate opens it 0.24 s. On Oct 4's Xeon VM: Check 0.46 s, statement 0.48 s, bill 0.59 s, code 0.56 s, confirm 0.18 s, packet 1.0 s, link 0.10 s, advocate 0.34 s | rerun Oct 20 |
-| The e2e offline path | the same | first visit saved for offline 0.48 s; reload with no network 0.17 s; statement 0.28 s and bill 0.09 s read offline; packet 0.05 s; payment and share say they are offline and send nothing; saved progress opens offline after a reload; back online, the $118.00 payment goes through. On Oct 4: first visit 2.2 s, reload 0.34 s, statement 0.48 s, bill 0.21 s, packet 0.17 s | rerun Oct 20 |
+| The e2e demo path, online, step by step | `web/e2e/run.sh` (prints the timings) | Check 0.26 s; sample statement read on the device 0.57 s (0.27 s on Oct 20; see the note on step times); bill PDF 0.09 s; $118.00 code 0.52 s and confirm 0.15 s; packet built on the device 0.90 s; sealed link 0.13 s; advocate opens it 0.24 s. On Oct 4's Xeon VM: Check 0.46 s, statement 0.48 s, bill 0.59 s, code 0.56 s, confirm 0.18 s, packet 1.0 s, link 0.10 s, advocate 0.34 s | rerun Nov 16 |
+| The e2e offline path | the same | first visit saved for offline 0.48 s; reload with no network 0.16 s; statement 0.28 s and bill 0.09 s read offline; packet 0.04 s; payment and share say they are offline and send nothing; saved progress opens offline after a reload; back online, the $118.00 payment goes through. On Oct 4: first visit 2.2 s, reload 0.34 s, statement 0.48 s, bill 0.21 s, packet 0.17 s | rerun Nov 16 |
 | Demo reset against live Nessie | `cd seed && uv run python reset_demo.py` | 2.6 s | recorded Oct 3 (seed/README.md); needs a Nessie key |
 | Deployed API | `vercel curl /api/health` | first request after a deploy 0.44 s; warm 0.08 to 0.15 s; live Nessie relay read 0.64 s | recorded Oct 3 (DEPLOY.md); the Oct 4 container could not reach `youreowed.tech`, and the Oct 19 run did not touch the deployment |
 | Neon | `uv run python ../scripts/neon/measure.py` | quote search 0.30 ms on the server, 36 to 42 ms from a laptop; a two-branch diff 0.48 to 0.55 s | recorded Oct 3 (NEON.md) |
+
+**Step times.** `run.sh` times a step from the click to the moment Playwright sees the result, and
+Playwright looks again after 100 ms, then 250 ms, then 500 ms. So a step's time lands on a few
+values and not between them. In two full runs on Nov 16 the statement step printed 278 to 281 ms
+in the offline and tour runs and 567 to 591 ms in the three others; on Oct 20 the online run printed
+0.27 s. Whether the read itself got slower between those dates was not measured.
 
 ## What these numbers do not show
 

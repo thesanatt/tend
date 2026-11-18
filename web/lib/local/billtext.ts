@@ -5,7 +5,7 @@ import { MONEY_TOKEN_SOURCE, isoDay, parseCents } from "./amounts";
 import { pyRegex, pyStrip, pyStripChars } from "./pytext";
 
 const ROW_START = pyRegex(
-  String.raw`^\s*(?:\d{1,3}\s+)?(?:(?<y>\d{4})-(?<m>\d{2})-(?<d>\d{2})|(?<m2>\d{1,2})/(?<d2>\d{1,2})/(?<y2>\d{2,4}))\b`,
+  String.raw`^\s*(?:[0-9]{1,3}\s+)?(?:(?<y>[0-9]{4})-(?<m>[0-9]{2})-(?<d>[0-9]{2})|(?<m2>[0-9]{1,2})/(?<d2>[0-9]{1,2})/(?<y2>[0-9]{2,4}))\b`,
   "i",
 );
 const MONEY_TOKEN = pyRegex(MONEY_TOKEN_SOURCE, "g");
@@ -122,7 +122,8 @@ export function parseTextBill(text: string): TextBill {
         if (key === "provider" || key === "facility") bill.provider = value;
         else if (key === "statement date") bill.statement_date = value;
         else if (key === "bill id") bill.bill_id = value;
-        else bill.account_ref = value;
+        else if (key === "account" || key === "account number") bill.account_ref = value;
+        // A key matched only by case folding (a long s, a dotless i) is no field, as on the server.
       } else if (title === null && !BANNER.test(line)) {
         title = line.split(TWO_SPACES)[0];
       }

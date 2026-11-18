@@ -12,6 +12,7 @@
 // would claim. classify.py estimated_days does the same integer math.
 import { addDays, daysBetween } from "../dates";
 import { fnv64 } from "./hash";
+import { pyHead } from "./pytext";
 import type { LocalClassifiedItem, LocalTxn } from "./types";
 
 const PAY_WORDS = /payroll|salary|paycheck|direct dep|dir dep|\bwages?\b|\bpay\b/i;
@@ -131,7 +132,7 @@ export function inferPay(txns: LocalTxn[], incidentDate: string): PayInference {
         ...base,
         ...shape,
         units: days,
-        description: [c.txn.merchant, c.txn.description].filter(Boolean).join(" ").replace(/\s+/g, " ").slice(0, 200),
+        description: pyHead([c.txn.merchant, c.txn.description].filter(Boolean).join(" ").replace(/\s+/g, " "), 200),
         reason: dipReason(c.cents, short, usual, days),
         confidence: 0.6,
         linked_item_ids: [],
@@ -162,7 +163,7 @@ export function inferPay(txns: LocalTxn[], incidentDate: string): PayInference {
         ...base,
         ...shape,
         units: period,
-        description: `${payer}: no paycheck near this date`.slice(0, 200),
+        description: pyHead(`${payer}: no paycheck near this date`, 200),
         reason: payGapReason(period),
         confidence: 0.5,
         linked_item_ids: [],

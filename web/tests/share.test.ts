@@ -178,6 +178,20 @@ describe("sealed share links", () => {
       ["an unknown status", (p) => ((p.output.lines[0] as unknown as Record<string, unknown>).status = "paid")],
       ["checked under another state", (p) => (p.output.jurisdiction = "NY")],
       ["no checks", (p) => ((p.output as unknown as Record<string, unknown>).checks = {})],
+      // Each of these opened before, then threw in the viewer the moment it formatted or added them.
+      ["an incident day that is not on the calendar", (p) => (p.input.context.incident_date = "2026-02-31")],
+      ["a month 13", (p) => (p.input.context.as_of_date = "2026-13-45")],
+      ["a cost dated on a day that is not on the calendar", (p) => (p.input.items[0].date = "2026-02-30")],
+      ["a last day to file that is not a day", (p) => (p.output.checks.deadline.deadline_date = "soon")],
+      [
+        "a last day to file that is a number",
+        (p) => ((p.output.checks.deadline as unknown as Record<string, unknown>).deadline_date = 5),
+      ],
+      ["no totals by kind of cost", (p) => delete (p.output.totals as unknown as Record<string, unknown>).by_expense],
+      [
+        "a total by kind of cost that is not whole cents",
+        (p) => ((p.output.totals as unknown as Record<string, unknown>).by_expense = { medical: "12" }),
+      ],
     ];
     for (const [what, breakIt] of bad) {
       const p = packet();

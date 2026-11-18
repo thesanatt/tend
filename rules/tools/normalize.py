@@ -5,7 +5,6 @@ writes rules/ir/ST.json and prints a one-line summary per jurisdiction.
 """
 import hashlib
 import json
-import re
 import sys
 from pathlib import Path
 

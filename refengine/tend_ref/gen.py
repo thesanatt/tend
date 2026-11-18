@@ -202,14 +202,14 @@ class _ClaimBuilder:
         self.items.append(item)
 
     def everyday(self, count: int) -> None:
-        expenses, weights = zip(*EXPENSE_WEIGHTS.items())
+        expenses, weights = zip(*EXPENSE_WEIGHTS.items(), strict=True)
         for expense in self.rng.choices(expenses, weights, k=count):
             self.add(expense)
 
     def split(self, total: int, parts: int) -> list[int]:
         # `parts` non-negative integers that sum to exactly `total`.
         cuts = sorted(self.rng.randint(0, total) for _ in range(parts - 1))
-        return [b - a for a, b in zip([0] + cuts, cuts + [total])]
+        return [b - a for a, b in zip([0] + cuts, cuts + [total], strict=True)]
 
 
 def _incident_date(rng: random.Random) -> date:

@@ -23,7 +23,14 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "api"))
 
 from tend_api import classify as C  # noqa: E402
-from tend_api.bill import BillRefused, extract_bill, service_date  # noqa: E402
+from tend_api.bill import (  # noqa: E402
+    BillRefused,
+    balance_checks,
+    extract_bill,
+    match_expense,
+    parse_text_bill,
+    service_date,
+)
 from tend_api.nessie import BankSnapshot, Txn  # noqa: E402
 
 OUT = ROOT / "web" / "tests" / "local" / "fixtures" / "classify-parity.json"
@@ -195,6 +202,15 @@ FACT_CASES = [
     F("purchase", "Shop", "", "[payee:x]atm"),
     F("purchase", "Shop", "", "bus\tfare"),
     F("purchase", "İstanbul Kebab", "", "takeout"),
+    # With re.IGNORECASE Python's "i" also takes the dotless i (U+0131). A dotted capital I lowercases to
+    # i plus a combining dot before any rule sees it, so that one matches nothing on either side.
+    F("purchase", "Shop", "", "physıcıan visit"),
+    F("purchase", "Shop", "", "urgent care clınıc"),
+    F("purchase", "Rıverbend General Hospıtal", "", "x"),
+    F("purchase", "Shop", "", "PHYSİCİAN"),
+    F("purchase", "Shop", "", "ſane exam"),
+    F("purchase", "Shop", "", "locKsmith"),
+    F("purchase", "Shop", "", "grocıerıes"),
 ]
 
 REASON_CASES = [
@@ -216,7 +232,137 @@ REASON_CASES = [
     ("rideshare to clinic", "transportation"),
     ("café purchase", "unknown"),
     ("x", "other"),
+    ("elıgible for help", "counseling"),
+    ("ELİGİBLE", "counseling"),
+    ("Thıs ıs fıne", "security"),
+    ("qualıfıes under the law", "medical"),
 ]
+
+# (expense, kind, text) for item_shape: sessions by kind, the nights a lodging row names, and tags.
+SHAPE_CASES = [
+    ("counseling", "purchase", "Counseling session"),
+    ("counseling", "withdrawal", ""),
+    ("counseling", "bill_line", "Counseling session"),
+    ("counseling", "bill", "Clearwater Counseling Group"),
+    ("counseling", "deposit", ""),
+    ("temporary_housing", "purchase", "Harbor Inn 3 nights"),
+    ("temporary_housing", "purchase", "3-night stay"),
+    ("temporary_housing", "purchase", "12 days"),
+    ("temporary_housing", "purchase", "10 - NIGHTS"),
+    ("temporary_housing", "purchase", "100 nights"),
+    ("temporary_housing", "purchase", "room 7nights"),
+    ("temporary_housing", "purchase", "night 2"),
+    ("temporary_housing", "purchase", ""),
+    # A letter beside the number or the word leaves no word boundary, whatever its script.
+    ("temporary_housing", "purchase", "é12 days"),
+    ("temporary_housing", "purchase", "99 nightsı"),
+    ("temporary_housing", "purchase", "ſ2 nights"),
+    # Only the digits 0 to 9 count; the letter i takes its dotted and dotless forms.
+    ("temporary_housing", "purchase", "٣ nights"),
+    ("temporary_housing", "purchase", "３ nights"),
+    ("temporary_housing", "purchase", "2 NİGHTS"),
+    ("temporary_housing", "purchase", "2 nıghts"),
+    ("lost_wages", "deposit", "payroll"),
+    ("property_replacement", "purchase", "new cell phone and wallet"),
+    ("property_replacement", "purchase", "car seat"),
+    ("property_replacement", "purchase", "cart"),
+    ("property_replacement", "purchase", "[payee:phone] cash"),
+    ("property_replacement", "purchase", "JEWELLERY box"),
+    ("medical", "purchase", "phone, 3 nights"),
+    ("transportation", "purchase", "cab"),
+]
+
+
+# Bill text where a port could drift from parse_text_bill: date forms and the years it takes, the
+# shapes of an amount and the largest one a browser holds exactly, credits, the lines that carry a
+# provider or a total, and the spaces and line breaks Python and JavaScript count differently.
+BILL_TEXT_CASES = [
+    ("Riverbend General Hospital\n06/14/2026  Emergency department visit  325.00\n06/14/2026  Laboratory panel  43.00\n"
+     "Total  368.00\n"),
+    "Clinic\n6/14/26  Counseling session  $120.00\n6/21/26  Counseling session  $120.00\nAmount due  $240.00\n",
+    "Clinic\n1 2026-06-14  Forensic exam  $1,171.75\n2 2026-06-14  Pharmacy  $12.50\nTotal charges  $1,184.25\n",
+    "Clinic\n06/14/2026  X-ray   443.00   400.00   43.00\n06/14/2026  Lab   80.00   0.00   80.00\nBalance due  123.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\n06/20/2026  Payment received  -20.00\nTotal  43.00\nAmount due  23.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\n06/20/2026  Payment received  (20.00)\nInsurance payment  -$5.00\nYou owe  18.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\nAdjustment  ($5.00)\nDiscount  5.00\nTotal  43.00\nPlease pay  33.00\n",
+    ("Provider: Lakeside Clinic\nStatement date: 06/20/2026\nBill ID # LC-77\nAccount number: 4471\n"
+     "06/14/2026  Dental exam  95.00\nTotal  95.00\n"),
+    ("Statement    Facility : Northside Urgent Care\nAccount: 12-A\n06/14/2026  Urgent care visit  150.00\n"
+     "Patient responsibility  150.00\n"),
+    "FICTIONAL DEMO, not a real bill\nClinic\n06/14/2026  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab ........ 43.00\n06/14/2026 - CT scan - $900\nSubtotal 943.00\nTotal 943.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\n06/15/2026  Lab  43.00\nTotal  80.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\n",
+    "Clinic\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  12.5\nTotal  12.50\n",
+    "Clinic\n06/14/2026  Lab  1,17.75\nTotal  117.75\n",
+    "Clinic\n06/14/2026 43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026x  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n06/31/2026  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n2/29/24  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n2/29/25  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n13/01/2026  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n6/14/202  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n0001-06-14  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2201  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n12/31/1900  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  (43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  90071992547409.91\nTotal  90071992547409.91\n",
+    "Clinic\n06/14/2026  Lab  90071992547409.92\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\nTotal  $99999999999999999999\n",
+    "Clinic\r\n06/14/2026  Lab  43.00\r06/14/2026  Pharmacy  7.00\x0cTotal  50.00\x0b",
+    "Clinic\x8506/14/2026  Lab  43.00 06/14/2026  Pharmacy  7.00 Total  50.00\x1c\x1d\x1e",
+    "Clinic\n06/14/2026  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n\t06/14/2026\tLab\t43.00\t\n\tTotal\t43.00\n",
+    "Café Santé Clinic\n06/14/2026  éclinic visit  43.00\n06/14/2026  naïve therapy  60.00\nTotal  103.00\n",
+    "Clinic\n06/14/2026  SANE exam  0.00\n06/14/2026  Lab  43.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\n٦/14/2026  Lab  ٣.٥٠\n06/14/2026  Lab  ４３.００\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\nTotal  ٤٣.٠٠\n",
+    # Bill text is matched as printed, so "i" in a pattern also takes the dotted capital I and the dotless i.
+    "Clınıc\n06/14/2026  PHYSİCİAN VİSİT  43.00\n06/14/2026  Forensıc exam  0.00\nTotal  43.00\n",
+    "Clinic\n06/14/2026  Lab  43.00\nİnsurance payment  -$5.00\nPatıent responsıbılıty  38.00\n",
+    "FİCTİONAL DEMO\nClinic\n06/14/2026  Lab  43.00\nTotal  43.00\n",
+    # A header key that only matches by case folding names no field.
+    ("Facılıty : Northside\nſtatement date: 06/20/2026\nBİLL İD # 9\nAccount: 7\n"
+     "06/14/2026  Lab  43.00\nAmount due  43.00\n"),
+    "",
+    "\n\n  \n",
+]
+
+
+def shape(expense: str, kind: str, text: str) -> tuple[str | None, int, list[str]]:
+    unit, units, tags = C.item_shape(expense, kind, text)
+    return unit, units, list(tags)
+
+
+def bill_text_reference(text: str) -> dict:
+    """What parse_text_bill reads from text, with each line's expense and whether the bill adds up."""
+    try:
+        bill = parse_text_bill(text, "0" * 64)
+    except BillRefused:
+        return {"text": text, "refused": True}
+    try:
+        balance_checks(bill)
+        balanced = True
+    except BillRefused:
+        balanced = False
+    return {
+        "text": text,
+        "refused": False,
+        "lines": [{"line_no": ln.line_no, "date": ln.date.isoformat(), "description": ln.description,
+                   "amount_cents": ln.amount_cents, "columns_cents": ln.columns_cents,
+                   "expense": match_expense(ln.description)[0]} for ln in bill.lines],
+        "provider": bill.provider,
+        "statement_date": bill.statement_date,
+        "bill_id": bill.bill_id,
+        "account_ref": bill.account_ref,
+        "fictional": bill.fictional,
+        "total_cents": bill.total_cents,
+        "amount_due_cents": bill.amount_due_cents,
+        "adjustments": bill.adjustments,
+        "balanced": balanced,
+    }
 
 
 def bill_reference(path: Path) -> dict:
@@ -271,12 +417,16 @@ def main() -> None:
         "personas": personas,
         "facts": facts,
         "reasons": [{"text": t, "label": label, "out": C.clean_reason(t, label)} for t, label in REASON_CASES],
+        "shapes": [dict(zip(("expense", "kind", "text", "unit", "units", "tags"),
+                            (e, k, t, *shape(e, k, t)), strict=True)) for e, k, t in SHAPE_CASES],
         "bills": [bill_reference(p) for p in BILL_PDFS],
+        "bill_texts": [bill_text_reference(t) for t in BILL_TEXT_CASES],
     }
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(body, separators=(",", ":"), ensure_ascii=True) + "\n")
     print(f"wrote {rel(OUT)}: {len(personas)} personas, {len(facts)} fact cases, "
-          f"{len(REASON_CASES)} reason cases, {len(body['bills'])} bills")
+          f"{len(REASON_CASES)} reason cases, {len(SHAPE_CASES)} shape cases, {len(body['bills'])} bills, "
+          f"{len(BILL_TEXT_CASES)} bill texts")
 
 
 if __name__ == "__main__":

@@ -24,7 +24,7 @@ def test_parse_cents(text, cents):
     assert parse_cents(text) == cents
 
 
-@pytest.mark.parametrize("text", ["12.5", "abc", "(12.00", "1,23.00", "", "$12.345"])
+@pytest.mark.parametrize("text", ["12.5", "abc", "(12.00", "1,23.00", "", "$12.345", "90071992547409.92", "9" * 20])
 def test_parse_cents_rejects_malformed(text):
     with pytest.raises(ValueError):
         parse_cents(text)

@@ -7,21 +7,21 @@ Figma styles with the same names.
 
 ## Color
 
-| Token           | Light     | Dark      | Use                                                    |
-| --------------- | --------- | --------- | ------------------------------------------------------ |
-| `paper`         | `#F6F2E9` | `#141412` | Page background                                        |
-| `paper-raised`  | `#FBF8F2` | `#1C1C19` | Sheets, the bill, summary panels                       |
-| `paper-sunk`    | `#ECE6DA` | `#22221E` | Footer, code listings, scripts to read aloud           |
-| `ink`           | `#1C1B18` | `#ECE7DC` | Body text, ledger rules, Exit this page button         |
-| `ink-2`         | `#4A463E` | `#BEB8AB` | Secondary text                                         |
-| `ink-3`         | `#6A655B` | `#989284` | Meta text, not-counted amounts                         |
-| `line`          | `#D8D1C3` | `#36352F` | Hairlines                                              |
-| `line-strong`   | `#857E70` | `#77726A` | Form field borders (3:1 against paper)                 |
-| `green`         | `#1F5136` | `#8CC4A0` | Primary action, links, eligible, every plant           |
-| `green-strong`  | `#163D28` | `#A9D6B8` | Primary hover                                          |
-| `green-tint`    | `#E2EADF` | `#1D2C22` | Quote highlight, selected answer, leaf fill            |
-| `clay`          | `#9B4E33` | `#DA9677` | Held bills only                                        |
-| `clay-tint`     | `#F2E2D8` | `#36241C` | Held bill row background                               |
+| Token          | Light     | Dark      | Use                                            |
+| -------------- | --------- | --------- | ---------------------------------------------- |
+| `paper`        | `#F6F2E9` | `#141412` | Page background                                |
+| `paper-raised` | `#FBF8F2` | `#1C1C19` | Sheets, the bill, summary panels               |
+| `paper-sunk`   | `#ECE6DA` | `#22221E` | Footer, code listings, scripts to read aloud   |
+| `ink`          | `#1C1B18` | `#ECE7DC` | Body text, ledger rules, Exit this page button |
+| `ink-2`        | `#4A463E` | `#BEB8AB` | Secondary text                                 |
+| `ink-3`        | `#6A655B` | `#989284` | Meta text, not-counted amounts                 |
+| `line`         | `#D8D1C3` | `#36352F` | Hairlines                                      |
+| `line-strong`  | `#857E70` | `#77726A` | Form field borders (3:1 against paper)         |
+| `green`        | `#1F5136` | `#8CC4A0` | Primary action, links, eligible, every plant   |
+| `green-strong` | `#163D28` | `#A9D6B8` | Primary hover                                  |
+| `green-tint`   | `#E2EADF` | `#1D2C22` | Quote highlight, selected answer, leaf fill    |
+| `clay`         | `#9B4E33` | `#DA9677` | Held bills only                                |
+| `clay-tint`    | `#F2E2D8` | `#36241C` | Held bill row background                       |
 
 Contrast, light theme, against `paper`: ink 15.4, ink-2 8.4, ink-3 5.2, green 8.2, clay 5.3.
 Dark theme: ink 15.0, ink-2 9.3, ink-3 6.0, green 9.2, clay 7.6. Every text pair passes WCAG AA.
@@ -35,16 +35,16 @@ Three families, all self-hosted through `next/font` (the browser never calls Goo
 - **Atkinson Hyperlegible Next** (the 2025 revision of Atkinson Hyperlegible): all body and UI text.
 - **Atkinson Hyperlegible Mono**: ledger amounts, dates, codes, the compiled law listing, so columns line up.
 
-| Token          | Size                      | Line height | Use                                 |
-| -------------- | ------------------------- | ----------- | ----------------------------------- |
-| `text-xs`      | 14px                      | 1.45        | Meta, tags, captions                |
-| `text-sm`      | 16px                      | 1.5         | Secondary UI, tables                |
-| `text-md`      | 18px                      | 1.6         | Body (the base size)                |
-| `text-lg`      | 21px                      | 1.5         | Lead paragraphs                     |
-| `text-xl`      | 26px                      | 1.15        | Bed and section titles (serif)      |
-| `text-2xl`     | 28 to 34px (fluid)        | 1.15        | Page sections (serif)               |
-| `text-3xl`     | 36 to 52px (fluid)        | 1.06        | Page titles (serif, weight 560)     |
-| `text-display` | 44 to 72px (fluid)        | 1.0         | The claim total (serif, weight 500) |
+| Token          | Size               | Line height | Use                                 |
+| -------------- | ------------------ | ----------- | ----------------------------------- |
+| `text-xs`      | 14px               | 1.45        | Meta, tags, captions                |
+| `text-sm`      | 16px               | 1.5         | Secondary UI, tables                |
+| `text-md`      | 18px               | 1.6         | Body (the base size)                |
+| `text-lg`      | 21px               | 1.5         | Lead paragraphs                     |
+| `text-xl`      | 26px               | 1.15        | Bed and section titles (serif)      |
+| `text-2xl`     | 28 to 34px (fluid) | 1.15        | Page sections (serif)               |
+| `text-3xl`     | 36 to 52px (fluid) | 1.06        | Page titles (serif, weight 560)     |
+| `text-display` | 44 to 72px (fluid) | 1.0         | The claim total (serif, weight 500) |
 
 Prose amounts use the body face; amounts in tables and ledgers use the mono face.
 

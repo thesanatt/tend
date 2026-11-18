@@ -113,7 +113,8 @@ describe("payment errors, worded by status and never in the service's English", 
     expect(proposeProblem(new ApiError("demo persona", 403), en)).toBe(en.pay.notDemoAccount);
     expect(proposeProblem(new Error("boom"), en)).toBe(en.pay.prepareFailed);
     // The bank's copy of the bill already has Tend's payment (a rehearsal before seed/reset_demo.py).
-    const paid = "Tend already paid these lines of this bill: $118.00 on 2026-10-03 (bank record x). Nothing moved this time.";
+    const paid =
+      "Tend already paid these lines of this bill: $118.00 on 2026-10-03 (bank record x). Nothing moved this time.";
     expect(proposeProblem(new ApiError(paid, 409), en)).toBe(en.pay.alreadyPaid);
     expect(proposeProblem(new ApiError(paid, 409), es)).toBe(es.pay.alreadyPaid);
     expect(confirmProblem(new ApiError(paid, 409), en)).toEqual({ text: en.pay.alreadyPaid, phase: "dead" });

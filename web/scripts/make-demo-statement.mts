@@ -19,6 +19,8 @@ const pdfKeys = fromPdf.txns.map(key).sort();
 const csvKeys = fromCsv.txns.map(key).sort();
 const same = pdfKeys.length === csvKeys.length && pdfKeys.every((k, i) => k === csvKeys[i]);
 console.log(`wrote ${out}: ${pages} pages, ${bytes.length} bytes`);
-console.log(`PDF read: ${fromPdf.txns.length} transactions (${fromPdf.format}, ${fromPdf.layout}); CSV: ${fromCsv.txns.length}; same dates and amounts: ${same}`);
+console.log(
+  `PDF read: ${fromPdf.txns.length} transactions (${fromPdf.format}, ${fromPdf.layout}); CSV: ${fromCsv.txns.length}; same dates and amounts: ${same}`,
+);
 if (fromPdf.warnings.length) console.log("warnings:", fromPdf.warnings.slice(0, 5));
 if (!same) process.exit(1);
