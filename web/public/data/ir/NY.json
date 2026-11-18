@@ -1,8 +1,8 @@
 {
  "ir_version": 2,
  "jurisdiction": "NY",
- "source_sha256": "c18e3a87e8a4dbfa48aafff958f09abebb7506ca353de7ce2e00a96f26e7ca2a",
- "ir_sha256": "02b27464ac3396b0488127bacdbd896bdd597b09ac9e5041a1551cbb449b1493",
+ "source_sha256": "cd5882b7beff374638d420d90caaa7d667013aa1de50b548608deb6036b81056",
+ "ir_sha256": "ec4e884245073995b17824633fd0a2ab569b0a6d91ca9a8a6facae18124a2a22",
  "fresh": true,
  "rules": [
   {
@@ -237,6 +237,11 @@
   {
    "id": "NY-COLLAT-2",
    "kind": "collateral"
+  },
+  {
+   "id": "NY-NEED-1",
+   "kind": "info",
+   "category": "minimum_loss"
   },
   {
    "id": "NY-CONDUCT-1",
