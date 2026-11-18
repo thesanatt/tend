@@ -1,0 +1,461 @@
+id,date,money_out,description,merchant,category,proposed,reviewed,source,note
+h001,2026-01-06,5.83,STARBUCKS STORE 08412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h002,2026-01-07,15.49,NETFLIX.COM NETFLIX.COM CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h003,2026-01-08,74.12,KROGER #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h004,2026-01-09,21.40,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",ride before the incident date
+h005,2026-01-09,-1184.36,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual paycheck before the incident date
+h006,2026-01-11,38.20,SHELL OIL 57412044 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h007,2026-01-12,1842.00,LAKESHORE CC TUITION PMT YPSILANTI MI,,,tuition,,"card line: the merchant name as a card network cuts it, then city and state",unsure: paid before the incident date; tuition for a term the incident interrupted can still count
+h008,2026-01-12,164.37,BARNES&NOBLE COLLEGE #412 ALLENDALE MI,,,unknown,,"card line with a store number, then city and state","unsure: campus bookstore, books and not tuition"
+h009,2026-01-13,23.41,CVS/PHARMACY #08412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",a bare pharmacy chain row; the chain sells groceries and much else
+h010,2026-01-14,95.00,DR R PATEL DDS PC YPSILANTI MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","a dentist visit two months before the incident date, so not a cost of the crime"
+h011,2026-01-15,11.42,CHIPOTLE 1412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h012,2026-01-15,200.00,Online Transfer to SAV ...2210 transaction#: 14412887312 01/15,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h013,2026-01-15,-318.50,Zelle payment from LENAS DINER LLC Conf# p1r5t9w3a,,,unknown,,"money in: pay, a refund, a transfer in or interest",regular pay from a second job
+h014,2026-01-16,218.44,ACH DEBIT DEPT EDUCATION STUDENT LN PPD ID: 1385550155,,,unknown,,"ACH debit line: a company name, an entry description and an ID","student loan payment, not tuition"
+h015,2026-01-17,14.88,LYFT *RIDE SAT 11PM LYFT.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",ride before the incident date
+h016,2026-01-17,10.00,PLANET FITNESS CLUB FEES 866-555-0177 NH,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",gym
+h017,2026-01-18,52.75,OLD NAVY US 5412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",clothing bought two months before the incident date
+h018,2026-01-19,11.99,SPOTIFY USA 877-555-0145 NY,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h019,2026-01-20,150.00,FLYWIRE*GLSU ENROLL DEP BOSTON MA,,,tuition,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",enrollment deposit; paid before the incident date; tuition for a term the incident interrupted can still count
+h020,2026-01-20,96.41,ACH DEBIT DTE ENERGY BILLPAY WEB ID: 1385550138,,,unknown,,"ACH debit line: a company name, an entry description and an ID",
+h021,2026-01-22,52.80,MEIJER # 064 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state","the store, not its pharmacy counter"
+h022,2026-01-23,60.00,ATM WITHDRAWAL 004412 01/23 2550 WASHTENAW AVE YPSILANTI MI,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h023,2026-01-23,-1201.12,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual paycheck before the incident date
+h024,2026-01-24,9.17,MCDONALD'S F12412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h025,2026-01-25,143.20,IKEA CANTON 412 CANTON MI,,,unknown,,"card line with a store number, then city and state",
+h026,2026-01-26,51.30,CHEWY.COM 800-555-0125 FL,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",pet supplies
+h027,2026-01-27,125.00,MINUTECLINIC LLC ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",a clinic visit before the incident date
+h028,2026-01-28,7.34,MEIJER PHARMACY #064 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",a prescription before the incident date
+h029,2026-01-28,350.00,CAPITAL ONE CRCARDPMT WEB ID: 1385550163,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h030,2026-01-29,34.18,BARNES & NOBLE #2412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h031,2026-01-30,289.14,ACH DEBIT ALLY AUTO PYMT WEB ID: 1385550135,,,unknown,,"ACH debit line: a company name, an entry description and an ID",car payment
+h032,2026-01-30,-318.50,Zelle payment from LENAS DINER LLC Conf# p2s6u1x4b,,,unknown,,"money in: pay, a refund, a transfer in or interest",regular pay from a second job
+h033,2026-01-31,60.00,VENMO PAYMENT 1038842217 WEB ID: 1385550133,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h034,2026-02-01,-45.00,VENMO CASHOUT PPD ID: 1385550133,,,unknown,,"money in: pay, a refund, a transfer in or interest",
+h035,2026-02-02,475.00,"Zelle payment to ERIN CALLOWAY for ""feb rent my half""; Conf# b7n3x9q2v",,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",ongoing rent share before the incident
+h036,2026-02-03,89.00,CASHNET*LAKESHORE CC FEE OAKLAND CA,,,tuition,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",unsure: paid before the incident date; tuition for a term the incident interrupted can still count
+h037,2026-02-03,24.60,TST* BLUE HERON DINER Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h038,2026-02-04,35.00,MYSCHOOLBUCKS*AAPS LUNCH 855-555-0159 GA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",school lunch account
+h039,2026-02-05,41.36,TRADER JOE S #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h040,2026-02-06,9.75,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",ride before the incident date
+h041,2026-02-06,-1163.80,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual paycheck before the incident date
+h042,2026-02-08,64.99,BEST BUY 00004127 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h043,2026-02-09,41.75,SPEEDWAY 08412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h044,2026-02-10,29.99,GAMESTOP #4412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h045,2026-02-11,46.20,WAL-MART #2412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",a bare general store row
+h046,2026-02-12,64.00,SQ *PAWS & CLAWS VET C Ypsilanti MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",pet clinic
+h047,2026-02-12,38.00,MI DEPT OF STATE RENEWAL LANSING MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h048,2026-02-13,6.25,SQ *RIVER ST COFFEE RO Ypsilanti MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h049,2026-02-13,200.00,Online Transfer to SAV ...2210 transaction#: 14498120044 02/13,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h050,2026-02-13,-301.22,Zelle payment from LENAS DINER LLC Conf# p3t7v2y5c,,,unknown,,"money in: pay, a refund, a transfer in or interest",regular pay from a second job
+h051,2026-02-14,32.16,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",ride before the incident date
+h052,2026-02-14,189.30,MARRIOTT CHICAGO DWTN MAG CHICAGO IL,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",a hotel a month before the incident date
+h053,2026-02-15,18.50,VENMO *KAYLA M Visa Direct NY,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h054,2026-02-17,412.33,BELLE TIRE 041 ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h055,2026-02-17,10.00,ACH DEBIT PLANET FIT CLUB FEES PPD ID: 1385550137,,,unknown,,"ACH debit line: a company name, an entry description and an ID",gym
+h056,2026-02-18,130.00,MOLLY MAID OF ANN ARBOR ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",regular house cleaning before the incident date
+h057,2026-02-19,28.17,ALDI 72041 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h058,2026-02-20,36.12,THE VITAMIN SHOPPE #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h059,2026-02-20,-1184.36,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual paycheck before the incident date
+h060,2026-02-21,3.00,THERIDE AAATA MOBILE TIX ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",bus fare before the incident date
+h061,2026-02-21,84.17,VZWRLSS*APOCC VISB 800-555-0120 FL,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",phone bill payment
+h062,2026-02-22,31.48,DD *DOORDASH PANERA SAN FRANCISCO CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h063,2026-02-23,140.00,LENSCRAFTERS #0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",eyeglasses before the incident date
+h064,2026-02-24,15.94,CVS/PHARMACY #08412,,Groceries,unknown,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h065,2026-02-25,7.99,HULU 877-555-0147 CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h066,2026-02-25,-812.00,IRS TREAS 310 TAX REF PPD ID: 9111111103,,,unknown,,"money in: pay, a refund, a transfer in or interest",tax refund
+h067,2026-02-26,85.00,MASSAGE ENVY 0412 ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h068,2026-02-27,38.50,GREYHOUND LINES ECOMM DALLAS TX,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",bus ticket before the incident date
+h069,2026-02-27,12.00,MONTHLY SERVICE FEE,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h070,2026-02-27,-318.50,Zelle payment from LENAS DINER LLC Conf# p4u8w3z6d,,,unknown,,"money in: pay, a refund, a transfer in or interest",regular pay from a second job
+h071,2026-02-28,22.36,MICHAELS STORES 4412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h072,2026-03-01,31.50,ACH DEBIT DELTA DENTAL OF MI PREMIUM PPD ID: 1385550141,,,unknown,,"ACH debit line: a company name, an entry description and an ID","dental insurance premium, not dental care"
+h073,2026-03-02,412.00,NELNET CAMPUS COMMERCE 800-555-0113 NE,,,tuition,,"card line: the merchant name as a card network cuts it, then city and state","tuition payment plan, not a student loan; paid before the incident date; tuition for a term the incident interrupted can still count"
+h074,2026-03-02,475.00,"Zelle payment to ERIN CALLOWAY for ""march rent my half""; Conf# c2m6t8r4j",,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",ongoing rent share before the incident
+h075,2026-03-03,2.99,APPLE.COM/BILL 866-555-0178 CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h076,2026-03-04,13.77,TACO BELL 030412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h077,2026-03-04,-144.00,STATE OF MICH MI TAX RFD PPD ID: 9111111104,,,unknown,,"money in: pay, a refund, a transfer in or interest",tax refund
+h078,2026-03-05,63.92,WHOLEFDS AAR 10412 ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h079,2026-03-06,15.89,FIVE BELOW 4412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h080,2026-03-06,-1190.02,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual paycheck before the incident date
+h081,2026-03-07,2.75,PARKMOBILE 10412 ANN ARBOR MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",parking before the incident date
+h082,2026-03-08,40.00,APPLE PAY CASH,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo","peer-to-peer cash, no memo"
+h083,2026-03-09,24.00,GREAT CLIPS #4412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h084,2026-03-09,150.00,GLSU PARKING SERVICES ALLENDALE MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",campus parking permit before the incident date
+h085,2026-03-10,12.00,SQ *SUDS EXPRESS WASH Ypsilanti MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",car wash
+h086,2026-03-10,-30.00,Zelle payment from ALEX RIVERA Conf# r3c7e2h5n,,,unknown,,"money in: pay, a refund, a transfer in or interest",
+h087,2026-03-11,4.25,NYTIMES*NYTIMES DISC 800-555-0148 NY,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h088,2026-03-12,36.04,BP#9412877 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h089,2026-03-12,60.00,COMCAST XFINITY 800-555-0139 MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h090,2026-03-13,42.10,TST* NOODLE BAR ON MAIN Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h091,2026-03-13,-318.50,Zelle payment from LENAS DINER LLC Conf# p5v9x4a7e,,,unknown,,"money in: pay, a refund, a transfer in or interest",regular pay from a second job
+h092,2026-03-14,150.00,ST ANNE MERCY HOSP ED YPSILANTI MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",emergency department charge on the incident date
+h093,2026-03-14,14.20,prescription pickup,Kestrel Community Pharmacy,Pharmacy,prescription,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h094,2026-03-14,129.47,HAMPTON INN ANN ARBOR-S ANN ARBOR MI,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h095,2026-03-14,18.42,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as the emergency department charge
+h096,2026-03-14,6.00,ST ANNE MERCY PARKING YPSILANTI MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state","hospital parking, same day as the emergency department charge"
+h097,2026-03-14,7.85,ST ANNE MERCY CAFETERIA YPSILANTI MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","hospital cafeteria, food and not care"
+h098,2026-03-15,180.00,sexual assault forensic exam,St. Anne Mercy Hospital,Health care,forensic_exam,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h099,2026-03-15,68.31,MOTEL 6 #1148 YPSILANTI MI,,,temporary_housing,,"card line with a store number, then city and state",
+h100,2026-03-15,185.00,POP-A-LOCK ANN ARBOR ANN ARBOR MI,,,security,,"card line: the merchant name as a card network cuts it, then city and state",locksmith
+h101,2026-03-15,64.37,OLD NAVY US 5412 ANN ARBOR MI,,,clothing_bedding,,"card line with a store number, then city and state","unsure: clothing-only store, ordinary shopping looks the same"
+h102,2026-03-15,83.12,"sheet set, pillows, towels",Target,Department store,clothing_bedding,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h103,2026-03-15,36.48,"underwear, socks, sweatpants",Walmart,Department store,clothing_bedding,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h104,2026-03-15,58.14,TARGET 00024127 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: a bare general store row the day after the incident
+h105,2026-03-16,30.00,CONCENTRA 0412 ANN ARBOR MI,,,medical,,"card line with a store number, then city and state",urgent care chain
+h106,2026-03-16,60.00,SAFE EXAM PROGRAM ST ANNE YPSILANTI MI,,,forensic_exam,,"card line: the merchant name as a card network cuts it, then city and state","unsure: SAFE is a sexual assault forensic exam, a reader may not know"
+h107,2026-03-16,240.00,SQ *A1 LOCK AND KEY Ypsilanti MI,,,security,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h108,2026-03-16,850.00,AFTERMATH SERVICES LLC AURORA IL,,,crime_scene_cleanup,,"card line: the merchant name as a card network cuts it, then city and state",biohazard cleanup company
+h109,2026-03-16,240.00,KINDERCARE #301412 ANN ARBOR MI,,,childcare,,"card line with a store number, then city and state",
+h110,2026-03-16,199.00,ASURION WIRELESS INSURAN 866-555-0152 TN,,,property_replacement,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a direct Asurion charge is usually the deductible on a phone claim
+h111,2026-03-16,41.20,H&M0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state","unsure: returned a week later for the full amount, so nothing was paid in the end"
+h112,2026-03-16,11.87,LYFT *RIDE MON 8AM LYFT.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as the Concentra visit
+h113,2026-03-16,112.48,AMAZON.COM*2K4TY81X0 AMZN.COM/BILL WA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a bare general store row two days after the incident
+h114,2026-03-17,35.00,HURON FAMILY MEDICINE PC,,Health & Wellness,medical,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h115,2026-03-17,185.00,ASPEN DENTAL ANN ARBOR MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",
+h116,2026-03-17,412.60,EXTENDED STAY AMER #7412 ANN ARBOR MI,,,temporary_housing,,"card line with a store number, then city and state",
+h117,2026-03-17,62.48,"deadbolt, door chain",Fulton Hardware,Hardware,security,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h118,2026-03-17,475.00,SQ *TRAUMA SCENE CLEAN Detroit MI,,,crime_scene_cleanup,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h119,2026-03-17,829.99,replacement handset,Metro Wireless Store,Telecom,property_replacement,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h120,2026-03-17,9.36,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as a dentist and a family medicine visit
+h121,2026-03-18,20.00,UNIVERSITY HEALTH SERVICE,,Health & Wellness,medical,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h122,2026-03-18,99.99,RING.COM SANTA MONICA CA,,,security,,"card line: the merchant name as a card network cuts it, then city and state",doorbell camera maker
+h123,2026-03-18,1200.00,BIO-ONE OF ANN ARBOR ANN ARBOR MI,,,crime_scene_cleanup,,"card line: the merchant name as a card network cuts it, then city and state",biohazard cleanup franchise
+h124,2026-03-18,249.00,UBREAKIFIX 0412 ANN ARBOR MI,,,property_replacement,,"card line with a store number, then city and state","unsure: phone and laptop repair, not a new device"
+h125,2026-03-18,58.90,GAP OUTLET US 7721 HOWELL MI,,,clothing_bedding,,"card line with a store number, then city and state",unsure: clothing-only store
+h126,2026-03-18,50.00,ACH DEBIT ROBINHOOD DEBITS PPD ID: 1385550167,,,unknown,,"ACH debit line: a company name, an entry description and an ID",
+h127,2026-03-19,125.00,MINUTECLINIC LLC ANN ARBOR MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h128,2026-03-19,45.00,APARTMENTS.COM APP FEE CHICAGO IL,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",rental application fee
+h129,2026-03-19,279.96,SIMPLISAFE BOSTON MA,,,security,,"card line: the merchant name as a card network cuts it, then city and state",home alarm
+h130,2026-03-19,300.00,"biohazard cleanup, bedroom",Spaulding Decon,Home services,crime_scene_cleanup,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h131,2026-03-19,119.00,SQ *CPR CELL PHONE REP Ypsilanti MI,,,property_replacement,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",unsure: phone repair shop
+h132,2026-03-19,389.00,MATTRESS FIRM 041022 ANN ARBOR MI,,,clothing_bedding,,"card line with a store number, then city and state",unsure: a mattress as bedding
+h133,2026-03-19,1.50,THERIDE AAATA MOBILE TIX ANN ARBOR MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state","bus fare, same day as the MinuteClinic visit"
+h134,2026-03-19,97.44,COSTCO WHSE #0391 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state","the warehouse, not its pharmacy counter"
+h135,2026-03-20,9.00,EXPRESS SCRIPTS ST LOUIS MO,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",mail-order pharmacy
+h136,2026-03-20,89.90,U-HAUL MOVING & STORAGE YPSILANTI MI,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",
+h137,2026-03-20,310.00,MR REKEY LOCKSMITH ANN ARBOR MI,,,security,,"card line: the merchant name as a card network cuts it, then city and state",
+h138,2026-03-20,214.00,"handbag, wallet",Coach Outlet,Accessories,property_replacement,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",unsure: a handbag and wallet purchase; the row does not say it replaces one
+h139,2026-03-20,47.66,AMERICAN EAGLE 00412 NOVI MI,,,clothing_bedding,,"card line with a store number, then city and state",unsure: clothing-only store
+h140,2026-03-20,19.99,"sleep aid, vitamins",Walgreens,Pharmacy,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives","over-the-counter items, not a prescription"
+h141,2026-03-20,640.00,SERVPRO OF ANN ARBOR ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a restoration company that also does biohazard cleanup; the row cannot tell which
+h142,2026-03-20,-612.40,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,lost_wages,,"money in: pay, a refund, a transfer in or interest","about half the usual check, the first one after the incident date"
+h143,2026-03-21,75.00,visit copay,Parkside Urgent Care,Health care,medical,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h144,2026-03-21,356.12,AIRBNB * HMQ2K4XW8T AIRBNB.COM CA,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h145,2026-03-21,39.95,U-HAUL CTR WASHTENAW AVE ANN ARBOR MI,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",
+h146,2026-03-21,225.00,BILL PAYMENT TO MI BIOHAZARD RESPONSE LLC CONF #51902,,,crime_scene_cleanup,,online bill pay line,
+h147,2026-03-21,699.00,laptop (replaces stolen one),Micro Center,Electronics,property_replacement,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h148,2026-03-21,200.00,ATM WITHDRAWAL 004412 03/21 2550 WASHTENAW AVE YPSILANTI MI,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h149,2026-03-22,5.00,Rx copay,Walgreens,Pharmacy,prescription,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h150,2026-03-22,212.44,PENSKE TRK LSG 041210 YPSILANTI MI,,,relocation,,"card line with a store number, then city and state",truck leasing
+h151,2026-03-22,640.00,TWO MEN AND A TRUCK ANN A ANN ARBOR MI,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",
+h152,2026-03-22,129.00,WYZE LABS INC KIRKLAND WA,,,security,,"card line: the merchant name as a card network cuts it, then city and state","unsure: sells home cameras, and other gadgets too"
+h153,2026-03-22,185.00,replacement car key and fob,Key Pro Mobile,Auto services,property_replacement,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h154,2026-03-22,35.00,CASH APP*TAYLOR B SAN FRANCISCO CA,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h155,2026-03-23,45.00,SQ *WOMENS HEALTH ASSO Ann Arbor MI,,,medical,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h156,2026-03-23,34.12,"boxes, tape, mattress bag",Box & Ship Supply,Moving supplies,relocation,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h157,2026-03-23,58.30,GREAT LAKES LOCK & SAFE,,Home,security,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h158,2026-03-23,310.00,BRIGHT HORIZONS 0871 ANN ARBOR MI,,,childcare,,"card line with a store number, then city and state",
+h159,2026-03-23,14.20,PURCHASE AUTHORIZED ON 03/23 LYFT *RIDE MON 2PM LYFT.COM CA S586082412881571 CARD 4821,,,transportation,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",same day as the women's health visit
+h160,2026-03-23,-41.20,H&M0412 ANN ARBOR MI,,,unknown,,"money in: pay, a refund, a transfer in or interest",the return of the Mar 16 purchase
+h161,2026-03-24,140.00,SQ *R. OKAFOR LMSW Ann Arbor MI,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",LMSW is a clinical social worker license
+h162,2026-03-24,75.00,new account setup deposit,City of Ypsilanti Utilities,Utilities,relocation,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h163,2026-03-24,39.99,VIVINT INC/US PROVO UT,,,security,,"card line: the merchant name as a card network cuts it, then city and state",home alarm
+h164,2026-03-24,350.00,"Zelle payment to MARCUS BELL for ""used macbook, mine was taken""; Conf# x7p2r9d4g",,,property_replacement,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h165,2026-03-24,1500.00,LAW OFFICES OF M HARTWELL ANN ARBOR MI,,,legal,,"card line: the merchant name as a card network cuts it, then city and state",
+h166,2026-03-24,12.75,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as a therapy session
+h167,2026-03-24,13.10,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","ride home, same day as a therapy session"
+h168,2026-03-25,220.00,crown repair,Cedar Bend Family Dental,Health care,dental,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h169,2026-03-25,1150.00,ACH DEBIT MAPLE RIDGE APTS SEC DEP WEB ID: 1385550111,,,relocation,,"ACH debit line: a company name, an entry description and an ID",security deposit at a new complex
+h170,2026-03-25,50.00,MAPLE RIDGE APTS APP FEE YPSILANTI MI,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",application fee at a new complex
+h171,2026-03-25,4.95,BIGGBY COFFEE #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h172,2026-03-26,1.25,USPS CHANGE OF ADDRESS 800-555-0188 TN,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",
+h173,2026-03-26,289.00,LENSCRAFTERS #0412 ANN ARBOR MI,,,other,,"card line with a store number, then city and state",eyeglasses
+h174,2026-03-26,8.76,WALGREENS #4412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",unsure: a bare pharmacy chain row after the incident; it could be a prescription
+h175,2026-03-27,54.07,POS Withdrawal FIRSTCALL WALK-IN CARE CANTON MIUS,,,medical,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+h176,2026-03-27,180.00,PODS ENTERPRISES 0412 CLEARWATER FL,,,relocation,,"card line with a store number, then city and state",portable moving containers
+h177,2026-03-27,59.80,UNIQLO USA LLC NEW YORK NY,,,clothing_bedding,,"card line: the merchant name as a card network cuts it, then city and state",unsure: clothing-only store
+h178,2026-03-27,250.00,SQ *S. ABDI ATTY AT LA Detroit MI,,,legal,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h179,2026-03-27,212.00,ENTERPRISE RENT-A-CAR 412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state","unsure: a car rental, not a moving truck"
+h180,2026-03-27,280.00,DISCOVER E-PAYMENT 4412 WEB ID: 1385550165,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h181,2026-03-28,88.00,RED ROOF INN #0128 ANN ARBOR MI,,,temporary_housing,,"card line with a store number, then city and state",
+h182,2026-03-28,420.00,"Zelle payment to TOMASZ WROBEL for ""changed locks front + back""; Conf# m4t7b2x9s",,,security,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h183,2026-03-28,17.30,LYFT *RIDE SAT 10PM LYFT.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h184,2026-03-29,299.00,HIREAHELPER 866-555-0149 CA,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",unsure: marketplace for moving labor
+h185,2026-03-29,148.00,BROOKLINEN BROOKLINEN.CO NY,,,clothing_bedding,,"card line: the merchant name as a card network cuts it, then city and state",bedding brand
+h186,2026-03-29,27.84,UBER *EATS HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","food delivery, not a ride"
+h187,2026-03-29,236.00,ANIMAL EMERGENCY CTR 24HR ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",pet clinic
+h188,2026-03-30,412.88,LAKEVIEW HLTH SYS PATIENT PMT 800-555-0114 MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h189,2026-03-30,150.00,ALL MY SONS MOVING & STOR DETROIT MI,,,relocation,,"card line: the merchant name as a card network cuts it, then city and state",
+h190,2026-03-30,185.00,BRIGHTWHEEL* LITTLE ACORN SAN FRANCISCO CA,,,childcare,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",Brightwheel is a child care billing app
+h191,2026-03-30,27.44,THE HOME DEPOT #2712 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: a bare hardware store row; it could be locks or anything else
+h192,2026-03-31,140.00,SQ *R. OKAFOR LMSW Ann Arbor MI,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h193,2026-03-31,3.20,PARKMOBILE 10412 ANN ARBOR MI,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","street parking, same day as a therapy session"
+h194,2026-03-31,4.50,CSC SERVICEWORKS LAUNDRY PLAINVIEW NY,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h195,2026-03-31,-96.00,Zelle payment from LENAS DINER LLC Conf# p6w1y5b8f,,,lost_wages,,"money in: pay, a refund, a transfer in or interest",unsure: less than a third of the usual amount; regular deposits from a business read as pay
+h196,2026-04-01,60.00,DR R PATEL DDS PC YPSILANTI MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",
+h197,2026-04-01,1150.00,YSI*MAPLE RIDGE MOVE-IN 800-555-0102 CA,,,relocation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","move-in charge, YSI is a rent payment processor"
+h198,2026-04-01,45.99,ADT SECURITY SERVICES BOCA RATON FL,,,security,,"card line: the merchant name as a card network cuts it, then city and state",
+h199,2026-04-01,10.44,trip,Lyft,Travel,transportation,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",same day as a dentist visit
+h200,2026-04-01,14.99,AMAZON PRIME*2K4TY02M1 AMZN.COM/BILL WA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h201,2026-04-01,212.09,ACH DEBIT BCBSM PREMIUM PMT PPD ID: 1385550143,,,unknown,,"ACH debit line: a company name, an entry description and an ID",health insurance premium
+h202,2026-04-02,96.40,HURON EMERG PHYS PLC 800-555-0171 MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state","emergency physicians group, billed apart from the hospital"
+h203,2026-04-02,130.00,"Zelle payment to DANA WHITFIELD for ""therapy 4/2""; Conf# h3k9w2m1p",,,counseling,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h204,2026-04-02,22.75,OPTUMRX 800-555-0158 CA,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",mail-order pharmacy
+h205,2026-04-02,175.00,MIFILE*22ND CIRCUIT CT LANSING MI,,,legal,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",court e-filing fee
+h206,2026-04-02,58.03,KROGER #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h207,2026-04-03,250.00,BILL PAYMENT TO LAKEVIEW HLTH SYS MEMO SANE EXAM ACCT 77120,,,forensic_exam,,online bill pay line,SANE is a sexual assault nurse examiner
+h208,2026-04-03,1300.00,"Zelle payment to GREG HOLLOWAY for ""deposit + first month Unit 3B""; Conf# q8w2n5k1d",,,relocation,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h209,2026-04-03,95.00,WARBY PARKER NEW YORK NY,,,other,,"card line: the merchant name as a card network cuts it, then city and state",eyeglasses
+h210,2026-04-03,2.99,APPLE.COM/BILL 866-555-0178 CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h211,2026-04-03,-455.10,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,lost_wages,,"money in: pay, a refund, a transfer in or interest",well under half the usual check
+h212,2026-04-04,512.33,VRBO*HA-8K2LQ1 AUSTIN TX,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h213,2026-04-04,54.99,DSW ARBORLAND MALL ANN ARBOR MI,,,clothing_bedding,,"card line: the merchant name as a card network cuts it, then city and state",unsure: shoe store
+h214,2026-04-04,11.12,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h215,2026-04-05,425.00,BUDGET TRUCK RENTAL 4471 CANTON MI,,,relocation,,"card line with a store number, then city and state",
+h216,2026-04-05,15.20,LYFT *RIDE SUN 6PM LYFT.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h217,2026-04-05,18.39,GRUBHUB*HOLDINGS INC NEW YORK NY,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h218,2026-04-06,28.00,MYCHART*LAKEVIEW HLTH 800-555-0114 MI,,,medical,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h219,2026-04-06,27.54,BRINKS HOME SECURITY 800-555-0164 TX,,,security,,"card line: the merchant name as a card network cuts it, then city and state",
+h220,2026-04-06,60.00,"Zelle payment to PRIYA RAMAN for ""babysitting sat""; Conf# z2c8v5n1r",,,childcare,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h221,2026-04-06,412.00,NELNET CAMPUS COMMERCE 800-555-0113 NE,,,tuition,,"card line: the merchant name as a card network cuts it, then city and state",
+h222,2026-04-06,34.00,OVERDRAFT FEE FOR A TRANSACTION POSTED ON 04/03,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h223,2026-04-07,30.00,IVYPAY*D WHITFIELD LPC SAN DIEGO CA,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","Ivy Pay is a therapist billing app, LPC is a counselor license"
+h224,2026-04-07,44.19,MARATHON PETRO184412 YPSILANTI MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",gas on a therapy day; gas is not a fare
+h225,2026-04-08,95.00,forensic nurse examiner fee,Lakeview Health System,Health care,forensic_exam,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h226,2026-04-08,25.00,CENTERWELL PHARMACY PHOENIX AZ,,Merchandise & Supplies-Pharmacies,prescription,,bank export row: the descriptor in the description and the bank's own category in the category column,mail-order pharmacy
+h227,2026-04-08,55.00,bill payment,Cricket Wireless,Telecom,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",phone bill payment
+h228,2026-04-08,-250.00,REMOTE ONLINE DEPOSIT # 1,,,unknown,,"money in: pay, a refund, a transfer in or interest",mobile check deposit
+h229,2026-04-09,38.15,PURCHASE AUTHORIZED ON 04/08 LABCORP BURLINGTON NC S466098412881570 CARD 4821,,,medical,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+h230,2026-04-09,2000.00,BILL PAYMENT TO GORDON & VANCE PLLC RETAINER CONF #70118,,,legal,,online bill pay line,
+h231,2026-04-09,27.48,PAYPAL INST XFER ETSY INC WEB ID: PAYPALSI77,,,unknown,,"ACH debit line: a company name, an entry description and an ID",
+h232,2026-04-10,160.00,individual session,Open Door Wellness Collective,Health care,counseling,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h233,2026-04-10,12.00,DOLLAR TREE 04412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h234,2026-04-10,14.00,ACH DEBIT LEMONADE INSURANCE PPD ID: 1385550140,,,unknown,,"ACH debit line: a company name, an entry description and an ID",renters insurance premium
+h235,2026-04-11,57.32,QUEST DIAGNOSTICS SECAUCUS NJ,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h236,2026-04-11,149.00,ARLO TECHNOLOGIES ARLO.COM CA,,,security,,"card line: the merchant name as a card network cuts it, then city and state",security cameras
+h237,2026-04-11,88.00,BANFIELD PET HOSPITAL 0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",pet clinic
+h238,2026-04-11,8.47,"paint brushes, drop cloth",Ace Hardware,Hardware,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h239,2026-04-12,97.21,SUPER 8 YPSILANTI YPSILANTI MI,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h240,2026-04-12,72.15,LANE BRYANT #4412 ANN ARBOR MI,,,clothing_bedding,,"card line with a store number, then city and state",unsure: clothing-only store
+h241,2026-04-12,25.00,APPLE CASH SENT MONEY CUPERTINO CA,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo","peer-to-peer cash, no memo"
+h242,2026-04-13,950.00,GREAT LAKES ORAL SURGERY ANN ARBOR MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",
+h243,2026-04-13,425.00,ACH DEBIT TUITION EXPRESS LIL SPROUTS PPD ID: 1385550108,,,childcare,,"ACH debit line: a company name, an entry description and an ID","Tuition Express is a day care payment processor, so this is child care and not school tuition"
+h244,2026-04-13,22.90,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as oral surgery
+h245,2026-04-13,9.99,NORTON *LIFELOCK 877-555-0153 AZ,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","unsure: identity protection, not home security"
+h246,2026-04-14,25.00,HEADWAY HEADWAY.CO NY,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",Headway bills therapy copays
+h247,2026-04-14,2400.00,HOLLOWAY-PIERCE FUNERAL H ANN ARBOR MI,,,funeral,,"card line: the merchant name as a card network cuts it, then city and state",
+h248,2026-04-14,19.06,UBER *EATS HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","food delivery on a therapy day, still not a ride"
+h249,2026-04-14,49.00,ABC*ANYTIME FITNESS 888-555-0143 MN,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",gym
+h250,2026-04-14,64.00,INTUIT *TURBOTAX 800-555-0161 CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",tax software
+h251,2026-04-15,10.00,AMAZON PHARMACY SEATTLE WA,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",
+h252,2026-04-15,895.00,CREMATION SOCIETY OF MI SOUTHFIELD MI,,,funeral,,"card line: the merchant name as a card network cuts it, then city and state",
+h253,2026-04-15,39.00,LEGALZOOM.COM GLENDALE CA,,,legal,,"card line: the merchant name as a card network cuts it, then city and state",
+h254,2026-04-15,7.61,TIM HORTONS #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h255,2026-04-15,-159.25,Zelle payment from LENAS DINER LLC Conf# p7x2z6c9g,,,lost_wages,,"money in: pay, a refund, a transfer in or interest",unsure: half the usual amount
+h256,2026-04-16,60.00,TELADOC*CONSULT LEWISVILLE TX,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h257,2026-04-16,1250.00,BILL PAYMENT TO WASHTENAW MEMORIAL PARK CONF #60214,,,funeral,,online bill pay line,unsure: a memorial park is a cemetery
+h258,2026-04-16,12.39,"milk, bread, snacks",CVS,Pharmacy,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",pharmacy chain selling groceries
+h259,2026-04-16,44.71,INSTACART*1412 SAN FRANCISCO CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h260,2026-04-16,218.44,ACH DEBIT DEPT EDUCATION STUDENT LN PPD ID: 1385550155,,,unknown,,"ACH debit line: a company name, an entry description and an ID","student loan payment, not tuition"
+h261,2026-04-17,35.00,LYRA HEALTH COPAY BURLINGAME CA,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",Lyra is a mental health benefit
+h262,2026-04-17,310.00,SQ *STONEBRIDGE MONUME Ypsilanti MI,,,funeral,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","unsure: cut name, Stonebridge Monuments makes headstones"
+h263,2026-04-17,164.50,AMERICAS BEST CONTACTS & YPSILANTI MI,,,other,,"card line: the merchant name as a card network cuts it, then city and state",
+h264,2026-04-17,48.00,SQ *ZEN NAIL SPA Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h265,2026-04-17,-1184.36,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",back to the usual check
+h266,2026-04-18,320.00,medical forensic exam,Washtenaw Forensic Nursing,Health care,forensic_exam,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h267,2026-04-18,4.99,RING BASIC PLAN 800-555-0141 CA,,,security,,"card line: the merchant name as a card network cuts it, then city and state",camera monitoring plan
+h268,2026-04-18,475.00,service deposit,Greenlawn Chapel & Mortuary,Services,funeral,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h269,2026-04-18,120.00,Zelle payment to SAM ORTEGA Conf# d4k8p1w7z,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",no memo
+h270,2026-04-19,143.80,HOTELS.COM172940551238 HOTELS.COM WA,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h271,2026-04-19,24.05,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h272,2026-04-19,59.99,STEAMGAMES.COM 4259522 BELLEVUE WA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h273,2026-04-20,189.00,NORTHFIELD RADIOLOGY ASSO LIVONIA MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h274,2026-04-20,140.00,SQ *LITTLE LAMBS CHILD Ypsilanti MI,,,childcare,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","cut name, Little Lambs Childcare"
+h275,2026-04-20,5600.00,ACH DEBIT DIGNITY MEMORIAL SVC CONTRACT PPD ID: 1385550160,,,funeral,,"ACH debit line: a company name, an entry description and an ID",funeral home brand
+h276,2026-04-20,1200.00,FACTS TUITION MGMT 866-555-0168 NE,,,tuition,,"card line: the merchant name as a card network cuts it, then city and state",
+h277,2026-04-20,4.00,REPUBLIC PARKING SYS 412 ANN ARBOR MI,,,transportation,,"card line with a store number, then city and state","parking garage, same day as the radiology visit"
+h278,2026-04-20,71.15,ACH DEBIT DTE ENERGY BILLPAY WEB ID: 1385550138,,,unknown,,"ACH debit line: a company name, an entry description and an ID",
+h279,2026-04-21,90.00,PAYPAL *BETTERHELP MOUNTAIN VIEW CA,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h280,2026-04-21,180.00,NEPTUNE SOCIETY 800-555-0126 FL,,,funeral,,"card line: the merchant name as a card network cuts it, then city and state",cremation company
+h281,2026-04-21,91.02,VZWRLSS*APOCC VISB 800-555-0120 FL,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",phone bill payment
+h282,2026-04-21,26.50,BATH & BODY WORKS 0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h283,2026-04-22,125.00,SQ *BRIGHT SMILES FAMI Saline MI,,,dental,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","unsure: cut name, Bright Smiles Family Dentistry"
+h284,2026-04-22,96.00,LEGACY.COM OBITUARY 888-555-0150 IL,,,funeral,,"card line: the merchant name as a card network cuts it, then city and state",unsure: an obituary notice as a funeral cost
+h285,2026-04-22,9.48,"ibuprofen, bandages, cough drops",CVS,Pharmacy,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives","over-the-counter items, not a prescription"
+h286,2026-04-22,135.00,14A DISTRICT COURT TRAFFI ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a traffic fine paid to a court is not a legal service
+h287,2026-04-23,40.00,DR K ABERNATHY MD PC SALINE MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h288,2026-04-23,85.00,SQ *METRO PROCESS SERV Detroit MI,,,legal,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",unsure: a process server delivers court papers
+h289,2026-04-23,16.05,LYFT *RIDE THU 10AM,,Travel,transportation,,bank export row: the descriptor in the description and the bank's own category in the category column,same day as a doctor visit
+h290,2026-04-24,99.00,GENTLE DENTAL 0118 LIVONIA MI,,,dental,,"card line with a store number, then city and state",
+h291,2026-04-24,22.05,DOMINO'S 1412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h292,2026-04-24,-0.42,INTEREST PAYMENT,,,unknown,,"money in: pay, a refund, a transfer in or interest",
+h293,2026-04-25,5.00,LAKEVIEW HLTH PARKING RAMP ANN ARBOR MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state",unsure: hospital parking ramp on a day with no care charge on the statement; hospitals often bill later
+h294,2026-04-25,1187.20,APPLE STORE #R412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: a bare electronics store row; it could be a replacement device
+h295,2026-04-26,164.02,COURTYARD BY MARRIOTT ANN ANN ARBOR MI,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h296,2026-04-26,23.18,PETSMART # 0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h297,2026-04-27,310.50,BILL PAYMENT TO GREAT LAKES ANESTHESIA PC CONF #48213,,,medical,,online bill pay line,
+h298,2026-04-27,75.00,YMCA SCHOOL AGE CARE ANN ARBOR MI,,,childcare,,"card line: the merchant name as a card network cuts it, then city and state",
+h299,2026-04-27,14.99,HEADSPACE INC HEADSPACE.COM CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a meditation app subscription is not counseling
+h300,2026-04-28,69.00,TALKSPACE NEW YORK NY,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",
+h301,2026-04-28,64.99,JIFFY LUBE #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h302,2026-04-28,300.00,CHASE CREDIT CRD AUTOPAY PPD ID: 1385550166,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h303,2026-04-29,31.60,CVS CAREMARK MAIL SVC 800-555-0116 IL,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",mail-order pharmacy
+h304,2026-04-29,12.60,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","unsure: the only care row that day is a mail-order pharmacy charge, which is not a visit"
+h305,2026-04-30,67.00,x-ray,Eastside Imaging Center,Health care,medical,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h306,2026-04-30,69.50,MEIJER # 064 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h307,2026-04-30,-318.50,Zelle payment from LENAS DINER LLC Conf# p8y3a7d1h,,,unknown,,"money in: pay, a refund, a transfer in or interest",back to the usual amount
+h308,2026-05-01,99.00,CEREBRAL INC 415-555-0137 CA,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",online mental health care
+h309,2026-05-01,500.00,RIVERA FAMILY LAW PLLC ANN ARBOR MI,,,legal,,"card line: the merchant name as a card network cuts it, then city and state",
+h310,2026-05-01,1150.00,YSI*MAPLE RIDGE APTS 800-555-0102 CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","ongoing rent at the new place, after the move-in month"
+h311,2026-05-01,31.50,ACH DEBIT DELTA DENTAL OF MI PREMIUM PPD ID: 1385550141,,,unknown,,"ACH debit line: a company name, an entry description and an ID","dental insurance premium, not dental care"
+h312,2026-05-01,-1121.90,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",unsure: about 62 dollars under the usual check; the checks before the incident moved by about 20
+h313,2026-05-02,1899.00,MIRACLE-EAR #4412 ANN ARBOR MI,,,other,,"card line with a store number, then city and state",hearing aids
+h314,2026-05-02,27.63,"paper towels, detergent, cat litter",Target,Department store,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h315,2026-05-02,40.00,NON-CHASE ATM WITHDRAW 041288 05/02 318 S STATE ST ANN ARBOR MI,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h316,2026-05-02,3.00,NON-CHASE ATM FEE-WITH,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h317,2026-05-03,6.00,REPUBLIC PARKING SYS 412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",no care visit on the statement that day
+h318,2026-05-03,13.99,GOOGLE *YOUTUBEPREMIUM G.CO/HELPPAY# CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h319,2026-05-03,76.50,HOTEL AT BOOKING.COM AMSTERDAM NL,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","unsure: refunded in full three days later, so nothing was paid in the end"
+h320,2026-05-04,18.12,COSTCO PHARMACY #0391 ANN ARBOR MI,,,prescription,,"card line with a store number, then city and state","pharmacy counter, rung up apart from the store"
+h321,2026-05-04,52.00,evening care 3 hrs,Tiny Tots Playcare,Child services,childcare,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h322,2026-05-04,2310.50,GREAT LAKES STATE UNIV EP ALLENDALE MI,,,tuition,,"card line: the merchant name as a card network cuts it, then city and state","unsure: university e-pay, could be housing or fees"
+h323,2026-05-04,49.00,COURSERA.ORG MOUNTAIN VIEW CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: an online course subscription
+h324,2026-05-05,175.00,THRIVEWORKS 0231 ANN ARBOR MI,,,counseling,,"card line with a store number, then city and state",
+h325,2026-05-05,8.00,CITY OF ANN ARBOR PKG STR ANN ARBOR MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state","parking structure, same day as a therapy session"
+h326,2026-05-06,742.19,TRI-COUNTY EMS BILLING WEB PMTS PPD ID: 1385550142,,,medical,,"ACH debit line: a company name, an entry description and an ID",EMS is an ambulance bill
+h327,2026-05-06,6.58,photo prints,Walgreens,Pharmacy,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h328,2026-05-06,22.00,SQ *HOT YOGA A2 Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h329,2026-05-06,-76.50,HOTEL AT BOOKING.COM AMSTERDAM NL,,,unknown,,"money in: pay, a refund, a transfer in or interest",the refund of the May 3 booking
+h330,2026-05-07,310.00,HURON ENDODONTICS PLLC ANN ARBOR MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",root canal specialist
+h331,2026-05-07,19.33,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as the endodontist visit
+h332,2026-05-07,37.25,AFFIRM * PAY 4QK2ZN81 855-555-0172 CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h333,2026-05-08,80.00,SQ *JT COLE LMFT Royal Oak MI,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",LMFT is a marriage and family therapist license
+h334,2026-05-08,20.00,PPO motion filing fee,Washtenaw County Clerk,Government,legal,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h335,2026-05-08,5.40,DUNKIN #341412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h336,2026-05-09,210.00,Debit Card Purchase - WOODSPRING SUITES ROMULUS ROMULUS MI US,,,temporary_housing,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+h337,2026-05-09,312.60,VCA ANIMAL HOSPITAL #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",pet clinic
+h338,2026-05-09,19.08,LOWES #00412* ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h339,2026-05-10,13.47,trip,Uber,Travel,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",no care visit on the statement that day
+h340,2026-05-11,512.00,ST ANNE MERCY HOSP PFS 800-555-0127 MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",PFS is patient financial services
+h341,2026-05-11,260.00,PROCARE*MAPLE TREE ELC 800-555-0109 OR,,,childcare,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","unsure: Procare bills for child care centers, ELC is early learning center"
+h342,2026-05-11,14.20,LAKEVIEW HLTH GIFT SHOP ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",hospital gift shop
+h343,2026-05-12,120.00,SQ *HEALING PATH COUNS Ypsilanti MI,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h344,2026-05-12,27.00,YELLOW CAB OF ANN ARBOR ANN ARBOR MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state",same day as a therapy session
+h345,2026-05-12,65.00,ATT*BILL PAYMENT 800-555-0119 TX,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",phone bill payment
+h346,2026-05-12,60.00,COMCAST XFINITY 800-555-0139 MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h347,2026-05-13,7.34,MEIJER PHARMACY #064 ANN ARBOR MI,,,prescription,,"card line with a store number, then city and state","pharmacy counter, rung up apart from the store"
+h348,2026-05-13,39.66,SUNOCO 0412887 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h349,2026-05-14,220.00,OBGYN SPECIALISTS OF MI PLLC,,Health Care,medical,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h350,2026-05-15,130.00,ACH DEBIT WASHTENAW CMH CLIENT PMT PPD ID: 1386004567,,,counseling,,"ACH debit line: a company name, an entry description and an ID",CMH is community mental health
+h351,2026-05-15,750.00,"Zelle payment to NADIA FARAH for ""legal retainer""; Conf# k1x8d3f6h",,,legal,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h352,2026-05-15,71.40,ULTA #412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h353,2026-05-15,100.00,TRANSFER TO SAVINGS XXXXXX2210,,,unknown,,"a line the bank writes itself: card payment, transfer, ATM or fee",
+h354,2026-05-15,-1184.36,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual check
+h355,2026-05-15,-318.50,Zelle payment from LENAS DINER LLC Conf# p9z4b8e2j,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual amount
+h356,2026-05-16,59.99,KNIGHTS INN LANSING MI,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h357,2026-05-16,72.40,1800CONTACTS INC DRAPER UT,,,other,,"card line: the merchant name as a card network cuts it, then city and state",
+h358,2026-05-16,22.00,"Zelle payment to SAM ORTEGA for ""dinner + drinks""; Conf# f9w2k5h3c",,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h359,2026-05-17,19.90,LYFT *RIDE SUN 1AM LYFT.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h360,2026-05-18,78.00,COMMUNITY DENTAL CTR YPSI,,Health & Wellness,dental,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h361,2026-05-18,300.00,THE GODDARD SCHOOL - ANN ANN ARBOR MI,,,childcare,,"card line: the merchant name as a card network cuts it, then city and state",unsure: preschool and day care franchise
+h362,2026-05-18,325.00,summer term registration,Ypsilanti Adult Education,Education,tuition,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h363,2026-05-18,6.99,PATREON* MEMBERSHIP INTERNET CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h364,2026-05-19,150.00,CENTER FOR TRAUMA RECOVER ANN ARBOR MI,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",
+h365,2026-05-19,1.50,THERIDE AAATA MOBILE TIX ANN ARBOR MI,,,transportation,,"card line: the merchant name as a card network cuts it, then city and state","bus fare, same day as a therapy session"
+h366,2026-05-19,43.19,VERIZON WRLS 12623-01 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: a phone store charge this small reads as an accessory or a bill
+h367,2026-05-20,85.00,ATI PHYSICAL THERAPY 041 CANTON MI,,,medical,,"card line with a store number, then city and state","physical therapy is medical care, not counseling"
+h368,2026-05-20,12.18,trip,Uber,Travel,transportation,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",same day as physical therapy
+h369,2026-05-20,33.00,"1-800-FLOWERS.COM,INC. CARLE PLACE NY",,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h370,2026-05-20,-900.00,"Zelle payment from ERIN CALLOWAY for ""your half of the old deposit back""; Conf# s4d8f3j6p",,,unknown,,"money in: pay, a refund, a transfer in or interest","a returned deposit from the old place, money in"
+h371,2026-05-21,46.90,CAPSULE PHARMACY NEW YORK NY,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",delivery pharmacy
+h372,2026-05-21,16.88,SQ *TACO TRUCK ON 4TH Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h373,2026-05-22,60.00,SONDERMIND DENVER CO,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",
+h374,2026-05-22,39.99,ROCKET LAWYER 877-555-0157 CA,,,legal,,"card line: the merchant name as a card network cuts it, then city and state",
+h375,2026-05-22,9.99,UBER *ONE MEMBERSHIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",membership fee
+h376,2026-05-22,75.00,ACH DEBIT NELNET STUDENT LOAN PMT WEB ID: 1385550156,,,unknown,,"ACH debit line: a company name, an entry description and an ID","student loan payment, not the tuition payment plan"
+h377,2026-05-23,132.11,LA QUINTA INN & SUITES,,Lodging,temporary_housing,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h378,2026-05-23,31.79,AMZN Mktp US*RT4K21AB2 Amzn.com/bill WA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h379,2026-05-24,40.00,DTW AIRPORT PARKING DETROIT MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",no care visit on the statement that day
+h380,2026-05-25,80.00,ONLINE BILL PAY TO LEARNING LADDER CHILD DEV CTR,,,childcare,,online bill pay line,
+h381,2026-05-25,58.40,TST* MAIN STREET TAVERN,,Restaurants,unknown,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h382,2026-05-26,45.00,GROW THERAPY NEW YORK NY,,Health & Wellness,counseling,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h383,2026-05-26,189.00,STANLEY STEEMER #412 ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",carpet cleaning two months later
+h384,2026-05-27,164.20,PHR*HURON ORTHOPAEDIC ANN ARBOR MI,,,medical,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h385,2026-05-27,11.49,medication refill,Tamarack Family Pharmacy,Pharmacy,prescription,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h386,2026-05-27,5.25,SPOTHERO 844-555-0162 IL,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","prepaid parking, same day as the orthopaedic visit"
+h387,2026-05-28,45.00,WASHTENAW PEDIATRIC DENTI ANN ARBOR MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",
+h388,2026-05-28,17.22,"shampoo, greeting card, gum",Rite Aid,Pharmacy,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h389,2026-05-29,150.00,SQ *SOLACE THERAPY GRP Saline MI,,,counseling,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h390,2026-05-29,1200.00,THE VANCE LAW GROUP PC,,Professional Services,legal,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h391,2026-05-29,126.40,ACH DEBIT PROGRESSIVE INS PREM PPD ID: 1385550136,,,unknown,,"ACH debit line: a company name, an entry description and an ID",car insurance premium
+h392,2026-05-29,-888.27,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,lost_wages,,"money in: pay, a refund, a transfer in or interest",about a quarter under the usual check
+h393,2026-05-29,-302.10,Zelle payment from LENAS DINER LLC Conf# q1a5c9f3k,,,unknown,,"money in: pay, a refund, a transfer in or interest","about 16 dollars under, as one check before the incident was"
+h394,2026-05-30,185.40,STATE STREET INN ANN ARBOR,,Travel-Lodging,temporary_housing,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h395,2026-05-30,340.00,HANGER CLINIC #0412 ANN ARBOR MI,,,other,,"card line with a store number, then city and state","prosthetics and braces, a prescribed device and not a clinic visit"
+h396,2026-05-30,67.19,T.J. MAXX #0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: the store sells clothing and home goods both
+h397,2026-05-31,15.00,CASH APP*DEVON R SAN FRANCISCO CA,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h398,2026-06-01,15.00,COSTPLUSDRUGS.COM DALLAS TX,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",
+h399,2026-06-01,45.00,ZELLE TO RAMAN PRIYA ON 06/01 REF #RP0S8K2LQW BABYSITTER,,,childcare,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h400,2026-06-01,695.00,ACH DEBIT GLSU BURSAR STUDENT PMT WEB ID: 1385550170,,,tuition,,"ACH debit line: a company name, an entry description and an ID",
+h401,2026-06-01,1150.00,YSI*MAPLE RIDGE APTS 800-555-0102 CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",ongoing rent
+h402,2026-06-02,200.00,DR M REYES PHD PLLC,,Health & Wellness,counseling,,bank export row: the descriptor in the description and the bank's own category in the category column,unsure: a PhD billed under health is most likely a psychologist
+h403,2026-06-02,70.00,ACH DEBIT T-MOBILE PCS SVC WEB ID: 1385550121,,,unknown,,"ACH debit line: a company name, an entry description and an ID",phone bill payment
+h404,2026-06-03,119.00,WASHTENAW CO HEALTH DEPT YPSILANTI MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h405,2026-06-03,10.90,LYFT *RIDE WED 9AM LYFT.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as the health department visit
+h406,2026-06-03,12.99,CALM.COM 415-555-0144 CA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",unsure: a meditation app subscription is not counseling
+h407,2026-06-04,600.00,KLEIN & OSEI ATTORNEYS LIVONIA MI,,,legal,,"card line: the merchant name as a card network cuts it, then city and state",
+h408,2026-06-04,31.07,WALGREENS #4412,,Health & Wellness,unknown,,bank export row: the descriptor in the description and the bank's own category in the category column,unsure: the bank files every pharmacy chain row under health
+h409,2026-06-05,100.00,ONLINE BILL PAY TO LAKESHORE BEHAVIORAL HLTH,,,counseling,,online bill pay line,
+h410,2026-06-05,36.72,TST* THE COPPER SKILLET Ann Arbor MI,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h411,2026-06-05,74.00,PUBLIC STORAGE 24412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",unsure: a monthly storage unit fee after a move
+h412,2026-06-06,71.24,1 night,Budget Host Inn,Travel,temporary_housing,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h413,2026-06-06,58.00,"wrist brace, crutches (prescribed)",Arbor Medical Supply,Medical equipment,other,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+h414,2026-06-06,20.00,OPENAI *CHATGPT SUBSCR SAN FRANCISCO CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h415,2026-06-07,8.63,UBER *TRIP HELP.UBER.COM CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",no care visit on the statement that day
+h416,2026-06-08,1400.00,ACH DEBIT ORTHODONTIC ASSOC AA AUTOPAY PPD ID: 1385550190,,,dental,,"ACH debit line: a company name, an entry description and an ID",
+h417,2026-06-08,198.00,LA PETITE ACADEMY #7412,,Education,childcare,,bank export row: the descriptor in the description and the bank's own category in the category column,day care chain the bank files under Education
+h418,2026-06-08,8.25,GLSU DINING ALLENDALE MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h419,2026-06-09,110.00,HURON VALLEY PSYCHIATRIC ANN ARBOR MI,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",
+h420,2026-06-09,15.61,UBER *TRIP HELP.UBER.COM CA,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as the psychiatric visit
+h421,2026-06-09,63.00,YMCA OF ANN ARBOR MEMBERS ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","gym membership, not child care"
+h422,2026-06-09,-20.00,CASH APP*CASH OUT VISA DIRECT CA,,,unknown,,"money in: pay, a refund, a transfer in or interest",
+h423,2026-06-10,120.00,ACCREDO HEALTH GROUP MEMPHIS TN,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",specialty pharmacy
+h424,2026-06-10,540.00,ST CLARE CATHOLIC SCHOOL,,Education,tuition,,bank export row: the descriptor in the description and the bank's own category in the category column,unsure: a private school charge is most likely tuition
+h425,2026-06-10,41.00,ETSY.COM - CERAMICSHOP BROOKLYN NY,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h426,2026-06-11,233.00,ACH DEBIT NORTHFIELD HEALTH PB PATIENTPAY XXXXX8841,,,medical,,"ACH debit line: a company name, an entry description and an ID",PB is physician billing
+h427,2026-06-11,18.01,AMZN Mktp US*5H8QW02L1 Amzn.com/bill WA,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h428,2026-06-12,75.00,EMDR INSTITUTE OF MI PLLC TROY MI,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",EMDR is a trauma therapy
+h429,2026-06-12,2.40,PASSPORTPARKING ANN ARBOR ANN ARBOR MI,,,transportation,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",same day as a therapy visit
+h430,2026-06-12,18.75,KLARNA* SHEIN 844-555-0173 OH,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",unsure: a pay-later installment for a clothing order
+h431,2026-06-12,-1196.44,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual check
+h432,2026-06-13,268.00,HOMEWOOD SUITES NOVI NOVI MI,,,temporary_housing,,"card line: the merchant name as a card network cuts it, then city and state",
+h433,2026-06-13,50.00,VENMO PAYMENT 1041190553 WEB ID: 1385550133,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+h434,2026-06-13,88.42,KOHL'S #0412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",unsure: a department store sells clothing and much else
+h435,2026-06-14,1.50,THERIDE AAATA MOBILE TIX ANN ARBOR MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",no care visit on the statement that day
+h436,2026-06-15,150.00,BILL PAYMENT TO K NAKAMURA DMD CONF #77310,,,dental,,online bill pay line,DMD is a dentist
+h437,2026-06-15,120.00,KIDDIE ACADEMY OF CANTON CANTON MI,,,childcare,,"card line: the merchant name as a card network cuts it, then city and state",day care franchise
+h438,2026-06-15,9.99,MICROSOFT*365 PERSONAL MSBILL.INFO WA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+h439,2026-06-15,-318.50,Zelle payment from LENAS DINER LLC Conf# q2b6d1g4m,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual amount
+h440,2026-06-16,20.00,CALMHARBOR TELETHERAPY 855-555-0176 MI,,,counseling,,"card line: the merchant name as a card network cuts it, then city and state",
+h441,2026-06-16,42.31,SHELL OIL 57412044,,Gas,unknown,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h442,2026-06-17,92.61,NORTHFIELD PATHOLOGY PC LIVONIA MI,,,medical,,"card line: the merchant name as a card network cuts it, then city and state",
+h443,2026-06-17,8.14,PANDA EXPRESS #2412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h444,2026-06-17,25.00,ACH DEBIT ACORNS INVEST TRANSFER PPD ID: 1385550169,,,unknown,,"ACH debit line: a company name, an entry description and an ID",
+h445,2026-06-18,64.00,BLINK HEALTH NEW YORK NY,,,prescription,,"card line: the merchant name as a card network cuts it, then city and state",unsure: prescription discount service that sells the medicine itself
+h446,2026-06-18,145.00,"annual exam, vaccines",Westside Veterinary Clinic,Pets,unknown,,"aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",pet clinic
+h447,2026-06-18,38.22,BILL PAYMENT TO CITY OF YPSILANTI WATER CONF #81440,,,unknown,,online bill pay line,"a regular water bill, not a setup deposit"
+h448,2026-06-19,34.90,WM SUPERCENTER #2412 YPSILANTI MI,,,unknown,,"card line with a store number, then city and state",
+h449,2026-06-20,210.00,VISIONWORKS 0412 NOVI MI,,,other,,"card line with a store number, then city and state",
+h450,2026-06-20,200.00,Zelle payment to MOM Conf# g3v7y1n8s,,,unknown,,"person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",no memo
+h451,2026-06-21,4.35,LIME*RIDE 888-555-0146 CA,,,unknown,,"card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name","scooter ride, no care visit on the statement that day"
+h452,2026-06-22,65.00,PERIODONTAL SPEC OF MI NOVI MI,,,dental,,"card line: the merchant name as a card network cuts it, then city and state",gum specialist
+h453,2026-06-22,18.00,MI SEC OF STATE ONLINE LANSING MI,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state",
+h454,2026-06-23,140.00,CHECKCARD 0623 SQ *R. OKAFOR LMSW Ann Arbor MI 24692166174100412881570,,,counseling,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+h455,2026-06-23,12.02,CHECKCARD 0623 UBER *TRIP HELP.UBER.COM CA 24692166174100412881572,,,transportation,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",same day as a therapy session
+h456,2026-06-23,21.20,STAPLES 00104412 ANN ARBOR MI,,,unknown,,"card line with a store number, then city and state",
+h457,2026-06-24,55.38,POS Withdrawal BUSCH'S FRESH FOOD MKT ANN ARBOR MIUS,,,unknown,,"card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+h458,2026-06-25,54.00,AMTRAK .COM 1760412881 WASHINGTON DC,,,unknown,,"card line: the merchant name as a card network cuts it, then city and state","train ticket, no care visit on the statement that day"
+h459,2026-06-26,12.93,JIMMY JOHNS - 412,,Food & Drink,unknown,,bank export row: the descriptor in the description and the bank's own category in the category column,
+h460,2026-06-26,-1184.36,HURON VALLEY FOODS PAYROLL PPD ID: 9111111101,,,unknown,,"money in: pay, a refund, a transfer in or interest",usual check

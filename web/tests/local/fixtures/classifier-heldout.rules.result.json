@@ -1,0 +1,1606 @@
+{
+  "results": [
+    {
+      "set": "classifier-heldout.json",
+      "set_hash": "3c2492917dfdaac8",
+      "run": "rules only",
+      "measured": "2026-11-16",
+      "rows_are": "fictional, written for this set; the mix is chosen by label and is not a sample of real statements",
+      "labels": "proposed by the rows' writer, not reviewed by a person",
+      "score": {
+        "rows": 460,
+        "accuracy": {
+          "k": 257,
+          "n": 460,
+          "p": 0.5587,
+          "lo": 0.513,
+          "hi": 0.6034
+        },
+        "cost": {
+          "k": 33,
+          "n": 230,
+          "p": 0.1435,
+          "lo": 0.104,
+          "hi": 0.1946
+        },
+        "none": {
+          "k": 224,
+          "n": 230,
+          "p": 0.9739,
+          "lo": 0.9443,
+          "hi": 0.988
+        },
+        "ruled": {
+          "k": 82,
+          "n": 100,
+          "p": 0.82,
+          "lo": 0.7333,
+          "hi": 0.883
+        },
+        "methods": {
+          "unresolved": 360,
+          "income": 31,
+          "keyword": 60,
+          "transfer": 5,
+          "link": 1,
+          "inference": 3
+        },
+        "sent": {
+          "rows": 360,
+          "distinct": 326,
+          "cost": 185,
+          "none": 175,
+          "barred": 2,
+          "rides": 16,
+          "left": 360
+        },
+        "overclaim": {
+          "rate": {
+            "k": 6,
+            "n": 230,
+            "p": 0.0261,
+            "lo": 0.012,
+            "hi": 0.0557
+          },
+          "before": [
+            "h072"
+          ],
+          "checked": [
+            "h237",
+            "h311",
+            "h337",
+            "h446"
+          ],
+          "waiting": [
+            "h319"
+          ]
+        },
+        "missed": {
+          "rate": {
+            "k": 194,
+            "n": 230,
+            "p": 0.8435,
+            "lo": 0.7909,
+            "hi": 0.8847
+          },
+          "sent": [
+            "h019",
+            "h036",
+            "h073",
+            "h092",
+            "h094",
+            "h095",
+            "h100",
+            "h101",
+            "h102",
+            "h103",
+            "h105",
+            "h106",
+            "h108",
+            "h109",
+            "h110",
+            "h114",
+            "h118",
+            "h119",
+            "h120",
+            "h121",
+            "h122",
+            "h123",
+            "h124",
+            "h125",
+            "h127",
+            "h128",
+            "h129",
+            "h130",
+            "h131",
+            "h132",
+            "h133",
+            "h135",
+            "h136",
+            "h138",
+            "h139",
+            "h144",
+            "h145",
+            "h146",
+            "h147",
+            "h150",
+            "h151",
+            "h152",
+            "h153",
+            "h155",
+            "h156",
+            "h158",
+            "h161",
+            "h162",
+            "h163",
+            "h164",
+            "h165",
+            "h166",
+            "h167",
+            "h169",
+            "h170",
+            "h172",
+            "h173",
+            "h175",
+            "h176",
+            "h177",
+            "h178",
+            "h181",
+            "h182",
+            "h184",
+            "h185",
+            "h188",
+            "h189",
+            "h190",
+            "h192",
+            "h193",
+            "h196",
+            "h197",
+            "h198",
+            "h199",
+            "h202",
+            "h204",
+            "h205",
+            "h208",
+            "h209",
+            "h212",
+            "h213",
+            "h218",
+            "h219",
+            "h221",
+            "h223",
+            "h225",
+            "h226",
+            "h229",
+            "h230",
+            "h232",
+            "h235",
+            "h236",
+            "h239",
+            "h240",
+            "h242",
+            "h244",
+            "h246",
+            "h251",
+            "h253",
+            "h256",
+            "h257",
+            "h261",
+            "h262",
+            "h263",
+            "h267",
+            "h268",
+            "h270",
+            "h273",
+            "h274",
+            "h275",
+            "h279",
+            "h280",
+            "h283",
+            "h284",
+            "h287",
+            "h288",
+            "h295",
+            "h297",
+            "h298",
+            "h300",
+            "h303",
+            "h305",
+            "h308",
+            "h309",
+            "h313",
+            "h320",
+            "h321",
+            "h322",
+            "h324",
+            "h325",
+            "h326",
+            "h330",
+            "h331",
+            "h333",
+            "h334",
+            "h336",
+            "h340",
+            "h341",
+            "h343",
+            "h347",
+            "h349",
+            "h350",
+            "h351",
+            "h356",
+            "h357",
+            "h361",
+            "h362",
+            "h364",
+            "h365",
+            "h368",
+            "h371",
+            "h373",
+            "h374",
+            "h380",
+            "h384",
+            "h385",
+            "h386",
+            "h387",
+            "h390",
+            "h398",
+            "h400",
+            "h402",
+            "h404",
+            "h407",
+            "h409",
+            "h412",
+            "h413",
+            "h417",
+            "h419",
+            "h420",
+            "h423",
+            "h424",
+            "h426",
+            "h428",
+            "h429",
+            "h432",
+            "h436",
+            "h437",
+            "h440",
+            "h442",
+            "h445",
+            "h449",
+            "h452",
+            "h454",
+            "h455"
+          ],
+          "ruled": [
+            "h112",
+            "h159",
+            "h195",
+            "h255",
+            "h277",
+            "h289",
+            "h293",
+            "h344",
+            "h405"
+          ]
+        },
+        "swapped": [
+          {
+            "id": "h243",
+            "expect": "childcare",
+            "got": "tuition"
+          },
+          {
+            "id": "h367",
+            "expect": "medical",
+            "got": "counseling"
+          },
+          {
+            "id": "h395",
+            "expect": "other",
+            "got": "medical"
+          }
+        ],
+        "labels": [
+          {
+            "label": "medical",
+            "rows": 26,
+            "given": 5,
+            "right": 1,
+            "precision": {
+              "k": 1,
+              "n": 5,
+              "p": 0.2,
+              "lo": 0.0362,
+              "hi": 0.6245
+            },
+            "recall": {
+              "k": 1,
+              "n": 26,
+              "p": 0.0385,
+              "lo": 0.0068,
+              "hi": 0.1889
+            }
+          },
+          {
+            "label": "forensic_exam",
+            "rows": 5,
+            "given": 3,
+            "right": 3,
+            "precision": {
+              "k": 3,
+              "n": 3,
+              "p": 1,
+              "lo": 0.4385,
+              "hi": 1
+            },
+            "recall": {
+              "k": 3,
+              "n": 5,
+              "p": 0.6,
+              "lo": 0.2307,
+              "hi": 0.8824
+            }
+          },
+          {
+            "label": "counseling",
+            "rows": 24,
+            "given": 4,
+            "right": 3,
+            "precision": {
+              "k": 3,
+              "n": 4,
+              "p": 0.75,
+              "lo": 0.3006,
+              "hi": 0.9544
+            },
+            "recall": {
+              "k": 3,
+              "n": 24,
+              "p": 0.125,
+              "lo": 0.0434,
+              "hi": 0.31
+            }
+          },
+          {
+            "label": "lost_wages",
+            "rows": 5,
+            "given": 3,
+            "right": 3,
+            "precision": {
+              "k": 3,
+              "n": 3,
+              "p": 1,
+              "lo": 0.4385,
+              "hi": 1
+            },
+            "recall": {
+              "k": 3,
+              "n": 5,
+              "p": 0.6,
+              "lo": 0.2307,
+              "hi": 0.8824
+            }
+          },
+          {
+            "label": "transportation",
+            "rows": 24,
+            "given": 1,
+            "right": 1,
+            "precision": {
+              "k": 1,
+              "n": 1,
+              "p": 1,
+              "lo": 0.2065,
+              "hi": 1
+            },
+            "recall": {
+              "k": 1,
+              "n": 24,
+              "p": 0.0417,
+              "lo": 0.0074,
+              "hi": 0.2024
+            }
+          },
+          {
+            "label": "relocation",
+            "rows": 16,
+            "given": 1,
+            "right": 1,
+            "precision": {
+              "k": 1,
+              "n": 1,
+              "p": 1,
+              "lo": 0.2065,
+              "hi": 1
+            },
+            "recall": {
+              "k": 1,
+              "n": 16,
+              "p": 0.0625,
+              "lo": 0.0111,
+              "hi": 0.2833
+            }
+          },
+          {
+            "label": "temporary_housing",
+            "rows": 15,
+            "given": 5,
+            "right": 4,
+            "precision": {
+              "k": 4,
+              "n": 5,
+              "p": 0.8,
+              "lo": 0.3755,
+              "hi": 0.9638
+            },
+            "recall": {
+              "k": 4,
+              "n": 15,
+              "p": 0.2667,
+              "lo": 0.109,
+              "hi": 0.5195
+            }
+          },
+          {
+            "label": "security",
+            "rows": 14,
+            "given": 4,
+            "right": 4,
+            "precision": {
+              "k": 4,
+              "n": 4,
+              "p": 1,
+              "lo": 0.5101,
+              "hi": 1
+            },
+            "recall": {
+              "k": 4,
+              "n": 14,
+              "p": 0.2857,
+              "lo": 0.1172,
+              "hi": 0.5465
+            }
+          },
+          {
+            "label": "crime_scene_cleanup",
+            "rows": 5,
+            "given": 0,
+            "right": 0,
+            "precision": {
+              "k": 0,
+              "n": 0,
+              "p": null,
+              "lo": null,
+              "hi": null
+            },
+            "recall": {
+              "k": 0,
+              "n": 5,
+              "p": 0,
+              "lo": 0,
+              "hi": 0.4345
+            }
+          },
+          {
+            "label": "childcare",
+            "rows": 14,
+            "given": 2,
+            "right": 2,
+            "precision": {
+              "k": 2,
+              "n": 2,
+              "p": 1,
+              "lo": 0.3424,
+              "hi": 1
+            },
+            "recall": {
+              "k": 2,
+              "n": 14,
+              "p": 0.1429,
+              "lo": 0.0401,
+              "hi": 0.3994
+            }
+          },
+          {
+            "label": "property_replacement",
+            "rows": 8,
+            "given": 0,
+            "right": 0,
+            "precision": {
+              "k": 0,
+              "n": 0,
+              "p": null,
+              "lo": null,
+              "hi": null
+            },
+            "recall": {
+              "k": 0,
+              "n": 8,
+              "p": 0,
+              "lo": 0,
+              "hi": 0.3244
+            }
+          },
+          {
+            "label": "clothing_bedding",
+            "rows": 10,
+            "given": 0,
+            "right": 0,
+            "precision": {
+              "k": 0,
+              "n": 0,
+              "p": null,
+              "lo": null,
+              "hi": null
+            },
+            "recall": {
+              "k": 0,
+              "n": 10,
+              "p": 0,
+              "lo": 0,
+              "hi": 0.2775
+            }
+          },
+          {
+            "label": "prescription",
+            "rows": 14,
+            "given": 2,
+            "right": 2,
+            "precision": {
+              "k": 2,
+              "n": 2,
+              "p": 1,
+              "lo": 0.3424,
+              "hi": 1
+            },
+            "recall": {
+              "k": 2,
+              "n": 14,
+              "p": 0.1429,
+              "lo": 0.0401,
+              "hi": 0.3994
+            }
+          },
+          {
+            "label": "dental",
+            "rows": 12,
+            "given": 7,
+            "right": 5,
+            "precision": {
+              "k": 5,
+              "n": 7,
+              "p": 0.7143,
+              "lo": 0.3589,
+              "hi": 0.9178
+            },
+            "recall": {
+              "k": 5,
+              "n": 12,
+              "p": 0.4167,
+              "lo": 0.1933,
+              "hi": 0.6805
+            }
+          },
+          {
+            "label": "funeral",
+            "rows": 8,
+            "given": 2,
+            "right": 2,
+            "precision": {
+              "k": 2,
+              "n": 2,
+              "p": 1,
+              "lo": 0.3424,
+              "hi": 1
+            },
+            "recall": {
+              "k": 2,
+              "n": 8,
+              "p": 0.25,
+              "lo": 0.0715,
+              "hi": 0.5907
+            }
+          },
+          {
+            "label": "legal",
+            "rows": 12,
+            "given": 0,
+            "right": 0,
+            "precision": {
+              "k": 0,
+              "n": 0,
+              "p": null,
+              "lo": null,
+              "hi": null
+            },
+            "recall": {
+              "k": 0,
+              "n": 12,
+              "p": 0,
+              "lo": 0,
+              "hi": 0.2425
+            }
+          },
+          {
+            "label": "tuition",
+            "rows": 10,
+            "given": 3,
+            "right": 2,
+            "precision": {
+              "k": 2,
+              "n": 3,
+              "p": 0.6667,
+              "lo": 0.2077,
+              "hi": 0.9385
+            },
+            "recall": {
+              "k": 2,
+              "n": 10,
+              "p": 0.2,
+              "lo": 0.0567,
+              "hi": 0.5098
+            }
+          },
+          {
+            "label": "other",
+            "rows": 8,
+            "given": 0,
+            "right": 0,
+            "precision": {
+              "k": 0,
+              "n": 0,
+              "p": null,
+              "lo": null,
+              "hi": null
+            },
+            "recall": {
+              "k": 0,
+              "n": 8,
+              "p": 0,
+              "lo": 0,
+              "hi": 0.3244
+            }
+          },
+          {
+            "label": "unknown",
+            "rows": 230,
+            "given": 418,
+            "right": 224,
+            "precision": {
+              "k": 224,
+              "n": 418,
+              "p": 0.5359,
+              "lo": 0.488,
+              "hi": 0.5832
+            },
+            "recall": {
+              "k": 224,
+              "n": 230,
+              "p": 0.9739,
+              "lo": 0.9443,
+              "hi": 0.988
+            }
+          }
+        ],
+        "confusion": {
+          "unknown": {
+            "unknown": 224,
+            "dental": 2,
+            "medical": 3,
+            "temporary_housing": 1
+          },
+          "tuition": {
+            "tuition": 2,
+            "unknown": 8
+          },
+          "medical": {
+            "unknown": 24,
+            "medical": 1,
+            "counseling": 1
+          },
+          "prescription": {
+            "prescription": 2,
+            "unknown": 12
+          },
+          "temporary_housing": {
+            "unknown": 11,
+            "temporary_housing": 4
+          },
+          "transportation": {
+            "unknown": 23,
+            "transportation": 1
+          },
+          "forensic_exam": {
+            "forensic_exam": 3,
+            "unknown": 2
+          },
+          "security": {
+            "unknown": 10,
+            "security": 4
+          },
+          "clothing_bedding": {
+            "unknown": 10
+          },
+          "crime_scene_cleanup": {
+            "unknown": 5
+          },
+          "childcare": {
+            "unknown": 11,
+            "childcare": 2,
+            "tuition": 1
+          },
+          "property_replacement": {
+            "unknown": 8
+          },
+          "dental": {
+            "dental": 5,
+            "unknown": 7
+          },
+          "relocation": {
+            "unknown": 15,
+            "relocation": 1
+          },
+          "lost_wages": {
+            "lost_wages": 3,
+            "unknown": 2
+          },
+          "counseling": {
+            "unknown": 21,
+            "counseling": 3
+          },
+          "legal": {
+            "unknown": 12
+          },
+          "other": {
+            "unknown": 7,
+            "medical": 1
+          },
+          "funeral": {
+            "funeral": 2,
+            "unknown": 6
+          }
+        },
+        "wrong": 203,
+        "unsure": {
+          "rows": 53,
+          "wrong": 30
+        },
+        "groups": [
+          {
+            "group": "ACH debit line: a company name, an entry description and an ID",
+            "rate": {
+              "k": 15,
+              "n": 24,
+              "p": 0.625,
+              "lo": 0.4271,
+              "hi": 0.7884
+            }
+          },
+          {
+            "group": "a line the bank writes itself: card payment, transfer, ATM or fee",
+            "rate": {
+              "k": 12,
+              "n": 12,
+              "p": 1,
+              "lo": 0.7575,
+              "hi": 1
+            }
+          },
+          {
+            "group": "aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+            "rate": {
+              "k": 16,
+              "n": 38,
+              "p": 0.4211,
+              "lo": 0.2785,
+              "hi": 0.5781
+            }
+          },
+          {
+            "group": "bank export row: the descriptor in the description and the bank's own category in the category column",
+            "rate": {
+              "k": 10,
+              "n": 19,
+              "p": 0.5263,
+              "lo": 0.3171,
+              "hi": 0.7267
+            }
+          },
+          {
+            "group": "card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+            "rate": {
+              "k": 1,
+              "n": 7,
+              "p": 0.1429,
+              "lo": 0.0257,
+              "hi": 0.5131
+            }
+          },
+          {
+            "group": "card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+            "rate": {
+              "k": 42,
+              "n": 76,
+              "p": 0.5526,
+              "lo": 0.441,
+              "hi": 0.6592
+            }
+          },
+          {
+            "group": "card line with a store number, then city and state",
+            "rate": {
+              "k": 57,
+              "n": 80,
+              "p": 0.7125,
+              "lo": 0.6054,
+              "hi": 0.8001
+            }
+          },
+          {
+            "group": "card line: the merchant name as a card network cuts it, then city and state",
+            "rate": {
+              "k": 55,
+              "n": 142,
+              "p": 0.3873,
+              "lo": 0.3112,
+              "hi": 0.4694
+            }
+          },
+          {
+            "group": "money in: pay, a refund, a transfer in or interest",
+            "rate": {
+              "k": 32,
+              "n": 34,
+              "p": 0.9412,
+              "lo": 0.8091,
+              "hi": 0.9837
+            }
+          },
+          {
+            "group": "online bill pay line",
+            "rate": {
+              "k": 2,
+              "n": 9,
+              "p": 0.2222,
+              "lo": 0.0632,
+              "hi": 0.5474
+            }
+          },
+          {
+            "group": "person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+            "rate": {
+              "k": 15,
+              "n": 19,
+              "p": 0.7895,
+              "lo": 0.5667,
+              "hi": 0.9149
+            }
+          }
+        ]
+      },
+      "added_lines": []
+    },
+    {
+      "set": "classifier-heldout.json",
+      "set_hash": "3c2492917dfdaac8",
+      "run": "rules, then every row a model is asked about answered with its label (a ceiling, not a model)",
+      "measured": "2026-11-16",
+      "rows_are": "fictional, written for this set; the mix is chosen by label and is not a sample of real statements",
+      "labels": "proposed by the rows' writer, not reviewed by a person",
+      "score": {
+        "rows": 460,
+        "accuracy": {
+          "k": 422,
+          "n": 460,
+          "p": 0.9174,
+          "lo": 0.8886,
+          "hi": 0.9392
+        },
+        "cost": {
+          "k": 198,
+          "n": 230,
+          "p": 0.8609,
+          "lo": 0.8102,
+          "hi": 0.8997
+        },
+        "none": {
+          "k": 224,
+          "n": 230,
+          "p": 0.9739,
+          "lo": 0.9443,
+          "hi": 0.988
+        },
+        "ruled": {
+          "k": 82,
+          "n": 100,
+          "p": 0.82,
+          "lo": 0.7333,
+          "hi": 0.883
+        },
+        "methods": {
+          "model": 357,
+          "income": 31,
+          "keyword": 60,
+          "transfer": 5,
+          "link": 4,
+          "inference": 3
+        },
+        "sent": {
+          "rows": 360,
+          "distinct": 326,
+          "cost": 185,
+          "none": 175,
+          "barred": 2,
+          "rides": 16,
+          "left": 0
+        },
+        "overclaim": {
+          "rate": {
+            "k": 6,
+            "n": 230,
+            "p": 0.0261,
+            "lo": 0.012,
+            "hi": 0.0557
+          },
+          "before": [
+            "h072"
+          ],
+          "checked": [
+            "h237",
+            "h311",
+            "h337",
+            "h446"
+          ],
+          "waiting": [
+            "h319"
+          ]
+        },
+        "missed": {
+          "rate": {
+            "k": 27,
+            "n": 230,
+            "p": 0.1174,
+            "lo": 0.0819,
+            "hi": 0.1654
+          },
+          "sent": [
+            "h101",
+            "h127",
+            "h133",
+            "h166",
+            "h167",
+            "h173",
+            "h193",
+            "h196",
+            "h199",
+            "h244",
+            "h325",
+            "h331",
+            "h347",
+            "h365",
+            "h386",
+            "h420",
+            "h429",
+            "h455"
+          ],
+          "ruled": [
+            "h112",
+            "h159",
+            "h195",
+            "h255",
+            "h277",
+            "h289",
+            "h293",
+            "h344",
+            "h405"
+          ]
+        },
+        "swapped": [
+          {
+            "id": "h106",
+            "expect": "forensic_exam",
+            "got": "medical"
+          },
+          {
+            "id": "h225",
+            "expect": "forensic_exam",
+            "got": "medical"
+          },
+          {
+            "id": "h243",
+            "expect": "childcare",
+            "got": "tuition"
+          },
+          {
+            "id": "h367",
+            "expect": "medical",
+            "got": "counseling"
+          },
+          {
+            "id": "h395",
+            "expect": "other",
+            "got": "medical"
+          }
+        ],
+        "labels": [
+          {
+            "label": "medical",
+            "rows": 26,
+            "given": 30,
+            "right": 24,
+            "precision": {
+              "k": 24,
+              "n": 30,
+              "p": 0.8,
+              "lo": 0.6269,
+              "hi": 0.9049
+            },
+            "recall": {
+              "k": 24,
+              "n": 26,
+              "p": 0.9231,
+              "lo": 0.7586,
+              "hi": 0.9786
+            }
+          },
+          {
+            "label": "forensic_exam",
+            "rows": 5,
+            "given": 3,
+            "right": 3,
+            "precision": {
+              "k": 3,
+              "n": 3,
+              "p": 1,
+              "lo": 0.4385,
+              "hi": 1
+            },
+            "recall": {
+              "k": 3,
+              "n": 5,
+              "p": 0.6,
+              "lo": 0.2307,
+              "hi": 0.8824
+            }
+          },
+          {
+            "label": "counseling",
+            "rows": 24,
+            "given": 25,
+            "right": 24,
+            "precision": {
+              "k": 24,
+              "n": 25,
+              "p": 0.96,
+              "lo": 0.8046,
+              "hi": 0.9929
+            },
+            "recall": {
+              "k": 24,
+              "n": 24,
+              "p": 1,
+              "lo": 0.862,
+              "hi": 1
+            }
+          },
+          {
+            "label": "lost_wages",
+            "rows": 5,
+            "given": 3,
+            "right": 3,
+            "precision": {
+              "k": 3,
+              "n": 3,
+              "p": 1,
+              "lo": 0.4385,
+              "hi": 1
+            },
+            "recall": {
+              "k": 3,
+              "n": 5,
+              "p": 0.6,
+              "lo": 0.2307,
+              "hi": 0.8824
+            }
+          },
+          {
+            "label": "transportation",
+            "rows": 24,
+            "given": 4,
+            "right": 4,
+            "precision": {
+              "k": 4,
+              "n": 4,
+              "p": 1,
+              "lo": 0.5101,
+              "hi": 1
+            },
+            "recall": {
+              "k": 4,
+              "n": 24,
+              "p": 0.1667,
+              "lo": 0.0668,
+              "hi": 0.3585
+            }
+          },
+          {
+            "label": "relocation",
+            "rows": 16,
+            "given": 16,
+            "right": 16,
+            "precision": {
+              "k": 16,
+              "n": 16,
+              "p": 1,
+              "lo": 0.8064,
+              "hi": 1
+            },
+            "recall": {
+              "k": 16,
+              "n": 16,
+              "p": 1,
+              "lo": 0.8064,
+              "hi": 1
+            }
+          },
+          {
+            "label": "temporary_housing",
+            "rows": 15,
+            "given": 16,
+            "right": 15,
+            "precision": {
+              "k": 15,
+              "n": 16,
+              "p": 0.9375,
+              "lo": 0.7167,
+              "hi": 0.9889
+            },
+            "recall": {
+              "k": 15,
+              "n": 15,
+              "p": 1,
+              "lo": 0.7961,
+              "hi": 1
+            }
+          },
+          {
+            "label": "security",
+            "rows": 14,
+            "given": 14,
+            "right": 14,
+            "precision": {
+              "k": 14,
+              "n": 14,
+              "p": 1,
+              "lo": 0.7847,
+              "hi": 1
+            },
+            "recall": {
+              "k": 14,
+              "n": 14,
+              "p": 1,
+              "lo": 0.7847,
+              "hi": 1
+            }
+          },
+          {
+            "label": "crime_scene_cleanup",
+            "rows": 5,
+            "given": 5,
+            "right": 5,
+            "precision": {
+              "k": 5,
+              "n": 5,
+              "p": 1,
+              "lo": 0.5655,
+              "hi": 1
+            },
+            "recall": {
+              "k": 5,
+              "n": 5,
+              "p": 1,
+              "lo": 0.5655,
+              "hi": 1
+            }
+          },
+          {
+            "label": "childcare",
+            "rows": 14,
+            "given": 13,
+            "right": 13,
+            "precision": {
+              "k": 13,
+              "n": 13,
+              "p": 1,
+              "lo": 0.7719,
+              "hi": 1
+            },
+            "recall": {
+              "k": 13,
+              "n": 14,
+              "p": 0.9286,
+              "lo": 0.6853,
+              "hi": 0.9873
+            }
+          },
+          {
+            "label": "property_replacement",
+            "rows": 8,
+            "given": 8,
+            "right": 8,
+            "precision": {
+              "k": 8,
+              "n": 8,
+              "p": 1,
+              "lo": 0.6756,
+              "hi": 1
+            },
+            "recall": {
+              "k": 8,
+              "n": 8,
+              "p": 1,
+              "lo": 0.6756,
+              "hi": 1
+            }
+          },
+          {
+            "label": "clothing_bedding",
+            "rows": 10,
+            "given": 9,
+            "right": 9,
+            "precision": {
+              "k": 9,
+              "n": 9,
+              "p": 1,
+              "lo": 0.7009,
+              "hi": 1
+            },
+            "recall": {
+              "k": 9,
+              "n": 10,
+              "p": 0.9,
+              "lo": 0.5958,
+              "hi": 0.9821
+            }
+          },
+          {
+            "label": "prescription",
+            "rows": 14,
+            "given": 13,
+            "right": 13,
+            "precision": {
+              "k": 13,
+              "n": 13,
+              "p": 1,
+              "lo": 0.7719,
+              "hi": 1
+            },
+            "recall": {
+              "k": 13,
+              "n": 14,
+              "p": 0.9286,
+              "lo": 0.6853,
+              "hi": 0.9873
+            }
+          },
+          {
+            "label": "dental",
+            "rows": 12,
+            "given": 13,
+            "right": 11,
+            "precision": {
+              "k": 11,
+              "n": 13,
+              "p": 0.8462,
+              "lo": 0.5777,
+              "hi": 0.9567
+            },
+            "recall": {
+              "k": 11,
+              "n": 12,
+              "p": 0.9167,
+              "lo": 0.6461,
+              "hi": 0.9851
+            }
+          },
+          {
+            "label": "funeral",
+            "rows": 8,
+            "given": 8,
+            "right": 8,
+            "precision": {
+              "k": 8,
+              "n": 8,
+              "p": 1,
+              "lo": 0.6756,
+              "hi": 1
+            },
+            "recall": {
+              "k": 8,
+              "n": 8,
+              "p": 1,
+              "lo": 0.6756,
+              "hi": 1
+            }
+          },
+          {
+            "label": "legal",
+            "rows": 12,
+            "given": 12,
+            "right": 12,
+            "precision": {
+              "k": 12,
+              "n": 12,
+              "p": 1,
+              "lo": 0.7575,
+              "hi": 1
+            },
+            "recall": {
+              "k": 12,
+              "n": 12,
+              "p": 1,
+              "lo": 0.7575,
+              "hi": 1
+            }
+          },
+          {
+            "label": "tuition",
+            "rows": 10,
+            "given": 11,
+            "right": 10,
+            "precision": {
+              "k": 10,
+              "n": 11,
+              "p": 0.9091,
+              "lo": 0.6226,
+              "hi": 0.9838
+            },
+            "recall": {
+              "k": 10,
+              "n": 10,
+              "p": 1,
+              "lo": 0.7225,
+              "hi": 1
+            }
+          },
+          {
+            "label": "other",
+            "rows": 8,
+            "given": 6,
+            "right": 6,
+            "precision": {
+              "k": 6,
+              "n": 6,
+              "p": 1,
+              "lo": 0.6097,
+              "hi": 1
+            },
+            "recall": {
+              "k": 6,
+              "n": 8,
+              "p": 0.75,
+              "lo": 0.4093,
+              "hi": 0.9285
+            }
+          },
+          {
+            "label": "unknown",
+            "rows": 230,
+            "given": 251,
+            "right": 224,
+            "precision": {
+              "k": 224,
+              "n": 251,
+              "p": 0.8924,
+              "lo": 0.848,
+              "hi": 0.925
+            },
+            "recall": {
+              "k": 224,
+              "n": 230,
+              "p": 0.9739,
+              "lo": 0.9443,
+              "hi": 0.988
+            }
+          }
+        ],
+        "confusion": {
+          "unknown": {
+            "unknown": 224,
+            "dental": 2,
+            "medical": 3,
+            "temporary_housing": 1
+          },
+          "tuition": {
+            "tuition": 10
+          },
+          "medical": {
+            "medical": 24,
+            "unknown": 1,
+            "counseling": 1
+          },
+          "prescription": {
+            "prescription": 13,
+            "unknown": 1
+          },
+          "temporary_housing": {
+            "temporary_housing": 15
+          },
+          "transportation": {
+            "transportation": 4,
+            "unknown": 20
+          },
+          "forensic_exam": {
+            "forensic_exam": 3,
+            "medical": 2
+          },
+          "security": {
+            "security": 14
+          },
+          "clothing_bedding": {
+            "unknown": 1,
+            "clothing_bedding": 9
+          },
+          "crime_scene_cleanup": {
+            "crime_scene_cleanup": 5
+          },
+          "childcare": {
+            "childcare": 13,
+            "tuition": 1
+          },
+          "property_replacement": {
+            "property_replacement": 8
+          },
+          "dental": {
+            "dental": 11,
+            "unknown": 1
+          },
+          "relocation": {
+            "relocation": 16
+          },
+          "lost_wages": {
+            "lost_wages": 3,
+            "unknown": 2
+          },
+          "counseling": {
+            "counseling": 24
+          },
+          "legal": {
+            "legal": 12
+          },
+          "other": {
+            "unknown": 1,
+            "other": 6,
+            "medical": 1
+          },
+          "funeral": {
+            "funeral": 8
+          }
+        },
+        "wrong": 38,
+        "unsure": {
+          "rows": 53,
+          "wrong": 6
+        },
+        "groups": [
+          {
+            "group": "ACH debit line: a company name, an entry description and an ID",
+            "rate": {
+              "k": 21,
+              "n": 24,
+              "p": 0.875,
+              "lo": 0.69,
+              "hi": 0.9566
+            }
+          },
+          {
+            "group": "a line the bank writes itself: card payment, transfer, ATM or fee",
+            "rate": {
+              "k": 12,
+              "n": 12,
+              "p": 1,
+              "lo": 0.7575,
+              "hi": 1
+            }
+          },
+          {
+            "group": "aggregator style: a clean merchant name, a category and a short description, as the demo bank path gives",
+            "rate": {
+              "k": 35,
+              "n": 38,
+              "p": 0.9211,
+              "lo": 0.792,
+              "hi": 0.9728
+            }
+          },
+          {
+            "group": "bank export row: the descriptor in the description and the bank's own category in the category column",
+            "rate": {
+              "k": 18,
+              "n": 19,
+              "p": 0.9474,
+              "lo": 0.7536,
+              "hi": 0.9906
+            }
+          },
+          {
+            "group": "card line inside the bank's own wrapper text (purchase authorized on, POS withdrawal, checkcard)",
+            "rate": {
+              "k": 5,
+              "n": 7,
+              "p": 0.7143,
+              "lo": 0.3589,
+              "hi": 0.9178
+            }
+          },
+          {
+            "group": "card line with a payment processor prefix (SQ *, TST*, PAYPAL * and others) before a cut merchant name",
+            "rate": {
+              "k": 66,
+              "n": 76,
+              "p": 0.8684,
+              "lo": 0.7745,
+              "hi": 0.9269
+            }
+          },
+          {
+            "group": "card line with a store number, then city and state",
+            "rate": {
+              "k": 72,
+              "n": 80,
+              "p": 0.9,
+              "lo": 0.8149,
+              "hi": 0.9485
+            }
+          },
+          {
+            "group": "card line: the merchant name as a card network cuts it, then city and state",
+            "rate": {
+              "k": 133,
+              "n": 142,
+              "p": 0.9366,
+              "lo": 0.8839,
+              "hi": 0.9663
+            }
+          },
+          {
+            "group": "money in: pay, a refund, a transfer in or interest",
+            "rate": {
+              "k": 32,
+              "n": 34,
+              "p": 0.9412,
+              "lo": 0.8091,
+              "hi": 0.9837
+            }
+          },
+          {
+            "group": "online bill pay line",
+            "rate": {
+              "k": 9,
+              "n": 9,
+              "p": 1,
+              "lo": 0.7009,
+              "hi": 1
+            }
+          },
+          {
+            "group": "person-to-person payment line (Zelle, Venmo, Cash App, Apple Cash), some with a memo",
+            "rate": {
+              "k": 19,
+              "n": 19,
+              "p": 1,
+              "lo": 0.8318,
+              "hi": 1
+            }
+          }
+        ]
+      },
+      "added_lines": [],
+      "model": {
+        "asked": 360,
+        "answered": 360,
+        "unused": [],
+        "missing": []
+      }
+    }
+  ]
+}
